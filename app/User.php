@@ -303,6 +303,14 @@ class User extends Authenticatable
             }
             $this->badge_id = null;
             $this->expiry_date = null;
+            $this->telno = filter_var(isset($request['telno']) ? $request['telno'] : "", FILTER_SANITIZE_STRING);;
+            $this->title = filter_var(isset($request['title']) ? $request['title'] : "", FILTER_SANITIZE_STRING);;
+            $this->dob = filter_var(isset($request['dob']) ? $request['dob'] : "", FILTER_SANITIZE_STRING);;
+            $this->date_available = filter_var(isset($request['date_available']) ? $request['date_available'] : "", FILTER_SANITIZE_STRING);;
+            $this->emp_contact = filter_var(isset($request['emp_contact']) ? $request['emp_contact'] : "" , FILTER_SANITIZE_STRING);;
+            $this->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
+            $this->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
+            $this->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
             $this->save();
             $user_id = $this->id;
             $profile = new Profile();

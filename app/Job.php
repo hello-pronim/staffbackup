@@ -175,6 +175,9 @@ class Job extends Model
             $this->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
             $this->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
+            $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
+            $this->start_date = filter_var($request['start_date'], FILTER_SANITIZE_STRING);
+            $this->max_distance = filter_var($request['max_distance'], FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {
@@ -320,6 +323,7 @@ class Job extends Model
             $filters['s'] = $keyword;
             $jobs->where('title', 'like', '%' . $keyword . '%');
         };
+            $jobs->where('is_active', '1');
         if (!empty($search_categories)) {
             $filters['category'] = $search_categories;
             foreach ($search_categories as $key => $search_category) {

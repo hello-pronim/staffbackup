@@ -85,6 +85,18 @@ class JobController extends Controller
         $locations = Location::pluck('title', 'id');
         $english_levels = Helper::getEnglishLevelList();
         $project_levels = Helper::getProjectLevel();
+        $max_distances = array(
+            '1 Mile'=>'1 Mile',
+            '2 Mile'=>'2 Mile',
+            '3 Mile'=>'3 Mile',
+            '4 Mile'=>'4 Mile',
+            '5 Mile'=>'5 Mile',
+            '6 Mile'=>'6 Mile',
+            '7 Mile'=>'7 Mile',
+            '8 Mile'=>'8 Mile',
+            '9 Mile'=>'9 Mile',
+            '10 Mile'=>'10 Mile',
+        );
         $job_duration = Helper::getJobDurationList();
         $freelancer_level = Helper::getFreelancerLevelList();
         $skills = Skill::pluck('title', 'id');
@@ -99,6 +111,7 @@ class JobController extends Controller
                     'english_levels',
                     'languages',
                     'project_levels',
+                    'max_distances',
                     'job_duration',
                     'freelancer_level',
                     'skills',
@@ -114,6 +127,7 @@ class JobController extends Controller
                     'english_levels',
                     'languages',
                     'project_levels',
+                    'max_distances',
                     'job_duration',
                     'freelancer_level',
                     'skills',
@@ -140,6 +154,27 @@ class JobController extends Controller
         } else {
             return view('back-end.employer.jobs.index', compact('job_details', 'symbol'));
         }
+    }
+
+    public function close($job_slug)
+    {
+        if (!empty($job_slug)) {
+            $job = Job::where('slug', $job_slug)->first();
+            $job->is_active = false;
+            $job->save();
+        }
+        return redirect('employer/dashboard/manage-jobs');
+
+    }
+    public function reactivate($job_slug)
+    {
+        if (!empty($job_slug)) {
+            $job = Job::where('slug', $job_slug)->first();
+            $job->is_active = true;
+            $job->save();
+        }
+        return redirect('employer/dashboard/manage-jobs');
+
     }
 
     /**

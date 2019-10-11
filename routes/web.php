@@ -235,6 +235,8 @@ Route::group(
     ['middleware' => ['role:employer|admin']],
     function () {
         Route::get('job/edit-job/{job_slug}', 'JobController@edit')->name('editJob');
+        Route::get('job/close-job/{job_slug}', 'JobController@close')->name('closeJob');
+        Route::get('job/reactivate-job/{job_slug}', 'JobController@reactivate')->name('reactivateJob');
         Route::post('job/get-stored-job-skills', 'JobController@getJobSkills');
         Route::post('job/get-job-settings', 'JobController@getAttachmentSettings');
         Route::post('job/update-job', 'JobController@update');

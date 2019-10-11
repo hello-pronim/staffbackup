@@ -56,6 +56,9 @@
                                         <div class="form-group form-group-half wt-formwithlabel job-cost-input">
                                             {!! Form::number('project_cost', null, array('class' => '', 'placeholder' => trans('lang.project_cost'))) !!}
                                         </div>
+                                        <div class="form-group form-group-half wt-formwithlabel job-rates-input">
+                                            {!! Form::text('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'))) !!}
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>
@@ -79,6 +82,18 @@
                                     <div class="form-group">
                                         <span class="wt-select">
                                             {!! Form::select('languages[]', $languages, null, array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wt-languages-holder wt-tabsinfo">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>{{ trans('lang.start_date') }}</h2>
+                                </div>
+                                <div class="wt-divtheme wt-userform wt-userformvtwo">
+                                    <div class="form-group">
+                                        <span class="wt-select">
+                                            <date-picker :config="{format: 'DD/MM/YYYY'}" class="form-control" name="start_date" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
                                         </span>
                                     </div>
                                 </div>
@@ -124,6 +139,10 @@
                                         <div class="form-group form-group-half">
                                             {!! Form::text( 'latitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_latitude')]) !!}
                                         </div>
+                                        <div class="form-group form-group-half">
+                                            {!! Form::select('max_distance', $max_distances, null, array('class' => 'form-control', 'placeholder' => trans('lang.select_max_distance'))) !!}
+                                        </div>
+
                                     </fieldset>
                                 </div>
                             </div>

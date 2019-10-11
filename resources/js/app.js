@@ -267,10 +267,20 @@ if (document.getElementById("registration")) {
                 is_password_confirm_error: false,
                 termsconditions_error: '',
                 is_termsconditions_error: false,
+                title_error: '',
+                telno_error: '',
+                dob_error: '',
+                date_available_error: '',
+                emp_contact_error: '',
+                emp_telno_error: '',
+                emp_website_error: '',
+                emp_cqc_rating_error: '',
+
             },
             loading: false,
             user_role: 'employer',
             is_show: true,
+            is_show_freelancer: true,
             error_message: ''
         },
         methods: {
@@ -286,7 +296,12 @@ if (document.getElementById("registration")) {
             selectedRole: function (role) {
                 if (role == 'employer') {
                     this.is_show = true;
-                } else {
+                } else if(role=='freelancer') {
+                    this.is_show_freelancer = true;
+                    this.is_show = false;
+                }
+                else {
+                    this.is_show_freelancer = false;
                     this.is_show = false;
                 }
                 console.log(role);

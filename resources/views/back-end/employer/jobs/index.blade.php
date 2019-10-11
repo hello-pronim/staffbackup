@@ -70,7 +70,13 @@
 													<div class="wt-rightarea">
 														<div class="wt-btnarea">
 															<a href="{{{ url('job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.view_detail') }}</a>
+
 															<a href="{{{ url('job/edit-job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.edit_job') }}</a>
+															@if($job->is_active)
+																<a href="{{{ url('job/close-job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.close_job') }}</a>
+															@else
+																<a href="{{{ url('job/reactivate-job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.reactivate_job') }}</a>
+															@endif
 															@if ($proposals->count() > 0)
 																<a href="{{{ url('employer/dashboard/job/'.$job->slug.'/proposals') }}}" class="wt-btn">{{ trans('lang.view_proposals') }}</a>
 															@endif
