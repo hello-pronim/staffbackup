@@ -16,10 +16,10 @@ class AddUsersEmpFields extends Migration
         Schema::table(
             'users',
             function (Blueprint $table) {
-                $table->text('emp_contact')->default('');
+                $table->string('emp_contact')->default('');
                 $table->string('emp_telno')->default('');
                 $table->string('emp_website')->default('');
-                $table->text('emp_cqc_rating')->default('');
+                $table->string('emp_cqc_rating')->default('');
             }
         );
     }

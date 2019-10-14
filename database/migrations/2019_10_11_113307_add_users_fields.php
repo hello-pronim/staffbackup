@@ -19,7 +19,7 @@ class AddUsersFields extends Migration
                 $table->string('title')->default('');
                 $table->string('telno')->default('');
                 $table->string('dob')->default('');
-                $table->text('date_available')->default('');
+		$table->string('date_available')->default('');
             }
         );
     }
