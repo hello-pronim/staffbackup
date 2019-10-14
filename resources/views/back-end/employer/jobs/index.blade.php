@@ -55,6 +55,9 @@
 																@if (!empty($job->price))
 																	<li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $job->price }}}</span></li>
 																@endif
+																@if (!empty($job->project_rates) && !empty($job->project_rates_type) )
+																	<li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
+																@endif
 																@if (!empty($job->location->title))
 																	<li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>
 																@endif

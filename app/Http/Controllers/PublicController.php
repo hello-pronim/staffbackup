@@ -370,6 +370,7 @@ class PublicController extends Controller
                 $symbol   = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
                 $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
                 $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+                $user = $profile->user;
                 if (file_exists(resource_path('views/extend/front-end/users/employer-show.blade.php'))) {
                     return View(
                         'extend.front-end.users.employer-show',
@@ -391,7 +392,8 @@ class PublicController extends Controller
                             'symbol',
                             'tagline',
                             'desc',
-                            'show_breadcrumbs'
+                            'show_breadcrumbs',
+                            'user'
                         )
                     );
                 } else {
@@ -415,7 +417,8 @@ class PublicController extends Controller
                             'symbol',
                             'tagline',
                             'desc',
-                            'show_breadcrumbs'
+                            'show_breadcrumbs',
+                            'user'
                         )
                     );
                 }

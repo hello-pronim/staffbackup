@@ -176,6 +176,7 @@ class Job extends Model
             $this->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
             $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
+            $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
             $this->start_date = filter_var($request['start_date'], FILTER_SANITIZE_STRING);
             $this->max_distance = filter_var($request['max_distance'], FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';

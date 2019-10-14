@@ -55,6 +55,7 @@ class EmployerController extends Controller
      * @var    array $employer
      */
     protected $employer;
+    protected $user;
 
     /**
      * Create a new controller instance.
@@ -63,9 +64,10 @@ class EmployerController extends Controller
      *
      * @return void
      */
-    public function __construct(Profile $employer)
+    public function __construct(Profile $employer, User $user)
     {
         $this->employer = $employer;
+        $this->user = $user;
     }
 
     /**
@@ -88,6 +90,11 @@ class EmployerController extends Controller
         $address = !empty($profile->address) ? $profile->address : '';
         $longitude = !empty($profile->longitude) ? $profile->longitude : '';
         $latitude = !empty($profile->latitude) ? $profile->latitude : '';
+        $emp_contact = !empty($profile->user->emp_contact) ? $profile->user->emp_contact : '';
+        $emp_telno = !empty($profile->user->emp_telno) ? $profile->user->emp_telno : '';
+        $emp_website = !empty($profile->user->emp_website) ? $profile->user->emp_website : '';
+        $emp_cqc_rating = !empty($profile->user->emp_cqc_rating) ? $profile->user->emp_cqc_rating : '';
+        $emp_cqc_rating_date = !empty($profile->user->emp_cqc_rating_date) ? $profile->user->emp_cqc_rating_date : '';
         $no_of_employees = !empty($profile->no_of_employees) ? $profile->no_of_employees : '';
         $department_id = !empty($profile->department_id) ? $profile->department_id : '';
         $payout_id = !empty($profile->payout_id) ? $profile->payout_id : '';
@@ -116,7 +123,13 @@ class EmployerController extends Controller
                     'department_id',
                     'options',
                     'packages',
-                    'show_emplyr_inn_sec'
+                    'show_emplyr_inn_sec',
+                    'emp_contact',
+                    'emp_telno',
+                    'emp_website',
+                    'emp_cqc_rating',
+                    'emp_cqc_rating_date'
+
                 )
             );
         } else {
@@ -139,7 +152,13 @@ class EmployerController extends Controller
                     'department_id',
                     'options',
                     'packages',
-                    'show_emplyr_inn_sec'
+                    'show_emplyr_inn_sec',
+                    'emp_contact',
+                    'emp_telno',
+                    'emp_website',
+                    'emp_cqc_rating',
+                    'emp_cqc_rating_date'
+
                 )
             );
         }
@@ -216,6 +235,7 @@ class EmployerController extends Controller
         if (!empty($request)) {
             $user_id = Auth::user()->id;
             $this->employer->storeProfile($request, $user_id);
+            $this->user->storeEmployerFields($request, $user_id);
             $json['type'] = 'success';
             $json['process'] = trans('lang.saving_profile');
             return $json;

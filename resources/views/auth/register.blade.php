@@ -22,6 +22,12 @@
     $reg_form_banner = !empty($register_form) && !empty($register_form[0]['reg_form_banner']) ? $register_form[0]['reg_form_banner'] : null;
     $breadcrumbs_settings = \App\SiteManagement::getMetaValue('show_breadcrumb');
     $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+    $cqc_ratings = array(
+                        'Outstanding'=>'Outstanding',
+                        'Good'=>'Good',
+                        'Requires Improvement'=>'Requires Improvement',
+                        'Inadequate'=> 'Inadequate'
+                        );
 @endphp
 @if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')
     <div class="wt-haslayout wt-innerbannerholder" style="background-image:url({{{ asset(Helper::getBannerImage('uploads/settings/home/'.$reg_form_banner)) }}})">
@@ -220,7 +226,7 @@
                                                                         <strong v-cloak>@{{form_step2.emp_telno_error}}</strong>
                                                                             </span>
                                                                             </div>
-                                                                            <div class="form-group form-group-half">
+                                                                            <div class="form-group">
                                                                                 <input id="emp_website" type="url"
                                                                                        class="form-control"
                                                                                        name="emp_website"
@@ -232,15 +238,24 @@
                                                                             </span>
                                                                             </div>
                                                                             <div class="form-group form-group-half">
-                                                                                <input id="emp_cqc_rating" type="text"
+                                                                                <input id="emp_cqc_rating_date" type="text"
                                                                                        class="form-control"
-                                                                                       name="emp_cqc_rating"
-                                                                                       placeholder="{{{ trans('lang.emp_cqc_rating') }}}"
-                                                                                       v-bind:class="{ 'is-invalid': form_step2.emp_cqc_rating_error }">
+                                                                                       name="emp_cqc_rating_date"
+                                                                                       placeholder="{{{ trans('lang.emp_cqc_rating_date') }}}"
+                                                                                       v-bind:class="{ 'is-invalid': form_step2.emp_cqc_rating_date_error }">
+                                                                                <span class="help-block"
+                                                                                      v-if="form_step2.emp_cqc_rating_date_error">
+                                                                                    <strong v-cloak>@{{form_step2.emp_cqc_rating_date_error}}</strong>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="form-group form-group-half">
+
+                                                                                {!! Form::select('emp_cqc_rating', $cqc_ratings, null, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_error }')) !!}
+
                                                                                 <span class="help-block"
                                                                                       v-if="form_step2.emp_cqc_rating_error">
-                                                                                <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
-                                                                            </span>
+                                                                                    <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
 

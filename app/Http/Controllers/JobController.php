@@ -496,6 +496,7 @@ class JobController extends Controller
             $project_type  = Helper::getProjectTypeList($job->project_type);
             $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
             $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+            $user = $profile->user;
             if (file_exists(resource_path('views/extend/front-end/jobs/show.blade.php'))) {
                 return view(
                     'extend.front-end.jobs.show',
@@ -509,7 +510,8 @@ class JobController extends Controller
                         'attachments',
                         'symbol',
                         'project_type',
-                        'show_breadcrumbs'
+                        'show_breadcrumbs',
+                        'user'
                     )
                 );
             } else {
@@ -525,7 +527,8 @@ class JobController extends Controller
                         'attachments',
                         'symbol',
                         'project_type',
-                        'show_breadcrumbs'
+                        'show_breadcrumbs',
+                        'user'
                     )
                 );
             }

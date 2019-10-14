@@ -8,6 +8,13 @@
                 <span>{{ trans('lang.client_budget') }}</span>
             </div>
         </div>
+        <div class="wt-proposalsrcontent">
+            <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-money"></i></span>
+            <div class="wt-title">
+                <h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates }}}</h3>
+                <span>{{{ $job->project_rates_type }}}</span>
+            </div>
+        </div>
         @if (file_exists(resource_path('views/extend/front-end/jobs/sidebar/wt-jobproposals-widget.blade.php')))
             @include('extend.front-end.jobs.sidebar.wt-jobproposals-widget')
         @else
@@ -41,3 +48,4 @@
         @include('front-end.jobs.sidebar.wt-reportjob-widget')
     @endif
 </aside>
+

@@ -53,11 +53,14 @@
                                                 {!! Form::select('english_level', $english_levels, null, array('class' => '', 'placeholder' => trans('lang.select_english_level'), 'v-model'=>'english_level')) !!}
                                             </span>
                                         </div>
-                                        <div class="form-group form-group-half wt-formwithlabel job-cost-input">
+                                        <div class="form-group form-group wt-formwithlabel job-cost-input">
                                             {!! Form::number('project_cost', null, array('class' => '', 'placeholder' => trans('lang.project_cost'))) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::text('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'))) !!}
+                                            {!! Form::number('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'))) !!}
+                                        </div>
+                                        <div class="form-group form-group-half wt-formwithlabel job-rates-input">
+                                            {!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}
                                         </div>
                                     </fieldset>
                                 </div>

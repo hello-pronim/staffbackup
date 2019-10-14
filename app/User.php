@@ -52,7 +52,12 @@ class User extends Authenticatable
         'first_name', 'last_name', 'slug', 'email', 'password',
         'avatar', 'banner', 'tagline', 'description',
         'location_id', 'verification_code', 'address',
-        'longitude', 'latitude'
+        'longitude', 'latitude',
+        'emp_contact',
+        'emp_telno',
+        'emp_website',
+        'emp_cqc_rating',
+        'emp_cqc_rating_date',
     ];
 
     /**
@@ -311,6 +316,7 @@ class User extends Authenticatable
             $this->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
             $this->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
             $this->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
+            $this->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);;
             $this->save();
             $user_id = $this->id;
             $profile = new Profile();
@@ -337,6 +343,31 @@ class User extends Authenticatable
             }
             return $user_id;
         }
+    }
+
+
+    /**
+     * Save User employer fields
+     * @param $request
+     * @param $user_id
+     * @return bool
+     */
+    public function storeEmployerFields($request, $user_id)
+    {
+        if (!empty($request) && $user_id) {
+            $user =  User::find($user_id);
+            $user->emp_contact = filter_var(isset($request['emp_contact']) ? $request['emp_contact'] : "" , FILTER_SANITIZE_STRING);;
+            $user->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
+            $user->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
+            $user->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
+            $user->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);;
+            $user->save();
+            return $user_id;
+        }
+        else {
+            return false;
+        }
+
     }
 
     /**

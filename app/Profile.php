@@ -43,7 +43,7 @@ class Profile extends Model
         'projects', 'saved_freelancer', 'saved_jobs', 'saved_employers',
         'rating', 'address', 'longitude', 'latitude', 'avater', 'banner',
         'gender', 'tagline', 'description', 'delete_reason', 'delete_description',
-        'profile_searchable', 'profile_blocked', 'weekly_alerts', 'message_alerts'
+        'profile_searchable', 'profile_blocked', 'weekly_alerts', 'message_alerts',
     ];
 
     /**

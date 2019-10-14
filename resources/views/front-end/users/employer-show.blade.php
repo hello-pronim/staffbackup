@@ -105,6 +105,49 @@
                                     @endif
                                 </div>
                             </div>
+                            @if ($user->emp_contact != '' ||
+                                $user->emp_telno != '' ||
+                                $user->emp_website != '' ||
+                                $user->emp_cqc_rating != ''
+                                )
+                            <div class="wt-widget">
+                                <div class="wt-widgettitle">
+                                    <h2>{{ trans('lang.company_details') }}</h2>
+                                </div>
+                                <div class="wt-widgetcontent wt-comfollowers wt-verticalscrollbar">
+                                    @if($user->emp_contact != '')
+                                        <div>
+                                            <strong>{{ trans('lang.emp_contact') }}</strong><br>
+                                            <span>{{{ $user->emp_contact }}}</span>
+                                        </div>
+                                    @endif
+                                    @if($user->emp_telno != '')
+                                        <div>
+                                            <strong>{{ trans('lang.emp_telno') }}</strong><br>
+                                            <span>{{{ $user->emp_telno }}}</span>
+                                        </div>
+                                    @endif
+                                    @if($user->emp_website != '')
+                                        <div>
+                                            <strong>{{ trans('lang.emp_website') }}</strong><br>
+                                            <span>{{{ $user->emp_website }}}</span>
+                                        </div>
+                                    @endif
+                                    @if($user->emp_cqc_rating != '')
+                                        <div>
+                                            <strong>{{ trans('lang.emp_cqc_rating') }}</strong><br>
+                                            <span>{{{ $user->emp_cqc_rating }}}</span>
+                                        </div>
+                                    @endif
+                                    @if($user->emp_cqc_rating_date != '')
+                                        <div>
+                                            <strong>{{ trans('lang.emp_cqc_rating_date') }}</strong><br>
+                                            <span>{{{ $user->emp_cqc_rating_date }}}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
                             <div class="wt-widget wt-sharejob">
                                 <div class="wt-widgettitle">
                                     <h2>{{ trans('lang.share_company') }}</h2>
