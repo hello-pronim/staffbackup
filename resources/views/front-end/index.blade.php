@@ -61,14 +61,15 @@
                             :no_record_message="'{{ trans('lang.no_record') }}'"
                             >
                             </search-form>
-                            <div class="wt-videoholder">
+                           <!-- KAROXA PETQ GA , NAVSYAKI
+                           <div class="wt-videoholder">
                                 <div class="wt-videoshow">
                                     <a data-rel="prettyPhoto[video]" href="{{{ Helper::getHomeBanner('video_url') }}}"><i class="fa fa-play"></i></a>
                                 </div>
                                 <div class="wt-videocontent">
                                     <span>{{{  Helper::getHomeBanner('video_title') }}}<em>{{{ Helper::getHomeBanner('video_description') }}}</em></span>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -225,7 +226,7 @@
             </section>
         @endif
         @if (Helper::getHomeSection('show_app_section') == 'true')
-            <section class="wt-haslayout wt-main-section">
+           {{-- <section class="wt-haslayout wt-main-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 float-left">
@@ -260,13 +261,13 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>--}}
         @endif
         @if ($skills->count() > 0
             || $categories->count() > 0
             || $locations->count() > 0
             || $languages->count() > 0)
-            <section class="wt-haslayaout wt-main-section wt-footeraboutus">
+            {{--<section class="wt-haslayaout wt-main-section wt-footeraboutus">
                 <div class="container">
                     <div class="row">
                         @if (Helper::getAccessType() != 'services')
@@ -337,7 +338,7 @@
                         @endif
                     </div>
                 </div>
-            </section>
+            </section--}}
         @endif
     </div>
 @endsection

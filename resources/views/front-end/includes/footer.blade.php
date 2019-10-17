@@ -44,7 +44,7 @@
                             </div>
                         @endif
                         @if (!empty($search_menu) || !empty($menu_title))
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                           {{-- <div class="col-12 col-sm-6 col-md-3 col-lg-3">
                                 <div class="wt-footercol wt-widgetcompany">
                                     @if (!empty($menu_title))
                                         <div class="wt-fwidgettitle">
@@ -57,7 +57,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            </div>
+                            </div>--}}
                         @endif
                     </div>
                 </div>
@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <p class="wt-copyrights"><span>{{{ !empty($footer['copyright']) ? $footer['copyright'] : 'Worketic. All Rights Reserved. Amentotech.'  }}}</p>
+                        <p class="wt-copyrights"><span>{{{ !empty($footer['copyright']) ? $footer['copyright'] : 'StaffBackup. All Rights Reserved. WebTech.'  }}}</p>
                         @if(!empty($footer['pages']))
                             <nav class="wt-addnav">
                                 <ul>

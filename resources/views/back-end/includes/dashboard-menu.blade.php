@@ -100,18 +100,18 @@
 
                             </ul>
                         </li>
-                            <li>
+                           {{-- <li>
                                 <a href="{{{ route('createPackage') }}}">
                                     <i class="ti-package"></i>
                                     <span>{{ trans('lang.packages') }}</span>
                                 </a>
-                            </li>
-                        <li>
-                            <a href="{{{ route('adminPayouts') }}}">
+                            </li>--}}
+                       {{-- <li>
+                            <a href="{{{ route('adminPayoufts') }}}">
                                 <i class="ti-money"></i>
                                 <span>{{ trans('lang.payouts') }}</span>
                             </a>
-                        </li>
+                        </li>--}}
                         <li>
                             <a href="{{{ route('homePageSettings') }}}">
                                 <i class="ti-home"></i>
@@ -201,13 +201,13 @@
                                     </ul>
                                 </li>
                             @endif
-                            <li>
+                           {{-- <li>
                                 <a href="{{{ route('employerPayoutsSettings') }}}">
                                     <i class="ti-money"></i>
                                     <span> {{ trans('lang.payouts') }}</span>
                                 </a>
-                            </li>
-                            <li class="menu-item-has-children">
+                            </li>--}}
+                           {{-- <li class="menu-item-has-children">
                                 <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                                 <a href="javascript:void(0)">
                                     <i class="ti-file"></i>
@@ -219,14 +219,14 @@
                                     @endif
                                     <li><hr><a href="{{{ url('employer/project/invoice') }}}">{{ trans('lang.project_inv') }}</a></li>
                                 </ul>
-                            </li>
+                            </li>--}}
                             @if ($employer_payment_module === 'true' )
-                                <li>
+                               {{-- <li>
                                     <a href="{{{ url('dashboard/packages/'.$role) }}}">
                                         <i class="ti-package"></i>
                                         <span>{{ trans('lang.packages') }}</span>
                                     </a>
-                                </li>
+                                </li>--}}
                             @endif
                         @elseif ($role === 'freelancer')
                             <li class="menu-item-has-children">
@@ -262,14 +262,14 @@
                                     <span> {{ trans('lang.proposals') }}</span>
                                 </a>
                             </li>
-                            <li>
+                           {{-- <li>
                                 <a href="{{{ route('FreelancerPayoutsSettings') }}}">
                                     <i class="ti-money"></i>
                                     <span> {{ trans('lang.payouts') }}</span>
                                 </a>
-                            </li>
+                            </li>--}}
                             @if ($payment_module === 'true' )
-                                <li class="menu-item-has-children">
+                              {{--  <li class="menu-item-has-children">
                                     <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                                     <a href="javascript:void(0)">
                                         <i class="ti-file"></i>
@@ -278,13 +278,13 @@
                                     <ul class="sub-menu">
                                         <li><hr><a href="{{{ url('freelancer/package/invoice') }}}">{{ trans('lang.pkg_inv') }}</a></li>
                                     </ul>
-                                </li>
-                                <li>
+                                </li>--}}
+                              {{--  <li>
                                     <a href="{{{ url('dashboard/packages/'.$role) }}}">
                                         <i class="ti-package"></i>
                                         <span>{{ trans('lang.packages') }}</span>
                                     </a>
-                                </li>
+                                </li>--}}
                             @endif
                         @endif
                         <li>

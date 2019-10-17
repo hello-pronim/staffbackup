@@ -311,6 +311,10 @@ class User extends Authenticatable
             $this->telno = filter_var(isset($request['telno']) ? $request['telno'] : "", FILTER_SANITIZE_STRING);;
             $this->title = filter_var(isset($request['title']) ? $request['title'] : "", FILTER_SANITIZE_STRING);;
             $this->dob = filter_var(isset($request['dob']) ? $request['dob'] : "", FILTER_SANITIZE_STRING);;
+            $this->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);;
+            $this->number = filter_var(isset($request['number']) ? $request['number'] : "", FILTER_SANITIZE_STRING);;
+            $this->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);;
+            $this->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);;
             $this->date_available = filter_var(isset($request['date_available']) ? $request['date_available'] : "", FILTER_SANITIZE_STRING);;
             $this->emp_contact = filter_var(isset($request['emp_contact']) ? $request['emp_contact'] : "" , FILTER_SANITIZE_STRING);;
             $this->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
