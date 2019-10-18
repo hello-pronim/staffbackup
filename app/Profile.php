@@ -43,7 +43,7 @@ class Profile extends Model
         'projects', 'saved_freelancer', 'saved_jobs', 'saved_employers',
         'rating', 'address', 'longitude', 'latitude', 'avater', 'banner',
         'gender', 'tagline', 'description', 'delete_reason', 'delete_description',
-        'profile_searchable', 'profile_blocked', 'weekly_alerts', 'message_alerts',
+        'profile_searchable', 'profile_blocked', 'weekly_alerts', 'message_alerts','cvFile',
     ];
 
     /**
@@ -143,6 +143,25 @@ class Profile extends Model
         } else {
             $profile->avater = null;
         }
+
+        if (!empty($request['hidden_cv_image'])) {
+            $filename = $request['hidden_cv_image'];
+            $old_path = Helper::PublicPath() . '/uploads/users/temp';
+            if (file_exists($old_path . '/' . $request['hidden_cv_image'])) {
+                $new_path = Helper::PublicPath() . '/uploads/cvs/';
+                if (!file_exists($new_path)) {
+                    File::makeDirectory($new_path, 0755, true, true);
+                }
+                $filename = time() . $request['hidden_cv_image'];
+                rename($old_path . '/' . $request['hidden_cv_image'], $new_path . '/' . $filename);
+
+            }
+            $profile->cvFile = filter_var($filename, FILTER_SANITIZE_STRING);
+        } else {
+            $profile->cvFile = '';
+        }
+
+
         if (!empty($request['hidden_banner_image'])) {
             $filename = $request['hidden_banner_image'];
             if (file_exists($old_path . '/' . $request['hidden_banner_image'])) {

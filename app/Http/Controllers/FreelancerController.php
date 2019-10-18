@@ -86,6 +86,8 @@ class FreelancerController extends Controller
         $latitude = !empty($profile->latitude) ? $profile->latitude : '';
         $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
+        $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
+
         $role_id =  Helper::getRoleByUserID(Auth::user()->id);
         $packages = DB::table('items')->where('subscriber', Auth::user()->id)->count();
         $package_options = Package::select('options')->where('role_id', $role_id)->first();
@@ -106,7 +108,8 @@ class FreelancerController extends Controller
                     'longitude',
                     'latitude',
                     'avater',
-                    'options'
+                    'options',
+                    'cv'
                 )
             );
         } else {
@@ -125,7 +128,8 @@ class FreelancerController extends Controller
                     'longitude',
                     'latitude',
                     'avater',
-                    'options'
+                    'options',
+                    'cv'
                 )
             );
         }
@@ -153,6 +157,9 @@ class FreelancerController extends Controller
         } elseif (!empty($request['award_img'])) {
             $profile_image = $request['award_img'];
             return Helper::uploadTempImage($path, $profile_image);
+        } elseif (!empty($request['hidden_cv_image'])) {
+            $cv_image = $request['hidden_cv_image'];
+            return Helper::uploadTempImage($path, $cv_image);
         }
     }
 

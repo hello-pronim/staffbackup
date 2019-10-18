@@ -495,6 +495,7 @@ return [
     'freelancer' => 'Staff',
     'employer' => 'Employer',
     'profile_img' => 'Profile Image',
+    'profile_cv' => 'Profile CV',
     'location_img' => 'Location Image',
     'completed_jobs' => 'Completed Jobs',
     'project_completed' => 'Project Completed',

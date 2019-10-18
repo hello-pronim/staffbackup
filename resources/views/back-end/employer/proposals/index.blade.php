@@ -269,6 +269,15 @@
                                                                 <span>{{{ $attachments_count }}} {{ trans('lang.files_attached') }}</span>
                                                             @endif
                                                         </div>
+                                                        @if($proposal->freelancer->profile->cvFile)
+
+                                                        <div class="wt-hireduserstatus">
+                                                            <i class="fa fa-paperclip"></i>
+                                                                <a target="_blank" href="<?= url('uploads/cvs/'.$proposal->freelancer->profile->cvFile) ;?>">Download CV</a>
+
+                                                        </div>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                         @endforeach

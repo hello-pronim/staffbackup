@@ -292,6 +292,10 @@ $cqc_ratings_date = array(
                                                                         <strong v-cloak>@{{form_step2.date_available_error}}</strong>
                                                                     </span>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <strong>CV Upload:</strong>
+                                                                    <input type="file" name="cvfile" class="form-control" accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
                                                             @endif
                                                         </li>
                                                     @endif

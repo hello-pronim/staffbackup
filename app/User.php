@@ -332,6 +332,15 @@ class User extends Authenticatable
                 $department = Department::find($request['department_name']);
                 $profile->department()->associate($department);
             }
+
+            if($file = $request['cvfile'])
+            {
+                $destinationPath = 'uploads/cvs';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $profile->cvFile = $newfiename;
+            }
+
             $profile->save();
             $role_id = Helper::getRoleByUserID($user_id);
             $package = Package::select('id', 'title', 'cost')->where('role_id', $role_id)->where('trial', 1)->get()->first();
