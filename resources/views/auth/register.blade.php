@@ -192,66 +192,73 @@ $cqc_ratings_date = array(
                                                                 </label>
                                                                 </span>
                                                             </div>
-                                                            @if ($role['role_type'] === 'employer')
-                                                                @if ($show_emplyr_inn_sec === 'true')
-                                                                    <div class="wt-accordiondetails collapse show" id="collapseOne" aria-labelledby="headingOne" v-if="is_show">
-                                                                        <div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="emp_contact" type="text"
-                                                                                       class="form-control"
-                                                                                       name="emp_contact"
-                                                                                       placeholder="{{{ trans('lang.emp_contact') }}}"
-                                                                                       v-bind:class="{ 'is-invalid': form_step2.emp_contact_error }">
-                                                                                <span class="help-block"
-                                                                                      v-if="form_step2.emp_contact_error">
+
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                            @foreach ($roles as $key => $role)
+                                                @if (!in_array($role['id'] == 1, $roles))
+                                                    @if ($role['role_type'] === 'employer')
+                                                        @if ($show_emplyr_inn_sec === 'true')
+                                                            <div class="wt-accordiondetails collapse show" id="collapseOne" aria-labelledby="headingOne" v-if="is_show">
+                                                                <div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_contact" type="text"
+                                                                               class="form-control"
+                                                                               name="emp_contact"
+                                                                               placeholder="{{{ trans('lang.emp_contact') }}}"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_contact_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_contact_error">
                                                                             <strong v-cloak>@{{form_step2.emp_contact_error}}</strong>
                                                                             </span>
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="emp_telno" type="tel"
-                                                                                       class="form-control"
-                                                                                       name="emp_telno"
-                                                                                       placeholder="{{{ trans('lang.emp_telno') }}}"
-                                                                                       v-bind:class="{ 'is-invalid': form_step2.emp_telno_error }">
-                                                                                <span class="help-block"
-                                                                                      v-if="form_step2.emp_telno_error">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_telno" type="tel"
+                                                                               class="form-control"
+                                                                               name="emp_telno"
+                                                                               placeholder="{{{ trans('lang.emp_telno') }}}"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_telno_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_telno_error">
                                                                         <strong v-cloak>@{{form_step2.emp_telno_error}}</strong>
                                                                             </span>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <input id="emp_website" type="url"
-                                                                                       class="form-control"
-                                                                                       name="emp_website"
-                                                                                       placeholder="{{{ trans('lang.emp_website') }}}"
-                                                                                       v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
-                                                                                <span class="help-block"
-                                                                                      v-if="form_step2.emp_website_error">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input id="emp_website" type="url"
+                                                                               class="form-control"
+                                                                               name="emp_website"
+                                                                               placeholder="{{{ trans('lang.emp_website') }}}"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_website_error">
                                                                                 <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
                                                                             </span>
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
-
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-
-                                                                                {!! Form::select('emp_cqc_rating', $cqc_ratings, null, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_error }')) !!}
-
-                                                                                <span class="help-block"
-                                                                                      v-if="form_step2.emp_cqc_rating_error">
-                                                                                    <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
 
                                                                     </div>
-                                                                @endif
+                                                                    <div class="form-group form-group-half">
 
-                                                            @endif
-                                                            @if(in_array($role['id']==3, $roles))
-                                                                <div class="wt-accordiondetails collapse hide" id="collapseOne" aria-labelledby="headingOne" v-if="is_show_freelancer">
+                                                                        {!! Form::select('emp_cqc_rating', $cqc_ratings, null, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_error }')) !!}
 
-                                                                <div class="form-group">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_cqc_rating_error">
+                                                                                    <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
+                                                                                </span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        @endif
+
+                                                    @endif
+                                                    @if(in_array($role['id']==3, $roles))
+                                                        <div class="wt-accordiondetails collapse hide" id="collapseOne" aria-labelledby="headingOne" v-if="is_show_freelancer">
+
+                                                            <div class="form-group">
                                                                         <span class="wt-select">
                                                                             {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'), 'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
                                                                             <span class="help-block"
@@ -259,48 +266,46 @@ $cqc_ratings_date = array(
                                                                                 <strong v-cloak>@{{form_step2.title_error}}</strong>
                                                                             </span>
                                                                         </span>
-                                                                </div>
+                                                            </div>
 
-                                                                <div class="form-group form-group-half">
-                                                                    <input id="telno" class="form-control"
-                                                                           name="telno" type="tel"
-                                                                           placeholder="{{{ trans('lang.telno') }}}"
-                                                                           v-bind:class="{ 'is-invalid': form_step2.telno_error }">
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.telno_error">
+                                                            <div class="form-group form-group-half">
+                                                                <input id="telno" class="form-control"
+                                                                       name="telno" type="tel"
+                                                                       placeholder="{{{ trans('lang.telno') }}}"
+                                                                       v-bind:class="{ 'is-invalid': form_step2.telno_error }">
+                                                                <span class="help-block"
+                                                                      v-if="form_step2.telno_error">
                                                                         <strong v-cloak>@{{form_step2.telno_error}}</strong>
                                                                     </span>
-                                                                </div>
-                                                                <div class="form-group form-group-half">
-                                                                    <date-picker :config="{format: 'DD/MM/YYYY'}" id="dob" class="form-control"
-                                                                           name="dob"
-                                                                           placeholder="{{{ trans('lang.dob') }}}"
-                                                                                 v-bind:class="{ 'is-invalid': form_step2.dob_error }"></date-picker>
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.dob_error">
+                                                            </div>
+                                                            <div class="form-group form-group-half">
+                                                                <date-picker :config="{format: 'DD/MM/YYYY'}" id="dob" class="form-control"
+                                                                             name="dob"
+                                                                             placeholder="{{{ trans('lang.dob') }}}"
+                                                                             v-bind:class="{ 'is-invalid': form_step2.dob_error }"></date-picker>
+                                                                <span class="help-block"
+                                                                      v-if="form_step2.dob_error">
                                                                         <strong v-cloak>@{{form_step2.dob_error}}</strong>
                                                                     </span>
-                                                                </div>
-                                                                <div class="form-group form-group-half">
-                                                                    <date-picker :config="{format: 'DD/MM/YYYY'}" id="date_available"
-                                                                           class="form-control"
-                                                                           name="date_available"
-                                                                           placeholder="{{{ trans('lang.date_available') }}}"
-                                                                           v-bind:class="{ 'is-invalid': form_step2.date_available_error }"></date-picker>
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.date_available_error">
+                                                            </div>
+                                                            <div class="form-group form-group-half">
+                                                                <date-picker :config="{format: 'DD/MM/YYYY'}" id="date_available"
+                                                                             class="form-control"
+                                                                             name="date_available"
+                                                                             placeholder="{{{ trans('lang.date_available') }}}"
+                                                                             v-bind:class="{ 'is-invalid': form_step2.date_available_error }"></date-picker>
+                                                                <span class="help-block"
+                                                                      v-if="form_step2.date_available_error">
                                                                         <strong v-cloak>@{{form_step2.date_available_error}}</strong>
                                                                     </span>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <strong>CV Upload:</strong>
-                                                                    <input type="file" name="cvfile" class="form-control" accept=".pdf, image/*,.doc,.docx">
-                                                                </div>
-                                                            @endif
-                                                        </li>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <strong>CV Upload:</strong>
+                                                                <input type="file" name="cvfile" class="form-control" accept=".pdf, image/*,.doc,.docx">
+                                                            </div>
                                                     @endif
-                                                @endforeach
-                                            </ul>
+                                                @endif
+                                            @endforeach
                                         @endif
                                     </fieldset>
                                     <fieldset class="wt-termsconditions">
