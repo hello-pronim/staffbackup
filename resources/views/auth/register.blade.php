@@ -180,8 +180,8 @@ $cqc_ratings_date = array(
                                             <ul class="wt-accordionhold wt-formaccordionhold accordion">
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
-                                                        <li>
-                                                            <div class="wt-accordiontitle" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                                                        <li style="width:50%">
+                                                            <div class="wt-accordiontitle" id="headingOne" style="height: 69px; border: 1px solid #ddd;" data-toggle="collapse" data-target="#collapseOne">
                                                                 <span class="wt-radio">
                                                                 <input id="wt-company-{{$key}}" type="radio" name="role" value="{{{ $role['role_type'] }}}" checked="" v-model="user_role" v-on:change="selectedRole(user_role)">
                                                                 <label for="wt-company-{{$key}}">
