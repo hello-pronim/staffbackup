@@ -1,0 +1,142 @@
+body{
+    color: #232f3e;
+}
+#newmenu li {
+    list-style-type: none;
+    display: inline-block;
+    padding:20px 10px;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size:20px;
+    font-family: Helvetica;
+
+}
+#newmenu li a {
+    color:#232f3e;
+
+}
+.headernew {
+    background-color: #fccf17;
+}
+
+.telno
+{
+    padding:20px 10px;
+    font-style: italic;
+    font-size:20px;
+    font-family: Helvetica;
+    text-transform: uppercase;
+    color:#232f3e;
+
+
+}
+.headingcenter {
+    margin:0 auto;
+
+}
+.headingcenter h2 {
+    margin-top: 50px ;
+    font-style: italic;
+    text-transform: none;
+    font-family: Helvetica;
+    font-weight: bolder;
+    margin-bottom: -10px;
+
+}
+.headingcenter > div {
+    text-align: right;
+    font-style: italic;
+    font-family: Helvetica;
+    height: 100px;
+}
+#homenew{
+    background-image: url("../images/imgdoctor.jpg");
+    background-size: 100%;
+}
+.searchboxnew{
+    padding:0px 30px;
+    background-color: #232f3e;
+    border-radius:15px;
+    margin:80px auto;
+
+}
+.searchboxnew input {
+    background: transparent;
+    border: none;
+    color:#fccb16;
+    font-size:25px;
+    width: 90%;
+}
+.categorysearch{
+    background-color: white;
+    color: #232f3e;
+    width: 10%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 13px;
+    height: 34px;
+    padding: 0px 11px;
+    font-weight: bolder;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.categorysearch::-ms-expand {
+    display: none;
+}
+.searchboxnew div {
+    display: inline-block;
+}
+.searchicon{
+    color:#fccb16;
+    font-size: 20px;
+}
+.simpletext{
+    margin:150px auto 0px auto;
+    color:white;
+    text-align: center;
+}
+.simpletext div a{
+    font-size:40px;
+
+}
+.simpletext div a, .simpletext div span {
+    color:white;
+    font-style:italic;
+    font-weight: bolder;
+    font-family: Helvetica;
+}
+.footer-menu{
+    margin:40px auto;
+    text-align: center;
+}
+.footer-menu ul{
+    list-style-type: nonde;
+}
+.footer-menu ul li{
+    list-style-type: none;
+    display: inline-block; padding:0px 40px;
+    text-transform: uppercase;font-style:italic;
+    font-weight: bolder;
+    font-family: Helvetica;
+    color:#fccb16;
+    font-size:14px;
+
+
+}
+.footer-menu ul li .fa{
+    color: #d3cfcc;
+    padding: 3px 0px;
+    width: 21px;
+    text-align: center;
+    background-color: white;
+}
+
+.footerCopyright
+{
+    text-align: center;
+    margin: -40px auto;
+    padding: 0px 20px;
+    border-radius: 30px;
+    height: 40px;
+    background-color: #f6f7f9;
+}
