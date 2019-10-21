@@ -1,3 +1,31 @@
+@font-face {
+    font-family: ArbutusSlabRegular;
+    src: url("webfonts/arbutusslab-regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: AvertaBold;
+    font-weight: bold;
+    src: url("webfonts/FontsFree-Net-AvertaDemoPE-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: AmericanTypewriterRegular;
+    src: url("webfonts/American Typewriter Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: AvenirNext;
+    src: url("webfonts/AvenirNextLTPro-Regular.otf") format("opentype");
+
+}
+
+@font-face {
+    font-family: Vision;
+    src: url("webfonts/Vision.otf") format("opentype");
+}
+
+
+
 body{
     color: #232f3e;
 }
@@ -9,7 +37,7 @@ body{
     font-style: italic;
     font-size:20px;
     font-weight: bolder;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
 
 }
 #newmenu li a {
@@ -25,7 +53,7 @@ body{
     padding:20px 10px;
     font-style: italic;
     font-size:20px;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
     text-transform: uppercase;
     color:#232f3e;
 
@@ -39,15 +67,14 @@ body{
     margin-top: 50px ;
     font-style: italic;
     text-transform: none;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
     font-weight: bolder;
     margin-bottom: -10px;
 
 }
 .headingcenter > div {
     text-align: right;
-    font-style: italic;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: ArbutusSlabRegular, 'Segoe UI', Tahoma, sans-serif;;
     height: 100px;
 }
 #homenew{
@@ -66,6 +93,7 @@ body{
     border: none;
     color:#fccb16;
     font-size:25px;
+    font-family: AmericanTypewriterRegular;
     width: 90%;
 }
 .categorysearch{
@@ -95,6 +123,7 @@ body{
     margin:150px auto 0px auto;
     color:white;
     text-align: center;
+    font-family: AvertaBold;
 }
 .simpletext div a{
     font-size:40px;
@@ -104,7 +133,7 @@ body{
     color:white;
     font-style:italic;
     font-weight: bolder;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
 }
 .footer-menu{
     margin:40px auto;
@@ -118,7 +147,7 @@ body{
     display: inline-block; padding:0px 40px;
     text-transform: uppercase;font-style:italic;
     font-weight: bolder;
-    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: Vision, 'Segoe UI', Tahoma, sans-serif;;
     color:#fccb16;
     font-size:14px;
 
@@ -140,4 +169,5 @@ body{
     border-radius: 30px;
     height: 40px;
     background-color: #f6f7f9;
+    font-family: AvenirNext;
 }
