@@ -5,8 +5,8 @@
 
 @font-face {
     font-family: AvertaBold;
-    font-weight: bold;
-    src: url("webfonts/FontsFree-Net-AvertaDemoPE-ExtraBold.ttf") format("truetype");
+    font-weight: 900;
+    src: url("webfonts/AvertaDemoPE-ExtraboldItalic.otf") format("truetype");
 }
 
 @font-face {
@@ -43,6 +43,10 @@ body{
 #newmenu li a {
     color:#232f3e;
 
+}
+.active-menu-li{
+    color:white !important;
+    border-bottom: 3px solid black;
 }
 .headernew {
     background-color: #fccf17;

@@ -13,7 +13,7 @@
             <div class="row " >
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                     <ul id="newmenu"  class="list-unstyled" style="list-style: none;">
-                        <li><a href="{{url('/')}}">Home</a></li>
+                        <li><a href="{{url('/')}}" class="active-menu-li">Home</a></li>
                         <li><a href="{{url('page/how-it-works')}}">About us</a></li>
                         <li><a href="">Search</a></li>
                         <li><a href="">Users</a></li>
