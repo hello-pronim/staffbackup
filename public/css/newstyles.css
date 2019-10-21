@@ -153,12 +153,8 @@ body{
 
 
 }
-.footer-menu ul li .fa{
-    color: #d3cfcc;
-    padding: 3px 0px;
-    width: 21px;
-    text-align: center;
-    background-color: white;
+.footer-menu ul li a{
+    margin-right: 5px;
 }
 
 .footerCopyright
@@ -171,3 +167,4 @@ body{
     background-color: #f6f7f9;
     font-family: AvenirNext;
 }
+

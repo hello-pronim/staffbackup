@@ -53,10 +53,10 @@
         <div class="footer-menu col-md-2">
             <ul>
                 <li>
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-linkedin"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    <a href="#" class="fa fa-envelope"></a>
+                    <a href="#" class="facebook_icon"><img src="{{url('images/facebook.png')}}"/></a>
+                    <a href="#" class="linkedin_icon"><img src="{{url('images/linkedin.png')}}"/></a>
+                    <a href="#" class="twitter_icon"><img src="{{url('images/twitter.png')}}"/></a>
+                    <a href="#" class="envelope_icon"><img src="{{url('images/envelope.png')}}"/></a>
                 </li>
             </ul>
         </div>
