@@ -23,7 +23,7 @@
         }
     @endphp
     <div id="homenew" class="la-home-page">
-        <div class="searchboxnew col-md-5" >
+        <div class="searchboxnew col-md-6" >
             <form method="get" action="{{url('search-results')}}">
             <select name="type" class="categorysearch">
                 <option value="job">Jobs</option>
@@ -38,7 +38,7 @@
         </div>
         <div class="simpletext col-md-5">
             <div><a href="#">It's as simple as 1,2,3</a></div>
-            <div><span>SEARCH    CONNECT    HIRE!</span></div>
+            <div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>
         </div>
         <div class="row">
         <div class="footer-menu col-md-10">
