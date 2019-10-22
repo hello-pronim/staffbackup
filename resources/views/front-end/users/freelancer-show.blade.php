@@ -48,7 +48,7 @@
                                             <h3>@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{{ $user_name }}}</h3>
                                         @endif
                                         <span>
-                                            <div class="wt-proposalfeedback"><span class="wt-starcontent"> {{{ $rating }}}/<i>5</i>&nbsp;<em>({{{ $reviews->count() }}} {{ trans('lang.feedbacks') }})</em></span></div>
+                                            {{--<div class="wt-proposalfeedback"><span class="wt-starcontent"> {{{ $rating }}}/<i>5</i>&nbsp;<em>({{{ $reviews->count() }}} {{ trans('lang.feedbacks') }})</em></span></div>--}}
                                             @if (!empty($joining_date))
                                                 {{{ trans('lang.member_since') }}}&nbsp;{{{ $joining_date }}}
                                             @endif
@@ -99,26 +99,26 @@
                                     @endif
                                 </div>
                                 <div id="wt-statistics" class="wt-statistics wt-profilecounter">
-                                    <div class="wt-statisticcontent wt-countercolor1">
-                                        <h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'hired')->count() }}}" data-speed="800" data-refresh-interval="03">{{{ Helper::getProposals($user->id, 'hired')->count() }}}</h3>
-                                        <h4>{{ trans('lang.ongoing_project') }}</h4>
-                                    </div>
+                                    {{--<div class="wt-statisticcontent wt-countercolor1">--}}
+                                        {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'hired')->count() }}}" data-speed="800" data-refresh-interval="03">{{{ Helper::getProposals($user->id, 'hired')->count() }}}</h3>--}}
+                                        {{--<h4>{{ trans('lang.ongoing_project') }}</h4>--}}
+                                    {{--</div>--}}
                                     <div class="wt-statisticcontent wt-countercolor2">
                                         <h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'completed')->count() }}}" data-speed="8000" data-refresh-interval="100">{{{ Helper::getProposals($user->id, 'completed')->count() }}}</h3>
                                         <h4>{{ trans('lang.completed_projects') }}</h4>
                                     </div>
-                                    <div class="wt-statisticcontent wt-countercolor4">
-                                        <h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}" data-speed="800" data-refresh-interval="02">{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}</h3>
-                                        <h4>{{ trans('lang.cancelled_projects') }}</h4>
-                                    </div>
-                                    <div class="wt-statisticcontent wt-countercolor3">
-                                        <h3 data-from="0" data-to="{{ $amount }}" data-speed="8000" data-refresh-interval="100">{{ empty($amount) ? $symbol.'0.00' : $symbol."".$amount }}</h3>
-                                        <h4>{{ trans('lang.total_earnings') }}</h4>
-                                    </div>
-                                    <div class="wt-description">
-                                        <p>{{ trans('lang.send_offer_note') }}</p>
-                                        <a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>
-                                    </div>
+                                    {{--<div class="wt-statisticcontent wt-countercolor4">--}}
+                                        {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}" data-speed="800" data-refresh-interval="02">{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}</h3>--}}
+                                        {{--<h4>{{ trans('lang.cancelled_projects') }}</h4>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="wt-statisticcontent wt-countercolor3">--}}
+                                        {{--<h3 data-from="0" data-to="{{ $amount }}" data-speed="8000" data-refresh-interval="100">{{ empty($amount) ? $symbol.'0.00' : $symbol."".$amount }}</h3>--}}
+                                        {{--<h4>{{ trans('lang.total_earnings') }}</h4>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="wt-description">--}}
+                                        {{--<p>{{ trans('lang.send_offer_note') }}</p>--}}
+                                        {{--<a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>
@@ -197,128 +197,128 @@
                 <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-8 float-left">
                         <div class="wt-usersingle">
-                            <div class="wt-clientfeedback la-no-record">
-                                <div class="wt-usertitle wt-titlewithselect">
-                                    <h2>{{ trans('lang.client_feedback') }}</h2>
-                                </div>
-                                @if (!empty($reviews) && $reviews->count() > 0)
-                                    @foreach ($reviews as $key => $review)
-                                        @php
-                                            if ($review->project_type == 'job') {
-                                                $job = \App\Job::where('id', $review->job_id)->first();
-                                            } 
-                                            else {
-                                                $review_service = Helper::getPivotService($review->job_id);
-                                                $service = \App\Service::where('id', $review_service->service_id)->first();
-                                            }
-                                            $user = App\User::find($review->user_id);
-                                            $stars  = $review->avg_rating != 0 ? $review->avg_rating/5*100 : 0;
-                                        @endphp
-                                        @if ($review->project_type == 'job')
-                                            @if (!empty($job->employer) && $job->employer->count() > 0)
-                                                <div class="wt-userlistinghold wt-userlistingsingle">
-                                                    <figure class="wt-userlistingimg">
-                                                        <img src="{{ asset(Helper::getProfileImage($review->user_id)) }}" alt="{{{ trans('Employer') }}}">
-                                                    </figure>
-                                                    <div class="wt-userlistingcontent">
-                                                        <div class="wt-contenthead">
-                                                            <div class="wt-title">
-                                                                <a href="{{{ url('profile/'.$job->employer->slug) }}}">@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i>@endif {{{ Helper::getUserName($review->user_id) }}}</a>
-                                                                <h3>{{{ $job->title }}}</h3>
-                                                            </div>
-                                                            <ul class="wt-userlisting-breadcrumb">
-                                                                <li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i> {{{ \App\Helper::getProjectLevel($job->project_level) }}}</span></li>
-                                                                <li>
-                                                                    <span>
-                                                                        <img src="{{{asset(App\Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.flag_img') }}}"> {{{ $job->location->title }}}
-                                                                    </span>
-                                                                </li>
-                                                                <li><span><i class="far fa-calendar"></i> {{ Carbon\Carbon::parse($job->created_at)->format('M Y') }} - {{ Carbon\Carbon::parse($job->updated_at)->format('M Y') }}</span></li>
-                                                                <li>
-                                                                    <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
-                                                                    {{-- <vue-stars
-                                                                    :name="'rating[{{$key}}][rate]'"
-                                                                    :active-color="'#fecb02'"
-                                                                    :inactive-color="'#999999'"
-                                                                    :shadow-color="'#ffff00'"
-                                                                    :hover-color="'#fecb02'"
-                                                                    :max="5"
-                                                                    :value="{{$review->avg_rating}}"
-                                                                    :readonly="true"
-                                                                    :char="'★'"
-                                                                    id="rating-{{$key}}"
-                                                                    /> --}}
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="wt-description">
-                                                        @if (!empty($review->feedback))
-                                                            <p>“ {{{ $review->feedback }}} ”</p>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @else
-                                            <div class="wt-userlistinghold wt-userlistingsingle">
-                                                <figure class="wt-userlistingimg">
-                                                    <img src="{{ asset(Helper::getProfileImage($review->user_id)) }}" alt="{{{ trans('Employer') }}}">
-                                                </figure>
-                                                <div class="wt-userlistingcontent">
-                                                    <div class="wt-contenthead">
-                                                        <div class="wt-title">
-                                                            <a href="{{{ url('profile/'.$user->slug) }}}">@if ($user->user_verified == 1)<i class="fa fa-check-circle"></i>@endif {{{ Helper::getUserName($review->user_id) }}}</a>
-                                                            <h3>{{{ $service->title }}}</h3>
-                                                        </div>
-                                                        <ul class="wt-userlisting-breadcrumb">
-                                                            @if (!empty($service->location))
-                                                                <li>
-                                                                    <span>
-                                                                        <img src="{{{asset(Helper::getLocationFlag($service->location->flag))}}}" alt="{{{ trans('lang.flag_img') }}}"> {{{ $service->location->title }}}
-                                                                    </span>
-                                                                </li>
-                                                            @endif
-                                                            <li><span><i class="far fa-calendar"></i> {{ Carbon\Carbon::parse($service->created_at)->format('M Y') }} - {{ Carbon\Carbon::parse($service->updated_at)->format('M Y') }}</span></li>
-                                                            <li>
-                                                                <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
-                                                            </li> 
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="wt-description">
-                                                    @if (!empty($review->feedback))
-                                                        <p>“ {{{ $review->feedback }}} ”</p>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
-                                            @include('extend.errors.no-record')
-                                        @else 
-                                            @include('errors.no-record')
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="wt-craftedprojects">
-                                <div class="wt-usertitle">
-                                    <h2>{{{ trans('lang.crafted_projects') }}}</h2>
-                                </div>
-                                @if (!empty($projects))
-                                    <crafted_project :no_of_post="3" :project="'{{  json_encode($projects) }}'" :freelancer_id="'{{$profile->user_id}}'" :img="'{{ trans('lang.img') }}'"></crafted_project>
-                                @else
-                                    <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
-                                            @include('extend.errors.no-record')
-                                        @else 
-                                            @include('errors.no-record')
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
+                            {{--<div class="wt-clientfeedback la-no-record">--}}
+                                {{--<div class="wt-usertitle wt-titlewithselect">--}}
+                                    {{--<h2>{{ trans('lang.client_feedback') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--@if (!empty($reviews) && $reviews->count() > 0)--}}
+                                    {{--@foreach ($reviews as $key => $review)--}}
+                                        {{--@php--}}
+                                            {{--if ($review->project_type == 'job') {--}}
+                                                {{--$job = \App\Job::where('id', $review->job_id)->first();--}}
+                                            {{--} --}}
+                                            {{--else {--}}
+                                                {{--$review_service = Helper::getPivotService($review->job_id);--}}
+                                                {{--$service = \App\Service::where('id', $review_service->service_id)->first();--}}
+                                            {{--}--}}
+                                            {{--$user = App\User::find($review->user_id);--}}
+                                            {{--$stars  = $review->avg_rating != 0 ? $review->avg_rating/5*100 : 0;--}}
+                                        {{--@endphp--}}
+                                        {{--@if ($review->project_type == 'job')--}}
+                                            {{--@if (!empty($job->employer) && $job->employer->count() > 0)--}}
+                                                {{--<div class="wt-userlistinghold wt-userlistingsingle">--}}
+                                                    {{--<figure class="wt-userlistingimg">--}}
+                                                        {{--<img src="{{ asset(Helper::getProfileImage($review->user_id)) }}" alt="{{{ trans('Employer') }}}">--}}
+                                                    {{--</figure>--}}
+                                                    {{--<div class="wt-userlistingcontent">--}}
+                                                        {{--<div class="wt-contenthead">--}}
+                                                            {{--<div class="wt-title">--}}
+                                                                {{--<a href="{{{ url('profile/'.$job->employer->slug) }}}">@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i>@endif {{{ Helper::getUserName($review->user_id) }}}</a>--}}
+                                                                {{--<h3>{{{ $job->title }}}</h3>--}}
+                                                            {{--</div>--}}
+                                                            {{--<ul class="wt-userlisting-breadcrumb">--}}
+                                                                {{--<li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i> {{{ \App\Helper::getProjectLevel($job->project_level) }}}</span></li>--}}
+                                                                {{--<li>--}}
+                                                                    {{--<span>--}}
+                                                                        {{--<img src="{{{asset(App\Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.flag_img') }}}"> {{{ $job->location->title }}}--}}
+                                                                    {{--</span>--}}
+                                                                {{--</li>--}}
+                                                                {{--<li><span><i class="far fa-calendar"></i> {{ Carbon\Carbon::parse($job->created_at)->format('M Y') }} - {{ Carbon\Carbon::parse($job->updated_at)->format('M Y') }}</span></li>--}}
+                                                                {{--<li>--}}
+                                                                    {{--<span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>--}}
+                                                                    {{-- <vue-stars--}}
+                                                                    {{--:name="'rating[{{$key}}][rate]'"--}}
+                                                                    {{--:active-color="'#fecb02'"--}}
+                                                                    {{--:inactive-color="'#999999'"--}}
+                                                                    {{--:shadow-color="'#ffff00'"--}}
+                                                                    {{--:hover-color="'#fecb02'"--}}
+                                                                    {{--:max="5"--}}
+                                                                    {{--:value="{{$review->avg_rating}}"--}}
+                                                                    {{--:readonly="true"--}}
+                                                                    {{--:char="'★'"--}}
+                                                                    {{--id="rating-{{$key}}"--}}
+                                                                    {{--/> --}}
+                                                                {{--</li>--}}
+                                                            {{--</ul>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="wt-description">--}}
+                                                        {{--@if (!empty($review->feedback))--}}
+                                                            {{--<p>“ {{{ $review->feedback }}} ”</p>--}}
+                                                        {{--@endif--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--@endif--}}
+                                        {{--@else--}}
+                                            {{--<div class="wt-userlistinghold wt-userlistingsingle">--}}
+                                                {{--<figure class="wt-userlistingimg">--}}
+                                                    {{--<img src="{{ asset(Helper::getProfileImage($review->user_id)) }}" alt="{{{ trans('Employer') }}}">--}}
+                                                {{--</figure>--}}
+                                                {{--<div class="wt-userlistingcontent">--}}
+                                                    {{--<div class="wt-contenthead">--}}
+                                                        {{--<div class="wt-title">--}}
+                                                            {{--<a href="{{{ url('profile/'.$user->slug) }}}">@if ($user->user_verified == 1)<i class="fa fa-check-circle"></i>@endif {{{ Helper::getUserName($review->user_id) }}}</a>--}}
+                                                            {{--<h3>{{{ $service->title }}}</h3>--}}
+                                                        {{--</div>--}}
+                                                        {{--<ul class="wt-userlisting-breadcrumb">--}}
+                                                            {{--@if (!empty($service->location))--}}
+                                                                {{--<li>--}}
+                                                                    {{--<span>--}}
+                                                                        {{--<img src="{{{asset(Helper::getLocationFlag($service->location->flag))}}}" alt="{{{ trans('lang.flag_img') }}}"> {{{ $service->location->title }}}--}}
+                                                                    {{--</span>--}}
+                                                                {{--</li>--}}
+                                                            {{--@endif--}}
+                                                            {{--<li><span><i class="far fa-calendar"></i> {{ Carbon\Carbon::parse($service->created_at)->format('M Y') }} - {{ Carbon\Carbon::parse($service->updated_at)->format('M Y') }}</span></li>--}}
+                                                            {{--<li>--}}
+                                                                {{--<span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>--}}
+                                                            {{--</li> --}}
+                                                        {{--</ul>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="wt-description">--}}
+                                                    {{--@if (!empty($review->feedback))--}}
+                                                        {{--<p>“ {{{ $review->feedback }}} ”</p>--}}
+                                                    {{--@endif--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--@endif--}}
+                                    {{--@endforeach--}}
+                                {{--@else--}}
+                                    {{--<div class="wt-userprofile">--}}
+                                        {{--@if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) --}}
+                                            {{--@include('extend.errors.no-record')--}}
+                                        {{--@else --}}
+                                            {{--@include('errors.no-record')--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                            {{--<div class="wt-craftedprojects">--}}
+                                {{--<div class="wt-usertitle">--}}
+                                    {{--<h2>{{{ trans('lang.crafted_projects') }}}</h2>--}}
+                                {{--</div>--}}
+                                {{--@if (!empty($projects))--}}
+                                    {{--<crafted_project :no_of_post="3" :project="'{{  json_encode($projects) }}'" :freelancer_id="'{{$profile->user_id}}'" :img="'{{ trans('lang.img') }}'"></crafted_project>--}}
+                                {{--@else--}}
+                                    {{--<div class="wt-userprofile">--}}
+                                        {{--@if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) --}}
+                                            {{--@include('extend.errors.no-record')--}}
+                                        {{--@else --}}
+                                            {{--@include('errors.no-record')--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
                             <div class="wt-experience">
                                 <div class="wt-usertitle">
                                     <h2>{{{ trans('lang.experience') }}}</h2>
@@ -398,45 +398,45 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="wt-proposalsr">
-                                <div class="tg-authorcodescan tg-authorcodescanvtwo">
-                                    <figure class="tg-qrcodeimg">
-                                        {!! QrCode::size(100)->generate(Request::url('profile/'.$user->slug)); !!}
-                                    </figure>
-                                    <div class="tg-qrcodedetail">
-                                        <span class="lnr lnr-laptop-phone"></span>
-                                        <div class="tg-qrcodefeat">
-                                            <h3>{{ trans('lang.scan_with_smartphone') }} <span>{{ trans('lang.smartphone') }} </span> {{ trans('lang.get_handy') }}</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="wt-widget wt-sharejob">
-                                <div class="wt-widgettitle">
-                                    <h2>{{ trans('lang.share_freelancer') }}</h2>
-                                </div>
-                                <div class="wt-widgetcontent">
-                                    <ul class="wt-socialiconssimple">
-                                        <li class="wt-facebook">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fa fa-facebook-f"></i>{{ trans('lang.share_fb') }}</a>
-                                        </li>
-                                        <li class="wt-twitter">
-                                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fab fa-twitter"></i>{{ trans('lang.share_twitter') }}</a>
-                                        </li>
-                                        <li class="wt-pinterest">
-                                            <a href="//pinterest.com/pin/create/button/?url={{ urlencode(Request::fullUrl()) }}"
-                                            onclick="window.open(this.href, \'post-share\',\'left=50,top=50,width=600,height=350,toolbar=0\'); return false;">
-                                            <i class="fa fab fa-pinterest-p"></i>{{ trans('lang.share_pinterest') }}</a>
-                                        </li>
-                                        <li class="wt-googleplus">
-                                            <a href="https://plus.google.com/share?url={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fab fa-google-plus-g"></i>{{ trans('lang.share_google') }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            {{--<div class="wt-proposalsr">--}}
+                                {{--<div class="tg-authorcodescan tg-authorcodescanvtwo">--}}
+                                    {{--<figure class="tg-qrcodeimg">--}}
+                                        {{--{!! QrCode::size(100)->generate(Request::url('profile/'.$user->slug)); !!}--}}
+                                    {{--</figure>--}}
+                                    {{--<div class="tg-qrcodedetail">--}}
+                                        {{--<span class="lnr lnr-laptop-phone"></span>--}}
+                                        {{--<div class="tg-qrcodefeat">--}}
+                                            {{--<h3>{{ trans('lang.scan_with_smartphone') }} <span>{{ trans('lang.smartphone') }} </span> {{ trans('lang.get_handy') }}</h3>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="wt-widget wt-sharejob">--}}
+                                {{--<div class="wt-widgettitle">--}}
+                                    {{--<h2>{{ trans('lang.share_freelancer') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-widgetcontent">--}}
+                                    {{--<ul class="wt-socialiconssimple">--}}
+                                        {{--<li class="wt-facebook">--}}
+                                            {{--<a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fa fa-facebook-f"></i>{{ trans('lang.share_fb') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-twitter">--}}
+                                            {{--<a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fab fa-twitter"></i>{{ trans('lang.share_twitter') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-pinterest">--}}
+                                            {{--<a href="//pinterest.com/pin/create/button/?url={{ urlencode(Request::fullUrl()) }}"--}}
+                                            {{--onclick="window.open(this.href, \'post-share\',\'left=50,top=50,width=600,height=350,toolbar=0\'); return false;">--}}
+                                            {{--<i class="fa fab fa-pinterest-p"></i>{{ trans('lang.share_pinterest') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-googleplus">--}}
+                                            {{--<a href="https://plus.google.com/share?url={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fab fa-google-plus-g"></i>{{ trans('lang.share_google') }}</a>--}}
+                                        {{--</li>--}}
+                                    {{--</ul>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="wt-widget wt-reportjob">
                                 <div class="wt-widgettitle">
                                     <h2>{{ trans('lang.report_user') }}</h2>
