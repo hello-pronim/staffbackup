@@ -923,7 +923,7 @@ li.wt-rss a { background:#ff6600; }
 .wt-breadcrumb li.wt-active { color:#999;}
 /* Theme Styling */
 .wt-main {padding: 0 0 20px;}
-.wt-footer {background:#323232;}
+.wt-footer {background:#fccf17;}
 .wt-sectionhead,
 .wt-sectiontitle{
 	width:100%;
@@ -2828,8 +2828,8 @@ body.wt-login .wt-userlogedin{display: block;}
 }
 .wt-joinsteps li.wt-done-next a{
 	color: #fff;
-	background:#00cc8d;
-	border-color:#00cc8d;
+	background:#fccf17;
+	border-color: #ddc113;
 }
 /* Register Form Style */
 .wt-formregister .wt-registerformgroup{
@@ -4805,7 +4805,7 @@ body.wt-login .wt-userlogedin{display: block;}
 }
 .wt-footerlogohold .wt-logo{margin: 0; margin-bottom:20px; }
 .wt-footerlogohold > .wt-description > p{
-	color: #ccc;
+	color: #232f3e;
 	font-size: 16px;
 	margin: 0 0 26px;
 	line-height: 26px;
@@ -4815,14 +4815,14 @@ body.wt-login .wt-userlogedin{display: block;}
 	text-decoration: none;
 }
 .wt-socialiconfooter li a{font-size: 20px;}
-.wt-socialiconfooter.wt-socialiconssimple li a i{color: #fff;}
+.wt-socialiconfooter.wt-socialiconssimple li a i{color: #232f3e;}
 .wt-widgetcompany{
 	height: 100%;
 	padding-left:40px;
 	border-left: 1px solid rgba(255, 255, 255, 0.20);
 }
-.wt-footerholder .wt-fwidgettitle h3{color: #fff;}
-.wt-footerholder .wt-fwidgetcontent li a{color: #ccc;}
+.wt-footerholder .wt-fwidgettitle h3{color: #232f3e;}
+.wt-footerholder .wt-fwidgetcontent li a{color: #232f3e;}
 .wt-footerholder .wt-fwidgetcontent li.wt-viewmore a{color: #55acee;}
 .wt-joininfo{
 	padding: 25px 0;
@@ -4849,12 +4849,12 @@ body.wt-login .wt-userlogedin{display: block;}
 	float:left;
 	padding:22px 0;
 	position: relative;
-	background: rgba(0,0,0,0.20);
+	background: #232f3e
 }
 .wt-copyrights{
 	margin:0;
 	float:left;
-	color:#ccc;
+	color:#fccf17;
 	font-size:14px;
 	line-height:16px;
 }
@@ -4868,10 +4868,10 @@ body.wt-login .wt-userlogedin{display: block;}
 .wt-comingsoon-wt-copyrights a:hover,
 .wt-comingsoon-wt-copyrights a:focus,
 .wt-comingsoon-wt-copyrights a{
-	color: #55acee;
+	color: #232f3e;
 	text-decoration:none;
 }
-.wt-copyrights span{color:#55acee;}
+.wt-copyrights span{color:#fccf17;}
 .wt-addnav{float:right;}
 .wt-addnav ul{
 	width:100%;
@@ -4891,7 +4891,7 @@ body.wt-login .wt-userlogedin{display: block;}
 	color:#ccc;
 	display:block;
 }
-.wt-addnav ul li:hover a{color:#55acee;}
+.wt-addnav ul li:hover a{color:#232f3e;}
 .wt-offerpopup .modal-dialog{max-width: 540px;}
 .wt-popuptitle{
 	float: left;
