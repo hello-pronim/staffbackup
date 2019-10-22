@@ -125,7 +125,7 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-        if (!empty($slug)) {
+        if (!empty($slug) && !in_array($slug, array("about-us", "privacy-policy", "how-it-works"))) {
             $page = $this->page->getPageData($slug);
             $page_meta = SiteManagement::where('meta_key', 'seo-desc-'.$page->id)->select('meta_value')->pluck('meta_value')->first();
             $page_banner = SiteManagement::where('meta_key', 'page-banner-'.$page->id)->select('meta_value')->pluck('meta_value')->first();
@@ -145,6 +145,10 @@ class PageController extends Controller
             } else {
                 return View::make('front-end.pages.show', compact('page', 'slug', 'meta_desc', 'banner', 'show_banner', 'show_banner_image','show_breadcrumbs'));
             }
+        }
+        else{
+            return Redirect::to('/');
+
         }
     }
 
