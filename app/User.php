@@ -299,8 +299,9 @@ class User extends Authenticatable
                 filter_var($request['last_name'], FILTER_SANITIZE_STRING);
             $this->email = filter_var($request['email'], FILTER_VALIDATE_EMAIL);
             $this->password = Hash::make($request['password']);
-            $this->verification_code = $verification_code;
-            $this->user_verified = 0;
+            //passing email verification process
+            $this->verification_code = "";//$verification_code;
+            $this->user_verified = 1;//0;
             $this->assignRole($request['role']);
             if (!empty($request['locations'])) {
                 $location = Location::find($request['locations']);
