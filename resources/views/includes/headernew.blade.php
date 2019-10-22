@@ -31,7 +31,7 @@
                 <div class="headingcenter text-center">
                         <img src="images/newlogo.png"/>
                     <h2>We connect professionals<br> with the people who need them most</h2>
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-8">10 years professional clinical experience</div>
+                    <div>10 years professional clinical experience</div>
                 </div>
 
             </div>
