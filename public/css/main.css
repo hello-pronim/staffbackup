@@ -1817,7 +1817,8 @@ body.wt-login .wt-userlogedin{display: block;}
 /* Artcle Banner Style */
 .wt-innerbannerholder{
 	height: 300px;
-	background-image: url(../images/bannerimg/img-02.jpg);
+	/*background-image: url(../images/bannerimg/img-02.jpg);*/
+	background-color: #fccf17;
 	background-size: cover;
     background-repeat: no-repeat;
 	display: -webkit-box;
@@ -1848,7 +1849,7 @@ body.wt-login .wt-userlogedin{display: block;}
 	height: 100%;
 	content: '';
 	position: absolute;
-	background: rgba(50,50,50,0.40);
+	/*background: rgba(50,50,50,0.40);*/
 }
 .wt-innerbannercontent{
 	float: left;
