@@ -69,10 +69,11 @@ body{
 }
 .headingcenter {
     margin:0 auto;
+    max-width: 650px;
 
 }
 .headingcenter h2 {
-    font-style: italic;
+    /*font-style: italic;*/
     margin-top:19px;
     font-size: 41px;
     line-height: 52px;
@@ -86,17 +87,19 @@ body{
     text-align: right;
     font-family: ArbutusSlabRegular, 'Segoe UI', Tahoma, sans-serif;;
     height: 55px;
+    margin-right: -10px;
 }
 #homenew{
     background-image: url("../images/imgdoctor.jpg");
     background-size: 100%;
 }
 .searchboxnew{
-    padding:0px 10px 0px 50px;
-    background-color: #232f3e;
+    padding: 0px 10px 0px 50px;
+    background-color: #171c22;
     border-top-left-radius: 46px;
     border-bottom-right-radius: 46px;
-    margin:48px auto;
+    opacity: 0.9;
+    margin: 48px auto;
 
 }
 .searchboxnew input {

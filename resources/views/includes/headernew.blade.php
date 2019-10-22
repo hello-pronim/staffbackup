@@ -28,7 +28,7 @@
             </div>
             <div class="row">
 
-                <div class="headingcenter col-md-6 text-center">
+                <div class="headingcenter text-center">
                         <img src="images/newlogo.png"/>
                     <h2>We connect professionals<br> with the people who need them most</h2>
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-8">10 years professional clinical experience</div>

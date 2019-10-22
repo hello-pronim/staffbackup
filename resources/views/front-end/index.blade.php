@@ -41,7 +41,8 @@
             <div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>
         </div>
         <div class="row">
-        <div class="footer-menu col-md-10">
+            <div class="col-md-2"></div>
+        <div class="footer-menu col-md-8">
             <ul>
                 <li>Quick response</li>
                 <li>10 Years Experience</li>
