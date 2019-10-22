@@ -333,7 +333,7 @@ class User extends Authenticatable
                 $profile->department()->associate($department);
             }
 
-            if($file = $request['cvfile'])
+            if(isset($request['cvfile']) && $file = $request['cvfile'])
             {
                 $destinationPath = 'uploads/cvs';
                 $newfiename = time().$file->getClientOriginalName();
