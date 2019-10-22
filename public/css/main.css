@@ -29,7 +29,7 @@ Version: 1.0.0
 	padding: 0px;
 }
 body {
-	color: #767676;
+	color: #232f3e;
 	background: #fff;
 	overflow-x: hidden;
 	font:400 14px/23px 'Open Sans', Arial, Helvetica, sans-serif;
@@ -997,7 +997,7 @@ li.wt-rss a { background:#ff6600; }
 	display: inline-block;
 }
 .wt-navigation ul li a{
-	color: #767676;
+	color: #323232;
 	display: block;
 	position: relative;
 }

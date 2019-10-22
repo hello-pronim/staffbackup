@@ -375,28 +375,28 @@
                                 @endif
                             </div>
                             @if (!empty($awards))
-                                <div class="wt-widget wt-widgetarticlesholder wt-articlesuser">
-                                    <div class="wt-widgettitle">
-                                        <h2>{{{ trans('lang.awards_certifications') }}}</h2>
-                                    </div>
-                                    <div class="wt-widgetcontent wt-verticalscrollbar">
-                                        @foreach ($awards as $award)
-                                            <div class="wt-particlehold">
-                                                @if (!empty($award['award_hidden_image']))
-                                                    <figure>
-                                                        <img src="{{{ asset('uploads/users/'.$profile->user_id.'/awards/'.$award['award_hidden_image']) }}}" alt="{{ trans('lang.img') }}">
-                                                    </figure>
-                                                @endif
-                                                @if (!empty($award['award_title']))
-                                                    <div class="wt-particlecontent">
-                                                        <h3><a href="javascrip:void(0);">{{{ $award['award_title'] }}}</a></h3>
-                                                        <span><i class="lnr lnr-calendar"></i> {{{ $joining_date }}}</span>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
+                                {{--<div class="wt-widget wt-widgetarticlesholder wt-articlesuser">--}}
+                                    {{--<div class="wt-widgettitle">--}}
+                                        {{--<h2>{{{ trans('lang.awards_certifications') }}}</h2>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="wt-widgetcontent wt-verticalscrollbar">--}}
+                                        {{--@foreach ($awards as $award)--}}
+                                            {{--<div class="wt-particlehold">--}}
+                                                {{--@if (!empty($award['award_hidden_image']))--}}
+                                                    {{--<figure>--}}
+                                                        {{--<img src="{{{ asset('uploads/users/'.$profile->user_id.'/awards/'.$award['award_hidden_image']) }}}" alt="{{ trans('lang.img') }}">--}}
+                                                    {{--</figure>--}}
+                                                {{--@endif--}}
+                                                {{--@if (!empty($award['award_title']))--}}
+                                                    {{--<div class="wt-particlecontent">--}}
+                                                        {{--<h3><a href="javascrip:void(0);">{{{ $award['award_title'] }}}</a></h3>--}}
+                                                        {{--<span><i class="lnr lnr-calendar"></i> {{{ $joining_date }}}</span>--}}
+                                                    {{--</div>--}}
+                                                {{--@endif--}}
+                                            {{--</div>--}}
+                                        {{--@endforeach--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             @endif
                             {{--<div class="wt-proposalsr">--}}
                                 {{--<div class="tg-authorcodescan tg-authorcodescanvtwo">--}}

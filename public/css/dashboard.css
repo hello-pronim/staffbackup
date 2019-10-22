@@ -85,6 +85,7 @@ body{background: #f7f7f7;}
 	width: 270px;
 	float: left;;
 	font:400 13px/46px 'Poppins', Arial, Helvetica, sans-serif;
+	background-color: #fccf17;
 }
 .wt-navdashboard ul{
 	width: 100%;
@@ -101,7 +102,7 @@ body{background: #f7f7f7;}
 	list-style-type: none;
 }
 .wt-navdashboard > ul > li > a {
-	color: #767676;
+	color: #FFFFFF;
 	width: 100%;
 	float: left;
 	line-height: inherit;
@@ -2582,7 +2583,7 @@ li.collapsed .wt-msgbtns .wt-msgbtn i.lnr-chevron-up:before{content: "\e874";}
 }
 .wt-insightdetails .wt-title h3 {
     display: block;
-    color: #323232;
+    color: #232f3e;
     font-size: 18px;
     margin: 0 0 9px;
     font-weight: 400;

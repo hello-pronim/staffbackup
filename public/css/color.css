@@ -24,7 +24,7 @@ a:active,
 .active-category,
 .wt-freelancers-content .dc-title span strong
 
-{ color: #ff5851; }
+{ color: #fccf17; }
 /* Theme Background Color */
 .wt-btn:hover,
 .wt-dropdowarrow,
@@ -64,7 +64,7 @@ a:active,
 .wt-forgotpassword-holder .card .card-body form .form-group button[type=submit],
 .wt-featuredtagvtwo,
 .wt-reasonbtn
-{ background:#ff5851; }
+{ background:#fccf17; }
 /* Theme Border Color */
 input:focus,
 .select select:focus,
@@ -80,19 +80,23 @@ input:focus,
 .wt-pagination ul li.wt-active a,
 .wt-usernav > ul,
 .wt-pagination ul li span
-{ border-color: #ff5851; }
+{ border-color: #fccf17; }
 /* RGBA Background Color */
 .loader{
-	background: #ff5851;
-	background: -moz-linear-gradient(left, #ff5851 10%, rgba(255, 88, 81, 0) 42%);
-	background: -webkit-linear-gradient(left, #ff5851 10%, rgba(255, 88, 81, 0) 42%);
-	background: -o-linear-gradient(left, #ff5851 10%, rgba(255, 88, 81, 0) 42%);
-	background: -ms-linear-gradient(left, #ff5851 10%, rgba(255, 88, 81, 0) 42%);
-	background: linear-gradient(to right, #ff5851 10%, rgba(255, 88, 81, 0) 42%);
+	background: #fccf17;
+	background: -moz-linear-gradient(left, #fccf17 10%, rgba(255, 88, 81, 0) 42%);
+	background: -webkit-linear-gradient(left, #fccf17 10%, rgba(255, 88, 81, 0) 42%);
+	background: -o-linear-gradient(left, #fccf17 10%, rgba(255, 88, 81, 0) 42%);
+	background: -ms-linear-gradient(left, #fccf17 10%, rgba(255, 88, 81, 0) 42%);
+	background: linear-gradient(to right, #fccf17 10%, rgba(255, 88, 81, 0) 42%);
 }
 /* Secondary Theme Colors */
 .form-group-label label span,
 .form-group-label label span:hover,
 .wt-categoriesholder .wt-tablecategories tbody tr td .wt-actionbtn a.wt-deleteinfo,
-.wt-msgbtn{background: #00cc8d;}
+.wt-msgbtn{background: #232f3e;}
 .active-category-wrapper{background: #f7f7f7;}
+
+.wt-tabscontenttitle:before{
+	background-color:#232f3e !important;
+}
