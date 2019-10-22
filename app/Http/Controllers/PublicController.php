@@ -867,17 +867,25 @@ class PublicController extends Controller
      *
      * @return View
      */
-    public function checkProposalAuth()
+    public function checkProposalAuth(Request $request)
     {
         $json = array();
-        if (Auth::user() && Auth::user()->getRoleNames()->first() === 'freelancer') {
-            $json['auth'] = true;
-            return $json;
-        } else {
+        $job = Job::where('slug', $request->job)->first();
+
+        if (!Auth::user() || Auth::user()->getRoleNames()->first() !== 'freelancer') {
             $json['auth'] = false;
             $json['message'] = trans('lang.not_authorize');
             return $json;
         }
+
+        if (!ProposalController::checkDistance($job)) {
+            $json['auth'] = false;
+            $json['message'] = trans('lang.distance_error');
+            return $json;
+        }
+
+        $json['auth'] = true;
+        return $json;
     }
 
     /**

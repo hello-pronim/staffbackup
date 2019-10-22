@@ -86,7 +86,7 @@
                                             @endif
                                         </div>
                                     @endif
-                                    <div class="wt-btnarea"><a href="javascript:void(0);" @click.prevent="check_auth('{{{ url('job/proposal/'.$job->slug) }}}')" class="wt-btn">{{{ trans('lang.send_propsal') }}}</a></div>
+                                    <div class="wt-btnarea"><a href="javascript:void(0);" @click.prevent="check_auth('{{ $job->slug }}')" class="wt-btn">{{{ trans('lang.send_propsal') }}}</a></div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">

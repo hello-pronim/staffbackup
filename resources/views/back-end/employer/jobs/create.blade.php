@@ -126,26 +126,7 @@
                                                 {!! Form::select('locations', $locations, null, array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}
                                             </span>
                                         </div>
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'address', null, ['class' =>'form-control', 'placeholder' => trans('lang.your_address')] ) !!}
-                                        </div>
-                                        @if (!empty($longitude) && !empty($latitude))
-                                            <div class="form-group wt-formmap">
-                                                <div class="wt-locationmap">
-                                                    <custom-map :latitude="{{$latitude}}" :longitude="{{$longitude}}"></custom-map>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        {{--<div class="form-group form-group-half">--}}
-                                            {{--{!! Form::text( 'longitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_logitude')]) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                            {{--{!! Form::text( 'latitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_latitude')]) !!}--}}
-                                        {{--</div>--}}
-                                        <div class="form-group form-group-half">
-                                            {!! Form::select('max_distance', $max_distances, null, array('class' => 'form-control', 'placeholder' => trans('lang.select_max_distance'))) !!}
-                                        </div>
-
+                                        <location-selector></location-selector>
                                     </fieldset>
                                 </div>
                             </div>

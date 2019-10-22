@@ -16,7 +16,7 @@
 <script>
 const getTemplate = () => `
   <li>
-      <span><span data-dz-name></span></span> 
+      <span><span data-dz-name></span></span>
       <em>File size: <span data-dz-size></span>
           <a class="image_upload_anchor">
               <span class="lnr lnr-cross"></span>
@@ -24,7 +24,7 @@ const getTemplate = () => `
       </em>
   </li>`;
 import vueDropzone from "vue2-dropzone";
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
     props: ['temp_url', 'img_ref', 'type'],
  data () {
@@ -49,7 +49,7 @@ export default {
           init: function() {
               var count = 0;
               var myDropzone = this;
-              this.on("addedfile", function(file) { 
+              this.on("addedfile", function(file) {
                 var li_count = jQuery('.wt-attachmentsholder').find('.lara-attachment-files .form-group ul li').length;
                 count = li_count -1;
                 jQuery('#'+myDropzone.element.id).parents('.wt-attachmentsholder').find('.lara-attachment-files .input-preview ul.dropzone-previews').append('<input type="hidden" value="'+file.name+'" id="hidden-'+count+'" class="hidden-file" name="attachments['+[count]+']">');
@@ -79,9 +79,9 @@ export default {
         var media_id = this.$refs.success_ref.id;
         var input_hidden_id = jQuery('#'+media_id).parents('.wt-attachmentsholder').find('.lara-attachment-files .input-preview ul.dropzone-previews input[type=hidden]').attr('id');
         if (input_hidden_id) {
-          document.getElementById(input_hidden_id).value = '';   
+          document.getElementById(input_hidden_id).value = '';
         }
-      } 
+      }
     },
   },
   mounted: function () {

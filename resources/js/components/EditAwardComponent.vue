@@ -79,7 +79,7 @@ const getImageUploadTemplate = () => `
 </div>
 `;
 import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import DatePick from 'vue-date-pick';
 export default {
     props: ['dropzone_id', 'img_hidden_id', 'img_hidden_name', 'img_ref', 'main_accordion_id', 'inner_accordion_id', 'stored_award_title', 'stored_award_date', 'stored_award_img', 'award_title_name', 'award_date_name', 'previewer_class', 'remove_uploded_image_id', 'uploaded_image_remove_id', 'date_model'],

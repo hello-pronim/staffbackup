@@ -87,6 +87,7 @@ Vue.component('custom-map', require('./components/map.vue').default);
 Vue.component('dashboard-icon', require('./components/DashboardIconUploadComponent.vue').default);
 Vue.component('image-attachments', require('./components/UploadServiceAttachmentComponent.vue').default);
 Vue.component('freelancer-reviews', require('./components/FreelancerReviewsComponent.vue').default);
+Vue.component('location-selector', require('./components/LocationSelector.vue').default);
 
 jQuery(document).ready(function () {
     jQuery(document).on('click', '.wt-back', function (e) {
@@ -2339,7 +2340,7 @@ if (document.getElementById("settings")) {
                     } else {
                         self.$swal.close()
                     }
-                }) 
+                })
             },
             submitTemplateFilter: function () {
                 document.getElementById("template_filter_form").submit();
@@ -2938,17 +2939,16 @@ if (document.getElementById("jobs")) {
                         console.log(error);
                     });
             },
-            check_auth: function (url) {
-                var self = this;
-                axios.get(APP_URL + '/check-proposal-auth-user')
-                    .then(function (response) {
-                        if (response.data.auth == 1) {
-                            window.location.replace(url);
+            check_auth: function (job) {
+                axios.get(APP_URL + '/check-proposal-auth-user', { params: { job }})
+                    .then((response) => {
+                        if (response.data.auth) {
+                            window.location.pathname = `/job/proposal/${job}`;
                         } else {
-                            self.showError(response.data.message);
+                            this.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
 
                     });
             },

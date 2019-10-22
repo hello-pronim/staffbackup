@@ -11,6 +11,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Helpers\Distance;
 use Illuminate\Http\Request;
 use App\Proposal;
 use App\Job;
@@ -81,11 +82,15 @@ class ProposalController extends Controller
                 $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
                 $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
                 $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+
                 if (Auth::user() && !empty(Auth::user()->id)) {
                     $submitted_proposals_count = DB::table('proposals')
                         ->where('job_id', $job->id)
                         ->where('freelancer_id', Auth::user()->id)->count();
                 }
+
+                $isEligable = $this->checkDistance($job);
+
                 if (file_exists(resource_path('views/extend/front-end/jobs/proposal.blade.php'))) {
                     return View(
                         'extend.front-end.jobs.proposal',
@@ -100,7 +105,8 @@ class ProposalController extends Controller
                             'submitted_proposals',
                             'symbol',
                             'submitted_proposals_count',
-                            'show_breadcrumbs'
+                            'show_breadcrumbs',
+                            'isEligable'
                         )
                     );
                 } else {
@@ -117,7 +123,8 @@ class ProposalController extends Controller
                             'submitted_proposals',
                             'symbol',
                             'submitted_proposals_count',
-                            'show_breadcrumbs'
+                            'show_breadcrumbs',
+                            'isEligable'
                         )
                     );
                 }
@@ -176,11 +183,19 @@ class ProposalController extends Controller
                     $json['message'] = trans('lang.job_not_avail');
                     return $json;
                 }
+
                 if (intval($request['amount']) > $job->price) {
                     $json['type'] = 'error';
                     $json['message'] = trans('lang.proposal_exceed');
                     return $json;
                 }
+
+                if (!ProposalController::checkDistance($job)) {
+                    $json['type'] = 'error';
+                    $json['message'] = trans('lang.distance_error');
+                    return $json;
+                }
+
                 $package = DB::table('items')->where('subscriber', Auth::user()->id)->select('product_id')->first();
                 $proposals = $this->proposal::where('freelancer_id', Auth::user()->id)->count();
                 $settings = SiteManagement::getMetaValue('settings');
@@ -505,5 +520,25 @@ class ProposalController extends Controller
                 )
             );
         }
+    }
+
+    static public function checkDistance($job) {
+        if (!empty($job->maximum_distance)) {
+            if (!Auth::user()) {
+                return false;
+            } else {
+                $userLat = Auth::user()->profile->latitude;
+                $userLng = Auth::user()->profile->longitude;
+
+                $jobLat = $job->latitude;
+                $jobLng = $job->longitude;
+
+                $distanceInMiles = Distance::measure($userLat, $userLng, $jobLat, $jobLng, 'M');
+
+                if ($distanceInMiles > $job->maximum_distance) return false;
+            }
+        }
+
+        return true;
     }
 }

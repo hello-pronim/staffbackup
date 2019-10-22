@@ -1110,6 +1110,11 @@ return [
     'show_service_banner' => 'Service Banner',
     'show_emplyr_inn_sec' => 'Show Or Hide Employer Inner Section',
     'show_hide' => 'Show Or Hide',
+
+    // New strings
+    'distance_error' => 'Sorry, but you are outside of maximum distance range for this job',
+    'ph_maximum_distance' => 'Maximum distance to job in miles (leave empty if unlimited)',
+
     'employee_list' => [
         'just_me' => 'Its Just Me',
         '2_9' => '2 - 9 Employees',

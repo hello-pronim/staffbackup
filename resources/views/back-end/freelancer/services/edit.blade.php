@@ -97,27 +97,7 @@
                                 </div>
                                 <div class="wt-formtheme wt-userform">
                                     <fieldset>
-                                        {{--<div class="form-group form-group-half">--}}
-                                            {{--<span class="wt-select">--}}
-                                                {{--{!! Form::select('locations', $locations, e($service->location_id), array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}--}}
-                                            {{--</span>--}}
-                                        {{--</div>--}}
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'address', e($service->address), ['class' =>'form-control', 'placeholder' => trans('lang.your_address')] ) !!}
-                                        </div>
-                                        {{--@if (!empty($service->longitude) && !empty($service->latitude))--}}
-                                            {{--<div class="form-group wt-formmap">--}}
-                                                {{--<div class="wt-locationmap">--}}
-                                                    {{--<custom-map :latitude="{{$service->longitude}}" :longitude="{{$service->latitude}}"></custom-map>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--@endif--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                            {{--{!! Form::text( 'longitude', e($service->longitude), ['class' =>'form-control', 'placeholder' => trans('lang.enter_logitude')]) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                            {{--{!! Form::text( 'latitude', e($service->latitude), ['class' =>'form-control', 'placeholder' => trans('lang.enter_latitude')]) !!}--}}
-                                        {{--</div>--}}
+                                        <location-selector latitude="{{ $service->latitude }}" longitude="{{ $service->longitude }}" address="{{ $service->address }}"></location-selector>
                                     </fieldset>
                                 </div>
                             </div>
