@@ -36,29 +36,29 @@
             </div>
         </div>
     @endif
-    @if (!empty($categories) && $categories->count() > 0)
-        <div class="wt-categoriesslider-holder wt-haslayout {{$show_f_banner == 'false' ? 'la-categorty-top-mt' : ''}}">
-            <div class="wt-title">
-                <h2>{{ trans('lang.browse_job_cats') }}</h2>
-            </div>
-            <div id="wt-categoriesslider" class="wt-categoriesslider owl-carousel">
-                @foreach ($categories as $cat)
-                    @php
-                        $category = \App\Category::find($cat->id);
-                        $active = (!empty($_GET['category']) && in_array($cat->id, $_GET['category'])) ? 'active-category' : '';
-                        $active_wrapper = ( !empty($_GET['category']) && in_array($cat->id, $_GET['category'])) ? 'active-category-wrapper' : '';
-                    @endphp
-                    <div class="wt-categoryslidercontent item {{$active_wrapper}}">
-                        <figure><img src="{{{ asset(Helper::getCategoryImage($cat->image)) }}}" alt="{{{ $cat->title }}}"></figure>
-                        <div class="wt-cattitle">
-                        <h3><a href="{{{url('search-results?type=job&category%5B%5D='.$cat->slug)}}}" class="{{$active}}">{{{ $cat->title }}}</a></h3>
-                            <span>Items: {{{$category->jobs->count()}}}</span>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @endif
+    {{--@if (!empty($categories) && $categories->count() > 0)--}}
+        {{--<div class="wt-categoriesslider-holder wt-haslayout {{$show_f_banner == 'false' ? 'la-categorty-top-mt' : ''}}">--}}
+            {{--<div class="wt-title">--}}
+                {{--<h2>{{ trans('lang.browse_job_cats') }}</h2>--}}
+            {{--</div>--}}
+            {{--<div id="wt-categoriesslider" class="wt-categoriesslider owl-carousel">--}}
+                {{--@foreach ($categories as $cat)--}}
+                    {{--@php--}}
+                        {{--$category = \App\Category::find($cat->id);--}}
+                        {{--$active = (!empty($_GET['category']) && in_array($cat->id, $_GET['category'])) ? 'active-category' : '';--}}
+                        {{--$active_wrapper = ( !empty($_GET['category']) && in_array($cat->id, $_GET['category'])) ? 'active-category-wrapper' : '';--}}
+                    {{--@endphp--}}
+                    {{--<div class="wt-categoryslidercontent item {{$active_wrapper}}">--}}
+                        {{--<figure><img src="{{{ asset(Helper::getCategoryImage($cat->image)) }}}" alt="{{{ $cat->title }}}"></figure>--}}
+                        {{--<div class="wt-cattitle">--}}
+                        {{--<h3><a href="{{{url('search-results?type=job&category%5B%5D='.$cat->slug)}}}" class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
+                            {{--<span>Items: {{{$category->jobs->count()}}}</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--@endif--}}
     <div class="wt-haslayout wt-main-section" id="user_profile">
         @if (Session::has('payment_message'))
             @php $response = Session::get('payment_message') @endphp
@@ -144,9 +144,9 @@
                                                                 {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '$' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
                                                             </li>
                                                         @endif
-                                                        @if (!empty($freelancer->location))
-                                                            <li><span><img src="{{{ asset($flag)}}}" alt="Flag"> {{{ !empty($freelancer->location->title) ? $freelancer->location->title : '' }}}</span></li>
-                                                        @endif
+                                                        {{--@if (!empty($freelancer->location))--}}
+                                                            {{--<li><span><img src="{{{ asset($flag)}}}" alt="Flag"> {{{ !empty($freelancer->location->title) ? $freelancer->location->title : '' }}}</span></li>--}}
+                                                        {{--@endif--}}
                                                         @if (in_array($freelancer->id, $save_freelancer))
                                                             <li class="wt-btndisbaled">
                                                                 <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
@@ -155,12 +155,12 @@
                                                                 </a>
                                                             </li>
                                                         @else
-                                                            <li v-cloak>
-                                                                <a href="javascrip:void(0);" class="wt-clicklike" id="freelancer-{{$freelancer->id}}" @click.prevent="add_wishlist('freelancer-{{$freelancer->id}}', {{$freelancer->id}}, 'saved_freelancer', '{{trans("lang.saved")}}')">
-                                                                    <i class="fa fa-heart"></i>
-                                                                    <span class="save_text">{{ trans('lang.click_to_save') }}</span>
-                                                                </a>
-                                                            </li>
+                                                            {{--<li v-cloak>--}}
+                                                                {{--<a href="javascrip:void(0);" class="wt-clicklike" id="freelancer-{{$freelancer->id}}" @click.prevent="add_wishlist('freelancer-{{$freelancer->id}}', {{$freelancer->id}}, 'saved_freelancer', '{{trans("lang.saved")}}')">--}}
+                                                                    {{--<i class="fa fa-heart"></i>--}}
+                                                                    {{--<span class="save_text">{{ trans('lang.click_to_save') }}</span>--}}
+                                                                {{--</a>--}}
+                                                            {{--</li>--}}
                                                         @endif
                                                     </ul>
                                                 </div>

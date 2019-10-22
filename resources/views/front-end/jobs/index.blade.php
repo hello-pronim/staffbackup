@@ -103,12 +103,12 @@
                                                         @if (!empty($user->profile->saved_jobs) && in_array($job->id, unserialize($user->profile->saved_jobs)))
                                                             <li style=pointer-events:none;><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> {{trans("lang.saved")}}</a></li>
                                                         @else
-                                                            <li>
-                                                                <a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>
-                                                                    <i class="fa fa-heart"></i>
-                                                                    <span class="save_text">{{ trans('lang.click_to_save') }}</span>
-                                                                </a>
-                                                            </li>
+                                                            {{--<li>--}}
+                                                                {{--<a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>--}}
+                                                                    {{--<i class="fa fa-heart"></i>--}}
+                                                                    {{--<span class="save_text">{{ trans('lang.click_to_save') }}</span>--}}
+                                                                {{--</a>--}}
+                                                            {{--</li>--}}
                                                         @endif
                                                         <li class="wt-btnarea"><a href="{{url('job/'.$job->slug)}}" class="wt-btn">{{{ trans('lang.view_job') }}}</a></li>
                                                     </ul>

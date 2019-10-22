@@ -229,18 +229,18 @@
                                 </li>--}}
                             @endif
                         @elseif ($role === 'freelancer')
-                            <li class="menu-item-has-children">
-                                <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                <a href="javascript:void(0)">
-                                    <i class="ti-briefcase"></i>
-                                    <span>{{ trans('lang.all_projects') }}</span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li><hr><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>
-                                    <li><hr><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>
-                                    <li><hr><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>
-                                </ul>
-                            </li>
+                            {{--<li class="menu-item-has-children">--}}
+                                {{--<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>--}}
+                                {{--<a href="javascript:void(0)">--}}
+                                    {{--<i class="ti-briefcase"></i>--}}
+                                    {{--<span>{{ trans('lang.all_projects') }}</span>--}}
+                                {{--</a>--}}
+                                {{--<ul class="sub-menu">--}}
+                                    {{--<li><hr><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>--}}
+                                    {{--<li><hr><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>--}}
+                                    {{--<li><hr><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
                             @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
                                 <li class="menu-item-has-children">
                                     <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
@@ -256,12 +256,12 @@
                                     </ul>
                                 </li>
                             @endif
-                            <li>
-                                <a href="{{{ route('showFreelancerProposals') }}}">
-                                    <i class="ti-bookmark-alt"></i>
-                                    <span> {{ trans('lang.proposals') }}</span>
-                                </a>
-                            </li>
+                            {{--<li>--}}
+                                {{--<a href="{{{ route('showFreelancerProposals') }}}">--}}
+                                    {{--<i class="ti-bookmark-alt"></i>--}}
+                                    {{--<span> {{ trans('lang.proposals') }}</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
                            {{-- <li>
                                 <a href="{{{ route('FreelancerPayoutsSettings') }}}">
                                     <i class="ti-money"></i>
@@ -287,12 +287,12 @@
                                 </li>--}}
                             @endif
                         @endif
-                        <li>
-                            <a href="{{{ url($role.'/saved-items') }}}">
-                                <i class="ti-heart"></i>
-                                <span>{{ trans('lang.saved_items') }}</span>
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{{ url($role.'/saved-items') }}}">--}}
+                                {{--<i class="ti-heart"></i>--}}
+                                {{--<span>{{ trans('lang.saved_items') }}</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     @endif
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">

@@ -33,35 +33,8 @@
                                 </div>
                             </div>
                         @endif
-                        @if (!empty($enable_package) && $enable_package === 'true')
-                            @if (!empty($package))
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                                    <div class="wt-insightsitem wt-dashboardbox user_current_package">
-                                        <countdown
-                                        date="{{$expiry_date}}"
-                                        :image_url="'{{{ Helper::getDashExpiryImages('uploads/settings/icon',$latest_package_expiry_icon, 'img-21.png') }}}'"
-                                        :title="'{{ trans('lang.check_pkg_expiry') }}'"
-                                        :package_url="'{{url('dashboard/packages/employer')}}'"
-                                        :current_package="'{{$package->title}}'"
-                                        >
-                                        </countdown>
-                                    </div>
-                                </div>
-                            @endif
-                        @endif
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                            <div class="wt-insightsitem wt-dashboardbox">
-                                <figure class="wt-userlistingimg">
-                                    {{ Helper::getImages('uploads/settings/icon',$latest_saved_item_icon, 'lnr lnr-heart') }}
-                                </figure>
-                                <div class="wt-insightdetails">
-                                    <div class="wt-title">
-                                        <h3>{{ trans('lang.view_saved_items') }}</h3>
-                                        <a href="{{ url('employer/saved-items') }}">{{ trans('lang.click_view') }}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
                         @if ($access_type == 'jobs' || $access_type== 'both')
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
                                 <div class="wt-insightsitem wt-dashboardbox">

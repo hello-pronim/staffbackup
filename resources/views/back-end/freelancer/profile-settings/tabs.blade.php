@@ -6,8 +6,8 @@
         <li class="nav-item">
             <a class="{{{ \Request::route()->getName()==='experienceEducation'? 'active': '' }}}" href="{{{ route('experienceEducation') }}}">{{{ trans('lang.experience_education') }}}</a>
         </li>
-        <li class="nav-item">
-            <a class="{{{ \Request::route()->getName()==='projectAwards'? 'active': '' }}}" href="{{{ route('projectAwards') }}}">{{{ trans('lang.project_awards') }}}</a>
-        </li>
+        {{--<li class="nav-item">--}}
+            {{--<a class="{{{ \Request::route()->getName()==='projectAwards'? 'active': '' }}}" href="{{{ route('projectAwards') }}}">{{{ trans('lang.project_awards') }}}</a>--}}
+        {{--</li>--}}
     </ul>
 </div>

@@ -59,30 +59,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group form-group-half wt-formwithlabel">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>{{ trans('lang.langs') }}</h2>
-                                </div>
-                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                    <div class="form-group">
-                                        <span class="wt-select">
-                                            {!! Form::select('languages[]', $languages, null, array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group form-group-half wt-formwithlabel">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>{{ trans('lang.english_level') }}</h2>
-                                </div>
-                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                    <div class="form-group">
-                                        <span class="wt-select">
-                                            {!! Form::select('english_level', $english_levels, null, array('class' => '', 'placeholder' => trans('lang.select_english_level'), 'v-model'=>'english_level')) !!}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            {{--<div class="form-group form-group-half wt-formwithlabel">--}}
+                                {{--<div class="wt-tabscontenttitle">--}}
+                                    {{--<h2>{{ trans('lang.langs') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-divtheme wt-userform wt-userformvtwo">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<span class="wt-select">--}}
+                                            {{--{!! Form::select('languages[]', $languages, null, array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}--}}
+                                        {{--</span>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group form-group-half wt-formwithlabel">--}}
+                                {{--<div class="wt-tabscontenttitle">--}}
+                                    {{--<h2>{{ trans('lang.english_level') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-divtheme wt-userform wt-userformvtwo">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<span class="wt-select">--}}
+                                            {{--{!! Form::select('english_level', $english_levels, null, array('class' => '', 'placeholder' => trans('lang.select_english_level'), 'v-model'=>'english_level')) !!}--}}
+                                        {{--</span>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="wt-jobdetails wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
                                     <h2>{{ trans('lang.service_desc') }}</h2>
@@ -93,31 +93,31 @@
                             </div>
                             <div class="wt-joblocation wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
-                                    <h2>{{ trans('lang.your_loc') }}</h2>
+                                    <h2>{{ trans('lang.your_address') }}</h2>
                                 </div>
                                 <div class="wt-formtheme wt-userform">
                                     <fieldset>
-                                        <div class="form-group form-group-half">
-                                            <span class="wt-select">
-                                                {!! Form::select('locations', $locations, null, array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}
-                                            </span>
-                                        </div>
+                                        {{--<div class="form-group form-group-half">--}}
+                                            {{--<span class="wt-select">--}}
+                                                {{--{!! Form::select('locations', $locations, null, array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
                                         <div class="form-group form-group-half">
                                             {!! Form::text( 'address', null, ['class' =>'form-control', 'placeholder' => trans('lang.your_address')] ) !!}
                                         </div>
-                                        @if (!empty($longitude) && !empty($latitude))
-                                            <div class="form-group wt-formmap">
-                                                <div class="wt-locationmap">
-                                                    <custom-map :latitude="{{$latitude}}" :longitude="{{$longitude}}"></custom-map>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'longitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_logitude')]) !!}
-                                        </div>
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'latitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_latitude')]) !!}
-                                        </div>
+                                        {{--@if (!empty($longitude) && !empty($latitude))--}}
+                                            {{--<div class="form-group wt-formmap">--}}
+                                                {{--<div class="wt-locationmap">--}}
+                                                    {{--<custom-map :latitude="{{$latitude}}" :longitude="{{$longitude}}"></custom-map>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--@endif--}}
+                                        {{--<div class="form-group form-group-half">--}}
+                                            {{--{!! Form::text( 'longitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_logitude')]) !!}--}}
+                                        {{--</div>--}}
+                                        {{--<div class="form-group form-group-half">--}}
+                                            {{--{!! Form::text( 'latitude', null, ['class' =>'form-control', 'placeholder' => trans('lang.enter_latitude')]) !!}--}}
+                                        {{--</div>--}}
                                     </fieldset>
                                 </div>
                             </div>

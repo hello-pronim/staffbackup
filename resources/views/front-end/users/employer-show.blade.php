@@ -255,12 +255,12 @@
                                                             <i class="fa fa-heart"></i> {{trans("lang.saved")}}</a>
                                                         </li>
                                                     @else
-                                                        <li>
-                                                            <a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>
-                                                                <i class="fa fa-heart"></i>
-                                                                <span class="save_text">Click to Save</span>
-                                                            </a>
-                                                        </li>
+                                                        {{--<li>--}}
+                                                            {{--<a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>--}}
+                                                                {{--<i class="fa fa-heart"></i>--}}
+                                                                {{--<span class="save_text">Click to Save</span>--}}
+                                                            {{--</a>--}}
+                                                        {{--</li>--}}
                                                     @endif
                                                     <li class="wt-btnarea"><a href="{{url('job/'.$job->slug)}}" class="wt-btn">{{{ trans('lang.view_job') }}}</a></li>
                                                 </ul>

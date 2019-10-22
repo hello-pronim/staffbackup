@@ -41,38 +41,38 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="wt-location wt-tabsinfo">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>{{{ trans('lang.select_lang') }}}</h2>
-                                </div>
-                                <div class="wt-settingscontent">
-                                    <div class="wt-description">
-                                        <p>{{{ trans('lang.lang_note') }}}</p>
-                                    </div>
-                                    <div class="wt-formtheme wt-userform">
-                                        <div class="form-group">
-                                            {!! Form::select('languages[]', $languages, $user_languages ,array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="wt-location wt-tabsinfo">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>{{{ trans('lang.english_level') }}}</h2>
-                                </div>
-                                <div class="wt-settingscontent">
-                                    <div class="wt-description">
-                                        <p>{{{ trans('lang.english_level_note') }}}</p>
-                                    </div>
-                                    <div class="wt-formtheme wt-userform">
-                                        <div class="form-group">
-                                            <span class="wt-select">
-                                                {!! Form::select('english_level', $english_levels, $user_level ,array()) !!}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{--<div class="wt-location wt-tabsinfo">--}}
+                                {{--<div class="wt-tabscontenttitle">--}}
+                                    {{--<h2>{{{ trans('lang.select_lang') }}}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-settingscontent">--}}
+                                    {{--<div class="wt-description">--}}
+                                        {{--<p>{{{ trans('lang.lang_note') }}}</p>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="wt-formtheme wt-userform">--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--{!! Form::select('languages[]', $languages, $user_languages ,array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="wt-location wt-tabsinfo">--}}
+                                {{--<div class="wt-tabscontenttitle">--}}
+                                    {{--<h2>{{{ trans('lang.english_level') }}}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-settingscontent">--}}
+                                    {{--<div class="wt-description">--}}
+                                        {{--<p>{{{ trans('lang.english_level_note') }}}</p>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="wt-formtheme wt-userform">--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<span class="wt-select">--}}
+                                                {{--{!! Form::select('english_level', $english_levels, $user_level ,array()) !!}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group form-group-half wt-btnarea">
                                 {!! Form::submit(trans('lang.btn_save'), ['class' => 'wt-btn']) !!}
                             </div>
