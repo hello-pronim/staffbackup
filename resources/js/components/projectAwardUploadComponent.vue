@@ -8,14 +8,14 @@
                 <span>{{ trans('lang.drop_files') }}</span>
             </div>
         </div>
-    </vue-dropzone> 
+    </vue-dropzone>
 </template>
 
 <script>
 import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
-    props: ['option', 'id', 'img_ref'],    
+    props: ['option', 'id', 'img_ref'],
     components: {
         vueDropzone: vue2Dropzone
     },

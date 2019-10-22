@@ -9,7 +9,7 @@
                     <span>{{ trans('lang.drop_files') }}</span>
                 </div>
             </div>
-        </vue-dropzone> 
+        </vue-dropzone>
         <div :class="this.id"></div>
     </div>
 </template>
@@ -30,9 +30,9 @@ const getImageUploadTemplate = () => `
     </div>
 `;
 import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
-    props: ['id', 'img_ref', 'url', 'name'],    
+    props: ['id', 'img_ref', 'url', 'name'],
     components: {
         vueDropzone: vue2Dropzone
     },
@@ -58,14 +58,14 @@ export default {
                 },
                 init: function() {
                     var myDropzone = this;
-                    this.on("addedfile", function(file) { 
+                    this.on("addedfile", function(file) {
                         var input_hidden_id = jQuery('#'+myDropzone.element.id).parents('.wt-settingscontent').find('.wt-userform input[type=hidden]').attr('id');
                         console.log(input_hidden_id);
-                        document.getElementById(input_hidden_id).value = file.name;     
+                        document.getElementById(input_hidden_id).value = file.name;
                     });
-                    this.on("removedfile", function(file) { 
+                    this.on("removedfile", function(file) {
                         var input_hidden_id = jQuery('#'+myDropzone.element.id).parents('.wt-settingscontent').find('.wt-userform input[type=hidden]').attr('id');
-                        document.getElementById(input_hidden_id).value = ''; 
+                        document.getElementById(input_hidden_id).value = '';
                     });
                 }
             },
@@ -92,8 +92,8 @@ export default {
                 this.showError(message);
                 this.$refs[this.img_ref].removeFile(file);
                 var input_hidden_id = jQuery('#'+this.$refs[this.img_ref].id).parents('.wt-settingscontent').find('.wt-userform input[type=hidden]').attr('id');
-                document.getElementById(input_hidden_id).value = '';     
-            } 
+                document.getElementById(input_hidden_id).value = '';
+            }
         }
     },
 }

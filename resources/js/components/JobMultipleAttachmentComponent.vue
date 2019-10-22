@@ -16,7 +16,7 @@
 <script>
 const getTemplate = () => `
   <li>
-      <span><span data-dz-name></span></span> 
+      <span><span data-dz-name></span></span>
       <em>File size: <span data-dz-size></span>
           <a class="dz-remove" href="javascript:;" data-dz-remove="">
               <span class="lnr lnr-cross"></span>
@@ -25,7 +25,7 @@ const getTemplate = () => `
   </li>
 `;
 import vueDropzone from "vue2-dropzone";
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
     props: ['option','int', 'temp_url'],
  data () {
@@ -42,14 +42,14 @@ export default {
           init: function() {
               var count = 0;
               var myDropzone = this;
-              this.on("addedfile", function(file) { 
+              this.on("addedfile", function(file) {
                 var list_count = jQuery('#'+myDropzone.element.id).parents('.wt-jobskills').find('.form-group ul.wt-attachfile li').length;
                 count = list_count + 1;
                 jQuery('#'+myDropzone.element.id).parents('.wt-jobskills').find('.dropzone-previews').append('<input type="hidden" value="'+file.name+'" class="" name="attachments['+[count]+']">');
                 count++
               });
-              this.on("removedfile", function(file) { 
-                  
+              this.on("removedfile", function(file) {
+
               });
           }
       },
