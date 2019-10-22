@@ -6,7 +6,11 @@
 @font-face {
     font-family: AvertaBold;
     font-weight: 900;
-    src: url("webfonts/AvertaDemoPE-ExtraboldItalic.otf") format("truetype");
+    src: url("webfonts/FontsFree-Net-AvertaDemoPE-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: AvertaExtraBold;
+    src: url("webfonts/AvertaDemoPE-ExtraBold.otf") format("opentype");
 }
 
 @font-face {
@@ -73,7 +77,7 @@ body{
     font-size: 41px;
     line-height: 52px;
     text-transform: none;
-    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaExtraBold, 'Segoe UI', Tahoma, sans-serif;;
     font-weight: bolder;
     margin-bottom: -10px;
 
