@@ -1140,7 +1140,15 @@ class Helper extends Model
     public static function getProfileImageSmall($user_id)
     {
         $profile_image = User::find($user_id)->profile->avater;
-        return '/uploads/users/' . $user_id . '/medium-' . $profile_image;
+        if(!empty($profile_image))
+        {
+            return '/uploads/users/' . $user_id . '/medium-' . $profile_image;
+
+        }else{
+            return '/images/user.jpg';
+
+        }
+
     }
 
     /**
