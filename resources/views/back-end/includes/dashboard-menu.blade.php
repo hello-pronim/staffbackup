@@ -23,7 +23,7 @@
                     <img src="{{{ asset(Helper::getUserProfileBanner($user->id, 'small')) }}}" alt="{{{ trans('lang.profile_banner') }}}">
                 </figure>
                 <div class="wt-companysinfo">
-                    <figure><img src="{{{ asset(Helper::getProfileImage($user->id)) }}}" alt="{{{ trans('lang.profile_photo') }}}"></figure>
+                    <figure><img src="{{{ asset(Helper::getProfileImageSmall($user->id)) }}}" alt="{{{ trans('lang.profile_photo') }}}"></figure>
                     <div class="wt-title">
                         <h2>
                             <a href="{{{ $role != 'admin' ? url($role.'/dashboard') : 'javascript:void()' }}}">
