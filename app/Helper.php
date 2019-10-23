@@ -1180,7 +1180,14 @@ class Helper extends Model
     public static function getUserProfileBanner($user_id, $size = '')
     {
         $user = User::getUserRoleType($user_id);
-        $profile_banner = User::find($user_id)->profile->banner;
+        $profile = User::find($user_id)->profile;
+        if(isset($profile->banner))
+        {
+            $profile_banner = User::find($user_id)->profile->banner;
+        }
+        else{
+            $profile_banner = '';
+        }
         if (!empty($profile_banner)) {
             if (!empty($size)) {
                 return '/uploads/users/' . $user_id . '/' . $size . '-' . $profile_banner;
