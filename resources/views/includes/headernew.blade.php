@@ -6,6 +6,13 @@
         $logo = !empty($setting[0]['logo']) ? Helper::getHeaderLogo($setting[0]['logo']) : '/images/logo.png';
         $inner_header = !empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->uri() != '/' ? 'wt-headervtwo' : '';
         $type = Helper::getAccessType();
+        if(Auth::user())
+        {
+            $user_role_type = \App\User::getUserRoleType(Auth::user()->id);
+            $user_role = $user_role_type->role_type;
+        }
+
+
     @endphp
 @endif
 <header id="wt-header" class="wt-header wt-haslayout {{$inner_header}}">
@@ -17,7 +24,7 @@
                         <li><a href="{{url('page/how-it-works')}}">About us</a></li>
                         <li><a href="">Search</a></li>
                         <li><a href="">Users</a></li>
-                        <li><a href="{{url('register')}}">Join us</a></li>
+                        <li><a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "Join us"}}</a></li>
                         <li><a href="">Contact</a></li>
                     </ul>
 
