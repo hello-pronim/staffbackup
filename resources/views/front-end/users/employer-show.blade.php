@@ -48,63 +48,63 @@
                                         <h2>{{{ $user_name }}}</h2>
                                     </div>
                                 </div>
-                                <div class="tg-authorcodescan">
-                                    <figure class="tg-qrcodeimg">
-                                        {!! QrCode::size(100)->generate(Request::url('profile/'.$user->slug)); !!}
-                                    </figure>
-                                    <div class="tg-qrcodedetail">
-                                        <span class="lnr lnr-laptop-phone"></span>
-                                        <div class="tg-qrcodefeat">
-                                            <h3>{{ trans('lang.scan_with_smartphone') }}
-                                                <span>{{ trans('lang.smartphone') }} </span>
-                                                {{ trans('lang.get_handy') }}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if (in_array($user->id, $save_employer))
-                                    <div class="wt-clicksavearea">
-                                        <a href="javascript:void(0);" class="wt-clicksavebtn wt-btndisbaled" >
-                                            <i class="fa fa-heart"></i>
-                                            {{ trans('lang.following') }}
-                                        </a>
-                                    </div>
-                                @else
-                                    <div class="wt-clicksavearea">
-                                        <a href="javascript:void(0);" id="profile-{{$user->id}}" class="wt-clicksavebtn" @click.prevent="add_wishlist('profile-{{$user->id}}', {{ $user->id }}, 'saved_employers', 'Following')" v-cloak>
-                                            <i></i>
-                                            {{ trans('lang.click_follow') }}
-                                        </a>
-                                    </div>
-                                @endif
+                                {{--<div class="tg-authorcodescan">--}}
+                                    {{--<figure class="tg-qrcodeimg">--}}
+                                        {{--{!! QrCode::size(100)->generate(Request::url('profile/'.$user->slug)); !!}--}}
+                                    {{--</figure>--}}
+                                    {{--<div class="tg-qrcodedetail">--}}
+                                        {{--<span class="lnr lnr-laptop-phone"></span>--}}
+                                        {{--<div class="tg-qrcodefeat">--}}
+                                            {{--<h3>{{ trans('lang.scan_with_smartphone') }}--}}
+                                                {{--<span>{{ trans('lang.smartphone') }} </span>--}}
+                                                {{--{{ trans('lang.get_handy') }}--}}
+                                            {{--</h3>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--@if (in_array($user->id, $save_employer))--}}
+                                    {{--<div class="wt-clicksavearea">--}}
+                                        {{--<a href="javascript:void(0);" class="wt-clicksavebtn wt-btndisbaled" >--}}
+                                            {{--<i class="fa fa-heart"></i>--}}
+                                            {{--{{ trans('lang.following') }}--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
+                                {{--@else--}}
+                                    {{--<div class="wt-clicksavearea">--}}
+                                        {{--<a href="javascript:void(0);" id="profile-{{$user->id}}" class="wt-clicksavebtn" @click.prevent="add_wishlist('profile-{{$user->id}}', {{ $user->id }}, 'saved_employers', 'Following')" v-cloak>--}}
+                                            {{--<i></i>--}}
+                                            {{--{{ trans('lang.click_follow') }}--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
                             </div>
-                            <div class="wt-widget">
-                                <div class="wt-widgettitle">
-                                    <h2>{{ trans('lang.company_followers') }}</h2>
-                                </div>
-                                <div class="wt-widgetcontent wt-comfollowers wt-verticalscrollbar">
-                                    @if ($followers->count() > 0)
-                                        <ul>
-                                            @foreach ($followers as $follower)
-                                                @php
-                                                    $profile = \App\Profile::all()->where('user_id', $follower->follower)->first();
-                                                    $role_id = Helper::getRoleByUserID($follower->follower);
-                                                @endphp
-                                                @if (Helper::getRoleName($role_id) !== 'admin' && $follower->follower <> $user->id)
-                                                    <li>
-                                                        <a href="{{{url('profile/'.$profile->user->slug)}}}">
-                                                            <span><img src="{{{asset(Helper::getProfileImage($follower->follower))}}}" alt="Follower"></span>
-                                                            <span>{{{Helper::getUserName($follower->follower)}}}</span>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        <p class="la-no-follower">{{ trans('lang.no_followers') }}</p>
-                                    @endif
-                                </div>
-                            </div>
+                            {{--<div class="wt-widget">--}}
+                                {{--<div class="wt-widgettitle">--}}
+                                    {{--<h2>{{ trans('lang.company_followers') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-widgetcontent wt-comfollowers wt-verticalscrollbar">--}}
+                                    {{--@if ($followers->count() > 0)--}}
+                                        {{--<ul>--}}
+                                            {{--@foreach ($followers as $follower)--}}
+                                                {{--@php--}}
+                                                    {{--$profile = \App\Profile::all()->where('user_id', $follower->follower)->first();--}}
+                                                    {{--$role_id = Helper::getRoleByUserID($follower->follower);--}}
+                                                {{--@endphp--}}
+                                                {{--@if (Helper::getRoleName($role_id) !== 'admin' && $follower->follower <> $user->id)--}}
+                                                    {{--<li>--}}
+                                                        {{--<a href="{{{url('profile/'.$profile->user->slug)}}}">--}}
+                                                            {{--<span><img src="{{{asset(Helper::getProfileImage($follower->follower))}}}" alt="Follower"></span>--}}
+                                                            {{--<span>{{{Helper::getUserName($follower->follower)}}}</span>--}}
+                                                        {{--</a>--}}
+                                                    {{--</li>--}}
+                                                {{--@endif--}}
+                                            {{--@endforeach--}}
+                                        {{--</ul>--}}
+                                    {{--@else--}}
+                                        {{--<p class="la-no-follower">{{ trans('lang.no_followers') }}</p>--}}
+                                    {{--@endif--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             @if ($user->emp_contact != '' ||
                                 $user->emp_telno != '' ||
                                 $user->emp_website != '' ||
@@ -148,32 +148,32 @@
                                 </div>
                             </div>
                             @endif
-                            <div class="wt-widget wt-sharejob">
-                                <div class="wt-widgettitle">
-                                    <h2>{{ trans('lang.share_company') }}</h2>
-                                </div>
-                                <div class="wt-widgetcontent">
-                                    <ul class="wt-socialiconssimple">
-                                        <li class="wt-facebook">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fa fa-facebook-f"></i>{{ trans('lang.share_fb') }}</a>
-                                        </li>
-                                        <li class="wt-twitter">
-                                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fab fa-twitter"></i>{{ trans('lang.share_twitter') }}</a>
-                                        </li>
-                                        <li class="wt-pinterest">
-                                            <a href="//pinterest.com/pin/create/button/?url={{ urlencode(Request::fullUrl()) }}"
-                                            onclick="window.open(this.href, \'post-share\',\'left=50,top=50,width=600,height=350,toolbar=0\'); return false;">
-                                            <i class="fa fab fa-pinterest-p"></i>{{ trans('lang.share_pinterest') }}</a>
-                                        </li>
-                                        <li class="wt-googleplus">
-                                            <a href="https://plus.google.com/share?url={{ urlencode(Request::fullUrl()) }}" class="social-share">
-                                            <i class="fa fab fa-google-plus-g"></i>{{ trans('lang.share_google') }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            {{--<div class="wt-widget wt-sharejob">--}}
+                                {{--<div class="wt-widgettitle">--}}
+                                    {{--<h2>{{ trans('lang.share_company') }}</h2>--}}
+                                {{--</div>--}}
+                                {{--<div class="wt-widgetcontent">--}}
+                                    {{--<ul class="wt-socialiconssimple">--}}
+                                        {{--<li class="wt-facebook">--}}
+                                            {{--<a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fa fa-facebook-f"></i>{{ trans('lang.share_fb') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-twitter">--}}
+                                            {{--<a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fab fa-twitter"></i>{{ trans('lang.share_twitter') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-pinterest">--}}
+                                            {{--<a href="//pinterest.com/pin/create/button/?url={{ urlencode(Request::fullUrl()) }}"--}}
+                                            {{--onclick="window.open(this.href, \'post-share\',\'left=50,top=50,width=600,height=350,toolbar=0\'); return false;">--}}
+                                            {{--<i class="fa fab fa-pinterest-p"></i>{{ trans('lang.share_pinterest') }}</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li class="wt-googleplus">--}}
+                                            {{--<a href="https://plus.google.com/share?url={{ urlencode(Request::fullUrl()) }}" class="social-share">--}}
+                                            {{--<i class="fa fab fa-google-plus-g"></i>{{ trans('lang.share_google') }}</a>--}}
+                                        {{--</li>--}}
+                                    {{--</ul>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="wt-widget wt-reportjob">
                                 <div class="wt-widgettitle">
                                     <h2>{{ trans('lang.report_employer') }}</h2>

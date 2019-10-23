@@ -1753,6 +1753,7 @@ class Helper extends Model
      */
     public static function getGoogleMapApiKey()
     {
+        //return 'AIzaSyDMBut5qBN1gmIErz64zlVKCYI1WQPZ9GU';
         $settings =  SiteManagement::getMetaValue('settings');
         if (!empty($settings) && !empty($settings[0]['gmap_api_key'])) {
             return $settings[0]['gmap_api_key'];
