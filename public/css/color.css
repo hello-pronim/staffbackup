@@ -79,7 +79,7 @@ input:focus,
 .wt-clicksavebtn,
 .wt-pagination ul li.wt-active a,
 .wt-usernav > ul,
-.wt-pagination ul li span
+.wt-pagination ul li span, .wt-navigationarea
 { border-color: #fccf17; }
 /* RGBA Background Color */
 .loader{
