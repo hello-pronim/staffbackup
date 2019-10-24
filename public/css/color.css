@@ -63,7 +63,7 @@ a:active,
 .la-section-settings .wt-location h6:after,
 .wt-forgotpassword-holder .card .card-body form .form-group button[type=submit],
 .wt-featuredtagvtwo,
-.wt-reasonbtn
+.wt-reasonbtn,.wt-navigationarea
 { background:#fccf17; }
 /* Theme Border Color */
 input:focus,
@@ -79,7 +79,7 @@ input:focus,
 .wt-clicksavebtn,
 .wt-pagination ul li.wt-active a,
 .wt-usernav > ul,
-.wt-pagination ul li span, .wt-navigationarea
+.wt-pagination ul li span
 { border-color: #fccf17; }
 /* RGBA Background Color */
 .loader{
