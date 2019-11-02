@@ -84,7 +84,7 @@ Vue.component('countdown', require('./components/CountDownComponent.vue').defaul
 Vue.component('experience', require('./components/FreelancerExperienceComponent.vue').default);
 Vue.component('education', require('./components/FreelancerEducationComponent.vue').default);
 Vue.component('crafted_project', require('./components/FreelancerCraftedProjetcsComponent.vue').default);
-Vue.component('custom-map', require('./components/map.vue').default);
+Vue.component('custom-map', require('./components/Map.vue').default);
 Vue.component('dashboard-icon', require('./components/DashboardIconUploadComponent.vue').default);
 Vue.component('image-attachments', require('./components/UploadServiceAttachmentComponent.vue').default);
 Vue.component('freelancer-reviews', require('./components/FreelancerReviewsComponent.vue').default);
