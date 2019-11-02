@@ -417,6 +417,7 @@
                                 {{--@endif--}}
                                 {{--</label>--}}
                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
+                                <div v-if="user_role=='freelancer'">
                                 {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
                                 <div class="form-group" v-if="P60upload">
                                     <strong>P60 Upload:</strong>
@@ -440,9 +441,10 @@
                                 </div>
                                 <input v-if="limitedCompany" type="text" name="limitied_company_number"
                                        class="form-control" placeholder="Limited Company Number ">
-
-                                {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
-
+                                </div>
+                                <div v-if="user_role=='employer'">
+                                 {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
+                                </div>
 
                             </div>
                             <div class="form-group wt-btnarea">

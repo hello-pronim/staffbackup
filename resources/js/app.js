@@ -439,6 +439,10 @@ if (document.getElementById("registration")) {
                 this.submitUser();
             },
             submitUser: function (ajax) {
+                if(this.user_role=='freelancer')
+                {
+                    ajax = false;
+                }
                 this.loading = true;
                 let register_Form = document.getElementById('register_form');
                 let form_data = new FormData(register_Form);
