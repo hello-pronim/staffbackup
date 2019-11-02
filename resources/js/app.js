@@ -78,9 +78,9 @@ Vue.component('chat-users', require('./components/ChatUserComponent.vue').defaul
 Vue.component('chat-messages', require('./components/ChatMessageComponent.vue').default);
 Vue.component('chat-area', require('./components/ChatAreaComponent.vue').default);
 Vue.component('message-center', require('./components/ChatComponent.vue').default);
-Vue.component('emoji-textarea', require('./components/emojiTexeareaComponent.vue').default);
+Vue.component('emoji-textarea', require('./components/EmojiTexeareaComponent.vue').default);
 Vue.component('delete', require('./components/DeleteRecordComponent.vue').default);
-Vue.component('countdown', require('./components/CountdownComponent.vue').default);
+Vue.component('countdown', require('./components/CountDownComponent.vue').default);
 Vue.component('experience', require('./components/FreelancerExperienceComponent.vue').default);
 Vue.component('education', require('./components/FreelancerEducationComponent.vue').default);
 Vue.component('crafted_project', require('./components/FreelancerCraftedProjetcsComponent.vue').default);
