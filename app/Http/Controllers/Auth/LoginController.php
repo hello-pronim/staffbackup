@@ -57,15 +57,24 @@ class LoginController extends Controller
                 Auth::logout();
                 return Redirect::to('/');
             } else {
-                $user_id = Auth::user()->id;
-                $user_role_type = User::getUserRoleType($user_id);
-                $user_role = $user_role_type->role_type;
-                if ($user_role === 'freelancer') {
-                    return Redirect::to('freelancer/dashboard');
-                } elseif ($user_role === 'employer') {
-                    return Redirect::to('employer/dashboard');
-                } else {
-                    return Redirect::to(url()->previous());
+                if(Auth::user()->stripe_token=="")
+                {
+                    $user_id = Auth::user()->id;
+                    $user_role_type = User::getUserRoleType($user_id);
+                    $user_role = $user_role_type->role_type;
+                    if ($user_role === 'freelancer') {
+                        return Redirect::to('freelancer/dashboard');
+                    } elseif ($user_role === 'employer') {
+                        return Redirect::to('employer/dashboard');
+                    } else {
+                        return Redirect::to(url()->previous());
+                    }
+                }
+                else{
+                    $user = Auth::user();
+                    Auth::logout();
+
+                    return View('back-end.stripe_payment_checkout', array('plan_id'=>$user->plan_id, 'stripe_token'=>$user->stripe_token));
                 }
             }
         }

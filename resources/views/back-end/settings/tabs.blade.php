@@ -12,6 +12,9 @@
                 <a class="{{{ \Request::route()->getName()==='emailNotificationSettings'? 'active': '' }}}" href="{{{ route('emailNotificationSettings') }}}">{{{ trans('lang.email_notify') }}}</a>
             </li>
             <li class="nav-item">
+                <a class="{{{ \Request::route()->getName()==='paymentSettings'? 'active': '' }}}" href="{{{ route('paymentSettings') }}}">Payment Settings</a>
+            </li>
+            <li class="nav-item">
                 <a class="{{{ \Request::route()->getName()==='deleteAccount'? 'active': '' }}}" href="{{{ route('deleteAccount') }}}">{{{ trans('lang.delete_account') }}}</a>
             </li>
         @endif

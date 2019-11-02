@@ -322,6 +322,12 @@ class User extends Authenticatable
             $this->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
             $this->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
             $this->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);;
+            $this->paypal = filter_var(isset($request['paypal']) ? $request['paypal'] : "", FILTER_SANITIZE_STRING);;
+            $this->payment_option = filter_var(isset($request['payment_option']) ? $request['payment_option'] : "", FILTER_SANITIZE_STRING);;
+            $this->cheque = filter_var(isset($request['cheque']) ? $request['cheque'] : "", FILTER_SANITIZE_STRING);;
+            $this->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);;
+            $this->stripe_token = filter_var(isset($request['stripe_token']) ? $request['stripe_token'] : "", FILTER_SANITIZE_STRING);
+            $this->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
             $this->save();
             $user_id = $this->id;
             $profile = new Profile();
@@ -340,6 +346,14 @@ class User extends Authenticatable
                 $newfiename = time().$file->getClientOriginalName();
                 $file->move($destinationPath,$newfiename);
                 $profile->cvFile = $newfiename;
+            }
+
+            if(isset($request['p60']) && $p60File = $request['p60'])
+            {
+                $destinationPath = 'uploads/p60';
+                $newfiename = time().$p60File->getClientOriginalName();
+                $p60File->move($destinationPath,$newfiename);
+                $profile->p60 = $newfiename;
             }
 
             $profile->save();

@@ -23,6 +23,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import Verte from 'verte';
 import 'verte/dist/verte.css';
 
+
 Vue.prototype.trans = (key) => {
     return _.get(window.trans, key, key);
 };
@@ -233,8 +234,10 @@ if (document.getElementById("home")) {
 }
 
 if (document.getElementById("registration")) {
+
     const registration = new Vue({
         el: '#registration',
+
         mounted: function () {
 
         },
@@ -251,6 +254,8 @@ if (document.getElementById("registration")) {
             user_email: '',
             first_name: '',
             last_name: '',
+            limitedCompany: false,
+            choosen_payment:"",
             form_step1: {
                 email_error: '',
                 is_email_error: false,
@@ -278,13 +283,48 @@ if (document.getElementById("registration")) {
                 emp_cqc_rating_error: '',
 
             },
+            form_step3:
+                {
+                    payment_option_error: ''
+                },
             loading: false,
             user_role: 'employer',
             is_show: true,
             is_show_freelancer: true,
-            error_message: ''
+            error_message: '',
+            subscription:"",
+            stripe_token:new Date().getTime(),
+            paypal_show:false,
+            cheque_show:false,
+            P60upload:false,
+
         },
         methods: {
+            checkoutStripe(plan_id){
+                var stripe = Stripe('pk_test_RMNWdU6nBgL1DAw9AtGOV1X100UKwPylmJ');
+
+                    // When the customer clicks on the button, redirect
+                    // them to Checkout.
+                    stripe.redirectToCheckout({
+                        items: [{plan: plan_id, quantity: 1}],
+
+                        // Do not rely on the redirect to the successUrl for fulfilling
+                        // purchases, customers may not always reach the success_url after
+                        // a successful payment.
+                        // Instead use one of the strategies described in
+                        // https://stripe.com/docs/payments/checkout/fulfillment
+                        successUrl: APP_URL + '/register/checkout_complete/'+this.stripe_token,
+                        cancelUrl: APP_URL,
+                    })
+                        .then(function (result) {
+                            if (result.error) {
+                                // If `redirectToCheckout` fails due to a browser or network
+                                // error, display the localized error message to your customer.
+                                var displayError = document.getElementById('error-message');
+                                displayError.textContent = result.error.message;
+                            }
+                        });
+            },
             showError(error) {
                 return this.$toast.error(' ', error, this.notificationSystem.options.error);
             },
@@ -306,6 +346,31 @@ if (document.getElementById("registration")) {
                     this.is_show = false;
                 }
                 console.log(role);
+            },
+            selectedPayment: function(payment_name)
+            {
+                switch(payment_name){
+                    case "BACS":
+                        this.P60upload = true;
+                        this.cheque_show = false;
+                        this.paypal_show = false;
+
+                        break;
+                    case "Paypal":
+                        this.paypal_show = true;
+                        this.P60upload = false;
+                        this.cheque_show = false;
+
+                        break;
+                    case "Cheque":
+                        this.cheque_show = true;
+                        this.paypal_show = false;
+                        this.P60upload = false;
+                }
+            },
+            selectedSubscription: function(subscription)
+            {
+
             },
             checkStep1: function (e) {
                 this.form_step1.first_name_error = '';
@@ -349,7 +414,7 @@ if (document.getElementById("registration")) {
                 var self = this;
                 axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).
                     then(function (response) {
-                        self.submitUser();
+                        self.next();
                     })
                     .catch(function (error) {
                         if (error.response.data.errors.password) {
@@ -366,7 +431,14 @@ if (document.getElementById("registration")) {
                         }
                     });
             },
-            submitUser: function () {
+            checkStep3: function(error_message){
+                this.submitUser(true);
+            },
+            checkStep4: function(error_message)
+            {
+                this.submitUser();
+            },
+            submitUser: function (ajax) {
                 this.loading = true;
                 let register_Form = document.getElementById('register_form');
                 let form_data = new FormData(register_Form);
@@ -379,7 +451,7 @@ if (document.getElementById("registration")) {
                         console.log(response.data.type);
                         self.loading = false;
                         if (response.data.type == 'success') {
-                            if (response.data.email == 'not_configured') {
+                            if (response.data.email == 'not_configured' && !ajax) {
                                 window.location.replace(response.data.url);
                             } else {
                                 self.next();
@@ -441,6 +513,7 @@ if (document.getElementById("registration")) {
             },
         }
     });
+
 }
 
 if (document.getElementById("skill-list")) {

@@ -1822,4 +1822,12 @@ class UserController extends Controller
             return $json;
         }
     }
+
+    public function paymentSettings()
+    {
+        if (Auth::user()) {
+            $user = User::find(Auth::user()->id);
+            return view('back-end.settings.payment_settings', array('user'=>$user));
+        }
+    }
 }

@@ -77,6 +77,7 @@ Route::post('register/login-register-user', 'PublicController@loginUser')->name(
 Route::post('register/verify-user-code', 'PublicController@verifyUserCode');
 Route::post('register/form-step1-custom-errors', 'PublicController@RegisterStep1Validation');
 Route::post('register/form-step2-custom-errors', 'PublicController@RegisterStep2Validation');
+Route::get('register/checkout_complete/{stripe_token}', 'PublicController@RegisterCheckoutComplete');
 Route::get('search-results', 'PublicController@getSearchResult')->name('searchResults');
 Route::post('user/add-wishlist', 'UserController@addWishlist');
 // Admin Routes
@@ -322,6 +323,7 @@ Route::group(
         Route::get('profile/settings/reset-password', 'UserController@resetPassword')->name('resetPassword');
         Route::post('profile/settings/request-password', 'UserController@requestPassword');
         Route::get('profile/settings/email-notification-settings', 'UserController@emailNotificationSettings')->name('emailNotificationSettings');
+        Route::get('profile/settings/payment-settings', 'UserController@paymentSettings')->name('paymentSettings');
         Route::post('profile/settings/save-email-settings', 'UserController@saveEmailNotificationSettings');
         Route::post('profile/settings/save-account-settings', 'UserController@saveAccountSettings');
         Route::get('profile/settings/delete-account', 'UserController@deleteAccount')->name('deleteAccount');

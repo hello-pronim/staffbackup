@@ -974,4 +974,17 @@ class PublicController extends Controller
             return $json;
         }
     }
+
+    public function RegisterCheckoutComplete($stripe_token)
+    {
+        $user = User::where('stripe_token', $stripe_token)->first();
+        if (!empty($user)) {
+            $user->stripe_token = "";
+            $user->save();
+            Session::flash('message', "Payment completed successfully");
+            return Redirect::to('login');
+        }
+
+
+    }
 }
