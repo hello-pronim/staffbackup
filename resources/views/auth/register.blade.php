@@ -269,6 +269,7 @@
                                                                         <strong v-cloak>@{{form_step2.emp_telno_error}}</strong>
                                                                             </span>
                                                                         </div>
+
                                                                         <div class="form-group">
                                                                             <input id="emp_website" type="url"
                                                                                    class="form-control"
@@ -280,6 +281,19 @@
                                                                                 <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
                                                                             </span>
                                                                         </div>
+
+                                                                        <div class="form-group">
+                                                                            <input id="emp_desc" type="url"
+                                                                                   class="form-control"
+                                                                                   name="emp_desc"
+                                                                                   placeholder="Description"
+                                                                                   v-bind:class="{ 'is-invalid': form_step2.emp_desc_error }">
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.emp_desc_error">
+                                                                                <strong v-cloak>@{{form_step2.emp_desc_error}}</strong>
+                                                                            </span>
+                                                                        </div>
+
                                                                         <div class="form-group form-group-half">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
 
@@ -355,6 +369,61 @@
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <input id="job_role" type="tel"
+                                                                           class="form-control"
+                                                                           name="emp_job_role"
+                                                                           placeholder="Job Role"
+                                                                           v-bind:class="{ 'is-invalid': form_step2.emp_job_role_error }">
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.emp_job_role_error">
+                                                                                <strong v-cloak>@{{form_step2.emp_job_role_error}}</strong>
+                                                                            </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="wt-checkboxholder">
+                                                                                <span class="wt-checkbox">
+                                                                                    <input id="dbscheck" type="checkbox" name="dbscheck"
+                                                                                           checked="">
+                                                                                    <label for="dbscheck"><span>DBS checked</span></label>
+                                                                                </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group form-group-half">
+                                                                            <span class="wt-select">
+                                                                                {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate', 'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
+                                                                                <span class="help-block"
+                                                                                      v-if="form_step2.rate_error">
+                                                                                    <strong v-cloak>@{{form_step2.rate_error}}</strong>
+                                                                                </span>
+                                                                            </span>
+                                                                </div>
+                                                                <div class="form-group form-group-half">
+                                                                            <span class="wt-checkbox" style="    margin-left: 15px;    margin-top: 17px;">
+                                                                                <span class="wt-checkbox">
+                                                                                        <input id="negotiable" type="checkbox" name="negotiable"
+                                                                                               checked="">
+                                                                                        <label for="negotiable"><span>Negotiable</span></label>
+                                                                                </span>
+                                                                            </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input id="exp_years" type="tel"
+                                                                           class="form-control"
+                                                                           name="exp_years"
+                                                                           placeholder="Experience Years"
+                                                                           v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.exp_years_error">
+                                                                                <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
+                                                                            </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                            <span class="wt-select">
+                                                                                {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
+
+                                                                            </span>
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     @endif
@@ -366,7 +435,7 @@
                                             <span class="wt-checkbox">
                                                 <input id="termsconditions" type="checkbox" name="termsconditions"
                                                        checked="">
-                                                <label for="termsconditions"><span>{{{ $term_note }}}</span></label>
+                                                <label for="termsconditions"><span>Agree to T&Cs and Privacy</span></label>
                                                 <span class="help-block" v-if="form_step2.termsconditions_error">
                                                     <strong style="color: red;"
                                                             v-cloak>{{trans('lang.register_termsconditions_error')}}</strong>
