@@ -46,9 +46,279 @@
     'plan_G6DvMJGDvP6wGz'=>'3 Months',
     'plan_G6DuLUGgkizyrs '=>'Monthly'
     );
+
+    $arrSettings = array(
+    'GP Surgery'=>'GP Surgery',
+    'Walk-In centre'=>'Walk-In centre',
+    'Urgent Care Centre'=>'Urgent Care Centre',
+    'GP Out Of Hours'=>'GP Out Of Hours',
+    'Community Service'=>'Community Service',
+    'Other'=>'Other',
+    );
+    $arrProfReq = array(
+    'Practice Manager'=>'Practice Manager',
+    'Practice Nurse'=>'Practice Nurse',
+    'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
+    'GP'=>'GP',
+    'Receptionist'=>'Receptionist',
+    'Admin & Clerical'=>'Admin & Clerical',
+    'Cleaner in clinical settings'=>'Cleaner in clinical settings',
+    'Pharmacist'=>'Pharmacist',
+    'Community Nurse'=>'Community Nurse',
+    'District Nurse'=>'District Nurse',
+    'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
+    );
+
+    $arrSpecialInterests = array(
+    'Diabetes'=>'Diabetes',
+    'Rhematology'=>'Rhematology',
+    'Neurology'=>'Neurology',
+    'Dermatology'=>'Dermatology',
+    'Asthma'=>'Asthma',
+    'Mental Health'=>'Mental Health',
+    'Substance Misuse and Addictions'=>'Substance Misuse and Addictions',
+    'MSK'=>'MSK',
+    'Paediatrics'=>'Paediatrics',
+    'Cardiology'=>'Cardiology',
+    'Gastrointestinal'=>'Gastrointestinal',
+    'Other'=>'Other',
+    );
+
+    $arrAppo_slot_times = array(
+    '10 minutes'=>'10 minutes',
+    '15 minutes'=>'15 minutes',
+    '20 minutes'=>'20 minutes',
+    '30 minutes'=>'30 minutes',
+    'Other'=>'Other',
+    );
+
+    $arrBreaks = array(
+    'Morning Break'=>'Morning Break',
+    'Lunch Break'=>'Lunch Break',
+    'Afternoon Break'=>'Afternoon Break',
+    'Evening Break'=>'Evening Break',
+    'Not Applicable' => 'Not Applicable',
+    );
+
+    $arrPaymentTerms = array(
+    'Invoices usually paid within 7 days of receipt'=>'Invoices usually paid within 7 days of receipt',
+    'Invoices usually paid within 14 days of receipt'=>'Invoices usually paid within 14 days of receipt',
+    'Other'=>'Other',
+    );
+    $nationals = array(
+        'Afghan',
+        'Albanian',
+        'Algerian',
+        'American',
+        'Andorran',
+        'Angolan',
+        'Antiguans',
+        'Argentinean',
+        'Armenian',
+        'Australian',
+        'Austrian',
+        'Azerbaijani',
+        'Bahamian',
+        'Bahraini',
+        'Bangladeshi',
+        'Barbadian',
+        'Barbudans',
+        'Batswana',
+        'Belarusian',
+        'Belgian',
+        'Belizean',
+        'Beninese',
+        'Bhutanese',
+        'Bolivian',
+        'Bosnian',
+        'Brazilian',
+        'British',
+        'Bruneian',
+        'Bulgarian',
+        'Burkinabe',
+        'Burmese',
+        'Burundian',
+        'Cambodian',
+        'Cameroonian',
+        'Canadian',
+        'Cape Verdean',
+        'Central African',
+        'Chadian',
+        'Chilean',
+        'Chinese',
+        'Colombian',
+        'Comoran',
+        'Congolese',
+        'Costa Rican',
+        'Croatian',
+        'Cuban',
+        'Cypriot',
+        'Czech',
+        'Danish',
+        'Djibouti',
+        'Dominican',
+        'Dutch',
+        'East Timorese',
+        'Ecuadorean',
+        'Egyptian',
+        'Emirian',
+        'Equatorial Guinean',
+        'Eritrean',
+        'Estonian',
+        'Ethiopian',
+        'Fijian',
+        'Filipino',
+        'Finnish',
+        'French',
+        'Gabonese',
+        'Gambian',
+        'Georgian',
+        'German',
+        'Ghanaian',
+        'Greek',
+        'Grenadian',
+        'Guatemalan',
+        'Guinea-Bissauan',
+        'Guinean',
+        'Guyanese',
+        'Haitian',
+        'Herzegovinian',
+        'Honduran',
+        'Hungarian',
+        'I-Kiribati',
+        'Icelander',
+        'Indian',
+        'Indonesian',
+        'Iranian',
+        'Iraqi',
+        'Irish',
+        'Israeli',
+        'Italian',
+        'Ivorian',
+        'Jamaican',
+        'Japanese',
+        'Jordanian',
+        'Kazakhstani',
+        'Kenyan',
+        'Kittian and Nevisian',
+        'Kuwaiti',
+        'Kyrgyz',
+        'Laotian',
+        'Latvian',
+        'Lebanese',
+        'Liberian',
+        'Libyan',
+        'Liechtensteiner',
+        'Lithuanian',
+        'Luxembourger',
+        'Macedonian',
+        'Malagasy',
+        'Malawian',
+        'Malaysian',
+        'Maldivan',
+        'Malian',
+        'Maltese',
+        'Marshallese',
+        'Mauritanian',
+        'Mauritian',
+        'Mexican',
+        'Micronesian',
+        'Moldovan',
+        'Monacan',
+        'Mongolian',
+        'Moroccan',
+        'Mosotho',
+        'Motswana',
+        'Mozambican',
+        'Namibian',
+        'Nauruan',
+        'Nepalese',
+        'New Zealander',
+        'Nicaraguan',
+        'Nigerian',
+        'Nigerien',
+        'North Korean',
+        'Northern Irish',
+        'Norwegian',
+        'Omani',
+        'Pakistani',
+        'Palauan',
+        'Panamanian',
+        'Papua New Guinean',
+        'Paraguayan',
+        'Peruvian',
+        'Polish',
+        'Portuguese',
+        'Qatari',
+        'Romanian',
+        'Russian',
+        'Rwandan',
+        'Saint Lucian',
+        'Salvadoran',
+        'Samoan',
+        'San Marinese',
+        'Sao Tomean',
+        'Saudi',
+        'Scottish',
+        'Senegalese',
+        'Serbian',
+        'Seychellois',
+        'Sierra Leonean',
+        'Singaporean',
+        'Slovakian',
+        'Slovenian',
+        'Solomon Islander',
+        'Somali',
+        'South African',
+        'South Korean',
+        'Spanish',
+        'Sri Lankan',
+        'Sudanese',
+        'Surinamer',
+        'Swazi',
+        'Swedish',
+        'Swiss',
+        'Syrian',
+        'Taiwanese',
+        'Tajik',
+        'Tanzanian',
+        'Thai',
+        'Togolese',
+        'Tongan',
+        'Trinidadian/Tobagonian',
+        'Tunisian',
+        'Turkish',
+        'Tuvaluan',
+        'Ugandan',
+        'Ukrainian',
+        'Uruguayan',
+        'Uzbekistani',
+        'Venezuelan',
+        'Vietnamese',
+        'Welsh',
+        'Yemenite',
+        'Zambian',
+        'Zimbabwean'
+);
+    $arrNationals = array();
+    foreach($nationals as $national)
+    {
+        $arrNationals[$national] = $national;
+    }
+
+    $arrPaymentMethods = array(
+    'Limited Company'=>'Limited Company',
+    'Self Employed'=>'Self Employed',
+    '[DELETED]PAYE'=>'[DELETED]PAYE',
+    );
+
     @endphp
     <script src="https://js.stripe.com/v3"></script>
-
+    <style type="text/css">
+        select {
+            width: 100% !important;
+        }
+    </style>
     @if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')
         <div class="wt-haslayout wt-innerbannerholder">
             <div class="container">
@@ -87,7 +357,7 @@
                                 <div class="wt-joinforms">
 
                                     @csrf
-                                    <input type="hidden" name="stripe_token" v-model="stripe_token" />
+                                    <input type="hidden" name="stripe_token" v-model="stripe_token"/>
 
                                     <fieldset class="wt-registerformgroup">
                                         <div class="wt-haslayout" v-show="step === 1" v-cloak>
@@ -247,6 +517,7 @@
                                                                      id="collapseOne" aria-labelledby="headingOne"
                                                                      v-if="is_show">
                                                                     <div>
+                                                                        <h4>Company Contact</h4>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="emp_contact" type="text"
                                                                                    class="form-control"
@@ -270,7 +541,8 @@
                                                                             </span>
                                                                         </div>
 
-                                                                        <div class="form-group">
+
+                                                                        <div class="form-group ">
                                                                             <input id="emp_website" type="url"
                                                                                    class="form-control"
                                                                                    name="emp_website"
@@ -280,6 +552,50 @@
                                                                                   v-if="form_step2.emp_website_error">
                                                                                 <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
                                                                             </span>
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="emp_pos" type="url"
+                                                                                   class="form-control"
+                                                                                   name="emp_pos"
+                                                                                   placeholder="Position"
+                                                                            >
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="emp_email" type="url"
+                                                                                   class="form-control"
+                                                                                   name="emp_email"
+                                                                                   placeholder="Email"
+                                                                            >
+                                                                        </div>
+
+                                                                        <h4>Backup Company contact</h4>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="backup_emp_contact" type="url"
+                                                                                   class="form-control"
+                                                                                   name="backup_emp_contact"
+                                                                                   placeholder="Backup Company Contact"
+                                                                            >
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="backup_emp_email" type="url"
+                                                                                   class="form-control"
+                                                                                   name="backup_emp_email"
+                                                                                   placeholder="Backup Company Email"
+                                                                            >
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="backup_emp_pos" type="url"
+                                                                                   class="form-control"
+                                                                                   name="backup_emp_pos"
+                                                                                   placeholder="Backup Company Position"
+                                                                            >
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="backup_emp_tel" type="url"
+                                                                                   class="form-control"
+                                                                                   name="backup_emp_tel"
+                                                                                   placeholder="Backup Company Tel"
+                                                                            >
                                                                         </div>
 
                                                                         <div class="form-group">
@@ -307,6 +623,137 @@
                                                                                     <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
                                                                                 </span>
                                                                         </div>
+
+                                                                        <!-- New columns for sheet-->
+
+                                                                        <div class="form-group">
+                                                                            <input id="org_desc" type="text"
+                                                                                   class="form-control"
+                                                                                   name="org_desc"
+                                                                                   placeholder="Organisation description">
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
+                                                                        </div>
+                                                                        <div class="form-group "
+                                                                             v-if="appoSlotTime=='Other'">
+                                                                            <input id="other_setting" type="text"
+                                                                                   class="form-control"
+                                                                                   name="setting[]"
+                                                                                   placeholder="Other Setting">
+                                                                        </div>
+
+                                                                        <div class="form-group form-group-half">
+                                                                            <input  type="text"
+                                                                                   class="form-control"
+                                                                                   name="pin"
+                                                                                   placeholder="Pin">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <date-picker
+                                                                                    :config="{format: 'YYYY-MM-DD'}"
+                                                                                    value=""
+                                                                                    class="form-control"
+                                                                                    name="pin_date_revalid"
+                                                                                    placeholder="Pin date of revalidation"
+                                                                            ></date-picker>
+                                                                        </div>
+                                                                        <br>
+
+                                                                        <div class="form-group form-group">
+                                                                            <label for="insurance"
+                                                                                   style="display: inline-block">Insurance
+                                                                                Details</label> <input
+                                                                                                       type="checkbox"
+                                                                                                       name="insurance"
+                                                                                                       placeholder="Insurance">
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <input  type="text"
+                                                                                   class="form-control"
+                                                                                   name="org_name"
+                                                                                   placeholder="Organisation name">
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <input  type="text"
+                                                                                   class="form-control"
+                                                                                   name="policy_number"
+                                                                                   placeholder="Policy Number">
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <strong>Professional Indemnity
+                                                                                Certificate:</strong>
+                                                                            <input type="file" name="prof_ind_cert"
+                                                                                   class="form-control"
+                                                                                   accept=".pdf, image/*,.doc,.docx">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
+                                                                        </div>
+                                                                        <div class="form-group"
+                                                                             v-if="specialInterest=='Other'">
+                                                                            <input  type="text"
+                                                                                   class="form-control"
+                                                                                   name="special_interests[]"
+                                                                                   placeholder="Other Special Interest">
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <strong>Certificates –Vaccinations &
+                                                                                immunisation
+                                                                                (Measles/Mumps/Rubella/Hepatitis
+                                                                                B/Varicella):</strong>
+                                                                            <input type="file" name="certs"
+                                                                                   class="form-control"
+                                                                                   accept=".pdf, image/*,.doc,.docx">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Appointment Slot Times")) !!}
+                                                                        </div>
+                                                                        <div class="form-group"
+                                                                             v-if="appoSlotTime=='Other'">
+                                                                            <input id="other_appo" type="text"
+                                                                                   class="form-control"
+                                                                                   name="appo_slot_times[]"
+                                                                                   placeholder="Other Appointment Slot Times">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated", 'v-model'=>'timeAllocated')) !!}
+                                                                        </div>
+                                                                        <div class="form-group"
+                                                                             v-if="timeAllocated=='Other'">
+                                                                            <input id="other_time_allo" type="text"
+                                                                                   class="form-control"
+                                                                                   name="time_allowed[]"
+                                                                                   placeholder="Other Time Allocated">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks")) !!}
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
+                                                                        </div>
+                                                                        <div class="form-group"
+                                                                             v-if="paymentTerm=='Other'">
+                                                                            <input id="other_payment_terms" type="text"
+                                                                                   class="form-control"
+                                                                                   name="payment_terms[]"
+                                                                                   placeholder="Other Payment terms">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input id="session_ad_by" type="text"
+                                                                                   class="form-control"
+                                                                                   name="session_ad_by"
+                                                                                   placeholder="Session Advertised By">
+                                                                        </div>
                                                                     </div>
 
                                                                 </div>
@@ -318,13 +765,11 @@
                                                                  v-if="is_show_freelancer">
 
                                                                 <div class="form-group">
-                                                                        <span class="wt-select">
                                                                             {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'), 'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
                                                                             <span class="help-block"
                                                                                   v-if="form_step2.title_error">
                                                                                 <strong v-cloak>@{{form_step2.title_error}}</strong>
                                                                             </span>
-                                                                        </span>
                                                                 </div>
 
                                                                 <div class="form-group form-group-half">
@@ -383,25 +828,27 @@
                                                                 <div class="form-group">
                                                                     <div class="wt-checkboxholder">
                                                                                 <span class="wt-checkbox">
-                                                                                    <input id="dbscheck" type="checkbox" name="dbscheck"
+                                                                                    <input id="dbscheck" type="checkbox"
+                                                                                           name="dbscheck"
                                                                                            checked="">
                                                                                     <label for="dbscheck"><span>DBS checked</span></label>
                                                                                 </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group form-group-half">
-                                                                            <span class="wt-select">
-                                                                                {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate', 'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
-                                                                                <span class="help-block"
-                                                                                      v-if="form_step2.rate_error">
+                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate', 'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.rate_error">
                                                                                     <strong v-cloak>@{{form_step2.rate_error}}</strong>
                                                                                 </span>
-                                                                            </span>
                                                                 </div>
                                                                 <div class="form-group form-group-half">
-                                                                            <span class="wt-checkbox" style="    margin-left: 15px;    margin-top: 17px;">
+                                                                            <span class="wt-checkbox"
+                                                                                  style="    margin-left: 15px;    margin-top: 17px;">
                                                                                 <span class="wt-checkbox">
-                                                                                        <input id="negotiable" type="checkbox" name="negotiable"
+                                                                                        <input id="negotiable"
+                                                                                               type="checkbox"
+                                                                                               name="negotiable"
                                                                                                checked="">
                                                                                         <label for="negotiable"><span>Negotiable</span></label>
                                                                                 </span>
@@ -419,10 +866,138 @@
                                                                             </span>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                            <span class="wt-select">
-                                                                                {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
+                                                                    {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
 
-                                                                            </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+                                                                </div>
+                                                                <div class="form-group form-group-half">
+                                                                    <input  type="text"
+                                                                           class="form-control"
+                                                                           name="pin"
+                                                                           placeholder="Pin">
+                                                                </div>
+                                                                <div class="form-group form-group-half">
+                                                                    <date-picker :config="{format: 'YYYY-MM-DD'}"
+
+                                                                                 value=""
+
+                                                                                 class="form-control"
+                                                                                 name="pin_date_revalid"
+                                                                                 placeholder="Pin date of revalidation"
+                                                                    ></date-picker>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <strong>Passport or Visa:</strong>
+                                                                    <input type="file" name="passport_visa"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
+                                                                <div class="form-group form-group">
+                                                                    <strong>Professional Qualifications</strong>
+                                                                    <span class="text-right" id="plusQual">+</span>
+                                                                </div>
+
+                                                                <div class="profQualif_block">
+                                                                    <div class="form-group form-group-half">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               name="profQualLevel[]"
+                                                                               placeholder="Level">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               name="profQualName[]"
+                                                                               placeholder="Name">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               name="profQualPlace[]"
+                                                                               placeholder="Place of Study">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input type="number"
+                                                                               class="form-control"
+                                                                               name="profQualYear[]"
+                                                                               placeholder="Year">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <strong>Mandatory Training:</strong>
+                                                                    <input type="file" name="mand_training"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <strong>Certificate of CRB/DBS:</strong>
+                                                                    <input type="file" name="cert_of_crbdbs"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <strong>Occupational Health:</strong>
+                                                                    <input type="file" name="occup_health"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
+                                                                </div>
+                                                                <div class="form-group" v-if="specialInterest=='Other'">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           name="special_interests[]"
+                                                                           placeholder="Other Special Interest">
+                                                                </div>
+
+                                                                <div class="form-group form-group">
+                                                                    <label for="insurance"
+                                                                           style="display: inline-block">Professional
+                                                                        Indemnity Insurance</label> <input
+                                                                            type="checkbox"
+                                                                            name="insurance"
+                                                                            placeholder="Insurance">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           name="org_name"
+                                                                           placeholder="Organisation name">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <input  type="text"
+                                                                           class="form-control"
+                                                                           name="policy_number"
+                                                                           placeholder="Insurance Policy Number">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <strong>Professional Indemnity Certificate:</strong>
+                                                                    <input type="file" name="prof_ind_cert"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Payment Method", 'v-model'=>'payment_method')) !!}
+                                                                    <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
+                                                                </div>
+                                                                <div class="form-group "
+                                                                     v-if="payment_method=='Limited Company'">
+                                                                    <input id="c_ltd_comp_name" type="text"
+                                                                           class="form-control"
+                                                                           name="c_ltd_comp_name"
+                                                                           placeholder="LTD Company">
                                                                 </div>
                                                             </div>
                                                         @endif
@@ -449,110 +1024,115 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                    <div class="wt-joinformc" v-show="step === 3" v-cloak>
+                                    <div class="wt-joinformc" v-show="step === 3" v-cloak>
 
-                        <div class="wt-registerhead">
-                            <div class="wt-title">
-                                <h3>{{{ $reg_three_title }}}</h3>
+                                        <div class="wt-registerhead">
+                                            <div class="wt-title">
+                                                <h3>{{{ $reg_three_title }}}</h3>
+                                            </div>
+                                            {{--<div class="wt-description">--}}
+                                            {{--<p>{{{ $reg_three_subtitle }}}</p>--}}
+                                            {{--</div>--}}
+                                        </div>
+                                        <ul class="wt-joinsteps">
+                                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
+                                                            class="fa fa-check"></i></a></li>
+                                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
+                                                            class="fa fa-check"></i></a></li>
+                                            <li class="wt-active"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
+                                            <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+                                        </ul>
+                                        <figure class="wt-joinformsimg">
+                                            {{--<img src="{{ asset($register_image)}}" alt="{{{ trans('lang.verification_code_img') }}}">--}}
+                                        </figure>
+                                        <fieldset>
+                                            <div class="form-group">
+                                                {{--<label>--}}
+                                                {{--{{{ trans('lang.verify_code_note') }}}--}}
+                                                {{--@if (!empty($reg_page))--}}
+                                                {{--<a target="_blank" href="{{{url($reg_page)}}}">--}}
+                                                {{--{{{ trans('lang.why_need_code') }}}--}}
+                                                {{--</a>--}}
+                                                {{--@else--}}
+                                                {{--<a href="javascript:void(0)">--}}
+                                                {{--{{{ trans('lang.why_need_code') }}}--}}
+                                                {{--</a>--}}
+                                                {{--@endif--}}
+                                                {{--</label>--}}
+                                                {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
+                                                <div v-if="user_role=='freelancer'">
+                                                    {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
+                                                    <div class="form-group" v-if="P60upload">
+                                                        <strong>P60 Upload:</strong>
+                                                        <input type="file" name="p60" class="form-control"
+                                                               accept=".pdf, image/*,.doc,.docx">
+                                                    </div>
+                                                    <div class="form-group" v-if="paypal_show">
+                                                        <strong>Paypal Account:</strong>
+                                                        <input type="email" name="paypal" class="form-control"
+                                                               placeholder="Paypal email address"/>
+                                                    </div>
+                                                    <div class="form-group" v-if="cheque_show">
+                                                        <strong>Cheque:</strong>
+                                                        <input type="text" name="cheque" class="form-control"
+                                                               placeholder="Your current address details will be used"/>
+                                                    </div>
+
+                                                    <div class="form-group form-check">
+                                                        <input type="checkbox" class="form-check-input"
+                                                               id="limitedCompany"
+                                                               v-model="limitedCompany">
+                                                        <label class="form-check-label" for="limitedCompany">Limited
+                                                            Company</label>
+                                                    </div>
+                                                    <input v-if="limitedCompany" type="text"
+                                                           name="limitied_company_number"
+                                                           class="form-control" placeholder="Limited Company Number ">
+                                                </div>
+                                                <div v-if="user_role=='employer'">
+                                                    {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group wt-btnarea">
+                                                <a href="#" @click.prevent="checkStep3()"
+                                                   class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="wt-gotodashboard" v-show="step === 4" v-cloak>
+                                        <ul class="wt-joinsteps">
+                                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
+                                                            class="fa fa-check"></i></a></li>
+                                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
+                                                            class="fa fa-check"></i></a></li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
+                                            <li class="wt-active"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+                                        </ul>
+                                        <div class="wt-registerhead">
+                                            <div class="wt-title">
+                                                <h3>Last step</h3>
+                                            </div>
+                                            {{--<div class="description">--}}
+                                            {{--<p>{{{ $reg_four_subtitle }}}</p>--}}
+                                            {{--</div>--}}
+                                        </div>
+
+                                        <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
+                                           v-if="subscription">Go To Checkout</a>
+                                    </div>
+                                </div>
                             </div>
-                            {{--<div class="wt-description">--}}
-                            {{--<p>{{{ $reg_three_subtitle }}}</p>--}}
-                            {{--</div>--}}
-                        </div>
-                        <ul class="wt-joinsteps">
-                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                                            class="fa fa-check"></i></a></li>
-                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                                            class="fa fa-check"></i></a></li>
-                            <li class="wt-active"><a
-                                        href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
-                            <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
-                        </ul>
-                        <figure class="wt-joinformsimg">
-                            {{--<img src="{{ asset($register_image)}}" alt="{{{ trans('lang.verification_code_img') }}}">--}}
-                        </figure>
-                        <fieldset>
-                            <div class="form-group">
-                                {{--<label>--}}
-                                {{--{{{ trans('lang.verify_code_note') }}}--}}
-                                {{--@if (!empty($reg_page))--}}
-                                {{--<a target="_blank" href="{{{url($reg_page)}}}">--}}
-                                {{--{{{ trans('lang.why_need_code') }}}--}}
-                                {{--</a>--}}
-                                {{--@else--}}
-                                {{--<a href="javascript:void(0)">--}}
-                                {{--{{{ trans('lang.why_need_code') }}}--}}
-                                {{--</a>--}}
-                                {{--@endif--}}
-                                {{--</label>--}}
-                                {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
-                                <div v-if="user_role=='freelancer'">
-                                {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
-                                <div class="form-group" v-if="P60upload">
-                                    <strong>P60 Upload:</strong>
-                                    <input type="file" name="p60" class="form-control"
-                                           accept=".pdf, image/*,.doc,.docx">
-                                </div>
-                                <div class="form-group" v-if="paypal_show">
-                                    <strong>Paypal Account:</strong>
-                                    <input type="email" name="paypal" class="form-control" placeholder="Paypal email address" />
-                                </div>
-                                <div class="form-group" v-if="cheque_show">
-                                    <strong>Cheque:</strong>
-                                    <input type="text" name="cheque" class="form-control" placeholder="Your current address details will be used"/>
-                                </div>
-
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="limitedCompany"
-                                           v-model="limitedCompany">
-                                    <label class="form-check-label" for="limitedCompany">Limited
-                                        Company</label>
-                                </div>
-                                <input v-if="limitedCompany" type="text" name="limitied_company_number"
-                                       class="form-control" placeholder="Limited Company Number ">
-                                </div>
-                                <div v-if="user_role=='employer'">
-                                 {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
-                                </div>
-
-                            </div>
-                            <div class="form-group wt-btnarea">
-                                <a href="#" @click.prevent="checkStep3()"
-                                   class="wt-btn">{{{ trans('lang.continue') }}}</a>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="wt-gotodashboard" v-show="step === 4" v-cloak>
-                        <ul class="wt-joinsteps">
-                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                                            class="fa fa-check"></i></a></li>
-                            <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                                            class="fa fa-check"></i></a></li>
-                            <li class="wt-done-next"><a
-                                        href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
-                            <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
-                        </ul>
-                        <div class="wt-registerhead">
-                        <div class="wt-title">
-                        <h3>Last step</h3>
-                        </div>
-                        {{--<div class="description">--}}
-                        {{--<p>{{{ $reg_four_subtitle }}}</p>--}}
-                        {{--</div>--}}
-                        </div>
-
-                        <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
-                           v-if="subscription">Go To Checkout</a>
-                    </div>
-                </div>
-            </div>
-            <div class="wt-registerformfooter">
+                            <div class="wt-registerformfooter">
                             <span>{{{ trans('lang.have_account') }}}<a id="wt-lg" href="javascript:void(0);"
                                                                        @click.prevent='scrollTop()'>{{{ trans('lang.btn_login_now') }}}</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        </form>
-    </div>
-    </div>
-    </div>
 @endsection

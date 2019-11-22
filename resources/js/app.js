@@ -297,6 +297,12 @@ if (document.getElementById("registration")) {
             paypal_show:false,
             cheque_show:false,
             P60upload:false,
+            payment_method:"",
+            setting:"",
+            appoSlotTime:"",
+            timeAllocated:"",
+            paymentTerm:"",
+            specialInterest:"",
 
         },
         methods: {

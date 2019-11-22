@@ -303,10 +303,7 @@ class JobController extends Controller
             $request,
             [
                 'title' => 'required',
-                'project_levels'    => 'required',
                 'job_duration'    => 'required',
-                'freelancer_type'    => 'required',
-                'english_level'    => 'required',
                 'project_cost'    => 'required',
                 'description'    => 'required',
             ]
@@ -339,11 +336,22 @@ class JobController extends Controller
                     return $json;
                 }
             }
+
             if ($posted_jobs >= intval($option['jobs'])) {
                 $json['type'] = 'error';
                 $json['message'] = trans('lang.sorry_cannot_submit') .' '. $option['jobs'] .' ' . trans('lang.jobs_acc_to_pkg');
                 return $json;
             } else {
+                if($request['project_rates_type']=='Per hour')
+                {
+                    $request['project_type'] = "hourly";
+                }
+                else{
+                    $request['project_type'] = "fixed";
+                }
+                $request['english_level'] = "basic";
+                $request['freelancer_type'] = "pro_independent";
+                $request['project_levels'] = "basic";
                 $job_post = $this->job->storeJobs($request);
                 if ($job_post = 'success') {
                     $json['type'] = 'success';
@@ -363,6 +371,7 @@ class JobController extends Controller
                             $email_params['posted_job_link'] = url('/job/' . $job->slug);
                             $email_params['name'] = Helper::getUserName(Auth::user()->id);
                             $email_params['link'] = url('profile/' . $user->slug);
+                            //TODO
                             Mail::to(config('mail.username'))
                             ->send(
                                 new AdminEmailMailable(

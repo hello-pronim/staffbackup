@@ -177,8 +177,8 @@ class Job extends Model
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
             $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
             $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
-            $this->start_date = filter_var($request['start_date'], FILTER_SANITIZE_STRING);
-            $this->maximum_distance = filter_var($request['maximum_distance'], FILTER_SANITIZE_STRING);
+            $this->start_date = filter_var($request['start_date'] ? $request['start_date'] : "", FILTER_SANITIZE_STRING);
+            $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : 0 , FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {
@@ -373,6 +373,9 @@ class Job extends Model
             }
             $jobs->whereIn('id', $job_id);
         }
+        //$jobs->where('start_date', "!=","0000-00-00");
+        $jobs->whereDate('start_date', '>', DB::raw('NOW()'));
+
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
         foreach ($filters as $key => $filter ) {
             $pagination = $jobs->appends(

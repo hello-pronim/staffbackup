@@ -96,7 +96,7 @@
                                 <div class="wt-divtheme wt-userform wt-userformvtwo">
                                     <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'DD/MM/YYYY'}" class="form-control" name="start_date" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="start_date" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
                                         </span>
                                     </div>
                                 </div>
