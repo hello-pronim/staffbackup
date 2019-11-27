@@ -311,12 +311,12 @@ class User extends Authenticatable
             $this->expiry_date = null;
             $this->telno = filter_var(isset($request['telno']) ? $request['telno'] : "", FILTER_SANITIZE_STRING);;
             $this->title = filter_var(isset($request['title']) ? $request['title'] : "", FILTER_SANITIZE_STRING);;
-            $this->dob = filter_var(isset($request['dob']) ? $request['dob'] : "", FILTER_SANITIZE_STRING);;
+            $this->dob = filter_var(isset($request['dob']) ? $request['dob'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);;
             $this->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);;
             $this->number = filter_var(isset($request['number']) ? $request['number'] : "", FILTER_SANITIZE_STRING);;
             $this->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);;
             $this->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);;
-            $this->date_available = filter_var(isset($request['date_available']) ? $request['date_available'] : "", FILTER_SANITIZE_STRING);;
+            $this->date_available = filter_var(isset($request['date_available']) ? $request['date_available'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);;
             $this->emp_contact = filter_var(isset($request['emp_contact']) ? $request['emp_contact'] : "" , FILTER_SANITIZE_STRING);;
             $this->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
             $this->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
@@ -328,6 +328,117 @@ class User extends Authenticatable
             $this->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);;
             $this->stripe_token = filter_var(isset($request['stripe_token']) ? $request['stripe_token'] : "", FILTER_SANITIZE_STRING);
             $this->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
+
+
+            // New fields functionality
+            $this->org_desc = filter_var(isset($request['org_desc']) ? $request['org_desc'] : "", FILTER_SANITIZE_STRING);
+            $this->pin = filter_var(isset($request['pin']) ? $request['pin'] : "", FILTER_SANITIZE_STRING);
+            $this->pin_date_revalid = filter_var(isset($request['pin_date_revalid']) ? $request['pin_date_revalid'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
+            $this->emp_pos = filter_var(isset($request['emp_pos']) ? $request['emp_pos'] : "", FILTER_SANITIZE_STRING);
+            $this->emp_email = filter_var(isset($request['emp_email']) ? $request['emp_email'] : "", FILTER_SANITIZE_STRING);
+            $this->backup_emp_contact = filter_var(isset($request['backup_emp_contact']) ? $request['backup_emp_contact'] : "", FILTER_SANITIZE_STRING);
+            $this->backup_emp_email = filter_var(isset($request['backup_emp_email']) ? $request['backup_emp_email'] : "", FILTER_SANITIZE_STRING);
+            $this->backup_emp_pos = filter_var(isset($request['backup_emp_pos']) ? $request['backup_emp_pos'] : "", FILTER_SANITIZE_STRING);
+            $this->backup_emp_tel = filter_var(isset($request['backup_emp_tel']) ? $request['backup_emp_tel'] : "", FILTER_SANITIZE_STRING);
+            $this->insurance = filter_var(isset($request['insurance']) ? $request['insurance'] : "", FILTER_SANITIZE_STRING);
+            $this->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
+            $this->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
+            $this->prof_required = filter_var(isset($request['prof_required']) ? $request['prof_required'] : "", FILTER_SANITIZE_STRING);
+            //With Others
+            $this->special_interests = filter_var((isset($request['special_interests']) && $request['special_interests'][0] != "Other") ? $request['special_interests'][0] :
+                (isset($request['special_interests']) && $request['special_interests'][0] == "Other" ? $request['special_interests'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->setting = filter_var((isset($request['setting']) && $request['setting'][0] != "Other") ? $request['setting'][0] :
+                (isset($request['setting']) && $request['setting'][0] == "Other" ? $request['setting'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->appo_slot_times = filter_var((isset($request['appo_slot_times']) && $request['appo_slot_times'][0] != "Other") ? $request['appo_slot_times'][0] :
+                (isset($request['appo_slot_times']) && $request['appo_slot_times'][0] == "Other" ? $request['appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->time_allowed = filter_var((isset($request['time_allowed']) && $request['time_allowed'][0] != "Other") ? $request['time_allowed'][0] :
+                (isset($request['time_allowed']) && $request['time_allowed'][0] == "Other" ? $request['time_allowed'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->payment_terms = filter_var((isset($request['payment_terms']) && $request['payment_terms'][0] != "Other") ? $request['payment_terms'][0] :
+                (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
+            //End With Others
+
+            $this->adm_catch_time = filter_var(isset($request['adm_catch_time']) ? $request['adm_catch_time'] : "", FILTER_SANITIZE_STRING);
+
+            $this->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
+            $this->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by = filter_var(isset($request['session_ad_by']) ? $request['session_ad_by'] : "", FILTER_SANITIZE_STRING);
+
+
+            $this->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
+            $this->profession = filter_var(isset($request['profession']) ? $request['profession'] : "", FILTER_SANITIZE_STRING);
+            $this->right_of_work = filter_var(isset($request['right_of_work']) ? $request['right_of_work'] : "", FILTER_SANITIZE_STRING);
+            $this->c_prof_ind_insurance = filter_var(isset($request['c_prof_ind_insurance']) ? $request['c_prof_ind_insurance'] : "", FILTER_SANITIZE_STRING);
+            $this->c_payment_methods = filter_var(isset($request['c_payment_methods']) ? $request['c_payment_methods'] : "", FILTER_SANITIZE_STRING);
+            $this->c_ltd_comp_name = filter_var(isset($request['c_ltd_comp_name']) ? $request['c_ltd_comp_name'] : "", FILTER_SANITIZE_STRING);
+            $this->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
+
+            //new files fields
+
+            if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->prof_ind_cert = $newfiename;
+            }
+            if(isset($request['certs']) && $file = $request['certs'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->certs = $newfiename;
+            }
+
+            if(isset($request['passport_visa']) && $file = $request['passport_visa'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->passport_visa = $newfiename;
+            }
+            if(isset($request['profQualLevel']) &&
+                isset($request['profQualName']) &&
+                isset($request['profQualPlace']) &&
+                isset($request['profQualYear']))
+            {
+                $arr['Level'] = $request['profQualLevel'];
+                $arr['Name'] = $request['profQualName'];
+                $arr['Place'] = $request['profQualPlace'];
+                $arr['Year'] = $request['profQualYear'];
+                $newFinalArr = [];
+                for ($j=0; $j<count($request['profQualLevel']); $j++)
+                {
+                    $newFinalArr[$j] = array(
+                        isset($arr['Level'][$j]) ? $arr['Level'][$j] : "" ,
+                        isset($arr['Name'][$j]) ? $arr['Name'][$j] : "" ,
+                        isset($arr['Place'][$j]) ? $arr['Place'][$j] : "" ,
+                        isset($arr['Year'][$j]) ? $arr['Year'][$j] : "" ,
+                    );
+                }
+                $this->prof_qualifications = json_encode($newFinalArr);
+            }
+            if(isset($request['mand_training']) && $file = $request['mand_training'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->mand_training = $newfiename;
+            }
+            if(isset($request['cert_of_crbdbs']) && $file = $request['cert_of_crbdbs'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->cert_of_crbdbs = $newfiename;
+            }
+            if(isset($request['occup_health']) && $file = $request['occup_health'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->occup_health = $newfiename;
+            }
+
             $this->save();
             $user_id = $this->id;
             $profile = new Profile();
@@ -388,7 +499,56 @@ class User extends Authenticatable
             $user->emp_telno = filter_var(isset($request['emp_telno']) ? $request['emp_telno'] : "", FILTER_SANITIZE_STRING);;
             $user->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
             $user->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
-            $user->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);;
+            $user->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);
+
+            $user->org_desc = filter_var(isset($request['org_desc']) ? $request['org_desc'] : "", FILTER_SANITIZE_STRING);
+            $user->pin = filter_var(isset($request['pin']) ? $request['pin'] : "", FILTER_SANITIZE_STRING);
+            $user->pin_date_revalid = filter_var(isset($request['pin_date_revalid']) ? $request['pin_date_revalid'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
+            $user->emp_pos = filter_var(isset($request['emp_pos']) ? $request['emp_pos'] : "", FILTER_SANITIZE_STRING);
+            $user->emp_email = filter_var(isset($request['emp_email']) ? $request['emp_email'] : "", FILTER_SANITIZE_STRING);
+            $user->backup_emp_contact = filter_var(isset($request['backup_emp_contact']) ? $request['backup_emp_contact'] : "", FILTER_SANITIZE_STRING);
+            $user->backup_emp_email = filter_var(isset($request['backup_emp_email']) ? $request['backup_emp_email'] : "", FILTER_SANITIZE_STRING);
+            $user->backup_emp_pos = filter_var(isset($request['backup_emp_pos']) ? $request['backup_emp_pos'] : "", FILTER_SANITIZE_STRING);
+            $user->backup_emp_tel = filter_var(isset($request['backup_emp_tel']) ? $request['backup_emp_tel'] : "", FILTER_SANITIZE_STRING);
+            $user->insurance = filter_var(isset($request['insurance']) ? $request['insurance'] : "", FILTER_SANITIZE_STRING);
+            $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
+            $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
+            $user->prof_required = filter_var(isset($request['prof_required']) ? $request['prof_required'] : "", FILTER_SANITIZE_STRING);
+            //With Others
+            $user->special_interests = filter_var((isset($request['special_interests']) && $request['special_interests'][0] != "Other") ? $request['special_interests'][0] :
+                (isset($request['special_interests']) && $request['special_interests'][0] == "Other" ? $request['special_interests'][1] : ""), FILTER_SANITIZE_STRING);
+            $user->setting = filter_var((isset($request['setting']) && $request['setting'][0] != "Other") ? $request['setting'][0] :
+                (isset($request['setting']) && $request['setting'][0] == "Other" ? $request['setting'][1] : ""), FILTER_SANITIZE_STRING);
+            $user->appo_slot_times = filter_var((isset($request['appo_slot_times']) && $request['appo_slot_times'][0] != "Other") ? $request['appo_slot_times'][0] :
+                (isset($request['appo_slot_times']) && $request['appo_slot_times'][0] == "Other" ? $request['appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
+            $user->time_allowed = filter_var((isset($request['time_allowed']) && $request['time_allowed'][0] != "Other") ? $request['time_allowed'][0] :
+                (isset($request['time_allowed']) && $request['time_allowed'][0] == "Other" ? $request['time_allowed'][1] : ""), FILTER_SANITIZE_STRING);
+            $user->payment_terms = filter_var((isset($request['payment_terms']) && $request['payment_terms'][0] != "Other") ? $request['payment_terms'][0] :
+                (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
+            //End With Others
+
+            $user->adm_catch_time = filter_var(isset($request['adm_catch_time']) ? $request['adm_catch_time'] : "", FILTER_SANITIZE_STRING);
+
+            $user->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
+            $user->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
+            $user->session_ad_by = filter_var(isset($request['session_ad_by']) ? $request['session_ad_by'] : "", FILTER_SANITIZE_STRING);
+
+            if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $user->prof_ind_cert = $newfiename;
+            }
+            if(isset($request['certs']) && $file = $request['certs'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $user->certs = $newfiename;
+            }
+
+
             $user->save();
             return $user_id;
         }

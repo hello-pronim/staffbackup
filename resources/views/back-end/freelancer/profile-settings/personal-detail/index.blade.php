@@ -64,6 +64,9 @@
                                             @include('back-end.freelancer.profile-settings.personal-detail.skill')   
                                         @endif 
                                     </div>
+                                    <div>
+                                            @include('back-end.freelancer.profile-settings.personal-detail.otherfields')
+                                    </div>
                                     <div class="wt-updatall">
                                         <i class="ti-announcement"></i>
                                         <span>{{{ trans('lang.save_changes_note') }}}</span>

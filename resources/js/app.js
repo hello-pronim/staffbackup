@@ -1412,6 +1412,12 @@ if (document.getElementById("user_profile")) {
             banner_ref: 'profile_banner_ref',
             uploaded_image: false,
             uploaded_banner: false,
+            payment_method:"",
+            setting:"",
+            appoSlotTime:"",
+            timeAllocated:"",
+            paymentTerm:"",
+            specialInterest:"",
             report: {
                 reason: '',
                 description: '',
@@ -4294,3 +4300,36 @@ if (document.getElementById("services")) {
         }
     });
 }
+
+jQuery('#plusQual').click(function(){
+    var htmlstring = '<br><br><div class="profQualif_block">\n' +
+        '                    <div class="form-group form-group-half">\n' +
+        '                        <input type="text"\n' +
+        '                               class="form-control"\n' +
+        '                               name="profQualLevel[]"\n' +
+        '                               placeholder="Level">\n' +
+        '                    </div>\n' +
+        '                    <div class="form-group form-group-half">\n' +
+        '                        <input type="text"\n' +
+        '                               class="form-control"\n' +
+        '                               name="profQualName[]"\n' +
+        '\n' +
+        '                               placeholder="Name">\n' +
+        '                    </div>\n' +
+        '                    <div   style="margin-bottom: 20px" class="form-group form-group-half">\n' +
+        '                        <input type="text"\n' +
+        '                               class="form-control"\n' +
+        '                               name="profQualPlace[]"\n' +
+        '\n' +
+        '                               placeholder="Place of Study">\n' +
+        '                    </div>\n' +
+        '                    <div style="margin-bottom: 20px" class="form-group form-group-half">\n' +
+        '                        <input type="number"\n' +
+        '                               class="form-control"\n' +
+        '                               name="profQualYear[]"\n' +
+        '\n' +
+        '                               placeholder="Year">\n' +
+        '                    </div>\n' +
+        '                </div>';
+    jQuery(this).parent().after(htmlstring);
+})

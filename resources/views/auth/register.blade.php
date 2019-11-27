@@ -902,7 +902,7 @@
                                                                 </div>
                                                                 <div class="form-group form-group">
                                                                     <strong>Professional Qualifications</strong>
-                                                                    <span class="text-right" id="plusQual">+</span>
+                                                                    <span class="text-right" id="plusQual" style="cursor:pointer;font-size: 16px; background-color: #fccf17;color:white;padding:7px;border-radius:5px">+</span>
                                                                 </div>
 
                                                                 <div class="profQualif_block">
@@ -994,7 +994,7 @@
                                                                 </div>
                                                                 <div class="form-group "
                                                                      v-if="payment_method=='Limited Company'">
-                                                                    <input id="c_ltd_comp_name" type="text"
+                                                                    <input id="c_ltd_comp_name" type=" text"
                                                                            class="form-control"
                                                                            name="c_ltd_comp_name"
                                                                            placeholder="LTD Company">

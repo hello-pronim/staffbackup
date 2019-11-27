@@ -63,6 +63,7 @@
                                         @include('back-end.employer.profile-settings.personal-detail.location')
                                     @endif
                                 </div>
+
                                 <div class="wt-updatall">
                                     <i class="ti-announcement"></i>
                                     <span>{{{ trans('lang.save_changes_note') }}}</span>

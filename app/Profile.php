@@ -89,6 +89,93 @@ class Profile extends Model
         }
         $location = Location::find($request['location']);
         $user->location()->associate($location);
+
+
+
+        $user->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
+        $user->profession = filter_var(isset($request['profession']) ? $request['profession'] : "", FILTER_SANITIZE_STRING);
+        $user->right_of_work = filter_var(isset($request['right_of_work']) ? $request['right_of_work'] : "", FILTER_SANITIZE_STRING);
+        $user->c_prof_ind_insurance = filter_var(isset($request['c_prof_ind_insurance']) ? $request['c_prof_ind_insurance'] : "", FILTER_SANITIZE_STRING);
+        $user->c_payment_methods = filter_var(isset($request['c_payment_methods']) ? $request['c_payment_methods'] : "", FILTER_SANITIZE_STRING);
+        $user->c_ltd_comp_name = filter_var(isset($request['c_ltd_comp_name']) ? $request['c_ltd_comp_name'] : "", FILTER_SANITIZE_STRING);
+        $user->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
+        $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
+        $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
+        //new files fields
+
+        if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->prof_ind_cert = $newfiename;
+        }
+        if(isset($request['certs']) && $file = $request['certs'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->certs = $newfiename;
+        }
+
+        if(isset($request['passport_visa']) && $file = $request['passport_visa'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->passport_visa = $newfiename;
+        }
+        if(isset($request['profQualLevel']) &&
+            isset($request['profQualName']) &&
+            isset($request['profQualPlace']) &&
+            isset($request['profQualYear']))
+        {
+            $arr['Level'] = $request['profQualLevel'];
+            $arr['Name'] = $request['profQualName'];
+            $arr['Place'] = $request['profQualPlace'];
+            $arr['Year'] = $request['profQualYear'];
+
+            $newFinalArr = [];
+            for ($j=0; $j<count($request['profQualLevel']); $j++)
+            {
+                $newFinalArr[$j] = array(
+                    isset($arr['Level'][$j]) ? $arr['Level'][$j] : "" ,
+                    isset($arr['Name'][$j]) ? $arr['Name'][$j] : "" ,
+                    isset($arr['Place'][$j]) ? $arr['Place'][$j] : "" ,
+                    isset($arr['Year'][$j]) ? $arr['Year'][$j] : "" ,
+                );
+            }
+            $user->prof_qualifications = json_encode($newFinalArr);
+
+        }
+        if(isset($request['mand_training']) && $file = $request['mand_training'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->mand_training = $newfiename;
+        }
+        if(isset($request['cert_of_crbdbs']) && $file = $request['cert_of_crbdbs'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->cert_of_crbdbs = $newfiename;
+        }
+        if(isset($request['occup_health']) && $file = $request['occup_health'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->occup_health = $newfiename;
+        }
+
+
+
+
+
+
+
         $user->save();
         $user->skills()->detach();
         if ($request['skills']) {

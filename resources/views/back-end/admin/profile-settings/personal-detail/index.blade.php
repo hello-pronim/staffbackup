@@ -60,6 +60,7 @@
                                         @include('back-end.admin.profile-settings.personal-detail.profile_banner')
                                     @endif
                                 </div>
+
                                 <div class="wt-updatall la-updateall-holder">
                                     <i class="ti-announcement"></i>
                                     <span>{{{ trans('lang.save_changes_note') }}}</span> {!! Form::submit(trans('lang.btn_save_update'),
