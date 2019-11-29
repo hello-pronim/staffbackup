@@ -529,6 +529,8 @@ class PublicController extends Controller
         $enable_package = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
         $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
         $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+        $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
+        $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer') {
                 $users_total_records = User::count();
@@ -541,7 +543,9 @@ class PublicController extends Controller
                     $search_hourly_rates,
                     $search_freelaner_types,
                     $search_english_levels,
-                    $search_languages
+                    $search_languages,
+                    $days_avail,
+                    $hours_avail
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?

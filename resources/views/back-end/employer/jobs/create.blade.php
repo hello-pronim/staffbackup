@@ -65,6 +65,32 @@
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="wt-jobdetails wt-tabsinfo">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>Avilable days and hours</h2>
+                                </div>
+                                <div class="wt-formtheme wt-userform wt-userformvtwo">
+                                    <div class="form-group form-group-half">
+                                        <select id="multiselect" class="form-control" name="days_avail[]" multiple="multiple">
+                                            <option>Monday</option>
+                                            <option>Tuesday</option>
+                                            <option>Wednesday</option>
+                                            <option>Thursday</option>
+                                            <option>Friday</option>
+                                            <option>Saturday</option>
+                                            <option>Sunday</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-half">
+                                        <div id="datetimepickerDate" class="input-group timerange">
+                                            <input class="form-control" name="hours_avail" autocomplete="off" type="text">
+                                            <span class="input-group-addon" style="">
+                                        </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             {{--<div class="wt-jobcategories wt-tabsinfo">--}}
                                 {{--<div class="wt-tabscontenttitle">--}}
                                     {{--<h2>{{ trans('lang.job_cats') }}</h2>--}}
@@ -160,6 +186,9 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>
                     <div class="wt-updatall">

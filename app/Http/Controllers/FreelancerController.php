@@ -87,6 +87,8 @@ class FreelancerController extends Controller
         $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
+        $hours_avail = !empty($profile->hours_avail) ? $profile->hours_avail : '';
+        $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
 
         $role_id =  Helper::getRoleByUserID(Auth::user()->id);
         $packages = DB::table('items')->where('subscriber', Auth::user()->id)->count();
@@ -109,7 +111,9 @@ class FreelancerController extends Controller
                     'latitude',
                     'avater',
                     'options',
-                    'cv'
+                    'cv',
+                    'days_avail',
+                    'hours_avail'
                 )
             );
         } else {
@@ -129,7 +133,9 @@ class FreelancerController extends Controller
                     'latitude',
                     'avater',
                     'options',
-                    'cv'
+                    'cv',
+                    'days_avail',
+                    'hours_avail'
                 )
             );
         }

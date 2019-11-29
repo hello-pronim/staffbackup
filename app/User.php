@@ -606,12 +606,14 @@ class User extends Authenticatable
         $search_hourly_rates,
         $search_freelaner_types,
         $search_english_levels,
-        $search_languages
+        $search_languages,
+        $days_avail,
+        $hours_avail
     ) {
         $json = array();
         $user_id = array();
         $user_by_role =  User::role($type)->select('id')->get()->pluck('id')->toArray();
-        $users = !empty($user_by_role) ? User::whereIn('id', $user_by_role)->where('is_disabled', 'false') : array();
+        $users = !empty($user_by_role) ? User::whereIn('users.id', $user_by_role)->where('is_disabled', 'false') : array();
         $filters = array();
         if (!empty($users)) {
             $filters['type'] = $type;
@@ -620,7 +622,7 @@ class User extends Authenticatable
                 $users->where('first_name', 'like', '%' . $keyword . '%');
                 $users->orWhere('last_name', 'like', '%' . $keyword . '%');
                 $users->orWhere('slug', 'like', '%' . $keyword . '%');
-                $users->whereIn('id', $user_by_role);
+                $users->whereIn('users.id', $user_by_role);
                 $users->where('is_disabled', 'false');
             }
             if (!empty($search_locations)) {
@@ -637,7 +639,7 @@ class User extends Authenticatable
                         $user_id[] = $employee->user_id;
                     }
                 }
-                $users->whereIn('id', $user_id)->get();
+                $users->whereIn('users.id', $user_id)->get();
             }
             if (!empty($search_skills)) {
                 $filters['skills'] = $search_skills;
@@ -647,7 +649,7 @@ class User extends Authenticatable
                         $user_id[] = $skill->freelancers[$key]->id;
                     }
                 }
-                $users->whereIn('id', $user_id);
+                $users->whereIn('users.id', $user_id);
             }
             if (!empty($search_hourly_rates)) {
                 $filters['hourly_rate'] = $search_hourly_rates;
@@ -662,7 +664,7 @@ class User extends Authenticatable
                     $user_id = Profile::select('user_id')->whereIn('user_id', $user_by_role)
                         ->whereBetween('hourly_rate', [$min, $max])->get()->pluck('user_id')->toArray();
                 }
-                $users->whereIn('id', $user_id);
+                $users->whereIn('users.id', $user_id);
             }
             if (!empty($search_freelaner_types)) {
                 $filters['freelaner_type'] = $search_freelaner_types;
@@ -672,7 +674,7 @@ class User extends Authenticatable
                         $user_id[] = $freelancer->user_id;
                     }
                 }
-                $users->whereIn('id', $user_id)->get();
+                $users->whereIn('users.id', $user_id)->get();
             }
             if (!empty($search_english_levels)) {
                 $filters['english_level'] = $search_english_levels;
@@ -682,7 +684,7 @@ class User extends Authenticatable
                         $user_id[] = $freelancer->user_id;
                     }
                 }
-                $users->whereIn('id', $user_id)->get();
+                $users->whereIn('users.id', $user_id)->get();
             }
             if (!empty($search_languages)) {
                 $filters['languages'] = $search_languages;
@@ -692,13 +694,35 @@ class User extends Authenticatable
                         $user_id[] = $language->users[$key]->id;
                     }
                 }
-                $users->whereIn('id', $user_id);
+                $users->whereIn('users.id', $user_id);
             }
             if ($type = 'freelancer') {
                 $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');
             } else {
                 $users = $users->orderBy('created_at', 'DESC');
             }
+
+            if (!empty($days_avail)) {
+                $freelancers = DB::table('profiles');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
+                $filters['days_avail'] = json_encode($days_avail);
+
+                foreach($days_avail as $day)
+                {
+                    $freelancers->where('days_avail', 'like', '%' . $day . '%');
+                }
+                $freelancers = $freelancers->get();
+                foreach ($freelancers as $key => $freelancer) {
+                    if (!empty($freelancer->user_id)) {
+                        $user_id[] = $freelancer->user_id;
+                    }
+                }
+                $users->whereIn('users.id', $user_id)->get();
+            }
+
+//
+//            $users->select('users.*', 'profiles.days_avail', 'profiles.hours_avail');
+//
+//            $users->join('profiles', "users.id", '=', 'profiles.user_id');
             $users = $users->paginate(8)->setPath('');
         }
         foreach ($filters as $key => $filter) {

@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ?
 'extend.front-end.master':
  'front-end.master', ['body_class' => 'wt-innerbgcolor'] )
 @push('stylesheets')
@@ -87,6 +87,33 @@
                                 @if (!empty($users))
                                     @foreach ($users as $key => $freelancer)
                                         @php
+                                        if( isset($_GET['hours_avail']) && !empty($_GET['hours_avail']))
+                                        {
+                                            $freelancer_hours_avail = $freelancer->profile->hours_avail;
+                                            if($freelancer_hours_avail =='')
+                                            {
+                                                continue;
+                                            }
+                                            else{
+                                                $hours = explode('-', $freelancer_hours_avail);
+                                                $requestTime = explode('-', $_GET['hours_avail']);
+                                                $requestedTimeStart = strtotime($requestTime[0]);
+                                                $requestedTimeEnd = strtotime($requestTime[1]);
+                                                $freeStartTime = strtotime($hours[0]);
+                                                $freeEndTime = strtotime($hours[1]);
+
+                                                if (
+                                                       $freeStartTime < $freeEndTime &&
+                                                        $requestedTimeStart < $requestedTimeEnd &&
+                                                        $requestedTimeStart >= $freeStartTime &&
+                                                        $requestedTimeEnd <= $freeEndTime
+                                                ) {
+
+                                                } else {
+                                                    continue;
+                                                }
+                                            }
+                                        }
                                             $user_image = !empty($freelancer->profile->avater) ?
                                                             '/uploads/users/'.$freelancer->id.'/'.$freelancer->profile->avater :
                                                             'images/user.jpg';

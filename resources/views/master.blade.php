@@ -107,6 +107,7 @@
 	<script src="{{ asset('js/vendor/jquery-library.js') }}"></script>
 	<script src="{{ asset('js/scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui-min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
     @stack('scripts')
     <script>
         jQuery(window).load(function () {

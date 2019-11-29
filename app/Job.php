@@ -178,7 +178,10 @@ class Job extends Model
             $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
             $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
             $this->start_date = filter_var($request['start_date'] ? $request['start_date'] : "", FILTER_SANITIZE_STRING);
-            $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : 0 , FILTER_SANITIZE_STRING);
+            $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : "0" , FILTER_SANITIZE_STRING);
+
+            $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
+            $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {
@@ -252,7 +255,10 @@ class Job extends Model
             $job->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
             $job->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $job->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
-            $job->maximum_distance = filter_var($request['maximum_distance'], FILTER_SANITIZE_STRING);
+            $job->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : 0 , FILTER_SANITIZE_STRING);
+
+            $job->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
+            $job->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {
