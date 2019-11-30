@@ -41,6 +41,32 @@
                 </fieldset>
             </div>
         </div>
+        <div class="wt-widget wt-effectiveholder wt-startsearch">
+            <div class="wt-widgettitle">
+                <h2>Days and Hours Available</h2>
+            </div>
+            <div class="wt-widgetcontent">
+                <div class="form-group form-group-half">
+                    <select id="multiselect" class="form-control" name="days_avail[]" multiple="multiple" data-dbvalue="{{isset($_GET['days_avail']) && $_GET['days_avail'] ? json_encode($_GET['days_avail']) : ""}}">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-half">
+                    <div id="datetimepickerDate" class="input-group timerange">
+                        <input class="form-control" name="hours_avail" type="text" value="{{isset($_GET['hours_avail']) ? $_GET['hours_avail'] : "" }}" autocomplete="off">
+                        <span class="input-group-addon" style="">
+              </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="wt-widget wt-effectiveholder">
             <div class="wt-widgettitle">
                 <h2>{{ trans('lang.locations') }}</h2>

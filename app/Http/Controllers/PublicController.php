@@ -732,7 +732,9 @@ class PublicController extends Controller
                     $search_locations,
                     $search_skills,
                     $search_project_lengths,
-                    $search_languages
+                    $search_languages,
+                    $days_avail,
+                    $hours_avail
                 );
                 $jobs = $results['jobs'];
                 if (!empty($jobs)) {

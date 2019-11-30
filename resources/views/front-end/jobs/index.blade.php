@@ -66,6 +66,34 @@
                                             $featured_class = $job->is_featured == 'true' ? 'wt-featured' : '';
                                             $user = Auth::user() ? \App\User::find(Auth::user()->id) : '';
                                             $project_type  = Helper::getProjectTypeList($job->project_type);
+
+                                        if( isset($_GET['hours_avail']) && !empty($_GET['hours_avail']))
+                                        {
+                                            $job_hours_avail = $job->hours_avail;
+                                            if($job_hours_avail =='')
+                                            {
+                                                continue;
+                                            }
+                                            else{
+                                                $hours = explode('-', $job_hours_avail);
+                                                $requestTime = explode('-', $_GET['hours_avail']);
+                                                $requestedTimeStart = strtotime($requestTime[0]);
+                                                $requestedTimeEnd = strtotime($requestTime[1]);
+                                                $jobStartTime = strtotime($hours[0]);
+                                                $jobEndTime = strtotime($hours[1]);
+
+                                                if (
+                                                       $jobStartTime < $jobEndTime &&
+                                                        $requestedTimeStart < $requestedTimeEnd &&
+                                                        $requestedTimeStart >= $jobStartTime &&
+                                                        $requestedTimeEnd <= $jobEndTime
+                                                ) {
+
+                                                } else {
+                                                    continue;
+                                                }
+                                            }
+                                        }
                                         @endphp
                                         <div class="wt-userlistinghold wt-userlistingholdvtwo {{$featured_class}}">
                                             @if ($job->is_featured == 'true')

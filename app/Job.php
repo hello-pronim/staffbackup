@@ -320,7 +320,7 @@ class Job extends Model
     public static function getSearchResult(
         $keyword, $search_categories, $search_locations,
         $search_skills, $search_project_lengths,
-        $search_languages
+        $search_languages, $days_avail, $hours_avail
     ) {
         $json = array();
         $jobs = Job::select('*');
@@ -375,6 +375,22 @@ class Job extends Model
             foreach ($languages as $key => $language) {
                 if (!empty($language->jobs[$key]->id)) {
                     $job_id[] = $language->jobs[$key]->id;
+                }
+            }
+            $jobs->whereIn('id', $job_id);
+        }
+        if (!empty($days_avail)) {
+            $arrjobs = DB::table('jobs');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
+            $filters['days_avail'] = json_encode($days_avail);
+
+            foreach($days_avail as $day)
+            {
+                $jobs->where('days_avail', 'like', '%' . $day . '%');
+            }
+            $arrjobs = $jobs->get();
+            foreach ($arrjobs as $key => $job) {
+                if (!empty($job->id)) {
+                    $job_id[] = $job->id;
                 }
             }
             $jobs->whereIn('id', $job_id);
