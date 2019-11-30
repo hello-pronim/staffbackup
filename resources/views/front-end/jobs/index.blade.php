@@ -119,6 +119,9 @@
                                                         @if (!empty($job->project_level))
                                                             <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i>{{{Helper::getProjectLevel($job->project_level)}}}</span></li>
                                                         @endif
+                                                        @if($job->employer->itsoftware != "")
+                                                            <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>IT Software: </strong>{{$job->employer->itsoftware}}</span></li>
+                                                        @endif
                                                         @if (!empty($job->project_rates) && !empty($job->project_rates_type) )
                                                             <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
                                                         @endif

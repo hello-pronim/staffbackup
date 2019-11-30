@@ -75,6 +75,10 @@
                                                     @if (!empty($job->duration))
                                                         <li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>
                                                     @endif
+                                                        @if($job->employer->itsoftware != "")
+                                                            <li><span class="wt-dashboradclock"><i class="far fa-user"></i> {{$job->employer->itsoftware}}</span></li>
+
+                                                        @endif
                                                     {{-- @if (!empty($job->price))
                                                         <li>
                                                             <span>

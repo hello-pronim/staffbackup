@@ -101,6 +101,10 @@ class Profile extends Model
         $user->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
         $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
         $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
+        $user->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);
+
+        $user->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);
+        $user->limitied_company_name = filter_var(isset($request['limitied_company_name']) ? $request['limitied_company_name'] : "", FILTER_SANITIZE_STRING);
         //new files fields
 
         if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])

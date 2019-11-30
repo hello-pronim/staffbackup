@@ -372,6 +372,10 @@ class User extends Authenticatable
             $this->c_ltd_comp_name = filter_var(isset($request['c_ltd_comp_name']) ? $request['c_ltd_comp_name'] : "", FILTER_SANITIZE_STRING);
             $this->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
 
+
+            //It software
+            $this->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);
+
             //new files fields
 
             if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
@@ -702,22 +706,7 @@ class User extends Authenticatable
                 $users = $users->orderBy('created_at', 'DESC');
             }
 
-            if (!empty($days_avail)) {
-                $freelancers = DB::table('profiles');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
-                $filters['days_avail'] = json_encode($days_avail);
 
-                foreach($days_avail as $day)
-                {
-                    $freelancers->where('days_avail', 'like', '%' . $day . '%');
-                }
-                $freelancers = $freelancers->get();
-                foreach ($freelancers as $key => $freelancer) {
-                    if (!empty($freelancer->user_id)) {
-                        $user_id[] = $freelancer->user_id;
-                    }
-                }
-                $users->whereIn('users.id', $user_id)->get();
-            }
 
 //
 //            $users->select('users.*', 'profiles.days_avail', 'profiles.hours_avail');

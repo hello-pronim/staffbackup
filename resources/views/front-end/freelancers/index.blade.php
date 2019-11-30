@@ -171,6 +171,11 @@
                                                                 {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '$' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
                                                             </li>
                                                         @endif
+                                                            @if (!empty($freelancer->itsoftware))
+                                                                <li>
+                                                                    <strong>IT Software:</strong> {{$freelancer->itsoftware}}
+                                                                </li>
+                                                            @endif
                                                         {{--@if (!empty($freelancer->location))--}}
                                                             {{--<li><span><img src="{{{ asset($flag)}}}" alt="Flag"> {{{ !empty($freelancer->location->title) ? $freelancer->location->title : '' }}}</span></li>--}}
                                                         {{--@endif--}}

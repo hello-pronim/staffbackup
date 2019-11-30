@@ -115,6 +115,12 @@
                                     <h2>{{ trans('lang.company_details') }}</h2>
                                 </div>
                                 <div class="wt-widgetcontent wt-comfollowers wt-verticalscrollbar">
+                                    @if($user->itsoftware != "")
+                                        <div>
+                                            <strong>IT Software</strong><br>
+                                            <span>{{$user->itsoftware}}</span>
+                                        </div>
+                                    @endif
                                     @if($user->emp_contact != '')
                                         <div>
                                             <strong>{{ trans('lang.emp_contact') }}</strong><br>

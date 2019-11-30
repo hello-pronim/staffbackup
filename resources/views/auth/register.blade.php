@@ -312,6 +312,30 @@
     '[DELETED]PAYE'=>'[DELETED]PAYE',
     );
 
+    $arrITSoftware = array(
+       'Adastra'=>'Adastra',
+        'Cerna'=>'Cerna',
+        'Cerna Millenium'=>'Cerna Millenium',
+        'Cleo'=>'Cleo',
+        'DGL'=>'DGL',
+        'Docman'=>'Docman',
+        'Edis & A&E System'=>'Edis & A&E System',
+        'Emis Community'=>'Emis Community',
+        'Emis LV'=>'Emis LV',
+        'Emis PCS'=>'Emis PCS',
+        'Emis Web'=>'Emis Web',
+        'Frontdesk'=>'Frontdesk',
+        'Heydoc'=>'Heydoc',
+        'Infoslex'=>'Infoslex',
+        'Microtest'=>'Microtest',
+        'Premiere'=>'Premiere',
+        'Symphony'=>'Symphony',
+        'Synergy'=>'Synergy',
+        'SystmOne'=>'SystmOne',
+        'Torex'=>'Torex',
+        'Vision'=>'Vision',
+        'Vision Anywhere'=>'Vision Anywhere',
+    );
     @endphp
     <script src="https://js.stripe.com/v3"></script>
     <style type="text/css">
@@ -475,7 +499,9 @@
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
                                             </span>
                                             </div>
-
+                                            <div class="form-group">
+                                                {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
+                                            </div>
 
                                         </fieldset>
                                         <fieldset class="wt-formregisterstart">
@@ -1088,7 +1114,10 @@
                                                     </div>
                                                     <input v-if="limitedCompany" type="text"
                                                            name="limitied_company_number"
-                                                           class="form-control" placeholder="Limited Company Number ">
+                                                           class="form-control" placeholder="Limited Company Number "><br>
+                                                    <input v-if="limitedCompany" type="text"
+                                                           name="limitied_company_name"
+                                                           class="form-control" placeholder="Limited Company Name ">
                                                 </div>
                                                 <div v-if="user_role=='employer'">
                                                     {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
