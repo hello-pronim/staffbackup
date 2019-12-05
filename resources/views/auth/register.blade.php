@@ -44,7 +44,7 @@
     $subscribe_options  = array(
     'plan_G6DvQf9zdEGczW'=>'6 Months',
     'plan_G6DvMJGDvP6wGz'=>'3 Months',
-    'plan_G6DuLUGgkizyrs '=>'Monthly'
+    'plan_G6DuLUGgkizyrs'=>'Monthly'
     );
 
     $arrSettings = array(
