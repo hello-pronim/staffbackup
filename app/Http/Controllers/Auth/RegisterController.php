@@ -133,22 +133,49 @@ class RegisterController extends Controller
         session()->put(['password' => $request['password']]);
         if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
             $email_params = array();
+//            $template = DB::table('email_types')->select('id')
+//                ->where('email_type', 'verification_code')->get()->first();
+//            if (!empty($template->id)) {
+//                $template_data = EmailTemplate::getEmailTemplateByID($template->id);
+//                $email_params['verification_code'] = $user->verification_code;
+//                $email_params['name'] = Helper::getUserName($user->id);
+//                $email_params['email'] = $user->email;
+//                Mail::to($user->email)
+//                    ->send(
+//                        new GeneralEmailMailable(
+//                            'verification_code',
+//                            $template_data,
+//                            $email_params
+//                        )
+//                    );
+//            }
             $template = DB::table('email_types')->select('id')
-                ->where('email_type', 'verification_code')->get()->first();
+                ->where('email_type', 'new_user')->get()->first();
             if (!empty($template->id)) {
                 $template_data = EmailTemplate::getEmailTemplateByID($template->id);
-                $email_params['verification_code'] = $user->verification_code;
-                $email_params['name'] = Helper::getUserName($user->id);
-                $email_params['email'] = $user->email;
-                Mail::to($user->email)
+                $email_params['name'] = Helper::getUserName($user_id);
+                //$email_params['email'] = $user->email;
+                switch ($request['role'])
+                {
+                    case "freelancer":
+                        $email_params['message'] = 'start finding new work opportunities today!';
+                        break;
+                    case "employer":
+                        $email_params['message'] = 'start finding new staff today!';
+
+                        break;
+                }
+                Mail::to($request['email'])
                     ->send(
                         new GeneralEmailMailable(
-                            'verification_code',
+                            'new_user',
                             $template_data,
                             $email_params
                         )
                     );
             }
+
+
         } else {
             $id = Session::get('user_id');
             $user = User::find($id);
