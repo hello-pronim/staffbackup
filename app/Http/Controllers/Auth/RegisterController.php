@@ -154,7 +154,7 @@ class RegisterController extends Controller
             if (!empty($template->id)) {
                 $template_data = EmailTemplate::getEmailTemplateByID($template->id);
                 $email_params['name'] = Helper::getUserName($user_id);
-                //$email_params['email'] = $user->email;
+                $email_params['email'] = $request['email'];
                 switch ($request['role'])
                 {
                     case "freelancer":

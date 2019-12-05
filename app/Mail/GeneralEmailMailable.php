@@ -141,6 +141,7 @@ class GeneralEmailMailable extends Mailable
         $user_name = $name;
         $user_email = $email;
         $user_password = $password;
+        $user_message = $message;
         $site_title = EmailHelper::getSiteTitle();
         $signature = EmailHelper::getSignature();
         $app_content = $this->template->content;
@@ -160,6 +161,7 @@ class GeneralEmailMailable extends Mailable
         $app_content = str_replace("%name%", $user_name, $app_content);
         $app_content = str_replace("%email%", $user_email, $app_content);
         $app_content = str_replace("%password%", $user_password, $app_content);
+        $app_content = str_replace("%message%", $user_message, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";
