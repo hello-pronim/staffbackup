@@ -612,7 +612,10 @@ class User extends Authenticatable
         $search_english_levels,
         $search_languages,
         $days_avail,
-        $hours_avail
+        $hours_avail,
+        $skill,
+        $avail_date,
+        $location
     ) {
         $json = array();
         $user_id = array();
@@ -655,6 +658,17 @@ class User extends Authenticatable
                 }
                 $users->whereIn('users.id', $user_id);
             }
+            if (!empty($skill)) {
+                $filters['skills'] = array($skill);
+                $skills = Skill::whereIn('title', array($skill))->whereIn('slug', array($skill), 'or')->get();
+                foreach ($skills as $key => $skill) {
+                    if (!empty($skill->freelancers[$key]->id)) {
+                        $user_id[] = $skill->freelancers[$key]->id;
+                    }
+                }
+                $users->whereIn('users.id', $user_id);
+            }
+
             if (!empty($search_hourly_rates)) {
                 $filters['hourly_rate'] = $search_hourly_rates;
                 $min = '';
@@ -699,6 +713,31 @@ class User extends Authenticatable
                     }
                 }
                 $users->whereIn('users.id', $user_id);
+            }
+
+            if (!empty($location)) {
+
+                $users->where('straddress', 'like', '%'.$location.'%');
+                $users->orWhere('city', 'like', '%'.$location.'%');
+                $users->orWhere('postcode', 'like', '%'.$location.'%');
+            }
+
+            if(!empty($avail_date))
+            {
+                $events = DB::table('calendar_events')
+                    ->where('class', '=', 'available_class')
+                ->where('start', 'like', '%'.$avail_date.'%')
+                ->where('end', 'like', '%'.$avail_date.'%')->get()->toArray();
+                if(!empty($events))
+                {
+                    $user_id = array();
+                    foreach ($events as $event)
+                    {
+                        $user_id[] = $event->user_id;
+                    }
+                    $users->whereIn('users.id', $user_id);
+
+                }
             }
             if ($type = 'freelancer') {
                 $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');

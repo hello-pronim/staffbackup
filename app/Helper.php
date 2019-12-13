@@ -926,6 +926,22 @@ class Helper extends Model
                 'title' => trans('lang.search_filter_list.services'),
                 'value' => 'service',
             ),
+            '4' => array(
+                'title' => 'Location',
+                'value' => 'location',
+            ),
+            '5' => array(
+                'title' => 'Skill',
+                'value' => 'skill',
+            ),
+            '6' => array(
+                'title' => 'Job Date',
+                'value' => 'job_date',
+            ),
+            '7' => array(
+                'title' => 'Available Date',
+                'value' => 'avail_date',
+            ),
         );
         if (Helper::getAccessType() == 'jobs') {
             return Arr::except($list, [3]);
@@ -980,6 +996,36 @@ class Helper extends Model
                     "slug"
                 )->get()->toArray();
             $json = $services;
+        }
+        if ($type == 'skill') {
+            $skills = DB::table("skills")
+                ->select(
+                    "title AS name",
+                    "slug"
+                )->get()->toArray();
+            $json = $skills;
+        }
+        if ($type == 'location') {
+            $cities = DB::table("users")
+                ->select(
+                    "city AS name",
+                    "straddress"
+                )->get()->toArray();
+            $addresses = DB::table("users")
+                ->select(
+                    "straddress AS name",
+                    "straddress"
+                )->get()->toArray();
+            $postcodes = DB::table("users")
+                ->select(
+                    "postcode AS name",
+                    "straddress"
+                )->get()->toArray();
+            $json = array_merge(array_merge($addresses, $cities), $postcodes);
+        }
+        if ($type == 'job_date' || $type == 'avail_date') {
+
+            $json = [];
         }
         return $json;
     }

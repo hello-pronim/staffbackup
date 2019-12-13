@@ -503,6 +503,9 @@ $cqc_ratings = array(
                placeholder="Organisation name">
     </div>
     <div class="form-group ">
+        {!! Form::select('org_type', $user->profile->org_type, null, array('placeholder' => "Organisation type")) !!}
+    </div>
+    <div class="form-group ">
         <input type="text"
                class="form-control"
                name="policy_number"
@@ -568,6 +571,35 @@ $cqc_ratings = array(
     </div>
     <div class="form-group">
         {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+    </div>
+    <div class="form-group" >
+        <input id="hourly_rate" type="number"
+               class="form-control"
+               name="hourly_rate"
+               value="{{$hourly_rate}}"
+               placeholder="Hourly Rate">
+    </div>
+    <div class="form-group form-group-half">
+        <span class="wt-checkbox"
+              style="    margin-left: 15px;    margin-top: 17px;">
+            <span class="wt-checkbox">
+                    <input id="hourly_rate_negotiable"
+                           type="checkbox"
+                           name="hourly_rate_negotiable"
+                           {{$hourly_rate_negotiable=='on'? 'checked' : ''}}
+
+                           >
+                    <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+            </span>
+        </span>
+    </div>
+    <div class="form-group" >
+        <label for="hourly_rate_desc">Additional information about rate</label>
+        <input id="hourly_rate_desc" type="number"
+               class="form-control"
+               name="hourly_rate_desc"
+               value="{{$hourly_rate_desc}}"
+               placeholder="Additional info">
     </div>
     <div class="form-group">
         {!! Form::select('payment_terms[]', $arrPaymentTerms, $user->payment_terms, array('placeholder' => "Payment Terms")) !!}

@@ -360,43 +360,43 @@
         @php
             $arrQualif = json_decode($user->prof_qualifications);
         @endphp
-        @if(!empty($arrQualif) && isset($arrQualif[0]) && isset($arrQualif[0][0]) && $arrQualif[0][0] != "")
+        <div class="profQualif_block">
+            <table border="1">
+
+            @if(!empty($arrQualif) && isset($arrQualif[0]) && isset($arrQualif[0][0]) && $arrQualif[0][0] != "")
+
             @foreach($arrQualif as $qualif)
-                <div class="profQualif_block">
-                    <div class="form-group form-group-half">
-                        <input type="text"
-                               class="form-control"
-                               name="profQualLevel[]"
-                               value="{{$qualif[0]}}"
-                               placeholder="Level">
-                    </div>
-                    <div class="form-group form-group-half">
-                        <input type="text"
-                               class="form-control"
-                               name="profQualName[]"
-                               value="{{$qualif[1]}}"
 
-                               placeholder="Name">
-                    </div>
-                    <div class="form-group form-group-half">
-                        <input type="text"
-                               class="form-control"
-                               name="profQualPlace[]"
-                               value="{{$qualif[2]}}"
+                <tr>
+                    <td> <input type="text"
+                                class="form-control"
+                                name="profQualLevel[]"
+                                value="{{$qualif[0]}}"
+                                placeholder="Level"></td>
+                    <td> <input type="text"
+                                class="form-control"
+                                name="profQualLevel[]"
+                                value="{{$qualif[1]}}"
+                                placeholder="Level"></td>
+                    <td> <input type="text"
+                                class="form-control"
+                                name="profQualName[]"
+                                value="{{$qualif[2]}}"
 
-                               placeholder="Place of Study">
-                    </div>
-                    <div class="form-group form-group-half">
-                        <input type="number"
-                               class="form-control"
-                               name="profQualYear[]"
-                               value="{{$qualif[3]}}"
+                                placeholder="Name"></td>
+                    <td> <input type="number"
+                                class="form-control"
+                                name="profQualYear[]"
+                                value="{{$qualif[3]}}"
 
-                               placeholder="Year">
-                    </div>
-                </div>
+                                placeholder="Year"></td>
+                </tr>
             @endforeach
+
         @endif
+            </table>
+
+        </div>
         <div class="form-group ">
             <strong>Mandatory Training:</strong>
             @if(!empty($user->mand_training))

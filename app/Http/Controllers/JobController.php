@@ -306,6 +306,9 @@ class JobController extends Controller
                 'job_duration'    => 'required',
                 'project_cost'    => 'required',
                 'description'    => 'required',
+                'start_date'    => 'required',
+                'booking_start'    => 'required',
+                'booking_end'    => 'required',
             ]
         );
         $package_item = Item::where('subscriber', Auth::user()->id)->first();

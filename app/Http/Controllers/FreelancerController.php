@@ -89,6 +89,9 @@ class FreelancerController extends Controller
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
         $hours_avail = !empty($profile->hours_avail) ? $profile->hours_avail : '';
         $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
+        $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
+        $hourly_rate_negotiable = !empty($profile->hourly_rate_negotiable) ? $profile->hourly_rate_negotiable : '';
+        $hourly_rate_desc = !empty($profile->hourly_rate_desc) ? $profile->hourly_rate_desc : '';
 
         $role_id =  Helper::getRoleByUserID(Auth::user()->id);
         $packages = DB::table('items')->where('subscriber', Auth::user()->id)->count();
@@ -113,7 +116,10 @@ class FreelancerController extends Controller
                     'options',
                     'cv',
                     'days_avail',
-                    'hours_avail'
+                    'hours_avail',
+                    'hourly_rate_negotiable',
+                    'hourly_rate',
+                    'hourly_rate_desc'
                 )
             );
         } else {
@@ -135,7 +141,10 @@ class FreelancerController extends Controller
                     'options',
                     'cv',
                     'days_avail',
-                    'hours_avail'
+                    'hours_avail',
+                    'hourly_rate_negotiable',
+                    'hourly_rate',
+                    'hourly_rate_desc'
                 )
             );
         }
@@ -279,6 +288,11 @@ class FreelancerController extends Controller
         } else {
             return view('back-end.freelancer.profile-settings.experience-education.index');
         }
+    }
+
+    public function bookingAndAvailability()
+    {
+       return view('back-end.freelancer.profile-settings.booking_availability');
     }
 
     /**
@@ -974,6 +988,43 @@ class FreelancerController extends Controller
             }
         } else {
             abort(404);
+        }
+    }
+
+
+    public function saveCalendarAvailability(Request $request)
+    {
+        if (Auth::user()) {
+            $user_id = Auth::user()->id;
+            $arrEvent = array();
+            $arrEvent['user_id'] = $user_id;
+            $arrEvent['title'] = $request['title'];
+            $arrEvent['content'] = $request['content'];
+            $arrEvent['contentFull'] = $request['contentFull'];
+            $arrEvent['start'] = $request['start'];
+            $arrEvent['end'] = $request['end'];
+            $arrEvent['class'] = $request['class'];
+            DB::table('calendar_events')->insert(
+                $arrEvent
+            );
+            return array('succes'=>true);
+
+
+        }
+    }
+
+    public function getCalendarEvents()
+    {
+        $arrEvents = DB::table('calendar_events')
+            ->where('user_id','=',Auth::user()->id)->get()->all();
+
+        if(count($arrEvents))
+        {
+            return $arrEvents;
+
+        }
+        else{
+            return false;
         }
     }
 }

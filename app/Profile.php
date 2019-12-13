@@ -211,6 +211,21 @@ class Profile extends Model
         $profile->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
         $profile->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
         $profile->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
+        if ($request['org_type']) {
+            $profile->org_type = $request['org_type'];
+        }
+
+        if ($request['hourly_rate']) {
+            $profile->hourly_rate = $request['hourly_rate'];
+        }
+
+        if ($request['hourly_rate_negotiable']) {
+            $profile->hourly_rate_negotiable = $request['hourly_rate_negotiable'];
+        }
+        if ($request['hourly_rate_desc']) {
+            $profile->hourly_rate_desc = $request['hourly_rate_desc'];
+        }
+
         if ($request['employees']) {
             $profile->no_of_employees = intval($request['employees']);
         }

@@ -22,6 +22,12 @@ import Event from './event.js';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Verte from 'verte';
 import 'verte/dist/verte.css';
+import vuecal from 'vue-cal';
+
+import VueTimepicker from 'vue2-timepicker'
+
+import 'vue2-timepicker/dist/VueTimepicker.css'
+Vue.use(VueTimepicker);
 
 
 Vue.prototype.trans = (key) => {
@@ -89,6 +95,7 @@ Vue.component('dashboard-icon', require('./components/DashboardIconUploadCompone
 Vue.component('image-attachments', require('./components/UploadServiceAttachmentComponent.vue').default);
 Vue.component('freelancer-reviews', require('./components/FreelancerReviewsComponent.vue').default);
 Vue.component('location-selector', require('./components/LocationSelector.vue').default);
+Vue.component('fullcalendar', require('./components/FullCalendar').default);
 
 jQuery(document).ready(function () {
     jQuery(document).on('click', '.wt-back', function (e) {
@@ -189,6 +196,91 @@ jQuery(document).ready(function () {
 
 });
 
+if (document.getElementById("booking_availability")) {
+    const vmHeader = new Vue({
+        el: '#booking_availability',
+
+        components: { 'vue-cal': vuecal,  VueTimepicker },
+        data: {
+            calendarPlugins: [  ],
+            events: [],
+            availability_title:"",
+            availability_content:"",
+            availability_start_time:"",
+            availability_end_time:"",
+            clickedDate:"",
+        },
+        created(){
+            var events = [];
+            let self = this;
+            axios.get('/employer/getCalendarEvents').then(function(response){
+                console.log(this);
+                if(response)
+                {
+                    self.events = response.data;
+                }
+            })
+        },
+        methods:{
+
+            customEventCreation() {
+                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
+                // Check if date format is correct before creating event.
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
+                    this.$refs.vuecal.createEvent(
+                        // Formatted start date and time or JavaScript Date object.
+                        dateTime,
+                        // Custom event props (optional).
+                        { title: 'New Event', content: 'yay! 🎉', classes: ['leisure'] }
+                    )
+                } else if (dateTime) alert('Wrong date format.')
+            },
+            createNewEvent(date){
+                this.clickedDate = new Date(date);
+                if(this.availability_start_time != '')
+                {
+                    var startTime = this.availability_start_time.split(' ')[1];
+
+                }
+                else {
+                    var startTime = '00:00';
+                }
+                if(this.availability_end_time != '')
+                {
+                    var endTime = this.availability_end_time.split(' ')[1];
+                }
+                else {
+                    var endTime = '00:00';
+                }
+                this.availability_start_time = date.toISOString().split('T')[0] + ' ' + startTime;
+                this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
+            },
+            saveNewEventAvailability(e){
+                e.preventDefault();
+                var newObj =
+                    {
+                        start: this.availability_start_time,
+                        end: this.availability_end_time ,
+                        title: this.availability_title ,
+                        content: this.availability_content,
+                        contentFull: this.availability_content,
+                        class: 'available_class'
+                    };
+                this.events.push(newObj);
+                axios.post('/freelancer/saveCalendarAvailability', newObj)
+                    .then(function (response) {
+                        this.availability_start_time = '';
+                        this.availability_end_time = '';
+                        this.availability_title = '';
+                        this.availability_content = '';
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    });
+}
 if (document.getElementById("wt-header")) {
     const vmHeader = new Vue({
         el: '#wt-header',
@@ -198,6 +290,7 @@ if (document.getElementById("wt-header")) {
             }
         },
     });
+
 }
 
 if (document.getElementById("message_center")) {
@@ -303,6 +396,7 @@ if (document.getElementById("registration")) {
             timeAllocated:"",
             paymentTerm:"",
             specialInterest:"",
+            dbscheck:"",
 
         },
         methods: {
@@ -1377,6 +1471,7 @@ if (document.getElementById("location")) {
         }
     })
 }
+
 if (document.getElementById("user_profile")) {
     const freelancerProfile = new Vue({
         el: '#user_profile',
@@ -2735,7 +2830,15 @@ if (document.getElementById("post_job")) {
                 flashVue.$emit('showFlashMessage');
             }
         },
+        components: { 'vue-cal': vuecal, VueTimepicker },
         data: {
+            calendarPlugins: [  ],
+            events: [],
+            availability_title:"",
+            availability_content:"",
+            availability_start_time:"",
+            availability_end_time:"",
+            clickedDate:"",
             title: '',
             project_level: '',
             job_duration: '',
@@ -2776,12 +2879,60 @@ if (document.getElementById("post_job")) {
                         }
                     }
                 }
-            }
+            },
+            selecteddate:"",
+            start:"",
+            end:"",
+            description:"",
+            currentEvent: {},
         },
         created: function () {
             this.getSettings();
+            var events = [];
+            let self = this;
+            axios.get('/employer/getCalendarEvents').then(function(response){
+                console.log(this);
+                if(response)
+                {
+                    self.events = response.data;
+                }
+            });
+
+
         },
         methods: {
+            setBooking(e){
+                e.preventDefault();
+
+                console.log({
+                    start: this.selecteddate + ' ' + this.start,
+                    end: this.selecteddate + ' ' + this.end,
+                    title: this.title,
+                    content: this.description,
+                    class: 'booking_calendar',
+                });
+                this.events.push({
+                    start: this.selecteddate + ' ' + this.start,
+                    end: this.selecteddate + ' ' + this.end,
+                    title: this.title,
+                    content: this.description,
+                    class: 'booking_calendar',
+                });
+            },
+            changeSelectedDate(date)
+            {
+              this.selecteddate = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+              // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
+              // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
+              },
+            preventClick(){
+
+            },
+            changeview(e)
+            {
+                e.preventDefault();
+                vuecal.switchView('day')
+            },
             showCompleted(message) {
                 return this.$toast.success(' ', message, this.notificationSystem.options.completed);
             },
@@ -2837,6 +2988,13 @@ if (document.getElementById("post_job")) {
                         if (error.response.data.errors.description) {
                             self.showError(error.response.data.errors.description[0]);
                         }
+                        if (error.response.data.errors.booking_start) {
+                            self.showError(error.response.data.errors.booking_start[0]);
+                        }
+                        if (error.response.data.errors.booking_end) {
+                            self.showError(error.response.data.errors.booking_end[0]);
+                        }
+
                     });
             },
             updateJob: function (id) {
@@ -4302,36 +4460,25 @@ if (document.getElementById("services")) {
 }
 
 jQuery('#plusQual').click(function(){
-    var htmlstring = '<br><br><div class="profQualif_block">\n' +
-        '                    <div class="form-group form-group-half">\n' +
-        '                        <input type="text"\n' +
-        '                               class="form-control"\n' +
-        '                               name="profQualLevel[]"\n' +
-        '                               placeholder="Level">\n' +
-        '                    </div>\n' +
-        '                    <div class="form-group form-group-half">\n' +
-        '                        <input type="text"\n' +
-        '                               class="form-control"\n' +
-        '                               name="profQualName[]"\n' +
-        '\n' +
-        '                               placeholder="Name">\n' +
-        '                    </div>\n' +
-        '                    <div   style="margin-bottom: 20px" class="form-group form-group-half">\n' +
-        '                        <input type="text"\n' +
-        '                               class="form-control"\n' +
-        '                               name="profQualPlace[]"\n' +
-        '\n' +
-        '                               placeholder="Place of Study">\n' +
-        '                    </div>\n' +
-        '                    <div style="margin-bottom: 20px" class="form-group form-group-half">\n' +
-        '                        <input type="number"\n' +
-        '                               class="form-control"\n' +
-        '                               name="profQualYear[]"\n' +
-        '\n' +
-        '                               placeholder="Year">\n' +
-        '                    </div>\n' +
-        '                </div>';
-    jQuery(this).parent().after(htmlstring);
+    var htmlstring = '<tr>\n' +
+        '                                                                            <td><input type="text"\n' +
+        '                                                                                       class="form-control"\n' +
+        '                                                                                       name="profQualLevel[]"\n' +
+        '                                                                                       placeholder="Level"></td>\n' +
+        '                                                                            <td> <input type="text"\n' +
+        '                                                                                        class="form-control"\n' +
+        '                                                                                        name="profQualName[]"\n' +
+        '                                                                                        placeholder="Name"></td>\n' +
+        '                                                                            <td><input type="text"\n' +
+        '                                                                                       class="form-control"\n' +
+        '                                                                                       name="profQualPlace[]"\n' +
+        '                                                                                       placeholder="Place of Study"></td>\n' +
+        '                                                                            <td><input type="number"\n' +
+        '                                                                                       class="form-control"\n' +
+        '                                                                                       name="profQualYear[]"\n' +
+        '                                                                                       placeholder="Year"></td>\n' +
+        '                                                                        </tr>';
+    jQuery('.profQualif_block table').append(htmlstring);
 })
 var $ = jQuery;
 
@@ -4552,3 +4699,4 @@ function decrement(value, max, min, size) {
         return ('0' + next).substr(-size);
     }
 }
+

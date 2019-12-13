@@ -26,6 +26,10 @@
                         :employer_placeholder="'{{ trans('lang.search_filter_list.employers') }}'"
                         :job_placeholder="'{{ trans('lang.search_filter_list.jobs') }}'"
                         :service_placeholder="'{{ trans('lang.search_filter_list.services') }}'"
+                        :location_placeholder="'Location'"
+                        :job_date_placeholder="'Job Date'"
+                        :avail_date_placeholder="'Available Date'"
+                        :skill_placeholder="'Skill'"
                         :no_record_message="'{{ trans('lang.no_record') }}'"
                         >
                         </search-form>

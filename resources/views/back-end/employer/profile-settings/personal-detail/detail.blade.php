@@ -23,6 +23,12 @@
             'Vision'=>'Vision',
             'Vision Anywhere'=>'Vision Anywhere',
         );
+
+ $arrOrgTypes = array(
+        'NHS'=>'NHS',
+        'Private organisation providing NHS care'=>'Private organisation providing NHS care',
+        'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
+    );
 @endphp
 <div class="wt-tabscontenttitle">
     <h2>{{{ trans('lang.your_details') }}}</h2>

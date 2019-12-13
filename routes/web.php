@@ -282,6 +282,8 @@ Route::group(
         Route::get('employer/service/{service_id}/{id}/{status}', 'EmployerController@showServiceDetail');
         Route::get('employer/payout-settings', 'EmployerController@payoutSettings')->name('employerPayoutsSettings');
         Route::get('employer/payouts', 'EmployerController@getPayouts')->name('getEmployerPayouts');
+        Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');
+
     }
 );
 // Freelancer Routes
@@ -293,6 +295,9 @@ Route::group(
         Route::get('freelancer/dispute/{slug}', 'UserController@raiseDispute');
         Route::post('freelancer/store-dispute', 'UserController@storeDispute');
         Route::get('freelancer/dashboard/experience-education', 'FreelancerController@experienceEducationSettings')->name('experienceEducation');
+        Route::get('freelancer/bookingAndAvailability', 'FreelancerController@bookingAndAvailability')->name('bookingAndAvailability');
+        Route::post('freelancer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
+        Route::get('freelancer/getCalendarEvents', 'FreelancerController@getCalendarEvents');
         Route::get('freelancer/dashboard/project-awards', 'FreelancerController@projectAwardsSettings')->name('projectAwards');
         Route::post('freelancer/store-profile-settings', 'FreelancerController@storeProfileSettings')->name('freelancerProfileSetting');
         Route::post('freelancer/store-experience-settings', 'FreelancerController@storeExperienceEducationSettings');

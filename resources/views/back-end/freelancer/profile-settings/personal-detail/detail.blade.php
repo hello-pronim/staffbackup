@@ -43,6 +43,20 @@
         <div class="form-group form-group-half">
             {!! Form::number( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
         </div>
+        <div class="form-group form-group-half">
+        <span class="wt-checkbox"
+              style="    margin-left: 15px;    margin-top: 17px;">
+            <span class="wt-checkbox">
+                    <input id="hourly_rate_negotiable"
+                           type="checkbox"
+                           name="hourly_rate_negotiable"
+                            {{$hourly_rate_negotiable=='on'? 'checked' : ''}}
+
+                    >
+                    <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+            </span>
+        </span>
+        </div>
         <div class="form-group">
             {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
         </div>

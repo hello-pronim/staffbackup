@@ -7887,3 +7887,33 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 .timerangepicker-display.period {
 	margin-right: 1em;
 }
+
+
+.available_class
+{
+    background-color: #e6ffe6 !important;
+}
+.booking_calendar
+{
+    background-color: #ffe188 !important;
+}
+
+/*.vuecal__event {cursor: pointer;}*/
+
+/*.vuecal__event-title {*/
+	/*font-size: 1.2em;*/
+	/*font-weight: bold;*/
+	/*margin: 4px 0 8px;*/
+/*}*/
+
+/*.vuecal__event-time {*/
+	/*display: inline-block;*/
+	/*margin-bottom: 12px;*/
+	/*padding-bottom: 12px;*/
+	/*border-bottom: 1px solid rgba(0, 0, 0, 0.2);*/
+/*}*/
+
+/*.vuecal__event-content {*/
+	/*font-style: italic;*/
+/*}*/
+

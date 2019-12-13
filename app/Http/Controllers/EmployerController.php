@@ -97,6 +97,10 @@ class EmployerController extends Controller
         $emp_cqc_rating_date = !empty($profile->user->emp_cqc_rating_date) ? $profile->user->emp_cqc_rating_date : '';
         $no_of_employees = !empty($profile->no_of_employees) ? $profile->no_of_employees : '';
         $department_id = !empty($profile->department_id) ? $profile->department_id : '';
+        $org_type = !empty($profile->org_type) ? $profile->org_type : '';
+        $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
+        $hourly_rate_negotiable = !empty($profile->hourly_rate_negotiable) ? $profile->hourly_rate_negotiable : '';
+        $hourly_rate_desc = !empty($profile->hourly_rate_desc) ? $profile->hourly_rate_desc : '';
         $payout_id = !empty($profile->payout_id) ? $profile->payout_id : '';
         $packages = DB::table('items')->where('subscriber', Auth::user()->id)->count();
         $package_options = Package::select('options')->where('role_id', Auth::user()->id)->first();
@@ -128,7 +132,12 @@ class EmployerController extends Controller
                     'emp_telno',
                     'emp_website',
                     'emp_cqc_rating',
-                    'emp_cqc_rating_date'
+                    'emp_cqc_rating_date',
+                    'org_type',
+                    'hourly_rate_negotiable',
+                    'hourly_rate',
+                    'hourly_rate_desc'
+
 
                 )
             );
@@ -157,8 +166,11 @@ class EmployerController extends Controller
                     'emp_telno',
                     'emp_website',
                     'emp_cqc_rating',
-                    'emp_cqc_rating_date'
-
+                    'emp_cqc_rating_date',
+                    'org_type',
+                    'hourly_rate_negotiable',
+                    'hourly_rate',
+                    'hourly_rate_desc'
                 )
             );
         }
@@ -640,6 +652,26 @@ class EmployerController extends Controller
             }
         } else {
             abort(404);
+        }
+    }
+
+    public function getCalendarEvents()
+    {
+        $arrEvents = DB::table('calendar_events')
+            ->where('class', '=', 'available_class')
+            ->orWhere(function ($query) {
+                $query->where('class', '=', 'booking_class')
+                    ->where('user_id', '=',  Auth::user()->id);
+            })
+            ->get()->all();
+
+        if(count($arrEvents))
+        {
+            return $arrEvents;
+
+        }
+        else{
+            return false;
         }
     }
 }

@@ -532,7 +532,22 @@ class PublicController extends Controller
         $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
         $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
         if (!empty($_GET['type'])) {
-            if ($type == 'employer' || $type == 'freelancer') {
+            if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
+                $skill = '';
+                $avail_date = '';
+                $location = '';
+                if(isset($_GET['skill']) && !empty($_GET['skill']))
+                {
+                    $skill = $_GET['skill'];
+                }
+                if(isset($_GET['avail_date']) && !empty($_GET['avail_date']))
+                {
+                    $avail_date = $_GET['avail_date'];
+                }
+                if(isset($_GET['location']) && !empty($_GET['location']))
+                {
+                    $location = $_GET['location'];
+                }
                 $users_total_records = User::count();
                 $search =  User::getSearchResult(
                     $type,
@@ -545,7 +560,10 @@ class PublicController extends Controller
                     $search_english_levels,
                     $search_languages,
                     $days_avail,
-                    $hours_avail
+                    $hours_avail,
+                    $skill,
+                    $avail_date,
+                    $location
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
@@ -726,6 +744,11 @@ class PublicController extends Controller
                 $job_list_meta_desc = !empty($inner_page) && !empty($inner_page[0]['job_list_meta_desc']) ? $inner_page[0]['job_list_meta_desc'] : trans('lang.job_meta_desc');
                 $show_job_banner = !empty($inner_page) && !empty($inner_page[0]['show_job_banner']) ? $inner_page[0]['show_job_banner'] : 'true';
                 $job_inner_banner = !empty($inner_page) && !empty($inner_page[0]['job_inner_banner']) ? $inner_page[0]['job_inner_banner'] : null;
+                $job_date = '';
+                if(isset($_GET['start_date']) && !empty($_GET['start_date']))
+                {
+                    $job_date = $_GET['start_date'];
+                }
                 $results = Job::getSearchResult(
                     $keyword,
                     $search_categories,
@@ -734,7 +757,8 @@ class PublicController extends Controller
                     $search_project_lengths,
                     $search_languages,
                     $days_avail,
-                    $hours_avail
+                    $hours_avail,
+                    $job_date
                 );
                 $jobs = $results['jobs'];
                 if (!empty($jobs)) {

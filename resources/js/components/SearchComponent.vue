@@ -2,7 +2,7 @@
     <form class="wt-formtheme wt-formbanner wt-formbannertwo" id="main-search-form" v-if="this.widget_type == 'home'">
         <fieldset>
             <div class="wt-dropdown"  @click="toggleDropdown">
-                <span>{{trans('lang.in')}} <em class="selected-search-type">{{selected_type}} </em><i class="lnr lnr-chevron-down"></i></span>
+                <span><em class="selected-search-type">{{selected_type}} </em><i class="lnr lnr-chevron-down"></i></span>
             </div>
             <div class="wt-radioholder" v-bind:style='{"display" : (isActive? "block" : "none" )}'>
                 <span class="wt-radio" v-for="(filter, index) in filters" :key="index">
@@ -82,7 +82,7 @@
 </template>
 <script>
  export default{
-    props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder'],
+    props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder', 'job_date_placeholder', 'avail_date_placeholder', 'location_placeholder','skill_placeholder'],
         data(){
             return {
                 filters:[],
@@ -111,6 +111,14 @@
                     this.selected_type = this.job_placeholder;
                 } else if(type == 'service') {
                     this.selected_type = this.service_placeholder;
+                }else if(type == 'location') {
+                    this.selected_type = this.location_placeholder;
+                }else if(type == 'skill') {
+                    this.selected_type = this.skill_placeholder;
+                }else if(type == 'job_date') {
+                    this.selected_type = this.job_date_placeholder;
+                }else if(type == 'avail_date') {
+                    this.selected_type = this.avail_date_placeholder;
                 }
             },
             getFilters(){
@@ -140,6 +148,14 @@
                         self.searchable_data = response.data.searchables;
                     } else if (type == 'service') {
                         self.searchable_data = response.data.searchables;
+                    }else if (type == 'location') {
+                        self.searchable_data = response.data.searchables;
+                    }else if (type == 'skill') {
+                        self.searchable_data = response.data.searchables;
+                    }else if (type == 'job_date') {
+                        self.searchable_data = [];
+                    }else if (type == 'avail_date') {
+                        self.searchable_data = [];
                     }
                 });
             },
@@ -174,6 +190,14 @@
                         type = 'job';
                     } else if(type == 'Services') {
                         type = 'service';
+                    } else if(type == 'skill') {
+                        type = 'skill';
+                    } else if(type == 'location') {
+                        type = 'location';
+                    } else if(type == 'job_date') {
+                        type = 'job_date';
+                    } else if(type == 'avail_date') {
+                        type = 'avail_date';
                     }
                     jQuery('.search-field').parents('.form-group').find('span.no-record-span').css("display", "none");
                     jQuery('.wt-related-result').remove();
@@ -209,16 +233,33 @@
                             type = 'job';
                     } else if(type == 'Services') {
                             type = 'service';
+                    } else if(type == 'skill') {
+                            type = 'skill';
+                    } else if(type == 'location') {
+                        type = 'location';
+                    } else if(type == 'job_date') {
+                        type = 'job_date';
+                    } else if(type == 'avail_date') {
+                        type = 'avail_date';
                     }
                 }
                 if (this.$refs.searchfield.inputValue != '') {
-                    let slug = document.getElementById('hidden_field').value;
                     let keyword = this.query;
                     if (type == 'job') {
+                        let slug = document.getElementById('hidden_field').value;
                         window.location.replace(APP_URL+'/job/'+slug);
                     } else if (type == 'service'){
+                        let slug = document.getElementById('hidden_field').value;
                         window.location.replace(APP_URL+'/service/'+slug);
-                    } 
+                    } else if (type == 'skill'){
+                        window.location.replace(APP_URL+'/search-results?type=freelancer&skill='+this.$refs.searchfield.inputValue);
+                    } else if (type == 'location'){
+                        window.location.replace(APP_URL+'/search-results?type=freelancer&location='+this.$refs.searchfield.inputValue);
+                    } else if (type == 'job_date'){
+                        window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+                    } else if (type == 'avail_date'){
+                        window.location.replace(APP_URL+'/search-results?type=freelancer&avail_date='+this.$refs.searchfield.inputValue);
+                    }
                     else {
                         window.location.replace(APP_URL+'/profile/'+slug);
                     }

@@ -201,6 +201,18 @@ class Job extends Model
             }
             $this->code = $code;
             $this->save();
+
+            $arrNewEvent = [];
+            $arrNewEvent['user_id'] = Auth::user()->id;
+            $arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
+            $arrNewEvent['end'] = $request['start_date'] . ' ' . $request['booking_end'];
+            $arrNewEvent['title'] = $request['title'];
+            $arrNewEvent['content'] = $request['booking_content'];
+            $arrNewEvent['class'] = 'booking_calendar';
+
+            DB::table('calendar_events')->insert($arrNewEvent);
+
+
             $job_id = $this->id;
             $skills = $request['skills'];
             $this->skills()->detach();
@@ -320,7 +332,7 @@ class Job extends Model
     public static function getSearchResult(
         $keyword, $search_categories, $search_locations,
         $search_skills, $search_project_lengths,
-        $search_languages, $days_avail, $hours_avail
+        $search_languages, $days_avail, $hours_avail, $job_date
     ) {
         $json = array();
         $jobs = Job::select('*');
@@ -395,6 +407,24 @@ class Job extends Model
             }
             $jobs->whereIn('id', $job_id);
         }
+
+        if(!empty($job_date))
+        {
+            $events = DB::table('calendar_events')
+                ->where('class', '=', 'booking_calendar')
+                ->where('start', 'like', '%'.$job_date.'%')
+                ->where('end', 'like', '%'.$job_date.'%')->get()->toArray();
+            if(!empty($events))
+            {
+                $user_id = array();
+                foreach ($events as $event)
+                {
+                    $user_id[] = $event->user_id;
+                }
+                $jobs->whereIn('jobs.user_id', $user_id);
+            }
+        }
+
         //$jobs->where('start_date', "!=","0000-00-00");
         $jobs->whereDate('start_date', '>', DB::raw('NOW()'));
 

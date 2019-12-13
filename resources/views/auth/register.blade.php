@@ -309,7 +309,6 @@
     $arrPaymentMethods = array(
     'Limited Company'=>'Limited Company',
     'Self Employed'=>'Self Employed',
-    '[DELETED]PAYE'=>'[DELETED]PAYE',
     );
 
     $arrITSoftware = array(
@@ -335,6 +334,12 @@
         'Torex'=>'Torex',
         'Vision'=>'Vision',
         'Vision Anywhere'=>'Vision Anywhere',
+    );
+
+    $arrOrgTypes = array(
+        'NHS'=>'NHS',
+        'Private organisation providing NHS care'=>'Private organisation providing NHS care',
+        'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
     );
     @endphp
     <script src="https://js.stripe.com/v3"></script>
@@ -652,6 +657,10 @@
 
                                                                         <!-- New columns for sheet-->
 
+                                                                        <div class="form-group ">
+                                                                            <label for="org_type">Please indicate the organisation which best describes your service</label>
+                                                                            {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type")) !!}
+                                                                        </div>
                                                                         <div class="form-group">
                                                                             <input id="org_desc" type="text"
                                                                                    class="form-control"
@@ -764,6 +773,31 @@
                                                                         <div class="form-group">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
                                                                         </div>
+                                                                        <div class="form-group" >
+                                                                            <input id="hourly_rate" type="number"
+                                                                                   class="form-control"
+                                                                                   name="hourly_rate"
+                                                                                   placeholder="Hourly Rate">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <span class="wt-checkbox"
+                                                                                  style="    margin-left: 15px;    margin-top: 17px;">
+                                                                                <span class="wt-checkbox">
+                                                                                        <input id="hourly_rate_negotiable"
+                                                                                               type="checkbox"
+                                                                                               name="hourly_rate_negotiable"
+                                                                                               checked="">
+                                                                                        <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+                                                                                </span>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="form-group" >
+                                                                            <label for="hourly_rate_desc">Please enter additional information in the communication box if required</label>
+                                                                            <input id="hourly_rate_desc" type="number"
+                                                                                   class="form-control"
+                                                                                   name="hourly_rate_desc"
+                                                                                   placeholder="Additional info">
+                                                                        </div>
                                                                         <div class="form-group"
                                                                              v-if="paymentTerm=='Other'">
                                                                             <input id="other_payment_terms" type="text"
@@ -851,16 +885,7 @@
                                                                                 <strong v-cloak>@{{form_step2.emp_job_role_error}}</strong>
                                                                             </span>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="wt-checkboxholder">
-                                                                                <span class="wt-checkbox">
-                                                                                    <input id="dbscheck" type="checkbox"
-                                                                                           name="dbscheck"
-                                                                                           checked="">
-                                                                                    <label for="dbscheck"><span>DBS checked</span></label>
-                                                                                </span>
-                                                                    </div>
-                                                                </div>
+
                                                                 <div class="form-group form-group-half">
                                                                     {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate', 'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
                                                                     <span class="help-block"
@@ -868,15 +893,21 @@
                                                                                     <strong v-cloak>@{{form_step2.rate_error}}</strong>
                                                                                 </span>
                                                                 </div>
+                                                                <div class="form-group" >
+                                                                    <input id="hourly_rate" type="number"
+                                                                           class="form-control"
+                                                                           name="hourly_rate"
+                                                                           placeholder="Hourly Rate">
+                                                                </div>
                                                                 <div class="form-group form-group-half">
                                                                             <span class="wt-checkbox"
                                                                                   style="    margin-left: 15px;    margin-top: 17px;">
                                                                                 <span class="wt-checkbox">
-                                                                                        <input id="negotiable"
+                                                                                        <input id="hourly_rate_negotiable"
                                                                                                type="checkbox"
-                                                                                               name="negotiable"
+                                                                                               name="hourly_rate_negotiable"
                                                                                                checked="">
-                                                                                        <label for="negotiable"><span>Negotiable</span></label>
+                                                                                        <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
                                                                                 </span>
                                                                             </span>
                                                                 </div>
@@ -932,30 +963,27 @@
                                                                 </div>
 
                                                                 <div class="profQualif_block">
-                                                                    <div class="form-group form-group-half">
-                                                                        <input type="text"
-                                                                               class="form-control"
-                                                                               name="profQualLevel[]"
-                                                                               placeholder="Level">
-                                                                    </div>
-                                                                    <div class="form-group form-group-half">
-                                                                        <input type="text"
-                                                                               class="form-control"
-                                                                               name="profQualName[]"
-                                                                               placeholder="Name">
-                                                                    </div>
-                                                                    <div class="form-group form-group-half">
-                                                                        <input type="text"
-                                                                               class="form-control"
-                                                                               name="profQualPlace[]"
-                                                                               placeholder="Place of Study">
-                                                                    </div>
-                                                                    <div class="form-group form-group-half">
-                                                                        <input type="number"
-                                                                               class="form-control"
-                                                                               name="profQualYear[]"
-                                                                               placeholder="Year">
-                                                                    </div>
+                                                                    <table border="1">
+                                                                        <tr>
+                                                                            <td><input type="text"
+                                                                                       class="form-control"
+                                                                                       name="profQualLevel[]"
+                                                                                       placeholder="Level"></td>
+                                                                            <td> <input type="text"
+                                                                                        class="form-control"
+                                                                                        name="profQualName[]"
+                                                                                        placeholder="Name"></td>
+                                                                            <td><input type="text"
+                                                                                       class="form-control"
+                                                                                       name="profQualPlace[]"
+                                                                                       placeholder="Place of Study"></td>
+                                                                            <td><input type="number"
+                                                                                       class="form-control"
+                                                                                       name="profQualYear[]"
+                                                                                       placeholder="Year"></td>
+                                                                        </tr>
+                                                                    </table>
+
                                                                 </div>
                                                                 <div class="form-group ">
                                                                     <strong>Mandatory Training:</strong>
@@ -963,7 +991,18 @@
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
-                                                                <div class="form-group ">
+                                                                <div class="form-group">
+                                                                    <div class="wt-checkboxholder">
+                                                                        <span class="wt-checkbox">
+                                                                            <input id="dbscheck" type="checkbox"
+                                                                                   name="dbscheck"
+                                                                                   checked=""
+                                                                                   v-model="dbscheck">
+                                                                            <label for="dbscheck"><span>DBS checked</span></label>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group " v-if="dbscheck">
                                                                     <strong>Certificate of CRB/DBS:</strong>
                                                                     <input type="file" name="cert_of_crbdbs"
                                                                            class="form-control"
@@ -1005,6 +1044,23 @@
                                                                            name="policy_number"
                                                                            placeholder="Insurance Policy Number">
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <div class="wt-checkboxholder">
+                                                                        <span class="wt-checkbox">
+                                                                            <input id="dbscheck" type="checkbox"
+                                                                                   name="dbscheck"
+                                                                                   checked=""
+                                                                                   v-model="dbscheck">
+                                                                            <label for="dbscheck"><span>DBS checked</span></label>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group " v-if="dbscheck">
+                                                                    <strong>Certificate of CRB/DBS:</strong>
+                                                                    <input type="file" name="cert_of_crbdbs"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
                                                                 <div class="form-group ">
                                                                     <strong>Professional Indemnity Certificate:</strong>
                                                                     <input type="file" name="prof_ind_cert"
@@ -1018,13 +1074,14 @@
                                                                     {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Payment Method", 'v-model'=>'payment_method')) !!}
                                                                     <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
                                                                 </div>
-                                                                <div class="form-group "
-                                                                     v-if="payment_method=='Limited Company'">
-                                                                    <input id="c_ltd_comp_name" type=" text"
-                                                                           class="form-control"
-                                                                           name="c_ltd_comp_name"
-                                                                           placeholder="LTD Company">
-                                                                </div>
+
+
+                                                                <input v-if="payment_method=='Limited Company'" type="text"
+                                                                       name="limitied_company_number"
+                                                                       class="form-control" placeholder="Limited Company Number "><br>
+                                                                <input v-if="payment_method=='Limited Company'" type="text"
+                                                                       name="limitied_company_name"
+                                                                       class="form-control" placeholder="Limited Company Name ">
                                                             </div>
                                                         @endif
                                                     @endif
@@ -1105,19 +1162,7 @@
                                                                placeholder="Your current address details will be used"/>
                                                     </div>
 
-                                                    <div class="form-group form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                               id="limitedCompany"
-                                                               v-model="limitedCompany">
-                                                        <label class="form-check-label" for="limitedCompany">Limited
-                                                            Company</label>
-                                                    </div>
-                                                    <input v-if="limitedCompany" type="text"
-                                                           name="limitied_company_number"
-                                                           class="form-control" placeholder="Limited Company Number "><br>
-                                                    <input v-if="limitedCompany" type="text"
-                                                           name="limitied_company_name"
-                                                           class="form-control" placeholder="Limited Company Name ">
+
                                                 </div>
                                                 <div v-if="user_role=='employer'">
                                                     {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
