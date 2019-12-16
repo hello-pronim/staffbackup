@@ -362,6 +362,15 @@ class User extends Authenticatable
             $this->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
             $this->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
             $this->session_ad_by = filter_var(isset($request['session_ad_by']) ? $request['session_ad_by'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
+
+
+            $this->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
+            $this->organisation_position = filter_var(isset($request['organisation_position']) ? $request['organisation_position'] : "", FILTER_SANITIZE_STRING);
+            $this->organisation_email = filter_var(isset($request['organisation_email']) ? $request['organisation_email'] : "", FILTER_SANITIZE_STRING);
+            $this->organisation_contact = filter_var(isset($request['organisation_contact']) ? $request['organisation_contact'] : "", FILTER_SANITIZE_STRING);
 
 
             $this->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
@@ -420,6 +429,13 @@ class User extends Authenticatable
                     );
                 }
                 $this->prof_qualifications = json_encode($newFinalArr);
+            }
+            if(isset($request['prof_qual_cert']) && $file = $request['prof_qual_cert'])
+            {
+                $destinationPath = 'uploads/files';
+                $newfiename = time().$file->getClientOriginalName();
+                $file->move($destinationPath,$newfiename);
+                $this->prof_qual_cert = $newfiename;
             }
             if(isset($request['mand_training']) && $file = $request['mand_training'])
             {
@@ -536,6 +552,16 @@ class User extends Authenticatable
             $user->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
             $user->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
             $user->session_ad_by = filter_var(isset($request['session_ad_by']) ? $request['session_ad_by'] : "", FILTER_SANITIZE_STRING);
+
+            $this->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
+
+
+            $this->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
+            $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
+
 
             if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
             {

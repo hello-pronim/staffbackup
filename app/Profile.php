@@ -152,6 +152,14 @@ class Profile extends Model
             $user->prof_qualifications = json_encode($newFinalArr);
 
         }
+        if(isset($request['prof_qual_cert']) && $file = $request['prof_qual_cert'])
+        {
+            $destinationPath = 'uploads/files';
+            $newfiename = time().$file->getClientOriginalName();
+            $file->move($destinationPath,$newfiename);
+            $user->prof_qual_cert = $newfiename;
+        }
+
         if(isset($request['mand_training']) && $file = $request['mand_training'])
         {
             $destinationPath = 'uploads/files';

@@ -467,10 +467,21 @@
                                                 >
                                             </div>
                                             <div class="form-group  form-group-half">
+                                                <input id="emp_website" type="url"
+                                                       class="form-control"
+                                                       name="emp_website"
+                                                       placeholder="{{{ trans('lang.emp_website') }}}"
+                                                       v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
+                                                <span class="help-block"
+                                                      v-if="form_step2.emp_website_error">
+                                                                                <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
+                                                                            </span>
+                                            </div>
+                                            <div class="form-group  form-group-half">
                                                 <input id="straddress" type="text"
                                                        class="form-control"
                                                        name="straddress"
-                                                       placeholder="{{{ trans('lang.straddress') }}}"
+                                                       placeholder="Organisation Address"
                                                 >
                                             </div>
                                             <div class="form-group  form-group-half">
@@ -573,17 +584,7 @@
                                                                         </div>
 
 
-                                                                        <div class="form-group ">
-                                                                            <input id="emp_website" type="url"
-                                                                                   class="form-control"
-                                                                                   name="emp_website"
-                                                                                   placeholder="{{{ trans('lang.emp_website') }}}"
-                                                                                   v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_website_error">
-                                                                                <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
-                                                                            </span>
-                                                                        </div>
+
                                                                         <div class="form-group form-group-half">
                                                                             <input id="emp_pos" type="url"
                                                                                    class="form-control"
@@ -629,17 +630,6 @@
                                                                             >
                                                                         </div>
 
-                                                                        <div class="form-group">
-                                                                            <input id="emp_desc" type="url"
-                                                                                   class="form-control"
-                                                                                   name="emp_desc"
-                                                                                   placeholder="Description"
-                                                                                   v-bind:class="{ 'is-invalid': form_step2.emp_desc_error }">
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_desc_error">
-                                                                                <strong v-cloak>@{{form_step2.emp_desc_error}}</strong>
-                                                                            </span>
-                                                                        </div>
 
                                                                         <div class="form-group form-group-half">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
@@ -701,19 +691,50 @@
                                                                                 Details</label> <input
                                                                                                        type="checkbox"
                                                                                                        name="insurance"
-                                                                                                       placeholder="Insurance">
+                                                                                                       placeholder="Insurance" v-model="insurancecheckbox">
                                                                         </div>
-                                                                        <div class="form-group ">
-                                                                            <input  type="text"
-                                                                                   class="form-control"
-                                                                                   name="org_name"
-                                                                                   placeholder="Organisation name">
-                                                                        </div>
-                                                                        <div class="form-group ">
-                                                                            <input  type="text"
-                                                                                   class="form-control"
-                                                                                   name="policy_number"
-                                                                                   placeholder="Policy Number">
+                                                                        <div v-if="insurancecheckbox">
+                                                                            <div class="form-group " >
+                                                                                <input  type="text"
+                                                                                       class="form-control"
+                                                                                       name="org_name"
+                                                                                       placeholder="Organisation name">
+                                                                            </div>
+                                                                            <div class="form-group ">
+                                                                                <input  type="text"
+                                                                                       class="form-control"
+                                                                                       name="policy_number"
+                                                                                       placeholder="Policy Number">
+                                                                            </div>
+
+
+                                                                            <div class="form-group">
+                                                                                <label>Organisation Contact</label>
+                                                                            </div>
+                                                                            <div class="form-group form-group-half">
+                                                                                <input id="org_name" type="text"
+                                                                                       class="form-control"
+                                                                                       name="org_name"
+                                                                                       placeholder="Name">
+                                                                            </div>
+                                                                            <div class="form-group form-group-half">
+                                                                                <input id="organisation_position" type="text"
+                                                                                       class="form-control"
+                                                                                       name="organisation_position"
+                                                                                       placeholder="Position">
+                                                                            </div>
+                                                                            <div class="form-group form-group-half">
+                                                                                <input id="organisation_email" type="email"
+                                                                                       class="form-control"
+                                                                                       name="organisation_email"
+                                                                                       placeholder="Email">
+                                                                            </div>
+                                                                            <div class="form-group form-group-half">
+                                                                                <input id="organisation_contact" type="text"
+                                                                                       class="form-control"
+                                                                                       name="organisation_contact"
+                                                                                       placeholder="Direct Contact No">
+                                                                            </div>
                                                                         </div>
                                                                         <div class="form-group ">
                                                                             <strong>Professional Indemnity
@@ -755,13 +776,13 @@
                                                                                    placeholder="Other Appointment Slot Times">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'adm_catch_time')) !!}
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group" v-if="adm_catch_time=='Yes'">
                                                                             {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated", 'v-model'=>'timeAllocated')) !!}
                                                                         </div>
                                                                         <div class="form-group"
-                                                                             v-if="timeAllocated=='Other'">
+                                                                             v-if="timeAllocated=='Other' && adm_catch_time=='Yes'">
                                                                             <input id="other_time_allo" type="text"
                                                                                    class="form-control"
                                                                                    name="time_allowed[]"
@@ -772,6 +793,13 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
+                                                                        </div>
+                                                                        <div class="form-group"
+                                                                             v-if="paymentTerm=='Other'">
+                                                                            <input id="other_payment_terms" type="text"
+                                                                                   class="form-control"
+                                                                                   name="payment_terms[]"
+                                                                                   placeholder="Other Payment terms">
                                                                         </div>
                                                                         <div class="form-group" >
                                                                             <input id="hourly_rate" type="number"
@@ -793,26 +821,41 @@
                                                                         </div>
                                                                         <div class="form-group" >
                                                                             <label for="hourly_rate_desc">Please enter additional information in the communication box if required</label>
-                                                                            <input id="hourly_rate_desc" type="number"
+                                                                            <input id="hourly_rate_desc" type="text"
                                                                                    class="form-control"
                                                                                    name="hourly_rate_desc"
                                                                                    placeholder="Additional info">
                                                                         </div>
-                                                                        <div class="form-group"
-                                                                             v-if="paymentTerm=='Other'">
-                                                                            <input id="other_payment_terms" type="text"
-                                                                                   class="form-control"
-                                                                                   name="payment_terms[]"
-                                                                                   placeholder="Other Payment terms">
-                                                                        </div>
+
                                                                         <div class="form-group">
                                                                             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                         </div>
                                                                         <div class="form-group">
+                                                                            <label>Session Advertised By</label>
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
                                                                             <input id="session_ad_by" type="text"
                                                                                    class="form-control"
                                                                                    name="session_ad_by"
-                                                                                   placeholder="Session Advertised By">
+                                                                                   placeholder="Name">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="session_ad_by_position" type="text"
+                                                                                   class="form-control"
+                                                                                   name="session_ad_by_position"
+                                                                                   placeholder="Position">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="session_ad_by_email" type="email"
+                                                                                   class="form-control"
+                                                                                   name="session_ad_by_email"
+                                                                                   placeholder="Email">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="session_ad_by_contact" type="text"
+                                                                                   class="form-control"
+                                                                                   name="session_ad_by_contact"
+                                                                                   placeholder="Direct Contact No">
                                                                         </div>
                                                                     </div>
 
@@ -873,17 +916,6 @@
                                                                     <input type="file" name="cvfile"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input id="job_role" type="tel"
-                                                                           class="form-control"
-                                                                           name="emp_job_role"
-                                                                           placeholder="Job Role"
-                                                                           v-bind:class="{ 'is-invalid': form_step2.emp_job_role_error }">
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.emp_job_role_error">
-                                                                                <strong v-cloak>@{{form_step2.emp_job_role_error}}</strong>
-                                                                            </span>
                                                                 </div>
 
                                                                 <div class="form-group form-group-half">
@@ -985,6 +1017,13 @@
                                                                     </table>
 
                                                                 </div>
+
+                                                                <div class="form-group ">
+                                                                    <strong>Professional Qualifications Certificate</strong>
+                                                                    <input type="file" name="prof_qual_cert"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
                                                                 <div class="form-group ">
                                                                     <strong>Mandatory Training:</strong>
                                                                     <input type="file" name="mand_training"
@@ -1032,6 +1071,7 @@
                                                                             name="insurance"
                                                                             placeholder="Insurance">
                                                                 </div>
+
                                                                 <div class="form-group ">
                                                                     <input type="text"
                                                                            class="form-control"
@@ -1044,6 +1084,9 @@
                                                                            name="policy_number"
                                                                            placeholder="Insurance Policy Number">
                                                                 </div>
+
+
+
                                                                 <div class="form-group">
                                                                     <div class="wt-checkboxholder">
                                                                         <span class="wt-checkbox">
@@ -1061,12 +1104,7 @@
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
-                                                                <div class="form-group ">
-                                                                    <strong>Professional Indemnity Certificate:</strong>
-                                                                    <input type="file" name="prof_ind_cert"
-                                                                           class="form-control"
-                                                                           accept=".pdf, image/*,.doc,.docx">
-                                                                </div>
+
                                                                 <div class="form-group">
                                                                     {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                 </div>

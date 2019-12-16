@@ -309,40 +309,18 @@ $cqc_ratings = array(
   'Self Employed'=>'Self Employed',
   '[DELETED]PAYE'=>'[DELETED]PAYE',
   );
-
+ $arrOrgTypes = array(
+        'NHS'=>'NHS',
+        'Private organisation providing NHS care'=>'Private organisation providing NHS care',
+        'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
+    );
 @endphp
 <div class="wt-tabcompanyinfo wt-tabsinfo">
     {{--<div class="wt-tabscontenttitle">--}}
     {{--<h2>{{{ trans('lang.company_details') }}}</h2>--}}
     {{--</div>--}}
     <div class="wt-accordiondetails">
-        {{--<div class="wt-radioboxholder">--}}
-        {{--<div class="wt-title">--}}
-        {{--<h4>{{{ trans('lang.no_of_employees') }}}</h4>--}}
-        {{--</div>--}}
-        {{--@foreach ($employees as $key => $employee)--}}
-        {{--<span class="wt-radio">--}}
-        {{--<input id="wt-just-{{{$key}}}" type="radio" name="employees" value="{{{$employee['value']}}}"--}}
-        {{--{{($employee['value'] == $no_of_employees) ? 'checked' : ''}} >--}}
-        {{--<label for="wt-just-{{{$key}}}">{{{$employee['title']}}}</label>--}}
-        {{--</span>--}}
-        {{--@endforeach--}}
-        {{--</div>--}}
-        {{--@if ($departments->count() > 0)--}}
-        {{--<div class="wt-radioboxholder">--}}
-        {{--<div class="wt-title">--}}
-        {{--<h4>{{{ trans('lang.your_department') }}}</h4>--}}
-        {{--</div>--}}
-        {{--@foreach ($departments as $key => $department)--}}
-        {{--<span class="wt-radio">--}}
-        {{--<input id="wt-department-{{{$department->id}}}" type="radio" name="department"--}}
-        {{--value="{{{$department->id}}}"--}}
-        {{--{{($department->id == $department_id) ? 'checked' : ''}}>--}}
-        {{--<label for="wt-department-{{{$department->id}}}">{{{$department->title}}}</label>--}}
-        {{--</span>--}}
-        {{--@endforeach--}}
-        {{--</div>--}}
-        {{--@endif--}}
+
 
 
     </div>
@@ -503,7 +481,7 @@ $cqc_ratings = array(
                placeholder="Organisation name">
     </div>
     <div class="form-group ">
-        {!! Form::select('org_type', $user->profile->org_type, null, array('placeholder' => "Organisation type")) !!}
+        {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('placeholder' => "Organisation type")) !!}
     </div>
     <div class="form-group ">
         <input type="text"
@@ -513,6 +491,43 @@ $cqc_ratings = array(
 
                placeholder="Policy Number">
     </div>
+
+    <div class="form-group">
+        <label>Organisation Contact</label>
+    </div>
+    <div class="form-group form-group-half">
+        <input id="org_name" type="text"
+               class="form-control"
+               name="org_name"
+               value="{{$user->org_name}}"
+
+               placeholder="Name">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="organisation_position" type="text"
+               class="form-control"
+               name="organisation_position"
+               value="{{$user->organisation_position}}"
+
+               placeholder="Position">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="organisation_email" type="email"
+               class="form-control"
+               name="organisation_email"
+               value="{{$user->organisation_email}}"
+
+               placeholder="Email">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="organisation_contact" type="text"
+               class="form-control"
+               name="organisation_contact"
+               value="{{$user->organisation_contact}}"
+               placeholder="Direct Contact No">
+    </div>
+
+
     <div class="form-group ">
 
         <strong>Professional Indemnity
@@ -555,6 +570,8 @@ $cqc_ratings = array(
         <input id="other_appo" type="text"
                class="form-control"
                name="appo_slot_times[]"
+               value="{{ $user->appo_slot_times}}"
+
                placeholder="Other Appointment Slot Times">
     </div>
     <div class="form-group">
@@ -567,6 +584,8 @@ $cqc_ratings = array(
         <input id="other_time_allo" type="text"
                class="form-control"
                name="time_allowed[]"
+               value="{{ $user->time_allowed}}"
+
                placeholder="Other Time Allocated">
     </div>
     <div class="form-group">
@@ -613,11 +632,34 @@ $cqc_ratings = array(
     <div class="form-group">
         {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
     </div>
+
+
     <div class="form-group">
+        <label>Session Advertised By</label>
+    </div>
+    <div class="form-group form-group-half">
         <input id="session_ad_by" type="text"
                class="form-control"
                name="session_ad_by"
                value="{{$user->session_ad_by}}"
-               placeholder="Session Advertised By">
+               placeholder="Name">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="session_ad_by_position" type="text"
+               class="form-control"
+               name="session_ad_by_position"
+               placeholder="Position">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="session_ad_by_email" type="email"
+               class="form-control"
+               name="session_ad_by_email"
+               placeholder="Email">
+    </div>
+    <div class="form-group form-group-half">
+        <input id="session_ad_by_contact" type="text"
+               class="form-control"
+               name="session_ad_by_contact"
+               placeholder="Direct Contact No">
     </div>
 </div>

@@ -397,6 +397,18 @@
             </table>
 
         </div>
+
+
+        <div class="form-group ">
+            <strong>Professional Qualifications Certificate</strong>
+            @if(!empty($user->prof_qual_cert))
+                <a href="{{url('uploads/files/'.$user->prof_qual_cert)}}" target="_blank">Click To open</a>
+            @endif
+            <input type="file" name="mand_training"
+                   class="form-control"
+                   accept=".pdf, image/*,.doc,.docx">
+        </div>
+
         <div class="form-group ">
             <strong>Mandatory Training:</strong>
             @if(!empty($user->mand_training))

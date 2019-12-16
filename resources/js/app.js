@@ -393,6 +393,8 @@ if (document.getElementById("registration")) {
             payment_method:"",
             setting:"",
             appoSlotTime:"",
+            adm_catch_time:"",
+            insurancecheckbox:"",
             timeAllocated:"",
             paymentTerm:"",
             specialInterest:"",
@@ -1510,6 +1512,7 @@ if (document.getElementById("user_profile")) {
             payment_method:"",
             setting:"",
             appoSlotTime:"",
+            adm_catch_time:"",
             timeAllocated:"",
             paymentTerm:"",
             specialInterest:"",
@@ -4646,6 +4649,8 @@ $('.timerange').on('click', function(e) {
 
 });
 
+
+
 $(document).on('click', e => {
 
     if(!$(e.target).closest('.timerangepicker-container').length) {
@@ -4700,3 +4705,10 @@ function decrement(value, max, min, size) {
     }
 }
 
+$(document).ready(function(){
+    setTimeout(function()
+    {
+        $('.vuecal__cell-events-count').parent().css('background-color', '#78ff8f')
+    }, 2000);
+
+})
