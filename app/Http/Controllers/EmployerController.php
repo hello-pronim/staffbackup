@@ -660,7 +660,7 @@ class EmployerController extends Controller
         $arrEvents = DB::table('calendar_events')
             ->where('class', '=', 'available_class')
             ->orWhere(function ($query) {
-                $query->where('class', '=', 'booking_class')
+                $query->where('class', '=', 'booking_calendar')
                     ->where('user_id', '=',  Auth::user()->id);
             })
             ->get()->all();
@@ -668,10 +668,9 @@ class EmployerController extends Controller
         if(count($arrEvents))
         {
             return $arrEvents;
-
         }
         else{
-            return false;
+            return array();
         }
     }
 }
