@@ -1225,7 +1225,7 @@
                                             <li class="wt-done-next"><a
                                                         href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
                                             <li class="wt-active"><a
-                                                        href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+                                                        href="javascrip:void(0);">{{{ trans('lang.04') }}}</a> </li>
                                         </ul>
                                         <div class="wt-registerhead">
                                             <div class="wt-title">

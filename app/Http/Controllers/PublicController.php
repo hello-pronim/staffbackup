@@ -1007,7 +1007,7 @@ class PublicController extends Controller
 
     public function RegisterCheckoutComplete($stripe_token)
     {
-        $user = User::where('stripe_token', $stripe_token)->first();
+        $user = User::where('stripe_token',  $stripe_token)->first();
         if (!empty($user)) {
             $user->stripe_token = "";
             $user->save();
