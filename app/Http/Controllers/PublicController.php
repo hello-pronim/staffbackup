@@ -1011,8 +1011,10 @@ class PublicController extends Controller
         if (!empty($user)) {
             $user->stripe_token = "";
             $user->save();
+            Auth::login($user);
+
             Session::flash('message', "Payment completed successfully");
-            return Redirect::to('login');
+            return Redirect::to('/page/main');
         }
 
 

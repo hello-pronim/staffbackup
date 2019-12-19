@@ -1238,6 +1238,9 @@
 
                                         <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
                                            v-if="subscription">Go To Checkout</a>
+
+                                        <a href="#"  v-if="!subscription" class="wt-btn" @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+
                                     </div>
                                 </div>
                             </div>
