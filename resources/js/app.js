@@ -4711,7 +4711,7 @@ $(document).ready(function(){
        $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
     }, 2000);
 
-    $(document).on('click', '.vuecal__menu', function(){
+    $(document).on('click', '.vuecal__menu, .vuecal__title-bar', function(){
         $('.bookbutton').remove();
         $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
 
