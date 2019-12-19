@@ -7917,3 +7917,28 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	/*font-style: italic;*/
 /*}*/
 
+.vuecal__cell{
+	background-color: #34b331;
+}
+
+/*.vuecal__cell-content .vuecal__cell-events-count:parent{*/
+	/*border: 1px solid #f6fff5;*/
+	/*background-color:#fbd032 !important;*/
+/*}*/
+/*.vuecal__cell-content:has(> .vuecal__cell-events-count){*/
+	/*border: 1px solid #f6fff5;*/
+	/*background-color:#fbd032  !important;*/
+/*}*/
+/*.vuecal__cell--has-events {background-color: #fffacd;}*/
+
+
+.vuecal__cell--has-events {background-color: #fbd032 !important;}
+.bookbutton{
+	margin: 0 auto;
+	width: 39px;
+	background-color:#fccf17;
+	color:white;
+	border-radius:5px;
+	border: 1px solid black;
+}
+.vuecal__cell-events-count {display: none;}

@@ -1069,20 +1069,23 @@
                                                                         Indemnity Insurance</label> <input
                                                                             type="checkbox"
                                                                             name="insurance"
-                                                                            placeholder="Insurance">
+                                                                            placeholder="Insurance"
+                                                                            v-model="insurancecheckbox">
                                                                 </div>
 
-                                                                <div class="form-group ">
-                                                                    <input type="text"
-                                                                           class="form-control"
-                                                                           name="org_name"
-                                                                           placeholder="Organisation name">
-                                                                </div>
-                                                                <div class="form-group ">
-                                                                    <input  type="text"
-                                                                           class="form-control"
-                                                                           name="policy_number"
-                                                                           placeholder="Insurance Policy Number">
+                                                                <div v-if="insurancecheckbox">
+                                                                    <div class="form-group ">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               name="org_name"
+                                                                               placeholder="Organisation name">
+                                                                    </div>
+                                                                    <div class="form-group ">
+                                                                        <input  type="text"
+                                                                               class="form-control"
+                                                                               name="policy_number"
+                                                                               placeholder="Insurance Policy Number">
+                                                                    </div>
                                                                 </div>
 
 

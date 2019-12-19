@@ -2934,7 +2934,7 @@ if (document.getElementById("post_job")) {
             changeview(e)
             {
                 e.preventDefault();
-                vuecal.switchView('day')
+                vuecal.switchView('day');
             },
             showCompleted(message) {
                 return this.$toast.success(' ', message, this.notificationSystem.options.completed);
@@ -4708,7 +4708,12 @@ function decrement(value, max, min, size) {
 $(document).ready(function(){
     setTimeout(function()
     {
-        $('.vuecal__cell-events-count').parent().css('background-color', '#78ff8f')
+       $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
     }, 2000);
 
+    $(document).on('click', '.vuecal__menu', function(){
+        $('.bookbutton').remove();
+        $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+
+    })
 })

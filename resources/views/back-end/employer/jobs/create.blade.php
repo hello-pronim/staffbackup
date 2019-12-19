@@ -226,7 +226,7 @@
 
                                         {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
                                     </div>
-                                    <button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>
+                                    {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
 
                                 </div>
                             </div>
