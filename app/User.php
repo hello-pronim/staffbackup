@@ -639,7 +639,6 @@ class User extends Authenticatable
         $search_languages,
         $days_avail,
         $hours_avail,
-        $skill,
         $avail_date,
         $location
     ) {

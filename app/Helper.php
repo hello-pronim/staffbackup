@@ -922,26 +922,26 @@ class Helper extends Model
                 'title' => trans('lang.search_filter_list.employers'),
                 'value' => 'employer',
             ),
-            '3' => array(
-                'title' => trans('lang.search_filter_list.services'),
-                'value' => 'service',
-            ),
-            '4' => array(
-                'title' => 'Location',
-                'value' => 'location',
-            ),
-            '5' => array(
-                'title' => 'Skill',
-                'value' => 'skill',
-            ),
-            '6' => array(
-                'title' => 'Job Date',
-                'value' => 'job_date',
-            ),
-            '7' => array(
-                'title' => 'Available Date',
-                'value' => 'avail_date',
-            ),
+//            '3' => array(
+//                'title' => trans('lang.search_filter_list.services'),
+//                'value' => 'service',
+//            ),
+//            '4' => array(
+//                'title' => 'Location',
+//                'value' => 'location',
+//            ),
+//            '5' => array(
+//                'title' => 'Skill',
+//                'value' => 'skill',
+//            ),
+//            '6' => array(
+//                'title' => 'Job Date',
+//                'value' => 'job_date',
+//            ),
+//            '7' => array(
+//                'title' => 'Available Date',
+//                'value' => 'avail_date',
+//            ),
         );
         if (Helper::getAccessType() == 'jobs') {
             return Arr::except($list, [3]);

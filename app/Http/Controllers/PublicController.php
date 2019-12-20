@@ -536,13 +536,10 @@ class PublicController extends Controller
                 $skill = '';
                 $avail_date = '';
                 $location = '';
-                if(isset($_GET['skill']) && !empty($_GET['skill']))
+
+                if(isset($_GET['start_date']) && !empty($_GET['start_date']))
                 {
-                    $skill = $_GET['skill'];
-                }
-                if(isset($_GET['avail_date']) && !empty($_GET['avail_date']))
-                {
-                    $avail_date = $_GET['avail_date'];
+                    $avail_date = $_GET['start_date'];
                 }
                 if(isset($_GET['location']) && !empty($_GET['location']))
                 {
@@ -561,7 +558,6 @@ class PublicController extends Controller
                     $search_languages,
                     $days_avail,
                     $hours_avail,
-                    $skill,
                     $avail_date,
                     $location
                 );

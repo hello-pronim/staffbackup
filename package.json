@@ -46,6 +46,7 @@
         "vue-cal": "^2.15.0",
         "vue-date-pick": "^1.1.0",
         "vue-izitoast": "^1.1.2",
+        "vue-multiselect": "^2.1.6",
         "vue-runtime-helpers": "^1.1.2",
         "vue-smooth-scrollbar": "^0.1.2",
         "vue-stars": "^1.1.3",

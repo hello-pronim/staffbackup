@@ -291,7 +291,6 @@ Route::group(
     ['middleware' => ['role:freelancer']],
     function () {
         Route::get('/get-freelancer-skills', 'SkillController@getFreelancerSkills');
-        Route::get('/get-skills', 'SkillController@getSkills');
         Route::get('freelancer/dispute/{slug}', 'UserController@raiseDispute');
         Route::post('freelancer/store-dispute', 'UserController@storeDispute');
         Route::get('freelancer/dashboard/experience-education', 'FreelancerController@experienceEducationSettings')->name('experienceEducation');
@@ -322,6 +321,7 @@ Route::group(
 Route::group(
     ['middleware' => ['role:employer|freelancer|admin']],
     function () {
+
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');
         Route::get('job/proposal/{job_slug}', 'ProposalController@createProposal')->name('createProposal');
         Route::get('profile/settings/manage-account', 'UserController@accountSettings')->name('manageAccount');
@@ -355,6 +355,8 @@ Route::group(
         Route::get('user/get-payout-detail', 'UserController@getPayoutDetail');
     }
 );
+Route::get('/get-skills', 'SkillController@getSkills');
+
 Route::post('job/get-wishlist', 'JobController@getWishlist');
 Route::get('dashboard/packages/{role}', 'PackageController@index');
 Route::get('package/get-purchase-package', 'PackageController@getPurchasePackage');

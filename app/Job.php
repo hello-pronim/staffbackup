@@ -366,7 +366,7 @@ class Job extends Model
         if (!empty($search_skills)) {
             $filters['skills'] = $search_skills;
             foreach ($search_skills as $key => $search_skill) {
-                $skill_obj = Skill::where('slug', $search_skill)->first();
+                $skill_obj = Skill::where('title', $search_skill)->first();
                 $skill = Skill::find($skill_obj->id);
                 if (!empty($skill->jobs)) {
                     $skill_jobs = $skill->jobs->pluck('id')->toArray();
@@ -410,23 +410,25 @@ class Job extends Model
 
         if(!empty($job_date))
         {
-            $events = DB::table('calendar_events')
-                ->where('class', '=', 'booking_calendar')
-                ->where('start', 'like', '%'.$job_date.'%')
-                ->where('end', 'like', '%'.$job_date.'%')->get()->toArray();
-            if(!empty($events))
-            {
-                $user_id = array();
-                foreach ($events as $event)
-                {
-                    $user_id[] = $event->user_id;
-                }
-                $jobs->whereIn('jobs.user_id', $user_id);
-            }
+//            $events = DB::table('calendar_events')
+//                ->where('class', '=', 'booking_calendar')
+//                ->where('start', 'like', '%'.$job_date.'%')
+//                ->where('end', 'like', '%'.$job_date.'%')->get()->toArray();
+//            if(!empty($events))
+//            {
+//                $user_id = array();
+//                foreach ($events as $event)
+//                {
+//                    $user_id[] = $event->user_id;
+//                }
+//                $jobs->whereIn('jobs.user_id', $user_id);
+//            }
+            $jobs->where('start_date', '=', $job_date);
+
         }
 
         //$jobs->where('start_date', "!=","0000-00-00");
-        $jobs->whereDate('start_date', '>', DB::raw('NOW()'));
+        $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
 
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
         foreach ($filters as $key => $filter ) {

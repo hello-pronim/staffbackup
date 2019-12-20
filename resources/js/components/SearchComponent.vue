@@ -70,9 +70,47 @@
                             <label :for="filter.value">{{filter.title}}</label>
                         </span>
                     </div>
+
+
                     <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i class="lnr lnr-magnifier"></i><span>{{trans('lang.search_now')}}</span></a>
                 </div>
+                    <div class="form-group">
+                        <input type="text" v-model="selectedDate" class="selectDatePicker" placeholder="Pick from Datepicker" >
+                        <!--<a href="#" class="wt-searchbtn"  style="float:none" id="calendar_btn"><i class="lnr lnr-calendar-full"></i><span>{{trans('lang.search_now')}}</span></a>-->
+                        <input type="text" v-model="selectedLocation" placeholder="Location" >
+
+                        <multiselect
+                                track-by="title"
+                                label="title"
+                                v-model="selectedSkills"
+                                placeholder="Select skills"
+                                :options="skills"
+                                :searchable="false"
+                                :allow-empty="false"
+                                :multiple="true"
+                                :close-on-select="false"
+                                :clear-on-select="false"
+                                :preserve-search="true"
+                        @select="onSkillSelect">
+                        </multiselect>
+
+                    </div>
+
+
+                <vue-cal id="calendar_small" style="display:none; background-color:white;width:230px;position: absolute; height: 290px;" class=" vuecal--green-theme"
+                         xsmall
+                         hide-view-selector
+                         :time="false"
+                         default-view="month"
+                         :disable-views="['week', 'day', 'year']"
+                         @cell-click="changeSelectedDate"
+                         :events="events"
+                >
+                </vue-cal>
+
+
             </div>
+
             <div class="wt-btn-remove-holder">
                 <a href="javascript:;" class="wt-search-remove">{{trans('lang.cancel')}}</a>
                 <a href="javascript:;" class="wt-search-remove"><i class="fa fa-close"></i></a>
@@ -81,8 +119,16 @@
     </form>
 </template>
 <script>
- export default{
-    props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder', 'job_date_placeholder', 'avail_date_placeholder', 'location_placeholder','skill_placeholder'],
+
+    import VueCal from 'vue-cal';
+    import 'vue-cal/dist/vuecal.css';
+    import Multiselect from 'vue-multiselect'
+    Vue.component('multiselect', Multiselect)
+
+    export default{
+     components: { 'vue-cal': VueCal, Multiselect },
+
+     props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder', 'job_date_placeholder', 'avail_date_placeholder', 'location_placeholder','skill_placeholder'],
         data(){
             return {
                 filters:[],
@@ -99,9 +145,25 @@
                 related_results:false,
                 url: APP_URL + '/search-results',
                 type_change:false,
+                events:[],
+                skills:[],
+                selecteddate:'',
+                selectedDate:'',
+                selectedSkills:"",
+                selectedLocation:"",
             }
         },
         methods: {
+            onSkillSelect(option){
+                //console.log(this.selectedSkills);
+            },
+            changeSelectedDate(date){
+                //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+                this.selectedDate = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+                jQuery('#calendar_small').hide();
+                //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
+               // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+            },
             displayFiltersName(type) {
                 if(type == 'freelancer') {
                     this.selected_type = this.freelancer_placeholder;
@@ -264,7 +326,25 @@
                         window.location.replace(APP_URL+'/profile/'+slug);
                     }
                 } else {
-                    window.location.replace(APP_URL+'/search-results?type='+type);
+                    var getParams = '';
+                    if(this.selectedLocation != "")
+                    {
+                        getParams += '&location='+this.selectedLocation;
+                    }
+                    if(this.selectedDate != "")
+                    {
+                        getParams += '&start_Date='+this.selectedDate;
+                    }
+                    if(this.selectedSkills != "")
+                    {
+                        for(var i=0;i<this.selectedSkills.length;i++)
+                        {
+                            getParams += '&skills[]='+this.selectedSkills[i].title;
+
+                        }
+
+                    }
+                    window.location.replace(APP_URL+'/search-results?type='+type + getParams);
                 }
 
             },
@@ -303,6 +383,23 @@
             } else {
                 this.getSearchableData('freelancer');
             }
+
+            var events = [];
+            let self = this;
+            axios.get('/employer/getCalendarEvents').then(function(response){
+                console.log(this);
+                if(response)
+                {
+                    self.events = response.data;
+                }
+            });
+            axios.get('/get-skills').then(function(response){
+
+                if(response.data.type=='success')
+                {
+                    self.skills = response.data.skills;
+                }
+            });
         }
     }
 </script>
@@ -310,3 +407,11 @@
 .wt-radioholder{transition: 1s;}
 </style>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<style lang='scss'>
+
+    @import '~@fullcalendar/core/main.css';
+    @import '~@fullcalendar/daygrid/main.css';
+
+</style>

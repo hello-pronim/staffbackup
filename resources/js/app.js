@@ -4708,12 +4708,16 @@ function decrement(value, max, min, size) {
 $(document).ready(function(){
     setTimeout(function()
     {
-       $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+       $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
     }, 2000);
 
-    $(document).on('click', '.vuecal__menu, .vuecal__title-bar', function(){
-        $('.bookbutton').remove();
-        $('.vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+    $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function(){
+        $('#post_job .bookbutton').remove();
+        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
 
-    })
-})
+    });
+    $('#calendar_btn, .selectDatePicker').click(function() {
+        $('#calendar_small').toggle("slow", function () {
+        });
+    });
+});

@@ -7917,7 +7917,7 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	/*font-style: italic;*/
 /*}*/
 
-.vuecal__cell{
+#post_job .vuecal__cell{
 	background-color: #34b331;
 }
 
@@ -7933,7 +7933,7 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 
 
 .vuecal__cell--has-events {background-color: #fbd032 !important;}
-.bookbutton{
+#post_job .bookbutton{
 	margin: 0 auto;
 	width: 39px;
 	background-color:#fccf17;
@@ -7942,3 +7942,4 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	border: 1px solid black;
 }
 .vuecal__cell-events-count {display: none;}
+.multiselect {border:none !important;width:89% !important}
