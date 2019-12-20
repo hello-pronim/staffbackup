@@ -1,27 +1,29 @@
 <template>
     <form class="wt-formtheme wt-formbanner wt-formbannertwo" id="main-search-form" v-if="this.widget_type == 'home'">
         <fieldset>
-            <div class="wt-dropdown"  @click="toggleDropdown">
-                <span><em class="selected-search-type">{{selected_type}} </em><i class="lnr lnr-chevron-down"></i></span>
+            <div class="wt-dropdown" @click="toggleDropdown">
+                <span><em class="selected-search-type">{{selected_type}} </em><i
+                        class="lnr lnr-chevron-down"></i></span>
             </div>
             <div class="wt-radioholder" v-bind:style='{"display" : (isActive? "block" : "none" )}'>
                 <span class="wt-radio" v-for="(filter, index) in filters" :key="index">
-                    <input :id="'wt-'+filter.value" type="radio" name="searchtype" :value="filter.value" v-model="types" v-on:change="getSearchableData(types), emptyField(types)">
+                    <input :id="'wt-'+filter.value" type="radio" name="searchtype" :value="filter.value" v-model="types"
+                           v-on:change="getSearchableData(types), emptyField(types)">
                     <label :for="'wt-'+filter.value">{{filter.title}}</label>
                 </span>
             </div>
             <div class="form-group">
                 <vue-bootstrap-typeahead
-                    class="mb-4"
-                    size="sm"
-                    v-model="query"
-                    :data="searchable_data"
-                    :placeholder=placeholder
-                    :serializer="item => item.name"
-                    ref="searchfield"
-                    @input="watchSearchResults(types)"
-                    inputClass="search-field"
-                    @hit="recordSelected"
+                        class="mb-4"
+                        size="sm"
+                        v-model="query"
+                        :data="searchable_data"
+                        :placeholder=placeholder
+                        :serializer="item => item.name"
+                        ref="searchfield"
+                        @input="watchSearchResults(types)"
+                        inputClass="search-field"
+                        @hit="recordSelected"
                 >
                     <template slot="suggestion" slot-scope="{ data, htmlText }">
                         <div class="d-flex align-items-center">
@@ -32,83 +34,83 @@
                 </vue-bootstrap-typeahead>
                 <span v-if="is_show" class="no-record-span">{{no_record}}</span>
                 <div class="wt-formoptions">
-                    <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i class="lnr lnr-magnifier"></i></a>
+                    <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i
+                            class="lnr lnr-magnifier"></i></a>
                 </div>
             </div>
         </fieldset>
     </form>
-    <form class="wt-formtheme wt-formbanner wt-formbannervtwo" v-else>
+    <form class="wt-formtheme wt-formbanner wt-formbannervtwo topmenusearch"   v-else>
         <fieldset>
             <div class="form-group">
                 <vue-bootstrap-typeahead
-                    class="mb-4"
-                    size="sm"
-                    v-model="query"
-                    :data="searchable_data"
-                    :placeholder=placeholder
-                    :serializer="item => item.name"
-                    ref="searchfield"
-                    @input="watchSearchResults(types)"
-                    inputClass="search-field"
-                    @hit="recordSelected"
+                        class="mb-4"
+                        size="sm"
+                        v-model="query"
+                        :data="searchable_data"
+                        :placeholder=placeholder
+                        :serializer="item => item.name"
+                        ref="searchfield"
+                        @input="watchSearchResults(types)"
+                        inputClass="search-field"
+                        @hit="recordSelected"
                 >
-                <template slot="suggestion" slot-scope="{ data, htmlText }">
-                    <div class="d-flex align-items-center">
-                        <span class="ml-4" v-html="htmlText"></span>
-                    </div>
-                    <input type="hidden" name="keyword" :value="data.slug" id="hidden_field">
-                </template>
-            </vue-bootstrap-typeahead>
-            <span v-if="is_show" class="no-record-span">{{no_record}}</span>
-                <div class="wt-formoptions">
-                    <div class="wt-dropdown"  @click="toggleDropdown">
-                        <span>In: <em class="selected-search-type">{{selected_type}} </em><i class="lnr lnr-chevron-down"></i></span>
+                    <template slot="suggestion" slot-scope="{ data, htmlText }">
+                        <div class="d-flex align-items-center">
+                            <span class="ml-4" v-html="htmlText"></span>
+                        </div>
+                        <input type="hidden" name="keyword" :value="data.slug" id="hidden_field">
+                    </template>
+                </vue-bootstrap-typeahead>
+                <span v-if="is_show" class="no-record-span">{{no_record}}</span>
+                <div class="wt-formoptions" style="left: 156px;">
+                    <div class="wt-dropdown" @click="toggleDropdown" style="width: 158px;">
+                        <span style="width: 176px;">In: <em class="selected-search-type">{{selected_type}} </em><i
+                                class="lnr lnr-chevron-down"></i></span>
                     </div>
                     <div class="wt-radioholder" v-bind:style='{"display" : (isActive? "block" : "none" )}'>
                         <span class="wt-radio" v-for="(filter, index) in filters" :key="index">
-                            <input :id="filter.value" type="radio" name="searchtype" :value="filter.value" v-model="types" v-on:change="getSearchableData(types), emptyField(types), changeFilter()">
+                            <input :id="filter.value" type="radio" name="searchtype" :value="filter.value"
+                                   v-model="types"
+                                   v-on:change="getSearchableData(types), emptyField(types), changeFilter()">
                             <label :for="filter.value">{{filter.title}}</label>
                         </span>
                     </div>
+                    <input type="text" v-model="selectedDate" class="selectDatePicker"
+                           placeholder="Date"  style="width:80px;">
+                    <vue-cal id="calendar_small"
+                             style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                             class=" vuecal--green-theme"
+                             xsmall
+                             hide-view-selector
+                             :time="false"
+                             default-view="month"
+                             :disable-views="['week', 'day', 'year']"
+                             @cell-click="changeSelectedDate"
+                             :events="events"
+                    >
+                    </vue-cal>
+                    <!--<a href="#" class="wt-searchbtn"  style="float:none" id="calendar_btn"><i class="lnr lnr-calendar-full"></i><span>{{trans('lang.search_now')}}</span></a>-->
+                    <input type="text" v-model="selectedLocation" placeholder="Location" style="width:70px;">
 
+                    <multiselect
+                            track-by="title"
+                            label="title"
+                            v-model="selectedSkills"
+                            placeholder="Select skills"
+                            :options="skills"
+                            :searchable="false"
+                            :allow-empty="false"
+                            :multiple="true"
+                            :close-on-select="false"
+                            :clear-on-select="false"
+                            :preserve-search="true"
+                            @select="onSkillSelect">
+                    </multiselect>
 
-                    <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i class="lnr lnr-magnifier"></i><span>{{trans('lang.search_now')}}</span></a>
+                    <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i
+                            class="lnr lnr-magnifier"></i><span>{{trans('lang.search_now')}}</span></a>
                 </div>
-                    <div class="form-group">
-                        <input type="text" v-model="selectedDate" class="selectDatePicker" placeholder="Pick from Datepicker" >
-                        <!--<a href="#" class="wt-searchbtn"  style="float:none" id="calendar_btn"><i class="lnr lnr-calendar-full"></i><span>{{trans('lang.search_now')}}</span></a>-->
-                        <input type="text" v-model="selectedLocation" placeholder="Location" >
-
-                        <multiselect
-                                track-by="title"
-                                label="title"
-                                v-model="selectedSkills"
-                                placeholder="Select skills"
-                                :options="skills"
-                                :searchable="false"
-                                :allow-empty="false"
-                                :multiple="true"
-                                :close-on-select="false"
-                                :clear-on-select="false"
-                                :preserve-search="true"
-                        @select="onSkillSelect">
-                        </multiselect>
-
-                    </div>
-
-
-                <vue-cal id="calendar_small" style="display:none; background-color:white;width:230px;position: absolute; height: 290px;" class=" vuecal--green-theme"
-                         xsmall
-                         hide-view-selector
-                         :time="false"
-                         default-view="month"
-                         :disable-views="['week', 'day', 'year']"
-                         @cell-click="changeSelectedDate"
-                         :events="events"
-                >
-                </vue-cal>
-
-
             </div>
 
             <div class="wt-btn-remove-holder">
@@ -123,116 +125,117 @@
     import VueCal from 'vue-cal';
     import 'vue-cal/dist/vuecal.css';
     import Multiselect from 'vue-multiselect'
+
     Vue.component('multiselect', Multiselect)
 
-    export default{
-     components: { 'vue-cal': VueCal, Multiselect },
+    export default {
+        components: {'vue-cal': VueCal, Multiselect},
 
-     props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder', 'job_date_placeholder', 'avail_date_placeholder', 'location_placeholder','skill_placeholder'],
-        data(){
+        props: ['widget_type', 'no_record_message', 'placeholder', 'freelancer_placeholder', 'employer_placeholder', 'job_placeholder', 'service_placeholder', 'job_date_placeholder', 'avail_date_placeholder', 'location_placeholder', 'skill_placeholder'],
+        data() {
             return {
-                filters:[],
+                filters: [],
                 isActive: false,
-                searchable_data:[],
-                freelancers:[],
-                employers:[],
-                jobs:[],
-                query:'',
-                types:'freelancer',
-                selected_type:'',
-                no_record:this.no_record_message,
+                searchable_data: [],
+                freelancers: [],
+                employers: [],
+                jobs: [],
+                query: '',
+                types: 'freelancer',
+                selected_type: '',
+                no_record: this.no_record_message,
                 is_show: false,
-                related_results:false,
+                related_results: false,
                 url: APP_URL + '/search-results',
-                type_change:false,
-                events:[],
-                skills:[],
-                selecteddate:'',
-                selectedDate:'',
-                selectedSkills:"",
-                selectedLocation:"",
+                type_change: false,
+                events: [],
+                skills: [],
+                selecteddate: '',
+                selectedDate: '',
+                selectedSkills: "",
+                selectedLocation: "",
             }
         },
         methods: {
-            onSkillSelect(option){
+            onSkillSelect(option) {
                 //console.log(this.selectedSkills);
             },
-            changeSelectedDate(date){
+            changeSelectedDate(date) {
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-                this.selectedDate = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+                this.selectedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
                 jQuery('#calendar_small').hide();
                 //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
-               // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+                // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
             },
             displayFiltersName(type) {
-                if(type == 'freelancer') {
+                if (type == 'freelancer') {
                     this.selected_type = this.freelancer_placeholder;
-                } else if(type == 'employer') {
+                } else if (type == 'employer') {
                     this.selected_type = this.employer_placeholder;
-                } else if(type == 'job') {
+                } else if (type == 'job') {
                     this.selected_type = this.job_placeholder;
-                } else if(type == 'service') {
+                } else if (type == 'service') {
                     this.selected_type = this.service_placeholder;
-                }else if(type == 'location') {
+                } else if (type == 'location') {
                     this.selected_type = this.location_placeholder;
-                }else if(type == 'skill') {
+                } else if (type == 'skill') {
                     this.selected_type = this.skill_placeholder;
-                }else if(type == 'job_date') {
+                } else if (type == 'job_date') {
                     this.selected_type = this.job_date_placeholder;
-                }else if(type == 'avail_date') {
+                } else if (type == 'avail_date') {
                     this.selected_type = this.avail_date_placeholder;
                 }
             },
-            getFilters(){
+            getFilters() {
                 let self = this;
                 axios.get(APP_URL + '/search/get-search-filters')
-                .then(function (response) {
-                    if ( response.data.type == 'success') {
-                        self.filters = response.data.result;
-                    }
-                });
+                    .then(function (response) {
+                        if (response.data.type == 'success') {
+                            self.filters = response.data.result;
+                        }
+                    });
             },
-            changeFilter(){
+            changeFilter() {
                 this.type_change = true;
             },
-            getSearchableData: function(type, newQuery){
+            getSearchableData: function (type, newQuery) {
                 this.displayFiltersName(type);
                 let self = this;
-                axios.post(APP_URL + '/search/get-searchable-data',{
-                    type:type
+                axios.post(APP_URL + '/search/get-searchable-data', {
+                    type: type
                 })
-                .then(function (response) {
-                    if (type == 'freelancer') {
-                        self.searchable_data = response.data.searchables;
-                    } else if (type == 'employer') {
-                        self.searchable_data = response.data.searchables;
-                    } else if (type == 'job') {
-                        self.searchable_data = response.data.searchables;
-                    } else if (type == 'service') {
-                        self.searchable_data = response.data.searchables;
-                    }else if (type == 'location') {
-                        self.searchable_data = response.data.searchables;
-                    }else if (type == 'skill') {
-                        self.searchable_data = response.data.searchables;
-                    }else if (type == 'job_date') {
-                        self.searchable_data = [];
-                    }else if (type == 'avail_date') {
-                        self.searchable_data = [];
-                    }
-                });
+                    .then(function (response) {
+                        if (type == 'freelancer') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'employer') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'job') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'service') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'location') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'skill') {
+                            self.searchable_data = response.data.searchables;
+                        } else if (type == 'job_date') {
+                            self.searchable_data = [];
+                        } else if (type == 'avail_date') {
+                            self.searchable_data = [];
+                        }
+                    });
             },
-            emptyField:function(types){
+            emptyField: function (types) {
                 this.$refs.searchfield.inputValue = '';
                 this.isActive = false;
             },
-            watchSearchResults:function(types){
-                if(jQuery('.wt-radioholder').css('display') == 'block') {
+            watchSearchResults: function (types) {
+                if (jQuery('.wt-radioholder').css('display') == 'block') {
                     jQuery('.wt-radioholder').css("display", "none");
                 }
-                if ( !(jQuery('.list-group').hasClass( "input-searching" )) ) {
+                if (!(jQuery('.list-group').hasClass("input-searching"))) {
                     jQuery('.list-group').addClass('input-searching');
                 }
-                if(this.$refs.searchfield.$children[0].matchedItems == '') {
+                if (this.$refs.searchfield.$children[0].matchedItems == '') {
                     jQuery('.search-field').parents('.form-group').find('span.no-record-span').css("display", "block");
                     jQuery('.wt-related-result').remove();
                     this.is_show = true;
@@ -244,37 +247,37 @@
                     } else {
                         var type = types;
                     }
-                    if(type == 'Freelancers') {
+                    if (type == 'Freelancers') {
                         type = 'freelancer';
-                    } else if(type == 'Employers') {
+                    } else if (type == 'Employers') {
                         type = 'employer';
-                    } else if(type == 'Jobs') {
+                    } else if (type == 'Jobs') {
                         type = 'job';
-                    } else if(type == 'Services') {
+                    } else if (type == 'Services') {
                         type = 'service';
-                    } else if(type == 'skill') {
+                    } else if (type == 'skill') {
                         type = 'skill';
-                    } else if(type == 'location') {
+                    } else if (type == 'location') {
                         type = 'location';
-                    } else if(type == 'job_date') {
+                    } else if (type == 'job_date') {
                         type = 'job_date';
-                    } else if(type == 'avail_date') {
+                    } else if (type == 'avail_date') {
                         type = 'avail_date';
                     }
                     jQuery('.search-field').parents('.form-group').find('span.no-record-span').css("display", "none");
                     jQuery('.wt-related-result').remove();
-                    var html = '<a href="'+this.url+'?s='+keyword+'&type='+type+'" class="wt-related-result"><span v-if="related_results">show all result related to'+' <em>'+ keyword+'</em></span></a>';
+                    var html = '<a href="' + this.url + '?s=' + keyword + '&type=' + type + '" class="wt-related-result"><span v-if="related_results">show all result related to' + ' <em>' + keyword + '</em></span></a>';
                     jQuery(".list-group").append(html);
                     this.related_results = true;
                     this.is_show = false;
                 }
             },
-            recordSelected:function(){
-                if (jQuery('.list-group').hasClass( "input-searching" )) {
+            recordSelected: function () {
+                if (jQuery('.list-group').hasClass("input-searching")) {
                     jQuery('.list-group').removeClass('input-searching');
                 }
             },
-            toggleDropdown: function(){
+            toggleDropdown: function () {
                 if (this.isActive == false) {
                     this.isActive = true;
                     jQuery('.wt-related-result').remove();
@@ -282,26 +285,26 @@
                     this.isActive = false;
                 }
             },
-            submitSearchForm: function(type) {
+            submitSearchForm: function (type) {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.get('type') && this.type_change == false) {
                     var type = urlParams.get('type');
-                }   else {
-                        if(type == 'Freelancers') {
-                            type = 'freelancer';
-                    }   else if(type == 'Employers') {
-                            type = 'employer';
-                    }   else if(type == 'Jobs') {
-                            type = 'job';
-                    } else if(type == 'Services') {
-                            type = 'service';
-                    } else if(type == 'skill') {
-                            type = 'skill';
-                    } else if(type == 'location') {
+                } else {
+                    if (type == 'Freelancers') {
+                        type = 'freelancer';
+                    } else if (type == 'Employers') {
+                        type = 'employer';
+                    } else if (type == 'Jobs') {
+                        type = 'job';
+                    } else if (type == 'Services') {
+                        type = 'service';
+                    } else if (type == 'skill') {
+                        type = 'skill';
+                    } else if (type == 'location') {
                         type = 'location';
-                    } else if(type == 'job_date') {
+                    } else if (type == 'job_date') {
                         type = 'job_date';
-                    } else if(type == 'avail_date') {
+                    } else if (type == 'avail_date') {
                         type = 'avail_date';
                     }
                 }
@@ -309,48 +312,46 @@
                     let keyword = this.query;
                     if (type == 'job') {
                         let slug = document.getElementById('hidden_field').value;
-                        window.location.replace(APP_URL+'/job/'+slug);
-                    } else if (type == 'service'){
+                        window.location.replace(APP_URL + '/job/' + slug);
+                    } else if (type == 'service') {
                         let slug = document.getElementById('hidden_field').value;
-                        window.location.replace(APP_URL+'/service/'+slug);
-                    } else if (type == 'skill'){
-                        window.location.replace(APP_URL+'/search-results?type=freelancer&skill='+this.$refs.searchfield.inputValue);
-                    } else if (type == 'location'){
-                        window.location.replace(APP_URL+'/search-results?type=freelancer&location='+this.$refs.searchfield.inputValue);
-                    } else if (type == 'job_date'){
-                        window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
-                    } else if (type == 'avail_date'){
-                        window.location.replace(APP_URL+'/search-results?type=freelancer&avail_date='+this.$refs.searchfield.inputValue);
+                        window.location.replace(APP_URL + '/service/' + slug);
+                    } else if (type == 'skill') {
+                        window.location.replace(APP_URL + '/search-results?type=freelancer&skill=' + this.$refs.searchfield.inputValue);
+                    } else if (type == 'location') {
+                        window.location.replace(APP_URL + '/search-results?type=freelancer&location=' + this.$refs.searchfield.inputValue);
+                    } else if (type == 'job_date') {
+                        window.location.replace(APP_URL + '/search-results?type=job&start_date=' + this.$refs.searchfield.inputValue);
+                    } else if (type == 'avail_date') {
+                        window.location.replace(APP_URL + '/search-results?type=freelancer&avail_date=' + this.$refs.searchfield.inputValue);
                     }
                     else {
-                        window.location.replace(APP_URL+'/profile/'+slug);
+                        window.location.replace(APP_URL + '/profile/' + slug);
                     }
                 } else {
                     var getParams = '';
-                    if(this.selectedLocation != "")
-                    {
-                        getParams += '&location='+this.selectedLocation;
+                    if (this.selectedLocation != "") {
+                        getParams += '&location=' + this.selectedLocation;
                     }
-                    if(this.selectedDate != "")
-                    {
-                        getParams += '&start_Date='+this.selectedDate;
+                    if (this.selectedDate != "") {
+                        getParams += '&start_Date=' + this.selectedDate;
                     }
-                    if(this.selectedSkills != "")
-                    {
-                        for(var i=0;i<this.selectedSkills.length;i++)
-                        {
-                            getParams += '&skills[]='+this.selectedSkills[i].title;
+                    if (this.selectedSkills != "") {
+                        for (var i = 0; i < this.selectedSkills.length; i++) {
+                            getParams += '&skills[]=' + this.selectedSkills[i].title;
 
                         }
 
                     }
-                    window.location.replace(APP_URL+'/search-results?type='+type + getParams);
+                    window.location.replace(APP_URL + '/search-results?type=' + type + getParams);
                 }
 
             },
         },
         watch: {
-            query: _.debounce(function(newQuery) { this.getSearchableData(newQuery) }, 250)
+            query: _.debounce(function (newQuery) {
+                this.getSearchableData(newQuery)
+            }, 250)
         },
         mounted: function () {
             var urlParams = new URLSearchParams(window.location.search);
@@ -358,12 +359,12 @@
                 var type = urlParams.get('type');
                 this.displayFiltersName(type);
             }
-            jQuery(".search-field").keydown(function(){
+            jQuery(".search-field").keydown(function () {
                 var input = jQuery('.search-field');
-                input.on('keydown', function() {
+                input.on('keydown', function () {
                     var key = event.keyCode || event.charCode;
-                    if( key == 8 || key == 46 ) {
-                        if(!jQuery(this).val()) {
+                    if (key == 8 || key == 46) {
+                        if (!jQuery(this).val()) {
                             jQuery(this).parents('.form-group').find('span.no-record-span').css("display", "none");
                         } else {
                             jQuery('.wt-related-result').remove();
@@ -373,7 +374,7 @@
                 });
             });
         },
-        created: function() {
+        created: function () {
             this.getFilters();
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('type')) {
@@ -386,17 +387,15 @@
 
             var events = [];
             let self = this;
-            axios.get('/employer/getCalendarEvents').then(function(response){
+            axios.get('/employer/getCalendarEvents').then(function (response) {
                 console.log(this);
-                if(response)
-                {
+                if (response) {
                     self.events = response.data;
                 }
             });
-            axios.get('/get-skills').then(function(response){
+            axios.get('/get-skills').then(function (response) {
 
-                if(response.data.type=='success')
-                {
+                if (response.data.type == 'success') {
                     self.skills = response.data.skills;
                 }
             });
@@ -404,7 +403,9 @@
     }
 </script>
 <style>
-.wt-radioholder{transition: 1s;}
+    .wt-radioholder {
+        transition: 1s;
+    }
 </style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
