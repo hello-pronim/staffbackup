@@ -1008,9 +1008,17 @@ class PublicController extends Controller
             $user->stripe_token = "";
             $user->save();
             Auth::login($user);
+            $role_id = Helper::getRoleByUserID(Auth::user()->id);
 
+            if($role_id==2)
+            {
+                $role = 'employer';
+            }
+            else{
+                $role = 'freelancer';
+            }
             Session::flash('message', "Payment completed successfully");
-            return Redirect::to('/page/main');
+            return Redirect::to('/'.$role.'/dashboard');
         }
 
 

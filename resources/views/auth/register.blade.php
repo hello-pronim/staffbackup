@@ -459,10 +459,40 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
+                                            <div class="wt-title wt-formtitle">
+                                                <h4>{{{ trans('lang.start_as') }}}</h4>
+                                            </div>
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion">
+                                                @foreach ($roles as $key => $role)
+                                                    @if (!in_array($role['id'] == 1, $roles))
+                                                        <li style="width:50%">
+                                                            <div class="wt-accordiontitle" id="headingOne"
+                                                                 style="height: 69px; border: 1px solid #ddd;"
+                                                                 data-toggle="collapse" data-target="#collapseOne">
+                                                                <span class="wt-radio">
+                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
+                                                                       value="{{{ $role['role_type'] }}}" checked=""
+                                                                       v-model="user_role"
+                                                                       v-on:change="selectedRole(user_role)">
+                                                                <label for="wt-company-{{$key}}">
+                                                                    {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
+                                                                    <span>
+                                                                        ({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}
+                                                                        )
+                                                                    </span>
+                                                                </label>
+                                                                </span>
+                                                            </div>
+
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
                                             <div class="form-group  form-group-half">
                                                 <input id="number" type="text"
                                                        class="form-control"
                                                        name="number"
+                                                       min="0"
                                                        placeholder="{{{ trans('lang.number') }}}"
                                                 >
                                             </div>
@@ -481,7 +511,7 @@
                                                 <input id="straddress" type="text"
                                                        class="form-control"
                                                        name="straddress"
-                                                       placeholder="Organisation Address"
+                                                       placeholder="Address"
                                                 >
                                             </div>
                                             <div class="form-group  form-group-half">
@@ -491,7 +521,7 @@
                                                        placeholder="{{{ trans('lang.city') }}}"
                                                 >
                                             </div>
-                                            <div class="form-group  form-group-half">
+                                            <div class="form-group ">
                                                 <input id="postcode" type="text"
                                                        class="form-control"
                                                        name="postcode"
@@ -521,36 +551,9 @@
 
                                         </fieldset>
                                         <fieldset class="wt-formregisterstart">
-                                            <div class="wt-title wt-formtitle">
-                                                <h4>{{{ trans('lang.start_as') }}}</h4>
-                                            </div>
-                                            @if(!empty($roles))
-                                                <ul class="wt-accordionhold wt-formaccordionhold accordion">
-                                                    @foreach ($roles as $key => $role)
-                                                        @if (!in_array($role['id'] == 1, $roles))
-                                                            <li style="width:50%">
-                                                                <div class="wt-accordiontitle" id="headingOne"
-                                                                     style="height: 69px; border: 1px solid #ddd;"
-                                                                     data-toggle="collapse" data-target="#collapseOne">
-                                                                <span class="wt-radio">
-                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
-                                                                       value="{{{ $role['role_type'] }}}" checked=""
-                                                                       v-model="user_role"
-                                                                       v-on:change="selectedRole(user_role)">
-                                                                <label for="wt-company-{{$key}}">
-                                                                    {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
-                                                                    <span> 
-                                                                        ({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}
-                                                                        )
-                                                                    </span>
-                                                                </label>
-                                                                </span>
-                                                                </div>
 
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
+                                            @if(!empty($roles))
+
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
                                                         @if ($role['role_type'] === 'employer')
@@ -593,7 +596,7 @@
                                                                             >
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            <input id="emp_email" type="url"
+                                                                            <input id="emp_email" type="email"
                                                                                    class="form-control"
                                                                                    name="emp_email"
                                                                                    placeholder="Email"
@@ -602,28 +605,28 @@
 
                                                                         <h4>Backup Company contact</h4>
                                                                         <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_contact" type="url"
+                                                                            <input id="backup_emp_contact" type="text"
                                                                                    class="form-control"
                                                                                    name="backup_emp_contact"
                                                                                    placeholder="Backup Company Contact"
                                                                             >
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_email" type="url"
+                                                                            <input id="backup_emp_email" type="email"
                                                                                    class="form-control"
                                                                                    name="backup_emp_email"
                                                                                    placeholder="Backup Company Email"
                                                                             >
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_pos" type="url"
+                                                                            <input id="backup_emp_pos" type="text"
                                                                                    class="form-control"
                                                                                    name="backup_emp_pos"
                                                                                    placeholder="Backup Company Position"
                                                                             >
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_tel" type="url"
+                                                                            <input id="backup_emp_tel" type="tel"
                                                                                    class="form-control"
                                                                                    name="backup_emp_tel"
                                                                                    placeholder="Backup Company Tel"
@@ -803,22 +806,12 @@
                                                                         </div>
                                                                         <div class="form-group" >
                                                                             <input id="hourly_rate" type="number"
+                                                                                   min="0"
                                                                                    class="form-control"
                                                                                    name="hourly_rate"
                                                                                    placeholder="Hourly Rate">
                                                                         </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-checkbox"
-                                                                                  style="    margin-left: 15px;    margin-top: 17px;">
-                                                                                <span class="wt-checkbox">
-                                                                                        <input id="hourly_rate_negotiable"
-                                                                                               type="checkbox"
-                                                                                               name="hourly_rate_negotiable"
-                                                                                               checked="">
-                                                                                        <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
-                                                                                </span>
-                                                                            </span>
-                                                                        </div>
+
                                                                         <div class="form-group" >
                                                                             <label for="hourly_rate_desc">Please enter additional information in the communication box if required</label>
                                                                             <input id="hourly_rate_desc" type="text"
@@ -929,6 +922,7 @@
                                                                     <input id="hourly_rate" type="number"
                                                                            class="form-control"
                                                                            name="hourly_rate"
+                                                                           min="0"
                                                                            placeholder="Hourly Rate">
                                                                 </div>
                                                                 <div class="form-group form-group-half">
@@ -944,7 +938,7 @@
                                                                             </span>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input id="exp_years" type="tel"
+                                                                    <input id="exp_years" type="number" min="0"
                                                                            class="form-control"
                                                                            name="exp_years"
                                                                            placeholder="Experience Years"
@@ -1010,6 +1004,7 @@
                                                                                        name="profQualPlace[]"
                                                                                        placeholder="Place of Study"></td>
                                                                             <td><input type="number"
+                                                                                       min="0"
                                                                                        class="form-control"
                                                                                        name="profQualYear[]"
                                                                                        placeholder="Year"></td>
@@ -1089,24 +1084,6 @@
                                                                 </div>
 
 
-
-                                                                <div class="form-group">
-                                                                    <div class="wt-checkboxholder">
-                                                                        <span class="wt-checkbox">
-                                                                            <input id="dbscheck" type="checkbox"
-                                                                                   name="dbscheck"
-                                                                                   checked=""
-                                                                                   v-model="dbscheck">
-                                                                            <label for="dbscheck"><span>DBS checked</span></label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group " v-if="dbscheck">
-                                                                    <strong>Certificate of CRB/DBS:</strong>
-                                                                    <input type="file" name="cert_of_crbdbs"
-                                                                           class="form-control"
-                                                                           accept=".pdf, image/*,.doc,.docx">
-                                                                </div>
 
                                                                 <div class="form-group">
                                                                     {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
@@ -1211,6 +1188,8 @@
 
                                             </div>
                                             <div class="form-group wt-btnarea">
+                                                <a href="#" @click.prevent="prev()"
+                                                   class="wt-btn">{{{ trans('lang.previous') }}}</a>
                                                 <a href="#" @click.prevent="checkStep3()"
                                                    class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                             </div>
@@ -1236,8 +1215,10 @@
                                             {{--</div>--}}
                                         </div>
 
+
                                         <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
                                            v-if="subscription">Go To Checkout</a>
+
 
                                         <a href="#"  v-if="!subscription" class="wt-btn" @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
 

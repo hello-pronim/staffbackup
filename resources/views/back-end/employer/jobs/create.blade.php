@@ -56,13 +56,13 @@
                                             {{--</span>--}}
                                         {{--</div>--}}
                                         <div class="form-group form-group wt-formwithlabel job-cost-input">
-                                            {!! Form::number('project_cost', null, array('class' => '', 'placeholder' => trans('lang.project_cost'))) !!}
+                                            {!! Form::number('project_cost', null, array('class' => '', 'placeholder' => trans('lang.project_cost'), 'min'=>'0')) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::number('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'))) !!}
+                                            {!! Form::number('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}
+                                            {!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day', 'Per Month'=> 'Per Month'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}
                                         </div>
                                     </fieldset>
                                 </div>

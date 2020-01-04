@@ -560,7 +560,14 @@ if (document.getElementById("registration")) {
                             if (response.data.email == 'not_configured' && !ajax) {
                                 window.location.replace(response.data.url);
                             } else {
-                                self.next();
+                                if(self.subscription != "")
+                                {
+                                    self.checkoutStripe(subscription);
+                                }
+                                else{
+                                    self.loginRegisterUser();
+                                   // self.next();
+                                }
                             }
                         } else if (response.data.type == 'error') {
                             self.loading = false;
