@@ -1176,8 +1176,7 @@
                                                     </div>
                                                     <div class="form-group" v-if="cheque_show">
                                                         <strong>Cheque:</strong>
-                                                        <input type="text" name="cheque" class="form-control"
-                                                               placeholder="Your current address details will be used"/>
+                                                        <p>Your current address details will be used</p>
                                                     </div>
 
 
