@@ -622,9 +622,9 @@ class EmployerController extends Controller
                 'extend.back-end.employer.payouts.payouts',
                 compact('payouts')
             );
+        } else {
             return view(
-                'back-end.emplo
-        } else {yer.payouts.payouts',
+                'back-end.employer.payouts.payouts',
                 compact('payouts')
             );
         }
