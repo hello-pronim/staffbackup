@@ -140,7 +140,7 @@ class SkillController extends Controller
      * Update skills.
      *
      * @param string $request string
-     * @param int    $id      integer
+     * @param int $id integer
      *
      * @return \Illuminate\Http\Response
      */

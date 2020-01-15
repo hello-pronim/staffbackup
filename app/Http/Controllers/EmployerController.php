@@ -622,9 +622,9 @@ class EmployerController extends Controller
                 'extend.back-end.employer.payouts.payouts',
                 compact('payouts')
             );
-        } else {
             return view(
-                'back-end.employer.payouts.payouts',
+                'back-end.emplo
+        } else {yer.payouts.payouts',
                 compact('payouts')
             );
         }
@@ -658,9 +658,9 @@ class EmployerController extends Controller
     public function getCalendarEvents()
     {
         $arrEvents = DB::table('calendar_events')
-            ->where('class', '=', 'available_class')
+            ->where('class', '=', 'booking_calendar')
             ->orWhere(function ($query) {
-                $query->where('class', '=', 'booking_calendar')
+                $query->whereRaw('class = "available_class" OR class = "busy_class"')
                     ->where('user_id', '=',  Auth::user()->id);
             })
             ->get()->all();

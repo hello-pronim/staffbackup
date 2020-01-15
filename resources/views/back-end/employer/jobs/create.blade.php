@@ -143,11 +143,17 @@
                                 </div>
                                 <job_skills :placeholder="'skills already selected'"></job_skills>
                             </div>
+
                             <div class="wt-joblocation wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
                                     <h2>{{ trans('lang.your_loc') }}</h2>
                                 </div>
                                 <div class="wt-formtheme wt-userform">
+                                    <div class="wt-tabsinfo">
+                                        <div class="form-group">
+                                            <input type="text" name="radius" class="form-control" placeholder="Radius" >
+                                        </div>
+                                    </div>
                                     <fieldset>
                                         <div class="form-group form-group-half">
                                             <span class="wt-select">
@@ -156,6 +162,7 @@
                                         </div>
                                         <location-selector></location-selector>
                                     </fieldset>
+
                                 </div>
                             </div>
                             <div class="wt-featuredholder wt-tabsinfo">
@@ -194,6 +201,7 @@
                                 <div class="wt-tabscontenttitle">
                                     <h2>Calendar Booking</h2>                                </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo" @click.prevent="preventClick">
+                                    <button class="openCal wt-btn">Open Calendar</button>
 
 
                                         <vue-cal ref="vuecal" style="height: 650px"
@@ -212,6 +220,11 @@
                                         <label>Booking Title / Job Title</label>
 
                                         <input type="text" name="booking_title" disabled class="form-control" placeholder="Booking Title" v-model="title">
+                                    </div>
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label>Booking Date </label>
+
+                                        <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="selecteddate">
                                     </div>
                                     <div class="form-group">
                                         <label>Start Time</label>

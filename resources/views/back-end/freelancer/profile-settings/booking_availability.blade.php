@@ -31,6 +31,7 @@
                                      :disable-views="['years', 'year']"
                                      :events="events"
                                      default-view="month"
+                                     :events-on-month-view="[true, 'short'][false * 1]"
 
                                     @cell-click="createNewEvent">
                             </vue-cal>
@@ -63,6 +64,7 @@
                                         {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Availability Content', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
                                     </div>
                                     <button class="btn btn-success" @click="saveNewEventAvailability">Create Availability</button>
+                                    <button class="btn btn-success" @click="saveNewEventBusy">Create Holiday/Busy</button>
                                     </form>
                                 </div>
                             </div>

@@ -255,7 +255,10 @@ if (document.getElementById("booking_availability")) {
                 this.availability_start_time = date.toISOString().split('T')[0] + ' ' + startTime;
                 this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
             },
-            saveNewEventAvailability(e){
+            saveNewEventBusy(e){
+                this.saveNewEventAvailability(e, true);
+            },
+            saveNewEventAvailability(e, busy){
                 e.preventDefault();
                 var newObj =
                     {
@@ -266,6 +269,10 @@ if (document.getElementById("booking_availability")) {
                         contentFull: this.availability_content,
                         class: 'available_class'
                     };
+                if(busy)
+                {
+                    newObj.class = 'busy_class';
+                }
                 this.events.push(newObj);
                 axios.post('/freelancer/saveCalendarAvailability', newObj)
                     .then(function (response) {
@@ -4726,5 +4733,14 @@ $(document).ready(function(){
     $('#calendar_btn, .selectDatePicker').click(function() {
         $('#calendar_small').toggle("slow", function () {
         });
+    });
+
+    $(document).on('click', '.bookbutton', function(){
+        $('.vuecal ').slideUp();
+    });
+    $(document).on('click', '.openCal', function(){
+        $('.vuecal ').slideDown();
+        $('#post_job .bookbutton').remove();
+        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
     });
 });

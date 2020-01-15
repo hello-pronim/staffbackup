@@ -7898,6 +7898,9 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
     background-color: #ffe188 !important;
 }
 
+.busy_class{
+	background-color: #ffaeac !important;
+}
 /*.vuecal__event {cursor: pointer;}*/
 
 /*.vuecal__event-title {*/
