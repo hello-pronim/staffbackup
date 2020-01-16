@@ -673,4 +673,10 @@ class EmployerController extends Controller
             return array();
         }
     }
+
+    public function availability()
+    {
+        return view('back-end.employer.profile-settings.availability');
+
+    }
 }

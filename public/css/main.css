@@ -7944,6 +7944,15 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	border-radius:5px;
 	border: 1px solid black;
 }
+
+#employer_availability .availButton, #freelancer_availability .availButton{
+	margin: 0 auto;
+	width: 39px;
+	background-color:#fccf17;
+	color:white;
+	border-radius:5px;
+	border: 1px solid black;
+}
 .vuecal__cell-events-count {display: none;}
 .multiselect {
 	border:none !important;

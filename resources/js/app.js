@@ -4723,6 +4723,8 @@ $(document).ready(function(){
     setTimeout(function()
     {
        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+       $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+       $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
     }, 2000);
 
     $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function(){
@@ -4734,6 +4736,15 @@ $(document).ready(function(){
         $('#calendar_small').toggle("slow", function () {
         });
     });
+
+    $(document).on('click', '#employer_availability .vuecal__menu, #employer_availability .vuecal__title-bar,     #freelancer_availability .vuecal__menu, #freelancer_availability .vuecal__title-bar', function(){
+        $('#employer_availability .bookbutton').remove();
+        $('#freelancer_availability .bookbutton').remove();
+        $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+
+    });
+
 
     $(document).on('click', '.bookbutton', function(){
         $('.vuecal ').slideUp();

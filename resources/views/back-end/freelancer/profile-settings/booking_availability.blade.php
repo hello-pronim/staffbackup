@@ -24,7 +24,7 @@
                         @else
                             @include('back-end.freelancer.profile-settings.tabs')
                         @endif
-                        <div class="wt-tabscontent tab-content">
+                        <div class="wt-tabscontent tab-content" id="freelancer_availability">
                             <vue-cal ref="vuecal" style="height: 650px"
                                      :time-from="0 * 60"
                                      :time-to="24 * 60"
