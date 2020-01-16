@@ -66,6 +66,7 @@ body{
 
 }
 .headingcenter {
+    margin:0 auto;
     max-width: 660px;
 
 }
@@ -88,8 +89,7 @@ body{
 }
 #homenew{
     background-image: url("../images/imgdoctor.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%;
 }
 .searchboxnew{
     padding: 0px 10px 0px 50px;
