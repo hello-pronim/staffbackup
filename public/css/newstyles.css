@@ -40,7 +40,8 @@ body{
     text-transform: uppercase;
     font-size:17px;
     font-weight: bolder;
-    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;;
+    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;
+    height: 100%;
 
 }
 #newmenu li a {
@@ -88,8 +89,10 @@ body{
     margin-right: -10px;
 }
 #homenew{
+    background-repeat: no-repeat;
     background-image: url("../images/imgdoctor.jpg");
     background-size: 100%;
+
 }
 .searchboxnew{
     padding: 0px 10px 0px 50px;

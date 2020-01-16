@@ -40,7 +40,7 @@
             <div><a href="#">It's as simple as 1,2,3</a></div>
             <div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>
         </div>
-        <div class="row">
+        <div class="row" style="    margin-top: 131px;">
             <div class="col-md-2"></div>
         <div class="footer-menu col-md-8">
             <ul>
