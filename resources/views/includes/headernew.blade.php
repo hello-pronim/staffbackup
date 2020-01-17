@@ -15,30 +15,86 @@
 
     @endphp
 @endif
-<header id="wt-header" class="wt-header wt-haslayout {{$inner_header}}">
+<header class="wt-header wt-haslayout {{$inner_header}}">
         <div class="container-fluid headernew" >
             <div class="row " >
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <img style="margin: 31px;" src="images/logo2.png"/>
+                <div class="mainhomeMenu">
                     <ul id="newmenu"  class="list-unstyled" style="list-style: none;">
-                        <li><a href="{{url('/')}}" class="active-menu-li">Home</a></li>
-                        <li><a href="{{url('page/how-it-works')}}">About us</a></li>
-                        <li><a href="">Search</a></li>
-                        <li><a href="">Users</a></li>
-                        <li><a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "Join us"}}</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="{{url('/')}}">START BROWSING ADHOC STAFF</a></li>
+                        <li><a href="{{url('page/how-it-works')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
+                        <li><a href="">FAQs</a></li>
+                        <li style="border-right:none"><a href="" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a></li>
+
                     </ul>
 
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 telno" >
-                    <span>Email:info@staffbackup.co.uk</span>
-                </div>
+                {{--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 telno" >--}}
+                    {{--<span>Email:info@staffbackup.co.uk</span>--}}
+                {{--</div>--}}
             </div>
-            <div class="row">
+            <div class="row" style="margin:0 auto;width: 850px;padding-bottom: 150px;">
 
                 <div class="headingcenter text-center">
-                        <img src="images/newlogo.png"/>
-                    <h2>We connect professionals<br> with the people who need them most</h2>
-                    <div>10 years professional clinical experience</div>
+                    <h2>We connect professionals with the <br> people who need them most, (when they needed them).</h2>
+                    <div>10 years professional clinical experience connecting surgeries and <br> healthcare stakeholders with adhoc and temporary staffing solutions</div>
+                </div>
+                <div class="signupBtn">
+                    <a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "SIGN-UP"}}</a>
+                </div>
+
+            </div>
+
+            <div class="search" id="searchHomePage">
+                <div class="searchtop">
+                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"  @click="changeSearchType('freelancer')">Search Adhoc Staff</div>
+                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}" @click="changeSearchType('job')">Search Temp Jobs</div>
+                    <div class="searchbtn">
+                        <button @click="submit_search">Search</button>
+                    </div>
+                </div>
+                <div class="searchinputs" >
+                    <div class="filters">
+                        <div>LOCATION</div>
+                        <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text" v-model="location" placeholder="Area or Postcode"></div>
+                    </div>
+                    <div class="filters">
+                        <div>SPECIALIST</div>
+                        <div>
+                            <img src="{{url('images/icons/Layer 47.png')}}" alt="">
+                            <select style="font-weight: normal;border:none;padding:0px;" v-model="selectedSkills" v-model="skill">
+                                <option value="" disabled selected>Doctor, Nurse...</option>
+
+                                <option v-for="skill in skills" v-bind:value="skill.title">
+                                    @{{ skill.title}}
+                                </option>
+                                ]
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="filters">
+                        <div>DATE</div>
+                        <div><img src="{{url('images/icons/Layer 48.png')}}" alt=""><input type="text" name="" v-model="selectedDate" placeholder="Time, Date..." class="selectDatePicker">
+                            <vue-cal id="calendar_small"
+                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                                     class=" vuecal--green-theme"
+                                     xsmall
+                                     hide-view-selector
+                                     :time="false"
+                                     default-view="month"
+                                     :disable-views="['week', 'day', 'year']"
+                                     @cell-click="changeSelectedDate"
+                                     :events="events"
+                            >
+                            </vue-cal>
+                        </div>
+                    </div>
+                    <div class="filters" style="border-right:none">
+                        <div>RATE</div>
+                        <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text" placeholder="Per Hour, Day..."></div>
+                    </div>
                 </div>
 
             </div>

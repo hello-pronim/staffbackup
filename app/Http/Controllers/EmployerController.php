@@ -657,13 +657,22 @@ class EmployerController extends Controller
 
     public function getCalendarEvents()
     {
-        $arrEvents = DB::table('calendar_events')
-            ->where('class', '=', 'booking_calendar')
-            ->orWhere(function ($query) {
-                $query->whereRaw('class = "available_class" OR class = "busy_class"')
-                    ->where('user_id', '=',  Auth::user()->id);
-            })
-            ->get()->all();
+        if(Auth::user())
+        {
+            $arrEvents = DB::table('calendar_events')
+                ->where('class', '=', 'booking_calendar')
+                ->orWhere(function ($query) {
+                    $query->whereRaw('class = "available_class" OR class = "busy_class"')
+                        ->where('user_id', '=',  Auth::user()->id);
+                })
+                ->get()->all();
+        }
+        else{
+            $arrEvents = DB::table('calendar_events')
+                ->where('class', '=', 'booking_calendar')
+                ->get()->all();
+        }
+
 
         if(count($arrEvents))
         {

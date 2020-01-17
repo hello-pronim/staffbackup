@@ -320,7 +320,6 @@ Route::group(
 Route::group(
     ['middleware' => ['role:employer|freelancer|admin']],
     function () {
-        Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');
         Route::post('freelancer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
 
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');
@@ -356,6 +355,8 @@ Route::group(
         Route::get('user/get-payout-detail', 'UserController@getPayoutDetail');
     }
 );
+Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');
+
 Route::get('/get-skills', 'SkillController@getSkills');
 
 Route::post('job/get-wishlist', 'JobController@getWishlist');

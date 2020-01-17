@@ -28,24 +28,52 @@
     src: url("webfonts/Vision.otf") format("opentype");
 }
 
+@font-face {
+    font-family: Grotesk;
+    src: url("webfonts/MADE GoodTime Grotesk PERSONAL USE.otf") format("opentype");
+}
+@font-face {
+    font-family: LucidaGrandeRegular;
+    src: url("webfonts/911Fonts.com_LucidaGrandeRegular__-_911fonts.com_fonts_ynWe.ttf") format("truetype");
+}
+@font-face {
+    font-family: AgendaLight;
+    src: url("webfonts/Agenda Light Regular.otf") format("opentype");
+}
+
 
 
 body{
     color: #232f3e;
 }
+.mainhomeMenu{
+    margin-top: 10px;
+    width:57%;
+    position: absolute;
+    right: 0px;
+}
 #newmenu li {
+    width: 24%;
     list-style-type: none;
     display: inline-block;
-    padding:14px 22px;
+    padding: 14px 22px;
     text-transform: uppercase;
-    font-size:17px;
-    font-weight: bolder;
-    font-family: AvertaBold, 'Segoe UI', Tahoma, sans-serif;
+    font-size: 15px;
+    font-family: AgendaLight;
     height: 100%;
+    text-align: center;
+    vertical-align: top;
+    border-right:1px solid #e8e7a7;
+    line-height: 15px;
+    height: 60px;
+
+
 
 }
 #newmenu li a {
-    color:#232f3e;
+    color:white;
+    text-align: center;
+
 
 }
 .active-menu-li{
@@ -53,7 +81,7 @@ body{
     border-bottom: 3px solid black;
 }
 .headernew {
-    background-color: #fccf17;
+    background-color: #fcd133;
 }
 
 .telno
@@ -67,26 +95,42 @@ body{
 
 }
 .headingcenter {
-    margin:0 auto;
-    max-width: 660px;
+    max-width: 750px;
+    display: inline-block;
 
 }
+
+.signupBtn {
+    display: inline-block;
+    padding: 57px 0px 0px 15px;
+}
+.signupBtn a{
+    color: white;
+    background-color: #2a3b65 ;
+    padding: 5px 20px;
+    text-align: center;
+}
+
 .headingcenter h2 {
     /*font-style: italic;*/
     margin-top:19px;
-    font-size: 41px;
-    line-height: 52px;
+    font-size: 32px;
+    line-height: 33px;
     text-transform: none;
     font-family: AvertaExtraBold, 'Segoe UI', Tahoma, sans-serif;;
     font-weight: bolder;
     margin-bottom: -10px;
 
+
 }
 .headingcenter > div {
-    text-align: right;
+    text-align: center;
     font-family: ArbutusSlabRegular, 'Segoe UI', Tahoma, sans-serif;;
     height: 55px;
     margin-right: -10px;
+    margin-top: 10px;
+    color:white;
+    line-height: normal;
 }
 #homenew{
     background-repeat: no-repeat;
@@ -170,21 +214,128 @@ body{
 
 
 }
-.footer-menu ul li a{
+ ul li a{
     margin-right: 5px;
 }
 
 .footerCopyright
 {
     text-align: center;
-    margin: -48px auto;
+    margin: -30px auto;
     padding: 10px 20px 0px 20px;
     border-radius: 30px;
+    color:white;
     height: 40px;
-    background-repeat: no-repeat;
-    background-image: url(../images/copyrightBack.png);
-    background-position: top;
+    /*background-repeat: no-repeat;*/
+    /*background-image: url(../images/copyrightBack.png);*/
+    /*background-position: top;*/
     font-family: AvenirNext;
     font-size: 8px;
 }
 
+.boxes3{
+    width: 20%;
+    height: 247px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    padding:30px 40px;
+    vertical-align: bottom;
+}
+
+.bg-orange{
+    background-color: rgba(252, 209, 51, .9 );
+
+}
+
+.bg-blue{
+    background-color:  rgba(61, 80, 120, .9 );
+
+}
+
+.bg-green{
+    background-color: rgba(51, 204, 153, .9 );
+
+}
+.boxheading{
+    float: left;
+    font-size: 16pt;
+    text-transform: uppercase;
+    font-family: Grotesk;
+
+
+}
+.boxes3 p{
+    margin-top: 15px;
+    font-size: 8pt;
+    line-height: normal;
+    font-family: LucidaGrandeRegular;
+    text-align: left;
+}
+
+.search{
+    max-width:750px;
+
+    position: absolute;
+    bottom: -43px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+.searchtop div {
+    display: inline-block;
+    padding: 12px 0px;
+    font-weight: bold;
+}
+.searchtype{
+    width:24%;
+    text-align: center;
+    border-radius: 2px;
+    color:white;
+    background-color: #fcc815;
+    cursor: pointer;
+
+}
+.searchactive{
+    background-color: #2a3b65 !important;
+}
+
+.searchbtn{
+    float:right;
+}
+.searchbtn button{
+    color:white;
+    background-color: #38b390;
+    border-radius: 2px;
+    width:80px;
+    text-align: center;
+}
+
+.searchinputs{
+    background-color: white;
+    color: #2a3b65;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.searchinputs > div {
+    padding-top:15px;
+    font-weight: bold;
+    font-size:15px;
+    display: inline-block;
+    width:24%;
+    border-right:1px solid lightgray;
+    text-align: center;
+}
+
+.filters input {
+    border:none;
+    width:74%;
+    font-size: 12px;
+    padding: 0px 7px;
+    font-weight: 300;
+}
+
+.wt-main{
+    background-color:#2a3b65 ;
+}

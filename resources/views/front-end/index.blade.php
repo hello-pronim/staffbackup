@@ -23,46 +23,56 @@
         }
     @endphp
     <div id="homenew" class="la-home-page">
-        <div class="searchboxnew col-md-6" >
-            <form method="get" action="{{url('search-results')}}">
-            <select name="type" class="categorysearch">
-                <option value="job">Jobs</option>
-                <option value="freelancer">Staff</option>
-                <option value="employer">Employers</option>
-            </select>
-                <div style="width: 87%;">
-                    <input name="s" type="text">
-                    <button type="submit" style="background: none; font-size:20px" class="searchicon"><i class="fa fa-search"></i></button>
-                </div>
-            </form>
+        {{--<div class="searchboxnew col-md-6" >--}}
+            {{--<form method="get" action="{{url('search-results')}}">--}}
+            {{--<select name="type" class="categorysearch">--}}
+                {{--<option value="job">Jobs</option>--}}
+                {{--<option value="freelancer">Staff</option>--}}
+                {{--<option value="employer">Employers</option>--}}
+            {{--</select>--}}
+                {{--<div style="width: 87%;">--}}
+                    {{--<input name="s" type="text">--}}
+                    {{--<button type="submit" style="background: none; font-size:20px" class="searchicon"><i class="fa fa-search"></i></button>--}}
+                {{--</div>--}}
+            {{--</form>--}}
+        {{--</div>--}}
+        {{--<div class="simpletext col-md-5">--}}
+            {{--<div><a href="#">It's as simple as 1,2,3</a></div>--}}
+            {{--<div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>--}}
+        {{--</div>--}}
+        <div style="text-align: center;margin-top: 269px;margin-bottom: -20px">
+            <div class="boxes3 bg-orange">
+                <div class="boxheading">Locate</div>
+                <img src="{{url('images/icons/Layer 89.png')}}">
+                <p>
+                    Search staff using loactions that suit you, actually need.
+                </p>
+            </div>
+            <div class="boxes3 bg-blue" style="height: 270px;padding-top: 50px;">
+                <div class="boxheading">Book</div>
+                <img src="{{url('images/icons/Layer 84.png')}}">
+                <p>
+                    Search staff using loactions that suit you, actually need.
+                </p>
+            </div>
+            <div class="boxes3 bg-green">
+                <div class="boxheading">Staff</div>
+                <img src="{{url('images/icons/Layer 79.png')}}">
+                <p>
+                    Search staff using loactions that suit you, actually need.
+                </p>
+            </div>
         </div>
-        <div class="simpletext col-md-5">
-            <div><a href="#">It's as simple as 1,2,3</a></div>
-            <div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>
-        </div>
-        <div class="row" style="    margin-top: 10%;">
-            <div class="col-md-2"></div>
-        <div class="footer-menu col-md-8">
-            <ul>
-                <li>Quick response</li>
-                <li>10 Years Experience</li>
-                <li>Trusted Suppliers</li>
-                <li>Security checked</li>
 
-            </ul>
-        </div>
-        <div class="footer-menu col-md-2">
-            <ul>
-                <li>
-                    <a href="#" class="facebook_icon"><img src="{{url('images/facebook.png')}}"/></a>
-                    <a href="#" class="linkedin_icon"><img src="{{url('images/linkedin.png')}}"/></a>
-                    <a href="#" class="twitter_icon"><img src="{{url('images/twitter.png')}}"/></a>
-                    <a href="#" class="envelope_icon"><img src="{{url('images/envelope.png')}}"/></a>
-                </li>
-            </ul>
-        </div>
-        </div>
     </div>
+    <ul style="position: fixed; bottom: 50px;right: 30px">
+        <li style="list-style: none;">
+            <a href="#" class="facebook_icon"><img src="{{url('images/facebook.png')}}"/></a>
+            <a href="#" class="linkedin_icon"><img src="{{url('images/linkedin.png')}}"/></a>
+            <a href="#" class="twitter_icon"><img src="{{url('images/twitter.png')}}"/></a>
+            <a href="#" class="envelope_icon"><img src="{{url('images/envelope.png')}}"/></a>
+        </li>
+    </ul>
 @endsection
 @push('scripts')
     <script src="{{ asset('js/tilt.jquery.js') }}"></script>

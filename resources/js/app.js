@@ -24,6 +24,10 @@ import Verte from 'verte';
 import 'verte/dist/verte.css';
 import vuecal from 'vue-cal';
 
+import Multiselect from 'vue-multiselect'
+
+Vue.component('multiselect', Multiselect)
+
 import VueTimepicker from 'vue2-timepicker'
 
 import 'vue2-timepicker/dist/VueTimepicker.css'
@@ -306,6 +310,67 @@ if (document.getElementById("message_center")) {
         mounted: function () { },
         data: {},
         methods: {}
+    });
+}
+
+if (document.getElementById("searchHomePage")) {
+    const searchHomePage = new Vue({
+        el: '#searchHomePage',
+        components: { 'vue-cal': vuecal, Multiselect},
+        mounted: function () { },
+        data: {
+                events: [],
+                skills: [],
+                skill:"",
+                location:"",
+                selecteddate: '',
+                selectedDate: '',
+                selectedSkills: "",
+                selectedLocation: "",
+                search_type:"freelancer",
+
+        },
+        methods: {
+            changeSearchType(type){
+              this.search_type = type;
+            },
+            changeSelectedDate(date) {
+                //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+                this.selectedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                jQuery('#calendar_small').hide();
+                //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
+                // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+            },
+            onSkillSelect(option) {
+
+            },
+            submit_search(){
+                var getTypeValue = '';
+                if(this.search_type=='freelancer')
+                {
+                    getTypeValue = 'avail_date';
+                }
+                else {
+                    getTypeValue = 'start_date';
+                }
+                window.location.replace(APP_URL + '/search-results?type='+this.search_type+'&skill=' + this.skill + '&'+getTypeValue + '=' + this.selectedDate);
+            },
+        },
+        created: function () {
+            let self = this;
+            axios.get('/employer/getCalendarEvents').then(function (response) {
+                console.log(this);
+                if (response) {
+                    self.events = response.data;
+                }
+            });
+            axios.get('/get-skills').then(function (response) {
+
+                if (response.data.type == 'success') {
+                    self.skills = response.data.skills;
+                }
+            });
+        }
     });
 }
 
