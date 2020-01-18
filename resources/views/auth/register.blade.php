@@ -355,7 +355,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
                         <div class="wt-innerbannercontent">
                             <div class="wt-title">
-                                <h2>{{ trans('lang.join_for_free') }}</h2>
+                                <h2>You're only a few clicks away. Join for free today!</h2>
+                                <div>You're only a few clicks away from connecting with the professionals you need.
+                                    Sign-up and join for free today!
+                                </div>
                             </div>
                             @if (!empty($show_breadcrumbs) && $show_breadcrumbs === 'true')
                                 <ol class="wt-breadcrumb">
@@ -405,15 +408,44 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
-                                            <div class="form-group">
+
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion">
+                                                @foreach ($roles as $key => $role)
+                                                    @if (!in_array($role['id'] == 1, $roles))
+                                                        <li style="width:50%; <?php if ($key == 1) {
+                                                            echo 'padding-right: 10px;';
+                                                        };?>">
+                                                            <div class="wt-accordiontitle" id="headingOne"
+                                                                 style="height: 69px; border: 1px solid #ddd;"
+                                                                 data-toggle="collapse" data-target="#collapseOne">
+                                                                <span class="wt-radio">
+                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
+                                                                       value="{{{ $role['role_type'] }}}" checked=""
+                                                                       v-model="user_role"
+                                                                       v-on:change="selectedRole(user_role)">
+                                                                <label for="wt-company-{{$key}}">
+                                                                    {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
+                                                                    <span>
+                                                                        ({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}
+                                                                        )
+                                                                    </span>
+                                                                </label>
+                                                                </span>
+                                                            </div>
+
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                            <div class="form-group" style="width: 20%;">
                                                 {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'), 'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
                                                 <span class="help-block"
                                                       v-if="form_step2.title_error">
                                                                                 <strong v-cloak>@{{form_step2.title_error}}</strong>
                                                                             </span>
                                             </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="first_name" class="form-control"
+                                            <div class="form-group form-group-half" style="width: 40%">
+                                                <input type="text" name="first_name" class="form-control    "
                                                        placeholder="{{{ trans('lang.ph_first_name') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }"
                                                        v-model="first_name">
@@ -421,7 +453,7 @@
                                                 <strong v-cloak>@{{form_step1.first_name_error}}</strong>
                                             </span>
                                             </div>
-                                            <div class="form-group form-group-half">
+                                            <div class="form-group form-group-half" style="width: 40%">
                                                 <input type="text" name="last_name" class="form-control"
                                                        placeholder="{{{ trans('lang.ph_last_name') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
@@ -430,7 +462,7 @@
                                                 <strong v-cloak>@{{form_step1.last_name_error}}</strong>
                                             </span>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group form-group-half">
                                                 <input id="user_email" type="email" class="form-control" name="email"
                                                        placeholder="{{{ trans('lang.ph_email') }}}"
                                                        value="{{ old('email') }}"
@@ -440,7 +472,7 @@
                                                 <strong v-cloak>@{{form_step1.email_error}}</strong>
                                             </span>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group form-group-half">
                                                 <input id="number" type="text"
                                                        class="form-control"
                                                        name="number"
@@ -477,32 +509,7 @@
                                             <div class="wt-title wt-formtitle">
                                                 <h4>{{{ trans('lang.start_as') }}}</h4>
                                             </div>
-                                            <ul class="wt-accordionhold wt-formaccordionhold accordion">
-                                                @foreach ($roles as $key => $role)
-                                                    @if (!in_array($role['id'] == 1, $roles))
-                                                        <li style="width:50%">
-                                                            <div class="wt-accordiontitle" id="headingOne"
-                                                                 style="height: 69px; border: 1px solid #ddd;"
-                                                                 data-toggle="collapse" data-target="#collapseOne">
-                                                                <span class="wt-radio">
-                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
-                                                                       value="{{{ $role['role_type'] }}}" checked=""
-                                                                       v-model="user_role"
-                                                                       v-on:change="selectedRole(user_role)">
-                                                                <label for="wt-company-{{$key}}">
-                                                                    {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
-                                                                    <span>
-                                                                        ({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}
-                                                                        )
-                                                                    </span>
-                                                                </label>
-                                                                </span>
-                                                            </div>
 
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
 
                                             <div class="form-group  form-group-half">
                                                 <input id="emp_website" type="url"
@@ -529,23 +536,23 @@
                                                        placeholder="{{{ trans('lang.city') }}}"
                                                 >
                                             </div>
-                                            <div class="form-group ">
+                                            <div class="form-group  form-group-half ">
                                                 <input id="postcode" type="text"
-                                                       class="form-control"
+                                                       class="halfWidth form-control"
                                                        name="postcode"
                                                        placeholder="{{{ trans('lang.postcode') }}}"
                                                 >
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input id="password" type="password" class="form-control"
+                                                <input id="password" type="password" class="halfWidth form-control" style="display: inline;"
                                                        name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
                                                 <span class="help-block" v-if="form_step2.password_error">
-                                                <strong v-cloak>@{{form_step2.password_error}}</strong>
-                                            </span>
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="password-confirm" type="password" class="form-control"
+                                                    <strong v-cloak>@{{form_step2.password_error}}</strong>
+                                                </span>
+
+                                                <input id="password-confirm" type="password" style="margin-left:2px"
+                                                       class="halfWidth form-control"
                                                        name="password_confirmation"
                                                        placeholder="{{{ trans('lang.ph_retry_pass') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
@@ -553,7 +560,8 @@
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
                                             </span>
                                             </div>
-                                            <div class="form-group">
+
+                                            <div class="form-group form-group-half">
                                                 {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
                                             </div>
 
@@ -610,7 +618,7 @@
                                                                             >
                                                                         </div>
 
-                                                                        <h4>Backup Company contact</h4>
+                                                                        <h4 style="margin-top: 141px;">Backup Company contact</h4>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="backup_emp_contact" type="text"
                                                                                    class="form-control"
@@ -657,13 +665,13 @@
 
                                                                         <!-- New columns for sheet-->
 
-                                                                        <div class="form-group ">
-                                                                            <label for="org_type">Please indicate the
-                                                                                organisation which best describes your
-                                                                                service</label>
+                                                                        <label for="org_type" style="margin-top: 20px">Please indicate the
+                                                                            organisation which best describes your
+                                                                            service</label>
+                                                                        <div class="form-group form-group-half ">
                                                                             {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type")) !!}
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group form-group-half">
                                                                             <input id="org_desc" type="text"
                                                                                    class="form-control"
                                                                                    name="org_desc"
@@ -682,7 +690,7 @@
 
                                                                         <div class="form-group form-group-half">
                                                                             <input type="text"
-                                                                                   class="form-control"
+                                                                                   class="halfWidth form-control"
                                                                                    name="pin"
                                                                                    placeholder="Pin">
                                                                         </div>
@@ -752,7 +760,7 @@
                                                                                        placeholder="Direct Contact No">
                                                                             </div>
                                                                         </div>
-                                                                        <div class="form-group ">
+                                                                        <div class="form-group form-group-half">
                                                                             <strong>Professional Indemnity
                                                                                 Certificate:</strong>
                                                                             <input type="file" name="prof_ind_cert"
@@ -772,7 +780,7 @@
                                                                                    name="special_interests[]"
                                                                                    placeholder="Other Special Interest">
                                                                         </div>
-                                                                        <div class="form-group ">
+                                                                        <div class="form-group form-group-half ">
                                                                             <strong>Certificates –Vaccinations &
                                                                                 immunisation
                                                                                 (Measles/Mumps/Rubella/Hepatitis
@@ -821,7 +829,7 @@
                                                                         <div class="form-group">
                                                                             <input id="hourly_rate" type="number"
                                                                                    min="0"
-                                                                                   class="form-control"
+                                                                                   class="halfWidth form-control"
                                                                                    name="hourly_rate"
                                                                                    placeholder="Hourly Rate">
                                                                         </div>
@@ -917,13 +925,16 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <strong>CV Upload:</strong>
+
+                                                                </div>
+                                                                <div class="form-group form-group-half">
                                                                     <input type="file" name="cvfile"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
 
                                                                 <div class="form-group form-group-half">
-                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate', 'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
+                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate','class'=>"halfWidth",  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
                                                                     <span class="help-block"
                                                                           v-if="form_step2.rate_error">
                                                                                     <strong v-cloak>@{{form_step2.rate_error}}</strong>
@@ -968,7 +979,7 @@
                                                                 </div>
                                                                 <div class="form-group form-group-half">
                                                                     <input type="text"
-                                                                           class="form-control"
+                                                                           class="halfWidth form-control"
                                                                            name="pin"
                                                                            placeholder="Pin">
                                                                 </div>
@@ -988,7 +999,7 @@
                                                                 <div class="form-group">
                                                                     {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
                                                                 </div>
-                                                                <div class="form-group ">
+                                                                <div class="form-group form-group-half">
                                                                     <strong>Passport or Visa:</strong>
                                                                     <input type="file" name="passport_visa"
                                                                            class="form-control"
@@ -1026,14 +1037,14 @@
 
                                                                 </div>
 
-                                                                <div class="form-group ">
+                                                                <div class="form-group form-group-half">
                                                                     <strong>Professional Qualifications
                                                                         Certificate</strong>
                                                                     <input type="file" name="prof_qual_cert"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
-                                                                <div class="form-group ">
+                                                                <div class="form-group form-group-half">
                                                                     <strong>Mandatory Training:</strong>
                                                                     <input type="file" name="mand_training"
                                                                            class="form-control"
@@ -1050,13 +1061,13 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group " v-if="dbscheck">
+                                                                <div class="form-group form-group-half" v-if="dbscheck">
                                                                     <strong>Certificate of CRB/DBS:</strong>
                                                                     <input type="file" name="cert_of_crbdbs"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
-                                                                <div class="form-group ">
+                                                                <div class="form-group form-group-half">
                                                                     <strong>Occupational Health:</strong>
                                                                     <input type="file" name="occup_health"
                                                                            class="form-control"
@@ -1181,7 +1192,7 @@
                                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
                                                 <div v-if="user_role=='freelancer'">
                                                     {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
-                                                    <div class="form-group" v-if="P60upload">
+                                                    <div class="form-group form-group-half" v-if="P60upload">
                                                         <strong>P60 Upload:</strong>
                                                         <input type="file" name="p60" class="form-control"
                                                                accept=".pdf, image/*,.doc,.docx">

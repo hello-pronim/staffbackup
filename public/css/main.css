@@ -21,7 +21,37 @@ Version: 1.0.0
  09.	Flexslider
  10.	Grid
 */
-
+@font-face {
+	font-family: AvertaBold;
+	font-weight: 900;
+	src: url("webfonts/FontsFree-Net-AvertaDemoPE-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+	font-family: AvertaExtraBold;
+	src: url("webfonts/AvertaDemoPE-ExtraBold.otf") format("opentype");
+}
+@font-face {
+	font-family: ArbutusSlabRegular;
+	src: url("webfonts/arbutusslab-regular.ttf") format("truetype");
+}
+.wt-title h2{
+	margin-top: 19px;
+	font-size: 32px !important;
+	line-height: 33px !important;
+	text-transform: none;
+	font-family: AvertaExtraBold, 'Segoe UI', Tahoma, sans-serif;
+	font-weight: bolder !important;
+	margin-bottom: -10px;
+}
+.wt-title > div {
+	text-align: center;
+	font-family: ArbutusSlabRegular, 'Segoe UI', Tahoma, sans-serif;;
+	height: 55px;
+	margin-right: -10px;
+	margin-top: 10px;
+	color:white;
+	line-height: normal;
+}
 /* Theme Reset Style */
 @import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700|Open+Sans:400,600,700);
 * {
@@ -1818,7 +1848,7 @@ body.wt-login .wt-userlogedin{display: block;}
 .wt-innerbannerholder{
 	height: 300px;
 	/*background-image: url(../images/bannerimg/img-02.jpg);*/
-	background-color: #232f3e;
+	background-color: #A1B1D8;;
 	background-size: cover;
     background-repeat: no-repeat;
 	display: -webkit-box;
@@ -2716,7 +2746,8 @@ body.wt-login .wt-userlogedin{display: block;}
 /*	Accordion Style */
 .wt-accordionhold{
 	float: left;
-	width: 100%;
+	margin-left: 5px;
+	width: 98.5%;
 	list-style:none;
 }
 .wt-accordionhold li{
@@ -2741,9 +2772,8 @@ body.wt-login .wt-userlogedin{display: block;}
 .wt-accordiondetails{
 	float: left;
 	width: 100%;
-	padding: 30px;
 	border-bottom: 1px solid #ddd;
-	background:#f7f7f7;
+	/*background:#f7f7f7;*/
 }
 .wt-accordiondetails .wt-title h3{
 	font-size: 18px;
@@ -2851,7 +2881,15 @@ body.wt-login .wt-userlogedin{display: block;}
 	position: absolute;
 }
 .wt-form-group-dropdown .wt-select select{border-radius: 4px 0 0 4px;}
-.wt-formregister .wt-formregisterstart{margin-top:20px; }
+.wt-formregister .wt-formregisterstart{
+	margin: 20px -5px -5px -5px;
+	width: auto;
+}
+
+.wt-formregisterstart .form-group{
+	margin: 0;
+	padding: 5px;
+}
 .wt-formtitle h4{
 	font-size:18px;
 	margin: 0 0 7px;
@@ -7984,4 +8022,8 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 		width:auto !important
 	}
 
+}
+
+.halfWidth{
+	width:49%;
 }
