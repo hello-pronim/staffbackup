@@ -561,9 +561,6 @@
                                             </span>
                                             </div>
 
-                                            <div class="form-group form-group-half">
-                                                {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
-                                            </div>
 
                                         </fieldset>
                                         <fieldset class="wt-formregisterstart">
@@ -780,10 +777,14 @@
                                                                             <h4>Company Policies and Information</h4>
 
                                                                         </div>
+
+                                                                        <div class="form-group form-group-half">
+                                                                            {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
+                                                                        </div>
                                                                         <div class="form-group">
                                                                             {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
                                                                         </div>
-                                                                        <div class="form-group"
+                                                                        <div class="form-group form-group-half"
                                                                              v-if="specialInterest=='Other'">
                                                                             <input type="text"
                                                                                    class="form-control"
