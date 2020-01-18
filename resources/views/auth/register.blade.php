@@ -688,7 +688,7 @@
                                                                                    placeholder="Other Setting">
                                                                         </div>
 
-                                                                        <div class="form-group form-group-half">
+                                                                        <div class="form-group">
                                                                             <input type="text"
                                                                                    class="halfWidth form-control"
                                                                                    name="pin"
@@ -938,7 +938,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <strong>CV Upload:</strong>
+                                                                    <div>CV Upload:</div>
 
                                                                 </div>
                                                                 <div class="form-group form-group-half">
@@ -963,7 +963,7 @@
                                                                 </div>
                                                                 <div class="form-group form-group-half">
                                                                             <span class="wt-checkbox"
-                                                                                  style="    margin-left: 15px;    margin-top: 17px;">
+                                                                                  style="    margin-bottom: 13px;    margin-top: 17px;">
                                                                                 <span class="wt-checkbox">
                                                                                         <input id="hourly_rate_negotiable"
                                                                                                type="checkbox"
@@ -988,12 +988,12 @@
                                                                     {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
 
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+                                                                <div class="form-group form-group-half">
+                                                                    {!! Form::select('nationality', $arrNationals, null, array('class'=>"halfWidth",'placeholder' => "Nationality")) !!}
                                                                 </div>
                                                                 <div class="form-group form-group-half">
                                                                     <input type="text"
-                                                                           class="halfWidth form-control"
+                                                                           class="halfWidth form-control halfWidth"
                                                                            name="pin"
                                                                            placeholder="Pin">
                                                                 </div>
@@ -1013,20 +1013,26 @@
                                                                 <div class="form-group">
                                                                     {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <div>Passport or Visa:</div>
+
+                                                                </div>
                                                                 <div class="form-group form-group-half">
-                                                                    <strong>Passport or Visa:</strong>
                                                                     <input type="file" name="passport_visa"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <div>Professional Qualifications</div>
+
+                                                                </div>
                                                                 <div class="form-group form-group">
-                                                                    <strong>Professional Qualifications</strong>
                                                                     <span class="text-right" id="plusQual"
                                                                           style="cursor:pointer;font-size: 16px; background-color: #fccf17;color:white;padding:7px;border-radius:5px">+</span>
                                                                 </div>
 
                                                                 <div class="profQualif_block">
-                                                                    <table border="1">
+                                                                    <table >
                                                                         <tr>
                                                                             <td><input type="text"
                                                                                        class="form-control"
@@ -1052,8 +1058,8 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <strong>Professional Qualifications
-                                                                        Certificate</strong>
+                                                                    <div>Professional Qualifications
+                                                                        Certificate</div>
                                                                 </div>
                                                                 <div class="form-group form-group-half">
 
@@ -1061,8 +1067,10 @@
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <div>Mandatory Training:</div>
+                                                                </div>
                                                                 <div class="form-group form-group-half">
-                                                                    <strong>Mandatory Training:</strong>
                                                                     <input type="file" name="mand_training"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
@@ -1078,32 +1086,35 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <strong>Certificate of CRB/DBS:</strong>
-
+                                                                <div class="form-group ">
+                                                                    <div>Certificate of CRB/DBS:</div>
                                                                 </div>
                                                                 <div class="form-group form-group-half" v-if="dbscheck">
                                                                     <input type="file" name="cert_of_crbdbs"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
+
+                                                                <div class="form-group">
+                                                                    <div>Occupational Health:</div>
+                                                                </div>
                                                                 <div class="form-group form-group-half">
-                                                                    <strong>Occupational Health:</strong>
                                                                     <input type="file" name="occup_health"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group form-group-half">
                                                                     {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
                                                                 </div>
-                                                                <div class="form-group" v-if="specialInterest=='Other'">
+                                                                <div class="form-group form-group-half" v-if="specialInterest=='Other'">
                                                                     <input type="text"
                                                                            class="form-control"
                                                                            name="special_interests[]"
                                                                            placeholder="Other Special Interest">
                                                                 </div>
 
-                                                                <div class="form-group form-group">
+
+                                                                <div class="form-group">
                                                                     <label for="insurance"
                                                                            style="display: inline-block">Professional
                                                                         Indemnity Insurance</label> <input

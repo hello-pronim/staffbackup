@@ -8027,3 +8027,6 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 .halfWidth{
 	width:48% !important;
 }
+.profQualif_block table td{
+	border:none !important;
+}
