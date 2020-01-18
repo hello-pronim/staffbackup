@@ -8025,5 +8025,5 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 }
 
 .halfWidth{
-	width:48%;
+	width:48% !important;
 }

@@ -507,7 +507,7 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
                                             <div class="wt-title wt-formtitle">
-                                                <h4>{{{ trans('lang.start_as') }}}</h4>
+                                                <h4>Address</h4>
                                             </div>
 
 
@@ -578,7 +578,7 @@
                                                                      id="collapseOne" aria-labelledby="headingOne"
                                                                      v-if="is_show">
                                                                     <div>
-                                                                        <h4>Company Contact</h4>
+                                                                        <h4>Company Contacts</h4>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="emp_contact" type="text"
                                                                                    class="form-control"
@@ -618,7 +618,6 @@
                                                                             >
                                                                         </div>
 
-                                                                        <h4 style="margin-top: 141px;">Backup Company contact</h4>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="backup_emp_contact" type="text"
                                                                                    class="form-control"
@@ -649,6 +648,10 @@
                                                                         </div>
 
 
+                                                                        <div class="form-group">
+                                                                            <h4>Certifications</h4>
+                                                                        </div>
+
                                                                         <div class="form-group form-group-half">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
 
@@ -677,8 +680,8 @@
                                                                                    name="org_desc"
                                                                                    placeholder="Organisation description">
                                                                         </div>
-                                                                        <div class="form-group ">
-                                                                            {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
+                                                                        <div class="form-group form-group-half ">
+                                                                            {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'class'=>'halfWidth', 'placeholder' => "Setting")) !!}
                                                                         </div>
                                                                         <div class="form-group "
                                                                              v-if="appoSlotTime=='Other'">
@@ -760,15 +763,22 @@
                                                                                        placeholder="Direct Contact No">
                                                                             </div>
                                                                         </div>
+                                                                        <div class="form-group">
+                                                                            <div>Professional Indemnity
+                                                                                Certificate:</div>
+                                                                        </div>
                                                                         <div class="form-group form-group-half">
-                                                                            <strong>Professional Indemnity
-                                                                                Certificate:</strong>
+
                                                                             <input type="file" name="prof_ind_cert"
                                                                                    class="form-control"
                                                                                    accept=".pdf, image/*,.doc,.docx">
                                                                         </div>
+                                                                        {{--<div class="form-group">--}}
+                                                                            {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
+                                                                        {{--</div>--}}
                                                                         <div class="form-group">
-                                                                            {!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}
+                                                                            <h4>Company Policies and Information</h4>
+
                                                                         </div>
                                                                         <div class="form-group">
                                                                             {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
@@ -780,41 +790,44 @@
                                                                                    name="special_interests[]"
                                                                                    placeholder="Other Special Interest">
                                                                         </div>
-                                                                        <div class="form-group form-group-half ">
-                                                                            <strong>Certificates –Vaccinations &
+                                                                        <div class="form-group">
+                                                                            <div>Certificates –Vaccinations &
                                                                                 immunisation
                                                                                 (Measles/Mumps/Rubella/Hepatitis
-                                                                                B/Varicella):</strong>
+                                                                                B/Varicella):</div>
+                                                                        </div>
+                                                                        <div class="form-group form-group-half ">
+
                                                                             <input type="file" name="certs"
                                                                                    class="form-control"
                                                                                    accept=".pdf, image/*,.doc,.docx">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Appointment Slot Times")) !!}
+                                                                        <div class="form-group form-group-half">
+                                                                            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, array('v-model'=>'appoSlotTime', 'class'=>'halfWidth', 'placeholder' => "Appointment Slot Times")) !!}
                                                                         </div>
-                                                                        <div class="form-group"
+                                                                        <div class="form-group form-group-half"
                                                                              v-if="appoSlotTime=='Other'">
                                                                             <input id="other_appo" type="text"
-                                                                                   class="form-control"
+                                                                                   class="form-control halfWidth"
                                                                                    name="appo_slot_times[]"
                                                                                    placeholder="Other Appointment Slot Times">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'adm_catch_time')) !!}
+                                                                        <div class="form-group form-group-half">
+                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided",'class'=>'halfWidth', 'v-model'=>'adm_catch_time')) !!}
                                                                         </div>
-                                                                        <div class="form-group"
+                                                                        <div class="form-group form-group-half"
                                                                              v-if="adm_catch_time=='Yes'">
-                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated", 'v-model'=>'timeAllocated')) !!}
+                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated",  'class'=>'halfWidth', 'v-model'=>'timeAllocated')) !!}
                                                                         </div>
-                                                                        <div class="form-group"
+                                                                        <div class="form-group form-group-half"
                                                                              v-if="timeAllocated=='Other' && adm_catch_time=='Yes'">
                                                                             <input id="other_time_allo" type="text"
-                                                                                   class="form-control"
+                                                                                   class="form-control halfWidth"
                                                                                    name="time_allowed[]"
                                                                                    placeholder="Other Time Allocated">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks")) !!}
+                                                                        <div class="form-group form-group-half">
+                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks", 'class'=>'halfWidth')) !!}
                                                                         </div>
                                                                         <div class="form-group">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
@@ -826,7 +839,7 @@
                                                                                    name="payment_terms[]"
                                                                                    placeholder="Other Payment terms">
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group form-group-half ">
                                                                             <input id="hourly_rate" type="number"
                                                                                    min="0"
                                                                                    class="halfWidth form-control"
@@ -847,35 +860,35 @@
                                                                         <div class="form-group">
                                                                             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label>Session Advertised By</label>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="session_ad_by" type="text"
-                                                                                   class="form-control"
-                                                                                   name="session_ad_by"
-                                                                                   placeholder="Name">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="session_ad_by_position"
-                                                                                   type="text"
-                                                                                   class="form-control"
-                                                                                   name="session_ad_by_position"
-                                                                                   placeholder="Position">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="session_ad_by_email" type="email"
-                                                                                   class="form-control"
-                                                                                   name="session_ad_by_email"
-                                                                                   placeholder="Email">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="session_ad_by_contact"
-                                                                                   type="text"
-                                                                                   class="form-control"
-                                                                                   name="session_ad_by_contact"
-                                                                                   placeholder="Direct Contact No">
-                                                                        </div>
+                                                                        {{--<div class="form-group">--}}
+                                                                            {{--<label>Session Advertised By</label>--}}
+                                                                        {{--</div>--}}
+                                                                        {{--<div class="form-group form-group-half">--}}
+                                                                            {{--<input id="session_ad_by" type="text"--}}
+                                                                                   {{--class="form-control"--}}
+                                                                                   {{--name="session_ad_by"--}}
+                                                                                   {{--placeholder="Name">--}}
+                                                                        {{--</div>--}}
+                                                                        {{--<div class="form-group form-group-half">--}}
+                                                                            {{--<input id="session_ad_by_position"--}}
+                                                                                   {{--type="text"--}}
+                                                                                   {{--class="form-control"--}}
+                                                                                   {{--name="session_ad_by_position"--}}
+                                                                                   {{--placeholder="Position">--}}
+                                                                        {{--</div>--}}
+                                                                        {{--<div class="form-group form-group-half">--}}
+                                                                            {{--<input id="session_ad_by_email" type="email"--}}
+                                                                                   {{--class="form-control"--}}
+                                                                                   {{--name="session_ad_by_email"--}}
+                                                                                   {{--placeholder="Email">--}}
+                                                                        {{--</div>--}}
+                                                                        {{--<div class="form-group form-group-half">--}}
+                                                                            {{--<input id="session_ad_by_contact"--}}
+                                                                                   {{--type="text"--}}
+                                                                                   {{--class="form-control"--}}
+                                                                                   {{--name="session_ad_by_contact"--}}
+                                                                                   {{--placeholder="Direct Contact No">--}}
+                                                                        {{--</div>--}}
                                                                     </div>
 
                                                                 </div>
@@ -1037,9 +1050,12 @@
 
                                                                 </div>
 
-                                                                <div class="form-group form-group-half">
+                                                                <div class="form-group">
                                                                     <strong>Professional Qualifications
                                                                         Certificate</strong>
+                                                                </div>
+                                                                <div class="form-group form-group-half">
+
                                                                     <input type="file" name="prof_qual_cert"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
@@ -1061,8 +1077,11 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group form-group-half" v-if="dbscheck">
+                                                                <div class="form-group">
                                                                     <strong>Certificate of CRB/DBS:</strong>
+
+                                                                </div>
+                                                                <div class="form-group form-group-half" v-if="dbscheck">
                                                                     <input type="file" name="cert_of_crbdbs"
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">

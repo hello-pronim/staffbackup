@@ -981,7 +981,7 @@ return [
     'postcode' => 'Postal Code',
     'city' => 'City/Town',
     'straddress' => 'Street address',
-    'ph_retry_pass' => 'Retry Password',
+    'ph_retry_pass' => 'Repeat password',
     'ph_skill_title' => 'Skill Title',
     'ph_lang_title' => 'Language Title',
     'ph_cat_title' => 'Category Title',
