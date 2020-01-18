@@ -781,7 +781,7 @@
                                                                         <div class="form-group form-group-half">
                                                                             {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group form-group-half">
                                                                             {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
                                                                         </div>
                                                                         <div class="form-group form-group-half"
@@ -833,20 +833,20 @@
                                                                         <div class="form-group">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
                                                                         </div>
-                                                                        <div class="form-group"
+                                                                        <div class="form-group form-group-half"
                                                                              v-if="paymentTerm=='Other'">
                                                                             <input id="other_payment_terms" type="text"
                                                                                    class="form-control"
                                                                                    name="payment_terms[]"
                                                                                    placeholder="Other Payment terms">
                                                                         </div>
-                                                                        <div class="form-group form-group-half ">
-                                                                            <input id="hourly_rate" type="number"
-                                                                                   min="0"
-                                                                                   class="halfWidth form-control"
-                                                                                   name="hourly_rate"
-                                                                                   placeholder="Hourly Rate">
-                                                                        </div>
+                                                                        {{--<div class="form-group form-group-half ">--}}
+                                                                            {{--<input id="hourly_rate" type="number"--}}
+                                                                                   {{--min="0"--}}
+                                                                                   {{--class="halfWidth form-control"--}}
+                                                                                   {{--name="hourly_rate"--}}
+                                                                                   {{--placeholder="Hourly Rate">--}}
+                                                                        {{--</div>--}}
 
                                                                         <div class="form-group">
                                                                             <label for="hourly_rate_desc">Please enter
@@ -858,7 +858,7 @@
                                                                                    placeholder="Additional info">
                                                                         </div>
 
-                                                                        <div class="form-group">
+                                                                        <div class="form-group form-group-half">
                                                                             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
