@@ -551,7 +551,7 @@
                                                     <strong v-cloak>@{{form_step2.password_error}}</strong>
                                                 </span>
 
-                                                <input id="password-confirm" type="password" style="margin-left:2px"
+                                                <input id="password-confirm" type="password" style="float: right;"
                                                        class="halfWidth form-control"
                                                        name="password_confirmation"
                                                        placeholder="{{{ trans('lang.ph_retry_pass') }}}"
