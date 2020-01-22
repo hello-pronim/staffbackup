@@ -19,35 +19,43 @@
         @endphp
         <div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
             <div class="wt-companysdetails wt-usersidebar">
-                <figure class="wt-companysimg">
-                    <img src="{{{ asset(Helper::getUserProfileBanner($user->id, 'small')) }}}" alt="{{{ trans('lang.profile_banner') }}}">
-                </figure>
-                <div class="wt-companysinfo">
+                {{--<figure class="wt-companysimg">--}}
+                    {{--<img src="{{{ asset(Helper::getUserProfileBanner($user->id, 'small')) }}}" alt="{{{ trans('lang.profile_banner') }}}">--}}
+                {{--</figure>--}}
+                <div class="wt-companysinfo" style="margin-top: 110px;">
+
+
+                    @if ($role === 'employer')
+                        @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
+                            <div class="wt-btnarea" style="float:none;margin-bottom: 40px"><a href="{{{ url(route('employerPostJob')) }}}" class="wt-btn">{{{ trans('lang.post_job') }}}</a></div>
+                        @else
+                            <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
+                        @endif
+                    @elseif ($role === 'freelancer')
+                        @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
+                            <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('freelancerPostService')) }}}" class="wt-btn">{{{ trans('lang.post_service') }}}</a></div>
+                        @else
+                            <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
+                        @endif
+                    @endif
                     <figure><img src="{{{ asset(Helper::getProfileImageSmall($user->id)) }}}" alt="{{{ trans('lang.profile_photo') }}}"></figure>
+
                     <div class="wt-title">
                         <h2>
                             <a href="{{{ $role != 'admin' ? url($role.'/dashboard') : 'javascript:void()' }}}">
                                 {{{ !empty(Auth::user()) ? Helper::getUserName(Auth::user()->id) : 'No Name' }}}
                             </a>
                         </h2>
-                        <span>{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Auth::user()->getRoleNames()->first() }}}</span>
+                        <span style="font-family: AganeBold">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Auth::user()->getRoleNames()->first() }}}</span><br>
+                        <span style="font-family: AganeLight">{{{ !empty(Auth::user()->city) ? str_limit(Auth::user()->city, 26, '') : "" }}}</span>
                     </div>
-                    @if ($role === 'employer')
-                    @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
-                        <div class="wt-btnarea"><a href="{{{ url(route('employerPostJob')) }}}" class="wt-btn">{{{ trans('lang.post_job') }}}</a></div>
-                    @else
-                        <div class="wt-btnarea"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
-                    @endif
-                    @elseif ($role === 'freelancer')
-                        @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
-                            <div class="wt-btnarea"><a href="{{{ url(route('freelancerPostService')) }}}" class="wt-btn">{{{ trans('lang.post_service') }}}</a></div>
-                        @else
-                            <div class="wt-btnarea"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
-                        @endif
-                    @endif
+
                 </div>
             </div>
+
+            <div class="orangeline"></div>
             <nav id="wt-navdashboard" class="wt-navdashboard">
+                <div style="width:80%;border-bottom:1px solid white;margin:0 auto 30px auto"></div>
                 <ul>
                     @if ($role === 'admin')
                         <li>
@@ -150,43 +158,65 @@
                     @endif
                     @if ($role === 'employer' || $role === 'freelancer' )
                         <li>
+                            <img src="{{url('images/icons/leftmenu/Layer 51.png')}}"/>
+
+                            <a style="font-family: AganeBold" href="{{{ url($role.'/profile') }}}">{{ trans('lang.profile_settings') }}</a>
+
+                        </li>
+                        <li>
+                            <img src="{{url('images/icons/leftmenu/Layer 55.png')}}"/>
+
+                            <a href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a>
+                        </li>
+                        @if($role=='employer')
+                                @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
+                                    <li class="menu-item-has-children">
+                                        <img src="{{url('images/icons/leftmenu/Layer 59.png')}}"/>
+
+                                        <a href="javascript:void(0)">
+                                            <span>{{ trans('lang.jobs') }}</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.manage_job') }}</a></li>
+                                            <li><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>
+                                            <li><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>
+                                        </ul>
+                                    </li>
+                                @endif
+                        @endif
+                            <li>
+                                <img src="{{url('images/icons/leftmenu/Layer 63.png')}}"/>
+
+                                <a href="{{{ route('message') }}}">
+                                    <span>Messages</span>
+                                </a>
+                            </li>
+                        <li>
+                            <img src="{{url('images/icons/leftmenu/Layer 67.png')}}"/>
+
                             <a href="{{{ url($role.'/dashboard') }}}">
-                                <i class="ti-desktop"></i>
                                 <span>{{ trans('lang.dashboard') }}</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{{ route('message') }}}">
-                                <i class="ti-envelope"></i>
-                                <span>{{ trans('lang.msg_center') }}</span>
-                            </a>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                            <a href="javascript:void(0)">
-                                <i class="ti-settings"></i>
-                                <span>{{ trans('lang.settings') }}</span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><hr><a href="{{{ url($role.'/profile') }}}">{{ trans('lang.profile_settings') }}</a></li>
-                                <li><hr><a href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a></li>
-                            </ul>
-                        </li>
-                        @if ($role === 'employer')
-                            @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
-                                <li class="menu-item-has-children">
-                                    <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                    <a href="javascript:void(0)">
-                                        <i class="ti-announcement"></i>
-                                        <span>{{ trans('lang.jobs') }}</span>
+
+                            @if($role=='employer')
+                                <li>
+                                    <img src="{{url('images/icons/leftmenu/Layer 71.png')}}"/>
+
+                                    <a href="{{{ url($role.'/billing') }}}">
+                                        <span>Billing</span>
                                     </a>
-                                    <ul class="sub-menu">
-                                        <li><hr><a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.manage_job') }}</a></li>
-                                        <li><hr><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>
-                                        <li><hr><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>
-                                    </ul>
                                 </li>
                             @endif
+                            <li>
+                                <img src="{{url('images/icons/leftmenu/Layer 75.png')}}"/>
+
+                                <a href="{{{ url($role.'/notifications') }}}">
+                                    <span>Notifications</span>
+                                </a>
+                            </li>
+                            @if ($role === 'employer')
+
                             @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
                                 <li class="menu-item-has-children">
                                     <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
@@ -295,18 +325,27 @@
                         {{--</li>--}}
                     @endif
                     <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
-                            <i class="lnr lnr-exit"></i>{{{trans('lang.logout')}}}
-                        </a>
+
                         <form id="dashboard-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                     </li>
                 </ul>
+
             </nav>
-            <div class="wt-navdashboard-footer">
+
+
+            <div class="wt-navdashboard-footer" style="margin-top: 30px;margin-left: 73px;">
+                <a style="color:black;font-family: AganeLight" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
+                    {{{trans('lang.logout')}}}
+                </a>
+                {{--<span class="version-area">{{ config('app.version') }}</span>--}}
+            </div>
+            <div class="orangeline" style="margin-top: 25px"></div>
+
+            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px">
                 <span>{{{ $copyright }}}</span>
-                <span class="version-area">{{ config('app.version') }}</span>
+
             </div>
         </div>
     </div>

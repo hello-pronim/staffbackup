@@ -40,85 +40,85 @@
             </div>
         </fieldset>
     </form>
-    <form class="wt-formtheme wt-formbanner wt-formbannervtwo topmenusearch"   v-else>
-        <fieldset>
-            <div class="form-group">
-                <vue-bootstrap-typeahead
-                        class="mb-4"
-                        size="sm"
-                        v-model="query"
-                        :data="searchable_data"
-                        :placeholder=placeholder
-                        :serializer="item => item.name"
-                        ref="searchfield"
-                        @input="watchSearchResults(types)"
-                        inputClass="search-field"
-                        @hit="recordSelected"
-                >
-                    <template slot="suggestion" slot-scope="{ data, htmlText }">
-                        <div class="d-flex align-items-center">
-                            <span class="ml-4" v-html="htmlText"></span>
-                        </div>
-                        <input type="hidden" name="keyword" :value="data.slug" id="hidden_field">
-                    </template>
-                </vue-bootstrap-typeahead>
-                <span v-if="is_show" class="no-record-span">{{no_record}}</span>
-                <div class="wt-formoptions" style="left: 156px;">
-                    <div class="wt-dropdown" @click="toggleDropdown" style="width: 158px;">
-                        <span style="width: 176px;">In: <em class="selected-search-type">{{selected_type}} </em><i
-                                class="lnr lnr-chevron-down"></i></span>
-                    </div>
-                    <div class="wt-radioholder" v-bind:style='{"display" : (isActive? "block" : "none" )}'>
-                        <span class="wt-radio" v-for="(filter, index) in filters" :key="index">
-                            <input :id="filter.value" type="radio" name="searchtype" :value="filter.value"
-                                   v-model="types"
-                                   v-on:change="getSearchableData(types), emptyField(types), changeFilter()">
-                            <label :for="filter.value">{{filter.title}}</label>
-                        </span>
-                    </div>
-                    <input type="text" v-model="selectedDate" class="selectDatePicker"
-                           placeholder="Date"  style="width:80px;">
-                    <vue-cal id="calendar_small"
-                             style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
-                             class=" vuecal--green-theme"
-                             xsmall
-                             hide-view-selector
-                             :time="false"
-                             default-view="month"
-                             :disable-views="['week', 'day', 'year']"
-                             @cell-click="changeSelectedDate"
-                             :events="events"
-                    >
-                    </vue-cal>
-                    <!--<a href="#" class="wt-searchbtn"  style="float:none" id="calendar_btn"><i class="lnr lnr-calendar-full"></i><span>{{trans('lang.search_now')}}</span></a>-->
-                    <input type="text" v-model="selectedLocation" placeholder="Location" style="width:70px;">
+    <!--<form class="wt-formtheme wt-formbanner wt-formbannervtwo topmenusearch"   v-else>-->
+        <!--<fieldset>-->
+            <!--<div class="form-group">-->
+                <!--<vue-bootstrap-typeahead-->
+                        <!--class="mb-4"-->
+                        <!--size="sm"-->
+                        <!--v-model="query"-->
+                        <!--:data="searchable_data"-->
+                        <!--:placeholder=placeholder-->
+                        <!--:serializer="item => item.name"-->
+                        <!--ref="searchfield"-->
+                        <!--@input="watchSearchResults(types)"-->
+                        <!--inputClass="search-field"-->
+                        <!--@hit="recordSelected"-->
+                <!--&gt;-->
+                    <!--<template slot="suggestion" slot-scope="{ data, htmlText }">-->
+                        <!--<div class="d-flex align-items-center">-->
+                            <!--<span class="ml-4" v-html="htmlText"></span>-->
+                        <!--</div>-->
+                        <!--<input type="hidden" name="keyword" :value="data.slug" id="hidden_field">-->
+                    <!--</template>-->
+                <!--</vue-bootstrap-typeahead>-->
+                <!--<span v-if="is_show" class="no-record-span">{{no_record}}</span>-->
+                <!--<div class="wt-formoptions" style="left: 156px;">-->
+                    <!--<div class="wt-dropdown" @click="toggleDropdown" style="width: 158px;">-->
+                        <!--<span style="width: 176px;">In: <em class="selected-search-type">{{selected_type}} </em><i-->
+                                <!--class="lnr lnr-chevron-down"></i></span>-->
+                    <!--</div>-->
+                    <!--<div class="wt-radioholder" v-bind:style='{"display" : (isActive? "block" : "none" )}'>-->
+                        <!--<span class="wt-radio" v-for="(filter, index) in filters" :key="index">-->
+                            <!--<input :id="filter.value" type="radio" name="searchtype" :value="filter.value"-->
+                                   <!--v-model="types"-->
+                                   <!--v-on:change="getSearchableData(types), emptyField(types), changeFilter()">-->
+                            <!--<label :for="filter.value">{{filter.title}}</label>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                    <!--<input type="text" v-model="selectedDate" class="selectDatePicker"-->
+                           <!--placeholder="Date"  style="width:80px;">-->
+                    <!--<vue-cal id="calendar_small"-->
+                             <!--style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"-->
+                             <!--class=" vuecal&#45;&#45;green-theme"-->
+                             <!--xsmall-->
+                             <!--hide-view-selector-->
+                             <!--:time="false"-->
+                             <!--default-view="month"-->
+                             <!--:disable-views="['week', 'day', 'year']"-->
+                             <!--@cell-click="changeSelectedDate"-->
+                             <!--:events="events"-->
+                    <!--&gt;-->
+                    <!--</vue-cal>-->
+                    <!--&lt;!&ndash;<a href="#" class="wt-searchbtn"  style="float:none" id="calendar_btn"><i class="lnr lnr-calendar-full"></i><span>{{trans('lang.search_now')}}</span></a>&ndash;&gt;-->
+                    <!--<input type="text" v-model="selectedLocation" placeholder="Location" style="width:70px;">-->
 
-                    <multiselect
-                            track-by="title"
-                            label="title"
-                            v-model="selectedSkills"
-                            placeholder="Select skills"
-                            :options="skills"
-                            :searchable="false"
-                            :allow-empty="false"
-                            :multiple="true"
-                            :close-on-select="false"
-                            :clear-on-select="false"
-                            :preserve-search="true"
-                            @select="onSkillSelect">
-                    </multiselect>
+                    <!--<multiselect-->
+                            <!--track-by="title"-->
+                            <!--label="title"-->
+                            <!--v-model="selectedSkills"-->
+                            <!--placeholder="Select skills"-->
+                            <!--:options="skills"-->
+                            <!--:searchable="false"-->
+                            <!--:allow-empty="false"-->
+                            <!--:multiple="true"-->
+                            <!--:close-on-select="false"-->
+                            <!--:clear-on-select="false"-->
+                            <!--:preserve-search="true"-->
+                            <!--@select="onSkillSelect">-->
+                    <!--</multiselect>-->
 
-                    <a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i
-                            class="lnr lnr-magnifier"></i><span>{{trans('lang.search_now')}}</span></a>
-                </div>
-            </div>
+                    <!--<a href="#" class="wt-searchbtn" v-on:click.prevent="submitSearchForm(types)"><i-->
+                            <!--class="lnr lnr-magnifier"></i><span>{{trans('lang.search_now')}}</span></a>-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="wt-btn-remove-holder">
-                <a href="javascript:;" class="wt-search-remove">{{trans('lang.cancel')}}</a>
-                <a href="javascript:;" class="wt-search-remove"><i class="fa fa-close"></i></a>
-            </div>
-        </fieldset>
-    </form>
+            <!--<div class="wt-btn-remove-holder">-->
+                <!--<a href="javascript:;" class="wt-search-remove">{{trans('lang.cancel')}}</a>-->
+                <!--<a href="javascript:;" class="wt-search-remove"><i class="fa fa-close"></i></a>-->
+            <!--</div>-->
+        <!--</fieldset>-->
+    <!--</form>-->
 </template>
 <script>
 

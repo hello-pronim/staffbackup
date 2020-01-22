@@ -1,42 +1,43 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
+    <div class="row" style="margin:0 auto;width: 850px;padding-top: 80px;">
+
+        <div class="headingcenter text-center">
+            <h2>Dashboard</h2>
+            <div>Great! You're ready to go.</div>
+        </div>
+
+    </div>
     <section class="wt-haslayout wt-dbsectionspace wt-insightuser" id="dashboard">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="wt-insightsitemholder">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                            <div class="wt-insightsitem wt-dashboardbox {{$notify_class}}">
-                                <figure class="wt-userlistingimg">
-                                    {{ Helper::getImages('uploads/settings/icon',$latest_new_message_icon, 'book') }}
-                                </figure>
-                                <div class="wt-insightdetails">
-                                    <div class="wt-title">
-                                        <h3>{{ trans('lang.new_msgs') }}</h3>
-                                        <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row newStyleBoxes">
+
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                            <div class="firsthalf">Jobs</div>
+                            <div class="secondhalf">9</div>
+                            {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                            <div class="firsthalf">Messages</div>
+                            <div class="secondhalf">10</div>
+{{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
+
                         </div>
                         @if ($access_type == 'jobs' || $access_type== 'both')
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                                <div class="wt-insightsitem wt-dashboardbox">
-                                    <figure class="wt-userlistingimg">
-                                        {{ Helper::getImages('uploads/settings/icon',$latest_proposals_icon, 'layers') }}
-                                    </figure>
-                                    <div class="wt-insightdetails">
-                                        <div class="wt-title">
-                                            <h3>{{ trans('lang.latest_proposals') }}</h3>
-                                            <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                                <div class="firsthalf">Applications</div>
+                                <div class="secondhalf">23</div>
+                                {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>
                         @endif
 
 
                         @if ($access_type == 'jobs' || $access_type== 'both')
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                          {{--  <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
                                 <div class="wt-insightsitem wt-dashboardbox">
                                     <figure class="wt-userlistingimg">
                                         {{ Helper::getImages('uploads/settings/icon',$latest_cancel_job_icon, 'cross-circle') }}
@@ -48,52 +49,39 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                                <div class="wt-insightsitem wt-dashboardbox">
-                                    <figure class="wt-userlistingimg">
-                                        {{ Helper::getImages('uploads/settings/icon',$latest_ongoing_job_icon, 'cloud-sync') }}
-                                    </figure>
-                                    <div class="wt-insightdetails">
-                                        <div class="wt-title">
-                                            <h3>{{Helper::getTotalJobs('hired')}}</h3>
-                                            <span>{{ trans('lang.total_ongoing_jobs') }}</span>
-                                            <a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.click_view') }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                                <div class="wt-insightsitem wt-dashboardbox">
-                                    <figure class="wt-userlistingimg">
-                                        {{ Helper::getImages('uploads/settings/icon',$latest_completed_job_icon, 'checkmark-circle') }}
-                                    </figure>
-                                    <div class="wt-insightdetails">
-                                        <div class="wt-title">
-                                            <h3>{{Helper::getTotalJobs('completed')}}</h3>
-                                            <span>{{ trans('lang.total_completed_jobs') }}</span>
-                                            <a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.click_view') }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                                <div class="wt-insightsitem wt-dashboardbox">
-                                    <figure class="wt-userlistingimg">
-                                        {{ Helper::getImages('uploads/settings/icon',$latest_posted_job_icon, 'enter') }}
-                                    </figure>
-                                    <div class="wt-insightdetails">
-                                        <div class="wt-title">
-                                            <h3>{{Helper::getTotalJobs('posted')}}</h3>
-                                            <span>{{ trans('lang.total_posted_jobs') }}</span>
-                                            <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>--}}
+                            {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
+                                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
+                                    {{--<figure class="wt-userlistingimg">--}}
+                                        {{--{{ Helper::getImages('uploads/settings/icon',$latest_ongoing_job_icon, 'cloud-sync') }}--}}
+                                    {{--</figure>--}}
+                                    {{--<div class="wt-insightdetails">--}}
+                                        {{--<div class="wt-title">--}}
+                                            {{--<h3>{{Helper::getTotalJobs('hired')}}</h3>--}}
+                                            {{--<span>{{ trans('lang.total_ongoing_jobs') }}</span>--}}
+                                            {{--<a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.click_view') }}</a>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
+                                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
+                                    {{--<figure class="wt-userlistingimg">--}}
+                                        {{--{{ Helper::getImages('uploads/settings/icon',$latest_completed_job_icon, 'checkmark-circle') }}--}}
+                                    {{--</figure>--}}
+                                    {{--<div class="wt-insightdetails">--}}
+                                        {{--<div class="wt-title">--}}
+                                            {{--<h3>{{Helper::getTotalJobs('completed')}}</h3>--}}
+                                            {{--<span>{{ trans('lang.total_completed_jobs') }}</span>--}}
+                                            {{--<a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.click_view') }}</a>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
                         @endif
                         @if ($access_type == 'services' || $access_type== 'both')
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                                 <div class="wt-insightsitem wt-dashboardbox">
                                     <figure class="wt-userlistingimg">
                                         {{ Helper::getImages('uploads/settings/icon',$ongoing_services_icon, 'gift') }}
@@ -107,7 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                                 <div class="wt-insightsitem wt-dashboardbox">
                                     <figure class="wt-userlistingimg">
                                         {{ Helper::getImages('uploads/settings/icon',$completed_services_icon, 'gift') }}
@@ -121,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                                 <div class="wt-insightsitem wt-dashboardbox">
                                     <figure class="wt-userlistingimg">
                                         {{ Helper::getImages('uploads/settings/icon',$cancelled_services_icon, 'gift') }}
@@ -136,6 +124,18 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+                    <div class="row page-group" style="margin-top: 30px">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
+                            <div class="page-group-selectors bg-dark-blue">Contacts</div>
+                            <div class="triangle"></div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="page-group-selectors bg-light-blue">Details</div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
+                            <div class="page-group-selectors bg-specific-green">Requirements</div>
+                        </div>
                     </div>
                 </div>
             </div>

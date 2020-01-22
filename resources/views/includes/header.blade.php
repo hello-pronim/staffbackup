@@ -19,29 +19,34 @@
                     @if (!empty($logo) || Schema::hasTable('site_managements'))
                         <strong class="wt-logo"><a href="{{{ url('/') }}}"><img src="{{{ asset($logo) }}}" alt="{{{ trans('Logo') }}}"></a></strong>
                     @endif
-                    @if (!empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->uri() != '/' && Route::getCurrentRoute()->uri() != 'home')
-                        <search-form
-                        :placeholder="'{{ trans('lang.looking_for') }}'"
-                        :freelancer_placeholder="'{{ trans('lang.search_filter_list.freelancer') }}'"
-                        :employer_placeholder="'{{ trans('lang.search_filter_list.employers') }}'"
-                        :job_placeholder="'{{ trans('lang.search_filter_list.jobs') }}'"
-                        :service_placeholder="'{{ trans('lang.search_filter_list.services') }}'"
-                        :location_placeholder="'Location'"
-                        :job_date_placeholder="'Job Date'"
-                        :avail_date_placeholder="'Available Date'"
-                        :skill_placeholder="'Skill'"
-                        :no_record_message="'{{ trans('lang.no_record') }}'"
-                        >
-                        </search-form>
-                    @endif
-                    <div class="wt-rightarea">
+
+                    <div class="wt-rightarea" style="height: 90px;">
                         <nav id="wt-nav" class="wt-nav navbar-expand-lg">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="lnr lnr-menu"></i>
                             </button>
                             <div class="collapse navbar-collapse wt-navigation" id="navbarNav">
-                                <ul class="navbar-nav">
+                                <div class="row " >
+                                    <div class="mainhomeMenu">
+                                        <ul id="newmenu"  class="list-unstyled" style="list-style: none;">
+                                            <li><a href="{{url('/')}}">START BROWSING ADHOC STAFF</a></li>
+                                            <li><a href="{{url('page/how-it-works')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
+                                            <li><a href="">FAQs</a></li>
+                                            <li style="border-right:none"><a href="" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a></li>
+
+                                        </ul>
+
+                                    </div>
+                                    {{--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 telno" >--}}
+                                    {{--<span>Email:info@staffbackup.co.uk</span>--}}
+                                    {{--</div>--}}
+                                </div>
+
+                            </div>
+                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 83px; align-items:normal">
+
+                                <ul class="navbar-nav" style="margin-top: 10px;">
                                     @if (!empty($pages) || Schema::hasTable('pages'))
                                         @foreach ($pages as $key => $page)
                                             @php
@@ -73,21 +78,49 @@
                                         </a>
                                     </li>
 
-                                @if ($type =='jobs' || $type == 'both')
+                                    @if ($type =='jobs' || $type == 'both')
                                         <li>
                                             <a href="{{url('search-results?type=job')}}">
                                                 {{{ trans('lang.browse_jobs') }}}
                                             </a>
                                         </li>
                                     @endif
-                                @if ($type =='services' || $type == 'both')
-                                    <li>
-                                        <a href="{{url('search-results?type=service')}}">
-                                            {{{ trans('lang.browse_services') }}}
-                                        </a>
-                                    </li>
-                                @endif
+                                    @if ($type =='services' || $type == 'both')
+                                        <li>
+                                            <a href="{{url('search-results?type=service')}}">
+                                                {{{ trans('lang.browse_services') }}}
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
+                                @auth
+                                    @php
+                                        $user = !empty(Auth::user()) ? Auth::user() : '';
+                                        $role = !empty($user) ? $user->getRoleNames()->first() : array();
+                                        $profile = \App\User::find($user->id)->profile;
+                                        $user_image = !empty($profile) ? $profile->avater : '';
+                                        $employer_job = \App\Job::select('status')->where('user_id', Auth::user()->id)->first();
+                                        $profile_image = !empty($user_image) ? '/uploads/users/'.$user->id.'/'.$user_image : 'images/user-login.png';
+                                        $payment_settings = \App\SiteManagement::getMetaValue('commision');
+                                        $payment_module = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
+                                        $employer_payment_module = !empty($payment_settings) && !empty($payment_settings[0]['employer_package']) ? $payment_settings[0]['employer_package'] : 'true';
+                                    @endphp
+                                    <div class="wt-userlogedin">
+                                        <figure class="wt-userimg" style="float:none">
+                                            <img src="{{{ asset($profile_image) }}}"
+                                                 alt="{{{ trans('lang.user_avatar') }}}">
+                                        </figure>
+                                        <div class="wt-username" style="margin-top: 10px; text-align: center">
+                                            <h3 style="font-size: 13px;">{{{ Helper::getUserName(Auth::user()->id) }}}</h3>
+                                            <div style="font-size:10px;color:darkgrey">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Helper::getAuthRoleName() }}}</div>
+                                        </div>
+                                        @if (file_exists(resource_path('views/extend/back-end/includes/profile-menu.blade.php')))
+                                            @include('extend.back-end.includes.profile-menu')
+                                        @else
+                                            @include('back-end.includes.profile-menu')
+                                        @endif
+                                    </div>
+                                @endauth
                             </div>
                         </nav>
                         @guest
@@ -140,36 +173,12 @@
                                 <a href="{{{ route('register') }}}" class="wt-btn">{{{ trans('lang.join_now') }}}</a>
                             </div>
                         @endguest
-                        @auth
-                            @php
-                                $user = !empty(Auth::user()) ? Auth::user() : '';
-                                $role = !empty($user) ? $user->getRoleNames()->first() : array();
-                                $profile = \App\User::find($user->id)->profile;
-                                $user_image = !empty($profile) ? $profile->avater : '';
-                                $employer_job = \App\Job::select('status')->where('user_id', Auth::user()->id)->first();
-                                $profile_image = !empty($user_image) ? '/uploads/users/'.$user->id.'/'.$user_image : 'images/user-login.png';
-                                $payment_settings = \App\SiteManagement::getMetaValue('commision');
-                                $payment_module = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
-                                $employer_payment_module = !empty($payment_settings) && !empty($payment_settings[0]['employer_package']) ? $payment_settings[0]['employer_package'] : 'true';
-                            @endphp
-                                <div class="wt-userlogedin">
-                                    <figure class="wt-userimg">
-                                        <img src="{{{ asset($profile_image) }}}" alt="{{{ trans('lang.user_avatar') }}}">
-                                    </figure>
-                                    <div class="wt-username">
-                                        <h3>{{{ Helper::getUserName(Auth::user()->id) }}}</h3>
-                                        <span>{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Helper::getAuthRoleName() }}}</span>
-                                    </div>
-                                    @if (file_exists(resource_path('views/extend/back-end/includes/profile-menu.blade.php'))) 
-                                        @include('extend.back-end.includes.profile-menu')
-                                    @else 
-                                        @include('back-end.includes.profile-menu')
-                                    @endif
-                                </div>
-                        @endauth
-                        @if (!empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->uri() != '/' && Route::getCurrentRoute()->uri() != 'home')
-                            <div class="wt-respsonsive-search"><a href="javascript:;" class="wt-searchbtn"><i class="fa fa-search"></i></a></div>
-                        @endif
+
+                        {{--@if (!empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->uri() != '/' && Route::getCurrentRoute()->uri() != 'home')--}}
+                            {{--<div class="wt-respsonsive-search"><a href="javascript:;" class="wt-searchbtn"><i class="fa fa-search"></i></a></div>--}}
+                        {{--@endif--}}
+
+
                     </div>
                 </div>
             </div>

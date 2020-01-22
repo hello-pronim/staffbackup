@@ -21,6 +21,26 @@ Version: 1.0.0
  09.	Flexslider
  10.	Grid
 */
+
+
+@font-face {
+	font-family: ArbutusSlabRegular;
+	src: url("webfonts/arbutusslab-regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: AganeBold;
+	src: url("webfonts/AganeBold.ttf") format("truetype");
+}
+@font-face {
+	font-family: AganeLight;
+	src: url("webfonts/Agane(light).ttf") format("truetype");
+}
+@font-face {
+	font-family: AganeExtraBold;
+	src: url("webfonts/Agane(Extra Bold).ttf") format("truetype");
+}
+
 @font-face {
 	font-family: AvertaBold;
 	font-weight: 900;
@@ -30,10 +50,35 @@ Version: 1.0.0
 	font-family: AvertaExtraBold;
 	src: url("webfonts/AvertaDemoPE-ExtraBold.otf") format("opentype");
 }
+
 @font-face {
-	font-family: ArbutusSlabRegular;
-	src: url("webfonts/arbutusslab-regular.ttf") format("truetype");
+	font-family: AmericanTypewriterRegular;
+	src: url("webfonts/American Typewriter Regular.ttf") format("truetype");
 }
+@font-face {
+	font-family: AvenirNext;
+	src: url("webfonts/AvenirNextLTPro-Regular.otf") format("opentype");
+
+}
+
+@font-face {
+	font-family: Vision;
+	src: url("webfonts/Vision.otf") format("opentype");
+}
+
+@font-face {
+	font-family: Grotesk;
+	src: url("webfonts/MADE GoodTime Grotesk PERSONAL USE.otf") format("opentype");
+}
+@font-face {
+	font-family: LucidaGrandeRegular;
+	src: url("webfonts/911Fonts.com_LucidaGrandeRegular__-_911fonts.com_fonts_ynWe.ttf") format("truetype");
+}
+@font-face {
+	font-family: AgendaLight;
+	src: url("webfonts/Agenda Light Regular.otf") format("opentype");
+}
+
 .wt-title h2{
 	margin-top: 19px;
 	font-size: 32px !important;
@@ -998,7 +1043,7 @@ li.wt-rss a { background:#ff6600; }
 	width: 100%;
 	float: left;
 	text-transform: capitalize;
-	font:400 16px/16px 'Poppins', Arial, Helvetica, sans-serif;
+	font:400 15px/15px AganeBold, Arial, Helvetica, sans-serif;
 }
 .wt-navigation{
 	padding: 0;
@@ -1154,9 +1199,10 @@ li.wt-rss a { background:#ff6600; }
 	margin: 0;
 	float: left;
 	width: auto;
-	max-width: 36px;
-	max-height: 36px;
-	margin-right:10px;
+	max-width: 40px;
+
+	max-height: 40px;
+	margin: 0 auto;
 	border-radius: 50px;
 }
 .wt-userimg img{
@@ -1252,20 +1298,19 @@ body.wt-login .wt-loginarea{display: block;}
 	padding-right:0;
 	position: relative;
 }
-.wt-userlogedin:before{
-	left: 0;
-	top: 50%;
-	width: 1px;
-	content: '';
-	height: 36px;
-	background: #ddd;
-	margin-top:-18px;
-	position: absolute;
-}
+/*.wt-userlogedin:before{*/
+	/*left: 0;*/
+	/*top: 50%;*/
+	/*width: 1px;*/
+	/*content: '';*/
+	/*height: 36px;*/
+	/*background: #ddd;*/
+	/*margin-top:-18px;*/
+	/*position: absolute;*/
+/*}*/
 body.wt-login .wt-userlogedin{display: block;}
 .wt-userlogedin .wt-userimg{
 	float:left;
-	margin-right:10px;
 }
 .wt-username{overflow:hidden;}
 .wt-username h3{
@@ -3846,7 +3891,7 @@ body.wt-login .wt-userlogedin{display: block;}
 	display: block;
 	color: #323232;
 	margin: 0 0 9px;
-	font: 400 14px/16px 'Poppins', Arial, Helvetica, sans-serif;
+	font: 600 18px/18px AganeBold, Arial, Helvetica, sans-serif;
 }
 .wt-companysinfo .wt-title a i {color: #00cc8d;}
 .wt-companysinfo .wt-title h2 {
@@ -7109,7 +7154,8 @@ body.lang-es .wt-userlistingcontent .wt-viewjobholder ul li span{
 }
 body.lang-fr .wt-userlistingcontent .wt-viewjobholder ul li .wt-clicklike span{max-width: 160px;}
 .la-likefreelanfav .wt-emptydata-holder{padding: 0;}
-.wt-navigationarea .wt-userlogedin .wt-username h3{line-height: 18px;margin-bottom:3px; }
+.wt-navigationarea .wt-userlogedin .wt-username h3{line-height: 18px;margin-bottom:3px}
+.wt-navigationarea .wt-userlogedin .wt-username h3, .wt-navigationarea .wt-userlogedin .wt-username div{font-family: AganeBold !important}
 .wt-accountsettingholder .wt-securityhold .wt-userform .wt-updatall.la-btn-setting{padding: 10px;}
 body.lang-pt .wt-managejobcontent .wt-saveitem-breadcrumb li{margin-top: 10px;}
 body.lang-pt .wt-managejobcontent .wt-saveitem-breadcrumb{margin-top:-10px; }
@@ -8029,4 +8075,163 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 }
 .profQualif_block table td{
 	border:none !important;
+}
+
+.newLeftMenu{
+	position: absolute;
+	width:200px;
+	background-color:#fccf17;
+	height: 100%;
+}
+
+
+
+
+/*New design CSS starts*/
+
+
+.headingcenter h2 {
+	/*font-style: italic;*/
+	margin-top:19px;
+	color: #263b65;
+	font-size: 51px;
+	line-height: 33px;
+	text-transform: none;
+	font-family: AvertaExtraBold, 'Segoe UI', Tahoma, sans-serif;;
+	font-weight: bolder;
+	margin-bottom: -10px;
+
+
+}
+.headingcenter > div {
+	text-align: center;
+	font-family: AganeBold, 'Segoe UI', Tahoma, sans-serif;;
+	height: 55px;
+	margin-right: -10px;
+	margin-top: 25px;
+	font-size: 16px;
+
+	color: #2a3b65;	line-height: normal;
+}
+
+.headingcenter {
+	max-width: 750px;
+	display: inline-block;
+	margin: 0 auto;
+
+}
+.wt-companysinfo > .wt-btnarea {
+	margin-bottom:10px;
+}
+
+
+
+.mainhomeMenu{
+	margin-top: 10px;
+	width:57%;
+	position: absolute;
+	right: 0px;
+}
+#newmenu li {
+	width: 24%;
+	list-style-type: none;
+	display: inline-block;
+	padding: 14px 22px;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-family: AgendaLight;
+	height: 100%;
+	text-align: center;
+	vertical-align: top;
+	border-right:1px solid #e8e7a7;
+	line-height: 15px;
+	height: 60px;
+
+
+
+}
+#newmenu li a {
+	color:white;
+	text-align: center;
+
+
+}
+.active-menu-li{
+	color:white !important;
+	border-bottom: 3px solid black;
+}
+
+#navbarNav2 ul li a {
+	font-weight: bold;
+}
+
+.newStyleBoxes .firsthalf {
+	width: 100%;
+	text-align:center;
+	height: 35%;
+	background-color: #6698c5;
+	font-size: 36px;
+	padding-top: 33px;
+	color:white;
+	font-family: AgendaLight;
+}
+.newStyleBoxes .secondhalf{
+	padding-top: 65px;
+
+	width: 100%;
+	height: 65%;
+	text-align: center;
+	background-color: #78d0e3;
+	font-size:89px;
+	font-weight: bold;
+	color:white;
+	font-family: AganeExtraBold;
+	vertical-align: center;
+
+
+}
+.newBoxStyle{height: 241px}
+
+.page-group-selectors{
+	height: 50px;
+	text-align: center;
+	font-size: 24px;
+	color: white;
+	padding-top: 13px;
+	font-family: AganeBold;
+	border-radius: 5px;
+}
+.bg-dark-blue{
+	background-color: #6698c5;
+}
+.bg-light-blue{
+	background-color: #78d0e3;
+}
+.bg-specific-green{
+	background-color: #38b390;
+}
+.page-group > div{
+	padding-right: 0px;
+}
+.triangle{
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 13px solid #6698c5;
+	margin: 0 auto;
+}
+
+.wt-navdashboard > ul > li > img {
+	float: left;
+	width: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+
+}
+.orangeline{
+	width: 42%;
+	border-bottom: 2px solid #f9d132;
+	float: left;
+	margin-left: 73px;
 }
