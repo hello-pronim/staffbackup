@@ -13,14 +13,15 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="wt-insightsitemholder">
                     <div class="row newStyleBoxes">
+                        <div style="margin: 0 auto">
 
 
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                        <div class="newBoxStyle">
                             <div class="firsthalf">Jobs</div>
                             <div class="secondhalf">9</div>
                             {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                        <div class="newBoxStyle">
                             <div class="firsthalf">Messages</div>
                             <div class="secondhalf">10</div>
 {{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
@@ -28,13 +29,13 @@
                         </div>
                         @if ($access_type == 'jobs' || $access_type== 'both')
 
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 newBoxStyle">
+                            <div class="newBoxStyle">
                                 <div class="firsthalf">Applications</div>
                                 <div class="secondhalf">23</div>
                                 {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>
                         @endif
-
+                        </div>
 
                         @if ($access_type == 'jobs' || $access_type== 'both')
                           {{--  <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
@@ -136,6 +137,7 @@
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
                             <div class="page-group-selectors bg-specific-green">Requirements</div>
                         </div>
+
                     </div>
                 </div>
             </div>

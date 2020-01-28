@@ -1,6 +1,18 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
 <div class="wt-haslayout wt-dbsectionspace">
+    <div class="row page-group" style="margin-top: 69px;margin-bottom: 14px;">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
+            <div class="page-group-selectors bg-dark-blue">Description</div>
+            <div class="triangle"></div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="page-group-selectors bg-light-blue">Dates</div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
+            <div class="page-group-selectors bg-specific-green">Requirements</div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 float-left" id="post_job">
@@ -22,8 +34,18 @@
 
                 {!! Form::open(['url' => url('job/post-job'), 'class' =>'post-job-form wt-haslayout', 'id' => 'post_job_form',  '@submit.prevent'=>'submitJob']) !!}
                     <div class="wt-dashboardbox">
-                        <div class="wt-dashboardboxtitle">
-                            <h2>{{ trans('lang.post_job') }}</h2>
+                        <div class="wt-dashboardboxtitle text-center">
+                            <div class="float-left" style="
+                            border-right:4px solid #ffe188;
+                            padding-right: 16px;
+                            height: 36px;
+                            padding-top: 5px;"><img src="{{url('images/icons/jobpost.png')}}" alt=""></div>
+                            <h2 style="
+                            font-weight: bold;
+                             text-transform: uppercase;
+                              font-family: AganeLight;
+                              color:#263b65;
+                              margin: 7px 0;">{{ trans('lang.post_job') }}</h2>
                         </div>
                         <div class="wt-dashboardboxcontent">
                             <div class="wt-jobdescription wt-tabsinfo">

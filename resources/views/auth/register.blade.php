@@ -409,7 +409,7 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
 
-                                            <ul class="wt-accordionhold wt-formaccordionhold accordion">
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
                                                         <li style="width:50%; <?php if ($key == 1) {
@@ -423,12 +423,12 @@
                                                                        value="{{{ $role['role_type'] }}}" checked=""
                                                                        v-model="user_role"
                                                                        v-on:change="selectedRole(user_role)">
-                                                                <label for="wt-company-{{$key}}">
+                                                                <label style="margin-top: 8px" for="wt-company-{{$key}}">
                                                                     {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
-                                                                    <span>
-                                                                        ({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}
-                                                                        )
-                                                                    </span>
+                                                                    {{--<span>--}}
+                                                                        {{--({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}--}}
+                                                                        {{--)--}}
+                                                                    {{--</span>--}}
                                                                 </label>
                                                                 </span>
                                                             </div>
@@ -438,7 +438,9 @@
                                                 @endforeach
                                             </ul>
                                             <div class="form-group" style="width: 20%;">
-                                                {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'), 'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
+                                                <span class="wt-select">
+                                                {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
+                                                    </span>
                                                 <span class="help-block"
                                                       v-if="form_step2.title_error">
                                                                                 <strong v-cloak>@{{form_step2.title_error}}</strong>
@@ -506,8 +508,11 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
-                                            <div class="wt-title wt-formtitle">
-                                                <h4>Address</h4>
+                                            <div class="form-group">
+                                                    <div class="wt-tabscontenttitle">
+                                                        <h2>Address</h2>
+                                                    </div>
+
                                             </div>
 
 
@@ -575,7 +580,11 @@
                                                                      id="collapseOne" aria-labelledby="headingOne"
                                                                      v-if="is_show">
                                                                     <div>
-                                                                        <h4>Company Contacts</h4>
+                                                                        <div class="form-group">
+                                                                            <div class="wt-tabscontenttitle">
+                                                                                <h2>Company Contacts</h2>
+                                                                            </div>
+                                                                        </div>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="emp_contact" type="text"
                                                                                    class="form-control"
@@ -646,16 +655,21 @@
 
 
                                                                         <div class="form-group">
-                                                                            <h4>Certifications</h4>
+                                                                            <div class="wt-tabscontenttitle">
+                                                                                <h2>Certifications</h2>
+                                                                            </div>
                                                                         </div>
 
                                                                         <div class="form-group form-group-half">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
+                                                                            </span>
 
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('emp_cqc_rating', $cqc_ratings, null, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_error }')) !!}
+                                                                            </span>
 
                                                                             <span class="help-block"
                                                                                   v-if="form_step2.emp_cqc_rating_error">
@@ -669,7 +683,9 @@
                                                                             organisation which best describes your
                                                                             service</label>
                                                                         <div class="form-group form-group-half ">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="org_desc" type="text"
@@ -678,7 +694,9 @@
                                                                                    placeholder="Organisation description">
                                                                         </div>
                                                                         <div class="form-group form-group-half ">
-                                                                            {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'class'=>'halfWidth', 'placeholder' => "Setting")) !!}
+                                                                            <span class="wt-select halfWidth">
+                                                                            {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group "
                                                                              v-if="appoSlotTime=='Other'">
@@ -688,7 +706,7 @@
                                                                                    placeholder="Other Setting">
                                                                         </div>
 
-                                                                        <div class="form-group">
+                                                                        <div class="form-group form-group-half">
                                                                             <input type="text"
                                                                                    class="halfWidth form-control"
                                                                                    name="pin"
@@ -774,15 +792,20 @@
                                                                             {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
                                                                         {{--</div>--}}
                                                                         <div class="form-group">
-                                                                            <h4>Company Policies and Information</h4>
-
+                                                                            <div class="wt-tabscontenttitle">
+                                                                                <h2>Company Policies and Information</h2>
+                                                                            </div>
                                                                         </div>
 
                                                                         <div class="form-group form-group-half">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half"
                                                                              v-if="specialInterest=='Other'">
@@ -814,11 +837,15 @@
                                                                                    placeholder="Other Appointment Slot Times">
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided",'class'=>'halfWidth', 'v-model'=>'adm_catch_time')) !!}
+                                                                            <span class="wt-select halfWidth">
+                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'adm_catch_time')) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half"
                                                                              v-if="adm_catch_time=='Yes'">
-                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated",  'class'=>'halfWidth', 'v-model'=>'timeAllocated')) !!}
+                                                                            <span class="wt-select halfWidth">
+                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated", 'v-model'=>'timeAllocated')) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half"
                                                                              v-if="timeAllocated=='Other' && adm_catch_time=='Yes'">
@@ -828,10 +855,14 @@
                                                                                    placeholder="Other Time Allocated">
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks", 'class'=>'halfWidth')) !!}
+                                                                            <span class="wt-select halfWidth">
+                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks",)) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half"
                                                                              v-if="paymentTerm=='Other'">
@@ -859,7 +890,9 @@
                                                                         </div>
 
                                                                         <div class="form-group form-group-half">
+                                                                            <span class="wt-select">
                                                                             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                                            </span>
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
                                                                             {{--<label>Session Advertised By</label>--}}
@@ -948,7 +981,9 @@
                                                                 </div>
 
                                                                 <div class="form-group form-group-half">
-                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate','class'=>"halfWidth",  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
+                                                                    <span class="wt-select halfWidth">
+                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate',  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
+                                                                    </span>
                                                                     <span class="help-block"
                                                                           v-if="form_step2.rate_error">
                                                                                     <strong v-cloak>@{{form_step2.rate_error}}</strong>
@@ -985,11 +1020,15 @@
                                                                             </span>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
+                                                                    </span>
 
                                                                 </div>
                                                                 <div class="form-group form-group-half">
-                                                                    {!! Form::select('nationality', $arrNationals, null, array('class'=>"halfWidth",'placeholder' => "Nationality")) !!}
+                                                                    <span class="wt-select halfWidth">
+                                                                    {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group form-group-half">
                                                                     <input type="text"
@@ -1008,10 +1047,14 @@
                                                                     ></date-picker>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div>Passport or Visa:</div>
@@ -1104,7 +1147,9 @@
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
                                                                 <div class="form-group form-group-half">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group form-group-half" v-if="specialInterest=='Other'">
                                                                     <input type="text"
@@ -1141,10 +1186,14 @@
 
 
                                                                 <div class="form-group">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <span class="wt-select">
                                                                     {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Payment Method", 'v-model'=>'payment_method')) !!}
+                                                                    </span>
                                                                     <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
                                                                 </div>
 
@@ -1222,7 +1271,9 @@
                                                 {{--</label>--}}
                                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
                                                 <div v-if="user_role=='freelancer'">
+                                                    <span class="wt-select">
                                                     {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
+                                                    </span>
                                                     <div class="form-group form-group-half" v-if="P60upload">
                                                         <strong>P60 Upload:</strong>
                                                         <input type="file" name="p60" class="form-control"
@@ -1241,7 +1292,9 @@
 
                                                 </div>
                                                 <div v-if="user_role=='employer'">
+                                                    <span class="wt-select">
                                                     {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
+                                                    </span>
                                                 </div>
 
                                             </div>

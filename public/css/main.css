@@ -8005,10 +8005,24 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 /*}*/
 
 #post_job .vuecal__cell{
-	background-color: #34b331;
-}
+	background: linear-gradient(180deg, #ffffff 77%, #38b390 33%);}
 
-/*.vuecal__cell-content .vuecal__cell-events-count:parent{*/
+.vuecal__cell .vuecal__flex{
+	justify-content: normal !important;
+	text-align: right;
+}
+.vuecal__cell:before {
+	border: 1px solid rgba(255, 255, 255, 0.17) !important;
+}
+.vuecal__cell .vuecal__cell-date {
+	padding:5px 5px 0px 0px;
+	color: darkgray;
+	font-size: 12px;
+}
+.vuecal {
+	box-shadow: none !important;
+}
+	/*.vuecal__cell-content .vuecal__cell-events-count:parent{*/
 	/*border: 1px solid #f6fff5;*/
 	/*background-color:#fbd032 !important;*/
 /*}*/
@@ -8019,15 +8033,22 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 /*.vuecal__cell--has-events {background-color: #fffacd;}*/
 
 
-.vuecal__cell--has-events {background-color: #fbd032 !important;}
+.vuecal__cell--has-events {background: linear-gradient(180deg, #ffffff 77%, #fcc815 33%) !important;}
 #post_job .bookbutton{
-	margin: 0 auto;
-	width: 39px;
-	background-color:#fccf17;
-	color:white;
-	border-radius:5px;
-	border: 1px solid black;
+	color:#38b390;
+	position: absolute;
+	right:0;
+	bottom: 20px;
+	font-family: Vision;
+	font-size: 23px;
+	font-weight: bolder;
+	background: none;
+	visibility: hidden;
+	right: 5px;
+
+
 }
+#post_job .vuecal__cell:hover .bookbutton {	visibility: visible !important;}
 
 #employer_availability .availButton, #freelancer_availability .availButton{
 	margin: 0 auto;
@@ -8190,7 +8211,13 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 
 
 }
-.newBoxStyle{height: 241px}
+.newBoxStyle{
+	height: 241px;
+	max-width: 335px;
+	min-width: 240px;
+	display: inline-block;
+	margin: 0 10px;
+}
 
 .page-group-selectors{
 	height: 50px;
@@ -8234,4 +8261,39 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	border-bottom: 2px solid #f9d132;
 	float: left;
 	margin-left: 73px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:-webkit-autofill {
+	-webkit-text-fill-color: #999 !important;
+}
+
+.wt-tabscontenttitle{
+	float: left;
+	width: 100%;
+	position: relative;
+	padding: 10px 30px;
+	background: #fcfcfc;
+	margin-bottom: 20px;
+}
+.wt-tabscontenttitle:before{
+	top: 0;
+	left: 0;
+	width: 3px;
+	content: '';
+	height: 100%;
+	position: absolute;
+}
+.wt-tabscontenttitle h2{
+	margin: 0;
+	display: block;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
 }

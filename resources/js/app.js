@@ -509,9 +509,9 @@ if (document.getElementById("registration")) {
                 this.step++;
             },
             selectedRole: function (role) {
-                if (role == 'employer') {
+                if (role.toLowerCase() == 'employer') {
                     this.is_show = true;
-                } else if(role=='freelancer') {
+                } else if(role.toLowerCase()=='freelancer') {
                     this.is_show_freelancer = true;
                     this.is_show = false;
                 }
@@ -4787,14 +4787,14 @@ function decrement(value, max, min, size) {
 $(document).ready(function(){
     setTimeout(function()
     {
-       $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+       $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
        $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
        $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
     }, 2000);
 
     $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function(){
         $('#post_job .bookbutton').remove();
-        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+       // $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
 
     });
     $('#calendar_btn, .selectDatePicker').click(function() {
@@ -4817,6 +4817,6 @@ $(document).ready(function(){
     $(document).on('click', '.openCal', function(){
         $('.vuecal ').slideDown();
         $('#post_job .bookbutton').remove();
-        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
 });
