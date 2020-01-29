@@ -46,7 +46,7 @@
                                 {{{ !empty(Auth::user()) ? Helper::getUserName(Auth::user()->id) : 'No Name' }}}
                             </a>
                         </h2>
-                        <span style="font-family: AganeBold">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Auth::user()->getRoleNames()->first() }}}</span><br>
+                        <span style="font-family: AganeBold">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') :  Helper::getAuthRoleName() }}}</span><br>
                         <span style="font-family: AganeLight">{{{ !empty(Auth::user()->city) ? str_limit(Auth::user()->city, 26, '') : "" }}}</span>
                     </div>
 
@@ -157,17 +157,20 @@
                         </li>
                     @endif
                     @if ($role === 'employer' || $role === 'freelancer' )
+                            <li>
+                                <img src="{{url('images/icons/leftmenu/Layer 67.png')}}"/>
+
+                                <a href="{{{ url($role.'/dashboard') }}}">
+                                    <span>{{ trans('lang.dashboard') }}</span>
+                                </a>
+                            </li>
                         <li>
-                            <img src="{{url('images/icons/leftmenu/Layer 51.png')}}"/>
+                            <img src="{{url('images/icons/leftmenu/staffbackup-web-design.004.svg')}}"/>
 
                             <a style="font-family: AganeBold" href="{{{ url($role.'/profile') }}}">{{ trans('lang.profile_settings') }}</a>
 
                         </li>
-                        <li>
-                            <img src="{{url('images/icons/leftmenu/Layer 55.png')}}"/>
 
-                            <a href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a>
-                        </li>
                         @if($role=='employer')
                                 @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
                                     <li class="menu-item-has-children">
@@ -191,13 +194,11 @@
                                     <span>Messages</span>
                                 </a>
                             </li>
-                        <li>
-                            <img src="{{url('images/icons/leftmenu/Layer 67.png')}}"/>
+                            <li>
+                                <img src="{{url('images/icons/leftmenu/Layer 55.png')}}"/>
 
-                            <a href="{{{ url($role.'/dashboard') }}}">
-                                <span>{{ trans('lang.dashboard') }}</span>
-                            </a>
-                        </li>
+                                <a href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a>
+                            </li>
 
                             @if($role=='employer')
                                 <li>

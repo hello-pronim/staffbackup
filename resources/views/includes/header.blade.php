@@ -46,6 +46,7 @@
                             </div>
                             <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 83px; align-items:normal">
 
+                                @if(!\Request::is('search-results'))
                                 <ul class="navbar-nav" style="margin-top: 10px;">
                                     @if (!empty($pages) || Schema::hasTable('pages'))
                                         @foreach ($pages as $key => $page)
@@ -93,6 +94,7 @@
                                         </li>
                                     @endif
                                 </ul>
+                                @endif
                                 @auth
                                     @php
                                         $user = !empty(Auth::user()) ? Auth::user() : '';

@@ -430,6 +430,7 @@ class Job extends Model
         //$jobs->where('start_date', "!=","0000-00-00");
         $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
 
+
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
         foreach ($filters as $key => $filter ) {
             $pagination = $jobs->appends(

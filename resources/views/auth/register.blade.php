@@ -349,27 +349,18 @@
         }
     </style>
     @if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')
-        <div class="wt-haslayout wt-innerbannerholder">
-            <div class="container">
-                <div class="row justify-content-md-center">
-                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
-                        <div class="wt-innerbannercontent">
-                            <div class="wt-title">
-                                <h2>You're only a few clicks away. Join for free today!</h2>
-                                <div>You're only a few clicks away from connecting with the professionals you need.
-                                    Sign-up and join for free today!
-                                </div>
-                            </div>
-                            @if (!empty($show_breadcrumbs) && $show_breadcrumbs === 'true')
-                                <ol class="wt-breadcrumb">
-                                    <li><a href="{{ url('/') }}">{{ trans('lang.home') }}</a></li>
-                                    <li class="wt-active">{{ trans('lang.join_now') }}</li>
-                                </ol>
-                            @endif
-                        </div>
-                    </div>
+        <div class="headernew">
+        <div class="row" style="margin:0 auto;width: 850px;padding: 65px 0px">
+
+            <div class="headingcenter text-center">
+                <h2>We connect professionals with the <br> people who need them most, (when they needed them).</h2>
+                <div>10 years professional clinical experience connecting surgeries and <br> healthcare stakeholders
+                    with adhoc and temporary staffing solutions
                 </div>
             </div>
+
+
+        </div>
         </div>
     @endif
     <div class="wt-haslayout wt-main-section">
@@ -409,13 +400,15 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
 
-                                            <ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion"
+                                                style="margin-bottom: 5px">
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
                                                         <li style="width:50%; <?php if ($key == 1) {
                                                             echo 'padding-right: 10px;';
                                                         };?>">
-                                                            <div class="wt-accordiontitle" id="headingOne"
+                                                            <div class="wt-accordiontitle role-{{$role['role_type']}}"
+                                                                 id="headingOne"
                                                                  style="height: 69px; border: 1px solid #ddd;"
                                                                  data-toggle="collapse" data-target="#collapseOne">
                                                                 <span class="wt-radio">
@@ -423,11 +416,12 @@
                                                                        value="{{{ $role['role_type'] }}}" checked=""
                                                                        v-model="user_role"
                                                                        v-on:change="selectedRole(user_role)">
-                                                                <label style="margin-top: 8px" for="wt-company-{{$key}}">
+                                                                <label style="margin-top: 8px"
+                                                                       for="wt-company-{{$key}}">
                                                                     {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
                                                                     {{--<span>--}}
-                                                                        {{--({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}--}}
-                                                                        {{--)--}}
+                                                                    {{--({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}--}}
+                                                                    {{--)--}}
                                                                     {{--</span>--}}
                                                                 </label>
                                                                 </span>
@@ -439,7 +433,7 @@
                                             </ul>
                                             <div class="form-group" style="width: 20%;">
                                                 <span class="wt-select">
-                                                {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), null, array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
+                                                {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] : null , array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
                                                     </span>
                                                 <span class="help-block"
                                                       v-if="form_step2.title_error">
@@ -449,8 +443,9 @@
                                             <div class="form-group form-group-half" style="width: 40%">
                                                 <input type="text" name="first_name" class="form-control    "
                                                        placeholder="{{{ trans('lang.ph_first_name') }}}"
+                                                       value="{{ isset($_GET['first_name']) ? $_GET['first_name'] : "" }}"
                                                        v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }"
-                                                       v-model="first_name">
+                                                >
                                                 <span class="help-block" v-if="form_step1.first_name_error">
                                                 <strong v-cloak>@{{form_step1.first_name_error}}</strong>
                                             </span>
@@ -459,7 +454,8 @@
                                                 <input type="text" name="last_name" class="form-control"
                                                        placeholder="{{{ trans('lang.ph_last_name') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
-                                                       v-model="last_name">
+                                                       value="{{ isset($_GET['last_name']) ? $_GET['last_name'] : "" }}"
+                                                >
                                                 <span class="help-block" v-if="form_step1.last_name_error">
                                                 <strong v-cloak>@{{form_step1.last_name_error}}</strong>
                                             </span>
@@ -467,9 +463,10 @@
                                             <div class="form-group form-group-half">
                                                 <input id="user_email" type="email" class="form-control" name="email"
                                                        placeholder="{{{ trans('lang.ph_email') }}}"
-                                                       value="{{ old('email') }}"
                                                        v-bind:class="{ 'is-invalid': form_step1.is_email_error }"
-                                                       v-model="user_email">
+                                                       value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}"
+
+                                                >
                                                 <span class="help-block" v-if="form_step1.email_error">
                                                 <strong v-cloak>@{{form_step1.email_error}}</strong>
                                             </span>
@@ -478,9 +475,33 @@
                                                 <input id="number" type="text"
                                                        class="form-control"
                                                        name="number"
+                                                       value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}"
+
                                                        min="0"
                                                        placeholder="{{{ trans('lang.number') }}}"
                                                 >
+                                            </div>
+                                            <div class="form-group form-group-half">
+                                                <input id="password" type="password" class="form-control"
+                                                       name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
+                                                       value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+
+                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
+                                                <span class="help-block" v-if="form_step2.password_error">
+                                                    <strong v-cloak>@{{form_step2.password_error}}</strong>
+                                                </span>
+
+                                            </div>
+                                            <div class="form-group form-group-half">
+
+                                                <input id="password-confirm" type="password"
+                                                       class=" form-control"
+                                                       name="password_confirmation"
+                                                       placeholder="{{{ trans('lang.ph_retry_pass') }}}"
+                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
+                                                <span class="help-block" v-if="form_step2.password_confirm_error">
+                                                <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
+                                            </span>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit"
@@ -509,9 +530,9 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
                                             </ul>
                                             <div class="form-group">
-                                                    <div class="wt-tabscontenttitle">
-                                                        <h2>Address</h2>
-                                                    </div>
+                                                <div class="wt-tabscontenttitle">
+                                                    <h2>Address</h2>
+                                                </div>
 
                                             </div>
 
@@ -548,23 +569,6 @@
                                                        placeholder="{{{ trans('lang.postcode') }}}"
                                                 >
                                             </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="password" type="password" class="halfWidth form-control" style="display: inline;"
-                                                       name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
-                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
-                                                <span class="help-block" v-if="form_step2.password_error">
-                                                    <strong v-cloak>@{{form_step2.password_error}}</strong>
-                                                </span>
-
-                                                <input id="password-confirm" type="password" style="float: right;"
-                                                       class="halfWidth form-control"
-                                                       name="password_confirmation"
-                                                       placeholder="{{{ trans('lang.ph_retry_pass') }}}"
-                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
-                                                <span class="help-block" v-if="form_step2.password_confirm_error">
-                                                <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
-                                            </span>
-                                            </div>
 
 
                                         </fieldset>
@@ -575,10 +579,9 @@
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
                                                         @if ($role['role_type'] === 'employer')
-                                                            @if ($show_emplyr_inn_sec === 'true')
-                                                                <div class="wt-accordiondetails collapse show"
-                                                                     id="collapseOne" aria-labelledby="headingOne"
+                                                                <div class="wt-accordiondetails "
                                                                      v-if="is_show">
+
                                                                     <div>
                                                                         <div class="form-group">
                                                                             <div class="wt-tabscontenttitle">
@@ -607,8 +610,6 @@
                                                                         <strong v-cloak>@{{form_step2.emp_telno_error}}</strong>
                                                                             </span>
                                                                         </div>
-
-
                                                                         <div class="form-group form-group-half">
                                                                             <input id="emp_pos" type="url"
                                                                                    class="form-control"
@@ -623,7 +624,6 @@
                                                                                    placeholder="Email"
                                                                             >
                                                                         </div>
-
                                                                         <div class="form-group form-group-half">
                                                                             <input id="backup_emp_contact" type="text"
                                                                                    class="form-control"
@@ -679,7 +679,8 @@
 
                                                                         <!-- New columns for sheet-->
 
-                                                                        <label for="org_type" style="margin-top: 20px">Please indicate the
+                                                                        <label for="org_type" style="margin-top: 20px">Please
+                                                                            indicate the
                                                                             organisation which best describes your
                                                                             service</label>
                                                                         <div class="form-group form-group-half ">
@@ -780,7 +781,8 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div>Professional Indemnity
-                                                                                Certificate:</div>
+                                                                                Certificate:
+                                                                            </div>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
 
@@ -789,11 +791,12 @@
                                                                                    accept=".pdf, image/*,.doc,.docx">
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
-                                                                            {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
+                                                                        {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
                                                                         {{--</div>--}}
                                                                         <div class="form-group">
                                                                             <div class="wt-tabscontenttitle">
-                                                                                <h2>Company Policies and Information</h2>
+                                                                                <h2>Company Policies and
+                                                                                    Information</h2>
                                                                             </div>
                                                                         </div>
 
@@ -818,7 +821,8 @@
                                                                             <div>Certificates –Vaccinations &
                                                                                 immunisation
                                                                                 (Measles/Mumps/Rubella/Hepatitis
-                                                                                B/Varicella):</div>
+                                                                                B/Varicella):
+                                                                            </div>
                                                                         </div>
                                                                         <div class="form-group form-group-half ">
 
@@ -872,11 +876,11 @@
                                                                                    placeholder="Other Payment terms">
                                                                         </div>
                                                                         {{--<div class="form-group form-group-half ">--}}
-                                                                            {{--<input id="hourly_rate" type="number"--}}
-                                                                                   {{--min="0"--}}
-                                                                                   {{--class="halfWidth form-control"--}}
-                                                                                   {{--name="hourly_rate"--}}
-                                                                                   {{--placeholder="Hourly Rate">--}}
+                                                                        {{--<input id="hourly_rate" type="number"--}}
+                                                                        {{--min="0"--}}
+                                                                        {{--class="halfWidth form-control"--}}
+                                                                        {{--name="hourly_rate"--}}
+                                                                        {{--placeholder="Hourly Rate">--}}
                                                                         {{--</div>--}}
 
                                                                         <div class="form-group">
@@ -895,42 +899,41 @@
                                                                             </span>
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
-                                                                            {{--<label>Session Advertised By</label>--}}
+                                                                        {{--<label>Session Advertised By</label>--}}
                                                                         {{--</div>--}}
                                                                         {{--<div class="form-group form-group-half">--}}
-                                                                            {{--<input id="session_ad_by" type="text"--}}
-                                                                                   {{--class="form-control"--}}
-                                                                                   {{--name="session_ad_by"--}}
-                                                                                   {{--placeholder="Name">--}}
+                                                                        {{--<input id="session_ad_by" type="text"--}}
+                                                                        {{--class="form-control"--}}
+                                                                        {{--name="session_ad_by"--}}
+                                                                        {{--placeholder="Name">--}}
                                                                         {{--</div>--}}
                                                                         {{--<div class="form-group form-group-half">--}}
-                                                                            {{--<input id="session_ad_by_position"--}}
-                                                                                   {{--type="text"--}}
-                                                                                   {{--class="form-control"--}}
-                                                                                   {{--name="session_ad_by_position"--}}
-                                                                                   {{--placeholder="Position">--}}
+                                                                        {{--<input id="session_ad_by_position"--}}
+                                                                        {{--type="text"--}}
+                                                                        {{--class="form-control"--}}
+                                                                        {{--name="session_ad_by_position"--}}
+                                                                        {{--placeholder="Position">--}}
                                                                         {{--</div>--}}
                                                                         {{--<div class="form-group form-group-half">--}}
-                                                                            {{--<input id="session_ad_by_email" type="email"--}}
-                                                                                   {{--class="form-control"--}}
-                                                                                   {{--name="session_ad_by_email"--}}
-                                                                                   {{--placeholder="Email">--}}
+                                                                        {{--<input id="session_ad_by_email" type="email"--}}
+                                                                        {{--class="form-control"--}}
+                                                                        {{--name="session_ad_by_email"--}}
+                                                                        {{--placeholder="Email">--}}
                                                                         {{--</div>--}}
                                                                         {{--<div class="form-group form-group-half">--}}
-                                                                            {{--<input id="session_ad_by_contact"--}}
-                                                                                   {{--type="text"--}}
-                                                                                   {{--class="form-control"--}}
-                                                                                   {{--name="session_ad_by_contact"--}}
-                                                                                   {{--placeholder="Direct Contact No">--}}
+                                                                        {{--<input id="session_ad_by_contact"--}}
+                                                                        {{--type="text"--}}
+                                                                        {{--class="form-control"--}}
+                                                                        {{--name="session_ad_by_contact"--}}
+                                                                        {{--placeholder="Direct Contact No">--}}
                                                                         {{--</div>--}}
                                                                     </div>
 
                                                                 </div>
-                                                            @endif
                                                         @endif
                                                         @if(in_array($role['id']==3, $roles))
-                                                            <div class="wt-accordiondetails collapse hide"
-                                                                 id="collapseOne" aria-labelledby="headingOne"
+                                                            <div class="wt-accordiondetails"
+
                                                                  v-if="is_show_freelancer">
 
 
@@ -1075,7 +1078,7 @@
                                                                 </div>
 
                                                                 <div class="profQualif_block">
-                                                                    <table >
+                                                                    <table>
                                                                         <tr>
                                                                             <td><input type="text"
                                                                                        class="form-control"
@@ -1102,7 +1105,8 @@
 
                                                                 <div class="form-group">
                                                                     <div>Professional Qualifications
-                                                                        Certificate</div>
+                                                                        Certificate
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group form-group-half">
 
@@ -1151,7 +1155,8 @@
                                                                     {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-group-half" v-if="specialInterest=='Other'">
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="specialInterest=='Other'">
                                                                     <input type="text"
                                                                            class="form-control"
                                                                            name="special_interests[]"
@@ -1228,7 +1233,7 @@
                                                 <a href="#" @click.prevent="prev()"
                                                    class="wt-btn">{{{ trans('lang.previous') }}}</a>
                                                 <a href="#"
-                                                   @click.prevent="checkStep2('{{ trans('lang.email_not_config') }}')"
+                                                   @click.prevent="checkStep2('Email is not configured')"
                                                    class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                             </div>
                                         </fieldset>
@@ -1346,4 +1351,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @endsection

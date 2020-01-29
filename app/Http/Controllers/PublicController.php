@@ -104,6 +104,8 @@ class PublicController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|email|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+                'password_confirmation' => 'required',
             ]
         );
     }
@@ -122,8 +124,7 @@ class PublicController extends Controller
         $this->validate(
             $request,
             [
-                'password' => 'required|string|min:6|confirmed',
-                'password_confirmation' => 'required',
+
                 'termsconditions' => 'required',
             ]
         );

@@ -108,10 +108,10 @@
 	list-style-type: none;
 }
 .wt-navdashboard > ul > li > a {
-	color: #2a3b65;
+	color: gray;
 	font-weight: bold;
 	width: 100%;
-	font-family: AganeLight;
+	font-family: AvenirNext;
 	line-height: inherit;
 }
 .wt-navdashboard > ul > li:hover > a,
@@ -2772,6 +2772,12 @@ li.collapsed .wt-msgbtns .wt-msgbtn i.lnr-chevron-up:before{content: "\e874";}
 	display: block !important;
 }
 .wt-titlemessages .wt-userlogedin:before{display: none;}
+.wt-username{
+	visibility: hidden;
+}
+.wt-userlogedin:hover .wt-username {
+	visibility:visible;
+}
 .wt-titlemessages .wt-username h3 i{
 	color: #00cc8d;
 	font-size: 14px;

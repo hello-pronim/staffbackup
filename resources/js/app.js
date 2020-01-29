@@ -353,7 +353,7 @@ if (document.getElementById("searchHomePage")) {
                 else {
                     getTypeValue = 'start_date';
                 }
-                window.location.replace(APP_URL + '/search-results?type='+this.search_type+'&skill=' + this.skill + '&'+getTypeValue + '=' + this.selectedDate);
+                window.location.replace(APP_URL + '/search-results?type='+this.search_type+'&location='+this.location+'&skill=' + this.skill + '&'+getTypeValue + '=' + this.selectedDate);
             },
         },
         created: function () {
@@ -378,8 +378,23 @@ if (document.getElementById("dashboard")) {
     const VueDashboard = new Vue({
         el: '#dashboard',
         mounted: function () { },
-        data: {},
-        methods: {}
+        components: { 'vue-cal': vuecal,},
+        data: {
+            events:[],
+            selectedDate: '',
+            selecteddate: '',
+
+        },
+        methods: {},
+        created: function () {
+            let self = this;
+            axios.get('/employer/getCalendarEvents').then(function (response) {
+                console.log(this);
+                if (response) {
+                    self.events = response.data;
+                }
+            });
+        },
     });
 }
 
@@ -400,11 +415,32 @@ if (document.getElementById("home")) {
 
 if (document.getElementById("registration")) {
 
+
+
     const registration = new Vue({
         el: '#registration',
 
-        mounted: function () {
+        created: function () {
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var role = url.searchParams.get("role");
+            if(role && role != "")
+            {
+                jQuery('.role-'+role.toLowerCase()).trigger("click"); //TODO
 
+                this.step++;
+            }
+
+            // if (role.toLowerCase() == 'employer') {
+            //     this.is_show = true;
+            // } else if(role.toLowerCase()=='freelancer') {
+            //     this.is_show_freelancer = true;
+            //     this.is_show = false;
+            // }
+            // else {
+            //     this.is_show_freelancer = false;
+            //     this.is_show = false;
+            // }
         },
         data: {
             notificationSystem: {
@@ -428,11 +464,11 @@ if (document.getElementById("registration")) {
                 is_first_name_error: false,
                 last_name_error: '',
                 is_last_name_error: false,
+                password_error: '',
             },
             form_step2: {
                 locations_error: '',
                 is_locations_error: false,
-                password_error: '',
                 is_password_error: false,
                 password_confirm_error: '',
                 is_password_confirm_error: false,
@@ -455,7 +491,7 @@ if (document.getElementById("registration")) {
             loading: false,
             user_role: 'employer',
             is_show: true,
-            is_show_freelancer: true,
+            is_show_freelancer: false,
             error_message: '',
             subscription:"",
             stripe_token:new Date().getTime(),
@@ -511,6 +547,7 @@ if (document.getElementById("registration")) {
             selectedRole: function (role) {
                 if (role.toLowerCase() == 'employer') {
                     this.is_show = true;
+                    this.is_show_freelancer = false;
                 } else if(role.toLowerCase()=='freelancer') {
                     this.is_show_freelancer = true;
                     this.is_show = false;
@@ -553,6 +590,10 @@ if (document.getElementById("registration")) {
                 this.form_step1.is_last_name_error = false;
                 this.form_step1.email_error = '';
                 this.form_step1.is_email_error = false;
+                this.form_step2.password_error = '';
+                this.form_step2.is_password_error = false;
+                this.form_step2.password_confirm_error = '';
+                this.form_step2.is_password_confirm_error = false;
                 var self = this;
                 let register_Form = document.getElementById('register_form');
                 let form_data = new FormData(register_Form);
@@ -573,24 +614,6 @@ if (document.getElementById("registration")) {
                             self.form_step1.email_error = error.response.data.errors.email[0];
                             self.form_step1.is_email_error = true;
                         }
-                    });
-            },
-            checkStep2: function (error_message) {
-                this.error_message = error_message;
-                let register_Form = document.getElementById('register_form');
-                let form_data = new FormData(register_Form);
-                this.form_step2.password_error = '';
-                this.form_step2.is_password_error = false;
-                this.form_step2.password_confirm_error = '';
-                this.form_step2.is_password_confirm_error = false;
-                this.form_step2.termsconditions_error = '';
-                this.form_step2.is_termsconditions_error = false;
-                var self = this;
-                axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).
-                    then(function (response) {
-                        self.next();
-                    })
-                    .catch(function (error) {
                         if (error.response.data.errors.password) {
                             self.form_step2.password_error = error.response.data.errors.password[0];
                             self.form_step2.is_password_error = true;
@@ -599,6 +622,22 @@ if (document.getElementById("registration")) {
                             self.form_step2.password_confirm_error = error.response.data.errors.password_confirmation[0];
                             self.form_step2.is_password_confirm_error = true;
                         }
+                    });
+            },
+            checkStep2: function (error_message) {
+                this.error_message = error_message;
+                let register_Form = document.getElementById('register_form');
+                let form_data = new FormData(register_Form);
+
+                this.form_step2.termsconditions_error = '';
+                this.form_step2.is_termsconditions_error = false;
+                var self = this;
+                axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).
+                    then(function (response) {
+                        self.next();
+                    })
+                    .catch(function (error) {
+
                         if (error.response.data.errors.termsconditions) {
                             self.form_step2.termsconditions_error = error.response.data.errors.termsconditions[0];
                             self.form_step2.is_termsconditions_error = true;
@@ -4776,7 +4815,7 @@ function increment(value, max, min, size) {
 
 function decrement(value, max, min, size) {
     var intValue = parseInt(value);
-    if (intValue == min) {
+    if (intValue == min) {register_form
         return ('0' + max).substr(-size);
     } else {
         var next = intValue - 1;

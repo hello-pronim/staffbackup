@@ -10,23 +10,77 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
-                        <div class="wt-innerbannercontent">
-                            <div class="wt-title">
-                                <h2>{{ trans('lang.jobs') }}</h2>
+
+                        <div class="search" id="searchHomePage">
+                            <div class="searchtop">
+                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
+                                     @click="changeSearchType('freelancer')">Search Adhoc Staff
+                                </div>
+                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
+                                     @click="changeSearchType('job')">Search Temp Jobs
+                                </div>
+                                <div class="searchbtn">
+                                    <button @click="submit_search">Search</button>
+                                </div>
                             </div>
-                            @if (!empty($show_breadcrumbs) && $show_breadcrumbs === 'true')
-                                @if (count($breadcrumbs))
-                                    <ol class="wt-breadcrumb">
-                                        @foreach ($breadcrumbs as $breadcrumb)
-                                            @if ($breadcrumb->url && !$loop->last)
-                                                <li><a href="{{{ $breadcrumb->url }}}">{{{ $breadcrumb->title }}}</a></li>
-                                            @else
-                                                <li class="active">{{{ $breadcrumb->title }}}</li>
-                                            @endif
-                                        @endforeach
-                                    </ol>
-                                @endif
-                            @endif
+                            <div class="searchinputs">
+                                <div class="filters">
+                                    <div>LOCATION</div>
+                                    <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
+                                                                                                       v-model="location"
+                                                                                                       placeholder="Area or Postcode">
+                                    </div>
+                                </div>
+                                <div class="filters">
+                                    <div>SPECIALIST</div>
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 47.png')}}" alt="">
+                                        <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
+                                                v-model="selectedSkills" v-model="skill">
+                                            <option value="" disabled selected>Doctor, Nurse...</option>
+
+                                            <option v-for="skill in skills" v-bind:value="skill.title">
+                                                @{{ skill.title}}
+                                            </option>
+                                            ]
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="filters">
+                                    <div>DATE</div>
+                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt=""><input type="text"
+                                                                                                       name=""
+                                                                                                       v-model="selectedDate"
+                                                                                                       placeholder="Time, Date..."
+                                                                                                       class="selectDatePicker">
+                                        <vue-cal id="calendar_small"
+                                                 style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                                                 class=" vuecal--green-theme"
+                                                 xsmall
+                                                 hide-view-selector
+                                                 :time="false"
+                                                 default-view="month"
+                                                 :disable-views="['week', 'day', 'year']"
+                                                 @cell-click="changeSelectedDate"
+                                                 :events="events"
+                                        >
+                                        </vue-cal>
+                                    </div>
+                                </div>
+                                <div class="filters" style="border-right:none">
+                                    <div>RATE</div>
+                                    <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"
+                                                                                                       placeholder="Per Hour, Day...">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="text-center searchTagline">
+                            <h1>Job Search</h1>
+
                         </div>
                     </div>
                 </div>
@@ -99,7 +153,7 @@
                                             @if ($job->is_featured == 'true')
                                                 <span class="wt-featuredtag"><img src="images/featured.png" alt="{{{ trans('ph.is_featured') }}}" data-tipso="Plus Member" class="template-content tipso_style"></span>
                                             @endif
-                                            <div class="wt-userlistingcontent">
+                                            <div claswt-widget wt-effectiveholders="wt-userlistingcontent">
                                                 <div class="wt-contenthead">
                                                     <div class="wt-title">
                                                         <a href="{{ url('profile/'.$job->employer->slug) }}"><i class="fa fa-check-circle"></i> {{{ Helper::getUserName($job->employer->id) }}}</a>
@@ -116,11 +170,19 @@
                                                 </div>
                                                 <div class="wt-viewjobholder">
                                                     <ul>
-                                                        @if (!empty($job->project_level))
-                                                            <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i>{{{Helper::getProjectLevel($job->project_level)}}}</span></li>
-                                                        @endif
+
+
                                                         @if($job->employer->itsoftware != "")
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>IT Software: </strong>{{$job->employer->itsoftware}}</span></li>
+                                                        @endif
+                                                        @if (count($job->skills) != 0 )
+                                                            <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $job->skills[0]->title }}}</span></li>
+                                                        @endif
+                                                        @if (!empty($job->duration) )
+                                                            <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->duration  }}}</span></li>
+                                                        @endif
+                                                        @if (!empty($job->employer->city) )
+                                                            <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->employer->city  }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->project_rates) && !empty($job->project_rates_type) )
                                                             <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
@@ -128,7 +190,6 @@
                                                         @if (!empty($job->location->title))
                                                             <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>
                                                         @endif
-                                                        <li><span><i class="far fa-folder wt-viewjobfolder"></i>{{{ trans('lang.type') }}} {{{$project_type}}}</span></li>
                                                         <li><span><i class="far fa-clock wt-viewjobclock"></i>{{{ Helper::getJobDurationList($job->duration)}}}</span></li>
                                                         <li><span><i class="fa fa-tag wt-viewjobtag"></i>{{{ trans('lang.job_id') }}} {{{$job->code}}}</span></li>
                                                         @if (!empty($user->profile->saved_jobs) && in_array($job->id, unserialize($user->profile->saved_jobs)))

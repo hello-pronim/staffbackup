@@ -13,23 +13,77 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
-                        <div class="wt-innerbannercontent">
-                            <div class="wt-title">
-                                <h2>{{ trans('lang.freelancers') }}</h2>
+
+                        <div class="search" id="searchHomePage">
+                            <div class="searchtop">
+                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
+                                     @click="changeSearchType('freelancer')">Search Adhoc Staff
+                                </div>
+                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
+                                     @click="changeSearchType('job')">Search Temp Jobs
+                                </div>
+                                <div class="searchbtn">
+                                    <button @click="submit_search">Search</button>
+                                </div>
                             </div>
-                            @if (!empty($show_breadcrumbs) && $show_breadcrumbs === 'true')
-                                @if (count($breadcrumbs))
-                                    <ol class="wt-breadcrumb">
-                                        @foreach ($breadcrumbs as $breadcrumb)
-                                            @if ($breadcrumb->url && !$loop->last)
-                                                <li><a href="{{{ $breadcrumb->url }}}">{{{ $breadcrumb->title }}}</a></li>
-                                            @else
-                                                <li class="active">{{{ $breadcrumb->title }}}</li>
-                                            @endif
-                                        @endforeach
-                                    </ol>
-                                @endif
-                            @endif
+                            <div class="searchinputs">
+                                <div class="filters">
+                                    <div>LOCATION</div>
+                                    <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
+                                                                                                       v-model="location"
+                                                                                                       placeholder="Area or Postcode">
+                                    </div>
+                                </div>
+                                <div class="filters">
+                                    <div>SPECIALIST</div>
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 47.png')}}" alt="">
+                                        <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
+                                                v-model="selectedSkills" v-model="skill">
+                                            <option value="" disabled selected>Doctor, Nurse...</option>
+
+                                            <option v-for="skill in skills" v-bind:value="skill.title">
+                                                @{{ skill.title}}
+                                            </option>
+                                            ]
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="filters">
+                                    <div>DATE</div>
+                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt=""><input type="text"
+                                                                                                       name=""
+                                                                                                       v-model="selectedDate"
+                                                                                                       placeholder="Time, Date..."
+                                                                                                       class="selectDatePicker">
+                                        <vue-cal id="calendar_small"
+                                                 style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                                                 class=" vuecal--green-theme"
+                                                 xsmall
+                                                 hide-view-selector
+                                                 :time="false"
+                                                 default-view="month"
+                                                 :disable-views="['week', 'day', 'year']"
+                                                 @cell-click="changeSelectedDate"
+                                                 :events="events"
+                                        >
+                                        </vue-cal>
+                                    </div>
+                                </div>
+                                <div class="filters" style="border-right:none">
+                                    <div>RATE</div>
+                                    <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"
+                                                                                                       placeholder="Per Hour, Day...">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="text-center searchTagline">
+                            <h1>Professional Search</h1>
+
                         </div>
                     </div>
                 </div>

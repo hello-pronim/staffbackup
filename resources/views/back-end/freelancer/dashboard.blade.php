@@ -1,23 +1,58 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
+    <div class="row" style="margin:0 auto;width: 850px;padding-top: 80px;">
+
+        <div class="headingcenter text-center">
+            <h2>Dashboard</h2>
+            <div style="color:gray">Great! You're ready to go.</div>
+        </div>
+
+    </div>
     <section class="wt-haslayout wt-dbsectionspace wt-insightuser" id="dashboard">
+
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="wt-insightsitemholder">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                            <div class="wt-insightsitem wt-dashboardbox">
-                                <figure class="wt-userlistingimg">
-                                    {{ Helper::getImages('uploads/settings/icon',$latest_proposals_icon, 'layers') }}
-                                </figure>
-                                <div class="wt-insightdetails">
-                                    <div class="wt-title">
-                                        <h3>{{ trans('lang.latest_proposals') }}</h3>
-                                        <a href="{{route('showFreelancerProposals')}}">{{ trans('lang.click_view') }}</a>
-                                    </div>
-                                </div>
+                    <div class="wt-tabscontenttitle">
+                        <h2>Your Updates</h2>
+                    </div>
+                    <div class="row newStyleBoxes">
+                        <div style="margin: 0 auto">
+                            <div class="newBoxStyle">
+                                <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a></div>
+                                <div class="secondhalf">9</div>
+                                {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>
+                            <div class="newBoxStyle">
+                                <div class="firsthalf"><a href="{{{ route('message') }}}">{{ trans('lang.new_msgs') }}</a></div>
+                                <div class="secondhalf">10</div>
+                                {{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
+
+                            </div>
+
+                            <div class="newBoxStyle">
+                                <div class="firsthalf">Applications</div>
+                                <div class="secondhalf">23</div>
+                                {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
+                            </div>
+
                         </div>
+                    </div>
+
+                    <div class="row">
+                        {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
+                            {{--<div class="wt-insightsitem wt-dashboardbox">--}}
+                                {{--<figure class="wt-userlistingimg">--}}
+                                    {{--{{ Helper::getImages('uploads/settings/icon',$latest_proposals_icon, 'layers') }}--}}
+                                {{--</figure>--}}
+                                {{--<div class="wt-insightdetails">--}}
+                                    {{--<div class="wt-title">--}}
+                                        {{--<h3></h3>--}}
+                                        {{--<a href="{{route('showFreelancerProposals')}}">{{ trans('lang.click_view') }}</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         {{--@if (!empty($enable_package) && $enable_package === 'true')--}}
                             {{--@if (!empty($package))--}}
                                 {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
@@ -35,19 +70,19 @@
                                 {{--</div>  --}}
                             {{--@endif          --}}
                         {{--@endif--}}
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                            <div class="wt-insightsitem wt-dashboardbox {{ $notify_class }}">
-                                <figure class="wt-userlistingimg">
-                                    {{ Helper::getImages('uploads/settings/icon',$latest_new_message_icon, 'book') }}
-                                </figure>
-                                <div class="wt-insightdetails">
-                                    <div class="wt-title">
-                                        <h3>{{ trans('lang.new_msgs') }}</h3>
-                                        <a href="{{{ route('message') }}}">{{ trans('lang.click_view') }}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
+                            {{--<div class="wt-insightsitem wt-dashboardbox {{ $notify_class }}">--}}
+                                {{--<figure class="wt-userlistingimg">--}}
+                                    {{--{{ Helper::getImages('uploads/settings/icon',$latest_new_message_icon, 'book') }}--}}
+                                {{--</figure>--}}
+                                {{--<div class="wt-insightdetails">--}}
+                                    {{--<div class="wt-title">--}}
+                                        {{--<h3>{{ trans('lang.new_msgs') }}</h3>--}}
+                                        {{--<a href="{{{ route('message') }}}">{{ trans('lang.click_view') }}</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
                             {{--<div class="wt-insightsitem wt-dashboardbox">--}}
                                 {{--<figure class="wt-userlistingimg">--}}
@@ -179,6 +214,7 @@
                 </div>
             </div>
         </div>
+
         {{--<div class="row">--}}
             {{--@if ($access_type == 'jobs' || $access_type== 'both')--}}
                 {{--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 float-left">--}}
@@ -312,5 +348,20 @@
                 {{--</div>--}}
             {{--</div>--}}
         {{--</div>--}}
+
+        <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
+            <h2>Your Calendar</h2>
+        </div>
+        <div id="dashboard_calendar" style="margin:0 auto; width: 775px;">
+
+            <vue-cal ref="vuecal" style="height: 650px;float:left"
+                     :time-from="0 * 60"
+                     :time-to="24 * 60"
+                     :disable-views="['years', 'year']"
+                     :events="events"
+                     :selected-date="selecteddate"
+                     default-view="month"            >
+            </vue-cal>
+        </div>
     </section>
 @endsection
