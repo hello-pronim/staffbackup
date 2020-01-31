@@ -3,7 +3,7 @@
         $settings = array();
         $pages = App\Page::all();
         $setting = \App\SiteManagement::getMetaValue('settings');
-        $logo = !empty($setting[0]['logo']) ? Helper::getHeaderLogo($setting[0]['logo']) : '/images/logo.png';
+        $logo =  '/images/logo2.png';
         $inner_header = !empty(Route::getCurrentRoute()) && Route::getCurrentRoute()->uri() != '/' ? 'wt-headervtwo' : '';
         $type = Helper::getAccessType();
     @endphp
@@ -44,10 +44,10 @@
                                 </div>
 
                             </div>
-                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 83px; align-items:normal">
+                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 118px; align-items:normal">
 
-                                @if(!\Request::is('search-results'))
-                                <ul class="navbar-nav" style="margin-top: 10px;">
+                                @if(!\Request::is('search-results') && !\Request::is('register'))
+                                <ul class="navbar-nav" style="margin-top: 5px;">
                                     @if (!empty($pages) || Schema::hasTable('pages'))
                                         @foreach ($pages as $key => $page)
                                             @php

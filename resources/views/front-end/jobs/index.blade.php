@@ -9,7 +9,7 @@
         <div class="wt-haslayout wt-innerbannerholder" style="background-image:url({{{ asset(Helper::getBannerImage('uploads/settings/general/'.$job_inner_banner)) }}})">
             <div class="container">
                 <div class="row justify-content-md-center">
-                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
+                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-8 push-lg-3">
 
                         <div class="search" id="searchHomePage">
                             <div class="searchtop">
@@ -17,7 +17,7 @@
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
                                 </div>
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')">Search Temp Jobs
+                                     @click="changeSearchType('job')" style="width: 24.5%;">Search Temp Jobs
                                 </div>
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>

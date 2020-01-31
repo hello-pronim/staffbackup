@@ -167,7 +167,7 @@
                         <li>
                             <img src="{{url('images/icons/leftmenu/staffbackup-web-design.004.svg')}}"/>
 
-                            <a style="font-family: AganeBold" href="{{{ url($role.'/profile') }}}">{{ trans('lang.profile_settings') }}</a>
+                            <a  href="{{{ url($role.'/profile') }}}">{{ trans('lang.profile_settings') }}</a>
 
                         </li>
 
@@ -195,9 +195,9 @@
                                 </a>
                             </li>
                             <li>
-                                <img src="{{url('images/icons/leftmenu/Layer 55.png')}}"/>
+                                <img  style="width: 12px;" src="{{url('images/icons/leftmenu/Layer 55.png')}}"/>
 
-                                <a href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a>
+                                <a style="margin-left: 3px;" href="{{{ route('manageAccount') }}}">{{ trans('lang.acc_settings') }}</a>
                             </li>
 
                             @if($role=='employer')
@@ -337,16 +337,15 @@
 
 
             <div class="wt-navdashboard-footer" style="margin-top: 30px;margin-left: 73px;">
-                <a style="color:black;font-family: AganeLight" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
+                <a style="color:black;font-family: AganeBold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
                     {{{trans('lang.logout')}}}
                 </a>
                 {{--<span class="version-area">{{ config('app.version') }}</span>--}}
             </div>
             <div class="orangeline" style="margin-top: 25px"></div>
 
-            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px">
+            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px;text-align: center;">
                 <span>{{{ $copyright }}}</span>
-
             </div>
         </div>
     </div>

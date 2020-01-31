@@ -10,13 +10,13 @@
     </div>
     <section class="wt-haslayout wt-dbsectionspace wt-insightuser" id="dashboard">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="wt-insightsitemholder">
                     <div class="wt-tabscontenttitle">
                         <h2>Your Updates</h2>
                     </div>
-                    <div class="row newStyleBoxes">
-                        <div style="margin: 0 auto">
+                </div>
+                    <div class="row newStyleBoxes" style="margin: 0 auto">
+                        <div >
 
 
                         <div class="newBoxStyle">
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         @endif
-                    </div>
+
                     {{--<div class="row page-group" style="margin-top: 30px">--}}
                         {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ">--}}
                             {{--<div class="page-group-selectors bg-dark-blue">Contacts</div>--}}
@@ -104,7 +104,6 @@
 
                     {{--</div>--}}
                 </div>
-            </div>
         </div>
         @if ($access_type == 'jobs' || $access_type== 'both')
             <div class="row">

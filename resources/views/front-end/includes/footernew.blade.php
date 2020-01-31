@@ -11,5 +11,13 @@
         </div>
             </div>
 
+        <ul class="socialIcons">
+            <li style="list-style: none;">
+                <a href="#" class="facebook_icon"><img src="{{url('images/facebook.png')}}"/></a>
+                <a href="#" class="linkedin_icon"><img src="{{url('images/linkedin.png')}}"/></a>
+                <a href="#" class="twitter_icon"><img src="{{url('images/twitter.png')}}"/></a>
+                <a href="#" class="envelope_icon"><img src="{{url('images/envelope.png')}}"/></a>
+            </li>
+        </ul>
     </footer>
 @endif

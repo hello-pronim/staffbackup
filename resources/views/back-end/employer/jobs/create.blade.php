@@ -173,17 +173,16 @@
                                 <div class="wt-formtheme wt-userform">
                                     <div class="wt-tabsinfo">
                                         <div class="form-group">
-                                            <input type="text" name="radius" class="form-control" placeholder="Radius" >
+                                            <input type="text" name="radius" class="form-control" placeholder="Radius" />
                                         </div>
                                     </div>
-                                    <fieldset>
                                         <div class="form-group form-group-half">
                                             <span class="wt-select">
                                                 {!! Form::select('locations', $locations, null, array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}
                                             </span>
                                         </div>
                                         <location-selector></location-selector>
-                                    </fieldset>
+
 
                                 </div>
                             </div>
@@ -222,7 +221,7 @@
                             <div class="wt-jobdetails wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Calendar Booking</h2>                                </div>
-                                <div class="wt-formtheme wt-userform wt-userformvtwo" @click.prevent="preventClick">
+                                <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" @click.prevent="preventClick">
                                     <button class="openCal wt-btn">Open Calendar</button>
 
 

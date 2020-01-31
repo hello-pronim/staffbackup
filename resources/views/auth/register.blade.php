@@ -363,7 +363,7 @@
         </div>
         </div>
     @endif
-    <div class="wt-haslayout wt-main-section">
+    <div class="wt-haslayout wt-main-section" style="padding: 0px">
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-xs-12 col-sm-12 col-md-10 push-md-1 col-lg-8 push-lg-2" id="registration">
@@ -1353,3 +1353,6 @@
         </div>
     </div>
 @endsection
+<style>
+
+</style>

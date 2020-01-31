@@ -40,7 +40,7 @@
             {{--<div><a href="#">It's as simple as 1,2,3</a></div>--}}
             {{--<div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>--}}
         {{--</div>--}}
-        <div style="text-align: center;margin-top: 269px;margin-bottom: -20px">
+        <div style="text-align: center;margin-top: 325px;margin-bottom: -20px">
             <div class="boxes3 bg-orange">
                 <div class="boxheading">Locate</div>
                 <img src="{{url('images/icons/Layer 89.png')}}">
@@ -65,14 +65,10 @@
         </div>
 
     </div>
-    <ul style="position: fixed; bottom: 50px;right: 30px">
-        <li style="list-style: none;">
-            <a href="#" class="facebook_icon"><img src="{{url('images/facebook.png')}}"/></a>
-            <a href="#" class="linkedin_icon"><img src="{{url('images/linkedin.png')}}"/></a>
-            <a href="#" class="twitter_icon"><img src="{{url('images/twitter.png')}}"/></a>
-            <a href="#" class="envelope_icon"><img src="{{url('images/envelope.png')}}"/></a>
-        </li>
-    </ul>
+    <style>
+        .wt-wrapper{background-color: white}
+    </style>
+
 @endsection
 @push('scripts')
     <script src="{{ asset('js/tilt.jquery.js') }}"></script>
