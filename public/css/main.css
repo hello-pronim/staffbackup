@@ -8734,3 +8734,7 @@ ul li a{
 	margin-bottom: 0px !important;
 	margin-top:20px;
 }
+
+#searchHomePage .form-group {
+	margin:0 0 7px;
+}
