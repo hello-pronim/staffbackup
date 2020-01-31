@@ -20,7 +20,7 @@
                         <strong class="wt-logo"><a href="{{{ url('/') }}}"><img src="{{{ asset($logo) }}}" alt="{{{ trans('Logo') }}}"></a></strong>
                     @endif
 
-                    <div class="wt-rightarea" style="height: 90px;">
+                    <div class="wt-rightarea" style="height: 80px;">
                         <nav id="wt-nav" class="wt-nav navbar-expand-lg">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,9 +44,9 @@
                                 </div>
 
                             </div>
-                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 118px; align-items:normal">
+                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 78px; align-items:normal">
 
-                                @if(!\Request::is('search-results') && !\Request::is('register'))
+                                @if(!\Request::is('search-results') && !\Request::is('register') && Auth::User())
                                 <ul class="navbar-nav" style="margin-top: 5px;">
                                     @if (!empty($pages) || Schema::hasTable('pages'))
                                         @foreach ($pages as $key => $page)

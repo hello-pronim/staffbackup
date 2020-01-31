@@ -472,7 +472,7 @@
                                             </span>
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input id="number" type="text"
+                                                <input id="number" type="number"
                                                        class="form-control"
                                                        name="number"
                                                        value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}"
@@ -498,6 +498,8 @@
                                                        class=" form-control"
                                                        name="password_confirmation"
                                                        placeholder="{{{ trans('lang.ph_retry_pass') }}}"
+                                                       value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+
                                                        v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
                                                 <span class="help-block" v-if="form_step2.password_confirm_error">
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>

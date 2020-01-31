@@ -1033,7 +1033,7 @@ li.wt-rss a { background:#ff6600; }
 	line-height: 18px;
 }
 /* Header Style */
-.wt-logo{float: left;margin: 25px 0;}
+.wt-logo{float: left;}
 .wt-header {
 	padding: 0;
 	z-index: 10;
@@ -1191,7 +1191,7 @@ li.wt-rss a { background:#ff6600; }
 .wt-loginarea{
 	width: auto;
 	float: right;
-	margin: 128px 0 0 0;
+	margin: 95px 0 0 0;
 	padding: 0 0 0 20px;
 }
 .wt-userimg{

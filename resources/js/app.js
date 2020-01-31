@@ -428,7 +428,7 @@ if (document.getElementById("registration")) {
             {
                 jQuery('.role-'+role.toLowerCase()).trigger("click"); //TODO
 
-                this.step++;
+                this.checkStep1();
             }
 
             // if (role.toLowerCase() == 'employer') {

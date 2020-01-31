@@ -6,7 +6,7 @@
     @endphp
     <footer id="wt-footer">
         <div class="row">
-        <div class="footerCopyright col-md-5">
+        <div class="footerCopyright col-md-5" style="margin:0 auto;padding-top: 44px;">
             COPYRIGHT © STAFF BACKUP LTD 2019, ALL RIGHTS RESERVED
         </div>
             </div>

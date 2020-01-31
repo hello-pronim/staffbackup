@@ -41,7 +41,7 @@
             {{--<div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>--}}
         {{--</div>--}}
         <div style="text-align: center;margin-top: 325px;margin-bottom: -20px">
-            <div class="boxes3 bg-orange">
+            <div class="boxes3 bg-orange" >
                 <div class="boxheading">Locate</div>
                 <img src="{{url('images/icons/Layer 89.png')}}">
                 <p>
@@ -66,7 +66,8 @@
 
     </div>
     <style>
-        .wt-wrapper{background-color: white}
+        .wt-wrapper{padding: 0px}
+        .boxes3{margin-bottom: -48px;}
     </style>
 
 @endsection
