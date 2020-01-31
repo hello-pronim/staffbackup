@@ -4836,9 +4836,14 @@ $(document).ready(function(){
        // $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
 
     });
-    $('#calendar_btn, .selectDatePicker').click(function() {
+    $('#calendar_btn, .selectDatePicker').click(function(event) {
+        event.stopPropagation();
+
         $('#calendar_small').toggle("slow", function () {
         });
+    });
+    $(window).click(function() {
+        $('#calendar_small').slideUp('slow');
     });
 
     $(document).on('click', '#employer_availability .vuecal__menu, #employer_availability .vuecal__title-bar,     #freelancer_availability .vuecal__menu, #freelancer_availability .vuecal__title-bar', function(){

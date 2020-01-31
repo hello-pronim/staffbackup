@@ -35,6 +35,11 @@ Route::get(
     '/',
     function () {
         if (Schema::hasTable('users')) {
+            if(Auth::user())
+            {
+                return Redirect::to('/dashboard');
+
+            }
             if (file_exists(resource_path('views/extend/front-end/index.blade.php'))) {
                 return view('extend.front-end.index');
             } else {
@@ -358,6 +363,7 @@ Route::group(
 Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');
 
 Route::get('/get-skills', 'SkillController@getSkills');
+Route::get('/dashboard', 'PublicController@goToDashboard');
 
 Route::post('job/get-wishlist', 'JobController@getWishlist');
 Route::get('dashboard/packages/{role}', 'PackageController@index');

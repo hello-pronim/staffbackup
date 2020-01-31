@@ -237,7 +237,7 @@
 
                                         >
                                         </vue-cal>
-                                    <div class="form-group" style="margin-top: 25px;">
+                                    <div class="form-group" style="margin-top: 25px; display: none">
                                         <label>Booking Title / Job Title</label>
 
                                         <input type="text" name="booking_title" disabled class="form-control" placeholder="Booking Title" v-model="title">

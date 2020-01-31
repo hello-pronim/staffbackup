@@ -1024,4 +1024,24 @@ class PublicController extends Controller
 
 
     }
+
+    public function goToDashboard(){
+        if(Auth::user())
+        {
+            $role_id = Helper::getRoleByUserID(Auth::user()->id);
+
+            if($role_id==2)
+            {
+                $role = 'employer';
+            }
+            else{
+                $role = 'freelancer';
+            }
+            return Redirect::to('/'.$role.'/dashboard');
+        }
+        else{
+            return Redirect::to('/');
+
+        }
+    }
 }
