@@ -659,9 +659,9 @@ if (document.getElementById("registration")) {
                 this.loading = true;
                 let register_Form = document.getElementById('register_form');
                 let form_data = new FormData(register_Form);
-                form_data.append('email', this.user_email);
-                form_data.append('first_name', this.first_name);
-                form_data.append('last_name', this.last_name);
+                // form_data.append('email', this.user_email);
+                // form_data.append('first_name', this.first_name);
+                // form_data.append('last_name', this.last_name);
                 var self = this;
                 axios.post(APP_URL + '/register', form_data)
                     .then(function (response) {

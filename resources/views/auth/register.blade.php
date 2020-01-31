@@ -1225,7 +1225,7 @@
                                             <div class="wt-checkboxholder">
                                             <span class="wt-checkbox">
                                                 <input id="termsconditions" type="checkbox" name="termsconditions"
-                                                       checked="">
+                                                       >
                                                 <label for="termsconditions"><span>Agree to T&Cs and Privacy</span></label>
                                                 <span class="help-block" v-if="form_step2.termsconditions_error">
                                                     <strong style="color: red;"
