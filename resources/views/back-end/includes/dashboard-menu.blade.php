@@ -337,14 +337,14 @@
 
 
             <div class="wt-navdashboard-footer" style="margin-top: 30px;margin-left: 73px;">
-                <a style="color:black;font-family: AganeBold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
+                <a style="color:gray;font-family: AganeBold; font-size: 13px" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
                     {{{trans('lang.logout')}}}
                 </a>
                 {{--<span class="version-area">{{ config('app.version') }}</span>--}}
             </div>
             <div class="orangeline" style="margin-top: 25px"></div>
 
-            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px;text-align: center;">
+            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px;text-align: center;padding: 0px 24px;">
                 <span>{{{ $copyright }}}</span>
             </div>
         </div>
