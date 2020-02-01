@@ -15,8 +15,7 @@
                         <h2>Your Updates</h2>
                     </div>
                 </div>
-                    <div class="row newStyleBoxes" style="margin: 0 auto;display: block">
-                        <div >
+                    <div class="row newStyleBoxes" style="margin: 0 auto">
 
 
                         <div class="newBoxStyle">
@@ -103,7 +102,7 @@
                         {{--</div>--}}
 
                     {{--</div>--}}
-                </div>
+                {{--</div>--}}
         </div>
         @if ($access_type == 'jobs' || $access_type== 'both')
             <div class="row">
