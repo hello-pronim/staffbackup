@@ -57,11 +57,15 @@ class LoginController extends Controller
                 Auth::logout();
                 return Redirect::to('/');
             } else {
-                if(Auth::user()->stripe_token=="")
+                $user_id = Auth::user()->id;
+
+                $user_role_type = User::getUserRoleType($user_id);
+
+                $user_role = $user_role_type->role_type;
+
+
+                if(Auth::user()->stripe_token=="" || $user_role=='freelancer')
                 {
-                    $user_id = Auth::user()->id;
-                    $user_role_type = User::getUserRoleType($user_id);
-                    $user_role = $user_role_type->role_type;
                     if ($user_role === 'freelancer') {
                         return Redirect::to('freelancer/dashboard');
                     } elseif ($user_role === 'employer') {
