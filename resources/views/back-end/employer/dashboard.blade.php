@@ -15,7 +15,7 @@
                         <h2>Your Updates</h2>
                     </div>
                 </div>
-                    <div class="row newStyleBoxes" style="margin: 0 auto">
+                    <div class="row newStyleBoxes" style="margin: 0 auto;display: block">
                         <div >
 
 
