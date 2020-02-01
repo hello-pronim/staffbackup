@@ -581,7 +581,7 @@ if (document.getElementById("registration")) {
             },
             selectedSubscription: function(subscription)
             {
-
+                this.subscription = subscription;
             },
             checkStep1: function (e) {
                 this.form_step1.first_name_error = '';
@@ -673,7 +673,7 @@ if (document.getElementById("registration")) {
                             } else {
                                 if(self.subscription != "")
                                 {
-                                    self.checkoutStripe(subscription);
+                                    self.checkoutStripe(self.subscription);
                                 }
                                 else{
                                     self.loginRegisterUser();
@@ -693,9 +693,10 @@ if (document.getElementById("registration")) {
                         }
                     })
                     .catch(function (error) {
-                        if (error.response.status == 500) {
-                            self.showError(self.error_message);
-                        }
+                        console.log(error)
+                        // if (error.response.status == 500) {
+                        //     self.showError(self.error_message);
+                        // }
                     });
             },
             verifyCode: function () {

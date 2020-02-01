@@ -1300,7 +1300,7 @@
                                                 </div>
                                                 <div v-if="user_role=='employer'">
                                                     <span class="wt-select">
-                                                    {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedSubscription(subscription)')) !!}
+                                                    {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}
                                                     </span>
                                                 </div>
 
