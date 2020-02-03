@@ -10,12 +10,10 @@
     </div>
     <section class="wt-haslayout wt-dbsectionspace wt-insightuser" id="dashboard">
         <div class="row">
-                <div class="wt-insightsitemholder">
                     <div class="wt-tabscontenttitle">
                         <h2>Your Updates</h2>
                     </div>
-                </div>
-                    <div class="row newStyleBoxes" style="margin: 0 auto;display: block">
+                    <div class="row newStyleBoxes" style="margin: 0 auto; display: block">
 
 
                         <div class="newBoxStyle">
