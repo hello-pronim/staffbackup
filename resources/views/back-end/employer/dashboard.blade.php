@@ -15,7 +15,7 @@
                         <h2>Your Updates</h2>
                     </div>
                 </div>
-                    <div class="row newStyleBoxes" style="margin: 0 auto">
+                    <div class="row newStyleBoxes" style="margin: 0 auto;display: block">
 
 
                         <div class="newBoxStyle">
@@ -37,7 +37,7 @@
                                 {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>
                         @endif
-                        </div>
+                    </div>
 
                         @if ($access_type == 'jobs' || $access_type== 'both')
 
