@@ -659,13 +659,24 @@ class EmployerController extends Controller
     {
         if(Auth::user())
         {
-            $arrEvents = DB::table('calendar_events')
-                ->where('class', '=', 'booking_calendar')
-                ->orWhere(function ($query) {
-                    $query->whereRaw('class = "available_class" OR class = "busy_class"')
-                        ->where('user_id', '=',  Auth::user()->id);
-                })
-                ->get()->all();
+            switch (Auth::user()->getRoleNames()->first())
+            {
+                case "freelancer":
+                    $arrEvents = DB::table('calendar_events')
+                        ->where('user_id','=',Auth::user()->id)->get()->all();
+                    break;
+                case "employer":
+                    $arrEvents = DB::table('calendar_events')
+                        ->where('class', '=', 'booking_calendar')
+                        ->orWhere(function ($query) {
+                            $query->whereRaw('class = "available_class" OR class = "busy_class"')
+                                ->where('user_id', '=',  Auth::user()->id);
+                        })
+                        ->get()->all();
+                    break;
+
+            }
+
         }
         else{
             $arrEvents = DB::table('calendar_events')
