@@ -8351,7 +8351,7 @@ input:-webkit-autofill {
 
 .searchactive{
 	background-color: #2a3b65 !important;
-	padding-left: 18px !important;
+	padding-left: 12px !important;
 }
 
 
@@ -8659,14 +8659,18 @@ ul li a{
 	z-index: 111;
 	max-width: 750px;
 	position: relative;
-	bottom: 37px;
+	bottom: 22px;
 	left: 0;
 	right: 0;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: white;
-	border-top: 4px solid white;
+	box-shadow: red;
+	-webkit-box-shadow: 6px 3px 25px -10px rgba(148,148,148,1);
+	-moz-box-shadow: 6px 3px 25px -10px rgba(148,148,148,1);
+	box-shadow: 6px 3px 25px -10px rgba(148,148,148,1);
+	border-radius: 11px;
 }
+
 
 .searchbtn{
 	position: absolute;
