@@ -1,4 +1,7 @@
 @php
+
+    $user = Auth::user();
+
     $arrITSoftware = array(
            'Adastra'=>'Adastra',
             'Cerna'=>'Cerna',
@@ -35,6 +38,24 @@
 </div>
 <div class="lara-detail-form">
     <fieldset>
+        <div class="form-group ">
+            <input type="text"
+                   class="form-control"
+                   name="org_name"
+                   value="{{$user->org_name}}"
+                   placeholder="Organisation name">
+        </div>
+        <div class="form-group ">
+            {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('placeholder' => "Organisation type")) !!}
+        </div>
+        <div class="form-group">
+            <input id="org_desc" type="text"
+                   class="form-control"
+                   name="org_desc"
+                   value="{{$user->org_desc}}"
+
+                   placeholder="Organisation description">
+        </div>
         <div class="form-group form-group-half">
             {!! Form::text( 'first_name', e(Auth::user()->first_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
         </div>

@@ -309,11 +309,7 @@ $cqc_ratings = array(
   'Self Employed'=>'Self Employed',
   '[DELETED]PAYE'=>'[DELETED]PAYE',
   );
- $arrOrgTypes = array(
-        'NHS'=>'NHS',
-        'Private organisation providing NHS care'=>'Private organisation providing NHS care',
-        'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
-    );
+
 @endphp
 <div class="wt-tabcompanyinfo wt-tabsinfo">
     {{--<div class="wt-tabscontenttitle">--}}
@@ -364,10 +360,14 @@ $cqc_ratings = array(
         </div>
         <div class="wt-accordiondetails">
             <div class="form-group form-group-half">
-                {!! Form::text( 'emp_cqc_rating_date', e($emp_cqc_rating_date), ['class' =>'form-control', 'placeholder' => trans('lang.emp_cqc_rating_date')] ) !!}
+
+                {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, $user->emp_cqc_rating_date, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group')) !!}
+
             </div>
             <div class="form-group form-group-half">
-                {!! Form::text( 'emp_cqc_rating', e($emp_cqc_rating), ['class' =>'form-control', 'placeholder' => trans('lang.emp_cqc_rating')] ) !!}
+
+                {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
+
             </div>
         </div>
     @endif
@@ -406,36 +406,21 @@ $cqc_ratings = array(
         >
     </div>
 
-    <div class="form-group">
-        <input id="emp_desc" type="text"
-               class="form-control"
-               name="emp_desc"
-               value="{{$user->emp_desc}}"
-               placeholder="Description"
-        >
+    {{--<div class="form-group">--}}
+        {{--<input id="emp_desc" type="text"--}}
+               {{--class="form-control"--}}
+               {{--name="emp_desc"--}}
+               {{--value="{{$user->emp_desc}}"--}}
+               {{--placeholder="Description"--}}
+        {{-->--}}
 
-    </div>
+    {{--</div>--}}
 
-    <div class="form-group form-group-half">
-        {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, $user->emp_cqc_rating_date, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group')) !!}
 
-    </div>
-    <div class="form-group form-group-half">
-
-        {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
-
-    </div>
 
     <!-- New columns for sheet-->
 
-    <div class="form-group">
-        <input id="org_desc" type="text"
-               class="form-control"
-               name="org_desc"
-               value="{{$user->org_desc}}"
 
-               placeholder="Organisation description">
-    </div>
     <div class="form-group ">
         {!! Form::select('setting[]', $arrSettings, $user->setting, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
     </div>
@@ -473,16 +458,7 @@ $cqc_ratings = array(
                 {{$user->insurance=='on'? 'checked' : ''}}
                 placeholder="Insurance">
     </div>
-    <div class="form-group ">
-        <input type="text"
-               class="form-control"
-               name="org_name"
-               value="{{$user->org_name}}"
-               placeholder="Organisation name">
-    </div>
-    <div class="form-group ">
-        {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('placeholder' => "Organisation type")) !!}
-    </div>
+
     <div class="form-group ">
         <input type="text"
                class="form-control"
