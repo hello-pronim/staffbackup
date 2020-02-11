@@ -1024,12 +1024,12 @@
                                                                                 <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
                                                                             </span>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <!-- <div class="form-group">
                                                                     <span class="wt-select">
                                                                     {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
                                                                     </span>
 
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="form-group form-group-half">
                                                                     <span class="wt-select halfWidth">
                                                                     {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}

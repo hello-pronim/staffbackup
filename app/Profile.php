@@ -102,6 +102,9 @@ class Profile extends Model
         $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
         $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
         $user->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);
+        $user->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);
+        $user->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);
+        $user->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
 
         $user->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);
         $user->limitied_company_name = filter_var(isset($request['limitied_company_name']) ? $request['limitied_company_name'] : "", FILTER_SANITIZE_STRING);

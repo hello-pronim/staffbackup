@@ -23,26 +23,72 @@
             'Vision'=>'Vision',
             'Vision Anywhere'=>'Vision Anywhere',
         );
+
+        $arrProfReq = array(
+     'Practice Manager'=>'Practice Manager',
+     'Practice Nurse'=>'Practice Nurse',
+     'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
+     'GP'=>'GP',
+     'Receptionist'=>'Receptionist',
+     'Admin & Clerical'=>'Admin & Clerical',
+     'Cleaner in clinical settings'=>'Cleaner in clinical settings',
+     'Pharmacist'=>'Pharmacist',
+     'Community Nurse'=>'Community Nurse',
+     'District Nurse'=>'District Nurse',
+     'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
+     );
+
+
+        $user = Auth::user();
 @endphp
 <div class="wt-tabscontenttitle">
     <h2>{{{ trans('lang.your_details') }}}</h2>
 </div>
 <div class="wt-formtheme">
     <fieldset>
-        <div class="form-group form-group-half">
-            <span class="wt-select">
-                {!! Form::select( 'gender', ['male' => 'Male', 'female' => 'Female'], e($gender), ['placeholder' => trans('lang.ph_select_gender')] ) !!}
-            </span>
-        </div>
+        
         <div class="form-group form-group-half">
             {!! Form::text( 'first_name', e(Auth::user()->first_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
         </div>
         <div class="form-group form-group-half">
             {!! Form::text( 'last_name', e(Auth::user()->last_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
         </div>
-        <div class="form-group form-group-half">
-            {!! Form::number( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+        <!-- <div class="form-group form-group-half">
+            <span class="wt-select">
+                {!! Form::select( 'gender', ['male' => 'Male', 'female' => 'Female'], e($gender), ['placeholder' => trans('lang.ph_select_gender')] ) !!}
+            </span>
+        </div> -->
+        
+
+        <div class="form-group">
+            <span class="wt-select">
+            {!! Form::select('profession', $arrProfReq, $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
+            </span>
         </div>
+        <div class="form-group form-group-half">
+            <input  type="text"
+                    class="form-control"
+                    name="pin"
+                    value="{{$user->pin}}"
+
+                    placeholder="Pin">
+        </div>
+        <div class="form-group form-group-half">
+            <date-picker :config="{format: 'YYYY-MM-DD'}"
+
+                         value="{{$user->pin_date_revalid}}"
+
+                         class="form-control"
+                         name="pin_date_revalid"
+                         placeholder="Pin date of revalidation"
+            ></date-picker>
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+        </div>
+       
+
+
         <div class="form-group form-group-half">
         <span class="wt-checkbox"
               style="    margin-left: 15px;    margin-top: 17px;">
@@ -100,7 +146,11 @@
 </div>
 <div class="wt-formtheme">
     <div class="form-group ">
-        {!! Form::select('itsoftware', $arrITSoftware, Auth::user()->itsoftware, array('placeholder' => "IT software")) !!}
+        <span class="wt-select">
+
+            {!! Form::select('itsoftware', $arrITSoftware, Auth::user()->itsoftware, array('placeholder' => "IT software")) !!}
+
+        </span>
     </div>
 </div>
 

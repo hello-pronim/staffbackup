@@ -39,19 +39,7 @@
      {
        $arrSettings[$user->setting] = $user->setting;
      }
-     $arrProfReq = array(
-     'Practice Manager'=>'Practice Manager',
-     'Practice Nurse'=>'Practice Nurse',
-     'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
-     'GP'=>'GP',
-     'Receptionist'=>'Receptionist',
-     'Admin & Clerical'=>'Admin & Clerical',
-     'Cleaner in clinical settings'=>'Cleaner in clinical settings',
-     'Pharmacist'=>'Pharmacist',
-     'Community Nurse'=>'Community Nurse',
-     'District Nurse'=>'District Nurse',
-     'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
-     );
+    
 
      $arrSpecialInterests = array(
      'Diabetes'=>'Diabetes',
@@ -317,31 +305,17 @@
 <div class="wt-formtheme">
     <fieldset>
         <div class="form-group">
-            {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
-        </div>
-        <div class="form-group form-group-half">
-            <input  type="text"
-                    class="form-control"
-                    name="pin"
-                    value="{{$user->pin}}"
+             <span class="wt-select">
 
-                    placeholder="Pin">
+                {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+            </span>
         </div>
-        <div class="form-group form-group-half">
-            <date-picker :config="{format: 'YYYY-MM-DD'}"
-
-                         value="{{$user->pin_date_revalid}}"
-
-                         class="form-control"
-                         name="pin_date_revalid"
-                         placeholder="Pin date of revalidation"
-            ></date-picker>
-        </div>
+       
         <div class="form-group">
-            {!! Form::select('profession', $arrProfReq, $user->profession, array('placeholder' => "Profession")) !!}
-        </div>
-        <div class="form-group">
+            <span class="wt-select">
+
             {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), $user->right_of_work, array('placeholder' => "Right to work")) !!}
+            </span>
         </div>
         <div class="form-group ">
             <strong>Passport or Visa:</strong>
@@ -437,7 +411,10 @@
                    accept=".pdf, image/*,.doc,.docx">
         </div>
         <div class="form-group">
+        <span class="wt-select">
+
             {!! Form::select('special_interests[]', $arrSpecialInterests, $user->special_interests, array('placeholder' => "Special Interests")) !!}
+            </span>
         </div>
         <div class="form-group">
             <input type="text"
@@ -482,10 +459,16 @@
                    accept=".pdf, image/*,.doc,.docx">
         </div>
         <div class="form-group">
+        <span class="wt-select">
+
             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
+            </span>
         </div>
         <div class="form-group">
+        <span class="wt-select">
+
             {!! Form::select('c_payment_methods',$arrPaymentMethods, $user->c_payment_methods, array('placeholder' => "Payment Method")) !!}
+            </span>
         </div>
         @if($user->c_payment_methods == 'Limited Company')
         <div class="form-group ">

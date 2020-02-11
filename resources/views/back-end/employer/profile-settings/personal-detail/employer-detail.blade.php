@@ -451,12 +451,12 @@ $cqc_ratings = array(
 
     <div class="form-group form-group">
         <label for="insurance"
-               style="display: inline-block">Insurance
-            Details</label> <input
+               style="display: inline-block">Insurance  Details</label> 
+            <input
                 type="checkbox"
                 name="insurance"
                 {{$user->insurance=='on'? 'checked' : ''}}
-                placeholder="Insurance">
+                placeholder="Insurance"/>
     </div>
 
     <div class="form-group ">
@@ -465,7 +465,7 @@ $cqc_ratings = array(
                name="policy_number"
                value="{{$user->policy_number}}"
 
-               placeholder="Policy Number">
+               placeholder="Policy Number"/>
     </div>
 
     <div class="form-group">
