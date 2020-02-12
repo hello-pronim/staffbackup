@@ -153,6 +153,52 @@
                             </div>
                             <div class="wt-jobdetails wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
+                                    <h2>Calendar Booking</h2>                                </div>
+                                <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" @click.prevent="preventClick">
+                                    {{--<button class="openCal wt-btn">Open Calendar</button>--}}
+
+
+                                    <vue-cal ref="vuecal" style="height: 650px"
+                                             :time-from="0 * 60"
+                                             :time-to="24 * 60"
+                                             :disable-views="['years', 'year']"
+                                             :events="events"
+                                             :selected-date="selecteddate"
+                                             default-view="month"
+                                             @cell-click="changeSelectedDate"
+                                            {{--events-on-month-view="short"--}}
+
+                                    >
+                                    </vue-cal>
+                                    <div class="form-group" style="margin-top: 25px; display: none">
+                                        <label>Booking Title / Job Title</label>
+
+                                        <input type="text" name="booking_title" disabled class="form-control" placeholder="Booking Title" v-model="title">
+                                    </div>
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label>Booking Date </label>
+
+                                        <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="selecteddate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <vue-timepicker name="booking_start" required  format="HH:mm" v-model="start"></vue-timepicker>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <vue-timepicker name="booking_end"  required   format="HH:mm"  v-model="end"></vue-timepicker>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label>Booking description</label>
+
+                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
+                                    </div>
+                                    {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
+
+                                </div>
+                            </div>
+                            <div class="wt-jobdetails wt-tabsinfo">
+                                <div class="wt-tabscontenttitle">
                                     <h2>{{ trans('lang.job_dtl') }}</h2>
                                 </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo">
@@ -218,52 +264,7 @@
 
                             </div>
 
-                            <div class="wt-jobdetails wt-tabsinfo">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>Calendar Booking</h2>                                </div>
-                                <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" @click.prevent="preventClick">
-                                    <button class="openCal wt-btn">Open Calendar</button>
 
-
-                                        <vue-cal ref="vuecal" style="height: 650px"
-                                                 :time-from="0 * 60"
-                                                 :time-to="24 * 60"
-                                                 :disable-views="['years', 'year']"
-                                                 :events="events"
-                                                 :selected-date="selecteddate"
-                                                 default-view="month"
-                                                 @cell-click="changeSelectedDate"
-                                                 {{--events-on-month-view="short"--}}
-
-                                        >
-                                        </vue-cal>
-                                    <div class="form-group" style="margin-top: 25px; display: none">
-                                        <label>Booking Title / Job Title</label>
-
-                                        <input type="text" name="booking_title" disabled class="form-control" placeholder="Booking Title" v-model="title">
-                                    </div>
-                                    <div class="form-group" style="margin-top: 25px;">
-                                        <label>Booking Date </label>
-
-                                        <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="selecteddate">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Start Time</label>
-                                        <vue-timepicker name="booking_start" required  format="HH:mm" v-model="start"></vue-timepicker>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>End Time</label>
-                                        <vue-timepicker name="booking_end"  required   format="HH:mm"  v-model="end"></vue-timepicker>
-                                    </div>
-                                    <div class="form-group" style="margin-top: 25px;">
-                                        <label>Booking description</label>
-
-                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
-                                    </div>
-                                    {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
-
-                                </div>
-                            </div>
 
                         </div>
 
