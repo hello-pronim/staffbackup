@@ -142,13 +142,13 @@
 
 </div>
 <div class="wt-tabscontenttitle" style="margin-top: 20px;">
-    <h2>IT Software</h2>
+    <h2>Computer System in use</h2>
 </div>
 <div class="wt-formtheme">
     <div class="form-group ">
         <span class="wt-select">
 
-            {!! Form::select('itsoftware', $arrITSoftware, Auth::user()->itsoftware, array('placeholder' => "IT software")) !!}
+            {!! Form::select('itsoftware', $arrITSoftware, Auth::user()->itsoftware, array('placeholder' => "Computer System in use")) !!}
 
         </span>
     </div>

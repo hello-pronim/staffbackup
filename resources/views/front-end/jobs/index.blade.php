@@ -173,7 +173,7 @@
 
 
                                                         @if($job->employer->itsoftware != "")
-                                                            <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>IT Software: </strong>{{$job->employer->itsoftware}}</span></li>
+                                                            <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{$job->employer->itsoftware}}</span></li>
                                                         @endif
                                                         @if (count($job->skills) != 0 )
                                                             <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $job->skills[0]->title }}}</span></li>

@@ -227,7 +227,7 @@
                                                         @endif
                                                             @if (!empty($freelancer->itsoftware))
                                                                 <li>
-                                                                    <strong>IT Software:</strong> {{$freelancer->itsoftware}}
+                                                                    <strong>Computer System in use:</strong> {{$freelancer->itsoftware}}
                                                                 </li>
                                                             @endif
                                                         {{--@if (!empty($freelancer->location))--}}

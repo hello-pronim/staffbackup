@@ -56,7 +56,7 @@
                                             <a href="{{url('profile/'.$user->slug)}}">{{ '@' }}{{{ $user->slug }}}</a>
                                         </span>
                                             @if($user->itsoftware != "")
-                                               <div> <strong>IT Software:</strong> {{$user->itsoftware}}</div>
+                                               <div> <strong>Computer System in use:</strong> {{$user->itsoftware}}</div>
                                             @endif
                                             @if($user->limitied_company_name != "")
                                                 <div> <strong>Limited Company Name:</strong> {{$user->limitied_company_name}}</div>

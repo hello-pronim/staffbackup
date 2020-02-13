@@ -804,7 +804,7 @@
 
                                                                         <div class="form-group form-group-half">
                                                                             <span class="wt-select">
-                                                                            {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "IT software")) !!}
+                                                                            {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "Computer System in use")) !!}
                                                                             </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
