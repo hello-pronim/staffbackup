@@ -413,7 +413,7 @@
                                                                  data-toggle="collapse" data-target="#collapseOne">
                                                                 <span class="wt-radio">
                                                                 <input id="wt-company-{{$key}}" type="radio" name="role"
-                                                                       value="{{{ $role['role_type'] }}}" checked=""
+                                                                       value="{{{ $role['role_type'] }}}" checked="<?php echo (isset($_GET['role']) && $_GET['role'] ==$role['role_type']) ? "checked" : "";?>"
                                                                        v-model="user_role"
                                                                        v-on:change="selectedRole(user_role)">
                                                                 <label style="margin-top: 8px"

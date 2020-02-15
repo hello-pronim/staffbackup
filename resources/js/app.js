@@ -329,7 +329,7 @@ if (document.getElementById("searchHomePage")) {
                 selectedDate: '',
                 selectedSkills: "",
                 selectedLocation: "",
-                search_type:"job",
+                search_type:"employer",
 
         },
         methods: {
@@ -428,8 +428,10 @@ if (document.getElementById("registration")) {
             var role = url.searchParams.get("role");
             if(role && role != "")
             {
-                jQuery('.role-'+role.toLowerCase()).trigger("click"); //TODO
+                //jQuery('.role-'+role.toLowerCase()).trigger("click"); //TODO
 
+                this.user_role=role;
+                this.selectedRole(role);
                 this.checkStep1();
             }
 

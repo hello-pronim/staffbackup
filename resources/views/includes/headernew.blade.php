@@ -51,8 +51,8 @@
             <form action="{{url('register')}}" method="GET">
                 <input type="hidden" v-model="search_type" name="role">
             <div class="searchtop" >
-                <div style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                     @click="changeSearchType('job')">Organisation
+                <div style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'employer')}"
+                     @click="changeSearchType('employer')">Organisation
                 </div>
 
                 <div   style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
