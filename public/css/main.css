@@ -8028,6 +8028,9 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 	color: darkgray;
 	font-size: 12px;
 }
+.out-of-scope .vuecal__cell-date {
+	color:#e6e1e1 !important;
+}
 .vuecal {
 	box-shadow: none !important;
 }
@@ -8742,4 +8745,12 @@ ul li a{
 
 #searchHomePage .form-group {
 	margin:0 0 7px;
+}
+
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

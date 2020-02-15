@@ -46,14 +46,20 @@
 
 
                                     <form>
-                                    <div class="form-group-half">
-                                        <label for="availability_start_time">Start time:</label>
-                                        {!! Form::text( 'availability_start_time',null, ['class' =>'form-control', 'placeholder' => 'Availability Start Time', 'v-model'=>'availability_start_time', 'required'=>'required'] ) !!}
-                                    </div>
-                                    <div class="form-group-half">
-                                        <label for="availability_end_time">End time:</label>
-                                        {!! Form::text( 'availability_end_time',null, ['class' =>'form-control', 'placeholder' => 'Availability End Time', 'v-model'=>'availability_end_time', 'required'=>'required'] ) !!}
-                                    </div>
+                                        <div class="form-group" style="margin-top: 25px;">
+                                            <label>Picked Date </label>
+
+                                            <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="availability_selected_date">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Start Time</label>
+                                            <vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>End Time</label>
+                                            <vue-timepicker name="availability_end_time"  required   format="HH:mm"  v-model="availability_end_time"></vue-timepicker>
+                                        </div>
                                     <div class="form-grou!!p">
                                         <label for="availability_title">Title:</label>
                                         {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Availability Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}

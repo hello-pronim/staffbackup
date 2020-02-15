@@ -212,6 +212,7 @@ if (document.getElementById("booking_availability")) {
             availability_content:"",
             availability_start_time:"",
             availability_end_time:"",
+            availability_selected_date:"",
             clickedDate:"",
         },
         created(){
@@ -241,23 +242,24 @@ if (document.getElementById("booking_availability")) {
             },
             createNewEvent(date){
                 this.clickedDate = new Date(date);
-                if(this.availability_start_time != '')
-                {
-                    var startTime = this.availability_start_time.split(' ')[1];
-
-                }
-                else {
-                    var startTime = '00:00';
-                }
-                if(this.availability_end_time != '')
-                {
-                    var endTime = this.availability_end_time.split(' ')[1];
-                }
-                else {
-                    var endTime = '00:00';
-                }
-                this.availability_start_time = date.toISOString().split('T')[0] + ' ' + startTime;
-                this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
+                // if(this.availability_start_time != '')
+                // {
+                //     var startTime = this.availability_start_time.split(' ')[1];
+                //
+                // }
+                // else {
+                //     var startTime = '00:00';
+                // }
+                // if(this.availability_end_time != '')
+                // {
+                //     var endTime = this.availability_end_time.split(' ')[1];
+                // }
+                // else {
+                //     var endTime = '00:00';
+                // }
+                //this.availability_start_time = date.toISOString().split('T')[0] + ' ' + startTime;
+                //this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
+                this.availability_selected_date = date.toISOString().split('T')[0];
             },
             saveNewEventBusy(e){
                 this.saveNewEventAvailability(e, true);
@@ -266,8 +268,8 @@ if (document.getElementById("booking_availability")) {
                 e.preventDefault();
                 var newObj =
                     {
-                        start: this.availability_start_time,
-                        end: this.availability_end_time ,
+                        start: this.availability_selected_date + " " + this.availability_start_time,
+                        end: this.availability_selected_date + " " + this.availability_end_time ,
                         title: this.availability_title ,
                         content: this.availability_content,
                         contentFull: this.availability_content,
@@ -327,7 +329,7 @@ if (document.getElementById("searchHomePage")) {
                 selectedDate: '',
                 selectedSkills: "",
                 selectedLocation: "",
-                search_type:"freelancer",
+                search_type:"job",
 
         },
         methods: {

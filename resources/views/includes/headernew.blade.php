@@ -52,7 +52,7 @@
                 <input type="hidden" v-model="search_type" name="role">
             <div class="searchtop" >
                 <div style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                     @click="changeSearchType('job')">Employer
+                     @click="changeSearchType('job')">Organisation
                 </div>
 
                 <div   style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"

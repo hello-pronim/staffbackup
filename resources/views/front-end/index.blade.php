@@ -67,7 +67,7 @@
     </div>
     <style>
         .wt-wrapper{padding: 0px}
-        .boxes3{margin-bottom: -48px;}
+        .boxes3{margin-bottom: -48px;   }
     </style>
 
 @endsection
