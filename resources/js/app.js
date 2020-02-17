@@ -4868,4 +4868,16 @@ $(document).ready(function(){
         $('#post_job .bookbutton').remove();
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
+
+    $('.ratePicker').on('change', function(){
+        if(!isNaN($(this).val()))
+        {
+            $(this).val('£ '+ parseFloat($(this).val()));
+
+        }
+        else
+        {
+            $(this).val("");
+        }
+    })
 });

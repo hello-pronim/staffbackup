@@ -78,11 +78,9 @@
                                             {{--</span>--}}
                                         {{--</div>--}}
                                         <div class="form-group"></div>
-                                        <div class="form-group form-group-half wt-formwithlabel job-cost-input">
-                                            {!! Form::number('project_cost', null, array('class' => 'form-control halfwidth', 'placeholder' => trans('lang.project_cost'), 'min'=>'0')) !!}
-                                        </div>
+
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::number('project_rates', null, array('class' => 'form-control halfwidth', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
+                                            {!! Form::text('project_rates', null, array('class' => 'form-control halfwidth ratePicker', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
                                             <span class="wt-select">
