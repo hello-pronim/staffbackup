@@ -32,7 +32,7 @@ use App\Category;
 use App\Location;
 use App\Skill;
 use Session;
-use Storage;
+use Sage;
 use App\Report;
 use App\Job;
 use App\Proposal;

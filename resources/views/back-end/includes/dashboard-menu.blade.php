@@ -179,7 +179,9 @@
                                         <a href="javascript:void(0)">
                                             <span>{{ trans('lang.jobs') }}</span>
                                         </a>
+
                                         <ul class="sub-menu">
+                                            <li><a href="{{{ url(route('employerPostJob')) }}}">{{ trans('lang.post_job') }}</a></li>
                                             <li><a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.manage_job') }}</a></li>
                                             <li><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>
                                             <li><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>

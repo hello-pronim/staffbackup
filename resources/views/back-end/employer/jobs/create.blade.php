@@ -77,14 +77,17 @@
                                                 {{--{!! Form::select('english_level', $english_levels, null, array('class' => '', 'placeholder' => trans('lang.select_english_level'), 'v-model'=>'english_level')) !!}--}}
                                             {{--</span>--}}
                                         {{--</div>--}}
-                                        <div class="form-group form-group wt-formwithlabel job-cost-input">
-                                            {!! Form::number('project_cost', null, array('class' => '', 'placeholder' => trans('lang.project_cost'), 'min'=>'0')) !!}
+                                        <div class="form-group"></div>
+                                        <div class="form-group form-group-half wt-formwithlabel job-cost-input">
+                                            {!! Form::number('project_cost', null, array('class' => 'form-control halfwidth', 'placeholder' => trans('lang.project_cost'), 'min'=>'0')) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::number('project_rates', null, array('class' => 'form-control', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
+                                            {!! Form::number('project_rates', null, array('class' => 'form-control halfwidth', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
                                         </div>
                                         <div class="form-group form-group-half wt-formwithlabel job-rates-input">
+                                            <span class="wt-select">
                                             {!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day', 'Per Month'=> 'Per Month'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}
+                                            </span>
                                         </div>
                                     </fieldset>
                                 </div>
