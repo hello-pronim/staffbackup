@@ -4857,10 +4857,10 @@ $(document).ready(function(){
 
 
     $(document).on('click', '.bookbutton', function(){
-        $('.vuecal ').slideUp();
+        //$('.vuecal ').slideUp();
     });
     $(document).on('click', '.openCal', function(){
-        $('.vuecal ').slideDown();
+       // $('.vuecal ').slideDown();
         $('#post_job .bookbutton').remove();
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
