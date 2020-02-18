@@ -171,15 +171,15 @@
 
                                     >
                                     </vue-cal>
-                                    <div class="form-group" style="margin-top: 25px; display: none">
+                                    <div class="form-group " style="margin-top: 25px; display: none">
                                         <label>Booking Title / Job Title</label>
 
-                                        <input type="text" name="booking_title" disabled class="form-control" placeholder="Booking Title" v-model="title">
+                                        <input type="text" name="booking_title" disabled class="form-control " placeholder="Booking Title" v-model="title">
                                     </div>
-                                    <div class="form-group" style="margin-top: 25px;">
+                                    <div class="form-group classScrollTo" style="margin-top: 25px;">
                                         <label>Booking Date </label>
 
-                                        <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="selecteddate">
+                                        <input type="text" disabled class="form-control " placeholder="Booking Date" v-model="selecteddate">
                                     </div>
                                     <div class="form-group">
                                         <label>Start Time</label>

@@ -4862,6 +4862,9 @@ $(document).ready(function(){
 
     $(document).on('click', '.bookbutton', function(){
         //$('.vuecal ').slideUp();
+        $('html, body').animate({
+            scrollTop: ($(".classScrollTo").offset().top)
+        }, 1000);
     });
     $(document).on('click', '.openCal', function(){
        // $('.vuecal ').slideDown();

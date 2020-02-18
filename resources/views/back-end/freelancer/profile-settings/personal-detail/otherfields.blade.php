@@ -318,7 +318,9 @@
             </span>
         </div>
         <div class="form-group ">
-            <strong>Passport or Visa:</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Passport or Visa</h2>
+            </div>
             @if(!empty($user->passport_visa))
                 <a href="{{url('uploads/files/'.$user->passport_visa)}}" target="_blank">Click To open</a>
             @endif
@@ -327,7 +329,9 @@
                    accept=".pdf, image/*,.doc,.docx">
         </div>
         <div class="form-group form-group">
-            <strong>Professional Qualifications</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Professional Qualifications</h2>
+            </div>
 
             <span class="text-right" id="plusQual" style="cursor:pointer;font-size: 16px; background-color: #fccf17;color:white;padding:7px;border-radius:5px">+</span>
         </div>
@@ -374,7 +378,9 @@
 
 
         <div class="form-group ">
-            <strong>Professional Qualifications Certificate</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Professional Qualifications Certificate</h2>
+            </div>
             @if(!empty($user->prof_qual_cert))
                 <a href="{{url('uploads/files/'.$user->prof_qual_cert)}}" target="_blank">Click To open</a>
             @endif
@@ -384,7 +390,9 @@
         </div>
 
         <div class="form-group ">
-            <strong>Mandatory Training:</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Mandatory Training</h2>
+            </div>
             @if(!empty($user->mand_training))
                 <a href="{{url('uploads/files/'.$user->mand_training)}}" target="_blank">Click To open</a>
             @endif
@@ -393,7 +401,9 @@
                    accept=".pdf, image/*,.doc,.docx">
         </div>
         <div class="form-group ">
-            <strong>Certificate of CRB/DBS:</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Certificate of CRB/DBS</h2>
+            </div>
             @if(!empty($user->cert_of_crbdbs))
                 <a href="{{url('uploads/files/'.$user->cert_of_crbdbs)}}" target="_blank">Click To open</a>
             @endif
@@ -402,7 +412,9 @@
                    accept=".pdf, image/*,.doc,.docx">
         </div>
         <div class="form-group ">
-            <strong>Occupational Health:</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Occupational Health</h2>
+            </div>
             @if(!empty($user->occup_health))
                 <a href="{{url('uploads/files/'.$user->occup_health)}}" target="_blank">Click To open</a>
             @endif
@@ -424,14 +436,18 @@
         </div>
 
         <div class="form-group form-group">
-            <label for="insurance"
-                   style="display: inline-block">Professional
-                Indemnity Insurance</label> <input
-                    type="checkbox"
-                    {{$user->insurance=='on'? 'checked' : ''}}
 
-                    name="insurance"
-                    placeholder="Insurance">
+            <div class="wt-tabscontenttitle">
+                <h2>Professional
+                    Indemnity Insurance   <input
+                            type="checkbox"
+                            {{$user->insurance=='on'? 'checked' : ''}}
+
+                            name="insurance"
+                            placeholder="Insurance"></h2>
+            </div>
+
+
         </div>
         <div class="form-group ">
             <input type="text"
@@ -450,7 +466,9 @@
                     placeholder="Insurance Policy Number">
         </div>
         <div class="form-group ">
-            <strong>Professional Indemnity Certificate:</strong>
+            <div class="wt-tabscontenttitle">
+                <h2>Professional Indemnity Certificate</h2>
+            </div>
             @if(!empty($user->prof_ind_cert))
                 <a href="{{url('uploads/files/'.$user->prof_ind_cert)}}" target="_blank">Click To open</a>
             @endif
