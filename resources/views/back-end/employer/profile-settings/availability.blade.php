@@ -19,10 +19,10 @@
                 </ul>
                 @endif
                 <div class="wt-dashboardbox wt-dashboardtabsholder" id="employer_availability">
-                    @if (file_exists(resource_path('views/extend/back-end/freelancer/profile-settings/tabs.blade.php')))
-                    @include('extend.back-end.freelancer.profile-settings.tabs')
+                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/tabs.blade.php')))
+                    @include('extend.back-end.employer.profile-settings.tabs')
                     @else
-                    @include('back-end.freelancer.profile-settings.tabs')
+                    @include('back-end.employer.profile-settings.tabs')
                     @endif
                     <div class="wt-tabscontent tab-content">
                         <vue-cal ref="vuecal" style="height: 650px"
@@ -47,15 +47,22 @@
 
 
                                 <form>
+                                    <div class="form-group classScrollTo" style="">
+                                        <label>Selected Date </label>
+
+                                        <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">
+                                    </div>
                                     <div class="form-group-half">
                                         <label for="availability_start_time">Holiday Start date/time:</label>
-                                        {!! Form::text( 'availability_start_time',null, ['class' =>'form-control', 'placeholder' => 'Holiday Start Time', 'v-model'=>'availability_start_time', 'required'=>'required'] ) !!}
+                                        <vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>
+
                                     </div>
                                     <div class="form-group-half">
                                         <label for="availability_end_time">Holiday End date/time:</label>
-                                        {!! Form::text( 'availability_end_time',null, ['class' =>'form-control', 'placeholder' => 'Holiday End Time', 'v-model'=>'availability_end_time', 'required'=>'required'] ) !!}
+                                        <vue-timepicker name="availability_end_time" required  format="HH:mm" v-model="availability_end_time"></vue-timepicker>
+
                                     </div>
-                                    <div class="form-grou!!p">
+                                    <div class="form-group">
                                         <label for="availability_title">Title:</label>
                                         {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Holiday Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
                                     </div>

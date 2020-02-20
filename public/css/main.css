@@ -8483,7 +8483,7 @@ body{
 }
 
 .signupBtn {
-	display: inline-block;
+	margin: 0 auto;
 	padding: 57px 0px 0px 0px;
 }
 .signupBtn a{
@@ -8753,4 +8753,7 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
+}
+#booking_availability label{
+	margin: 10px 0 0 0 !important;
 }

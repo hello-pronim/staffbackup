@@ -4860,7 +4860,7 @@ $(document).ready(function(){
     });
 
 
-    $(document).on('click', '.bookbutton', function(){
+    $(document).on('click', '.bookbutton, .availButton', function(){
         //$('.vuecal ').slideUp();
         $('html, body').animate({
             scrollTop: ($(".classScrollTo").offset().top)

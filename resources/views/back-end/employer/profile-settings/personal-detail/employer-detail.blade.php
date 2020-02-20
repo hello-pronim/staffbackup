@@ -382,7 +382,7 @@ $cqc_ratings = array(
         >
     </div>
     <div class="form-group form-group-half">
-        <input id="backup_emp_email" type="text"
+        <input id="backup_emp_email" type="email"
                class="form-control"
                name="backup_emp_email"
                value="{{$user->backup_emp_email}}"
@@ -398,7 +398,7 @@ $cqc_ratings = array(
         >
     </div>
     <div class="form-group form-group-half">
-        <input id="backup_emp_tel" type="text"
+        <input id="backup_emp_tel" type="number"
                class="form-control"
                name="backup_emp_tel"
                value="{{$user->backup_emp_tel}}"
