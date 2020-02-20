@@ -43,7 +43,7 @@
             <div class="signupBtn">
                 <a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "SIGN-UP"}}</a>
                 @if(!Auth::user())
-                    <a href="{{{ url('login')}}}">Login</a>
+                    <a href="{{{ url('login')}}}" class="loginbtnHome">Login</a>
                 @endif
             </div>
 
