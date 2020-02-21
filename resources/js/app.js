@@ -490,7 +490,8 @@ if (document.getElementById("registration")) {
             },
             form_step3:
                 {
-                    payment_option_error: ''
+                    payment_option_error: '',
+                    isPaypalEmail_error: '',
                 },
             loading: false,
             user_role: 'employer',
@@ -649,6 +650,24 @@ if (document.getElementById("registration")) {
                     });
             },
             checkStep3: function(error_message){
+
+                if($('.paypalemail').val()!='')
+                {
+                    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                    if (reg.test($('.paypalemail').val()) == false)
+                    {
+                        this.form_step3.isPaypalEmail_error = true;
+                        $('.paypalemail').addClass('is-invalid');
+                        return false;
+                    }
+                    else
+                    {
+                        this.form_step3.isPaypalEmail_error = false;
+                        $('.paypalemail').removeClass('is-invalid');
+                    }
+
+                }
                 this.submitUser(true);
             },
             checkStep4: function(error_message)

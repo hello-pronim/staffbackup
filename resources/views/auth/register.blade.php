@@ -469,7 +469,7 @@
                                                 >
                                                 <span class="help-block" v-if="form_step1.email_error">
                                                 <strong v-cloak>@{{form_step1.email_error}}</strong>
-                                            </span>
+                                                </span>
                                             </div>
                                             <div class="form-group form-group-half">
                                                 <input id="number" type="number"
@@ -1288,8 +1288,11 @@
                                                     </div>
                                                     <div class="form-group" v-if="paypal_show">
                                                         <strong>Paypal Account:</strong>
-                                                        <input type="email" name="paypal" class="form-control"
+                                                        <input type="email" name="paypal" class="form-control paypalemail"
                                                                placeholder="Paypal email address"/>
+                                                        <span class="help-block" v-if="form_step3.isPaypalEmail_error">
+                                                        <strong v-cloak>Not a valid email</strong>
+                                                        </span>
                                                     </div>
                                                     <div class="form-group" v-if="cheque_show">
                                                         <strong>Cheque:</strong>
