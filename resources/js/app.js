@@ -14,8 +14,8 @@ import VueIziToast from 'vue-izitoast';
 import 'izitoast/dist/css/iziToast.css';
 import SmoothScrollbar from 'vue-smooth-scrollbar';
 import VueSweetalert2 from 'vue-sweetalert2';
-import { VueStars } from "vue-stars";
-import { Printd } from "printd";
+import {VueStars} from "vue-stars";
+import {Printd} from "printd";
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 import Vuebar from 'vuebar';
 import Event from './event.js';
@@ -31,6 +31,7 @@ Vue.component('multiselect', Multiselect)
 import VueTimepicker from 'vue2-timepicker'
 
 import 'vue2-timepicker/dist/VueTimepicker.css'
+
 Vue.use(VueTimepicker);
 
 
@@ -152,6 +153,7 @@ jQuery(document).ready(function () {
             }
         });
     }
+
     fixedNav();
 
     jQuery('.filter-records').on('keyup', function () {
@@ -204,29 +206,28 @@ if (document.getElementById("booking_availability")) {
     const vmHeader = new Vue({
         el: '#booking_availability',
 
-        components: { 'vue-cal': vuecal,  VueTimepicker },
+        components: {'vue-cal': vuecal, VueTimepicker},
         data: {
-            calendarPlugins: [  ],
+            calendarPlugins: [],
             events: [],
-            availability_title:"",
-            availability_content:"",
-            availability_start_time:"",
-            availability_end_time:"",
-            availability_selected_date:"",
-            clickedDate:"",
+            availability_title: "",
+            availability_content: "",
+            availability_start_time: "",
+            availability_end_time: "",
+            availability_selected_date: "",
+            clickedDate: "",
         },
-        created(){
+        created() {
             var events = [];
             let self = this;
-            axios.get('/employer/getCalendarEvents').then(function(response){
+            axios.get('/employer/getCalendarEvents').then(function (response) {
                 console.log(this);
-                if(response)
-                {
+                if (response) {
                     self.events = response.data;
                 }
             })
         },
-        methods:{
+        methods: {
 
             customEventCreation() {
                 const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
@@ -236,11 +237,11 @@ if (document.getElementById("booking_availability")) {
                         // Formatted start date and time or JavaScript Date object.
                         dateTime,
                         // Custom event props (optional).
-                        { title: 'New Event', content: 'yay! 🎉', classes: ['leisure'] }
+                        {title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}
                     )
                 } else if (dateTime) alert('Wrong date format.')
             },
-            createNewEvent(date){
+            createNewEvent(date) {
                 this.clickedDate = new Date(date);
                 // if(this.availability_start_time != '')
                 // {
@@ -261,22 +262,21 @@ if (document.getElementById("booking_availability")) {
                 //this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
                 this.availability_selected_date = date.toISOString().split('T')[0];
             },
-            saveNewEventBusy(e){
+            saveNewEventBusy(e) {
                 this.saveNewEventAvailability(e, true);
             },
-            saveNewEventAvailability(e, busy){
+            saveNewEventAvailability(e, busy) {
                 e.preventDefault();
                 var newObj =
                     {
                         start: this.availability_selected_date + " " + this.availability_start_time,
-                        end: this.availability_selected_date + " " + this.availability_end_time ,
-                        title: this.availability_title ,
+                        end: this.availability_selected_date + " " + this.availability_end_time,
+                        title: this.availability_title,
                         content: this.availability_content,
                         contentFull: this.availability_content,
                         class: 'available_class'
                     };
-                if(busy)
-                {
+                if (busy) {
                     newObj.class = 'busy_class';
                 }
                 this.events.push(newObj);
@@ -309,7 +309,8 @@ if (document.getElementById("wt-header")) {
 if (document.getElementById("message_center")) {
     const vmpassReset = new Vue({
         el: '#message_center',
-        mounted: function () { },
+        mounted: function () {
+        },
         data: {},
         methods: {}
     });
@@ -318,23 +319,24 @@ if (document.getElementById("message_center")) {
 if (document.getElementById("searchHomePage")) {
     const searchHomePage = new Vue({
         el: '#searchHomePage',
-        components: { 'vue-cal': vuecal, Multiselect},
-        mounted: function () { },
+        components: {'vue-cal': vuecal, Multiselect},
+        mounted: function () {
+        },
         data: {
-                events: [],
-                skills: [],
-                skill:"",
-                location:"",
-                selecteddate: '',
-                selectedDate: '',
-                selectedSkills: "",
-                selectedLocation: "",
-                search_type:"employer",
+            events: [],
+            skills: [],
+            skill: "",
+            location: "",
+            selecteddate: '',
+            selectedDate: '',
+            selectedSkills: "",
+            selectedLocation: "",
+            search_type: "employer",
 
         },
         methods: {
-            changeSearchType(type){
-              this.search_type = type;
+            changeSearchType(type) {
+                this.search_type = type;
             },
             changeSelectedDate(date) {
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
@@ -346,16 +348,15 @@ if (document.getElementById("searchHomePage")) {
             onSkillSelect(option) {
 
             },
-            submit_search(){
+            submit_search() {
                 var getTypeValue = '';
-                if(this.search_type=='freelancer')
-                {
+                if (this.search_type == 'freelancer') {
                     getTypeValue = 'avail_date';
                 }
                 else {
                     getTypeValue = 'start_date';
                 }
-                window.location.replace(APP_URL + '/search-results?type='+this.search_type+'&location='+this.location+'&skill=' + this.skill + '&'+getTypeValue + '=' + this.selectedDate);
+                window.location.replace(APP_URL + '/search-results?type=' + this.search_type + '&location=' + this.location + '&skill=' + this.skill + '&' + getTypeValue + '=' + this.selectedDate);
             },
         },
         created: function () {
@@ -379,10 +380,11 @@ if (document.getElementById("searchHomePage")) {
 if (document.getElementById("dashboard")) {
     const VueDashboard = new Vue({
         el: '#dashboard',
-        mounted: function () { },
-        components: { 'vue-cal': vuecal,},
+        mounted: function () {
+        },
+        components: {'vue-cal': vuecal,},
         data: {
-            events:[],
+            events: [],
             selectedDate: '',
             selecteddate: '',
 
@@ -418,7 +420,6 @@ if (document.getElementById("home")) {
 if (document.getElementById("registration")) {
 
 
-
     const registration = new Vue({
         el: '#registration',
 
@@ -426,11 +427,10 @@ if (document.getElementById("registration")) {
             var url_string = window.location.href
             var url = new URL(url_string);
             var role = url.searchParams.get("role");
-            if(role && role != "")
-            {
+            if (role && role != "") {
                 //jQuery('.role-'+role.toLowerCase()).trigger("click"); //TODO
 
-                this.user_role=role;
+                this.user_role = role;
                 this.selectedRole(role);
                 this.checkStep1();
             }
@@ -460,7 +460,7 @@ if (document.getElementById("registration")) {
             first_name: '',
             last_name: '',
             limitedCompany: false,
-            choosen_payment:"",
+            choosen_payment: "",
             form_step1: {
                 email_error: '',
                 is_email_error: false,
@@ -498,47 +498,47 @@ if (document.getElementById("registration")) {
             is_show: true,
             is_show_freelancer: false,
             error_message: '',
-            subscription:"",
-            stripe_token:new Date().getTime(),
-            paypal_show:false,
-            cheque_show:false,
-            P60upload:false,
-            payment_method:"",
-            setting:"",
-            appoSlotTime:"",
-            adm_catch_time:"",
-            insurancecheckbox:"",
-            timeAllocated:"",
-            paymentTerm:"",
-            specialInterest:"",
-            dbscheck:"",
+            subscription: "",
+            stripe_token: new Date().getTime(),
+            paypal_show: false,
+            cheque_show: false,
+            P60upload: false,
+            payment_method: "",
+            setting: "",
+            appoSlotTime: "",
+            adm_catch_time: "",
+            insurancecheckbox: "",
+            timeAllocated: "",
+            paymentTerm: "",
+            specialInterest: "",
+            dbscheck: "",
 
         },
         methods: {
-            checkoutStripe(plan_id){
+            checkoutStripe(plan_id) {
                 var stripe = Stripe('pk_test_RMNWdU6nBgL1DAw9AtGOV1X100UKwPylmJ');
 
-                    // When the customer clicks on the button, redirect
-                    // them to Checkout.
-                    stripe.redirectToCheckout({
-                        items: [{plan: plan_id, quantity: 1}],
+                // When the customer clicks on the button, redirect
+                // them to Checkout.
+                stripe.redirectToCheckout({
+                    items: [{plan: plan_id, quantity: 1}],
 
-                        // Do not rely on the redirect to the successUrl for fulfilling
-                        // purchases, customers may not always reach the success_url after
-                        // a successful payment.
-                        // Instead use one of the strategies described in
-                        // https://stripe.com/docs/payments/checkout/fulfillment
-                        successUrl: APP_URL + '/register/checkout_complete/'+this.stripe_token,
-                        cancelUrl: APP_URL,
-                    })
-                        .then(function (result) {
-                            if (result.error) {
-                                // If `redirectToCheckout` fails due to a browser or network
-                                // error, display the localized error message to your customer.
-                                var displayError = document.getElementById('error-message');
-                                displayError.textContent = result.error.message;
-                            }
-                        });
+                    // Do not rely on the redirect to the successUrl for fulfilling
+                    // purchases, customers may not always reach the success_url after
+                    // a successful payment.
+                    // Instead use one of the strategies described in
+                    // https://stripe.com/docs/payments/checkout/fulfillment
+                    successUrl: APP_URL + '/register/checkout_complete/' + this.stripe_token,
+                    cancelUrl: APP_URL,
+                })
+                    .then(function (result) {
+                        if (result.error) {
+                            // If `redirectToCheckout` fails due to a browser or network
+                            // error, display the localized error message to your customer.
+                            var displayError = document.getElementById('error-message');
+                            displayError.textContent = result.error.message;
+                        }
+                    });
             },
             showError(error) {
                 return this.$toast.error(' ', error, this.notificationSystem.options.error);
@@ -553,7 +553,7 @@ if (document.getElementById("registration")) {
                 if (role.toLowerCase() == 'employer') {
                     this.is_show = true;
                     this.is_show_freelancer = false;
-                } else if(role.toLowerCase()=='freelancer') {
+                } else if (role.toLowerCase() == 'freelancer') {
                     this.is_show_freelancer = true;
                     this.is_show = false;
                 }
@@ -563,9 +563,8 @@ if (document.getElementById("registration")) {
                 }
                 console.log(role);
             },
-            selectedPayment: function(payment_name)
-            {
-                switch(payment_name){
+            selectedPayment: function (payment_name) {
+                switch (payment_name) {
                     case "BACS":
                         this.P60upload = true;
                         this.cheque_show = false;
@@ -584,8 +583,7 @@ if (document.getElementById("registration")) {
                         this.P60upload = false;
                 }
             },
-            selectedSubscription: function(subscription)
-            {
+            selectedSubscription: function (subscription) {
                 this.subscription = subscription;
             },
             checkStep1: function (e) {
@@ -637,10 +635,9 @@ if (document.getElementById("registration")) {
                 this.form_step2.termsconditions_error = '';
                 this.form_step2.is_termsconditions_error = false;
                 var self = this;
-                axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).
-                    then(function (response) {
-                        self.next();
-                    })
+                axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).then(function (response) {
+                    self.next();
+                })
                     .catch(function (error) {
 
                         if (error.response.data.errors.termsconditions) {
@@ -649,20 +646,17 @@ if (document.getElementById("registration")) {
                         }
                     });
             },
-            checkStep3: function(error_message){
+            checkStep3: function (error_message) {
 
-                if($('.paypalemail').val()!='')
-                {
+                if ($('.paypalemail').val() != '') {
                     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-                    if (reg.test($('.paypalemail').val()) == false)
-                    {
+                    if (reg.test($('.paypalemail').val()) == false) {
                         this.form_step3.isPaypalEmail_error = true;
                         $('.paypalemail').addClass('is-invalid');
                         return false;
                     }
-                    else
-                    {
+                    else {
                         this.form_step3.isPaypalEmail_error = false;
                         $('.paypalemail').removeClass('is-invalid');
                     }
@@ -670,13 +664,11 @@ if (document.getElementById("registration")) {
                 }
                 this.submitUser(true);
             },
-            checkStep4: function(error_message)
-            {
+            checkStep4: function (error_message) {
                 this.submitUser();
             },
             submitUser: function (ajax) {
-                if(this.user_role=='freelancer')
-                {
+                if (this.user_role == 'freelancer') {
                     ajax = false;
                 }
                 this.loading = true;
@@ -694,13 +686,12 @@ if (document.getElementById("registration")) {
                             if (response.data.email == 'not_configured' && !ajax) {
                                 window.location.replace(response.data.url);
                             } else {
-                                if(self.subscription != "")
-                                {
+                                if (self.subscription != "") {
                                     self.checkoutStripe(self.subscription);
                                 }
-                                else{
+                                else {
                                     self.loginRegisterUser();
-                                   // self.next();
+                                    // self.next();
                                 }
                             }
                         } else if (response.data.type == 'error') {
@@ -756,7 +747,7 @@ if (document.getElementById("registration")) {
             },
             scrollTop: function () {
                 var _scrollUp = jQuery('html, body');
-                _scrollUp.animate({ scrollTop: 0 }, 'slow');
+                _scrollUp.animate({scrollTop: 0}, 'slow');
                 jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
             },
         }
@@ -1304,7 +1295,7 @@ if (document.getElementById("cat-list")) {
             wheel: '',
             is_show: false
         },
-        components: { Verte },
+        components: {Verte},
         methods: {
             removeImage: function (id) {
                 this.uploaded_image = true;
@@ -1380,7 +1371,7 @@ if (document.getElementById("badge-list")) {
         created: function () {
             this.getBadgeColor();
         },
-        components: { Verte },
+        components: {Verte},
         data: {
             uploaded_image: false,
             color: '',
@@ -1399,14 +1390,14 @@ if (document.getElementById("badge-list")) {
                 axios.post(APP_URL + '/badge/get-color', {
                     id: id,
                 })
-                .then(function (response) {
-                    if (response.data.type = 'success') {
-                        self.color = response.data.color;
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        if (response.data.type = 'success') {
+                            self.color = response.data.color;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             selectAll: function () {
                 this.is_show = !this.is_show;
@@ -1651,13 +1642,13 @@ if (document.getElementById("user_profile")) {
             banner_ref: 'profile_banner_ref',
             uploaded_image: false,
             uploaded_banner: false,
-            payment_method:"",
-            setting:"",
-            appoSlotTime:"",
-            adm_catch_time:"",
-            timeAllocated:"",
-            paymentTerm:"",
-            specialInterest:"",
+            payment_method: "",
+            setting: "",
+            appoSlotTime: "",
+            adm_catch_time: "",
+            timeAllocated: "",
+            paymentTerm: "",
+            specialInterest: "",
             report: {
                 reason: '',
                 description: '',
@@ -2044,10 +2035,10 @@ if (document.getElementById("settings")) {
                 _this.parents('.wrap-search').remove();
             });
         },
-        components: { Verte },
+        components: {Verte},
         data: {
-            enable_sandbox:false,
-            show_reg_form_banner:false,
+            enable_sandbox: false,
+            show_reg_form_banner: false,
             enable_breadcrumbs: false,
             show_emplyr_inn_sec: false,
             show_f_banner: false,
@@ -2141,7 +2132,8 @@ if (document.getElementById("settings")) {
             this.getSitePaymentOptions();
             this.getBreadcrumbsSettings();
         },
-        ready: function () { },
+        ready: function () {
+        },
         methods: {
             getHomeSectionDisplaySetting: function () {
                 let self = this;
@@ -2230,7 +2222,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitChatSettings: function () {
                 let chatForm = document.getElementById('submit-chat-form');
@@ -2245,7 +2238,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             uploadDashboardIcons: function () {
                 let upload_icon_form = document.getElementById('upload_dashboard_icon');
@@ -2263,7 +2257,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitThemeStylingSettings: function () {
                 let settings_form = document.getElementById('styling-setting-form');
@@ -2281,7 +2276,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitFooterSettings: function () {
                 let footersettings = document.getElementById('footer-setting-form');
@@ -2296,7 +2292,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitAccessType: function () {
                 let footersettings = document.getElementById('acces_types_form');
@@ -2311,7 +2308,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitSocialSettings: function () {
                 let socialsettings = document.getElementById('social-management');
@@ -2326,7 +2324,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitSearchMenu: function () {
                 let searchMenu = document.getElementById('search-menu');
@@ -2361,7 +2360,8 @@ if (document.getElementById("settings")) {
                         }
 
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitPaypalSettings: function () {
                 let payment_settings = document.getElementById('payment-form');
@@ -2426,7 +2426,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitHomeSettings: function () {
                 let settings_form = document.getElementById('home-settings-form');
@@ -2443,7 +2444,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitSectionSettings: function () {
                 let settings_form = document.getElementById('section-settings-form');
@@ -2462,7 +2464,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitServicesSectionSettings: function () {
                 let settings_form = document.getElementById('services-sec-settings');
@@ -2479,7 +2482,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             removeImage: function (id) {
                 if (id == 'hidden_site_logo') {
@@ -2687,7 +2691,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             getInnerPageSettings: function () {
                 let self = this;
@@ -2765,7 +2770,8 @@ if (document.getElementById("settings")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             getBreadcrumbsSettings: function () {
                 let self = this;
@@ -2869,10 +2875,10 @@ if (document.getElementById("profile_settings")) {
                                     self.showError(response.data.msg);
                                 } else {
                                     setTimeout(function () {
-                                        swal({
-                                            type: "success"
-                                        })
-                                    },
+                                            swal({
+                                                type: "success"
+                                            })
+                                        },
                                         self.showInfo(response.data.acc_del), 1000);
                                     window.location.href = APP_URL + '/';
                                 }
@@ -2975,15 +2981,15 @@ if (document.getElementById("post_job")) {
                 flashVue.$emit('showFlashMessage');
             }
         },
-        components: { 'vue-cal': vuecal, VueTimepicker },
+        components: {'vue-cal': vuecal, VueTimepicker},
         data: {
-            calendarPlugins: [  ],
+            calendarPlugins: [],
             events: [],
-            availability_title:"",
-            availability_content:"",
-            availability_start_time:"",
-            availability_end_time:"",
-            clickedDate:"",
+            availability_title: "",
+            availability_content: "",
+            availability_start_time: "",
+            availability_end_time: "",
+            clickedDate: "",
             title: '',
             project_level: '',
             job_duration: '',
@@ -3025,20 +3031,19 @@ if (document.getElementById("post_job")) {
                     }
                 }
             },
-            selecteddate:"",
-            start:"",
-            end:"",
-            description:"",
+            selecteddate: "",
+            start: "",
+            end: "",
+            description: "",
             currentEvent: {},
         },
         created: function () {
             this.getSettings();
             var events = [];
             let self = this;
-            axios.get('/employer/getCalendarEvents').then(function(response){
+            axios.get('/employer/getCalendarEvents').then(function (response) {
                 console.log(this);
-                if(response)
-                {
+                if (response) {
                     self.events = response.data;
                 }
             });
@@ -3046,7 +3051,7 @@ if (document.getElementById("post_job")) {
 
         },
         methods: {
-            setBooking(e){
+            setBooking(e) {
                 e.preventDefault();
 
                 console.log({
@@ -3064,17 +3069,15 @@ if (document.getElementById("post_job")) {
                     class: 'booking_calendar',
                 });
             },
-            changeSelectedDate(date)
-            {
-              this.selecteddate = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-              // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
-              // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
-              },
-            preventClick(){
+            changeSelectedDate(date) {
+                this.selecteddate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
+                // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
+            },
+            preventClick() {
 
             },
-            changeview(e)
-            {
+            changeview(e) {
                 e.preventDefault();
                 vuecal.switchView('day');
             },
@@ -3332,7 +3335,7 @@ if (document.getElementById("jobs")) {
                     });
             },
             check_auth: function (job) {
-                axios.get(APP_URL + '/check-proposal-auth-user', { params: { job }})
+                axios.get(APP_URL + '/check-proposal-auth-user', {params: {job}})
                     .then((response) => {
                         if (response.data.auth) {
                             window.location.pathname = `/job/proposal/${job}`;
@@ -3437,10 +3440,10 @@ if (document.getElementById("jobs")) {
             submitRefund: function (job_id) {
                 this.loading = true;
                 var self = this;
-                var job_id = $('#refundable-job-id-'+job_id).val();
-                var selected_user = $("#refundable_user_id-"+job_id).val();
-                var refundable_amount = $('#refundable-amount-'+job_id).val();
-                var order_id = $('#refundable-order-id-'+job_id).val();
+                var job_id = $('#refundable-job-id-' + job_id).val();
+                var selected_user = $("#refundable_user_id-" + job_id).val();
+                var refundable_amount = $('#refundable-amount-' + job_id).val();
+                var order_id = $('#refundable-order-id-' + job_id).val();
                 let form = document.getElementById('submit_refund_' + job_id);
                 let form_data = new FormData(form);
                 form_data.append('refundable_user_id', selected_user);
@@ -3523,7 +3526,8 @@ if (document.getElementById("jobs")) {
                                 })
                         },
                         allowOutsideClick: () => !this.$swal.isLoading()
-                    }).then((result) => { })
+                    }).then((result) => {
+                    })
                 }
                 if (status == "completed") {
                     this.$refs.myModalRef.show()
@@ -3558,7 +3562,8 @@ if (document.getElementById("jobs")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             submitDispute: function (id) {
                 this.loading = true;
@@ -3576,7 +3581,8 @@ if (document.getElementById("jobs")) {
                             setTimeout(function () {
                                 window.location.replace(APP_URL + '/freelancer/dashboard');
                             }, 2000);
-                        } if (response.data.type == 'error') {
+                        }
+                        if (response.data.type == 'error') {
                             self.loading = false;
                             self.showError(message);
                         }
@@ -3629,7 +3635,8 @@ if (document.getElementById("jobs")) {
 if (document.getElementById("proposals")) {
     const vproposals = new Vue({
         el: '#proposals',
-        mounted: function () { },
+        mounted: function () {
+        },
         data: {},
         methods: {}
     });
@@ -3743,8 +3750,8 @@ if (document.getElementById("packages")) {
                                 }
                             }
                         }).catch(function (error) {
-                            console.log(error);
-                        });
+                        console.log(error);
+                    });
                 }
             },
             getPurchasePackage: function (id) {
@@ -3759,7 +3766,8 @@ if (document.getElementById("packages")) {
                             self.showError(response.data.message);
                         }
                     })
-                    .catch(function (error) { });
+                    .catch(function (error) {
+                    });
             },
             getStriprForm: function () {
                 this.$refs.myModalRef.show()
@@ -3799,9 +3807,9 @@ if (document.getElementById("invoice_list")) {
             this.getUserPayoutSettings();
         },
         data: {
-            show_paypal_fields:false,
-            show_bank_fields:false,
-            loading:false,
+            show_paypal_fields: false,
+            show_bank_fields: false,
+            loading: false,
             notificationSystem: {
                 options: {
                     success: {
@@ -4094,36 +4102,36 @@ if (document.getElementById("invoice_list")) {
                 let form_data = new FormData(Form);
                 form_data.append('id', id);
                 axios.post(APP_URL + '/user/update-payout-detail', form_data)
-                .then(function (response) {
-                    if (response.data.type == 'success') {
+                    .then(function (response) {
+                        if (response.data.type == 'success') {
+                            self.loading = false;
+                            self.showMessage(response.data.message);
+                        } else {
+                            self.loading = false;
+                            self.showError(response.data.message);
+                        }
+                    })
+                    .catch(function (error) {
                         self.loading = false;
-                        self.showMessage(response.data.message);
-                    } else {
-                        self.loading = false;
-                        self.showError(response.data.message);
-                    }
-                })
-                .catch(function (error) {
-                    self.loading = false;
-                });
+                    });
             },
-            getUserPayoutSettings: function() {
+            getUserPayoutSettings: function () {
                 var self = this;
                 axios.get(APP_URL + '/user/get-payout-detail')
-                .then(function (response) {
-                    if (response.data.type == 'success') {
-                        if(response.data.payouts.type == 'paypal') {
-                            self.show_paypal_fields = true;
-                        } else if (response.data.payouts.type == 'bacs') {
-                            self.show_bank_fields = true;
+                    .then(function (response) {
+                        if (response.data.type == 'success') {
+                            if (response.data.payouts.type == 'paypal') {
+                                self.show_paypal_fields = true;
+                            } else if (response.data.payouts.type == 'bacs') {
+                                self.show_bank_fields = true;
+                            }
+                        } else {
+
                         }
-                    } else {
+                    })
+                    .catch(function (error) {
 
-                    }
-                })
-                .catch(function (error) {
-
-                });
+                    });
             },
             getPayouts: function () {
                 var year = document.getElementById('payout_year').value;
@@ -4507,7 +4515,8 @@ if (document.getElementById("services")) {
                                 })
                         },
                         allowOutsideClick: () => !this.$swal.isLoading()
-                    }).then((result) => { })
+                    }).then((result) => {
+                    })
                 } else if (status == "completed") {
                     this.$refs.myModalRef.show()
                 }
@@ -4568,8 +4577,8 @@ if (document.getElementById("services")) {
             submitRefund: function (order_id) {
                 this.loading = true;
                 var self = this;
-                var refundable_amount = $('#refundable-amount-'+order_id).val();
-                var selected_user = $("#refundable_user_id-"+order_id).val();
+                var refundable_amount = $('#refundable-amount-' + order_id).val();
+                var selected_user = $("#refundable_user_id-" + order_id).val();
                 let form = document.getElementById('submit_refund_' + order_id);
                 let form_data = new FormData(form);
                 form_data.append('amount', refundable_amount);
@@ -4604,7 +4613,7 @@ if (document.getElementById("services")) {
     });
 }
 
-jQuery('#plusQual').click(function(){
+jQuery('#plusQual').click(function () {
     var htmlstring = '<tr>\n' +
         '                                                                            <td><input type="text"\n' +
         '                                                                                       class="form-control"\n' +
@@ -4629,13 +4638,12 @@ var $ = jQuery;
 
 jQuery(function () {
     jQuery('#multiselect').multiselect({
-        buttonWidth : '100%',
-        includeSelectAllOption : true,
+        buttonWidth: '100%',
+        includeSelectAllOption: true,
         nonSelectedText: 'Select Days'
     });
     var jsonValue = jQuery('#multiselect').attr('data-dbvalue');
-    if(jsonValue && jsonValue != "")
-    {
+    if (jsonValue && jsonValue != "") {
         var jsonValue = jsonValue.replace("&#34;", '"');
 
         var arrSelected = JSON.parse(jsonValue);
@@ -4644,161 +4652,168 @@ jQuery(function () {
     }
 });
 
-$('.timerange').on('click', function(e) {
+var timerangeWindow = false;
+$('.timerange').on('click', function (e) {
     e.stopPropagation();
-    var input = $(this).find('input');
+    if (!timerangeWindow) {
+        var input = $(this).find('input');
 
-    var now = new Date();
-    var hours = now.getHours();
-    var period = "PM";
-    if (hours < 12) {
-        period = "AM";
-    } else {
-        hours = hours - 11;
-    }
-    var minutes = now.getMinutes();
-
-    var range = {
-        from: {
-            hour: hours,
-            minute: minutes,
-            period: period
-        },
-        to: {
-            hour: hours,
-            minute: minutes,
-            period: period
+        var now = new Date();
+        var hours = now.getHours();
+        var period = "PM";
+        if (hours < 12) {
+            period = "AM";
+        } else {
+            hours = hours - 11;
         }
-    };
+        var minutes = now.getMinutes();
 
-    if (input.val() !== "") {
-        var timerange = input.val();
-        var matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
-        if( matches.length === 7) {
-            range = {
-                from: {
-                    hour: matches[1],
-                    minute: matches[2],
-                    period: matches[3]
-                },
-                to: {
-                    hour: matches[4],
-                    minute: matches[5],
-                    period: matches[6]
+        var range = {
+            from: {
+                hour: hours,
+                minute: minutes,
+                period: period
+            },
+            to: {
+                hour: hours,
+                minute: minutes,
+                period: period
+            }
+        };
+
+        if (input.val() !== "") {
+            var timerange = input.val();
+            var matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            if (matches.length === 7) {
+                range = {
+                    from: {
+                        hour: matches[1],
+                        minute: matches[2],
+                        period: matches[3]
+                    },
+                    to: {
+                        hour: matches[4],
+                        minute: matches[5],
+                        period: matches[6]
+                    }
                 }
             }
         }
-    };
-    console.log(range);
+        ;
+        console.log(range);
 
-    var html = '<div class="timerangepicker-container">'+
-        '<div class="timerangepicker-from">'+
-        '<label class="timerangepicker-label">From:</label>' +
-        '<div class="timerangepicker-display hour">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">'+('0' + range.from.hour).substr(-2)+'</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        ':' +
-        '<div class="timerangepicker-display minute">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">'+('0' + range.from.minute).substr(-2)+'</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        ':' +
-        '<div class="timerangepicker-display period">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">PM</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        '</div>' +
-        '<div class="timerangepicker-to">' +
-        '<label class="timerangepicker-label">To:</label>' +
-        '<div class="timerangepicker-display hour">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">'+('0' + range.to.hour).substr(-2)+'</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        ':' +
-        '<div class="timerangepicker-display minute">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">'+('0' + range.to.minute).substr(-2)+'</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        ':' +
-        '<div class="timerangepicker-display period">' +
-        '<span class="increment fa fa-angle-up"></span>' +
-        '<span class="value">PM</span>' +
-        '<span class="decrement fa fa-angle-down"></span>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
+        var html = '<div class="timerangepicker-container">' +
+            '<div class="timerangepicker-from">' +
+            '<label class="timerangepicker-label">From:</label>' +
+            '<div class="timerangepicker-display hour">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">' + ('0' + range.from.hour).substr(-2) + '</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            ':' +
+            '<div class="timerangepicker-display minute">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">' + ('0' + range.from.minute).substr(-2) + '</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            ':' +
+            '<div class="timerangepicker-display period">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">PM</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="timerangepicker-to">' +
+            '<label class="timerangepicker-label">To:</label>' +
+            '<div class="timerangepicker-display hour">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">' + ('0' + range.to.hour).substr(-2) + '</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            ':' +
+            '<div class="timerangepicker-display minute">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">' + ('0' + range.to.minute).substr(-2) + '</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            ':' +
+            '<div class="timerangepicker-display period">' +
+            '<span class="increment fa fa-angle-up"></span>' +
+            '<span class="value">PM</span>' +
+            '<span class="decrement fa fa-angle-down"></span>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
 
-    $(html).insertAfter(this);
-    $('.timerangepicker-container').on(
-        'click',
-        '.timerangepicker-display.hour .increment',
-        function(){
-            var value = $(this).siblings('.value');
-            value.text(
-                increment(value.text(), 12, 1, 2)
-            );
-        }
-    );
+        $(html).insertAfter(this);
+        timerangeWindow = true;
+        $('.timerangepicker-container').on(
+            'click',
+            '.timerangepicker-display.hour .increment',
+            function () {
+                var value = $(this).siblings('.value');
+                value.text(
+                    increment(value.text(), 12, 1, 2)
+                );
+            }
+        );
 
-    $('.timerangepicker-container').on(
-        'click',
-        '.timerangepicker-display.hour .decrement',
-        function(){
-            var value = $(this).siblings('.value');
-            value.text(
-                decrement(value.text(), 12, 1, 2)
-            );
-        }
-    );
+        $('.timerangepicker-container').on(
+            'click',
+            '.timerangepicker-display.hour .decrement',
+            function () {
+                var value = $(this).siblings('.value');
+                value.text(
+                    decrement(value.text(), 12, 1, 2)
+                );
+            }
+        );
 
-    $('.timerangepicker-container').on(
-        'click',
-        '.timerangepicker-display.minute .increment',
-        function(){
-            var value = $(this).siblings('.value');
-            value.text(
-                increment(value.text(), 59, 0 , 2)
-            );
-        }
-    );
+        $('.timerangepicker-container').on(
+            'click',
+            '.timerangepicker-display.minute .increment',
+            function () {
+                var value = $(this).siblings('.value');
+                value.text(
+                    increment(value.text(), 59, 0, 2)
+                );
+            }
+        );
 
-    $('.timerangepicker-container').on(
-        'click',
-        '.timerangepicker-display.minute .decrement',
-        function(){
-            var value = $(this).siblings('.value');
-            value.text(
-                decrement(value.text(), 12, 1, 2)
-            );
-        }
-    );
+        $('.timerangepicker-container').on(
+            'click',
+            '.timerangepicker-display.minute .decrement',
+            function () {
+                var value = $(this).siblings('.value');
+                value.text(
+                    decrement(value.text(), 12, 1, 2)
+                );
+            }
+        );
 
-    $('.timerangepicker-container').on(
-        'click',
-        '.timerangepicker-display.period .increment, .timerangepicker-display.period .decrement',
-        function(){
-            var value = $(this).siblings('.value');
-            var next = value.text() == "PM" ? "AM" : "PM";
-            value.text(next);
-        }
-    );
+        $('.timerangepicker-container').on(
+            'click',
+            '.timerangepicker-display.period .increment, .timerangepicker-display.period .decrement',
+            function () {
+                var value = $(this).siblings('.value');
+                var next = value.text() == "PM" ? "AM" : "PM";
+                value.text(next);
+            }
+        );
+
+    }
+
+
 
 });
 
 
-
 $(document).on('click', e => {
 
-    if(!$(e.target).closest('.timerangepicker-container').length) {
-        if($('.timerangepicker-container').is(":visible")) {
+    if (!$(e.target).closest('.timerangepicker-container').length) {
+        if ($('.timerangepicker-container').is(":visible")) {
             var timerangeContainer = $('.timerangepicker-container');
-            if(timerangeContainer.length > 0) {
+            if (timerangeContainer.length > 0) {
                 var timeRange = {
                     from: {
                         hour: timerangeContainer.find('.value')[0].innerText,
@@ -4813,14 +4828,15 @@ $(document).on('click', e => {
                 };
 
                 timerangeContainer.parent().find('input').val(
-                    timeRange.from.hour+":"+
-                    timeRange.from.minute+" "+
-                    timeRange.from.period+"-"+
-                    timeRange.to.hour+":"+
-                    timeRange.to.minute+" "+
+                    timeRange.from.hour + ":" +
+                    timeRange.from.minute + " " +
+                    timeRange.from.period + "-" +
+                    timeRange.to.hour + ":" +
+                    timeRange.to.minute + " " +
                     timeRange.to.period
                 );
                 timerangeContainer.remove();
+                timerangeWindow = false;
             }
         }
     }
@@ -4839,7 +4855,8 @@ function increment(value, max, min, size) {
 
 function decrement(value, max, min, size) {
     var intValue = parseInt(value);
-    if (intValue == min) {register_form
+    if (intValue == min) {
+        register_form
         return ('0' + max).substr(-size);
     } else {
         var next = intValue - 1;
@@ -4847,30 +4864,29 @@ function decrement(value, max, min, size) {
     }
 }
 
-$(document).ready(function(){
-    setTimeout(function()
-    {
-       $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
-       $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
-       $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+$(document).ready(function () {
+    setTimeout(function () {
+        $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
+        $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
     }, 2000);
 
-    $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function(){
+    $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function () {
         $('#post_job .bookbutton').remove();
-       // $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
+        // $('#post_job .vuecal__cell-date').after('<button class="bookbutton">Book</button>');
 
     });
-    $('#calendar_btn, .selectDatePicker').click(function(event) {
+    $('#calendar_btn, .selectDatePicker').click(function (event) {
         event.stopPropagation();
 
         $('#calendar_small').toggle("slow", function () {
         });
     });
-    $(window).click(function() {
+    $(window).click(function () {
         $('#calendar_small').slideUp('slow');
     });
 
-    $(document).on('click', '#employer_availability .vuecal__menu, #employer_availability .vuecal__title-bar,     #freelancer_availability .vuecal__menu, #freelancer_availability .vuecal__title-bar', function(){
+    $(document).on('click', '#employer_availability .vuecal__menu, #employer_availability .vuecal__title-bar,     #freelancer_availability .vuecal__menu, #freelancer_availability .vuecal__title-bar', function () {
         $('#employer_availability .bookbutton').remove();
         $('#freelancer_availability .bookbutton').remove();
         $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
@@ -4879,26 +4895,24 @@ $(document).ready(function(){
     });
 
 
-    $(document).on('click', '.bookbutton, .availButton', function(){
+    $(document).on('click', '.bookbutton, .availButton', function () {
         //$('.vuecal ').slideUp();
         $('html, body').animate({
             scrollTop: ($(".classScrollTo").offset().top)
         }, 1000);
     });
-    $(document).on('click', '.openCal', function(){
-       // $('.vuecal ').slideDown();
+    $(document).on('click', '.openCal', function () {
+        // $('.vuecal ').slideDown();
         $('#post_job .bookbutton').remove();
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
 
-    $('.ratePicker').on('change', function(){
-        if(!isNaN($(this).val()))
-        {
-            $(this).val('£ '+ parseFloat($(this).val()));
+    $('.ratePicker').on('change', function () {
+        if (!isNaN($(this).val())) {
+            $(this).val('£ ' + parseFloat($(this).val()));
 
         }
-        else
-        {
+        else {
             $(this).val("");
         }
     })
