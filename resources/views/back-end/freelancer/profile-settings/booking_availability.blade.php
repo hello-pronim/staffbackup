@@ -46,7 +46,7 @@
 
 
                                     <form>
-                                        <div class="form-group" style="margin-top: 25px;">
+                                        <div class="form-group classScrollTo" style="margin-top: 25px;">
                                             <label>Picked Date </label>
 
                                             <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="availability_selected_date">
