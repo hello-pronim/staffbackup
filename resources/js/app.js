@@ -648,7 +648,7 @@ if (document.getElementById("registration")) {
             },
             checkStep3: function (error_message) {
 
-                if ($('.paypalemail').val() != '') {
+                if ($('.paypalemail').val() && $('.paypalemail').val() != '') {
                     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
                     if (reg.test($('.paypalemail').val()) == false) {
