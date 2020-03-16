@@ -164,7 +164,7 @@ class Job extends Model
             $this->employer()->associate($user_id);
             $this->title = filter_var($request['title'], FILTER_SANITIZE_STRING);
             $this->slug = filter_var($request['title'], FILTER_SANITIZE_STRING);
-            $this->price = filter_var($request['project_cost'], FILTER_SANITIZE_STRING);
+            $this->price = "0";//filter_var($request['project_cost'], FILTER_SANITIZE_STRING);
             $this->project_level = filter_var($request['project_levels'], FILTER_SANITIZE_STRING);
             $this->description = $request['description'];
             $this->english_level = filter_var($request['english_level'], FILTER_SANITIZE_STRING);
