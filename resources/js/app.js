@@ -639,9 +639,62 @@ if (document.getElementById("registration")) {
                     self.next();
                 })
                     .catch(function (error) {
+						var error_data = error.response.data.errors; 
+                        if (error_data.emp_website) {
+                            self.form_step2.emp_website_error = error_data.emp_website[0];
+                            self.form_step2.is_emp_website_error = true;
+                        }
+                        if (error_data.pin) {
+                            self.form_step2.pin_error = error_data.pin[0];
+                            self.form_step2.is_pin_error = true;
+                        }
+                        if (error_data.pin_date_revalid) {
+                            self.form_step2.pin_date_revalid_error = error_data.pin_date_revalid[0];
+                            self.form_step2.is_pin_date_revalid_error = true;
+                        }
+                        if (error_data.straddress) {
+                            self.form_step2.straddress_error = error_data.straddress[0];
+                            self.form_step2.is_straddress_error = true;
+                        }
+                        if (error_data.city) {
+                            self.form_step2.city_error = error_data.city[0];
+                            self.form_step2.is_city_error = true;
+                        }
+                        if (error_data.postcode) {
+                            self.form_step2.postcode_error = error_data.postcode[0];
+                            self.form_step2.is_postcode_error = true;
+                        }
+                        if (error_data.emp_contact) {
+                            self.form_step2.emp_contact_error = error_data.emp_contact[0];
+                            self.form_step2.is_emp_contact_error = true;
+                        }
+                        if (error_data.emp_telno) {
+                            self.form_step2.emp_telno_error = error_data.emp_telno[0];
+                            self.form_step2.is_emp_telno_error = true;
+                        }
+                        if (error_data.emp_email) {
+                            self.form_step2.emp_email_error = error_data.emp_email[0];
+                            self.form_step2.is_emp_email_error = true;
+                        }
+                        if (error_data.emp_cqc_rating_date) {
+                            self.form_step2.emp_cqc_rating_date_error = error_data.emp_cqc_rating_date[0];
+                            self.form_step2.is_emp_cqc_rating_date_error = true;
+                        }
+                        if (error_data.emp_cqc_rating) {
+                            self.form_step2.emp_cqc_rating_error = error_data.emp_cqc_rating[0];
+                            self.form_step2.is_emp_cqc_rating_error = true;
+                        }
+                        if (error_data.org_type) {
+                            self.form_step2.org_type_error = error_data.org_type[0];
+                            self.form_step2.is_org_type_error = true;
+                        }
+                        if (error_data.direct_booking) {
+                            self.form_step2.direct_booking_error = error_data.direct_booking[0];
+                            self.form_step2.is_direct_booking_error = true;
+                        }
 
-                        if (error.response.data.errors.termsconditions) {
-                            self.form_step2.termsconditions_error = error.response.data.errors.termsconditions[0];
+                        if (error_data.termsconditions) {
+                            self.form_step2.termsconditions_error = error_data.termsconditions[0];
                             self.form_step2.is_termsconditions_error = true;
                         }
                     });

@@ -555,21 +555,33 @@
                                                        class="form-control"
                                                        name="straddress"
                                                        placeholder="Address"
-                                                >
+                                                       v-bind:class="{ 'is-invalid': form_step2.straddress_error }">
+                                                <span class="help-block"
+                                                      v-if="form_step2.straddress_error">
+													<strong v-cloak>@{{form_step2.straddress_error}}</strong>
+												</span>
                                             </div>
                                             <div class="form-group  form-group-half">
                                                 <input id="city" type="text"
                                                        class="form-control"
                                                        name="city"
                                                        placeholder="{{{ trans('lang.city') }}}"
-                                                >
+                                                       v-bind:class="{ 'is-invalid': form_step2.city_error }">
+                                                <span class="help-block"
+                                                      v-if="form_step2.city_error">
+													<strong v-cloak>@{{form_step2.city_error}}</strong>
+												</span>
                                             </div>
                                             <div class="form-group  form-group-half ">
                                                 <input id="postcode" type="text"
                                                        class="halfWidth form-control"
                                                        name="postcode"
                                                        placeholder="{{{ trans('lang.postcode') }}}"
-                                                >
+                                                       v-bind:class="{ 'is-invalid': form_step2.postcode_error }">
+                                                <span class="help-block"
+                                                      v-if="form_step2.postcode_error">
+													<strong v-cloak>@{{form_step2.postcode_error}}</strong>
+												</span>
                                             </div>
 
 
@@ -624,7 +636,10 @@
                                                                                    class="form-control"
                                                                                    name="emp_email"
                                                                                    placeholder="Email"
-                                                                            >
+																				   v-bind:class="{ 'is-invalid': form_step2.emp_email_error }">
+																			<span class="help-block"
+																				  v-if="form_step2.emp_email_error">
+																				<strong v-cloak>@{{form_step2.emp_email_error}}</strong>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="backup_emp_contact" type="text"
@@ -687,8 +702,12 @@
                                                                             service</label>
                                                                         <div class="form-group form-group-half ">
                                                                             <span class="wt-select">
-                                                                            {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type")) !!}
+                                                                            {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type", 'v-bind:class' => '{ "is-invalid": form_step2.org_type_error }')) !!}
                                                                             </span>
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.org_type_error">
+                                                                                    <strong v-cloak>@{{form_step2.org_type_error}}</strong>
+                                                                                </span>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
                                                                             <input id="org_desc" type="text"
@@ -713,7 +732,11 @@
                                                                             <input type="text"
                                                                                    class="halfWidth form-control"
                                                                                    name="pin"
-                                                                                   placeholder="Pin">
+																				   placeholder="Pin"
+																				   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
+																			<span class="help-block"
+																				  v-if="form_step2.pin_error">
+																				<strong v-cloak>@{{form_step2.pin_error}}</strong>
                                                                         </div>
                                                                         <div class="form-group form-group-half">
                                                                             <date-picker
@@ -722,7 +745,11 @@
                                                                                     class="form-control"
                                                                                     name="pin_date_revalid"
                                                                                     placeholder="Pin date of revalidation"
+																				    v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
                                                                             ></date-picker>
+																			<span class="help-block"
+																				  v-if="form_step2.pin_date_revalid_error">
+																				<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
                                                                         </div>
                                                                         <br>
 
@@ -781,16 +808,18 @@
                                                                                        placeholder="Direct Contact No">
                                                                             </div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <div>Professional Indemnity
-                                                                                Certificate:
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
+																		<div v-id="prof-indem-cretificate" v-if="user_role!='employer'">
+																			<div class="form-group">
+																				<div>Professional Indemnity
+																					Certificate:
+																				</div>
+																			</div>
+																			<div class="form-group form-group-half">
 
-                                                                            <input type="file" name="prof_ind_cert"
-                                                                                   class="form-control"
-                                                                                   accept=".pdf, image/*,.doc,.docx">
+																				<input type="file" name="prof_ind_cert"
+																					   class="form-control"
+																					   accept=".pdf, image/*,.doc,.docx">
+																			</div>
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
                                                                         {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
@@ -897,8 +926,12 @@
 
                                                                         <div class="form-group form-group-half">
                                                                             <span class="wt-select">
-                                                                            {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                                            {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings", 'v-bind:class' => '{ "is-invalid": form_step2.direct_booking_error }')) !!}
                                                                             </span>
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.direct_booking_error">
+                                                                                    <strong v-cloak>@{{form_step2.direct_booking_error}}</strong>
+                                                                                </span>
                                                                         </div>
                                                                         {{--<div class="form-group">--}}
                                                                         {{--<label>Session Advertised By</label>--}}

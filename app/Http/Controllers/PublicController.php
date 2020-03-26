@@ -121,13 +121,41 @@ class PublicController extends Controller
      */
     public function registerStep2Validation(Request $request)
     {
+		$validate_rules = [
+			'freelancer' => [
+                'pin' => 'required',
+                'pin_date_revalid' => 'required',
+				/*
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+				'' => 'required',
+				 */
+                'termsconditions' => 'required',
+			],
+			'employer' => [
+                'emp_website' => 'required',
+                'straddress' => 'required',
+                'city' => 'required',
+                'postcode' => 'required',
+                'emp_contact' => 'required',
+                'emp_telno' => 'required',
+                'emp_email' => 'required|email',
+                'emp_cqc_rating_date' => 'required',
+                'emp_cqc_rating' => 'required',
+                'org_type' => 'required',
+                'direct_booking' => 'required',
+                'termsconditions' => 'required',
+			],
+		];
         $this->validate(
             $request,
-            [
-
-                'termsconditions' => 'required',
-            ]
-        );
+			$validate_rules[$request['role']]
+		);
     }
 
     /**
