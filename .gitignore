@@ -17,3 +17,6 @@ phpunit.dusk.xml
 *.code-workspace
 storage/
 bootstrap/cache/
+
+docker-compose.yml
+docker/

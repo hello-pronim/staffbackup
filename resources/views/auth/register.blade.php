@@ -641,34 +641,6 @@
 																				  v-if="form_step2.emp_email_error">
 																				<strong v-cloak>@{{form_step2.emp_email_error}}</strong>
                                                                         </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_contact" type="text"
-                                                                                   class="form-control"
-                                                                                   name="backup_emp_contact"
-                                                                                   placeholder="Backup Company Contact"
-                                                                            >
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_email" type="email"
-                                                                                   class="form-control"
-                                                                                   name="backup_emp_email"
-                                                                                   placeholder="Backup Company Email"
-                                                                            >
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_pos" type="text"
-                                                                                   class="form-control"
-                                                                                   name="backup_emp_pos"
-                                                                                   placeholder="Backup Company Position"
-                                                                            >
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="backup_emp_tel" type="tel"
-                                                                                   class="form-control"
-                                                                                   name="backup_emp_tel"
-                                                                                   placeholder="Backup Company Tel"
-                                                                            >
-                                                                        </div>
 
 
                                                                         <div class="form-group">
@@ -681,6 +653,10 @@
                                                                             <span class="wt-select">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
                                                                             </span>
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.emp_cqc_rating_error">
+                                                                                    <strong v-cloak>@{{form_step2.emp_cqc_rating_date_error}}</strong>
+                                                                                </span>
 
                                                                         </div>
                                                                         <div class="form-group form-group-half">
@@ -702,7 +678,7 @@
                                                                             service</label>
                                                                         <div class="form-group form-group-half ">
                                                                             <span class="wt-select">
-                                                                            {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type", 'v-bind:class' => '{ "is-invalid": form_step2.org_type_error }')) !!}
+                                                                            {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type", 'v-bind:class' => '{ "is-invalid": form_step2.is_org_type_error }')) !!}
                                                                             </span>
                                                                             <span class="help-block"
                                                                                   v-if="form_step2.org_type_error">
@@ -728,28 +704,30 @@
                                                                                    placeholder="Other Setting">
                                                                         </div>
 
-                                                                        <div class="form-group form-group-half">
-                                                                            <input type="text"
-                                                                                   class="halfWidth form-control"
-                                                                                   name="pin"
-																				   placeholder="Pin"
-																				   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
-																			<span class="help-block"
-																				  v-if="form_step2.pin_error">
-																				<strong v-cloak>@{{form_step2.pin_error}}</strong>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <date-picker
-                                                                                    :config="{format: 'YYYY-MM-DD'}"
-                                                                                    value=""
-                                                                                    class="form-control"
-                                                                                    name="pin_date_revalid"
-                                                                                    placeholder="Pin date of revalidation"
-																				    v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
-                                                                            ></date-picker>
-																			<span class="help-block"
-																				  v-if="form_step2.pin_date_revalid_error">
-																				<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
+																		<div v-if="user_role=='freelancer'">
+																			<div class="form-group form-group-half">
+																				<input type="text"
+																					   class="halfWidth form-control"
+																					   name="pin"
+																					   placeholder="Pin"
+																					   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
+																				<span class="help-block"
+																					  v-if="form_step2.pin_error">
+																					<strong v-cloak>@{{form_step2.pin_error}}</strong>
+																			</div>
+																			<div class="form-group form-group-half">
+																				<date-picker
+																						:config="{format: 'YYYY-MM-DD'}"
+																						value=""
+																						class="form-control"
+																						name="pin_date_revalid"
+																						placeholder="Pin date of revalidation"
+																						v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
+																				></date-picker>
+																				<span class="help-block"
+																					  v-if="form_step2.pin_date_revalid_error">
+																					<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
+																			</div>
                                                                         </div>
                                                                         <br>
 
@@ -831,23 +809,6 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-select">
-                                                                            {!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "Computer System in use")) !!}
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-select">
-                                                                            {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half"
-                                                                             v-if="specialInterest=='Other'">
-                                                                            <input type="text"
-                                                                                   class="form-control"
-                                                                                   name="special_interests[]"
-                                                                                   placeholder="Other Special Interest">
-                                                                        </div>
                                                                         <div class="form-group">
                                                                             <div>Certificates –Vaccinations &
                                                                                 immunisation
@@ -870,29 +831,6 @@
                                                                                    class="form-control halfWidth"
                                                                                    name="appo_slot_times[]"
                                                                                    placeholder="Other Appointment Slot Times">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-select halfWidth">
-                                                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'adm_catch_time')) !!}
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half"
-                                                                             v-if="adm_catch_time=='Yes'">
-                                                                            <span class="wt-select halfWidth">
-                                                                            {!! Form::select('time_allowed[]', $arrAppo_slot_times, null, array('placeholder' => "Time Allocated", 'v-model'=>'timeAllocated')) !!}
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half"
-                                                                             v-if="timeAllocated=='Other' && adm_catch_time=='Yes'">
-                                                                            <input id="other_time_allo" type="text"
-                                                                                   class="form-control halfWidth"
-                                                                                   name="time_allowed[]"
-                                                                                   placeholder="Other Time Allocated">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-select halfWidth">
-                                                                            {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks",)) !!}
-                                                                            </span>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <span class="wt-select">
@@ -924,15 +862,6 @@
                                                                                    placeholder="Additional info">
                                                                         </div>
 
-                                                                        <div class="form-group form-group-half">
-                                                                            <span class="wt-select">
-                                                                            {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings", 'v-bind:class' => '{ "is-invalid": form_step2.direct_booking_error }')) !!}
-                                                                            </span>
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.direct_booking_error">
-                                                                                    <strong v-cloak>@{{form_step2.direct_booking_error}}</strong>
-                                                                                </span>
-                                                                        </div>
                                                                         {{--<div class="form-group">--}}
                                                                         {{--<label>Session Advertised By</label>--}}
                                                                         {{--</div>--}}
@@ -1068,21 +997,23 @@
                                                                     {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-group-half">
-                                                                    <input type="text"
-                                                                           class="halfWidth form-control halfWidth"
-                                                                           name="pin"
-                                                                           placeholder="Pin">
-                                                                </div>
-                                                                <div class="form-group form-group-half">
-                                                                    <date-picker :config="{format: 'YYYY-MM-DD'}"
+																<div v-if="user_role=='freelancer'">
+																	<div class="form-group form-group-half">
+																		<input type="text"
+																			   class="halfWidth form-control halfWidth"
+																			   name="pin"
+																			   placeholder="Pin">
+																	</div>
+																	<div class="form-group form-group-half">
+																		<date-picker :config="{format: 'YYYY-MM-DD'}"
 
-                                                                                 value=""
+																					 value=""
 
-                                                                                 class="form-control"
-                                                                                 name="pin_date_revalid"
-                                                                                 placeholder="Pin date of revalidation"
-                                                                    ></date-picker>
+																					 class="form-control"
+																					 name="pin_date_revalid"
+																					 placeholder="Pin date of revalidation"
+																		></date-picker>
+																	</div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <span class="wt-select">
