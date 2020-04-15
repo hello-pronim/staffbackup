@@ -148,6 +148,10 @@ class PublicController extends Controller
                 'emp_cqc_rating_date' => 'required',
                 'emp_cqc_rating' => 'required',
                 'org_type' => 'required',
+				'practice_code' => [
+					'required',
+					'regex:/(^([a-zA-Z]{1})([\d]+)?$)/u'
+				],
                 'termsconditions' => 'required',
 			],
 		];

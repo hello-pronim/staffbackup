@@ -381,6 +381,7 @@ class User extends Authenticatable
             $this->c_ltd_comp_name = filter_var(isset($request['c_ltd_comp_name']) ? $request['c_ltd_comp_name'] : "", FILTER_SANITIZE_STRING);
             $this->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
 
+            $this->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
 
             //It software
             $this->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);

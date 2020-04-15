@@ -848,6 +848,16 @@
                                                                                    name="payment_terms[]"
                                                                                    placeholder="Other Payment terms">
                                                                         </div>
+																		<div v-if="user_role=='employer'" class="form-group form-group-half">
+																			<input id="practice_code" type="text"
+																				   class="form-control"
+																				   name="practice_code"
+																				   placeholder="Practice Code"
+																				   v-bind:class="{ 'is-invalid': form_step2.is_practice_code_error }">
+																			<span class="help-block"
+																				  v-if="form_step2.practice_code_error">
+																				<strong v-cloak>@{{form_step2.practice_code_error}}</strong>
+																		</div>
                                                                         {{--<div class="form-group form-group-half ">--}}
                                                                         {{--<input id="hourly_rate" type="number"--}}
                                                                         {{--min="0"--}}

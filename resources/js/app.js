@@ -676,6 +676,10 @@ if (document.getElementById("registration")) {
                             self.form_step2.emp_email_error = error_data.emp_email[0];
                             self.form_step2.is_emp_email_error = true;
                         }
+                        if (error_data.practice_code) {
+                            self.form_step2.practice_code_error = error_data.practice_code[0];
+                            self.form_step2.is_practice_code_error = true;
+                        }
                         if (error_data.emp_cqc_rating_date) {
                             self.form_step2.emp_cqc_rating_date_error = error_data.emp_cqc_rating_date[0];
                             self.form_step2.is_emp_cqc_rating_date_error = true;
