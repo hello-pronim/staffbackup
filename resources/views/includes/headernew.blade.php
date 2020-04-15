@@ -18,7 +18,14 @@
 <header class="wt-header wt-haslayout {{$inner_header}}">
     <div class="container-fluid headernew">
         <div class="row ">
-            <img style="margin: 31px;" src="images/logo2.png"/>
+			<div class="logo-block">
+				<div>
+					<img style="" src="images/logo2.png"/>
+				</div>
+				<div class="logo-small-text">
+					<small>Dedicated to Primary Health Care</small>
+				</div>
+			</div>
             <div class="mainhomeMenu">
                 <ul id="newmenu" class="list-unstyled" style="list-style: none;">
                     <li><a href="{{url('/')}}">START BROWSING ADHOC STAFF</a></li>
@@ -35,10 +42,8 @@
         <div class="row" style="margin:0 auto;width: 850px;padding-bottom: 150px;">
 
             <div class="headingcenter text-center">
-                <h2>We connect professionals with the <br> people who need them most, (when they needed them).</h2>
-                <div>10 years professional clinical experience connecting surgeries and <br> healthcare stakeholders
-                    with adhoc and temporary staffing solutions
-                </div>
+                <h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>
+                <div>15 years professional clinical experience in Primary Health Care</div>
             </div>
             <div class="signupBtn">
                 <a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "SIGN-UP"}}</a>

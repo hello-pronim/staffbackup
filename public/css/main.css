@@ -8747,6 +8747,14 @@ ul li a{
 	margin:0 0 7px;
 }
 
+.logo-block img {
+	margin: 31px 31px 5px 31px;
+}
+
+.logo-block .logo-small-text {
+	text-align: center;
+	color: #fff;
+}
 
 
 input[type=number]::-webkit-inner-spin-button,
