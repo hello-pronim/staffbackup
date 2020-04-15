@@ -236,6 +236,8 @@ return [
     'account_settings_saved' => 'Hesap ayarları kaydedildi',
     'have_account' => 'Zaten hesabınız var mı?',
     'pro_info' => 'Mesleki Bilgi',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'bilgi',
     'join_for_good' => 'İyi Bir Başlangıç ​​İçin Katılın',
     'join_for_good_reason' => 'İyi sebeplerden birine katılın ve kendinize fayda!',

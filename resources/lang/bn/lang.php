@@ -232,6 +232,8 @@ return [
     'account_settings_saved' => 'অ্যাকাউন্ট সেটিংস সংরক্ষিত',
     'have_account' => 'ইতিমধ্যে একটি সদস্যপদ আছে?',
     'pro_info' => 'পেশাগত তথ্য',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'তথ্য',
     'join_for_good' => 'একটি ভাল শুরু জন্য যোগ দিন',
     'join_for_good_reason' => 'ভাল কারণে যোগদান এবং নিজেকে উপকৃত!',

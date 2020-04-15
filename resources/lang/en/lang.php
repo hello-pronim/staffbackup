@@ -250,6 +250,8 @@ return [
     'account_settings_saved' => 'Account settings saved',
     'have_account' => 'Already Have an Account? ',
     'pro_info' => 'Professional Info',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'info',
     'join_for_good' => 'Join the Team',
     //'join_for_good_reason' => 'Join for good reasons and benefit yourself!',

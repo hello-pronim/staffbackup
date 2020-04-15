@@ -235,6 +235,8 @@ return [
     'account_settings_saved' => 'Configuraciones de cuenta guardadas',
     'have_account' => '¿Ya tienes una cuenta?',
     'pro_info' => 'Informacion profesional',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'info',
     'join_for_good' => 'Únete para un buen comienzo',
     'join_for_good_reason' => 'Únete por buenas razones y benefíciate!',

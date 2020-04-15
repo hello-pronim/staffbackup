@@ -9,6 +9,8 @@
         $reg_one_title = !empty($register_form) && !empty($register_form[0]['step1-title']) ? $register_form[0]['step1-title'] : trans('lang.join_for_good');
         $reg_one_subtitle = !empty($register_form) && !empty($register_form[0]['step1-subtitle']) ? $register_form[0]['step1-subtitle'] : trans('lang.join_for_good_reason');
         $reg_two_title = !empty($register_form) && !empty($register_form[0]['step2-title']) ? $register_form[0]['step2-title'] : trans('lang.pro_info');
+        $reg_two_employer_title = !empty($register_form) && !empty($register_form[0]['step2-title']) ? $register_form[0]['step2-title'] : trans('lang.pro_info_employer');
+        $reg_two_support_title = !empty($register_form) && !empty($register_form[0]['step2-title']) ? $register_form[0]['step2-title'] : trans('lang.pro_info_support');
         $reg_two_subtitle = !empty($register_form) && !empty($register_form[0]['step2-subtitle']) ? $register_form[0]['step2-subtitle'] : '';
         $term_note = !empty($register_form) && !empty($register_form[0]['step2-term-note']) ? $register_form[0]['step2-term-note'] : trans('lang.agree_terms');
         $reg_three_title = !empty($register_form) && !empty($register_form[0]['step3-title']) ? $register_form[0]['step3-title'] : trans('lang.almost_there');
@@ -515,7 +517,9 @@
                                         <fieldset class="wt-registerformgroup">
                                             <div class="wt-registerhead">
                                                 <div class="wt-title">
-                                                    <h3>{{{ $reg_two_title }}}</h3>
+                                                    <h3 v-if="user_role=='employer'">{{{ $reg_two_employer_title }}}</h3>
+                                                    <h3 v-if="user_role=='freelancer'">{{{ $reg_two_title }}}</h3>
+													<h3 v-if="user_role=='support'">{{{ $reg_two_support_title }}}</h3>
                                                 </div>
                                                 @if (!empty($reg_two_subtitle))
                                                     <div class="wt-description">

@@ -247,6 +247,8 @@ return [
     'account_settings_saved' => 'تم حفظ إعدادات الحساب',
     'have_account' => 'هل لديك حساب؟',
     'pro_info' => 'معلومات احترافية',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'معلومات',
     'join_for_good' => 'انضم لبداية جيدة',
     'join_for_good_reason' => 'انضم لأسباب وجيهة واستفد من نفسك!',

@@ -227,6 +227,8 @@ return [
     'account_settings_saved' => 'アカウント設定を保存しました',
     'have_account' => 'すでにアカウントをお持ちですか？',
     'pro_info' => '専門的な情報',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => '情報',
     'join_for_good' => '良いスタートを切る',
     'join_for_good_reason' => '正当な理由で参加して、自分のためになるのです！',

@@ -235,6 +235,8 @@ return [
     'account_settings_saved' => '帐户设置已保存',
     'have_account' => '已经拥有账户？',
     'pro_info' => '专业信息',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => '信息',
     'join_for_good' => '加入一个好的开始',
     'join_for_good_reason' => '加入有充分的理由，让自己受益！',

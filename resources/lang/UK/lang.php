@@ -235,6 +235,8 @@ return [
     'account_settings_saved' => 'Налаштування облікового запису збережено',
     'have_account' => 'Вже є аккаунт?',
     'pro_info' => 'Професійна інформація',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'інформація',
     'join_for_good' => 'Приєднуйтесь до хорошого початку',
     'join_for_good_reason' => 'Приєднуйтесь з поважних причин і користі собі!',

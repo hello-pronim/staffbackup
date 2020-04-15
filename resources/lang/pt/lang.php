@@ -230,6 +230,8 @@ return [
     'account_settings_saved' => 'Configurações da conta salvas',
     'have_account' => 'Já tem uma conta?',
     'pro_info' => 'Informação Profissional',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'info',
     'join_for_good' => 'Junte-se para um bom começo',
     'join_for_good_reason' => 'Junte-se por boas razões e beneficie-se!',

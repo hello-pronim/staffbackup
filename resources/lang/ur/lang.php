@@ -247,6 +247,8 @@ return [
     'account_settings_saved' => 'اکاؤنٹ کی ترتیبات محفوظ ہوگئیں',
     'have_account' => 'پہلے سے ہی ایک اکاؤنٹ ہے؟',
     'pro_info' => 'پیشہ ورانہ معلومات',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'معلومات',
     'join_for_good' => 'ایک اچھا آغاز کے لئے شامل',
     'join_for_good_reason' => 'اچھی وجوہات کے لۓ اپنے آپ کو فائدہ اٹھائیں!',

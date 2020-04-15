@@ -238,6 +238,8 @@ return [
     'account_settings_saved' => 'Paramètres du compte enregistrés',
     'have_account' => 'Vous avez déjà un compte?',
     'pro_info' => 'Info professionnelle',
+    'pro_info_employer' => 'Organisation Info',
+    'pro_info_support' => 'Personal Info',
     'info' => 'Info',
     'join_for_good' => 'Rejoignez pour un bon départ',
     'join_for_good_reason' => 'Rejoignez-nous pour de bonnes raisons et profitez-en!',
