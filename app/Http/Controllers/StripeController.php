@@ -393,4 +393,26 @@ class StripeController extends Controller
             return $json;
         }
     }
+
+	public function getPlans(){
+		$def = [
+			'plan_G6DvQf9zdEGczW'=>'6 Months',
+			'plan_G6DvMJGDvP6wGz'=>'3 Months',
+			'plan_G6DuLUGgkizyrs'=>'Monthly'
+		];
+		if (empty(env('STRIPE_SECRET'))) {
+			return $def;
+		}
+		\Artisan::call('optimize:clear');
+		$stripe = Stripe::make(env('STRIPE_SECRET'));
+		$data = $stripe->plans()->all();
+		$ret = [];
+		if($data['data']){
+			foreach((array) $data['data'] as $k => $v){
+				$ret[$v['id']] = $v['interval'];
+
+			}
+		}
+		return $ret;
+	}
 }
