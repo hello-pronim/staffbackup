@@ -55,5 +55,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ResponseTimeSeeder::class);
         $this->call(ServiceUserSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(RoleSupportSeeder::class);
+        $this->call(ModelRoleSupportSeeder::class);
     }
 }
