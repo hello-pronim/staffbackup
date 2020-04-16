@@ -395,11 +395,15 @@ class StripeController extends Controller
     }
 
 	public function getPlans(){
+		// 30 days freeThen £10.00 per month
+		// 39 days freeThen £40.00 every 6 months
+		// 30 days freeThen £25.00 every 3 months
 		$def = [
-			'plan_G6DvQf9zdEGczW'=>'6 Months',
-			'plan_G6DvMJGDvP6wGz'=>'3 Months',
-			'plan_G6DuLUGgkizyrs'=>'Monthly'
+			'plan_G6DvQf9zdEGczW'=>'39 days free, then £40.00 every 6 months',
+			'plan_G6DvMJGDvP6wGz'=>'30 days free, then £25.00 every 3 months',
+			'plan_G6DuLUGgkizyrs'=>'30 days free, then £10.00 per month'
 		];
+		return $def;
 		if (empty(env('STRIPE_SECRET'))) {
 			return $def;
 		}
