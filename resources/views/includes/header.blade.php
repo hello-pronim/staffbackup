@@ -17,7 +17,16 @@
                         {{ Helper::displayEmailWarning() }}
                     @endauth
                     @if (!empty($logo) || Schema::hasTable('site_managements'))
-                        <strong class="wt-logo"><a href="{{{ url('/') }}}"><img src="{{{ asset($logo) }}}" alt="{{{ trans('Logo') }}}"></a></strong>
+					<div class="wt-leftarea">
+						<div>
+								<a href="{{{ url('/') }}}">
+									<img src="{{{ asset($logo) }}}" alt="{{{ trans('Logo') }}}">
+								</a>
+						</div>
+						<div class="logo-small-text" style="color: #fff;">
+							<small>Dedicated to Primary Health Care</small>
+						</div>
+					</div>
                     @endif
 
                     <div class="wt-rightarea" style="height: 80px;">
