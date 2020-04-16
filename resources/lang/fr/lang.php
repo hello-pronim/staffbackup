@@ -690,6 +690,7 @@ return [
     'details' => 'Détails',
     'job_proposal' => 'Proposition d\'emploi',
     'employers' => 'Employeurs',
+    'support' => 'Personal',
     'freelancers' => 'Pigistes',
     'add_experience' => '+ Ajouter une expérience',
     'add_your_exp' => 'Ajoutez votre expérience',

@@ -66,6 +66,10 @@
                 <div   style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
                      @click="changeSearchType('freelancer')">Professional
                 </div>
+
+                <div   style="width: 33%" v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'support')}"
+                     @click="changeSearchType('support')">Support Workers
+                </div>
             </div>
 
             <div class="form-group" style="width: 15%;">

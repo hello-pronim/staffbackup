@@ -684,6 +684,7 @@ return [
     'details' => 'বিস্তারিত',
     'job_proposal' => 'কাজের প্রস্তাব',
     'employers' => 'নিয়োগকর্তা',
+    'support' => 'Personal',
     'freelancers' => 'ফ্রিল্যান্সাররা',
     'add_experience' => '+ অভিজ্ঞতা যোগ করুন',
     'add_your_exp' => 'আপনার অভিজ্ঞতা যোগ করুন',

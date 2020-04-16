@@ -687,6 +687,7 @@ return [
     'details' => '细节',
     'job_proposal' => '工作建议',
     'employers' => '雇主',
+    'support' => 'Personal',
     'freelancers' => '自由职业者',
     'add_experience' => '+添加经验',
     'add_your_exp' => '添加您的经验',

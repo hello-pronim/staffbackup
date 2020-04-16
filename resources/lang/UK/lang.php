@@ -692,6 +692,7 @@ return [
     'details' => 'Деталі',
     'job_proposal' => 'Робоча пропозиція',
     'employers' => 'Роботодавці',
+    'support' => 'Personal',
     'freelancers' => 'Фрілансери',
     'add_experience' => '+ Додати досвід',
     'add_your_exp' => 'Додайте свій досвід',

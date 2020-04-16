@@ -137,6 +137,19 @@ class PublicController extends Controller
 				 */
                 'termsconditions' => 'required',
 			],
+			'support' => [
+				/*
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+                '' => 'required',
+				'' => 'required',
+				 */
+                'termsconditions' => 'required',
+			],
 			'employer' => [
                 'emp_website' => 'required',
                 'straddress' => 'required',

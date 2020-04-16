@@ -691,6 +691,7 @@ return [
     'details' => 'Detalles',
     'job_proposal' => 'Propuesta de trabajo',
     'employers' => 'Los empleadores',
+    'support' => 'Personal',
     'freelancers' => 'Freelancers',
     'add_experience' => '+ Añadir experiencia',
     'add_your_exp' => 'Añade tu experiencia',

@@ -688,6 +688,7 @@ return [
     'details' => 'ayrıntılar',
     'job_proposal' => 'İş teklifi',
     'employers' => 'İşverenler',
+    'support' => 'Personal',
     'freelancers' => 'Serbest',
     'add_experience' => '+ Deneyim Ekleyin',
     'add_your_exp' => 'Deneyiminizi Ekleyin',

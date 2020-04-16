@@ -730,6 +730,7 @@ return [
     'details' => 'تفصیلات',
     'job_proposal' => 'ملازمت کی تجویز',
     'employers' => 'ملازمین',
+    'support' => 'Personal',
     'freelancers' => 'فرییلانسز',
     'add_experience' => '+ تجربہ شامل کریں',
     'add_your_exp' => 'آپ کا تجربہ شامل کریں',

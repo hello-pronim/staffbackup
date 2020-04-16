@@ -480,6 +480,7 @@ return [
     'paypal' => 'باي بال',
     'freelancer' => 'مستقل',
     'employer' => 'صاحب العمل',
+    'support' => 'Personal',
     'profile_img' => 'صورة الملف الشخصي',
     'location_img' => 'صورة الموقع',
     'completed_jobs' => 'وظائف مكتملة',

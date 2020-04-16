@@ -688,6 +688,7 @@ return [
     'details' => 'Einzelheiten',
     'job_proposal' => 'Jobvorschlag',
     'employers' => 'Arbeitgeber',
+    'support' => 'Personal',
     'freelancers' => 'Freiberufler',
     'add_experience' => '+ Erfahrung hinzufügen',
     'add_your_exp' => 'Fügen Sie Ihre Erfahrung hinzu',

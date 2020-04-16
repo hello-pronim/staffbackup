@@ -684,6 +684,7 @@ return [
     'details' => '詳細',
     'job_proposal' => '仕事の提案',
     'employers' => '雇用者',
+    'support' => 'Personal',
     'freelancers' => 'フリーランサー',
     'add_experience' => '+経験を加える',
     'add_your_exp' => 'あなたの経験を追加',

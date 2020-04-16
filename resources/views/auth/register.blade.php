@@ -406,7 +406,7 @@
                                                 style="margin-bottom: 5px">
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
-                                                        <li style="width:50%; <?php if ($key == 1) {
+                                                        <li style="width:33%; <?php if ($key != 3) {
                                                             echo 'padding-right: 10px;';
                                                         };?>">
                                                             <div class="wt-accordiontitle role-{{$role['role_type']}}"
@@ -420,11 +420,15 @@
                                                                        v-on:change="selectedRole(user_role)">
                                                                 <label style="margin-top: 8px"
                                                                        for="wt-company-{{$key}}">
-                                                                    {{ $role['name'] === 'freelancer' ? trans('lang.freelancer') : trans('lang.employer')}}
-                                                                    {{--<span>--}}
-                                                                    {{--({{ $role['name'] === 'freelancer' ? trans('lang.signup_as_freelancer') : trans('lang.signup_as_country')}}--}}
-                                                                    {{--)--}}
-                                                                    {{--</span>--}}
+																		@if ($role['name'] === 'freelancer')
+																			{{ trans('lang.freelancer') }}
+																		@endif
+																		@if ($role['name'] === 'support')
+																			{{ trans('lang.support') }}
+																		@endif
+																		@if ($role['name'] === 'employer')
+																			{{ trans('lang.employer') }}
+																		@endif
                                                                 </label>
                                                                 </span>
                                                             </div>
@@ -543,7 +547,7 @@
                                             </div>
 
 
-                                            <div class="form-group  form-group-half">
+                                            <div v-if="user_role!='support'" class="form-group  form-group-half">
                                                 <input id="emp_website" type="url"
                                                        class="form-control"
                                                        name="emp_website"

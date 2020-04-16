@@ -692,6 +692,7 @@ return [
     'details' => 'подробности',
     'job_proposal' => 'Предложение о работе',
     'employers' => 'Работодатели',
+    'support' => 'Personal',
     'freelancers' => 'Фрилансеры',
     'add_experience' => '+ Добавить опыт',
     'add_your_exp' => 'Добавьте свой опыт',
