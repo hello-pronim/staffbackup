@@ -634,6 +634,35 @@ if (document.getElementById("registration")) {
 
                 this.form_step2.termsconditions_error = '';
                 this.form_step2.is_termsconditions_error = false;
+
+                this.form_step2.emp_website_error = '';
+                this.form_step2.is_emp_website_error = false;
+                this.form_step2.pin_error = '';
+                this.form_step2.is_pin_error = false;
+                this.form_step2.pin_date_revalid_error = '';
+                this.form_step2.is_pin_date_revalid_error = false;
+                this.form_step2.straddress_error = '';
+                this.form_step2.is_straddress_error = false;
+                this.form_step2.city_error = '';
+                this.form_step2.is_city_error = false;
+                this.form_step2.postcode_error = '';
+                this.form_step2.is_postcode_error = false;
+                this.form_step2.emp_contact_error = '';
+                this.form_step2.is_emp_contact_error = false;
+                this.form_step2.emp_telno_error = '';
+                this.form_step2.is_emp_telno_error = false;
+                this.form_step2.emp_email_error = '';
+                this.form_step2.is_emp_email_error = false;
+                this.form_step2.practice_code_error = '';
+                this.form_step2.is_practice_code_error = false;
+                this.form_step2.emp_cqc_rating_date_error = '';
+                this.form_step2.is_emp_cqc_rating_date_error = false;
+                this.form_step2.emp_cqc_rating_error = '';
+                this.form_step2.is_emp_cqc_rating_error = false;
+                this.form_step2.org_type_error = '';
+                this.form_step2.is_org_type_error = false;
+                this.form_step2.direct_booking_error = '';
+                this.form_step2.is_direct_booking_error = false;
                 var self = this;
                 axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).then(function (response) {
                     self.next();
