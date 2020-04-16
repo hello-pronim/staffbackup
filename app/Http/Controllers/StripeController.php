@@ -393,4 +393,30 @@ class StripeController extends Controller
             return $json;
         }
     }
+
+	public function getPlans(){
+		// 30 days freeThen £10.00 per month
+		// 39 days freeThen £40.00 every 6 months
+		// 30 days freeThen £25.00 every 3 months
+		$def = [
+			'plan_G6DvQf9zdEGczW'=>'39 days free, then £40.00 every 6 months',
+			'plan_G6DvMJGDvP6wGz'=>'30 days free, then £25.00 every 3 months',
+			'plan_G6DuLUGgkizyrs'=>'30 days free, then £10.00 per month'
+		];
+		return $def;
+		if (empty(env('STRIPE_SECRET'))) {
+			return $def;
+		}
+		\Artisan::call('optimize:clear');
+		$stripe = Stripe::make(env('STRIPE_SECRET'));
+		$data = $stripe->plans()->all();
+		$ret = [];
+		if($data['data']){
+			foreach((array) $data['data'] as $k => $v){
+				$ret[$v['id']] = $v['interval'];
+
+			}
+		}
+		return $ret;
+	}
 }

@@ -2954,4 +2954,9 @@ class Helper extends Model
             return $list;
         }
     }
+
+	public static function getPlanList(){
+		$list = app()->call('App\Http\Controllers\StripeController@getPlans');
+		return $list;
+	}
 }
