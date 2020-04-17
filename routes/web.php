@@ -321,9 +321,38 @@ Route::group(
         Route::get('freelancer/payouts', 'FreelancerController@getPayouts')->name('getFreelancerPayouts');
     }
 );
+// Support Routes
+Route::group(
+    ['middleware' => ['role:support']],
+    function () {
+        Route::get('support/dispute/{slug}', 'UserController@raiseDispute');
+        Route::post('support/store-dispute', 'UserController@storeDispute');
+        Route::get('support/dashboard/experience-education', 'SupportController@experienceEducationSettings')->name('experienceEducation');
+        Route::get('support/bookingAndAvailability', 'SupportController@bookingAndAvailability')->name('bookingAndAvailability');
+        Route::get('support/getCalendarEvents', 'SupportController@getCalendarEvents');
+        Route::get('support/dashboard/project-awards', 'SupportController@projectAwardsSettings')->name('projectAwards');
+        Route::post('support/store-profile-settings', 'SupportController@storeProfileSettings')->name('supportProfileSetting');
+        Route::post('support/store-experience-settings', 'SupportController@storeExperienceEducationSettings');
+        Route::post('support/store-project-award-settings', 'SupportController@storeProjectAwardSettings');
+        Route::get('support/get-support-skills', 'SupportController@getSupportSkills');
+        Route::get('support/get-support-experiences', 'SupportController@getSupportExperiences');
+        Route::get('support/get-support-projects', 'SupportController@getSupportProjects');
+        Route::get('support/get-support-educations', 'SupportController@getSupportEducations');
+        Route::get('support/get-support-awards', 'SupportController@getSupportAwards');
+        Route::get('support/jobs/{status}', 'SupportController@showSupportJobs');
+        Route::get('support/job/{slug}', 'SupportController@showOnGoingJobDetail')->name('showOnGoingJobDetail');
+        Route::get('support/proposals', 'SupportController@showSupportProposals')->name('showSupportProposals');
+        Route::get('support/dashboard', 'SupportController@supportDashboard')->name('supportDashboard');
+        Route::get('support/profile', 'SupportController@index')->name('personalDetail');
+        Route::post('support/upload-temp-image', 'SupportController@uploadTempImage');
+        Route::get('support/dashboard/post-service', 'ServiceController@create')->name('freelancerPostService');
+        Route::get('support/payout-settings', 'SupportController@payoutSettings')->name('SupportPayoutsSettings');
+        Route::get('support/payouts', 'SupportController@getPayouts')->name('getSupportPayouts');
+    }
+);
 // Employer|Freelancer Routes
 Route::group(
-    ['middleware' => ['role:employer|freelancer|admin']],
+    ['middleware' => ['role:employer|freelancer|admin|support']],
     function () {
         Route::post('freelancer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
 

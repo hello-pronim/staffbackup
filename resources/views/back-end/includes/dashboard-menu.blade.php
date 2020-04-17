@@ -37,6 +37,12 @@
                         @else
                             <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
                         @endif
+                    @elseif ($role === 'support')
+                        @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
+                            <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('freelancerPostService')) }}}" class="wt-btn">{{{ trans('lang.post_service') }}}</a></div>
+                        @else
+                            <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
+                        @endif
                     @endif
                     <figure><img src="{{{ asset(Helper::getProfileImageSmall($user->id)) }}}" alt="{{{ trans('lang.profile_photo') }}}"></figure>
 
@@ -156,7 +162,7 @@
                             </ul>
                         </li>
                     @endif
-                    @if ($role === 'employer' || $role === 'freelancer' )
+                    @if ($role === 'employer' || $role === 'freelancer'  || $role === 'support' )
                             <li>
                                 <img src="{{url('images/icons/leftmenu/Layer 67.png')}}"/>
 

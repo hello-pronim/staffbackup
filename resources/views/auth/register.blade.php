@@ -5,6 +5,7 @@
         $departments    = App\Department::all();
         $locations      = App\Location::select('title', 'id')->get()->pluck('title', 'id')->toArray();
         $roles          = Spatie\Permission\Models\Role::all()->toArray();
+		unset($roles[0]); // remove admin role
         $payment_plans  = Helper::getPlanList();
         $register_form = App\SiteManagement::getMetaValue('reg_form_settings');
         $reg_one_title = !empty($register_form) && !empty($register_form[0]['step1-title']) ? $register_form[0]['step1-title'] : trans('lang.join_for_good');
@@ -547,7 +548,6 @@
 
                                             </div>
 
-
                                             <div v-if="user_role!='support'" class="form-group  form-group-half">
                                                 <input id="emp_website" type="url"
                                                        class="form-control"
@@ -556,8 +556,8 @@
                                                        v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
                                                 <span class="help-block"
                                                       v-if="form_step2.emp_website_error">
-                                                                                <strong v-cloak>@{{form_step2.emp_website_error}}</strong>
-                                                                            </span>
+														<strong v-cloak>@{{form_step2.emp_website_error}}</strong>
+												</span>
                                             </div>
                                             <div class="form-group  form-group-half">
                                                 <input id="straddress" type="text"
@@ -592,7 +592,6 @@
 													<strong v-cloak>@{{form_step2.postcode_error}}</strong>
 												</span>
                                             </div>
-
 
                                         </fieldset>
                                         <fieldset class="wt-formregisterstart">
@@ -880,56 +879,29 @@
                                                                                    name="hourly_rate_desc"
                                                                                    placeholder="Additional info">
                                                                         </div>
-
-                                                                        {{--<div class="form-group">--}}
-                                                                        {{--<label>Session Advertised By</label>--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="form-group form-group-half">--}}
-                                                                        {{--<input id="session_ad_by" type="text"--}}
-                                                                        {{--class="form-control"--}}
-                                                                        {{--name="session_ad_by"--}}
-                                                                        {{--placeholder="Name">--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="form-group form-group-half">--}}
-                                                                        {{--<input id="session_ad_by_position"--}}
-                                                                        {{--type="text"--}}
-                                                                        {{--class="form-control"--}}
-                                                                        {{--name="session_ad_by_position"--}}
-                                                                        {{--placeholder="Position">--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="form-group form-group-half">--}}
-                                                                        {{--<input id="session_ad_by_email" type="email"--}}
-                                                                        {{--class="form-control"--}}
-                                                                        {{--name="session_ad_by_email"--}}
-                                                                        {{--placeholder="Email">--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="form-group form-group-half">--}}
-                                                                        {{--<input id="session_ad_by_contact"--}}
-                                                                        {{--type="text"--}}
-                                                                        {{--class="form-control"--}}
-                                                                        {{--name="session_ad_by_contact"--}}
-                                                                        {{--placeholder="Direct Contact No">--}}
-                                                                        {{--</div>--}}
                                                                     </div>
-
                                                                 </div>
                                                         @endif
                                                         @if(in_array($role['id']==3, $roles))
                                                             <div class="wt-accordiondetails"
+																v-if="user_role!='employer'" 
+																 {{--v-if="is_show_freelancer"--}}
+																>
 
-                                                                 v-if="is_show_freelancer">
-
-
-                                                                {{--<div class="form-group form-group-half">--}}
-                                                                {{--<input id="telno" class="form-control"--}}
-                                                                {{--name="telno" type="tel"--}}
-                                                                {{--placeholder="{{{ trans('lang.telno') }}}"--}}
-                                                                {{--v-bind:class="{ 'is-invalid': form_step2.telno_error }">--}}
-                                                                {{--<span class="help-block"--}}
-                                                                {{--v-if="form_step2.telno_error">--}}
-                                                                {{--<strong v-cloak>@{{form_step2.telno_error}}</strong>--}}
-                                                                {{--</span>--}}
-                                                                {{--</div>--}}
+                                                                <div class="form-group form-group-half" v-if="user_role=='support'" >
+																	<input 
+																		id="telno"
+																		class="form-control"
+																		name="telno"
+																		type="tel"
+																		placeholder="{{{ trans('lang.telno') }}}"
+																		v-bind:class="{ 'is-invalid': form_step2.telno_error }"
+																	>
+																	<span class="help-block"
+																	v-if="form_step2.telno_error">
+																	<strong v-cloak>@{{form_step2.telno_error}}</strong>
+																	</span>
+                                                                </div>
                                                                 <div class="form-group form-group-half">
                                                                     <date-picker :config="{format: 'DD/MM/YYYY'}"
                                                                                  value=""
@@ -1005,12 +977,6 @@
                                                                                 <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
                                                                             </span>
                                                                 </div>
-                                                                <!-- <div class="form-group">
-                                                                    <span class="wt-select">
-                                                                    {!! Form::select('gender', array("Male"=>"Male", "Female"=>"Female"), null, array('placeholder' => 'Gender', 'v-bind:class' => '{ "is-invalid": form_step2.gender_error }')) !!}
-                                                                    </span>
-
-                                                                </div> -->
                                                                 <div class="form-group form-group-half">
                                                                     <span class="wt-select halfWidth">
                                                                     {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
@@ -1021,17 +987,23 @@
 																		<input type="text"
 																			   class="halfWidth form-control halfWidth"
 																			   name="pin"
-																			   placeholder="Pin">
+																			   placeholder="Pin"
+																			   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
+																		<span class="help-block"
+																			  v-if="form_step2.pin_error">
+																			<strong v-cloak>@{{form_step2.pin_error}}</strong>
 																	</div>
 																	<div class="form-group form-group-half">
 																		<date-picker :config="{format: 'YYYY-MM-DD'}"
-
-																					 value=""
-
-																					 class="form-control"
-																					 name="pin_date_revalid"
-																					 placeholder="Pin date of revalidation"
+																					value=""
+																					class="form-control"
+																					name="pin_date_revalid"
+																					placeholder="Pin date of revalidation"
+																					v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
 																		></date-picker>
+																		<span class="help-block"
+																			  v-if="form_step2.pin_date_revalid_error">
+																			<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
 																	</div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -1042,6 +1014,16 @@
                                                                 <div class="form-group">
                                                                     <span class="wt-select">
                                                                     {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
+                                                                    </span>
+                                                                </div>
+                                                                <div v-if="user_role=='support'" class="form-group">
+                                                                    <span class="wt-select">
+                                                                    {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have full driving license?")) !!}
+                                                                    </span>
+                                                                </div>
+                                                                <div v-if="user_role=='support'" class="form-group">
+                                                                    <span class="wt-select">
+                                                                    {!! Form::select('endorsements',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you	have any endorsements?")) !!}
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group">
@@ -1118,7 +1100,7 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group ">
+                                                                <div class="form-group " v-if="dbscheck">
                                                                     <div>Certificate of CRB/DBS:</div>
                                                                 </div>
                                                                 <div class="form-group form-group-half" v-if="dbscheck">
@@ -1149,7 +1131,7 @@
                                                                 </div>
 
 
-                                                                <div class="form-group">
+                                                                <div class="form-group" v-if="user_role=='freelancer'">
                                                                     <label for="insurance"
                                                                            style="display: inline-block">Professional
                                                                         Indemnity Insurance</label> <input
@@ -1260,7 +1242,8 @@
                                                 {{--@endif--}}
                                                 {{--</label>--}}
                                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
-                                                <div v-if="user_role=='freelancer'">
+												{{--<div v-if="user_role=='freelancer'">--}}
+                                                <div v-if="user_role!='employer'">
                                                     <span class="wt-select">
                                                     {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
                                                     </span>

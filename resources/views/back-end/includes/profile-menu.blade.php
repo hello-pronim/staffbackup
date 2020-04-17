@@ -100,7 +100,7 @@
                     </ul>
                 </li>
             @endif
-            @if ($role === 'employer' || $role === 'freelancer' )
+            @if ($role === 'employer' || $role === 'freelancer'  || $role === 'support' )
                 <li>
                     <a href="{{{ url($role.'/dashboard') }}}">
                         <i class="ti-desktop"></i>

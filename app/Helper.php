@@ -178,6 +178,8 @@ class Helper extends Model
     {
         if (empty($image) && isset($_GET['type']) && $_GET['type'] == 'freelancer') {
             $banner =  'images/frbanner-1920x400.jpg';
+        } elseif (empty($image) && isset($_GET['type']) && $_GET['type'] == 'support') {
+            $banner =  'images/frbanner-1920x400.jpg';
         } elseif (empty($image) && isset($_GET['type']) && $_GET['type'] == 'employer') {
             $banner =  'images/e-1110x300.jpg';
         } elseif (empty($image) && isset($_GET['type']) && $_GET['type'] == 'job') {
@@ -807,6 +809,18 @@ class Helper extends Model
                     '7' => trans('lang.freelancer_pkg_opt.banner'),
                     '8' => trans('lang.freelancer_pkg_opt.pvt_cht'),
                 );
+            } elseif ($role == 'support') {
+                $list = array(
+                    '0' => trans('lang.freelancer_pkg_opt.price'),
+                    '1' => trans('lang.freelancer_pkg_opt.no_of_credits'),
+                    '2' => trans('lang.freelancer_pkg_opt.no_of_skills'),
+                    '3' => trans('lang.freelancer_pkg_opt.no_of_services'),
+                    '4' => trans('lang.freelancer_pkg_opt.no_of_featured_services'),
+                    '5' => trans('lang.freelancer_pkg_opt.pkg_duration'),
+                    '6' => trans('lang.freelancer_pkg_opt.badge'),
+                    '7' => trans('lang.freelancer_pkg_opt.banner'),
+                    '8' => trans('lang.freelancer_pkg_opt.pvt_cht'),
+                );
             }
             return $list;
         }
@@ -1255,6 +1269,16 @@ class Helper extends Model
                 return '/uploads/users/' . $user_id . '/' . $profile_banner;
             }
         } elseif ($user->role_type == 'freelancer') {
+            if (!empty($size)) {
+                if (file_exists('images/' . $size . '-frbanner-1920x400.jpg')) {
+                    return 'images/' . $size . '-frbanner-1920x400.jpg';
+                } else {
+                    return 'images/frbanner-1920x400.jpg';
+                }
+            } else {
+                return 'images/frbanner-1920x400.jpg';
+            }
+        } elseif ($user->role_type == 'support') {
             if (!empty($size)) {
                 if (file_exists('images/' . $size . '-frbanner-1920x400.jpg')) {
                     return 'images/' . $size . '-frbanner-1920x400.jpg';
@@ -2813,6 +2837,8 @@ class Helper extends Model
                 return trans('lang.freelancer');
             } elseif (Auth::user()->getRoleNames()->first() == 'employer') {
                 return trans('lang.employer');
+            } elseif (Auth::user()->getRoleNames()->first() == 'support') {
+                return trans('lang.support');
             } else {
                 return trans('lang.admin');
             }

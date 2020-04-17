@@ -355,6 +355,8 @@ class User extends Authenticatable
                 (isset($request['time_allowed']) && $request['time_allowed'][0] == "Other" ? $request['time_allowed'][1] : ""), FILTER_SANITIZE_STRING);
             $this->payment_terms = filter_var((isset($request['payment_terms']) && $request['payment_terms'][0] != "Other") ? $request['payment_terms'][0] :
                 (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->endorsements = filter_var(isset($request['endorsements']) ? $request['endorsements'] : "", FILTER_SANITIZE_STRING);
+            $this->drive_license = filter_var(isset($request['drive_license']) ? $request['drive_license'] : "", FILTER_SANITIZE_STRING);
             //End With Others
 
             $this->adm_catch_time = filter_var(isset($request['adm_catch_time']) ? $request['adm_catch_time'] : "", FILTER_SANITIZE_STRING);
