@@ -5,6 +5,7 @@
         $departments    = App\Department::all();
         $locations      = App\Location::select('title', 'id')->get()->pluck('title', 'id')->toArray();
         $roles          = Spatie\Permission\Models\Role::all()->toArray();
+        $payment_plans  = Helper::getPlanList();
         $register_form = App\SiteManagement::getMetaValue('reg_form_settings');
         $reg_one_title = !empty($register_form) && !empty($register_form[0]['step1-title']) ? $register_form[0]['step1-title'] : trans('lang.join_for_good');
         $reg_one_subtitle = !empty($register_form) && !empty($register_form[0]['step1-subtitle']) ? $register_form[0]['step1-subtitle'] : trans('lang.join_for_good_reason');
@@ -43,12 +44,14 @@
     'BACS'=>'BACS',
     'Cheque'=>'Cheque'
     );
+	$subscribe_options  = $payment_plans;
+/*
     $subscribe_options  = array(
     'plan_G6DvQf9zdEGczW'=>'6 Months',
     'plan_G6DvMJGDvP6wGz'=>'3 Months',
     'plan_G6DuLUGgkizyrs'=>'Monthly'
     );
-
+*/
     $arrSettings = array(
     'GP Surgery'=>'GP Surgery',
     'Walk-In centre'=>'Walk-In centre',
@@ -355,10 +358,8 @@
         <div class="row" style="margin:0 auto;width: 850px;padding: 65px 0px">
 
             <div class="headingcenter text-center">
-                <h2>We connect professionals with the <br> people who need them most, (when they needed them).</h2>
-                <div>10 years professional clinical experience connecting surgeries and <br> healthcare stakeholders
-                    with adhoc and temporary staffing solutions
-                </div>
+                <h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>
+                <div>15 years professional clinical experience in Primary Health Care</div>
             </div>
 
 
