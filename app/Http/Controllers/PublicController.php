@@ -406,6 +406,110 @@ class PublicController extends Controller
                         )
                     );
                 }
+			}elseif ($user->getRoleNames()->first() === 'support') {
+                $services = array();
+                if (Schema::hasTable('services') && Schema::hasTable('service_user')) {
+                    $services = $user->services;
+                }
+                $reviews = Review::where('receiver_id', $user->id)->get();
+                $awards = !empty($profile->awards) ? unserialize($profile->awards) : array();
+                $projects = !empty($profile->projects) ? unserialize($profile->projects) : array();
+                $experiences = !empty($profile->experience) ? unserialize($profile->experience) : array();
+                $education = !empty($profile->education) ? unserialize($profile->education) : array();
+                $freelancer_rating  = !empty($user->profile->ratings) ? Helper::getUnserializeData($user->profile->ratings) : 0;
+                $rating = !empty($freelancer_rating) ? $freelancer_rating[0] : 0;
+                $joining_date = !empty($profile->created_at) ? Carbon::parse($profile->created_at)->format('M d, Y') : '';
+                $jobs = Job::select('title', 'id')->get()->pluck('title', 'id');
+                $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ? unserialize(auth()->user()->profile->saved_freelancer) : array();
+                $badge = Helper::getUserBadge($user->id);
+                $feature_class = !empty($badge) ? 'wt-featured' : '';
+                $badge_color = !empty($badge) ? $badge->color : '';
+                $badge_img  = !empty($badge) ? $badge->image : '';
+                $amount = Payout::where('user_id', $user->id)->select('amount')->pluck('amount')->first();
+                $employer_projects = Auth::user() ? Helper::getEmployerJobs(Auth::user()->id) : array();
+                $currency_symbol  = !empty($payment_settings) && !empty($payment_settings[0]['currency']) ? Helper::currencyList($payment_settings[0]['currency']) : array();
+                $symbol = !empty($currency_symbol['symbol']) ? $currency_symbol['symbol'] : '$';
+                $settings = !empty(SiteManagement::getMetaValue('settings')) ? SiteManagement::getMetaValue('settings') : array();
+                $display_chat = !empty($settings[0]['chat_display']) ? $settings[0]['chat_display'] : false;
+                $payment_settings = SiteManagement::getMetaValue('commision');
+                $enable_package = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
+                if (file_exists(resource_path('views/extend/front-end/users/support-show.blade.php'))) {
+                    return View(
+                        'extend.front-end.users.support-show',
+                        compact(
+                            'services',
+                            'profile',
+                            'amount',
+                            'skills',
+                            'user',
+                            'job',
+                            'reasons',
+                            'reviews',
+                            'avatar',
+                            'banner',
+                            'user_name',
+                            'jobs',
+                            'rating',
+                            'education',
+                            'experiences',
+                            'projects',
+                            'awards',
+                            'joining_date',
+                            'save_freelancer',
+                            'auth_user',
+                            'badge',
+                            'feature_class',
+                            'badge_color',
+                            'badge_img',
+                            'employer_projects',
+                            'currency_symbol',
+                            'current_date',
+                            'symbol',
+                            'tagline',
+                            'desc',
+                            'display_chat',
+                            'enable_package'
+                        )
+                    );
+                } else {
+                    return View(
+                        'front-end.users.support-show',
+                        compact(
+                            'services',
+                            'profile',
+                            'amount',
+                            'skills',
+                            'user',
+                            'job',
+                            'reasons',
+                            'reviews',
+                            'avatar',
+                            'banner',
+                            'user_name',
+                            'jobs',
+                            'rating',
+                            'education',
+                            'experiences',
+                            'projects',
+                            'awards',
+                            'joining_date',
+                            'save_freelancer',
+                            'auth_user',
+                            'badge',
+                            'feature_class',
+                            'badge_color',
+                            'badge_img',
+                            'employer_projects',
+                            'currency_symbol',
+                            'current_date',
+                            'symbol',
+                            'tagline',
+                            'desc',
+                            'display_chat',
+                            'enable_package'
+                        )
+                    );
+                }
             } elseif ($user->getRoleNames()->first() === 'employer') {
                 $jobs = Job::where('user_id', $profile->user_id)->latest()->paginate(7);
                 $followers = DB::table('followers')->where('following', $profile->user_id)->get();
