@@ -160,6 +160,9 @@ class RegisterController extends Controller
                     case "freelancer":
                         $email_params['message'] = 'start finding new work opportunities today!';
                         break;
+                    case "support":
+                        $email_params['message'] = 'start finding new work opportunities today!';
+                        break;
                     case "employer":
                         $email_params['message'] = 'start finding new staff today!';
 
