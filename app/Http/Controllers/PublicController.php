@@ -125,9 +125,9 @@ class PublicController extends Controller
 			'freelancer' => [
                 'pin' => 'required',
                 'pin_date_revalid' => 'required',
+                'prof_ind_cert' => 'required',
+                'passport_visa' => 'required',
 				/*
-                '' => 'required',
-                '' => 'required',
                 '' => 'required',
                 '' => 'required',
                 '' => 'required',

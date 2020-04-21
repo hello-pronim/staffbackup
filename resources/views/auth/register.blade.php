@@ -794,19 +794,6 @@
                                                                                        placeholder="Direct Contact No">
                                                                             </div>
                                                                         </div>
-																		<div v-id="prof-indem-cretificate" v-if="user_role!='employer'">
-																			<div class="form-group">
-																				<div>Professional Indemnity
-																					Certificate:
-																				</div>
-																			</div>
-																			<div class="form-group form-group-half">
-
-																				<input type="file" name="prof_ind_cert"
-																					   class="form-control"
-																					   accept=".pdf, image/*,.doc,.docx">
-																			</div>
-                                                                        </div>
                                                                         {{--<div class="form-group">--}}
                                                                         {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
                                                                         {{--</div>--}}
@@ -914,7 +901,7 @@
                                                                         <strong v-cloak>@{{form_step2.dob_error}}</strong>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-group-half">
+																<div class="form-group form-group-half" v-if="user_role=='freelancer'" >
                                                                     <date-picker :config="{format: 'DD/MM/YYYY'}"
                                                                                  id="date_available"
                                                                                  value=""
@@ -927,6 +914,22 @@
                                                                           v-if="form_step2.date_available_error">
                                                                         <strong v-cloak>@{{form_step2.date_available_error}}</strong>
                                                                     </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <span class="wt-select">
+                                                                    {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input id="exp_years" type="number" min="0"
+                                                                           class="form-control"
+                                                                           name="exp_years"
+                                                                           placeholder="Experience Years"
+                                                                           v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.exp_years_error">
+                                                                                <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
+                                                                            </span>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div>CV Upload:</div>
@@ -966,17 +969,6 @@
                                                                                 </span>
                                                                             </span>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input id="exp_years" type="number" min="0"
-                                                                           class="form-control"
-                                                                           name="exp_years"
-                                                                           placeholder="Experience Years"
-                                                                           v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.exp_years_error">
-                                                                                <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
-                                                                            </span>
-                                                                </div>
                                                                 <div class="form-group form-group-half">
                                                                     <span class="wt-select halfWidth">
                                                                     {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
@@ -992,6 +984,7 @@
 																		<span class="help-block"
 																			  v-if="form_step2.pin_error">
 																			<strong v-cloak>@{{form_step2.pin_error}}</strong>
+																		</span>
 																	</div>
 																	<div class="form-group form-group-half">
 																		<date-picker :config="{format: 'YYYY-MM-DD'}"
@@ -1004,12 +997,8 @@
 																		<span class="help-block"
 																			  v-if="form_step2.pin_date_revalid_error">
 																			<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
+																		</span>
 																	</div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <span class="wt-select">
-                                                                    {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
-                                                                    </span>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <span class="wt-select">
@@ -1033,7 +1022,12 @@
                                                                 <div class="form-group form-group-half">
                                                                     <input type="file" name="passport_visa"
                                                                            class="form-control"
+																			v-bind:class="{ 'is-invalid': form_step2.is_passport_visa }"
                                                                            accept=".pdf, image/*,.doc,.docx">
+																		<span class="help-block"
+																			  v-if="form_step2.is_passport_visa">
+																			<strong v-cloak>@{{form_step2.passport_visa}}</strong>
+																		</span>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div>Professional Qualifications</div>
@@ -1117,6 +1111,11 @@
                                                                            class="form-control"
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
+																<div class="form-group form-group-half">
+																	<span class="wt-select">
+																	{!! Form::select('itsoftware', $arrITSoftware, null, array('placeholder' => "Computer System in use")) !!}
+																	</span>
+																</div>
                                                                 <div class="form-group form-group-half">
                                                                     <span class="wt-select">
                                                                     {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
@@ -1130,6 +1129,24 @@
                                                                            placeholder="Other Special Interest">
                                                                 </div>
 
+																<div v-if="user_role=='freelancer'">
+																	<div class="form-group">
+																		<div>Professional Indemnity
+																			Certificate:
+																		</div>
+																	</div>
+																	<div class="form-group form-group-half">
+
+																		<input type="file" name="prof_ind_cert"
+																			   class="form-control"
+																				v-bind:class="{ 'is-invalid': form_step2.is_prof_ind_cert }"
+																			   accept=".pdf, image/*,.doc,.docx">
+																		<span class="help-block"
+																			  v-if="form_step2.is_prof_ind_cert">
+																			<strong v-cloak>@{{form_step2.prof_ind_cert}}</strong>
+																		</span>
+																	</div>
+																</div>
 
                                                                 <div class="form-group" v-if="user_role=='freelancer'">
                                                                     <label for="insurance"
@@ -1162,24 +1179,6 @@
                                                                     {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <span class="wt-select">
-                                                                    {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Payment Method", 'v-model'=>'payment_method')) !!}
-                                                                    </span>
-                                                                    <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
-                                                                </div>
-
-
-                                                                <input v-if="payment_method=='Limited Company'"
-                                                                       type="text"
-                                                                       name="limitied_company_number"
-                                                                       class="form-control"
-                                                                       placeholder="Limited Company Number "><br>
-                                                                <input v-if="payment_method=='Limited Company'"
-                                                                       type="text"
-                                                                       name="limitied_company_name"
-                                                                       class="form-control"
-                                                                       placeholder="Limited Company Name ">
                                                             </div>
                                                         @endif
                                                     @endif
@@ -1244,6 +1243,24 @@
                                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
 												{{--<div v-if="user_role=='freelancer'">--}}
                                                 <div v-if="user_role!='employer'">
+													<div class="form-group">
+														<span class="wt-select">
+														{!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred payment method", 'v-model'=>'payment_method')) !!}
+														</span>
+														<span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
+
+														<input v-if="payment_method=='Limited Company'"
+															   type="text"
+															   name="limitied_company_number"
+															   class="form-control"
+															   placeholder="Limited Company Number "><br>
+														<input v-if="payment_method=='Limited Company'"
+															   type="text"
+															   name="limitied_company_name"
+															   class="form-control"
+															   placeholder="Limited Company Name ">
+													</div>
+
                                                     <span class="wt-select">
                                                     {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
                                                     </span>

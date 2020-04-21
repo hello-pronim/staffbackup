@@ -663,12 +663,24 @@ if (document.getElementById("registration")) {
                 this.form_step2.is_org_type_error = false;
                 this.form_step2.direct_booking_error = '';
                 this.form_step2.is_direct_booking_error = false;
+				this.form_step2.prof_ind_cert = '';
+				this.form_step2.is_prof_ind_cert = false;
+				this.form_step2.passport_visa = '';
+				this.form_step2.is_passport_visa = false;
                 var self = this;
                 axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).then(function (response) {
                     self.next();
                 })
                     .catch(function (error) {
 						var error_data = error.response.data.errors; 
+                        if (error_data.prof_ind_cert) {
+                            self.form_step2.prof_ind_cert = error_data.prof_ind_cert[0];
+                            self.form_step2.is_prof_ind_cert = true;
+                        }
+                        if (error_data.passport_visa) {
+                            self.form_step2.passport_visa = error_data.passport_visa[0];
+                            self.form_step2.is_passport_visa = true;
+                        }
                         if (error_data.emp_website) {
                             self.form_step2.emp_website_error = error_data.emp_website[0];
                             self.form_step2.is_emp_website_error = true;
