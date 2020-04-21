@@ -199,6 +199,10 @@ class FreelancerController extends Controller
             [
                 'first_name'    => 'required',
                 'last_name'    => 'required',
+                'pin' => 'required',
+                'pin_date_revalid' => 'required',
+                'prof_ind_cert' => 'required',
+                'passport_visa' => 'required',
             ]
         );
         if (Auth::user()) {

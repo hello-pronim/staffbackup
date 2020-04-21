@@ -1853,6 +1853,45 @@ if (document.getElementById("user_profile")) {
                         if (error.response.data.errors.gender) {
                             self.showError(error.response.data.errors.gender[0]);
                         }
+                        if (error.response.data.errors.pin) {
+                            self.showError(error.response.data.errors.pin[0]);
+                        }
+                        if (error.response.data.errors.pin_date_revalid) {
+                            self.showError(error.response.data.errors.pin_date_revalid[0]);
+                        }
+                        if (error.response.data.errors.prof_ind_cert) {
+                            self.showError(error.response.data.errors.prof_ind_cert[0]);
+                        }
+                        if (error.response.data.errors.passport_visa) {
+                            self.showError(error.response.data.errors.passport_visa[0]);
+                        }
+                    });
+            },
+            submitSupportProfile: function () {
+                var self = this;
+                var profile_data = document.getElementById('freelancer_profile');
+                let form_data = new FormData(profile_data);
+                axios.post(APP_URL + '/support/store-profile-settings', form_data)
+                    .then(function (response) {
+                        if (response.data.type == 'success') {
+                            self.showInfo(Vue.prototype.trans('lang.saving_profile'));
+                        } else if (response.data.type == 'error') {
+                            self.showError(response.data.message);
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response.data.errors.first_name) {
+                            self.showError(error.response.data.errors.first_name[0]);
+                        }
+                        if (error.response.data.errors.last_name) {
+                            self.showError(error.response.data.errors.last_name[0]);
+                        }
+                        if (error.response.data.errors.email) {
+                            self.showError(error.response.data.errors.email[0]);
+                        }
+                        if (error.response.data.errors.gender) {
+                            self.showError(error.response.data.errors.gender[0]);
+                        }
                     });
             },
             submitExperienceEduction: function () {
