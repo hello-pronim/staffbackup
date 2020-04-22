@@ -74,6 +74,15 @@
     'District Nurse'=>'District Nurse',
     'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
     );
+    $arrSupportProfReq = [
+		'Admin & Clerical'=>'Admin & Clerical',
+		'Receptionist'=>'Receptionist',
+		'Secretary'=>'Secretary',
+		'Read Coder'=>'Read Coder',
+		'Driver'=>'Driver',
+		'Cleaner'=>'Cleaner',
+		'Practice Manager'=>'Practice Manager',
+	];
 
     $arrSpecialInterests = array(
     'Diabetes'=>'Diabetes',
@@ -915,9 +924,14 @@
                                                                         <strong v-cloak>@{{form_step2.date_available_error}}</strong>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group" v-if="user_role=='freelancer'" >
                                                                     <span class="wt-select">
                                                                     {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group" v-if="user_role=='support'" >
+                                                                    <span class="wt-select">
+                                                                    {!! Form::select('profession', $arrSupportProfReq, null, array('placeholder' => "Profession")) !!}
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group">
