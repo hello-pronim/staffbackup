@@ -955,7 +955,7 @@
                                                                            accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
 
-                                                                <div class="form-group form-group-half">
+                                                                <div class="form-group form-group-half" v-if="user_role=='freelancer'">
                                                                     <span class="wt-select halfWidth">
                                                                     {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate',  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
                                                                     </span>
@@ -971,7 +971,7 @@
                                                                            min="0"
                                                                            placeholder="Hourly Rate">
                                                                 </div>
-                                                                <div class="form-group form-group-half">
+                                                                <div class="form-group form-group-half" v-if="user_role=='freelancer'">
                                                                             <span class="wt-checkbox"
                                                                                   style="    margin-bottom: 13px;    margin-top: 17px;">
                                                                                 <span class="wt-checkbox">
@@ -1188,7 +1188,7 @@
                                                                 </div>
 
 
-                                                                <div class="form-group">
+                                                                <div class="form-group" v-if="user_role=='freelancer'">
                                                                     <span class="wt-select">
                                                                     {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                                                     </span>
@@ -1257,6 +1257,34 @@
                                                 {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
 												{{--<div v-if="user_role=='freelancer'">--}}
                                                 <div v-if="user_role!='employer'">
+													<div class="form-group form-group-half" v-if="user_role=='support'">
+																<span class="wt-checkbox"
+																	  style="    margin-bottom: 13px;    margin-top: 17px;">
+																	<span class="wt-checkbox">
+																			<input id="hourly_rate_negotiable"
+																				   type="checkbox"
+																				   name="hourly_rate_negotiable"
+																				   checked="">
+																			<label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+																	</span>
+																</span>
+													</div>
+													<div class="form-group form-group-half" v-if="user_role=='support'">
+														<span class="wt-select halfWidth">
+														{!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate'{{--,  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }'--}})) !!}
+														</span>
+{{--
+														<span class="help-block"
+															  v-if="form_step2.rate_error">
+																		<strong v-cloak>@{{form_step2.rate_error}}</strong>
+																	</span>
+--}}
+													</div>
+													<div class="form-group" v-if="user_role=='support'">
+														<span class="wt-select">
+														{!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+														</span>
+													</div>
 													<div class="form-group">
 														<span class="wt-select">
 														{!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred payment method", 'v-model'=>'payment_method')) !!}
