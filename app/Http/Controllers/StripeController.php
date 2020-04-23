@@ -424,7 +424,6 @@ class StripeController extends Controller
 
 			}
 		}
-		print_r($ret);exit;
 		return $ret ? $ret : $def;
 	}
 }
