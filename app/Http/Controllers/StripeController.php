@@ -413,7 +413,8 @@ class StripeController extends Controller
 					continue;
 				}
 				$fiat_sig = $v['currency'] == 'gbp' ? '£' : '$'; // some currency hardcode
-				$number = bcdiv($v['amount'], '100', 2);
+				$number = number_format((float) ($v['amount'] / 100), 2, '.', '');
+				//$number = bcdiv($v['amount'], '100', 2);
 				$trial = $v['trial_period_days'] ?: '';
 				$text = $fiat_sig.$number.' every '.$v['interval_count'].' '.$v['interval'];
 				if($trial){
@@ -423,6 +424,7 @@ class StripeController extends Controller
 
 			}
 		}
+		print_r($ret);exit;
 		return $ret ? $ret : $def;
 	}
 }
