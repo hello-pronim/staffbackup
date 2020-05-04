@@ -486,6 +486,7 @@ if (document.getElementById("registration")) {
                 emp_telno_error: '',
                 emp_website_error: '',
                 emp_cqc_rating_error: '',
+                practice_code_error: '',
 
             },
             form_step3:
