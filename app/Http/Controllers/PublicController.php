@@ -124,9 +124,9 @@ class PublicController extends Controller
 		$validate_rules = [
 			'freelancer' => [
                 'pin' => 'required',
-                'pin_date_revalid' => 'required',
-                'prof_ind_cert' => 'required',
-                'passport_visa' => 'required',
+                // 'pin_date_revalid' => 'required',
+                // 'prof_ind_cert' => 'required',
+                // 'passport_visa' => 'required',
 				/*
                 '' => 'required',
                 '' => 'required',

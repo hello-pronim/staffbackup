@@ -976,6 +976,8 @@ return [
     'ph_select_gender' => 'Select Gender',
     'ph_first_name' => 'First Name',
     'ph_last_name' => 'Last Name',
+    'ph_surname' => 'Surname',
+    'phone' => 'Telephone Number(?)',
     'ph_service_hoyrly_rate' => 'Your Service Hourly Rate ($)',
     'ph_add_tagline' => 'Add Your Tagline Here',
     'ph_email' => 'Email',
