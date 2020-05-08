@@ -308,6 +308,8 @@ class JobController extends Controller
                 'start_date'    => 'required',
                 'booking_start'    => 'required',
                 'booking_end'    => 'required',
+                'latitude'    => 'nullable|numeric',
+                'longitude'    => 'nullable|numeric',
             ]
         );
         $package_item = Item::where('subscriber', Auth::user()->id)->first();
@@ -609,7 +611,7 @@ class JobController extends Controller
                 'back-end.admin.jobs.index',
                 compact('jobs', 'symbol', 'payment', 'payment_methods')
             );
-        }   
+        }
     }
 
     /**
