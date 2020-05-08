@@ -173,6 +173,7 @@ class Job extends Model
             $this->is_featured = filter_var($request['is_featured'], FILTER_SANITIZE_STRING);
             $this->show_attachments = filter_var($request['show_attachments'], FILTER_SANITIZE_STRING);
             $this->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
+            $this->radius = $request['radius'] ?? null;
             $this->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
             $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
