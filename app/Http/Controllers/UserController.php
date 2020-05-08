@@ -1390,7 +1390,7 @@ class UserController extends Controller
             $response['type'] = 'error';
             $response['message'] = $server->getData()->message;
             return $response;
-        }die;
+        }
         $this->validate(
             $request,
             [

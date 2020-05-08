@@ -31,7 +31,7 @@
                                      :disable-views="['years', 'year']"
                                      :events="events"
                                      default-view="month"
-
+                                     {{--:events-on-month-view="[true, 'short'][true * 1]"--}}
                                     @cell-click="createNewEvent">
                             </vue-cal>
 

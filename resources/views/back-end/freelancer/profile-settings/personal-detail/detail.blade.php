@@ -155,12 +155,17 @@
 </div>
 
 <div class="wt-tabscontenttitle" style="margin-top: 20px;">
-    <h2>Limted Company details</h2>
+    <h2>Limted Company Number</h2>
 </div>
 <div class="wt-formtheme">
     <div class="form-group">
         {!! Form::text( 'limitied_company_number', Auth::user()->limitied_company_number, ['class' =>'form-control', 'placeholder' =>"Limited Company Number"] ) !!}
     </div>
+</div>
+<div class="wt-tabscontenttitle" style="margin-top: 20px;">
+    <h2>Limted Company Name</h2>
+</div>
+<div class="wt-formtheme">
     <div class="form-group">
         {!! Form::text( 'limitied_company_name', Auth::user()->limitied_company_name, ['class' =>'form-control', 'placeholder' => "Limited Company Name" ] ) !!}
     </div>
