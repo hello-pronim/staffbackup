@@ -490,6 +490,16 @@ class User extends Authenticatable
                 $profile->p60 = $newfiename;
             }
 
+            if (!empty($request['latitude']))
+            {
+              $profile->latitude = $request['latitude'];
+            }
+
+            if (!empty($request['longitude']))
+            {
+              $profile->longitude = $request['longitude'];
+            }
+
             $profile->save();
             $role_id = Helper::getRoleByUserID($user_id);
             $package = Package::select('id', 'title', 'cost')->where('role_id', $role_id)->where('trial', 1)->get()->first();

@@ -52,6 +52,7 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places',
     },
 })
+
 Vue.use(VueIziToast);
 Vue.use(SmoothScrollbar)
 Vue.use(VueSweetalert2);
@@ -863,6 +864,28 @@ if (document.getElementById("registration")) {
                 _scrollUp.animate({scrollTop: 0}, 'slow');
                 jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
             },
+            updateAddressLocation: function(place){
+              var data={};
+              for (var i in place.address_components){
+                data[place.address_components[i].types[0]]=place.address_components[i].long_name;
+              }
+
+              var addr='';
+
+              if (data.street_number){
+                addr+=data.street_number+', ';
+              }
+
+              if (data.route){
+                addr+=data.route;
+                document.getElementById('straddress').value=addr;
+              }
+
+              document.getElementById('latitude').value=place.geometry.location.lat();
+              document.getElementById('longitude').value=place.geometry.location.lng();
+              document.getElementById('city').value= (data.postal_town ? data.postal_town : (data.locality ? data.locality : ''));
+              document.getElementById('postcode').value=data.postal_code ? data.postal_code : '';
+            }
         }
     });
 

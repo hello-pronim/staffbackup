@@ -568,16 +568,30 @@
 												</span>
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input id="straddress" type="text"
-                                                       class="form-control"
-                                                       name="straddress"
-                                                       placeholder="Address"
-                                                       v-bind:class="{ 'is-invalid': form_step2.straddress_error }">
+                                                <gmap-autocomplete class="form-control"
+                                                                   placeholder="Address"
+                                                                   id="straddress"
+                                                                   name="straddress"
+                                                                   @place_changed="updateAddressLocation($event)"
+                                                                   :select-first-on-enter="true"
+                                                                   v-bind:class="{ 'is-invalid': form_step2.straddress_error }">
+                                                  <template v-slot:input="slotProps">
+                                                    <v-text-field outlined
+                                                                  ref="input"
+                                                                  v-on:listeners="slotProps.listeners"
+                                                                  v-on:attrs="slotProps.attrs">
+                                                    </v-text-field>
+                                                  </template>
+                                                </gmap-autocomplete>
                                                 <span class="help-block"
                                                       v-if="form_step2.straddress_error">
 													<strong v-cloak>@{{form_step2.straddress_error}}</strong>
 												</span>
                                             </div>
+                                            <input type="hidden" id="latitude" name="latitude" value="">
+                                            <input type="hidden" id="longitude" name="longitude" value="">
+
+
                                             <div class="form-group form-group-half">
                                                 <input id="city" type="text"
                                                        class="form-control"
