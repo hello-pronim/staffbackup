@@ -2916,6 +2916,8 @@ body.wt-login .wt-userlogedin{display: block;}
 	margin: -5px;
 }
 .form-group-half{width: 50%;}
+.form-group-20{width: 20%;}
+.form-group-40{width: 40%;}
 .wt-formregister .wt-registerformgroup .form-group{
 	margin: 0;
 	padding: 5px;

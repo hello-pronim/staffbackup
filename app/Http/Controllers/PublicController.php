@@ -101,11 +101,11 @@ class PublicController extends Controller
         $this->validate(
             $request,
             [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|string|min:6|confirmed',
-                'password_confirmation' => 'required',
+                // 'first_name' => 'required',
+                // 'last_name' => 'required',
+                // 'email' => 'required|email|unique:users',
+                // 'password' => 'required|string|min:6|confirmed',
+                // 'password_confirmation' => 'required',
             ]
         );
     }
@@ -123,10 +123,10 @@ class PublicController extends Controller
     {
 		$validate_rules = [
 			'freelancer' => [
-                'pin' => 'required',
-                'pin_date_revalid' => 'required',
-                'prof_ind_cert' => 'required',
-                'passport_visa' => 'required',
+                // 'pin' => 'required',
+                // 'pin_date_revalid' => 'required',
+                // 'prof_ind_cert' => 'required',
+                // 'passport_visa' => 'required',
 				/*
                 '' => 'required',
                 '' => 'required',
@@ -135,7 +135,7 @@ class PublicController extends Controller
                 '' => 'required',
 				'' => 'required',
 				 */
-                'termsconditions' => 'required',
+                // 'termsconditions' => 'required',
 			],
 			'support' => [
 				/*
@@ -148,24 +148,24 @@ class PublicController extends Controller
                 '' => 'required',
 				'' => 'required',
 				 */
-                'termsconditions' => 'required',
+                // 'termsconditions' => 'required',
 			],
 			'employer' => [
-                'emp_website' => 'required',
-                'straddress' => 'required',
-                'city' => 'required',
-                'postcode' => 'required',
-                'emp_contact' => 'required',
-                'emp_telno' => 'required',
-                'emp_email' => 'required|email',
-                'emp_cqc_rating_date' => 'required',
-                'emp_cqc_rating' => 'required',
-                'org_type' => 'required',
-				'practice_code' => [
-					'required',
-					'regex:/(^([a-zA-Z]{1})([\d]+)?$)/u'
-				],
-                'termsconditions' => 'required',
+        //         'emp_website' => 'required',
+        //         'straddress' => 'required',
+        //         'city' => 'required',
+        //         'postcode' => 'required',
+        //         'emp_contact' => 'required',
+        //         'emp_telno' => 'required',
+        //         'emp_email' => 'required|email',
+        //         'emp_cqc_rating_date' => 'required',
+        //         'emp_cqc_rating' => 'required',
+        //         'org_type' => 'required',
+				// 'practice_code' => [
+				// 	'required',
+				// 	'regex:/(^([a-zA-Z]{1})([\d]+)?$)/u'
+				// ],
+        //         'termsconditions' => 'required',
 			],
 		];
         $this->validate(

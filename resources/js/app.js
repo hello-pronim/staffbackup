@@ -52,6 +52,7 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places',
     },
 })
+
 Vue.use(VueIziToast);
 Vue.use(SmoothScrollbar)
 Vue.use(VueSweetalert2);
@@ -461,6 +462,7 @@ if (document.getElementById("registration")) {
             last_name: '',
             limitedCompany: false,
             choosen_payment: "",
+            choosen_payment_mehod: "",
             form_step1: {
                 email_error: '',
                 is_email_error: false,
@@ -487,6 +489,7 @@ if (document.getElementById("registration")) {
                 emp_website_error: '',
                 emp_cqc_rating_error: '',
                 practice_code_error: '',
+                pin_error: '',
 
             },
             form_step3:
@@ -673,7 +676,7 @@ if (document.getElementById("registration")) {
                     self.next();
                 })
                     .catch(function (error) {
-						var error_data = error.response.data.errors; 
+						var error_data = error.response.data.errors;
                         if (error_data.prof_ind_cert) {
                             self.form_step2.prof_ind_cert = error_data.prof_ind_cert[0];
                             self.form_step2.is_prof_ind_cert = true;
@@ -747,6 +750,10 @@ if (document.getElementById("registration")) {
             },
             checkStep3: function (error_message) {
 
+
+
+                if (this.user_role == 'employee'){
+
                 if ($('.paypalemail').val() && $('.paypalemail').val() != '') {
                     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
@@ -761,10 +768,18 @@ if (document.getElementById("registration")) {
                     }
 
                 }
+
                 this.submitUser(true);
+              } else {
+                  this.next();
+              }
             },
             checkStep4: function (error_message) {
-                this.submitUser();
+                if (this.user_role == 'support'){
+                  this.next();
+                } else {
+                  this.submitUser();
+                }
             },
             submitUser: function (ajax) {
                 if (this.user_role == 'freelancer') {
@@ -849,6 +864,28 @@ if (document.getElementById("registration")) {
                 _scrollUp.animate({scrollTop: 0}, 'slow');
                 jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
             },
+            updateAddressLocation: function(place){
+              var data={};
+              for (var i in place.address_components){
+                data[place.address_components[i].types[0]]=place.address_components[i].long_name;
+              }
+
+              var addr='';
+
+              if (data.street_number){
+                addr+=data.street_number+', ';
+              }
+
+              if (data.route){
+                addr+=data.route;
+                document.getElementById('straddress').value=addr;
+              }
+
+              document.getElementById('latitude').value=place.geometry.location.lat();
+              document.getElementById('longitude').value=place.geometry.location.lng();
+              document.getElementById('city').value= (data.postal_town ? data.postal_town : (data.locality ? data.locality : ''));
+              document.getElementById('postcode').value=data.postal_code ? data.postal_code : '';
+            }
         }
     });
 
