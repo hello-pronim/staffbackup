@@ -7990,6 +7990,9 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 .busy_class{
 	background-color: #ffaeac !important;
 }
+.selected_class{
+	background-color: #e5ccfd !important;
+}
 /*.vuecal__event {cursor: pointer;}*/
 
 /*.vuecal__event-title {*/

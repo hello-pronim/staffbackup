@@ -216,7 +216,10 @@ if (document.getElementById("booking_availability")) {
             availability_start_time: "",
             availability_end_time: "",
             availability_selected_date: "",
+            availability_selected_end_date: "",
             clickedDate: "",
+            clickedEndDate: "",
+            addedToEvents: false,
         },
         created() {
             var events = [];
@@ -242,45 +245,81 @@ if (document.getElementById("booking_availability")) {
                     )
                 } else if (dateTime) alert('Wrong date format.')
             },
+             formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [year, month, day].join('-');
+            },
             createNewEvent(date) {
-                this.clickedDate = new Date(date);
-                // if(this.availability_start_time != '')
-                // {
-                //     var startTime = this.availability_start_time.split(' ')[1];
-                //
+                console.log(date);
+                if((this.clickedDate == "" &&  this.clickedEndDate =='') || (this.clickedDate != "" &&  this.clickedEndDate !='') )
+                {
+                    this.clickedDate = new Date(date);
+                    this.clickedEndDate = "";
+                    this.availability_selected_date = this.formatDate(date);
+                }
+                else {
+                    this.clickedEndDate = new Date(date);
+                    this.availability_selected_end_date = this.formatDate(date);
+
+
+                }
+                var newObj =
+                    {
+                        start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),
+                        end: this.formatDate(date) + " " + (this.availability_end_time != "" ?  this.availability_end_time : "23:59") ,
+                        title: this.availability_title != "" ? this.availability_title : "•" ,
+                        content: this.availability_content != "" ? this.availability_content : "•",
+                        contentFull: this.availability_content,
+                        class: 'selected_class'
+                    };
+                console.log(newObj);
+                // if (busy) {
+                //     newObj.class = 'busy_class';
                 // }
-                // else {
-                //     var startTime = '00:00';
-                // }
-                // if(this.availability_end_time != '')
-                // {
-                //     var endTime = this.availability_end_time.split(' ')[1];
-                // }
-                // else {
-                //     var endTime = '00:00';
-                // }
-                //this.availability_start_time = date.toISOString().split('T')[0] + ' ' + startTime;
-                //this.availability_end_time = date.toISOString().split('T')[0] + ' ' + endTime;
-                this.availability_selected_date = date.toISOString().split('T')[0];
+                if(!this.addedToEvents)
+                {
+                    this.events.push(newObj);
+                    this.addedToEvents = true;
+                }
+                else
+                {
+                    this.events.pop();
+                    this.events.push(newObj);
+                    this.addedToEvents = true;
+                }
+
             },
             saveNewEventBusy(e) {
                 this.saveNewEventAvailability(e, true);
             },
             saveNewEventAvailability(e, busy) {
                 e.preventDefault();
+                var word = '•';
+                var class_type = 'available_class';
+                if (busy) {
+                    class_type = 'busy_class';
+                    word = 'Busy/Holiday';
+                }
                 var newObj =
                     {
-                        start: this.availability_selected_date + " " + this.availability_start_time,
-                        end: this.availability_selected_date + " " + this.availability_end_time,
-                        title: this.availability_title,
-                        content: this.availability_content,
-                        contentFull: this.availability_content,
-                        class: 'available_class'
+                        start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),
+                        end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date ) + " " + (this.availability_end_time != "" ? this.availability_end_time : "23:59"),
+                        title: this.availability_title != "" ? this.availability_title : word,
+                        content: this.availability_content != "" ? this.availability_content : word,
+                        contentFull: this.availability_content != "" ? this.availability_content : word,
+                        class: class_type
                     };
-                if (busy) {
-                    newObj.class = 'busy_class';
-                }
-                this.events.push(newObj);
+
+                //this.events.push(newObj);
                 axios.post('/freelancer/saveCalendarAvailability', newObj)
                     .then(function (response) {
                         this.availability_start_time = '';
@@ -5072,9 +5111,9 @@ $(document).ready(function () {
 
     $(document).on('click', '.bookbutton, .availButton', function () {
         //$('.vuecal ').slideUp();
-        $('html, body').animate({
-            scrollTop: ($(".classScrollTo").offset().top)
-        }, 1000);
+        // $('html, body').animate({
+        //     scrollTop: ($(".classScrollTo").offset().top)
+        // }, 1000);
     });
     $(document).on('click', '.openCal', function () {
         // $('.vuecal ').slideDown();
