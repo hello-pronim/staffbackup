@@ -81,6 +81,7 @@ class FreelancerController extends Controller
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $tagline = !empty($profile->tagline) ? $profile->tagline : '';
         $description = !empty($profile->description) ? $profile->description : '';
+        $radius = !empty($profile->radius) ? $profile->radius : '';
         $address = !empty($profile->address) ? $profile->address : '';
         $longitude = !empty($profile->longitude) ? $profile->longitude : '';
         $latitude = !empty($profile->latitude) ? $profile->latitude : '';
@@ -109,6 +110,7 @@ class FreelancerController extends Controller
                     'tagline',
                     'description',
                     'banner',
+                    'radius',
                     'address',
                     'longitude',
                     'latitude',
@@ -134,6 +136,7 @@ class FreelancerController extends Controller
                     'tagline',
                     'description',
                     'banner',
+                    'radius',
                     'address',
                     'longitude',
                     'latitude',
@@ -201,8 +204,11 @@ class FreelancerController extends Controller
                 'last_name'    => 'required',
                 'pin' => 'required',
                 'pin_date_revalid' => 'required',
-                'prof_ind_cert' => 'required',
-                'passport_visa' => 'required',
+                // 'prof_ind_cert' => 'required',
+                // 'passport_visa' => 'required',
+                'radius' => 'nullable|numeric',
+                'latitude'    => 'nullable|numeric',
+                'longitude'    => 'nullable|numeric',
             ]
         );
         if (Auth::user()) {
@@ -878,7 +884,7 @@ class FreelancerController extends Controller
             $service = Service::find($pivot_service->service_id);
             $seller = Helper::getServiceSeller($service->id);
             $purchaser = $service->purchaser->first();
-            $freelancer = !empty($seller) ? User::find($seller->user_id) : ''; 
+            $freelancer = !empty($seller) ? User::find($seller->user_id) : '';
             $service_status = Helper::getProjectStatus();
             $review_options = DB::table('review_options')->get()->all();
             $avg_rating = !empty($freelancer) ? Review::where('receiver_id', $freelancer->id)->sum('avg_rating') : '';

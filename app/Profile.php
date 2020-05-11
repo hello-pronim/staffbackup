@@ -217,6 +217,9 @@ class Profile extends Model
         $profile->gender = filter_var($request['gender'], FILTER_SANITIZE_STRING);
         $profile->tagline = filter_var($request['tagline'], FILTER_SANITIZE_STRING);
         $profile->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
+
+        $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING);
+
         $profile->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
         $profile->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
         $profile->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
