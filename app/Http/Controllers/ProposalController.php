@@ -62,7 +62,19 @@ class ProposalController extends Controller
     public function createProposal($job_slug)
     {
         if (!empty($job_slug)) {
-            $job = Job::all()->where('slug', $job_slug)->first();
+            $user = auth()->user();
+            $job_query = Job::select('jobs.*')->where('slug', '=', $job_slug);
+
+            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+                    $distance = Job::distanceQuery($user);
+                    $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                    $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+                }
+            }
+
+            $job = $job_query->firstOrFail();
+
             if (!empty($job)) {
                 $job_skills = $job->skills->pluck('id')->toArray();
                 $check_skill_req = $this->proposal->getJobSkillRequirement($job_skills);
@@ -161,7 +173,9 @@ class ProposalController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()) {
+        $user = auth()->user();
+
+        if ($user != null) {
             $server = Helper::worketicIsDemoSiteAjax();
             if (!empty($server)) {
                 $response['message'] = $server->getData()->message;
@@ -177,7 +191,24 @@ class ProposalController extends Controller
                         'description'    => 'required',
                     ]
                 );
-                $job = Job::find($request['id']);
+
+                $job_query = Job::select('jobs.*')->where('id', '=', $request['id']);
+                if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                    if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+                        $distance = Job::distanceQuery($user);
+                        $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                        $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+                    }
+                }
+
+                $job = $job_query->first();
+
+                if ($job == null) {
+                    $json['type'] = 'error';
+                    $json['message'] = trans('lang.job_not_avail');
+                    return $json;
+                }
+
                 if ($job->status != 'posted') {
                     $json['type'] = 'error';
                     $json['message'] = trans('lang.job_not_avail');

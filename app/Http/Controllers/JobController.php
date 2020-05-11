@@ -493,7 +493,19 @@ class JobController extends Controller
      */
     public function show($slug)
     {
-        $job = $this->job::all()->where('slug', $slug)->first();
+        $user = auth()->user();
+        $job_query = Job::select('jobs.*')->where('slug', '=', $slug);
+
+        if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+            if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+                $distance = Job::distanceQuery($user);
+                $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+            }
+        }
+
+        $job = $job_query->firstOrFail();
+
         if (!empty($job)) {
             $submitted_proposals = $job->proposals->where('status', '!=', 'cancelled')->pluck('freelancer_id')->toArray();
             $employer_id = $job->employer->id;

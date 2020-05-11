@@ -21,6 +21,7 @@ use Auth;
 use App\Proposal;
 use App\Location;
 use App\Language;
+use App\User;
 
 /**
  * Class Job
@@ -331,20 +332,34 @@ class Job extends Model
      * @return relation
      */
     public static function getSearchResult(
-        $keyword, $search_categories, $search_locations,
+        $user, $keyword, $search_categories, $search_locations,
         $search_skills, $search_project_lengths,
         $search_languages, $days_avail, $hours_avail, $job_date
     ) {
+
         $json = array();
-        $jobs = Job::select('*');
+        $jobs = Job::select('jobs.*');
+
+        if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+          if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+            $distance = self::distanceQuery($user);
+            $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+            $jobs->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+          }
+        }
+
         $job_id = array();
+
         $filters = array();
         $filters['type'] = 'job';
+
         if (!empty($keyword)) {
             $filters['s'] = $keyword;
             $jobs->where('title', 'like', '%' . $keyword . '%');
         };
-            $jobs->where('is_active', '1');
+
+        $jobs->where('is_active', '1');
+
         if (!empty($search_categories)) {
             $filters['category'] = $search_categories;
             foreach ($search_categories as $key => $search_category) {
@@ -359,11 +374,13 @@ class Job extends Model
             }
             $jobs->whereIn('id', $job_id);
         }
+
         if (!empty($search_locations)) {
             $filters['locations'] = $search_locations;
             $locations = Location::select('id')->whereIn('slug', $search_locations)->get()->pluck('id')->toArray();
             $jobs->whereIn('location_id', $locations);
         }
+
         if (!empty($search_skills)) {
             $filters['skills'] = $search_skills;
             foreach ($search_skills as $key => $search_skill) {
@@ -378,10 +395,12 @@ class Job extends Model
             }
             $jobs->whereIn('id', $job_id);
         }
+
         if (!empty($search_project_lengths)) {
             $filters['project_lengths'] = $search_project_lengths;
             $jobs->whereIn('duration', $search_project_lengths);
         }
+
         if (!empty($search_languages)) {
             $filters['languages'] = $search_languages;
             $languages = Language::whereIn('slug', $search_languages)->get();
@@ -392,6 +411,7 @@ class Job extends Model
             }
             $jobs->whereIn('id', $job_id);
         }
+
         if (!empty($days_avail)) {
             $arrjobs = DB::table('jobs');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
             $filters['days_avail'] = json_encode($days_avail);
@@ -431,8 +451,8 @@ class Job extends Model
         //$jobs->where('start_date', "!=","0000-00-00");
         $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
 
-
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
+
         foreach ($filters as $key => $filter ) {
             $pagination = $jobs->appends(
                 array(
@@ -440,6 +460,7 @@ class Job extends Model
                 )
             );
         }
+
         $json['jobs'] = $jobs;
         return $json;
     }
@@ -466,4 +487,21 @@ class Job extends Model
         return $job->delete();
     }
 
+    /**
+     * Returns distance query
+     *
+     * @param User $user
+     *
+     * @return string
+     */
+    public static function distanceQuery(User $user)
+    {
+        return '(3959 * acos (
+          cos (radians(' . $user->profile->latitude . '))
+          * cos(radians(jobs.latitude))
+          * cos(radians(jobs.longitude) - radians(' . $user->profile->longitude . '))
+          + sin(radians(' . $user->profile->latitude . '))
+          * sin(radians(jobs.latitude))
+        ))';
+    }
 }

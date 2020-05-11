@@ -636,6 +636,7 @@ class PublicController extends Controller
      */
     public function getSearchResult($search_type = "")
     {
+        $user = auth()->user();
         $categories = array();
         $locations  = array();
         $languages  = array();
@@ -895,6 +896,7 @@ class PublicController extends Controller
                     $job_date = $_GET['start_date'];
                 }
                 $results = Job::getSearchResult(
+                    $user,
                     $keyword,
                     $search_categories,
                     $search_locations,
@@ -905,6 +907,7 @@ class PublicController extends Controller
                     $hours_avail,
                     $job_date
                 );
+
                 $jobs = $results['jobs'];
                 if (!empty($jobs)) {
                     if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
