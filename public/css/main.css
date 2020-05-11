@@ -7990,6 +7990,9 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 .busy_class{
 	background-color: #ffaeac !important;
 }
+.selected_class{
+	background-color: #e5ccfd !important;
+}
 /*.vuecal__event {cursor: pointer;}*/
 
 /*.vuecal__event-title {*/
@@ -8771,4 +8774,12 @@ input[type=number]::-webkit-outer-spin-button {
 	font-family: AvenirNext, 'Segoe UI', Tahoma, sans-serif;
 	font-size: 16px;
 	background: none !important;
+}
+
+
+@-moz-document url-prefix() {
+
+	.footermargins {
+		margin-bottom: 20px !important;
+	}
 }

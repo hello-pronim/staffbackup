@@ -6,14 +6,16 @@
                 <div class="freelancer-profile" id="booking_availability">
                     @if (Session::has('message'))
                         <div class="flash_msg">
-                            <flash_messages :message_class="'success'" :time ='5' :message="'{{{ Session::get('message') }}}'" v-cloak></flash_messages>
+                            <flash_messages :message_class="'success'" :time='5'
+                                            :message="'{{{ Session::get('message') }}}'" v-cloak></flash_messages>
                         </div>
                     @endif
                     @if ($errors->any())
                         <ul class="wt-jobalerts">
                             @foreach ($errors->all() as $error)
                                 <div class="flash_msg">
-                                    <flash_messages :message_class="'danger'" :time ='10' :message="'{{{ $error }}}'" v-cloak></flash_messages>
+                                    <flash_messages :message_class="'danger'" :time='10' :message="'{{{ $error }}}'"
+                                                    v-cloak></flash_messages>
                                 </div>
                             @endforeach
                         </ul>
@@ -31,8 +33,8 @@
                                      :disable-views="['years', 'year']"
                                      :events="events"
                                      default-view="month"
-
-                                    @cell-click="createNewEvent">
+                                     :events-on-month-view="[true, 'short'][true * 1]"
+                                     @cell-click="createNewEvent">
                             </vue-cal>
 
 
@@ -46,30 +48,50 @@
 
 
                                     <form>
-                                        <div class="form-group classScrollTo" style="margin-top: 25px;">
-                                            <label>Picked Date </label>
+                                        <div class="form-group form-group-half classScrollTo" style="margin-top: 25px;">
+                                            <label>Picked <span v-if="availability_selected_end_date != ''">Start</span> Date </label>
 
-                                            <input type="text" disabled class="form-control" placeholder="Booking Date" v-model="availability_selected_date">
+                                            <input type="text" disabled class="form-control" placeholder="Booking Date"
+                                                   v-model="availability_selected_date">
+                                        </div>
+                                        <div class="form-group form-group-half classScrollTo" style="margin-top: 25px;"
+                                             v-if="availability_selected_end_date != ''">
+                                            <label>Picked End Date </label>
+
+                                            <input type="text" disabled class="form-control"
+                                                   placeholder="Booking End Date"
+                                                   v-model="availability_selected_end_date">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-group form-group-half">
+                                                <label>Start Time</label>
+                                                <vue-timepicker name="availability_start_time" required format="HH:mm"
+                                                                v-model="availability_start_time"></vue-timepicker>
+                                            </div>
+                                            <div class="form-group form-group-half">
+                                                <label>End Time</label>
+                                                <vue-timepicker name="availability_end_time" required format="HH:mm"
+                                                                v-model="availability_end_time"></vue-timepicker>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Start Time</label>
-                                            <vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>
+                                            <label for="availability_title">Title:</label>
+                                            {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Availability Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
                                         </div>
                                         <div class="form-group">
-                                            <label>End Time</label>
-                                            <vue-timepicker name="availability_end_time"  required   format="HH:mm"  v-model="availability_end_time"></vue-timepicker>
+                                            <label for="availability_title">Content:</label>
+                                            {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Availability Content', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
                                         </div>
-                                    <div class="form-grou!!p">
-                                        <label for="availability_title">Title:</label>
-                                        {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Availability Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="availability_title">Content:</label>
-                                        {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Availability Content', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
-                                    </div>
-                                    <button class="btn btn-success" @click="saveNewEventAvailability">Create Availability</button>
-                                    <button class="btn btn-success" @click="saveNewEventBusy">Create Holiday/Busy</button>
+                                        <div class="form-group">
+                                            <button class="btn btn-success" @click="saveNewEventAvailability">Create
+                                                Availability
+                                            </button>
+                                            <button class="btn btn-success" @click="saveNewEventBusy">Create
+                                                Holiday/Busy
+                                            </button>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>
