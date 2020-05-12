@@ -626,6 +626,7 @@ class User extends Authenticatable
     /**
      * Get search results
      *
+     * @param User $user                   type
      * @param integer $type                   type
      * @param integer $keyword                keyword
      * @param integer $search_locations       search_locations
@@ -641,6 +642,7 @@ class User extends Authenticatable
      * @return \Illuminate\Http\Response
      */
     public static function getSearchResult(
+        $user,
         $type,
         $keyword,
         $search_locations,
@@ -659,8 +661,10 @@ class User extends Authenticatable
         $user_id = array();
         $user_by_role =  User::role($type)->select('id')->get()->pluck('id')->toArray();
         $users = !empty($user_by_role) ? User::whereIn('users.id', $user_by_role)->where('is_disabled', 'false') : array();
+
         $filters = array();
         if (!empty($users)) {
+
             $filters['type'] = $type;
             if (!empty($keyword)) {
                 $filters['s'] = $keyword;

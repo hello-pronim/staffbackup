@@ -697,6 +697,7 @@ class PublicController extends Controller
                 }
                 $users_total_records = User::count();
                 $search =  User::getSearchResult(
+                    $user,
                     $type,
                     $keyword,
                     $search_locations,
