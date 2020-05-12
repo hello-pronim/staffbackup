@@ -787,7 +787,7 @@ class User extends Authenticatable
         if ($type = 'freelancer') {
             if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
                 if (in_array('employer', $user->getRoleNames()->toArray())) {
-                    $distance = self::distanceQuery($user);
+                    $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
                     $users->addSelect(DB::raw('(' . $distance . ') AS distance'));
                     $users->whereRaw(DB::raw('(' . $distance . '<=profiles.radius)'));
                 }
@@ -939,14 +939,43 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public static function distanceQuery(User $user)
+    public static function distanceQuery($lat, $lng)
     {
         return '(3959 * acos (
-          cos (radians(' . $user->profile->latitude . '))
+          cos (radians(' . $lat . '))
           * cos(radians(profiles.latitude))
-          * cos(radians(profiles.longitude) - radians(' . $user->profile->longitude . '))
-          + sin(radians(' . $user->profile->latitude . '))
+          * cos(radians(profiles.longitude) - radians(' . $lng . '))
+          + sin(radians(' . $lat . '))
           * sin(radians(profiles.latitude))
         ))';
+    }
+
+    /**
+     * Returns users list by location.
+     *
+     * @param numeric $lat
+     * @param numeric $lng
+     * @param numeric $radius
+     * @param string $role
+     *
+     * @return Collection
+     */
+    public static function findByLocation($lat, $lng, $radius, $role=null)
+    {
+        $query = User::select('users.*')
+            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id');
+
+        $distance = self::distanceQuery($lat, $lng);
+        $query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+        $query->whereRaw(DB::raw('(' . $distance . '<=' . $radius . ')'));
+
+        if ($role != null) {
+            $query->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+              ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+              ->where('model_has_roles.model_type', '=', 'App\User')
+              ->where('roles.role_type', '=', $role);
+        }
+
+        return $query->get();
     }
 }

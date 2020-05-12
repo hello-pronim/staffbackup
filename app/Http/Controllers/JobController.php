@@ -360,7 +360,7 @@ class JobController extends Controller
                         $email_params = array();
                         $new_posted_job_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_new_job_posted')->get()->first();
                         $new_posted_job_template_employer = DB::table('email_types')->select('id')->where('email_type', 'employer_email_new_job_posted')->get()->first();
-                        if (!empty($new_posted_job_template->id) || !empty(new_posted_job_template_employer)) {
+                        if (!empty($new_posted_job_template->id) || !empty($new_posted_job_template_employer)) {
                             $template_data = EmailTemplate::getEmailTemplateByID($new_posted_job_template->id);
                             $template_data_employer = EmailTemplate::getEmailTemplateByID($new_posted_job_template_employer->id);
                             $email_params['job_title'] = $job->title;
@@ -387,6 +387,23 @@ class JobController extends Controller
                                 );
                             }
                         }
+
+                        // notify rofessonals
+                        // if (!empy($job->latitude) && !empy($job->longitude) && !empy($job->radius)) {
+                        //     $users = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'freelancer');
+                        //
+                        //     foreach ($users as $user){
+                        //         Mail::to($user->email)
+                        //         ->send(
+                        //             new FreelancerEmailMailable(
+                        //                 'freelancer_email_new_job_posted',
+                        //                 $template_data,
+                        //                 $email_params
+                        //             )
+                        //         );
+                        //     }
+                        // }
+
                     }
                     return $json;
                 }
