@@ -659,13 +659,15 @@ class User extends Authenticatable
     ) {
         $json = array();
         $user_id = array();
-        $user_by_role =  User::role($type)->select('id')->get()->pluck('id')->toArray();
-        $users = !empty($user_by_role) ? User::whereIn('users.id', $user_by_role)->where('is_disabled', 'false') : array();
+        $filters = array('type' => $type);
 
-        $filters = array();
-        if (!empty($users)) {
+        $users = User::select('users.*')
+            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
+            ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('model_has_roles.model_type', '=', 'App\User')
+            ->where('roles.role_type', '=', $type);
 
-            $filters['type'] = $type;
             if (!empty($keyword)) {
                 $filters['s'] = $keyword;
                 $users->where('first_name', 'like', '%' . $keyword . '%');
@@ -781,20 +783,23 @@ class User extends Authenticatable
 
                 }
             }
-            if ($type = 'freelancer') {
-                $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');
-            } else {
-                $users = $users->orderBy('created_at', 'DESC');
+
+        if ($type = 'freelancer') {
+            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                if (in_array('employer', $user->getRoleNames()->toArray())) {
+                    $distance = self::distanceQuery($user);
+                    $users->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                    $users->whereRaw(DB::raw('(' . $distance . '<=profiles.radius)'));
+                }
             }
 
-
-
-//
-//            $users->select('users.*', 'profiles.days_avail', 'profiles.hours_avail');
-//
-//            $users->join('profiles', "users.id", '=', 'profiles.user_id');
-            $users = $users->paginate(8)->setPath('');
+            $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');
+        } else {
+            $users = $users->orderBy('created_at', 'DESC');
         }
+
+        $users = $users->paginate(8)->setPath('');
+
         foreach ($filters as $key => $filter) {
             $pagination = $users->appends(
                 array(
@@ -802,6 +807,7 @@ class User extends Authenticatable
                 )
             );
         }
+
         $json['users'] = $users;
         return $json;
     }
@@ -923,5 +929,24 @@ class User extends Authenticatable
         } else {
             return 'error';
         }
+    }
+
+
+    /**
+     * Returns distance query
+     *
+     * @param User $user
+     *
+     * @return string
+     */
+    public static function distanceQuery(User $user)
+    {
+        return '(3959 * acos (
+          cos (radians(' . $user->profile->latitude . '))
+          * cos(radians(profiles.latitude))
+          * cos(radians(profiles.longitude) - radians(' . $user->profile->longitude . '))
+          + sin(radians(' . $user->profile->latitude . '))
+          * sin(radians(profiles.latitude))
+        ))';
     }
 }
