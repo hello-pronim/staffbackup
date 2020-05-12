@@ -67,7 +67,10 @@ class FreelancerEmailMailable extends Mailable
             $email_message = $this->prepareFreelancerEmailJobCompleted($this->email_params);
         } elseif ($this->type == 'freelancer_email_new_order') {
             $email_message = $this->prepareFreelancerEmailNewOrder($this->email_params);
+        } elseif ($this->type == 'freelancer_email_new_job_posted') {
+            $email_message = $this->prepareFreelancerEmailNewJobPosted($this->email_params);
         }
+
         $message = $this->from($from_email, $from_email_id)
             ->subject($subject)->view('emails.index')
             ->with(
@@ -197,7 +200,7 @@ class FreelancerEmailMailable extends Mailable
 
                                     The <a href='%employer_link%'>%employer_name%</a> would like to invite you to consider working on the following project <a href='%project_link%'>%project_title%</a>
                                     Message: %message%
-                                    
+
                                     %signature%,";
         //set default contents
         if (empty($app_content)) {
@@ -221,9 +224,9 @@ class FreelancerEmailMailable extends Mailable
 
     /**
      * Email job cancelled
-     * 
+     *
      * @param array $email_params Email Parameters
-     * 
+     *
      * @access public
      *
      * @return string
@@ -245,7 +248,7 @@ class FreelancerEmailMailable extends Mailable
                                     Unfortunately <a href=' %employer_link%'>%employer_name%</a> cancelled the <a href='%project_link%'>%project_title%</a> project due to following below reasons.
                                     Job Cancel Reasons Below.
                                     Message: %message%
-                                    
+
                                     %signature%,";
         //set default contents
         if (empty($app_content)) {
@@ -293,7 +296,7 @@ class FreelancerEmailMailable extends Mailable
                                     The <a href='%employer_link%'>%employer_name%</a> submit the proposal message on this job <a href='%project_link%'>%project_title%</a>.
                                     Login to view your proposal message.
                                     Message: %message%
-                                    
+
                                     %signature%,";
         //set default contents
         if (empty($app_content)) {
@@ -337,7 +340,7 @@ class FreelancerEmailMailable extends Mailable
         $email_content_default =    "Hello <a href='%freelancer_link%'>%freelancer_name%</a>,
 
                                     You have subscribe to the following %package_name% at cost of %package_price% which will be expire on %package_expiry%.
-                                    
+
                                     %signature%,";
         //set default contents
         if (empty($app_content)) {
@@ -358,10 +361,10 @@ class FreelancerEmailMailable extends Mailable
     }
 
     /**
-     * Email job completed 
-     * 
+     * Email job completed
+     *
      * @param array $email_params Email Parameters
-     * 
+     *
      * @access public
      *
      * @return string
@@ -443,6 +446,29 @@ class FreelancerEmailMailable extends Mailable
         $app_content = str_replace("%service_title%", $service_title, $app_content);
         $app_content = str_replace("%service_amount%", $service_amount, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
+
+        $body = "";
+        $body .= EmailHelper::getEmailHeader();
+        $body .= $app_content;
+        $body .= EmailHelper::getEmailFooter();
+        return $body;
+    }
+
+
+    /**
+     * New job submitted
+     *
+     * @param array $email_params Email Parameters
+     *
+     * @access public
+     *
+     * @return string
+     */
+    public function prepareFreelancerEmailNewJobPosted($email_params)
+    {
+        extract($email_params);
+
+        $app_content = $this->template->content ?? "New job posted";
 
         $body = "";
         $body .= EmailHelper::getEmailHeader();

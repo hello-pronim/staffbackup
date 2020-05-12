@@ -26,6 +26,8 @@ use Spatie\Permission\Models\Role;
 use App\SiteManagement;
 use App\Mail\AdminEmailMailable;
 use App\Mail\EmployerEmailMailable;
+use App\Mail\SupportEmailMailable;
+use App\Mail\FreelancerEmailMailable;
 use App\EmailTemplate;
 use App\Item;
 use Carbon\Carbon;
@@ -388,21 +390,42 @@ class JobController extends Controller
                             }
                         }
 
-                        // notify rofessonals
-                        // if (!empy($job->latitude) && !empy($job->longitude) && !empy($job->radius)) {
-                        //     $users = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'freelancer');
-                        //
-                        //     foreach ($users as $user){
-                        //         Mail::to($user->email)
-                        //         ->send(
-                        //             new FreelancerEmailMailable(
-                        //                 'freelancer_email_new_job_posted',
-                        //                 $template_data,
-                        //                 $email_params
-                        //             )
-                        //         );
-                        //     }
-                        // }
+                        if (!empty($job->latitude) && !empty($job->longitude) && !empty($job->radius)) {
+                            $template_data = [];
+                            $email_params = [];
+
+                            // notify professonals
+                            $professonals = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'freelancer');
+
+                            if ($professonals->count()) {
+                                foreach ($professonals as $professonal){
+                                    Mail::to($professonal->email)
+                                    ->send(
+                                        new FreelancerEmailMailable(
+                                            'freelancer_email_new_job_posted',
+                                            $template_data,
+                                            $email_params
+                                        )
+                                    );
+                                }
+                            }
+
+                            // notify support workers
+                            $supports = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'support');
+
+                            if ($supports->count()) {
+                                foreach ($supports as $support){
+                                    Mail::to($support->email)
+                                    ->send(
+                                        new SupportEmailMailable(
+                                            'support_email_new_job_posted',
+                                            $template_data,
+                                            $email_params
+                                        )
+                                    );
+                                }
+                            }
+                        }
 
                     }
                     return $json;
