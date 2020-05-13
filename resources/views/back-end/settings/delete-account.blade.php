@@ -32,11 +32,11 @@
                                         <div class="form-group form-group-half">
                                             {!! Form::password('retype_password', ['class' => 'form-control','placeholder' => trans('lang.ph_retype_pass')]) !!}
                                         </div>
-                                        <div class="form-group">
-                                            <span class="wt-select">
-                                                {!! Form::select('delete_reason', Helper::getDeleteAccReason(), null, array('placeholder' => trans('lang.select_reason'))) !!}
-                                            </span>
-                                        </div>
+                                        {{--<div class="form-group">--}}
+                                            {{--<span class="wt-select">--}}
+                                                {{--{!! Form::select('delete_reason', Helper::getDeleteAccReason(), null, array('placeholder' => trans('lang.select_reason'))) !!}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
                                         <div class="form-group">
                                             <textarea name="delete_description" class="form-control" placeholder="{{{ trans('lang.ph_desc_optional') }}}"></textarea>
                                         </div>

@@ -34,11 +34,11 @@
                                                         {!! Form::select('project_levels', $project_levels , e($job->project_level)) !!}
                                                     </span>
                                             </div>
-                                            <div class="form-group form-group-half wt-formwithlabel">
-                                                <span class="wt-select">
-                                                    {!! Form::select('job_duration', $job_duration , e($job->duration)) !!}
-                                                </span>
-                                            </div>
+                                            {{--<div class="form-group form-group-half wt-formwithlabel">--}}
+                                                {{--<span class="wt-select">--}}
+                                                    {{--{!! Form::select('job_duration', $job_duration , e($job->duration)) !!}--}}
+                                                {{--</span>--}}
+                                            {{--</div>--}}
                                             <div class="form-group form-group-half wt-formwithlabel">
                                                 <span class="wt-select">
                                                     {!! Form::select('freelancer_type', $freelancer_level_list, e($job->freelancer_type)) !!}
@@ -49,9 +49,9 @@
                                                     {!! Form::select('english_level', $english_levels, e($job->english_level)) !!}
                                                 </span>
                                             </div>
-                                            <div class="form-group form-group-half wt-formwithlabel job-cost-input">
-                                                {!! Form::text('project_cost', $job->price, array('class' => 'form-control', 'placeholder' => trans('lang.project_cost'))) !!}
-                                            </div>
+                                            {{--<div class="form-group form-group-half wt-formwithlabel job-cost-input">--}}
+                                                {{--{!! Form::text('project_cost', $job->price, array('class' => 'form-control', 'placeholder' => trans('lang.project_cost'))) !!}--}}
+                                            {{--</div>--}}
                                         </fieldset>
                                     </div>
                                 </div>

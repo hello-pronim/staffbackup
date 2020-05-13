@@ -329,12 +329,12 @@ class UserController extends Controller
                 $user->roles()->detach();
                 $user->delete();
                 if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
-                    $delete_reason = Helper::getDeleteAccReason($request['delete_reason']);
+                    //$delete_reason = Helper::getDeleteAccReason($request['delete_reason']);
                     $email_params = array();
                     $template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_delete_account')->get()->first();
                     if (!empty($template->id)) {
                         $template_data = EmailTemplate::getEmailTemplateByID($template->id);
-                        $email_params['reason'] = $delete_reason;
+                        $email_params['reason'] = ''; //$delete_reason;
                         Mail::to(config('mail.username'))
                             ->send(
                                 new AdminEmailMailable(

@@ -41,15 +41,15 @@
                                             @include('back-end.support.profile-settings.personal-detail.profile_photo') 
                                         @endif
                                     </div>
-                                    @if (!empty($options) && $options['banner_option'] === 'true')
-                                        <div class="wt-bannerphoto wt-tabsinfo">
-                                            @if (file_exists(resource_path('views/extend/back-end/support/profile-settings/personal-detail/profile_banner.blade.php'))) 
-                                                @include('extend.back-end.support.profile-settings.personal-detail.profile_banner')
-                                            @else 
-                                                @include('back-end.support.profile-settings.personal-detail.profile_banner')
-                                            @endif    
-                                        </div>
-                                    @endif
+                                    {{--@if (!empty($options) && $options['banner_option'] === 'true')--}}
+                                        {{--<div class="wt-bannerphoto wt-tabsinfo">--}}
+                                            {{--@if (file_exists(resource_path('views/extend/back-end/support/profile-settings/personal-detail/profile_banner.blade.php'))) --}}
+                                                {{--@include('extend.back-end.support.profile-settings.personal-detail.profile_banner')--}}
+                                            {{--@else --}}
+                                                {{--@include('back-end.support.profile-settings.personal-detail.profile_banner')--}}
+                                            {{--@endif    --}}
+                                        {{--</div>--}}
+                                    {{--@endif--}}
                                     <div class="wt-location wt-tabsinfo">
                                         @if (file_exists(resource_path('views/extend/back-end/support/profile-settings/personal-detail/location.blade.php'))) 
                                             @include('extend.back-end.support.profile-settings.personal-detail.location')

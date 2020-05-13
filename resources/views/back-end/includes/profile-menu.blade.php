@@ -191,9 +191,9 @@
                             <span>{{ trans('lang.all_projects') }}</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>
-                            <li><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>
-                            <li><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>
+                            {{--<li><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>--}}
                         </ul>
                     </li>
                     @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
@@ -205,18 +205,18 @@
                             </a>
                             <ul class="sub-menu">
                                 <li><a href="{{{ route('ServiceListing', ['status'=>'posted']) }}}">{{ trans('lang.posted_services') }}</a></li>
-                                <li><a href="{{{ route('ServiceListing', ['status'=>'hired']) }}}">{{ trans('lang.ongoing_services') }}</a></li>
-                                <li><a href="{{{ route('ServiceListing', ['status'=>'completed']) }}}">{{ trans('lang.completed_services') }}</a></li>
-                                <li><a href="{{{ route('ServiceListing', ['status'=>'cancelled']) }}}">{{ trans('lang.cancelled_services') }}</a></li>
+                                {{--<li><a href="{{{ route('ServiceListing', ['status'=>'hired']) }}}">{{ trans('lang.ongoing_services') }}</a></li>--}}
+                                {{--<li><a href="{{{ route('ServiceListing', ['status'=>'completed']) }}}">{{ trans('lang.completed_services') }}</a></li>--}}
+                                {{--<li><a href="{{{ route('ServiceListing', ['status'=>'cancelled']) }}}">{{ trans('lang.cancelled_services') }}</a></li>--}}
                             </ul>
                         </li>
                     @endif
-                    <li>
-                        <a href="{{{ route('showFreelancerProposals') }}}">
-                            <i class="ti-bookmark-alt"></i>
-                            <span>{{ trans('lang.proposals') }}</span>
-                        </a>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a href="{{{ route('showFreelancerProposals') }}}">--}}
+                            {{--<i class="ti-bookmark-alt"></i>--}}
+                            {{--<span>{{ trans('lang.proposals') }}</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     {{--<li>
                         <a href="{{{ route('FreelancerPayoutsSettings') }}}">
                             <i class="ti-money"></i>

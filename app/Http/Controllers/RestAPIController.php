@@ -1604,10 +1604,10 @@ class RestAPIController extends Controller
             $json['error'] = 'English level is required.';
             return Response::json($json, 203);
         }
-        if (empty($request['project_cost'])) {
-            $json['error'] = 'Project cost is required.';
-            return Response::json($json, 203);
-        }
+//        if (empty($request['project_cost'])) {
+//            $json['error'] = 'Project cost is required.';
+//            return Response::json($json, 203);
+//        }
         if (empty($request['description'])) {
             $json['error'] = 'Job description is required.';
             return Response::json($json, 203);
@@ -1649,7 +1649,7 @@ class RestAPIController extends Controller
                 $job->employer()->associate($current_user);
                 $job->title = filter_var($request['title'], FILTER_SANITIZE_STRING);
                 $job->slug = filter_var($request['title'], FILTER_SANITIZE_STRING);
-                $job->price = filter_var($request['project_cost'], FILTER_SANITIZE_STRING);
+                $job->price = '0';// filter_var($request['project_cost'], FILTER_SANITIZE_STRING);
                 $job->project_level = filter_var($request['project_level'], FILTER_SANITIZE_STRING);
                 $job->description = $request['description'];
                 $job->english_level = filter_var($request['english_level'], FILTER_SANITIZE_STRING);
