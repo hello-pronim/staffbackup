@@ -34,7 +34,7 @@ class UpdatePrivateMessages extends Migration
         Schema::table(
             'reviews',
             function (Blueprint $table) {
-                $table->dropColumn('project_type');
+     //           $table->dropColumn('project_type');
             }
         );
     }

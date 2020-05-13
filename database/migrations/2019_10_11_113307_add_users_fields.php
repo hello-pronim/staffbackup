@@ -31,6 +31,7 @@ class AddUsersFields extends Migration
      */
     public function down()
     {
+        /*
         Schema::table(
             'users',
             function (Blueprint $table) {
@@ -39,6 +40,6 @@ class AddUsersFields extends Migration
                 $table->dropColumn('string');
                 $table->dropColumn('date_available');
             }
-        );
+        );*/
     }
 }
