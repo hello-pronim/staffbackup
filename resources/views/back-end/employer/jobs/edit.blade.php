@@ -51,9 +51,9 @@
                                                     {!! Form::select('english_level', $english_levels, e($job->english_level)) !!}
                                                 </span>
                                             </div>
-                                            <div class="form-group form-group-half wt-formwithlabel job-cost-input">
-                                                {!! Form::text('project_cost', $job->price, array('class' => 'form-control', 'placeholder' => trans('lang.project_cost'))) !!}
-                                            </div>
+                                            {{--<div class="form-group form-group-half wt-formwithlabel job-cost-input">--}}
+                                                {{--{!! Form::text('project_cost', $job->price, array('class' => 'form-control', 'placeholder' => trans('lang.project_cost'))) !!}--}}
+                                            {{--</div>--}}
                                         </fieldset>
                                     </div>
                                 </div>

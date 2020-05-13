@@ -3329,9 +3329,9 @@ if (document.getElementById("post_job")) {
                     })
                     .catch(function (error) {
                         self.loading = false;
-                        if (error.response.data.errors.job_duration) {
-                            self.showError(error.response.data.errors.job_duration[0]);
-                        }
+                        // if (error.response.data.errors.job_duration) {
+                        //     self.showError(error.response.data.errors.job_duration[0]);
+                        // }
                         if (error.response.data.errors.english_level) {
                             self.showError(error.response.data.errors.english_level[0]);
                         }
@@ -3344,9 +3344,9 @@ if (document.getElementById("post_job")) {
                         if (error.response.data.errors.freelancer_type) {
                             self.showError(error.response.data.errors.freelancer_type[0]);
                         }
-                        if (error.response.data.errors.project_cost) {
-                            self.showError(error.response.data.errors.project_cost[0]);
-                        }
+                        // if (error.response.data.errors.project_cost) {
+                        //     self.showError(error.response.data.errors.project_cost[0]);
+                        // }
                         if (error.response.data.errors.description) {
                             self.showError(error.response.data.errors.description[0]);
                         }
@@ -3385,9 +3385,9 @@ if (document.getElementById("post_job")) {
                     })
                     .catch(function (error) {
                         self.loading = false;
-                        if (error.response.data.errors.job_duration) {
-                            self.showError(error.response.data.errors.job_duration[0]);
-                        }
+                        // if (error.response.data.errors.job_duration) {
+                        //     self.showError(error.response.data.errors.job_duration[0]);
+                        // }
                         if (error.response.data.errors.english_level) {
                             self.showError(error.response.data.errors.english_level[0]);
                         }
@@ -3397,9 +3397,9 @@ if (document.getElementById("post_job")) {
                         if (error.response.data.errors.project_levels) {
                             self.showError(error.response.data.errors.project_levels[0]);
                         }
-                        if (error.response.data.errors.project_cost) {
-                            self.showError(error.response.data.errors.project_cost[0]);
-                        }
+                        // if (error.response.data.errors.project_cost) {
+                        //     self.showError(error.response.data.errors.project_cost[0]);
+                        // }
                         if (error.response.data.errors.description) {
                             self.showError(error.response.data.errors.description[0]);
                         }

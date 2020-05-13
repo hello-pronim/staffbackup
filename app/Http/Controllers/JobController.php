@@ -90,7 +90,7 @@ class JobController extends Controller
             '9 Mile'=>'9 Mile',
             '10 Mile'=>'10 Mile',
         );
-        $job_duration = Helper::getJobDurationList();
+       // $job_duration = Helper::getJobDurationList();
         $freelancer_level = Helper::getFreelancerLevelList();
         $skills = Skill::pluck('title', 'id');
         $categories = Category::pluck('title', 'id');
@@ -105,7 +105,7 @@ class JobController extends Controller
                     'languages',
                     'project_levels',
                     'max_distances',
-                    'job_duration',
+                    //'job_duration',
                     'freelancer_level',
                     'skills',
                     'categories',
@@ -121,7 +121,7 @@ class JobController extends Controller
                     'languages',
                     'project_levels',
                     'max_distances',
-                    'job_duration',
+                    //'job_duration',
                     'freelancer_level',
                     'skills',
                     'categories',
@@ -188,7 +188,7 @@ class JobController extends Controller
             $categories = Category::pluck('title', 'id');
             $project_levels = Helper::getProjectLevel();
             $english_levels = Helper::getEnglishLevelList();
-            $job_duration = Helper::getJobDurationList();
+            //$job_duration = Helper::getJobDurationList();
             $freelancer_level_list = Helper::getFreelancerLevelList();
             $attachments = !empty($job->attachments) ? unserialize($job->attachments) : '';
             if (!empty($job)) {
@@ -199,7 +199,7 @@ class JobController extends Controller
                             'job',
                             'project_levels',
                             'english_levels',
-                            'job_duration',
+                            //'job_duration',
                             'freelancer_level_list',
                             'languages',
                             'categories',
@@ -215,7 +215,7 @@ class JobController extends Controller
                             'job',
                             'project_levels',
                             'english_levels',
-                            'job_duration',
+                            //'job_duration',
                             'freelancer_level_list',
                             'languages',
                             'categories',
@@ -296,7 +296,7 @@ class JobController extends Controller
             $request,
             [
                 'title' => 'required',
-                'job_duration'    => 'required',
+                //'job_duration'    => 'required',
                 'description'    => 'required',
                 'start_date'    => 'required',
                 'booking_start'    => 'required',
@@ -335,7 +335,7 @@ class JobController extends Controller
                 }
             }
 
-            if ($posted_jobs >= intval($option['jobs'])) {
+            if (false) {//$posted_jobs >= intval($option['jobs'])) {
                 $json['type'] = 'error';
                 $json['message'] = trans('lang.sorry_cannot_submit') .' '. $option['jobs'] .' ' . trans('lang.jobs_acc_to_pkg');
                 return $json;
@@ -498,7 +498,7 @@ class JobController extends Controller
                 'title' => 'required',
                 'project_levels'    => 'required',
                 'english_level'    => 'required',
-                'project_cost'    => 'required',
+                //'project_cost'    => 'required',
             ]
         );
         $id = $request['id'];

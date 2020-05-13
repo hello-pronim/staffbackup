@@ -40,13 +40,13 @@
                                         @include('back-end.employer.profile-settings.personal-detail.profile_photo')
                                     @endif
                                 </div>
-                                <div class="wt-bannerphoto wt-tabsinfo">
-                                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/profile_banner.blade.php')))
-                                        @include('extend.back-end.employer.profile-settings.personal-detail.profile_banner')
-                                    @else
-                                        @include('back-end.employer.profile-settings.personal-detail.profile_banner')
-                                    @endif
-                                </div>
+                                {{--<div class="wt-bannerphoto wt-tabsinfo">--}}
+                                    {{--@if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/profile_banner.blade.php')))--}}
+                                        {{--@include('extend.back-end.employer.profile-settings.personal-detail.profile_banner')--}}
+                                    {{--@else--}}
+                                        {{--@include('back-end.employer.profile-settings.personal-detail.profile_banner')--}}
+                                    {{--@endif--}}
+                                {{--</div>--}}
                                 @if($show_emplyr_inn_sec === 'true')
                                     <div class="wt-skills">
                                         @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/employer-detail.blade.php')))
