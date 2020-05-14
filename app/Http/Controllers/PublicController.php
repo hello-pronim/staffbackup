@@ -637,6 +637,7 @@ class PublicController extends Controller
     public function getSearchResult($search_type = "")
     {
         $user = auth()->user();
+
         $categories = array();
         $locations  = array();
         $languages  = array();

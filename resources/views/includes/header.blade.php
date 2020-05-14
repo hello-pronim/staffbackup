@@ -39,8 +39,13 @@
                                 <div class="row " >
                                     <div class="mainhomeMenu">
                                         <ul id="newmenu"  class="list-unstyled" style="list-style: none;">
-                                            <li><a href="{{url('/')}}">START BROWSING ADHOC STAFF</a></li>
-                                            <li><a href="{{url('page/how-it-works')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
+                                            @if ( Helper::getAuthRoleName()=='Organisation' )
+                                                <li><a href="{{url('search-results?type=freelancer')}}">START BROWSING ADHOC STAFF</a></li>
+                                            @endif
+
+                                            @if (Helper::getAuthRoleName()!='Organisation')
+                                                <li><a href="{{url('search-results?type=job')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
+                                            @endif
                                             <li><a href="">FAQs</a></li>
                                             <li style="border-right:none"><a href="" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a></li>
 
@@ -82,19 +87,22 @@
                                             @endif
                                         @endforeach
                                     @endif
+                                    <!--
                                     <li>
                                         <a href="{{url('search-results?type=freelancer')}}">
                                             {{{ trans('lang.view_freelancers') }}}
                                         </a>
                                     </li>
 
-                                    @if ($type =='jobs' || $type == 'both')
+                                    -->
+                                    @if (($type =='jobs' || $type == 'both') && ( Helper::getAuthRoleName() != 'Organisation'))
                                         <li>
                                             <a href="{{url('search-results?type=job')}}">
                                                 {{{ trans('lang.browse_jobs') }}}
                                             </a>
                                         </li>
                                     @endif
+
                                     @if ($type =='services' || $type == 'both')
                                         <li>
                                             <a href="{{url('search-results?type=service')}}">

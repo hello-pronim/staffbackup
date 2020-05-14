@@ -711,6 +711,8 @@ class FreelancerController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
+
+
             if (file_exists(resource_path('views/extend/back-end/freelancer/dashboard.blade.php'))) {
                 return view(
                     'extend.back-end.freelancer.dashboard',
@@ -737,6 +739,8 @@ class FreelancerController extends Controller
                         'ongoing_services_icon',
                         'enable_package',
                         'package'
+
+
                     )
                 );
             } else {

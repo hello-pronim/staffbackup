@@ -32,7 +32,7 @@ class AddAddressFieldsUsers extends Migration
     public function down()
     {
         Schema::table(
-            'user',
+            'users',
             function (Blueprint $table) {
                 $table->dropColumn('number');
                 $table->dropColumn('straddress');
