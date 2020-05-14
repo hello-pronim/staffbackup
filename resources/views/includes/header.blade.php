@@ -39,11 +39,7 @@
                                 <div class="row " >
                                     <div class="mainhomeMenu">
                                         <ul id="newmenu"  class="list-unstyled" style="list-style: none;">
-                                            @if(Helper::getAuthRoleName()=='Professional')
-                                                <li><a href="{{url('search-results?type=employer')}}">START BROWSING ADHOC STAFF</a></li>
-                                            @elseif(Helper::getAuthRoleName()=='Personal')
-                                                <li><a href="{{url('search-results?type=freelancer')}}">START BROWSING ADHOC STAFF</a></li>
-                                            @elseif ( Helper::getAuthRoleName()=='Organisation' )
+                                            @if ( Helper::getAuthRoleName()=='Organisation' )
                                                 <li><a href="{{url('search-results?type=freelancer')}}">START BROWSING ADHOC STAFF</a></li>
                                             @endif
 
