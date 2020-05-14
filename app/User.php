@@ -685,7 +685,7 @@ class User extends Authenticatable
                     ->get()->pluck('id')->toArray();
                 $users->whereIn('location_id', $locations);
             }
-            if (!empty($search_employees) && $role != 'employer') {
+            if (!empty($search_employees) && $role == 'Organisation') {
                 $filters['employees'] = $search_employees;
                 $employees = Profile::whereIn('no_of_employees', $search_employees)->get();
                 foreach ($employees as $key => $employee) {
@@ -731,7 +731,7 @@ class User extends Authenticatable
                 }
                 $users->whereIn('users.id', $user_id);
             }
-            if (!empty($search_freelaner_types) && ($role != 'Professional' && $role != 'Personal')) {
+            if (!empty($search_freelaner_types) && ($role == 'Professional' || $role == 'Personal')) {
                 $filters['freelaner_type'] = $search_freelaner_types;
                 $freelancers = Profile::whereIn('freelancer_type', $search_freelaner_types)->get();
                 foreach ($freelancers as $key => $freelancer) {
@@ -787,7 +787,7 @@ class User extends Authenticatable
                 }
             }
 
-        if ($type = 'freelancer' && ($role != 'Professional' && $role != 'Personal') ) {
+        if ($type = 'freelancer' && ($role == 'Professional' || $role == 'Personal') ) {
             if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
                 if (in_array('employer', $user->getRoleNames()->toArray())) {
                     $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
