@@ -1194,7 +1194,7 @@ class Helper extends Model
         } else {
             return '/images/user.jpg';
         }
-        
+
     }
 
     public static function getProfileImageSmall($user_id)
@@ -1885,7 +1885,7 @@ class Helper extends Model
         $purchased_services = DB::select(
             DB::raw(
                 "SELECT SUM(services.price) AS price, service_user.seller_id AS seller
-                FROM service_user 
+                FROM service_user
                 INNER JOIN services
                 WHERE service_user.service_id = services.id
                 AND service_user.type = 'employer'
@@ -1902,7 +1902,7 @@ class Helper extends Model
                     // $payout->payment_method = 'paypal';
                     // $payout->currency = $currency;
                     $user = User::find($q->freelancer_id);
-                    
+
                     if ($user->profile->count() > 0) {
                         $payout_id = !empty($user->profile->payout_id) ? $user->profile->payout_id : '';
                         $payout_detail = !empty($user->profile->payout_settings) ? $user->profile->payout_settings : array();
