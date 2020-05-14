@@ -97,8 +97,9 @@
                                             {{{ trans('lang.view_freelancers') }}}
                                         </a>
                                     </li>
+
                                     -->
-                                    @if (($type =='jobs' || $type == 'both') && ( Helper::getAuthRoleName() != 'employer'))
+                                    @if (($type =='jobs' || $type == 'both') && ( Helper::getAuthRoleName() != 'Organisation'))
                                         <li>
                                             <a href="{{url('search-results?type=job')}}">
                                                 {{{ trans('lang.browse_jobs') }}}
