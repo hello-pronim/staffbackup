@@ -992,7 +992,7 @@
                placeholder="Other Special Interest">
     </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='support'">
+    <div class="form-group form-group-half" v-if="user_role=='support' || user_role=='freelancer'">
         <span class="wt-select">
         {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have a full driving licence?")) !!}
         </span>
