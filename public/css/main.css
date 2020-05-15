@@ -997,7 +997,7 @@ li.wt-rss a { background:#ff6600; }
 }
 .wt-breadcrumb li.wt-active { color:#999;}
 /* Theme Styling */
-.wt-main {padding: 0 0 20px;}
+.wt-main {padding: 0 0 20px;padding-top:20px}
 .wt-footer {background:#fccf17;}
 .wt-sectionhead,
 .wt-sectiontitle{
@@ -1191,7 +1191,7 @@ li.wt-rss a { background:#ff6600; }
 .wt-loginarea{
 	width: auto;
 	float: right;
-	margin: 95px 0 0 0;
+	margin: 130px 0 0 0;
 	padding: 0 0 0 20px;
 }
 .wt-userimg{
