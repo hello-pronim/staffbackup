@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ?
 'extend.front-end.master':
  'front-end.master', ['body_class' => 'wt-innerbgcolor'] )
 @push('stylesheets')
@@ -136,7 +136,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">	
+            <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 float-left">
                     <div class="wt-services-holder">
                         <div class="wt-title">
@@ -146,8 +146,8 @@
                             <div class="row">
                                 @if (!empty($services))
                                     @foreach ($services as $service)
-                                        @php 
-                                            $service_reviews = Helper::getServiceReviews($user->id, $service->id); 
+                                        @php
+                                            $service_reviews = Helper::getServiceReviews($user->id, $service->id);
                                             $service_rating  = $service_reviews->sum('avg_rating') != 0 ? round($service_reviews->sum('avg_rating') / $service_reviews->count()) : 0;
                                             $attachments = Helper::getUnserializeData($service->attachments);
                                             $no_attachments = empty($attachments) ? 'la-service-info' : '';
@@ -338,9 +338,9 @@
                                     </div>
                                 @else
                                     <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
+                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
                                             @include('extend.errors.no-record')
-                                        @else 
+                                        @else
                                             @include('errors.no-record')
                                         @endif
                                     </div>
@@ -354,9 +354,9 @@
                                     <education :freelancer_id="'{{$profile->user_id}}'" :no_of_post="1"></education>
                                 @else
                                     <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
+                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
                                             @include('extend.errors.no-record')
-                                        @else 
+                                        @else
                                             @include('errors.no-record')
                                         @endif
                                     </div>
@@ -446,6 +446,7 @@
                                     {{--</ul>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
+                            <?php /*
                             <div class="wt-widget wt-reportjob">
                                 <div class="wt-widgettitle">
                                     <h2>{{ trans('lang.report_user') }}</h2>
@@ -468,6 +469,7 @@
                                     {!! form::close(); !!}
                                 </div>
                             </div>
+                            */ ?>
                         </aside>
                     </div>
                 </div>
@@ -554,4 +556,3 @@
         });
     </script>
 @endpush
-
