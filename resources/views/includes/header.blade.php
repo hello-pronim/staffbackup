@@ -17,15 +17,16 @@
                         {{ Helper::displayEmailWarning() }}
                     @endauth
                     @if (!empty($logo) || Schema::hasTable('site_managements'))
-					<div class="wt-leftarea">
+					<div class="logo-block wt-leftarea">
 						<div>
 								<a href="{{{ url('/') }}}">
 									<img src="{{{ asset($logo) }}}" alt="{{{ trans('Logo') }}}">
 								</a>
 						</div>
+            <?php /*
 						<div class="logo-small-text" style="color: #fff;">
 							<small>Dedicated to Primary Health Care</small>
-						</div>
+						</div> */ ?>
 					</div>
                     @endif
 
@@ -58,7 +59,7 @@
                                 </div>
 
                             </div>
-                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 78px; align-items:normal">
+                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav2" style="margin-top: 128px; align-items:normal">
 
                                 @if(!\Request::is('search-results') && !\Request::is('register') && Auth::User())
                                 <ul class="navbar-nav" style="margin-top: 5px;">

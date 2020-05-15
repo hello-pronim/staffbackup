@@ -8157,7 +8157,7 @@ body.lang-ja .wt-loginfooterinfo a + a:before {
 
 
 .mainhomeMenu{
-	margin-top: 10px;
+	margin-top: 30px;
 	width:57%;
 	position: absolute;
 	right: 0px;
@@ -8433,7 +8433,7 @@ body{
 	color: #232f3e;
 }
 .mainhomeMenu{
-	margin-top: 10px;
+	margin-top: 30px;
 	width:57%;
 	position: absolute;
 	right: 0px;
@@ -8782,4 +8782,8 @@ input[type=number]::-webkit-outer-spin-button {
 	.footermargins {
 		margin-bottom: 20px !important;
 	}
+}
+
+.wt-leftarea {
+	float: left;
 }
