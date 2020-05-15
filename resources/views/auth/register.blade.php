@@ -68,8 +68,6 @@
     'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
     'GP'=>'GP',
     'Receptionist'=>'Receptionist',
-    'Admin & Clerical'=>'Admin & Clerical',
-    'Cleaner in clinical settings'=>'Cleaner in clinical settings',
     'Pharmacist'=>'Pharmacist',
     'Community Nurse'=>'Community Nurse',
     'District Nurse'=>'District Nurse',

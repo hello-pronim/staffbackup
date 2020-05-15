@@ -45,8 +45,6 @@ $cqc_ratings = array(
   'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
   'GP'=>'GP',
   'Receptionist'=>'Receptionist',
-  'Admin & Clerical'=>'Admin & Clerical',
-  'Cleaner in clinical settings'=>'Cleaner in clinical settings',
   'Pharmacist'=>'Pharmacist',
   'Community Nurse'=>'Community Nurse',
   'District Nurse'=>'District Nurse',
@@ -451,7 +449,7 @@ $cqc_ratings = array(
 
     <div class="form-group form-group">
         <label for="insurance"
-               style="display: inline-block">Insurance  Details</label> 
+               style="display: inline-block">Insurance  Details</label>
             <input
                 type="checkbox"
                 name="insurance"

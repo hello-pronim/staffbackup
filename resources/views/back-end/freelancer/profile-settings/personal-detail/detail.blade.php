@@ -30,8 +30,6 @@
      'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
      'GP'=>'GP',
      'Receptionist'=>'Receptionist',
-     'Admin & Clerical'=>'Admin & Clerical',
-     'Cleaner in clinical settings'=>'Cleaner in clinical settings',
      'Pharmacist'=>'Pharmacist',
      'Community Nurse'=>'Community Nurse',
      'District Nurse'=>'District Nurse',
@@ -46,7 +44,7 @@
 </div>
 <div class="wt-formtheme">
     <fieldset>
-        
+
         <div class="form-group form-group-half">
             {!! Form::text( 'first_name', e(Auth::user()->first_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
         </div>
@@ -58,7 +56,7 @@
                 {!! Form::select( 'gender', ['male' => 'Male', 'female' => 'Female'], e($gender), ['placeholder' => trans('lang.ph_select_gender')] ) !!}
             </span>
         </div> -->
-        
+
 
         <div class="form-group">
             <span class="wt-select">
@@ -86,7 +84,7 @@
         <div class="form-group form-group-half">
             {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
         </div>
-       
+
 
 
         <div class="form-group form-group-half">
