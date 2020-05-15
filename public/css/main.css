@@ -997,7 +997,7 @@ li.wt-rss a { background:#ff6600; }
 }
 .wt-breadcrumb li.wt-active { color:#999;}
 /* Theme Styling */
-.wt-main {padding: 0 0 20px;padding-top:20px}
+.wt-main {padding: 0 0 20px;}
 .wt-footer {background:#fccf17;}
 .wt-sectionhead,
 .wt-sectiontitle{
@@ -8786,4 +8786,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .wt-leftarea {
 	float: left;
+}
+
+.wt-login .card {
+	margin-top: 20px;
 }
