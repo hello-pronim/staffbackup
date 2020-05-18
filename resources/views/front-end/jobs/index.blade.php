@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ?
 'extend.front-end.master':
  'front-end.master', ['body_class' => 'wt-innerbgcolor'] )
 @section('title'){{ $job_list_meta_title }} @stop
@@ -72,7 +72,7 @@
                                 <div class="filters" style="border-right:none">
                                     <div>RATE</div>
                                     <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"
-                                                                                                       placeholder="Per Hour, Day...">
+                                                                                                       placeholder="Per Hour">
                                     </div>
                                 </div>
                             </div>
@@ -99,9 +99,9 @@
                 <div class="row">
                     <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
                         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
-                            @if (file_exists(resource_path('views/extend/front-end/jobs/filters.blade.php'))) 
+                            @if (file_exists(resource_path('views/extend/front-end/jobs/filters.blade.php')))
                                 @include('extend.front-end.jobs.filters')
-                            @else 
+                            @else
                                 @include('front-end.jobs.filters')
                             @endif
                         </div>
@@ -214,9 +214,9 @@
                                         {{ $jobs->links('pagination.custom') }}
                                     @endif
                                 @else
-                                    @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
+                                    @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
                                         @include('extend.errors.no-record')
-                                    @else 
+                                    @else
                                         @include('errors.no-record')
                                     @endif
                                 @endif
