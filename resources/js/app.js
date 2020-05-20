@@ -396,7 +396,7 @@ if (document.getElementById("searchHomePage")) {
             selectedSkills: "",
             selectedLocation: "",
             search_type: "employer",
-
+            radius: ''
         },
         methods: {
             changeSearchType(type) {
@@ -413,15 +413,55 @@ if (document.getElementById("searchHomePage")) {
 
             },
             submit_search() {
-                var getTypeValue = '';
-                if (this.search_type == 'freelancer') {
-                    getTypeValue = 'avail_date';
+
+                var url=APP_URL + '/search-results?type=' + this.search_type;
+                var location=document.getElementById('straddress').value;
+
+                if (location != ''){
+                  url += '&location=' + encodeURIComponent(location);
+
+                  var latitude=document.getElementById('latitude').value;
+                  var longitude=document.getElementById('longitude').value;
+
+                  if (latitude != '' && longitude != ''){
+                      url += '&latitude=' + latitude + '&longitude=' + longitude;
+                  }
                 }
-                else {
-                    getTypeValue = 'start_date';
+
+                if (this.skill != ''){
+                  url += '&skill=' + encodeURIComponent(this.skill);
                 }
-                window.location.replace(APP_URL + '/search-results?type=' + this.search_type + '&location=' + this.location + '&skill=' + this.skill + '&' + getTypeValue + '=' + this.selectedDate);
+
+                if (this.radius != ''){
+                  url += '&radius=' + this.radius;
+                }
+
+                if (this.selectedDate != ''){
+                  url += '&'+(this.search_type == 'freelancer' ? 'avail_date' : 'start_date')+'='+this.selectedDate;
+                }
+
+                window.location.replace(url);
             },
+            updateAddressLocation: function(place){
+              var data={};
+              for (var i in place.address_components){
+                data[place.address_components[i].types[0]]=place.address_components[i].long_name;
+              }
+
+              var addr='';
+
+              if (data.street_number){
+                addr+=data.street_number+', ';
+              }
+
+              if (data.route){
+                addr+=data.route;
+                document.getElementById('straddress').value=addr;
+              }
+
+              document.getElementById('latitude').value=place.geometry.location.lat();
+              document.getElementById('longitude').value=place.geometry.location.lng();
+            }
         },
         created: function () {
             let self = this;
@@ -1819,7 +1859,9 @@ if (document.getElementById("user_profile")) {
                 flashVue.$emit('showFlashMessage');
             }
 
-            this.itsoftware=JSON.parse(this.$refs['input'].$attrs['data-value']);
+            if (this.$refs['input']){
+              this.itsoftware=JSON.parse(this.$refs['input'].$attrs['data-value']);
+            }
         },
         created: function () {
             Event.$on('award-component-render', (data) => {

@@ -12,7 +12,7 @@
         <div class="wt-haslayout wt-innerbannerholder" style="background-image:url({{{ asset(Helper::getBannerImage('uploads/settings/general/'.$f_inner_banner)) }}})">
             <div class="container">
                 <div class="row justify-content-md-center">
-                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
+                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
 
                         <div class="search" id="searchHomePage">
                             <div class="searchtop">
@@ -29,10 +29,32 @@
                             <div class="searchinputs">
                                 <div class="filters">
                                     <div>LOCATION</div>
-                                    <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
-                                                                                                       v-model="location"
-                                                                                                       placeholder="Area or Postcode">
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 46.png')}}" alt="">
+                                         <gmap-autocomplete class="form-control"
+                                                            placeholder="Area or Postcode"
+                                                            id="straddress"
+                                                            name="straddress"
+                                                            @place_changed="updateAddressLocation($event)"
+                                                            :select-first-on-enter="true"
+                                                            >
+                                             <template v-slot:input="slotProps">
+                                                 <v-text-field outlined
+                                                               ref="input"
+                                                               v-on:listeners="slotProps.listeners"
+                                                               v-on:attrs="slotProps.attrs">
+                                                 </v-text-field>
+                                             </template>
+                                         </gmap-autocomplete>
+                                         <input type="hidden" id="latitude" name="latitude">
+                                         <input type="hidden" id="longitude" name="longitude">
                                     </div>
+                                </div>
+                                <div class="filters">
+                                    <div>RADIUS</div>
+                                    <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
+                                                                                                        v-model="radius"
+                                                                                                        placeholder="Radius"></div>
                                 </div>
                                 <div class="filters">
                                     <div>SPECIALIST</div>
