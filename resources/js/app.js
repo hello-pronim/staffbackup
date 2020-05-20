@@ -25,7 +25,6 @@ import 'verte/dist/verte.css';
 import vuecal from 'vue-cal';
 
 import Multiselect from 'vue-multiselect'
-
 Vue.component('multiselect', Multiselect)
 
 import VueTimepicker from 'vue2-timepicker'
@@ -102,6 +101,31 @@ Vue.component('image-attachments', require('./components/UploadServiceAttachment
 Vue.component('freelancer-reviews', require('./components/FreelancerReviewsComponent.vue').default);
 Vue.component('location-selector', require('./components/LocationSelector.vue').default);
 Vue.component('fullcalendar', require('./components/FullCalendar').default);
+
+var itsoftware_options = [
+  'Adastra',
+  'Cerna',
+  'Cerna Millenium',
+  'Cleo',
+  'DGL',
+  'Docman',
+  'Edis & A&E System',
+  'Emis Community',
+  'Emis LV',
+  'Emis PCS',
+  'Emis Web',
+  'Frontdesk',
+  'Heydoc',
+  'Infoslex',
+  'Microtest',
+  'Premiere',
+  'Symphony',
+  'Synergy',
+  'SystmOne',
+  'Torex',
+  'Vision',
+  'Vision Anywhere'
+];
 
 jQuery(document).ready(function () {
     jQuery(document).on('click', '.wt-back', function (e) {
@@ -459,10 +483,9 @@ if (document.getElementById("home")) {
 
 if (document.getElementById("registration")) {
 
-
     const registration = new Vue({
         el: '#registration',
-
+        components: {Multiselect},
         created: function () {
             var url_string = window.location.href
             var url = new URL(url_string);
@@ -529,6 +552,7 @@ if (document.getElementById("registration")) {
                 emp_cqc_rating_error: '',
                 practice_code_error: '',
                 pin_error: '',
+                itsoftware_error: '',
 
             },
             form_step3:
@@ -555,7 +579,8 @@ if (document.getElementById("registration")) {
             paymentTerm: "",
             specialInterest: "",
             dbscheck: "",
-
+            itsoftware: '',
+            itsoftware_options: itsoftware_options
         },
         methods: {
             checkoutStripe(plan_id) {
@@ -1783,12 +1808,18 @@ if (document.getElementById("location")) {
 }
 
 if (document.getElementById("user_profile")) {
+
+
+
     const freelancerProfile = new Vue({
         el: '#user_profile',
+        components: {Multiselect},
         mounted: function () {
             if (document.getElementsByClassName("flash_msg") != null) {
                 flashVue.$emit('showFlashMessage');
             }
+
+            this.itsoftware=JSON.parse(this.$refs['input'].$attrs['data-value']);
         },
         created: function () {
             Event.$on('award-component-render', (data) => {
@@ -1861,6 +1892,8 @@ if (document.getElementById("user_profile")) {
                 }
             },
             is_popup: false,
+            itsoftware: [],
+            itsoftware_options: itsoftware_options
         },
         ready: function () {
 

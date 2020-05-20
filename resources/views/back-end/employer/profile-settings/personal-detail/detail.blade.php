@@ -2,31 +2,6 @@
 
     $user = Auth::user();
 
-    $arrITSoftware = array(
-           'Adastra'=>'Adastra',
-            'Cerna'=>'Cerna',
-            'Cerna Millenium'=>'Cerna Millenium',
-            'Cleo'=>'Cleo',
-            'DGL'=>'DGL',
-            'Docman'=>'Docman',
-            'Edis & A&E System'=>'Edis & A&E System',
-            'Emis Community'=>'Emis Community',
-            'Emis LV'=>'Emis LV',
-            'Emis PCS'=>'Emis PCS',
-            'Emis Web'=>'Emis Web',
-            'Frontdesk'=>'Frontdesk',
-            'Heydoc'=>'Heydoc',
-            'Infoslex'=>'Infoslex',
-            'Microtest'=>'Microtest',
-            'Premiere'=>'Premiere',
-            'Symphony'=>'Symphony',
-            'Synergy'=>'Synergy',
-            'SystmOne'=>'SystmOne',
-            'Torex'=>'Torex',
-            'Vision'=>'Vision',
-            'Vision Anywhere'=>'Vision Anywhere',
-        );
-
  $arrOrgTypes = array(
         'NHS'=>'NHS',
         'Private organisation providing NHS care'=>'Private organisation providing NHS care',
@@ -76,6 +51,11 @@
 </div>
 <div class="wt-formtheme">
     <div class="form-group ">
-        {!! Form::select('itsoftware', $arrITSoftware, Auth::user()->itsoftware, array('placeholder' => "Computer System in use")) !!}
+      <multiselect v-model="itsoftware" :options="itsoftware_options" :searchable="false" :close-on-select="false" :clear-on-select="false" :preserve-search="false" :show-labels="false" :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd" ref="input" data-value="{{ json_encode($user->itsoftware != null ? unserialize($user->itsoftware) : []) }}">
+          <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>
+      </multiselect>
+      <select name="itsoftware[]" style="display:none;" multiple>
+          <option v-for="value in itsoftware" :value="value" selected></option>
+      </select>
     </div>
 </div>

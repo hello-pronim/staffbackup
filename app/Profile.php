@@ -101,7 +101,7 @@ class Profile extends Model
         $user->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
         $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
         $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
-        $user->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);
+        $user->itsoftware = !empty($request['itsoftware']) ? serialize($request['itsoftware']) : "";
         $user->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);
         $user->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);
         $user->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
@@ -218,7 +218,7 @@ class Profile extends Model
         $profile->tagline = filter_var($request['tagline'], FILTER_SANITIZE_STRING);
         $profile->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
 
-        $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING);
+        $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING) ?: null;
 
         $profile->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
         $profile->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);

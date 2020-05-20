@@ -386,7 +386,7 @@ class User extends Authenticatable
             $this->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
 
             //It software
-            $this->itsoftware = filter_var(isset($request['itsoftware']) ? $request['itsoftware'] : "", FILTER_SANITIZE_STRING);
+            $this->itsoftware = !empty($request['itsoftware']) ? serialize($request['itsoftware']) : "";
 
             //new files fields
 

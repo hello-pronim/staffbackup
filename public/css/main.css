@@ -319,7 +319,8 @@ address { font-style: italic; }
 	position: relative;
 	text-transform:uppercase;
 }
-.wt-select:after {
+.wt-select:after,
+.multiselect__select:before {
 	top: 0;
 	right: 15px;
 	z-index: 1;
@@ -8790,4 +8791,33 @@ input[type=number]::-webkit-outer-spin-button {
 
 .wt-login .card {
 	margin-top: 20px;
+}
+
+.multiselect-upd {
+  width: 100% !important;
+}
+
+.multiselect-upd .multiselect__select {
+	padding-top: 0;
+}
+
+.multiselect-upd .multiselect__tags {
+	min-height: 50px;
+	padding-left: 20px !important;
+}
+.multiselect-upd .multiselect__select:before {
+	border: none !important;
+	margin: 0;
+	content: '\e874' !important;
+	top: 0;
+}
+.multiselect-upd.multiselect--active .multiselect__select {
+	transform: none;
+}
+.multiselect-upd .multiselect__placeholder {
+	padding-top: 0;
+}
+.multiselect-upd .multiselect__placeholder,
+.multiselect-upd .multiselect__single {
+	color: #999;
 }
