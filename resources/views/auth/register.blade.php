@@ -1388,7 +1388,7 @@
                  class="form-control"
                  name="hourly_rate_phpdpm"
                  min="0"
-                 placeholder="Hour Rate PH / PD / PM">
+                 placeholder="Hour Rate">
       </div>
 
       <div class="form-group form-group-half" style="margin-bottom: -2px;">
@@ -1408,7 +1408,7 @@
 
       <div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">
         <span class="wt-select">
-        {!! Form::select('payment_mehod', $payment_options, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
+        {!! Form::select('payment_mehod', $payment_options, null, array('placeholder' => "Professional Type", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
         </span>
         <input v-if="choosen_payment_mehod=='Other'"
         type="text"
@@ -1419,7 +1419,7 @@
 
       <div class="form-group form-group-half" v-if="user_role=='support'">
         <span class="wt-select">
-        {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Payment Method", 'v-model'=>'payment_method')) !!}
+        {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}
         </span>
         <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
 
