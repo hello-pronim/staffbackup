@@ -11,7 +11,7 @@
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
 
-                        <div class="search" id="searchHomePage">
+                        <div class="search" id="searchHomePage" attr-type="job">
                             <div class="searchtop">
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
@@ -34,6 +34,7 @@
                                                             name="straddress"
                                                             @place_changed="updateAddressLocation($event)"
                                                             :select-first-on-enter="true"
+                                                            value="{{ $location }}"
                                                             >
                                              <template v-slot:input="slotProps">
                                                  <v-text-field outlined
@@ -43,15 +44,16 @@
                                                  </v-text-field>
                                              </template>
                                          </gmap-autocomplete>
-                                         <input type="hidden" id="latitude" name="latitude">
-                                         <input type="hidden" id="longitude" name="longitude">
+                                         <input type="hidden" id="latitude" name="latitude" value="{{ $latitude }}">
+                                         <input type="hidden" id="longitude" name="longitude" value="{{ $longitude }}">
                                     </div>
                                 </div>
                                 <div class="filters">
                                     <div>RADIUS</div>
                                     <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
                                                                                                         v-model="radius"
-                                                                                                        placeholder="Radius"></div>
+                                                                                                        ref="radius"
+                                                                                                        data-value="{{ $radius }}"></div>
                                 </div>
                                 <div class="filters">
                                     <div>SPECIALIST</div>
@@ -135,9 +137,9 @@
                                     </div>
                                 @endif
                                 @if (!empty($jobs) && $jobs->count() > 0)
-                                    @foreach ($jobs as $job)
+                                    @foreach ($jobs as $__job)
                                         @php
-                                            $job = \App\Job::find($job->id);
+                                            $job = \App\Job::find($__job->id);
                                             $description = strip_tags(stripslashes($job->description));
                                             $featured_class = $job->is_featured == 'true' ? 'wt-featured' : '';
                                             $user = Auth::user() ? \App\User::find(Auth::user()->id) : '';
@@ -183,6 +185,10 @@
                                                     </div>
                                                     <div class="wt-description">
                                                         <p>{{ str_limit($description, 200) }}</p>
+                                                        <?php /*
+                                                        <span>DITANCE: {{ $__job->distance }}</span>
+                                                        <span>lat: {{ $job->latitude }}</span>
+                                                        <span>lng: {{ $job->longitude }}</span>*/
                                                     </div>
                                                     <div class="wt-tag wt-widgettag">
                                                         @foreach ($job->skills as $skill )
@@ -195,7 +201,7 @@
 
 
                                                         @if($job->employer->itsoftware != "")
-                                                            <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{$job->employer->itsoftware}}</span></li>
+                                                            <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
                                                         @if (count($job->skills) != 0 )
                                                             <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $job->skills[0]->title }}}</span></li>

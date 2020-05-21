@@ -655,8 +655,15 @@ class User extends Authenticatable
         $days_avail,
         $hours_avail,
         $avail_date,
-        $location
+        $location,
+        $latitude,
+        $longitude,
+        $radius
     ) {
+        // TODO: fix access!!!
+        if ($user == null) {
+            return ['users' => []];
+        }
         $json = array();
         $user_id = array();
         $filters = array('type' => $type);
@@ -762,11 +769,30 @@ class User extends Authenticatable
                 $users->whereIn('users.id', $user_id);
             }
 
-            if (!empty($location)) {
+            $query_radius = $radius ?: 'profiles.radius';
 
-                $users->where('straddress', 'like', '%'.$location.'%');
-                $users->orWhere('city', 'like', '%'.$location.'%');
-                $users->orWhere('postcode', 'like', '%'.$location.'%');
+            if ($radius != null) {
+                $filters['radius'] = $radius;
+            }
+
+            if ($location != null) {
+                $filters['location'] = $location;
+
+                if ($latitude != null && $longitude != null) {
+                    $distance = self::distanceQuery($latitude, $longitude);
+                    $users->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                    $users->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+                } else {
+                    $users->where('straddress', 'like', '%'.$location.'%');
+                    $users->orWhere('city', 'like', '%'.$location.'%');
+                    $users->orWhere('postcode', 'like', '%'.$location.'%');
+                }
+            } else {
+                if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                    $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
+                    $users->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                    $users->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+                }
             }
 
             if(!empty($avail_date))
@@ -788,14 +814,6 @@ class User extends Authenticatable
             }
 
         if ($type = 'freelancer' && ($role == 'Professional' || $role == 'Personal') ) {
-            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-                if (in_array('employer', $user->getRoleNames()->toArray())) {
-                    $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
-                    $users->addSelect(DB::raw('(' . $distance . ') AS distance'));
-                    $users->whereRaw(DB::raw('(' . $distance . '<=profiles.radius)'));
-                }
-            }
-
             $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');
         } else {
             $users = $users->orderBy('created_at', 'DESC');
@@ -980,5 +998,16 @@ class User extends Authenticatable
         }
 
         return $query->get();
+    }
+
+    /**
+     * Returns itsofare values array
+     *
+     * @return array
+     */
+    public function getItsoftware()
+    {
+      $unserialized = $this->itsoftware ? @unserialize($this->itsoftware) : null;
+      return $unserialized ? $unserialized : [$this->itsoftware];
     }
 }

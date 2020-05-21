@@ -380,11 +380,16 @@ if (document.getElementById("message_center")) {
     });
 }
 
-if (document.getElementById("searchHomePage")) {
+var page=document.getElementById("searchHomePage");
+
+if (page) {
     const searchHomePage = new Vue({
         el: '#searchHomePage',
         components: {'vue-cal': vuecal, Multiselect},
         mounted: function () {
+          if (this.$refs['radius']){
+            this.radius=this.$refs['radius'].attributes['data-value'].value;
+          }
         },
         data: {
             events: [],
@@ -395,7 +400,7 @@ if (document.getElementById("searchHomePage")) {
             selectedDate: '',
             selectedSkills: "",
             selectedLocation: "",
-            search_type: "employer",
+            search_type: (page.attributes['attr-type'] ? page.attributes['attr-type'].value : "freelancer"),
             radius: ''
         },
         methods: {
@@ -413,7 +418,6 @@ if (document.getElementById("searchHomePage")) {
 
             },
             submit_search() {
-
                 var url=APP_URL + '/search-results?type=' + this.search_type;
                 var location=document.getElementById('straddress').value;
 

@@ -634,8 +634,15 @@ class PublicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getSearchResult($search_type = "")
+    public function getSearchResult(Request $request, $search_type = "")
     {
+        $this->validate($request, [
+            'location' => 'nullable|string',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'radius' => 'nullable|numeric'
+        ]);
+
         $user = auth()->user();
 
         $categories = array();
@@ -682,20 +689,22 @@ class PublicController extends Controller
         $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
         $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
         $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
+
+        $location = $request->input('location');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $radius = $request->input('radius');
+
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
                 $skill = '';
                 $avail_date = '';
-                $location = '';
 
                 if(isset($_GET['start_date']) && !empty($_GET['start_date']))
                 {
                     $avail_date = $_GET['start_date'];
                 }
-                if(isset($_GET['location']) && !empty($_GET['location']))
-                {
-                    $location = $_GET['location'];
-                }
+
                 $users_total_records = User::count();
                 $search =  User::getSearchResult(
                     $user,
@@ -711,7 +720,10 @@ class PublicController extends Controller
                     $days_avail,
                     $hours_avail,
                     $avail_date,
-                    $location
+                    $location,
+                    $latitude,
+                    $longitude,
+                    $radius
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
@@ -794,7 +806,11 @@ class PublicController extends Controller
                                 'show_f_banner',
                                 'f_inner_banner',
                                 'enable_package',
-                                'show_breadcrumbs'
+                                'show_breadcrumbs',
+                                'location',
+                                'latitude',
+                                'longitude',
+                                'radius'
                             )
                         );
                     } else {
@@ -818,7 +834,11 @@ class PublicController extends Controller
                                 'show_f_banner',
                                 'f_inner_banner',
                                 'enable_package',
-                                'show_breadcrumbs'
+                                'show_breadcrumbs',
+                                'location',
+                                'latitude',
+                                'longitude',
+                                'radius'
                             )
                         );
                     }
@@ -907,7 +927,11 @@ class PublicController extends Controller
                     $search_languages,
                     $days_avail,
                     $hours_avail,
-                    $job_date
+                    $job_date,
+                    $location,
+                    $latitude,
+                    $longitude,
+                    $radius
                 );
 
                 $jobs = $results['jobs'];
@@ -932,7 +956,11 @@ class PublicController extends Controller
                                 'job_list_meta_desc',
                                 'show_job_banner',
                                 'job_inner_banner',
-                                'show_breadcrumbs'
+                                'show_breadcrumbs',
+                                'location',
+                                'latitude',
+                                'longitude',
+                                'radius'
                             )
                         );
                     } else {
@@ -955,7 +983,11 @@ class PublicController extends Controller
                                 'job_list_meta_desc',
                                 'show_job_banner',
                                 'job_inner_banner',
-                                'show_breadcrumbs'
+                                'show_breadcrumbs',
+                                'location',
+                                'latitude',
+                                'longitude',
+                                'radius'
                             )
                         );
                     }

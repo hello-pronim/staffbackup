@@ -14,7 +14,7 @@
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
 
-                        <div class="search" id="searchHomePage">
+                        <div class="search" id="searchHomePage" attr-type="freelancer">
                             <div class="searchtop">
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
@@ -37,6 +37,7 @@
                                                             name="straddress"
                                                             @place_changed="updateAddressLocation($event)"
                                                             :select-first-on-enter="true"
+                                                            value="{{ $location }}"
                                                             >
                                              <template v-slot:input="slotProps">
                                                  <v-text-field outlined
@@ -46,15 +47,17 @@
                                                  </v-text-field>
                                              </template>
                                          </gmap-autocomplete>
-                                         <input type="hidden" id="latitude" name="latitude">
-                                         <input type="hidden" id="longitude" name="longitude">
+                                         <input type="hidden" id="latitude" name="latitude" value="{{ $latitude }}">
+                                         <input type="hidden" id="longitude" name="longitude" value="{{ $longitude }}">
                                     </div>
                                 </div>
                                 <div class="filters">
                                     <div>RADIUS</div>
                                     <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
                                                                                                         v-model="radius"
-                                                                                                        placeholder="Radius"></div>
+                                                                                                        placeholder="Radius"
+                                                                                                        ref="radius"
+                                                                                                        data-value="{{ $radius }}"></div>
                                 </div>
                                 <div class="filters">
                                     <div>SPECIALIST</div>
@@ -249,12 +252,18 @@
                                                         @endif
                                                             @if (!empty($freelancer->itsoftware))
                                                                 <li>
-                                                                    <strong>Computer System in use:</strong> {{$freelancer->itsoftware}}
+                                                                    <strong>Computer System in use:</strong> {{ implode(', ', $freelancer->getItsoftware()) }}
                                                                 </li>
                                                             @endif
                                                         {{--@if (!empty($freelancer->location))--}}
                                                             {{--<li><span><img src="{{{ asset($flag)}}}" alt="Flag"> {{{ !empty($freelancer->location->title) ? $freelancer->location->title : '' }}}</span></li>--}}
                                                         {{--@endif--}}
+                                                        <?php /*
+                                                        <li>
+                                                            <span>DITANCE: {{ $freelancer->distance }}</span>
+                                                            <span>lat: {{ $freelancer->profile->latitude }}</span>
+                                                            <span>lng: {{ $freelancer->profile->longitude }}</span>
+                                                        </li> */ ?>
                                                         @if (in_array($freelancer->id, $save_freelancer))
                                                             <li class="wt-btndisbaled">
                                                                 <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
@@ -292,7 +301,7 @@
                                         </div>
                                     @endforeach
                                     @if ( method_exists($users,'links') )
-                                        {{ $users->links('pagination.custom') }}
+                                        {{ $users->links('pagination.custom', ['xxx' => 'yyyy']) }}
                                     @endif
                                 @else
                                     @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))

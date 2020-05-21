@@ -334,23 +334,40 @@ class Job extends Model
     public static function getSearchResult(
         $user, $keyword, $search_categories, $search_locations,
         $search_skills, $search_project_lengths,
-        $search_languages, $days_avail, $hours_avail, $job_date
+        $search_languages, $days_avail, $hours_avail, $job_date, $location,
+        $latitude, $longitude, $radius
     ) {
 
         $json = array();
+        $filters = array();
         $jobs = Job::select('jobs.*');
 
-        if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-          if (in_array('freelancer', $user->getRoleNames()->toArray())) {
-            $distance = self::distanceQuery($user);
-            $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
-            $jobs->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
-          }
+        $query_radius = $radius ?: 'jobs.radius';
+
+        if ($radius != null) {
+            $filters['radius'] = $radius;
+        }
+
+        if ($location != null) {
+            $filters['location'] = $location;
+            if ($latitude != null && $longitude != null) {
+                $filters['latitude'] = $latitude;
+                $filters['longitude'] = $longitude;
+                $distance = self::distanceQuery($latitude, $longitude);
+                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+            } else {
+                $jobs->where('address', 'like', '%'.$location.'%');
+            }
+        } else {
+            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
+                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+            }
         }
 
         $job_id = array();
-
-        $filters = array();
         $filters['type'] = 'job';
 
         if (!empty($keyword)) {
@@ -490,17 +507,18 @@ class Job extends Model
     /**
      * Returns distance query
      *
-     * @param User $user
+     * @param numeric $latitude
+     * @param numeric $longitude
      *
      * @return string
      */
-    public static function distanceQuery(User $user)
+    public static function distanceQuery($latitude, $longitude)
     {
         return '(3959 * acos (
-          cos (radians(' . $user->profile->latitude . '))
+          cos (radians(' . $latitude . '))
           * cos(radians(jobs.latitude))
-          * cos(radians(jobs.longitude) - radians(' . $user->profile->longitude . '))
-          + sin(radians(' . $user->profile->latitude . '))
+          * cos(radians(jobs.longitude) - radians(' . $longitude . '))
+          + sin(radians(' . $latitude . '))
           * sin(radians(jobs.latitude))
         ))';
     }

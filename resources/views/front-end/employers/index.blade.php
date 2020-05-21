@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ?
 'extend.front-end.master':
  'front-end.master', ['body_class' => 'wt-innerbgcolor'] )
 @section('title'){{ $emp_list_meta_title }} @stop
@@ -45,9 +45,9 @@
                 <div class="row">
                     <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
                         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
-                            @if (file_exists(resource_path('views/extend/front-end/employers/filters.blade.php'))) 
+                            @if (file_exists(resource_path('views/extend/front-end/employers/filters.blade.php')))
                                 @include('extend.front-end.employers.filters')
-                            @else 
+                            @else
                                 @include('front-end.employers.filters')
                             @endif
                         </div>
@@ -77,6 +77,10 @@
                                                                 <i class="fa fa-check-circle"></i> {{ trans('lang.verified_company') }}</a>
                                                             @endif
                                                             <a href="{{{ url('profile/'.$employer->slug) }}}"><h2>{{{ Helper::getUserName($employer->id) }}}</h2></a>
+                                                            <?php /*
+                                                            <span>DITANCE: {{ $employer->distance }}</span>
+                                                            <span>lat: {{ $employer->profile->latitude }}</span>
+                                                            <span>lng: {{ $employer->profile->longitude }}</span> */ ?>
                                                         </div>
                                                         <ul class="wt-postarticlemeta">
                                                             <li>
@@ -113,9 +117,9 @@
                                             </div>
                                         @endif
                                     @else
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php'))) 
+                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
                                             @include('extend.errors.no-record')
-                                        @else 
+                                        @else
                                             @include('errors.no-record')
                                         @endif
                                     @endif
