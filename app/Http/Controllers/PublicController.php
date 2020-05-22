@@ -1240,7 +1240,7 @@ class PublicController extends Controller
                 'message' => 'required|string'
             ]);
 
-            Mail::to('yuriyuag@gmail.com'/*'westwardforster@gmail.com'*/)->send(
+            Mail::to('westwardforster@gmail.com')->send(
                 new PublicEmailMailable('contact_us', [], [
                     'name' => $request->input('name'),
                     'subject' => $request->input('subject'),
