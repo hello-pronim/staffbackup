@@ -188,7 +188,7 @@
                                                         <?php /*
                                                         <span>DITANCE: {{ $__job->distance }}</span>
                                                         <span>lat: {{ $job->latitude }}</span>
-                                                        <span>lng: {{ $job->longitude }}</span>*/
+                                                        <span>lng: {{ $job->longitude }}</span>*/ ?>
                                                     </div>
                                                     <div class="wt-tag wt-widgettag">
                                                         @foreach ($job->skills as $skill )
