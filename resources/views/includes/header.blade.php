@@ -47,7 +47,7 @@
                                                 <li><a href="{{url('search-results?type=job')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
                                             @endif
                                             <li><a href="{{url('page/main')}}">FAQs</a></li>
-                                            <li style="border-right:none"><a href="" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a></li>
+                                            <li style="border-right:none"><a href="{{ url('contact-us') }}" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a></li>
 
                                         </ul>
 

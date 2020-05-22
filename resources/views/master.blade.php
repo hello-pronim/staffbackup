@@ -11,7 +11,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	@if (trim($__env->yieldContent('title')))
 		<title>@yield('title')</title>
-	@else 
+	@else
 		<title>{{ config('app.name') }}</title>
 	@endif
 	<meta name="description" content="@yield('description')">

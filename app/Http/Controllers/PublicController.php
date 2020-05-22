@@ -52,6 +52,7 @@ use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 use App\Service;
 use App\DeliveryTime;
 use App\ResponseTime;
+use App\Mail\PublicEmailMailable;
 
 /**
  * Class PublicController
@@ -1228,5 +1229,29 @@ class PublicController extends Controller
             return Redirect::to('/');
 
         }
+    }
+
+    public function contactUs(Request $request){
+        if (!empty($_POST)) {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'subject' => 'required|string',
+                'email' => 'required|email',
+                'message' => 'required|string'
+            ]);
+
+            Mail::to('yuriyuag@gmail.com'/*'westwardforster@gmail.com'*/)->send(
+                new PublicEmailMailable('contact_us', [], [
+                    'name' => $request->input('name'),
+                    'subject' => $request->input('subject'),
+                    'email' => $request->input('email'),
+                    'message' => $request->input('message')
+                ])
+            );
+
+            return redirect('contact-us')->with('success', ['Thanks for contacting us! We will be in touch with you shortly.']);
+        }
+
+        return view('front-end.contact-us');
     }
 }
