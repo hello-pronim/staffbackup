@@ -348,6 +348,8 @@
                 <a style="color:gray;font-family: AganeBold; font-size: 13px" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('dashboard-logout-form').submit();">
                     {{{trans('lang.logout')}}}
                 </a>
+                <br>
+                <a href="{{ url('contact-us') }}">Contact Us</a>
                 {{--<span class="version-area">{{ config('app.version') }}</span>--}}
             </div>
             <div class="orangeline" style="margin-top: 25px"></div>
