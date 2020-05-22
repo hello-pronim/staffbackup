@@ -216,7 +216,7 @@ return [
     'reset_pass' => 'Reset Password',
     'email_notify' => 'Email Notifications',
     'empty_field' => 'Empty field not allow',
-    'search_note' => 'If searchable option will be disabled then your profile will not show in the search result. To hide your profile all over the site you can disable your profile temporarily',
+    'search_note' => 'This feature allows you to hide your account temporarily, your profile will no longer be found in any searches.',
     'profile_searchable' => 'Make my profile searchable',
     'profile_public' => 'Make my profile public',
     'profile_detail' => 'Profile Details',
