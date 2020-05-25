@@ -162,10 +162,21 @@ class PublicController extends Controller
         //         'emp_cqc_rating_date' => 'required',
         //         'emp_cqc_rating' => 'required',
         //         'org_type' => 'required',
-				// 'practice_code' => [
+				'practice_code' => [
 				// 	'required',
 				// 	'regex:/(^([a-zA-Z]{1})([\d]+)?$)/u'
-				// ],
+            function ($attribute, $value, $fail) {
+                $value = trim($value);
+
+                if ($value !== '') {
+                    $response = @file_get_contents('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/' . urlencode($value) . '?_format=json');
+
+                    if ($response == null) {
+                        $fail($attribute . ' Company not found.');
+                    }
+                }
+            }
+				],
         //         'termsconditions' => 'required',
 			],
 		];

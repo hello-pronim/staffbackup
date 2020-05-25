@@ -993,6 +993,22 @@ if (document.getElementById("registration")) {
               document.getElementById('longitude').value=place.geometry.location.lng();
               document.getElementById('city').value= (data.postal_town ? data.postal_town : (data.locality ? data.locality : ''));
               document.getElementById('postcode').value=data.postal_code ? data.postal_code : '';
+            },
+            validatePracticeCode: function() {
+              var self=this,val=$.trim($('#practice_code').val());
+
+
+              this.form_step2.practice_code_error = '';
+              this.form_step2.is_practice_code_error = false;
+
+              if (val !== ''){
+                  $.getJSON('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/'+encodeURI(val), {_format:'json'}, function(r){
+                    console.log('[practice_code] SUCCESS')
+                  }).fail(function() {
+                      self.form_step2.practice_code_error = 'Company not found';
+                      self.form_step2.is_practice_code_error = true ;
+                  })
+              }
             }
         }
     });
