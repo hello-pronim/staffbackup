@@ -172,7 +172,7 @@ class PublicController extends Controller
                     $response = @file_get_contents('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/' . urlencode($value) . '?_format=json');
 
                     if ($response == null) {
-                        $fail($attribute . ' Company not found.');
+                        $fail('Company not found.');
                     }
                 }
             }
