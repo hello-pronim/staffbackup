@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use App\User;
@@ -297,6 +298,12 @@ class PublicController extends Controller
      */
     public function showUserProfile($slug)
     {
+        $auth = auth()->user();
+
+        if (!$auth->hasRole('employer')){
+            App::abort(403, 'Access Denied');
+        }
+
         $user = User::select('id')->where('slug', $slug)->first();
         if (!empty($user)) {
             $user = User::find($user->id);
@@ -670,6 +677,20 @@ class PublicController extends Controller
         $project_length = Helper::getJobDurationList();
         $keyword = !empty($_GET['s']) ? $_GET['s'] : '';
         $type = !empty($_GET['type']) ? $_GET['type'] : $search_type;
+
+        switch ($type) {
+            case 'freelancer':
+                if ($user->hasRole('employer')){
+                    break;
+                }
+            case 'job':
+                if ($user->hasRole(['freelancer', 'support'])){
+                    break;
+                }
+            default:
+                App::abort(403, 'Access Denied');
+        }
+
         // if ($type == 'job') {
         //     if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services') {
         //         abort(404);
@@ -680,6 +701,7 @@ class PublicController extends Controller
         //         abort(404);
         //     }
         // }
+
         $search_categories = !empty($_GET['category']) ? $_GET['category'] : array();
         $search_locations = !empty($_GET['locations']) ? $_GET['locations'] : array();
         $search_skills = !empty($_GET['skills']) ? $_GET['skills'] : array();

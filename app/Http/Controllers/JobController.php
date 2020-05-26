@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Job;
 use Illuminate\Http\Request;
 use Auth;
@@ -525,6 +526,11 @@ class JobController extends Controller
     public function show($slug)
     {
         $user = auth()->user();
+
+        if (!$user->hasRole(['freelancer', 'support'])){
+            App::abort(403, 'Access Denied');
+        }
+
         $job_query = Job::select('jobs.*')->where('slug', '=', $slug);
 
         // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
@@ -665,6 +671,12 @@ class JobController extends Controller
      */
     public function listjobs()
     {
+        $user = auth()->user();
+
+        if (!$user->hasRole(['freelancer', 'support'])){
+            App::abort(403, 'Access Denied');
+        }
+
         $jobs = array();
         $categories = array();
         $locations = array();

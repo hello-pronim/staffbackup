@@ -34,7 +34,7 @@
                                                             name="straddress"
                                                             @place_changed="updateAddressLocation($event)"
                                                             :select-first-on-enter="true"
-                                                            value="{{ $location }}"
+                                                            value="{{ $location ?? '' }}"
                                                             >
                                              <template v-slot:input="slotProps">
                                                  <v-text-field outlined
@@ -44,8 +44,8 @@
                                                  </v-text-field>
                                              </template>
                                          </gmap-autocomplete>
-                                         <input type="hidden" id="latitude" name="latitude" value="{{ $latitude }}">
-                                         <input type="hidden" id="longitude" name="longitude" value="{{ $longitude }}">
+                                         <input type="hidden" id="latitude" name="latitude" value="{{ $latitude ?? '' }}">
+                                         <input type="hidden" id="longitude" name="longitude" value="{{ $longitude ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="filters">
@@ -53,7 +53,7 @@
                                     <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
                                                                                                         v-model="radius"
                                                                                                         ref="radius"
-                                                                                                        data-value="{{ $radius }}"></div>
+                                                                                                        data-value="{{ $radius ?? '' }}"></div>
                                 </div>
                                 <div class="filters">
                                     <div>SPECIALIST</div>

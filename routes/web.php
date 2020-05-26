@@ -62,14 +62,9 @@ Route::get(
 );
 
 
-Route::get('profile/{slug}', 'PublicController@showUserProfile')->name('showUserProfile');
 Route::get('categories', 'CategoryController@categoriesList')->name('categoriesList');
 Route::get('page/{slug}', 'PageController@show')->name('showPage');
 Route::post('store/project-offer', 'UserController@storeProjectOffers');
-if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs') {
-    Route::get('jobs', 'JobController@listjobs')->name('jobs');
-    Route::get('job/{slug}', 'JobController@show')->name('jobDetail');
-}
 
 if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services') {
     Route::get('services', 'ServiceController@index')->name('services');
@@ -83,8 +78,16 @@ Route::post('register/verify-user-code', 'PublicController@verifyUserCode');
 Route::post('register/form-step1-custom-errors', 'PublicController@RegisterStep1Validation');
 Route::post('register/form-step2-custom-errors', 'PublicController@RegisterStep2Validation');
 Route::get('register/checkout_complete/{stripe_token}', 'PublicController@RegisterCheckoutComplete');
-Route::get('search-results', 'PublicController@getSearchResult')->name('searchResults');
 Route::post('user/add-wishlist', 'UserController@addWishlist');
+
+// auth routes
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('jobs', 'JobController@listjobs')->name('jobs');
+    Route::get('job/{slug}', 'JobController@show')->name('jobDetail');
+    Route::get('search-results', 'PublicController@getSearchResult')->name('searchResults');
+    Route::get('profile/{slug}', 'PublicController@showUserProfile')->name('showUserProfile');
+});
+
 // Admin Routes
 Route::group(
     ['middleware' => ['role:admin']],
