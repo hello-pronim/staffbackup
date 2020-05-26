@@ -527,10 +527,6 @@ class JobController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user->hasRole(['freelancer', 'support'])){
-            App::abort(403, 'Access Denied');
-        }
-
         $job_query = Job::select('jobs.*')->where('slug', '=', $slug);
 
         // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
@@ -542,6 +538,10 @@ class JobController extends Controller
         // }
 
         $job = $job_query->firstOrFail();
+
+        if ($job->user_id != $user->id && !$user->hasRole(['freelancer', 'support'])){
+            App::abort(403, 'Access Denied');
+        }
 
         if (!empty($job)) {
             $submitted_proposals = $job->proposals->where('status', '!=', 'cancelled')->pluck('freelancer_id')->toArray();
