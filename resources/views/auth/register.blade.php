@@ -969,12 +969,6 @@
                placeholder="Other Special Interest">
     </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='support' || user_role=='freelancer'">
-        <span class="wt-select">
-        {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have a full driving licence?")) !!}
-        </span>
-    </div>
-
     <div class="form-group form-group-half" v-if="user_role=='support'">
         <span class="wt-select">
         {!! Form::select('endorsements',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have any endorsements?")) !!}
@@ -1072,6 +1066,12 @@
         <input type="file" name="cert_of_crbdbs"
                class="form-control"
                accept=".pdf, image/*,.doc,.docx">
+    </div>
+
+    <div class="form-group form-group" v-if="user_role=='support' || user_role=='freelancer'">
+        <span class="wt-select">
+        {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have a full driving licence?")) !!}
+        </span>
     </div>
 
     <div class="form-group form-group-half">
