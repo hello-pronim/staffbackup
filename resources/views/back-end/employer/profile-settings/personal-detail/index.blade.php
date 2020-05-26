@@ -33,6 +33,13 @@
                                         @include('back-end.employer.profile-settings.personal-detail.detail')
                                     @endif
                                 </div>
+                                <div class="wt-skills">
+                                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/employer-detail.blade.php')))
+                                        @include('extend.back-end.employer.profile-settings.personal-detail.employer-detail')
+                                    @else
+                                        @include('back-end.employer.profile-settings.personal-detail.employer-detail')
+                                    @endif
+                                </div>
                                 <div class="wt-profilephoto wt-tabsinfo">
                                     @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/profile_photo.blade.php')))
                                         @include('extend.back-end.employer.profile-settings.personal-detail.profile_photo')
@@ -47,6 +54,7 @@
                                         {{--@include('back-end.employer.profile-settings.personal-detail.profile_banner')--}}
                                     {{--@endif--}}
                                 {{--</div>--}}
+                                <?php /*
                                 @if($show_emplyr_inn_sec === 'true')
                                     <div class="wt-skills">
                                         @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/employer-detail.blade.php')))
@@ -63,7 +71,7 @@
                                         @include('back-end.employer.profile-settings.personal-detail.location')
                                     @endif
                                 </div>
-
+                                */ ?>
                                 <div class="wt-updatall">
                                     <i class="ti-announcement"></i>
                                     <span>{{{ trans('lang.save_changes_note') }}}</span>
