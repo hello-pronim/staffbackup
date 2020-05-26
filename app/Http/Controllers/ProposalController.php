@@ -65,13 +65,13 @@ class ProposalController extends Controller
             $user = auth()->user();
             $job_query = Job::select('jobs.*')->where('slug', '=', $job_slug);
 
-            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-                if (in_array('freelancer', $user->getRoleNames()->toArray())) {
-                    $distance = Job::distanceQuery($user);
-                    $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
-                    $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
-                }
-            }
+            // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+            //     if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+            //         $distance = Job::distanceQuery($user);
+            //         $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+            //         $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+            //     }
+            // }
 
             $job = $job_query->firstOrFail();
 
@@ -192,14 +192,14 @@ class ProposalController extends Controller
                     ]
                 );
 
-                $job_query = Job::select('jobs.*')->where('id', '=', $request['id']);
-                if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-                    if (in_array('freelancer', $user->getRoleNames()->toArray())) {
-                        $distance = Job::distanceQuery($user);
-                        $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
-                        $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
-                    }
-                }
+                // $job_query = Job::select('jobs.*')->where('id', '=', $request['id']);
+                // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+                //     if (in_array('freelancer', $user->getRoleNames()->toArray())) {
+                //         $distance = Job::distanceQuery($user);
+                //         $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                //         $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
+                //     }
+                // }
 
                 $job = $job_query->first();
 
