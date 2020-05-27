@@ -39,7 +39,7 @@
      {
        $arrSettings[$user->setting] = $user->setting;
      }
-    
+
 
      $arrSpecialInterests = array(
      'Diabetes'=>'Diabetes',
@@ -295,7 +295,6 @@
      $arrPaymentMethods = array(
      'Limited Company'=>'Limited Company',
      'Self Employed'=>'Self Employed',
-     '[DELETED]PAYE'=>'[DELETED]PAYE',
      );
 
 @endphp
@@ -310,7 +309,7 @@
                 {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
             </span>
         </div>
-       
+
         <div class="form-group">
             <span class="wt-select">
 
@@ -485,7 +484,7 @@
         <div class="form-group">
         <span class="wt-select">
 
-            {!! Form::select('c_payment_methods',$arrPaymentMethods, $user->c_payment_methods, array('placeholder' => "Payment Method")) !!}
+            {!! Form::select('c_payment_methods',$arrPaymentMethods, $user->c_payment_methods, array('placeholder' => "Company Status")) !!}
             </span>
         </div>
         @if($user->c_payment_methods == 'Limited Company')
