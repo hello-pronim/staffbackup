@@ -678,17 +678,25 @@ class PublicController extends Controller
         $keyword = !empty($_GET['s']) ? $_GET['s'] : '';
         $type = !empty($_GET['type']) ? $_GET['type'] : $search_type;
 
+        $has_access = true;
+
         switch ($type) {
             case 'freelancer':
-                if ($user->hasRole('employer')){
-                    break;
+                if (!$user->hasRole('employer')){
+                    $has_access = false;
                 }
+                break;
             case 'job':
-                if ($user->hasRole(['freelancer', 'support'])){
-                    break;
+                if (!$user->hasRole(['freelancer', 'support'])){
+                    $has_access = false;
                 }
+                break;
             default:
-                App::abort(403, 'Access Denied');
+                $has_access = false;
+        }
+
+        if (!$has_access) {
+          App::abort(403, 'Access Denied');
         }
 
         // if ($type == 'job') {
