@@ -218,7 +218,7 @@
                            {{$hourly_rate_negotiable=='on'? 'checked' : ''}}
 
                            >
-                    <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+                    <label for="hourly_rate_negotiable"><span> Hour rate negotiable</span></label>
             </span>
         </span>
     </div>

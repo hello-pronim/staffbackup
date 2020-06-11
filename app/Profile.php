@@ -218,7 +218,7 @@ class Profile extends Model
         $profile->tagline = filter_var($request['tagline'], FILTER_SANITIZE_STRING);
         $profile->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
 
-        $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING) ?: null;
+        $profile->radius = filter_var($request['radius'] ? : "", FILTER_SANITIZE_STRING) ;
 
         $profile->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
         $profile->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
@@ -258,10 +258,19 @@ class Profile extends Model
                 $filename = time() . '-' . $request['hidden_avater_image'];
                 rename($old_path . '/' . $request['hidden_avater_image'], $new_path . '/' . $filename);
                 rename($old_path . '/small-' . $request['hidden_avater_image'], $new_path . '/small-' . $filename);
-                rename($old_path . '/medium-small-' . $request['hidden_avater_image'], $new_path . '/medium-small-' . $filename);
+               // rename($old_path . '/medium-small-' . $request['hidden_avater_image'], $new_path . '/medium-small-' . $filename);
                 rename($old_path . '/medium-' . $request['hidden_avater_image'], $new_path . '/medium-' . $filename);
+               // var_dump("IN IF");
+                //var_dump($filename);
+                $profile->avater = $filename;
             }
-            $profile->avater = filter_var($filename, FILTER_SANITIZE_STRING);
+            else{
+                //var_dump("IN ELSE");
+                //var_dump($filename);
+                $profile->avater = $filename;
+
+            }
+            //die;
         } else {
             $profile->avater = null;
         }
