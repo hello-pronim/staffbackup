@@ -58,7 +58,10 @@
             ></date-picker>
         </div>
         <div class="form-group form-group-half">
-            {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+            <div class="left-inner-addon">
+                <span>£</span>
+                {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+            </div>
         </div>
 
 
@@ -119,14 +122,14 @@
     <h2>Computer System in use</h2>
 </div>
 <div class="wt-formtheme">
-    <div class="form-group ">
-        <multiselect v-model="itsoftware" :options="itsoftware_options" :searchable="false" :close-on-select="false" :clear-on-select="false" :preserve-search="false" :show-labels="false" :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd" ref="input" data-value="{{ json_encode($user->itsoftware != null ? unserialize($user->itsoftware) : []) }}">
-            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>
-        </multiselect>
-        <select name="itsoftware[]" style="display:none;" multiple>
-            <option v-for="value in itsoftware" :value="value" selected></option>
-        </select>
-    </div>
+    {{--<div class="form-group ">--}}
+        {{--<multiselect v-model="itsoftware" :options="itsoftware_options" :searchable="false" :close-on-select="false" :clear-on-select="false" :preserve-search="false" :show-labels="false" :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd" ref="input" data-value="{{ json_encode($user->itsoftware != null ? unserialize($user->itsoftware) : []) }}">--}}
+            {{--<template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>--}}
+        {{--</multiselect>--}}
+        {{--<select name="itsoftware[]" style="display:none;" multiple>--}}
+            {{--<option v-for="value in itsoftware" :value="value" selected></option>--}}
+        {{--</select>--}}
+    {{--</div>--}}
 </div>
 
 <div class="wt-tabscontenttitle" style="margin-top: 20px;">

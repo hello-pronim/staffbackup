@@ -8828,3 +8828,16 @@ input[type=number]::-webkit-outer-spin-button {
 #searchHomePage.search .searchinputs > div {
 	width: 19%;
 }
+
+.left-inner-addon {
+	position: relative;
+}
+.left-inner-addon input {
+	padding-left: 22px;
+}
+.left-inner-addon span {
+	position: absolute;
+	color: #999;
+	padding: 13px 12px;
+	pointer-events: none;
+}

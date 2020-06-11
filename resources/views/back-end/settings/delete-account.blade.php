@@ -37,9 +37,9 @@
                                                 {{--{!! Form::select('delete_reason', Helper::getDeleteAccReason(), null, array('placeholder' => trans('lang.select_reason'))) !!}--}}
                                             {{--</span>--}}
                                         {{--</div>--}}
-                                        <div class="form-group">
-                                            <textarea name="delete_description" class="form-control" placeholder="{{{ trans('lang.ph_desc_optional') }}}"></textarea>
-                                        </div>
+                                        {{--<div class="form-group">--}}
+                                            {{--<textarea name="delete_description" class="form-control" placeholder="{{{ trans('lang.ph_desc_optional') }}}"></textarea>--}}
+                                        {{--</div>--}}
                                         <div class="form-group form-group-half wt-btnarea">
                                             {!! Form::submit(trans('lang.btn_delete_account'), ['class' => 'wt-btn']) !!}
                                         </div>

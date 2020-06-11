@@ -4979,7 +4979,19 @@ $('.timerange').on('click', function (e) {
 
         if (input.val() !== "") {
             var timerange = input.val();
-            var matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            var matches = timerange.match(/([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            if(!matches)
+            {
+                matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            }
+            if(!matches)
+            {
+                matches = timerange.match(/([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            }
+            if(!matches)
+            {
+                matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)/);
+            }
             if (matches.length === 7) {
                 range = {
                     from: {
@@ -5049,7 +5061,7 @@ $('.timerange').on('click', function (e) {
             function () {
                 var value = $(this).siblings('.value');
                 value.text(
-                    increment(value.text(), 12, 1, 2)
+                    incrementHour(value.text(), 12, 1)
                 );
             }
         );
@@ -5060,7 +5072,7 @@ $('.timerange').on('click', function (e) {
             function () {
                 var value = $(this).siblings('.value');
                 value.text(
-                    decrement(value.text(), 12, 1, 2)
+                    decrementHour(value.text(), 12, 1)
                 );
             }
         );
@@ -5149,14 +5161,33 @@ function increment(value, max, min, size) {
     }
 }
 
+function incrementHour(value, max, min) {
+    var intValue = parseInt(value);
+    if (intValue == max) {
+        return min;
+    } else {
+        var next = intValue + 1;
+        return next;
+    }
+}
+
 function decrement(value, max, min, size) {
     var intValue = parseInt(value);
     if (intValue == min) {
-        register_form
         return ('0' + max).substr(-size);
     } else {
         var next = intValue - 1;
         return ('0' + next).substr(-size);
+    }
+}
+
+function decrementHour(value, max, min) {
+    var intValue = parseInt(value);
+    if (intValue == min) {
+        return max;
+    } else {
+        var next = intValue - 1;
+        return next
     }
 }
 
