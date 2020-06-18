@@ -25,3 +25,7 @@ package-lock.json
 composer.lock
 public/js/app.js
 v8-compile-cache-0/
+
+makefile
+composer.phar
+/docker

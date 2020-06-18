@@ -5094,7 +5094,7 @@ $('.timerange').on('click', function (e) {
             function () {
                 var value = $(this).siblings('.value');
                 value.text(
-                    decrement(value.text(), 12, 1, 2)
+                    decrement(value.text(), 59, 0, 2)
                 );
             }
         );
