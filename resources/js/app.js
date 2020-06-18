@@ -68,6 +68,7 @@ Vue.use(BootstrapVue);
 Vue.component('verte', Verte);
 Vue.component('upload-file', require('./components/UploadFileComponent.vue').default);
 Vue.component('upload-image', require('./components/UploadImageComponent.vue').default);
+Vue.component('upload-image-cv', require('./components/UploadImageCvComponent.vue').default);
 Vue.component('flash_messages', require('./components/FlashMessages.vue').default);
 Vue.component('switch_button', require('./components/SwitchButton.vue').default);
 Vue.component('user_skills', require('./components/ProfileSkillComponent.vue').default);
@@ -1854,8 +1855,6 @@ if (document.getElementById("location")) {
 
 if (document.getElementById("user_profile")) {
 
-
-
     const freelancerProfile = new Vue({
         el: '#user_profile',
         components: {Multiselect},
@@ -1894,6 +1893,7 @@ if (document.getElementById("user_profile")) {
             avater_ref: 'profile_image_ref',
             banner_ref: 'profile_banner_ref',
             uploaded_image: false,
+            uploaded_cv: false,
             uploaded_banner: false,
             payment_method: "",
             setting: "",
@@ -1981,6 +1981,10 @@ if (document.getElementById("user_profile")) {
             removeImage: function (event) {
                 this.uploaded_image = true;
                 document.getElementById("hidden_avater").value = '';
+            },
+            removeCv: function (event) {
+                this.uploaded_cv = true;
+                document.getElementById("hidden_cv").value = '';
             },
             removeBanner: function (event) {
                 this.uploaded_banner = true;

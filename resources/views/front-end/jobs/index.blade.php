@@ -17,7 +17,17 @@
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
                                 </div>
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')" style="width: 24.5%;">Search Temp Jobs
+                                     @click="changeSearchType('job')" style="width: 24.5%;">
+                                    @php
+                                        $user = auth()->user();
+                                        $sUser = $user->hasRole('freelancer');
+                                    @endphp
+                                    @if($sUser)
+                                        Search Adhoc & Temp Jobs
+                                    @else
+                                        Search Temp Jobs
+                                    @endif
+
                                 </div>
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>

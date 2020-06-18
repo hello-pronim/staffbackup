@@ -63,24 +63,30 @@
     'Other'=>'Other',
     );
     $arrProfReq = array(
-    'Practice Manager'=>'Practice Manager',
-    'Practice Nurse'=>'Practice Nurse',
-    'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
-    'GP'=>'GP',
-    'Receptionist'=>'Receptionist',
-    'Pharmacist'=>'Pharmacist',
-    'Community Nurse'=>'Community Nurse',
-    'District Nurse'=>'District Nurse',
-    'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
+        'GP'=>'GP',
+        'Physicians Associate/Assistant'=>'Physicians Associate/Assistant',
+        'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
+        'Practice Nurse'=>'Practice Nurse',
+        'Community Nurse'=>'Community Nurse',
+        'District Nurse'=>'District Nurse',
+        'Health Care Assistant'=>'Health Care Assistant',
+        'Phlebotomist'=>'Phlebotomist',
+        'Clinical Pharmacist'=>'Clinical Pharmacist',
+        'Community Psychiatric Nurse'=>'Community Psychiatric Nurse',
+        'Mental Health Nurse'=>'Mental Health Nurse',
+        'Counsellor'=>'Counsellor',
+        'Drug and Alcohol worker'=>'Drug and Alcohol worker',
+        'Social Worker'=>'Social Worker',
+
     );
     $arrSupportProfReq = [
-		'Admin & Clerical'=>'Admin & Clerical',
-		'Receptionist'=>'Receptionist',
-		'Secretary'=>'Secretary',
-		'Read Coder'=>'Read Coder',
-		'Driver'=>'Driver',
-		'Cleaner'=>'Cleaner',
-		'Practice Manager'=>'Practice Manager',
+        'Admin & Clerical'=>'Admin & Clerical',
+        'Receptionist'=>'Receptionist',
+        'Secretary'=>'Secretary',
+        'Driver'=>'Driver',
+        'Cleaner'=>'Cleaner',
+        'Practice Manager'=>'Practice Manager',
+        'Read Coder'=>'Read Coder',
 	];
 
     $arrSpecialInterests = array(
@@ -331,7 +337,7 @@
         'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
     );
     @endphp
-    <script src="https://js.stripe.com/v3"></script>
+    {{--<script src="https://js.stripe.com/v3" xmlns:v-bind="http://www.w3.org/1999/xhtml"></script>--}}
     <style type="text/css">
         select {
             width: 100% !important;
@@ -958,7 +964,7 @@
 
     <div class="form-group form-group-half" v-if="user_role=='freelancer'">
         <span class="wt-select">
-        {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interests")) !!}
+        {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interest")) !!}
         </span>
     </div>
 
@@ -1271,7 +1277,7 @@
                       type="checkbox"
                       name="hourly_rate_negotiable"
                       checked="">
-                  <label for="hourly_rate_negotiable"><span> Hour rate negotiable?</span></label>
+                  <label for="hourly_rate_negotiable"><span> Hourly rate negotiable?</span></label>
                 </span>
               </span>
             </div>

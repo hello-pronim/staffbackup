@@ -261,7 +261,7 @@ class Helper extends Model
             $parts = explode('.', $file_original_name);
             $extension = end($parts);
             $extension = $image->getClientOriginalExtension();
-            if ($extension === "jpg" || $extension === "png") {
+            if ($extension === "jpg" || $extension === "jpeg" || $extension === "png") {
                 $file_original_name = !empty($file_name) ? $file_name : $file_original_name;
                 // create directory if not exist.
                 if (!file_exists($temp_path)) {
@@ -291,6 +291,77 @@ class Helper extends Model
                 $img = Image::make($image);
                 $img->save($temp_path . '/' . $file_original_name);
                 $json['message'] = trans('lang.img_uploaded');
+                $json['type'] = 'success';
+                return $json;
+            } else {
+                $json['message'] = trans('lang.img_jpg_png');
+                $json['type'] = 'error';
+                return $json;
+            }
+        } else {
+            $json['message'] = trans('lang.image not found');
+            $json['type'] = 'error';
+            return $json;
+        }
+    }
+
+    /**
+     * Store Temporary profile CV
+     *
+     * @param mixed $temp_path Temporary Path.
+     * @param mixed $cv       Image.
+     * @param mixed $file_name file name
+     *
+     * @return json response
+     */
+    public static function uploadTempCv($temp_path, $cv, $file_name = "")
+    {
+        $json = array();
+        if (!empty($cv)) {
+            $file_original_name = $cv->getClientOriginalName();
+            $parts = explode('.', $file_original_name);
+            $extension = end($parts);
+            $extension = $cv->getClientOriginalExtension();
+            if ($extension === "jpg" || $extension === "jpeg" || $extension === "png") {
+                $file_original_name = !empty($file_name) ? $file_name : $file_original_name;
+                // create directory if not exist.
+                if (!file_exists($temp_path)) {
+                    File::makeDirectory($temp_path, 0755, true, true);
+                }
+                // generate small image size
+                $small_img = Image::make($cv);
+                $small_img->fit(
+                    36,
+                    36,
+                    function ($constraint) {
+                        $constraint->upsize();
+                    }
+                );
+                $small_img->save($temp_path . '/small-' . $file_original_name);
+                // generate medium image size
+                $medium_img = Image::make($cv);
+                $medium_img->fit(
+                    100,
+                    100,
+                    function ($constraint) {
+                        $constraint->upsize();
+                    }
+                );
+                $medium_img->save($temp_path . '/medium-' . $file_original_name);
+                // save original image size
+                $img = Image::make($cv);
+                $img->save($temp_path . '/' . $file_original_name);
+                $json['message'] = trans('lang.img_uploaded');
+                $json['type'] = 'success';
+                return $json;
+            }  else if($extension === "pdf" || $extension === "doc" || $extension === "docx") {
+                $file_original_name = !empty($file_name) ? $file_name : $file_original_name;
+                // create directory if not exist.
+                if (!file_exists($temp_path)) {
+                    File::makeDirectory($temp_path, 0755, true, true);
+                }
+                $cv->move($temp_path, $file_original_name);
+                $json['message'] = 'UPLOADED "' . $extension . $temp_path . $file_original_name . '"" FILE';
                 $json['type'] = 'success';
                 return $json;
             } else {

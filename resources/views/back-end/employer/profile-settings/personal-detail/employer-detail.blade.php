@@ -1,15 +1,20 @@
 @php
     $user = Auth::user();
     $arrProfReq = array(
-    'Practice Manager'=>'Practice Manager',
-    'Practice Nurse'=>'Practice Nurse',
-    'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
-    'GP'=>'GP',
-    'Receptionist'=>'Receptionist',
-    'Pharmacist'=>'Pharmacist',
-    'Community Nurse'=>'Community Nurse',
-    'District Nurse'=>'District Nurse',
-    'Healthcare Assistant (HCA)'=>'Healthcare Assistant (HCA)',
+        'GP'=>'GP',
+        'Physicians Associate/Assistant'=>'Physicians Associate/Assistant',
+        'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
+        'Practice Nurse'=>'Practice Nurse',
+        'Community Nurse'=>'Community Nurse',
+        'District Nurse'=>'District Nurse',
+        'Health Care Assistant'=>'Health Care Assistant',
+        'Phlebotomist'=>'Phlebotomist',
+        'Clinical Pharmacist'=>'Clinical Pharmacist',
+        'Community Psychiatric Nurse'=>'Community Psychiatric Nurse',
+        'Mental Health Nurse'=>'Mental Health Nurse',
+        'Counsellor'=>'Counsellor',
+        'Drug and Alcohol worker'=>'Drug and Alcohol worker',
+        'Social Worker'=>'Social Worker',
     );
 
     $arrSpecialInterests = array(
@@ -218,7 +223,7 @@
                            {{$hourly_rate_negotiable=='on'? 'checked' : ''}}
 
                            >
-                    <label for="hourly_rate_negotiable"><span> Hour rate negotiable</span></label>
+                    <label for="hourly_rate_negotiable"><span> Hourly rate negotiable</span></label>
             </span>
         </span>
     </div>
