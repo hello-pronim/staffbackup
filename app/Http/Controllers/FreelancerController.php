@@ -75,8 +75,7 @@ class FreelancerController extends Controller
     {
         $locations = Location::pluck('title', 'id');
         $skills = Skill::pluck('title', 'id');
-        $profile = $this->freelancer::where('user_id', Auth::user()->id)
-            ->get()->first();
+        $profile = $this->freelancer::where('user_id', Auth::user()->id)->get()->first();
         $gender = !empty($profile->gender) ? $profile->gender : '';
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $tagline = !empty($profile->tagline) ? $profile->tagline : '';
@@ -88,6 +87,8 @@ class FreelancerController extends Controller
         $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
+        $cv_ext = explode('.', $cv);
+        //dd(end($cv_ext));
         $hours_avail = !empty($profile->hours_avail) ? $profile->hours_avail : '';
         $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
@@ -117,6 +118,7 @@ class FreelancerController extends Controller
                     'avater',
                     'options',
                     'cv',
+                    'cv_ext',
                     'days_avail',
                     'hours_avail',
                     'hourly_rate_negotiable',
@@ -143,6 +145,7 @@ class FreelancerController extends Controller
                     'avater',
                     'options',
                     'cv',
+                    'cv_ext',
                     'days_avail',
                     'hours_avail',
                     'hourly_rate_negotiable',
@@ -177,7 +180,7 @@ class FreelancerController extends Controller
             return Helper::uploadTempImage($path, $profile_image);
         } elseif (!empty($request['hidden_cv_image'])) {
             $cv_image = $request['hidden_cv_image'];
-            return Helper::uploadTempImage($path, $cv_image);
+            return Helper::uploadTempCv($path, $cv_image);
         }
     }
 

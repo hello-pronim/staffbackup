@@ -678,6 +678,8 @@ class PublicController extends Controller
         $keyword = !empty($_GET['s']) ? $_GET['s'] : '';
         $type = !empty($_GET['type']) ? $_GET['type'] : $search_type;
 
+
+
         $has_access = true;
 
         switch ($type) {
