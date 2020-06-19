@@ -39,12 +39,14 @@ $subscribe_options  = array(
                                     {!! Form::open(['url' => url('profile/settings/save-payment-settings'), 'class' =>'wt-formtheme wt-userform', 'id'=>'notifications'])!!}
                                         <fieldset>
                                             <div class="form-group">
+                                                @if($user->user_role->name == 'employer')
                                                 <label>Choosen subscription</label>
-                                                {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'class' => 'form-group', 'disabled'=>"disabled")) !!}
+                                                {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'class' => 'form-group')) !!}
                                                 <br>
+                                                @endif
                                                 <label>Choosen Payment Option</label>
 
-                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'class' => 'form-group', 'disabled'=>"disabled")) !!}
+                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'class' => 'form-group')) !!}
 
                                                 <?php
                                                 switch($user->payment_option){
