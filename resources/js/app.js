@@ -329,31 +329,50 @@ if (document.getElementById("booking_availability")) {
             saveNewEventAvailability(e, busy) {
                 e.preventDefault();
                 var word = '•';
+                var title_word = 'Available'
                 var class_type = 'available_class';
                 if (busy) {
                     class_type = 'busy_class';
-                    word = 'Busy/Holiday';
+                    word = title_word = 'Busy/Holiday';
                 }
-                var newObj =
+
+                var
+                    availability_start_time = this.availability_start_time,
+                    availability_end_time = this.availability_end_time,
+                    availability_title = this.availability_title,
+                    availability_content = this.availability_content,
+                    thistoast = this.$toast,
+                    newObj =
                     {
-                        start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),
-                        end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date ) + " " + (this.availability_end_time != "" ? this.availability_end_time : "23:59"),
-                        title: this.availability_title != "" ? this.availability_title : word,
-                        content: this.availability_content != "" ? this.availability_content : word,
-                        contentFull: this.availability_content != "" ? this.availability_content : word,
+                        start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
+                        end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date ) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
+                        title: availability_title != "" ? availability_title : word,
+                        content: availability_content != "" ? availability_content : word,
+                        contentFull: availability_content != "" ? availability_content : word,
                         class: class_type
                     };
+                    thistoast.options.position = 'center';
 
                 //this.events.push(newObj);
                 axios.post('/freelancer/saveCalendarAvailability', newObj)
                     .then(function (response) {
-                        this.availability_start_time = '';
-                        this.availability_end_time = '';
-                        this.availability_title = '';
-                        this.availability_content = '';
+                        availability_start_time = '';
+                        availability_end_time = '';
+                        availability_title = '';
+                        availability_content = '';
+                        // console.log(response.data.status)
+                        // console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)
+                        if(busy) {
+                            thistoast.error(' ',"Success " + title_word  + ": \n" + newObj.start + " - " + newObj.end);
+                        } else {
+                            thistoast.success(' ',"Success " + title_word  + ": \n" + newObj.start + " - " + newObj.end);
+                        }
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
+                        if(typeof error.response.data.errors != 'undefined') {
+                            thistoast.error('Error', error.status);
+                        }
                     });
             }
         }
