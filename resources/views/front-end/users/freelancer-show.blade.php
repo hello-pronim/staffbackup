@@ -124,10 +124,10 @@
                                         {{--<h3 data-from="0" data-to="{{ $amount }}" data-speed="8000" data-refresh-interval="100">{{ empty($amount) ? $symbol.'0.00' : $symbol."".$amount }}</h3>--}}
                                         {{--<h4>{{ trans('lang.total_earnings') }}</h4>--}}
                                     {{--</div>--}}
-                                    {{--<div class="wt-description">--}}
-                                        {{--<p>{{ trans('lang.send_offer_note') }}</p>--}}
-                                        {{--<a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>--}}
-                                    {{--</div>--}}
+                                    <div class="wt-description">
+                                        <p>{{ trans('lang.send_offer_note') }}</p>
+                                        <a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
