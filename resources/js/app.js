@@ -2140,9 +2140,9 @@ if (document.getElementById("user_profile")) {
                     .then(function (response) {
                         if (response.data.type == 'success') {
                             self.showInfo(response.data.process);
-                            setTimeout(function () {
-                                window.location.replace(APP_URL + '/employer/dashboard');
-                            }, 4000);
+                            // setTimeout(function () {
+                                // window.location.replace(APP_URL + '/employer/dashboard');
+                            // }, 4000);
                         } else if (response.data.type == 'error') {
                             self.showError(response.data.message);
                         }
@@ -3951,6 +3951,7 @@ if (document.getElementById("jobs")) {
         }
     });
 }
+
 if (document.getElementById("proposals")) {
     const vproposals = new Vue({
         el: '#proposals',
@@ -3960,6 +3961,7 @@ if (document.getElementById("proposals")) {
         methods: {}
     });
 }
+
 if (document.getElementById("packages")) {
     const packages = new Vue({
         el: '#packages',
@@ -4463,6 +4465,7 @@ if (document.getElementById("invoice_list")) {
         }
     });
 }
+
 if (document.getElementById("services")) {
     const vservices = new Vue({
         el: '#services',

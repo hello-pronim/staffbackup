@@ -79,18 +79,21 @@ class Profile extends Model
     {
         $user = User::find($user_id);
         if ($user->first_name . '-' . $user->last_name != $request['first_name'] . '-' . $request['last_name']) {
-            $user->slug = filter_var($request['first_name'], FILTER_SANITIZE_STRING) . '-' .
-                filter_var($request['last_name'], FILTER_SANITIZE_STRING);
+            $user->slug = filter_var($request['first_name'], FILTER_SANITIZE_STRING) . '-' . filter_var($request['last_name'], FILTER_SANITIZE_STRING);
         }
         $user->first_name = filter_var($request['first_name'], FILTER_SANITIZE_STRING);
         $user->last_name = filter_var($request['last_name'], FILTER_SANITIZE_STRING);
         if (!empty($request['email'])) {
             $user->email = filter_var($request['email'], FILTER_SANITIZE_STRING);
         }
+        $user->number = filter_var($request['number'], FILTER_SANITIZE_STRING);
         $location = Location::find($request['location']);
         $user->location()->associate($location);
 
 
+        $user->pin = filter_var(isset($request['pin']) ? $request['pin'] : "", FILTER_SANITIZE_STRING);
+        if(isset($request['pin_date_revalid']))
+            $user->pin_date_revalid = filter_var($request['pin_date_revalid'], FILTER_SANITIZE_STRING);
 
         $user->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
         $user->profession = filter_var(isset($request['profession']) ? $request['profession'] : "", FILTER_SANITIZE_STRING);
@@ -99,15 +102,22 @@ class Profile extends Model
         $user->c_payment_methods = filter_var(isset($request['c_payment_methods']) ? $request['c_payment_methods'] : "", FILTER_SANITIZE_STRING);
         $user->c_ltd_comp_name = filter_var(isset($request['c_ltd_comp_name']) ? $request['c_ltd_comp_name'] : "", FILTER_SANITIZE_STRING);
         $user->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
+        $user->insurance = filter_var(isset($request['insurance']) ? $request['insurance'] : "", FILTER_SANITIZE_STRING);
         $user->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
         $user->policy_number = filter_var(isset($request['policy_number']) ? $request['policy_number'] : "", FILTER_SANITIZE_STRING);
         $user->itsoftware = !empty($request['itsoftware']) ? serialize($request['itsoftware']) : "";
+        $user->special_interests = filter_var((isset($request['special_interests']) && $request['special_interests'][0] != "Other") ? $request['special_interests'][0] :
+            (isset($request['special_interests']) && $request['special_interests'][0] == "Other" ? $request['special_interests'][1] : ""), FILTER_SANITIZE_STRING);
         $user->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);
         $user->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);
         $user->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
+        $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+        $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
 
         $user->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);
         $user->limitied_company_name = filter_var(isset($request['limitied_company_name']) ? $request['limitied_company_name'] : "", FILTER_SANITIZE_STRING);
+        $user->drive_license = filter_var(isset($request['drive_license']) ? $request['drive_license'] : "", FILTER_SANITIZE_STRING);
+        $user->endorsements = filter_var(isset($request['endorsements']) ? $request['endorsements'] : "", FILTER_SANITIZE_STRING);
         //new files fields
 
         if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
@@ -132,7 +142,7 @@ class Profile extends Model
             $file->move($destinationPath,$newfiename);
             $user->passport_visa = $newfiename;
         }
-        if(isset($request['profQualLevel']) &&
+        if( isset($request['profQualLevel']) &&
             isset($request['profQualName']) &&
             isset($request['profQualPlace']) &&
             isset($request['profQualYear']))
@@ -190,7 +200,6 @@ class Profile extends Model
 
 
 
-
         $user->save();
         $user->skills()->detach();
         if ($request['skills']) {
@@ -218,7 +227,7 @@ class Profile extends Model
         $profile->tagline = filter_var($request['tagline'], FILTER_SANITIZE_STRING);
         $profile->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
 
-        $profile->radius = filter_var($request['radius'] ? : "", FILTER_SANITIZE_STRING) ;
+        $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING) ?: null;
 
         $profile->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
         $profile->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);

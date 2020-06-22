@@ -33,8 +33,7 @@
       'Urgent Care Centre'=>'Urgent Care Centre',
       'GP Out Of Hours'=>'GP Out Of Hours',
       'Community Service'=>'Community Service',
-      'Other'=>'Other',
-
+      'Other'=>'Other'
       );
       if(!isset($arrSettings[$user->setting]))
       {
@@ -292,7 +291,7 @@
           {!! Form::text( 'last_name', e($user->last_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
       </div>
       <div class="form-group form-group-half">
-        {!! Form::email( 'last_name', e($user->email), ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
+        {!! Form::email( 'email', e($user->email), ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
       </div>
       <div class="form-group form-group-half">
         {!! Form::number( 'number', e($user->number), ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
@@ -358,11 +357,11 @@
       <div class="form-group form-group-half ">
           {!! Form::text('org_desc', $user->org_desc, ['class' => 'form-group', 'placeholder' => 'Organisation description']) !!}
       </div>
+
       <div class="form-group ">
-          {!! Form::select('setting[]', $arrSettings, $user->setting, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
+          {!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}
       </div>
-      <div class="form-group "
-           v-if="appoSlotTime=='Other'">
+      <div class="form-group ">
           <input id="other_setting" type="text"
                  class="form-control"
                  name="setting[]"
@@ -397,7 +396,7 @@
 </div>
 <div class="lara-detail-form">
     <fieldset>
-      <div class="form-group form-group-half">
+      <div class="form-group">
           <strong>Certificates –Vaccinations &
               immunisation
               (Measles/Mumps/Rubella/Hepatitis
@@ -409,14 +408,13 @@
                  class="form-control"
                  accept=".pdf, image/*,.doc,.docx">
       </div>
-      <div class="form-group form-group-half">
+      <div class="form-group">
           {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
       </div>
       <div class="form-group">
-          <input id="other_appo" type="text"
+            <input id="other_appo" type="text"
                  class="form-control"
                  name="appo_slot_times[]"
-                 value="{{ $user->appo_slot_times}}"
                  placeholder="Other Appointment Slot Times">
       </div>
       <div class="form-group">
@@ -433,8 +431,7 @@
                class="form-control"
                name="practice_code"
                placeholder="Practice Code"
-               value="{{ $user->practice_code }}"
-               @change="validatePracticeCode">
+               value="{{ $user->practice_code }}">
       </div>
       <div class="form-group">
           <label for="hourly_rate_desc">Please enter
@@ -443,10 +440,12 @@
           <input id="hourly_rate_desc" type="text"
                  class="form-control"
                  name="hourly_rate_desc"
+                 value="{{ $user->profile->hourly_rate_desc }}"
                  placeholder="Additional info">
       </div>
       <div class="form-group">
-        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}
+{{--        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}--}}
+        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ",'class' => 'form-group')) !!}
       </div>
     </fieldset>
 </div>
@@ -456,7 +455,15 @@
 </div>
 <div class="wt-formtheme bg-success">
     <div class="form-group ">
-      <multiselect v-model="itsoftware" :options="itsoftware_options" :searchable="false" :close-on-select="false" :clear-on-select="false" :preserve-search="false" :show-labels="false" :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd" ref="input" data-value="{{ json_encode($user->itsoftware != null ? unserialize($user->itsoftware) : []) }}">
+      <multiselect v-model="itsoftware"
+                   :options="itsoftware_options"
+                   :searchable="false"
+                   :close-on-select="false"
+                   :clear-on-select="false"
+                   :preserve-search="false"
+                   :show-labels="false"
+                   :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd" ref="input"
+                   data-value="{{ json_encode(@unserialize($user->itsoftware) !== false ? unserialize($user->itsoftware) : [$user->itsoftware]) }}">
           <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>
       </multiselect>
       <select name="itsoftware[]" style="display:none;" multiple>
