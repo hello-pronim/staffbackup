@@ -60,7 +60,7 @@
                                             <label>End Time</label>
                                             <vue-timepicker name="availability_end_time"  required   format="HH:mm"  v-model="availability_end_time"></vue-timepicker>
                                         </div>
-                                    <div class="form-grou!!p">
+                                    <div class="form-group">
                                         <label for="availability_title">Title:</label>
                                         {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Availability Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
                                     </div>

@@ -328,7 +328,7 @@ class User extends Authenticatable
             $this->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);;
             $this->stripe_token = filter_var(isset($request['stripe_token']) ? $request['stripe_token'] : "", FILTER_SANITIZE_STRING);
             $this->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
-
+            $this->hourly_rate_desc = filter_var(isset($request['hourly_rate_desc']) ? $request['hourly_rate_desc'] : "", FILTER_SANITIZE_STRING);
 
             // New fields functionality
             $this->org_desc = filter_var(isset($request['org_desc']) ? $request['org_desc'] : "", FILTER_SANITIZE_STRING);
@@ -368,7 +368,6 @@ class User extends Authenticatable
             $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
             $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
 
-
             $this->org_name = filter_var(isset($request['org_name']) ? $request['org_name'] : "", FILTER_SANITIZE_STRING);
             $this->organisation_position = filter_var(isset($request['organisation_position']) ? $request['organisation_position'] : "", FILTER_SANITIZE_STRING);
             $this->organisation_email = filter_var(isset($request['organisation_email']) ? $request['organisation_email'] : "", FILTER_SANITIZE_STRING);
@@ -384,6 +383,8 @@ class User extends Authenticatable
             $this->c_ltd_comp_number = filter_var(isset($request['c_ltd_comp_number']) ? $request['c_ltd_comp_number'] : "", FILTER_SANITIZE_STRING);
 
             $this->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+
+
 
             //It software
             $this->itsoftware = !empty($request['itsoftware']) ? serialize($request['itsoftware']) : "";
@@ -534,6 +535,10 @@ class User extends Authenticatable
             $user->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
             $user->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);
 
+            $user->organisation_email = (!empty($request['organisation_email']))?filter_var($request['organisation_email'], FILTER_SANITIZE_EMAIL):"";
+            $user->organisation_position = (!empty($request['organisation_position'])) ? filter_var($request['organisation_position'], FILTER_SANITIZE_STRING) : "";
+            $user->organisation_contact = (!empty($request['organisation_contact'])) ? filter_var($request['organisation_contact'], FILTER_SANITIZE_STRING) : "";
+
             $user->org_desc = filter_var(isset($request['org_desc']) ? $request['org_desc'] : "", FILTER_SANITIZE_STRING);
             $user->pin = filter_var(isset($request['pin']) ? $request['pin'] : "", FILTER_SANITIZE_STRING);
             $user->pin_date_revalid = filter_var(isset($request['pin_date_revalid']) ? $request['pin_date_revalid'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
@@ -560,21 +565,19 @@ class User extends Authenticatable
                 (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
             //End With Others
 
+            $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+            $user->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
+
+
             $user->adm_catch_time = filter_var(isset($request['adm_catch_time']) ? $request['adm_catch_time'] : "", FILTER_SANITIZE_STRING);
 
             $user->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
             $user->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
             $user->session_ad_by = filter_var(isset($request['session_ad_by']) ? $request['session_ad_by'] : "", FILTER_SANITIZE_STRING);
 
-            $this->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
-            $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
-            $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
-
-
-            $this->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
-            $this->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
-            $this->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
-
+            $user->session_ad_by_position = filter_var(isset($request['session_ad_by_position']) ? $request['session_ad_by_position'] : "", FILTER_SANITIZE_STRING);
+            $user->session_ad_by_email = filter_var(isset($request['session_ad_by_email']) ? $request['session_ad_by_email'] : "", FILTER_SANITIZE_STRING);
+            $user->session_ad_by_contact = filter_var(isset($request['session_ad_by_contact']) ? $request['session_ad_by_contact'] : "", FILTER_SANITIZE_STRING);
 
             if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
             {

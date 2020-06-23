@@ -13,16 +13,18 @@
 
                         <div class="search" id="searchHomePage" attr-type="job">
                             <div class="searchtop">
-                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
-                                     @click="changeSearchType('freelancer')">Search Adhoc Staff
-                                </div>
+                                @php
+                                    $user = auth()->user();
+                                    $uProffecional = $user->hasRole('freelancer');
+                                @endphp
+                                @if(!$uProffecional)
+                                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
+                                         @click="changeSearchType('freelancer')">Search Adhoc Staff
+                                    </div>
+                                @endif
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
                                      @click="changeSearchType('job')" style="width: 24.5%;">
-                                    @php
-                                        $user = auth()->user();
-                                        $sUser = $user->hasRole('freelancer');
-                                    @endphp
-                                    @if($sUser)
+                                    @if($uProffecional)
                                         Search Adhoc & Temp Jobs
                                     @else
                                         Search Temp Jobs
@@ -66,7 +68,7 @@
                                                                                                         data-value="{{ $radius ?? '' }}"></div>
                                 </div>
                                 <div class="filters">
-                                    <div>SPECIALIST</div>
+                                    <div>Profession</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
                                         <select style="font-weight: normal;border:none;padding:0px;width: 80%;"

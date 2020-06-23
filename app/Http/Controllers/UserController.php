@@ -1827,6 +1827,7 @@ class UserController extends Controller
     {
         if (Auth::user()) {
             $user = User::find(Auth::user()->id);
+            $user->user_role = $this->user::getUserRoleType(Auth::user()->id);
             return view('back-end.settings.payment_settings', array('user'=>$user));
         }
     }

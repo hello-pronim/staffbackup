@@ -60,7 +60,7 @@
                                                                                                         data-value="{{ $radius }}"></div>
                                 </div>
                                 <div class="filters">
-                                    <div>SPECIALIST</div>
+                                    <div>Profession</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
                                         <select style="font-weight: normal;border:none;padding:0px;width: 80%;"

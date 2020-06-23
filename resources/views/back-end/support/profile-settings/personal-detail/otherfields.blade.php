@@ -307,7 +307,7 @@
         <div class="form-group">
              <span class="wt-select">
 
-                {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+                {!! Form::select('nationality', $arrNationals, $user->nationality, array('placeholder' => "Nationality")) !!}
             </span>
         </div>
        
@@ -353,15 +353,15 @@
                                 placeholder="Level"></td>
                     <td> <input type="text"
                                 class="form-control"
-                                name="profQualLevel[]"
+                                name="profQualName[]"
                                 value="{{$qualif[1]}}"
-                                placeholder="Level"></td>
+                                placeholder="Name"></td>
                     <td> <input type="text"
                                 class="form-control"
-                                name="profQualName[]"
+                                name="profQualPlace[]"
                                 value="{{$qualif[2]}}"
 
-                                placeholder="Name"></td>
+                                placeholder="Place"></td>
                     <td> <input type="number"
                                 class="form-control"
                                 name="profQualYear[]"
@@ -384,7 +384,7 @@
             @if(!empty($user->prof_qual_cert))
                 <a href="{{url('uploads/files/'.$user->prof_qual_cert)}}" target="_blank">Click To open</a>
             @endif
-            <input type="file" name="mand_training"
+            <input type="file" name="prof_qual_cert"
                    class="form-control"
                    accept=".pdf, image/*,.doc,.docx">
         </div>

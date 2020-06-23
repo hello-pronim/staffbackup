@@ -76,7 +76,7 @@
                                     @endif
                                     <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
                                         @if (!empty($profile->hourly_rate))
-                                            <li><span><i class="far fa-money-bill-alt"></i> {{ $symbol }}{{{ $profile->hourly_rate }}} {{{ trans('lang.per_hour') }}}</span></li>
+                                            {{--<li><span><i class="far fa-money-bill-alt"></i> {{ $symbol }}{{{ $profile->hourly_rate }}} {{{ trans('lang.per_hour') }}}</span></li>--}}
                                         @endif
                                         @if (!empty($user->location->title))
                                             <li>
@@ -112,10 +112,10 @@
                                         {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'hired')->count() }}}" data-speed="800" data-refresh-interval="03">{{{ Helper::getProposals($user->id, 'hired')->count() }}}</h3>--}}
                                         {{--<h4>{{ trans('lang.ongoing_project') }}</h4>--}}
                                     {{--</div>--}}
-                                    <div class="wt-statisticcontent wt-countercolor2">
-                                        <h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'completed')->count() }}}" data-speed="8000" data-refresh-interval="100">{{{ Helper::getProposals($user->id, 'completed')->count() }}}</h3>
-                                        <h4>{{ trans('lang.completed_projects') }}</h4>
-                                    </div>
+                                    {{--<div class="wt-statisticcontent wt-countercolor2">--}}
+                                        {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'completed')->count() }}}" data-speed="8000" data-refresh-interval="100">{{{ Helper::getProposals($user->id, 'completed')->count() }}}</h3>--}}
+                                        {{--<h4>{{ trans('lang.completed_projects') }}</h4>--}}
+                                    {{--</div>--}}
                                     {{--<div class="wt-statisticcontent wt-countercolor4">--}}
                                         {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}" data-speed="800" data-refresh-interval="02">{{{ Helper::getProposals($user->id, 'cancelled')->count() }}}</h3>--}}
                                         {{--<h4>{{ trans('lang.cancelled_projects') }}</h4>--}}
@@ -124,10 +124,10 @@
                                         {{--<h3 data-from="0" data-to="{{ $amount }}" data-speed="8000" data-refresh-interval="100">{{ empty($amount) ? $symbol.'0.00' : $symbol."".$amount }}</h3>--}}
                                         {{--<h4>{{ trans('lang.total_earnings') }}</h4>--}}
                                     {{--</div>--}}
-                                    {{--<div class="wt-description">--}}
-                                        {{--<p>{{ trans('lang.send_offer_note') }}</p>--}}
-                                        {{--<a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>--}}
-                                    {{--</div>--}}
+                                    <div class="wt-description">
+                                        <p>{{ trans('lang.send_offer_note') }}</p>
+                                        <a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -137,68 +137,68 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 float-left">
-                    <div class="wt-services-holder">
-                        <div class="wt-title">
-                            <h2>{{ trans('lang.services') }}</h2>
-                        </div>
-                        <div class="wt-services-content">
-                            <div class="row">
-                                @if (!empty($services))
-                                    @foreach ($services as $service)
-                                        @php
-                                            $service_reviews = Helper::getServiceReviews($user->id, $service->id);
-                                            $service_rating  = $service_reviews->sum('avg_rating') != 0 ? round($service_reviews->sum('avg_rating') / $service_reviews->count()) : 0;
-                                            $attachments = Helper::getUnserializeData($service->attachments);
-                                            $no_attachments = empty($attachments) ? 'la-service-info' : '';
-                                            $total_orders = Helper::getServiceCount($service->id, 'hired');
-                                        @endphp
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
-                                            <div class="wt-freelancers-info {{$no_attachments}}">
-                                                @if (!empty($attachments))
-                                                    @php $enable_slider = count($attachments) > 1 ? 'wt-freelancerslider owl-carousel' : ' '; @endphp
-                                                    <div class="wt-freelancers {{{$enable_slider}}}">
-                                                        @foreach ($attachments as $attachment)
-                                                            <figure class="item">
-                                                                <a href="{{{ url('profile/'.$user->slug) }}}"><img src="{{{asset(Helper::getImageWithSize('uploads/services/'.$user->id, $attachment, 'medium'))}}}" alt="img description" class="item"></a>
-                                                            </figure>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                                @if ($service->is_featured == 'true')
-                                                    <span class="wt-featuredtagvtwo">{{ trans('lang.featured') }}</span>
-                                                @endif
-                                                <div class="wt-freelancers-details">
-                                                    <figure class="wt-freelancers-img">
-                                                        <img src="{{ asset(Helper::getProfileImage($user->id)) }}" alt="img description">
-                                                    </figure>
-                                                    <div class="wt-freelancers-content">
-                                                        <div class="dc-title">
-                                                            <a href="{{{ url('profile/'.$user->slug) }}}"><i class="fa fa-check-circle"></i> {{{Helper::getUserName($user->id)}}}</a>
-                                                            <a href="{{{url('service/'.$service->slug)}}}"><h3>{{{$service->title}}}</h3></a>
-                                                            <span><strong>{{ $symbol }}{{{$service->price}}}</strong> {{trans('lang.starting_from')}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="wt-freelancers-rating">
-                                                        <ul>
-                                                            <li><span><i class="fa fa-star"></i>{{{ $service_rating }}}/<i>5</i> ({{{$service_reviews->count()}}})</span></li>
-                                                            <li>
-                                                                @if ($total_orders > 0)
-                                                                    <i class="fa fa-spinner fa-spin"></i>
-                                                                @endif
-                                                                {{{$total_orders}}} {{ trans('lang.in_queue') }}
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="col-12 col-sm-12 col-md-12 col-lg-12 float-left">--}}
+                    {{--<div class="wt-services-holder">--}}
+                        {{--<div class="wt-title">--}}
+                            {{--<h2>{{ trans('lang.services') }}</h2>--}}
+                        {{--</div>--}}
+                        {{--<div class="wt-services-content">--}}
+                            {{--<div class="row">--}}
+                                {{--@if (!empty($services))--}}
+                                    {{--@foreach ($services as $service)--}}
+                                        {{--@php--}}
+                                            {{--$service_reviews = Helper::getServiceReviews($user->id, $service->id);--}}
+                                            {{--$service_rating  = $service_reviews->sum('avg_rating') != 0 ? round($service_reviews->sum('avg_rating') / $service_reviews->count()) : 0;--}}
+                                            {{--$attachments = Helper::getUnserializeData($service->attachments);--}}
+                                            {{--$no_attachments = empty($attachments) ? 'la-service-info' : '';--}}
+                                            {{--$total_orders = Helper::getServiceCount($service->id, 'hired');--}}
+                                        {{--@endphp--}}
+                                        {{--<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">--}}
+                                            {{--<div class="wt-freelancers-info {{$no_attachments}}">--}}
+                                                {{--@if (!empty($attachments))--}}
+                                                    {{--@php $enable_slider = count($attachments) > 1 ? 'wt-freelancerslider owl-carousel' : ' '; @endphp--}}
+                                                    {{--<div class="wt-freelancers {{{$enable_slider}}}">--}}
+                                                        {{--@foreach ($attachments as $attachment)--}}
+                                                            {{--<figure class="item">--}}
+                                                                {{--<a href="{{{ url('profile/'.$user->slug) }}}"><img src="{{{asset(Helper::getImageWithSize('uploads/services/'.$user->id, $attachment, 'medium'))}}}" alt="img description" class="item"></a>--}}
+                                                            {{--</figure>--}}
+                                                        {{--@endforeach--}}
+                                                    {{--</div>--}}
+                                                {{--@endif--}}
+                                                {{--@if ($service->is_featured == 'true')--}}
+                                                    {{--<span class="wt-featuredtagvtwo">{{ trans('lang.featured') }}</span>--}}
+                                                {{--@endif--}}
+                                                {{--<div class="wt-freelancers-details">--}}
+                                                    {{--<figure class="wt-freelancers-img">--}}
+                                                        {{--<img src="{{ asset(Helper::getProfileImage($user->id)) }}" alt="img description">--}}
+                                                    {{--</figure>--}}
+                                                    {{--<div class="wt-freelancers-content">--}}
+                                                        {{--<div class="dc-title">--}}
+                                                            {{--<a href="{{{ url('profile/'.$user->slug) }}}"><i class="fa fa-check-circle"></i> {{{Helper::getUserName($user->id)}}}</a>--}}
+                                                            {{--<a href="{{{url('service/'.$service->slug)}}}"><h3>{{{$service->title}}}</h3></a>--}}
+                                                            {{--<span><strong>{{ $symbol }}{{{$service->price}}}</strong> {{trans('lang.starting_from')}}</span>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="wt-freelancers-rating">--}}
+                                                        {{--<ul>--}}
+                                                            {{--<li><span><i class="fa fa-star"></i>{{{ $service_rating }}}/<i>5</i> ({{{$service_reviews->count()}}})</span></li>--}}
+                                                            {{--<li>--}}
+                                                                {{--@if ($total_orders > 0)--}}
+                                                                    {{--<i class="fa fa-spinner fa-spin"></i>--}}
+                                                                {{--@endif--}}
+                                                                {{--{{{$total_orders}}} {{ trans('lang.in_queue') }}--}}
+                                                            {{--</li>--}}
+                                                        {{--</ul>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--@endforeach--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
         <div class="container">
@@ -328,40 +328,40 @@
                                     {{--</div>--}}
                                 {{--@endif--}}
                             {{--</div>--}}
-                            <div class="wt-experience">
-                                <div class="wt-usertitle">
-                                    <h2>{{{ trans('lang.experience') }}}</h2>
-                                </div>
-                                @if (!empty($experiences))
-                                    <div class="wt-experiencelisting-hold">
-                                        <experience :freelancer_id="'{{$profile->user_id}}'" :no_of_post="2"></experience>
-                                    </div>
-                                @else
-                                    <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
-                                            @include('extend.errors.no-record')
-                                        @else
-                                            @include('errors.no-record')
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="wt-experience wt-education">
-                                <div class="wt-usertitle">
-                                    <h2>{{{ trans('lang.education') }}}</h2>
-                                </div>
-                                @if (!empty($education))
-                                    <education :freelancer_id="'{{$profile->user_id}}'" :no_of_post="1"></education>
-                                @else
-                                    <div class="wt-userprofile">
-                                        @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
-                                            @include('extend.errors.no-record')
-                                        @else
-                                            @include('errors.no-record')
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
+                            {{--<div class="wt-experience">--}}
+                                {{--<div class="wt-usertitle">--}}
+                                    {{--<h2>{{{ trans('lang.experience') }}}</h2>--}}
+                                {{--</div>--}}
+                                {{--@if (!empty($experiences))--}}
+                                    {{--<div class="wt-experiencelisting-hold">--}}
+                                        {{--<experience :freelancer_id="'{{$profile->user_id}}'" :no_of_post="2"></experience>--}}
+                                    {{--</div>--}}
+                                {{--@else--}}
+                                    {{--<div class="wt-userprofile">--}}
+                                        {{--@if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))--}}
+                                            {{--@include('extend.errors.no-record')--}}
+                                        {{--@else--}}
+                                            {{--@include('errors.no-record')--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                            {{--<div class="wt-experience wt-education">--}}
+                                {{--<div class="wt-usertitle">--}}
+                                    {{--<h2>{{{ trans('lang.education') }}}</h2>--}}
+                                {{--</div>--}}
+                                {{--@if (!empty($education))--}}
+                                    {{--<education :freelancer_id="'{{$profile->user_id}}'" :no_of_post="1"></education>--}}
+                                {{--@else--}}
+                                    {{--<div class="wt-userprofile">--}}
+                                        {{--@if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))--}}
+                                            {{--@include('extend.errors.no-record')--}}
+                                        {{--@else--}}
+                                            {{--@include('errors.no-record')--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 float-left">

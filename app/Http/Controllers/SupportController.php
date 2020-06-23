@@ -87,6 +87,7 @@ class SupportController extends Controller
         $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
+        $cv_ext = explode('.', $cv);
         $hours_avail = !empty($profile->hours_avail) ? $profile->hours_avail : '';
         $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
@@ -115,6 +116,7 @@ class SupportController extends Controller
                     'avater',
                     'options',
                     'cv',
+                    'cv_ext',
                     'days_avail',
                     'hours_avail',
                     'hourly_rate_negotiable',
@@ -140,6 +142,7 @@ class SupportController extends Controller
                     'avater',
                     'options',
                     'cv',
+                    'cv_ext',
                     'days_avail',
                     'hours_avail',
                     'hourly_rate_negotiable',
@@ -174,7 +177,7 @@ class SupportController extends Controller
             return Helper::uploadTempImage($path, $profile_image);
         } elseif (!empty($request['hidden_cv_image'])) {
             $cv_image = $request['hidden_cv_image'];
-            return Helper::uploadTempImage($path, $cv_image);
+            return Helper::uploadTempCv($path, $cv_image);
         }
     }
 

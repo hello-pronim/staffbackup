@@ -113,6 +113,7 @@
     <div class="form-group form-group-half">
         <input type="text"
                class="form-control bg-success"
+               value="{{$user->pin}}"
                name="pin"
                placeholder="Pin">
     </div>
@@ -132,7 +133,6 @@
                class="form-control"
                name="policy_number"
                value="{{$user->policy_number}}"
-
                placeholder="Policy Number"/>
     </div>
 
@@ -199,8 +199,6 @@
         <input id="other_time_allo" type="text"
                class="form-control bg-success"
                name="time_allowed[]"
-               value="{{ $user->time_allowed}}"
-
                placeholder="Other Time Allocated">
     </div>
     <div class="form-group">
@@ -247,18 +245,21 @@
         <input id="session_ad_by_position" type="text"
                class="form-control bg-success"
                name="session_ad_by_position"
+               value="{{$user->session_ad_by_position}}"
                placeholder="Position">
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by_email" type="email"
                class="form-control bg-success"
                name="session_ad_by_email"
+               value="{{$user->session_ad_by_email}}"
                placeholder="Email">
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by_contact" type="text"
                class="form-control bg-success"
                name="session_ad_by_contact"
+               value="{{$user->session_ad_by_contact}}"
                placeholder="Direct Contact No">
     </div>
 </div>

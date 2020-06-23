@@ -35,6 +35,7 @@
 
 
         <div class="form-group">
+{{--            {{dd($user->profession)}}--}}
             <span class="wt-select">
             {!! Form::select('profession', $arrProfReq, $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
             </span>
@@ -124,7 +125,7 @@
     <div class="form-group ">
         <span class="wt-select">
 
-            {!! Form::select('drive_license', ['Yes'=>'Yes', 'No'=>'No'], Auth::user()->drive_license, array('placeholder' => "Do you have full driving license?")) !!}
+            {!! Form::select('drive_license', ['Yes'=>'Yes', 'No'=>'No'], $user->drive_license, array('placeholder' => "Do you have full driving license?")) !!}
 
         </span>
     </div>

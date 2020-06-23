@@ -361,7 +361,7 @@ class Helper extends Model
                     File::makeDirectory($temp_path, 0755, true, true);
                 }
                 $cv->move($temp_path, $file_original_name);
-                $json['message'] = 'UPLOADED "' . $extension . $temp_path . $file_original_name . '"" FILE';
+                $json['message'] = 'UPLOADED "' . $extension  ."|". $temp_path ."|-". $file_original_name . '"" FILE';
                 $json['type'] = 'success';
                 return $json;
             } else {
