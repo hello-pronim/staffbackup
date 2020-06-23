@@ -24,6 +24,7 @@
                     @else
                     @include('back-end.employer.profile-settings.tabs')
                     @endif
+
                     <div class="wt-tabscontent tab-content">
                         <vue-cal ref="vuecal" style="height: 650px"
                                  :time-from="0 * 60"
@@ -36,7 +37,13 @@
                                  @cell-click="createNewEvent">
                         </vue-cal>
 
-
+                        <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
+                            <h2>
+                                Green equals free this day<br>
+                                Blue equals booking on this day<br>
+                                Red equals away on holiday<br>
+                            </h2>
+                        </div>
                         <div v-if="clickedDate != ''">
                             <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
                                 <div class="wt-tabscontenttitle">
