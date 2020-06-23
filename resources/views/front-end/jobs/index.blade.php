@@ -25,9 +25,9 @@
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
                                      @click="changeSearchType('job')" style="width: 24.5%;">
                                     @if($uProffecional)
-                                        Search Adhoc & Temp Jobs
+                                        Search Adhoc & Adhoc Sessions
                                     @else
-                                        Search Temp Jobs
+                                        Search Adhoc Sessions
                                     @endif
 
                                 </div>
