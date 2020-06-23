@@ -162,7 +162,7 @@
             },
             changeSelectedDate(date) {
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-                this.selectedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                this.selectedDate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
                 jQuery('#calendar_small').hide();
                 //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
                 // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);

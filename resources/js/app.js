@@ -281,7 +281,7 @@ if (document.getElementById("booking_availability")) {
                 if (day.length < 2)
                     day = '0' + day;
 
-                return [year, month, day].join('-');
+                return [day, month, year].join('-');
             },
             createNewEvent(date) {
                 console.log(date);
@@ -429,7 +429,7 @@ if (page) {
             },
             changeSelectedDate(date) {
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-                this.selectedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                this.selectedDate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
                 jQuery('#calendar_small').hide();
                 //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
                 // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
@@ -3389,7 +3389,7 @@ if (document.getElementById("post_job")) {
                 });
             },
             changeSelectedDate(date) {
-                this.selecteddate = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                this.selectedDate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
                 // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
                 // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
             },
