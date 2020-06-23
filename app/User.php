@@ -328,7 +328,6 @@ class User extends Authenticatable
             $this->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);;
             $this->stripe_token = filter_var(isset($request['stripe_token']) ? $request['stripe_token'] : "", FILTER_SANITIZE_STRING);
             $this->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
-            $this->hourly_rate_desc = filter_var(isset($request['hourly_rate_desc']) ? $request['hourly_rate_desc'] : "", FILTER_SANITIZE_STRING);
 
             // New fields functionality
             $this->org_desc = filter_var(isset($request['org_desc']) ? $request['org_desc'] : "", FILTER_SANITIZE_STRING);
@@ -474,6 +473,9 @@ class User extends Authenticatable
                 $department = Department::find($request['department_name']);
                 $profile->department()->associate($department);
             }
+
+            $profile->hourly_rate_desc = isset($request['hourly_rate_desc']) ? filter_var($request['hourly_rate_desc'], FILTER_SANITIZE_STRING) : "";
+
 
             if(isset($request['cvfile']) && $file = $request['cvfile'])
             {

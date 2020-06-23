@@ -2005,6 +2005,9 @@ if (document.getElementById("user_profile")) {
                 this.uploaded_cv = true;
                 document.getElementById("hidden_cv").value = '';
             },
+            selectedSubscription: function (subscription) {
+                this.subscription = subscription;
+            },
             removeBanner: function (event) {
                 this.uploaded_banner = true;
                 document.getElementById("hidden_banner").value = '';
@@ -2140,9 +2143,9 @@ if (document.getElementById("user_profile")) {
                     .then(function (response) {
                         if (response.data.type == 'success') {
                             self.showInfo(response.data.process);
-                            // setTimeout(function () {
-                                // window.location.replace(APP_URL + '/employer/dashboard');
-                            // }, 4000);
+                            setTimeout(function () {
+                                window.location.replace(APP_URL + '/employer/dashboard');
+                            }, 4000);
                         } else if (response.data.type == 'error') {
                             self.showError(response.data.message);
                         }

@@ -26,20 +26,6 @@
                         @endif
                         <div class="wt-personalskillshold lare-employer-profile tab-pane active fade show" id="wt-profile">
                             {!! Form::open(['url' => url('employer/store-profile-settings'), 'class' =>'wt-userform', 'id' => 'employer_data', '@submit.prevent' => 'submitEmployerProfile']) !!}
-                                <div class="wt-yourdetails wt-tabsinfo">
-                                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/detail.blade.php')))
-                                        @include('extend.back-end.employer.profile-settings.personal-detail.detail')
-                                    @else
-                                        @include('back-end.employer.profile-settings.personal-detail.detail')
-                                    @endif
-                                </div>
-                                <div class="wt-skills">
-                                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/employer-detail.blade.php')))
-                                        @include('extend.back-end.employer.profile-settings.personal-detail.employer-detail')
-                                    @else
-                                        @include('back-end.employer.profile-settings.personal-detail.employer-detail')
-                                    @endif
-                                </div>
                                 <div class="wt-profilephoto wt-tabsinfo">
                                     @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/profile_photo.blade.php')))
                                         @include('extend.back-end.employer.profile-settings.personal-detail.profile_photo')
@@ -47,6 +33,21 @@
                                         @include('back-end.employer.profile-settings.personal-detail.profile_photo')
                                     @endif
                                 </div>
+                                <div class="wt-yourdetails wt-tabsinfo">
+                                    @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/detail.blade.php')))
+                                        @include('extend.back-end.employer.profile-settings.personal-detail.detail')
+                                    @else
+                                        @include('back-end.employer.profile-settings.personal-detail.detail')
+                                    @endif
+                                </div>
+                                {{--<div class="wt-skills">--}}
+                                    {{--@if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/employer-detail.blade.php')))--}}
+                                        {{--@include('extend.back-end.employer.profile-settings.personal-detail.employer-detail')--}}
+                                    {{--@else--}}
+                                        {{--@include('back-end.employer.profile-settings.personal-detail.employer-detail')--}}
+                                    {{--@endif--}}
+                                {{--</div>--}}
+
                                 {{--<div class="wt-bannerphoto wt-tabsinfo">--}}
                                     {{--@if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/personal-detail/profile_banner.blade.php')))--}}
                                         {{--@include('extend.back-end.employer.profile-settings.personal-detail.profile_banner')--}}

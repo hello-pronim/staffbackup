@@ -277,28 +277,6 @@
     }
 @endphp
 <div class="wt-tabscontenttitle">
-    <h2>{{{ trans('lang.your_details') }}}</h2>
-</div>
-<div class="lara-detail-form">
-    <fieldset>
-      <div class="form-group form-group-20">
-          <span class="wt-select">{!! Form::select('title', ['Mr' => 'Mr', 'Ms' => 'Ms', 'Mrs' => 'Mrs', 'Dr' => 'Dr'], $user->title, ['placeholder' => trans('lang.title')]) !!}</span>
-      </div>
-      <div class="form-group form-group-40">
-          {!! Form::text( 'first_name', e($user->first_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
-      </div>
-      <div class="form-group form-group-40">
-          {!! Form::text( 'last_name', e($user->last_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
-      </div>
-      <div class="form-group form-group-half">
-        {!! Form::email( 'email', e($user->email), ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
-      </div>
-      <div class="form-group form-group-half">
-        {!! Form::number( 'number', e($user->number), ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
-      </div>
-    </fieldset>
-</div>
-<div class="wt-tabscontenttitle">
     <h2>{{{ trans('lang.address') }}}</h2>
 </div>
 <div class="lara-detail-form">
@@ -315,11 +293,19 @@
       <div class="form-group form-group-half">
           {!! Form::text( 'postcode', e($user->postcode), ['class' =>'form-control', 'placeholder' => trans('lang.postcode')] ) !!}
       </div>
-      <div class="form-group">
-          <location-selector latitude="{{ $latitude }}" longitude="{{ $longitude }}" address="{{ $address }}"></location-selector>
-      </div>
+      {{--<div class="form-group">--}}
+          {{--<location-selector latitude="{{ $latitude }}" longitude="{{ $longitude }}" address="{{ $address }}"></location-selector>--}}
+      {{--</div>--}}
+        <div class="form-group form-group-half">
+            <input id="practice_code" type="text"
+                   class="form-control"
+                   name="practice_code"
+                   placeholder="Practice Code"
+                   value="{{ $user->practice_code }}">
+        </div>
     </fieldset>
 </div>
+
 <div class="wt-tabscontenttitle">
     <h2>Company Contacts</h2>
 </div>
@@ -339,6 +325,9 @@
       </div>
     </fieldset>
 </div>
+
+<label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your service</label>
+
 <div class="wt-tabscontenttitle">
     <h2>Certifications</h2>
 </div>
@@ -350,23 +339,22 @@
       <div class="form-group form-group-half">
           {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
       </div>
-      <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your service</label>
-      <div class="form-group form-group-half ">
-          {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('class' => 'form-group', 'placeholder' => "Organisation type")) !!}
-      </div>
-      <div class="form-group form-group-half ">
-          {!! Form::text('org_desc', $user->org_desc, ['class' => 'form-group', 'placeholder' => 'Organisation description']) !!}
-      </div>
+      {{--<div class="form-group">--}}
+          {{--{!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('class' => 'form-group', 'placeholder' => "Organisation type")) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group form-group-half ">--}}
+          {{--{!! Form::text('org_desc', $user->org_desc, ['class' => 'form-group', 'placeholder' => 'Organisation description']) !!}--}}
+      {{--</div>--}}
 
-      <div class="form-group ">
-          {!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}
-      </div>
-      <div class="form-group ">
-          <input id="other_setting" type="text"
-                 class="form-control"
-                 name="setting[]"
-                 placeholder="Other Setting">
-      </div>
+      {{--<div class="form-group ">--}}
+          {{--{!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group ">--}}
+          {{--<input id="other_setting" type="text"--}}
+                 {{--class="form-control"--}}
+                 {{--name="setting[]"--}}
+                 {{--placeholder="Other Setting">--}}
+      {{--</div>--}}
       <div class="form-group form-group">
           <label for="insurance"
                  style="display: inline-block">Insurance  Details</label>
@@ -376,13 +364,13 @@
                   {{$user->insurance=='on'? 'checked' : ''}}
                   placeholder="In surance"/>
       </div>
-      <div class="form-group ">
-          <input type="text"
-                 class="form-control bg-success"
-                 name="org_name"
-                 value="{{$user->org_name}}"
-                 placeholder="Organisation name">
-      </div>
+      {{--<div class="form-group ">--}}
+          {{--<input type="text"--}}
+                 {{--class="form-control bg-success"--}}
+                 {{--name="org_name"--}}
+                 {{--value="{{$user->org_name}}"--}}
+                 {{--placeholder="Organisation name">--}}
+      {{--</div>--}}
       <div class="form-group">
           {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
       </div>
@@ -391,64 +379,54 @@
       </div>
     </fieldset>
 </div>
-<div class="wt-tabscontenttitle">
-    <h2>Certifications</h2>
-</div>
-<div class="lara-detail-form">
-    <fieldset>
-      <div class="form-group">
-          <strong>Certificates –Vaccinations &
-              immunisation
-              (Measles/Mumps/Rubella/Hepatitis
-              B/Varicella):</strong><br>
-          @if(!empty($user->certs))
-              <a href="{{url('uploads/files/'.$user->certs)}}" target="_blank">Click To open</a>
-          @endif
-          <input type="file" name="certs"
-                 class="form-control"
-                 accept=".pdf, image/*,.doc,.docx">
-      </div>
-      <div class="form-group">
-          {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
-      </div>
-      <div class="form-group">
-            <input id="other_appo" type="text"
-                 class="form-control"
-                 name="appo_slot_times[]"
-                 placeholder="Other Appointment Slot Times">
-      </div>
-      <div class="form-group">
-          {!! Form::select('payment_terms[]', $arrPaymentTerms, $user->payment_terms, array('placeholder' => "Payment Terms")) !!}
-      </div>
-      <div class="form-group">
-          <input id="other_payment_terms" type="text"
-                 class="form-control"
-                 name="payment_terms[]"
-                 placeholder="Other Payment terms">
-      </div>
-      <div class="form-group form-group-half">
-          <input id="practice_code" type="text"
-               class="form-control"
-               name="practice_code"
-               placeholder="Practice Code"
-               value="{{ $user->practice_code }}">
-      </div>
-      <div class="form-group">
-          <label for="hourly_rate_desc">Please enter
-              additional information in the
-              communication box if required</label>
-          <input id="hourly_rate_desc" type="text"
-                 class="form-control"
-                 name="hourly_rate_desc"
-                 value="{{ $user->profile->hourly_rate_desc }}"
-                 placeholder="Additional info">
-      </div>
-      <div class="form-group">
-{{--        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}--}}
-        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ",'class' => 'form-group')) !!}
-      </div>
-    </fieldset>
-</div>
+{{--<div class="wt-tabscontenttitle">--}}
+    {{--<h2>Certifications</h2>--}}
+{{--</div>--}}
+{{--<div class="lara-detail-form">--}}
+    {{--<fieldset>--}}
+      {{--<div class="form-group">--}}
+          {{--<strong>Certificates –Vaccinations &--}}
+              {{--immunisation--}}
+              {{--(Measles/Mumps/Rubella/Hepatitis--}}
+              {{--B/Varicella):</strong><br>--}}
+          {{--@if(!empty($user->certs))--}}
+              {{--<a href="{{url('uploads/files/'.$user->certs)}}" target="_blank">Click To open</a>--}}
+          {{--@endif--}}
+          {{--<input type="file" name="certs"--}}
+                 {{--class="form-control"--}}
+                 {{--accept=".pdf, image/*,.doc,.docx">--}}
+      {{--</div>--}}
+      {{--<div class="form-group">--}}
+          {{--{!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group">--}}
+            {{--<input id="other_appo" type="text"--}}
+                 {{--class="form-control"--}}
+                 {{--name="appo_slot_times[]"--}}
+                 {{--placeholder="Other Appointment Slot Times">--}}
+      {{--</div>--}}
+      {{--<div class="form-group">--}}
+          {{--{!! Form::select('payment_terms[]', $arrPaymentTerms, $user->payment_terms, array('placeholder' => "Payment Terms")) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group">--}}
+          {{--<input id="other_payment_terms" type="text"--}}
+                 {{--class="form-control"--}}
+                 {{--name="payment_terms[]"--}}
+                 {{--placeholder="Other Payment terms">--}}
+      {{--</div>--}}
+
+      {{--<div class="form-group">--}}
+          {{--<label for="hourly_rate_desc">Please enter--}}
+              {{--additional information in the--}}
+              {{--communication box if required</label>--}}
+          {{--<input id="hourly_rate_desc" type="text"--}}
+                 {{--class="form-control"--}}
+                 {{--name="hourly_rate_desc"--}}
+                 {{--value="{{ $user->profile->hourly_rate_desc }}"--}}
+                 {{--placeholder="Additional info">--}}
+      {{--</div>--}}
+    {{--</fieldset>--}}
+{{--</div>--}}
 
 <div class="wt-tabscontenttitle bg-success" style="margin-top: 20px;">
     <h2>Computer System in use</h2>
@@ -470,4 +448,33 @@
           <option v-for="value in itsoftware" :value="value" selected></option>
       </select>
     </div>
+</div>
+<div class="wt-tabscontenttitle">
+    <h2>{{{ trans('lang.your_details') }}}</h2>
+</div>
+
+
+<div class="lara-detail-form">
+    <fieldset>
+        <div class="form-group form-group-20">
+            <span class="wt-select">{!! Form::select('title', ['Mr' => 'Mr', 'Ms' => 'Ms', 'Mrs' => 'Mrs', 'Dr' => 'Dr'], $user->title, ['placeholder' => trans('lang.title')]) !!}</span>
+        </div>
+        <div class="form-group form-group-40">
+            {!! Form::text( 'first_name', e($user->first_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
+        </div>
+        <div class="form-group form-group-40">
+            {!! Form::text( 'last_name', e($user->last_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::email( 'email', e($user->email), ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::number( 'number', e($user->number), ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
+        </div>
+
+        <div class="form-group">
+            {{--        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}--}}
+            {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ",'class' => 'form-group')) !!}
+        </div>
+    </fieldset>
 </div>
