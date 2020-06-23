@@ -122,7 +122,7 @@ class FreelancerController extends Controller
                     'hourly_rate_negotiable',
                     'hourly_rate',
                     'hourly_rate_desc',
-                    'options',
+                    'options'
                 )
             );
         } else {

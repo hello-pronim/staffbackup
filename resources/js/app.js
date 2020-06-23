@@ -2140,9 +2140,9 @@ if (document.getElementById("user_profile")) {
                     .then(function (response) {
                         if (response.data.type == 'success') {
                             self.showInfo(response.data.process);
-                            // setTimeout(function () {
-                                // window.location.replace(APP_URL + '/employer/dashboard');
-                            // }, 4000);
+                            setTimeout(function () {
+                                window.location.replace(APP_URL + '/employer/dashboard');
+                            }, 4000);
                         } else if (response.data.type == 'error') {
                             self.showError(response.data.message);
                         }
