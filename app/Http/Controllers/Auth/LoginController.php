@@ -64,10 +64,10 @@ class LoginController extends Controller
                 $user_role = $user_role_type->role_type;
 
 
-                if(Auth::user()->stripe_token=="" || $user_role=='freelancer')
+                if(Auth::user()->stripe_token=="" || $user_role=='freelancer' || $user_role=='support' )
                 {
-                    if ($user_role === 'freelancer') {
-                        return Redirect::to('freelancer/dashboard');
+                    if ($user_role === 'freelancer' || $user_role=='support' ) {
+                        return Redirect::to($user_role.'/dashboard');
                     } elseif ($user_role === 'employer') {
                         return Redirect::to('employer/dashboard');
                     } else {
