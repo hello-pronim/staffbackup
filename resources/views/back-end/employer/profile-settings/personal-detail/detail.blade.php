@@ -429,7 +429,7 @@
 {{--</div>--}}
 
 <div class="wt-tabscontenttitle bg-success" style="margin-top: 20px;">
-    <h2>Computer Systems in use</h2>
+    <h2>Computer System in use</h2>
 </div>
 <div class="wt-formtheme bg-success">
     <div class="form-group ">
