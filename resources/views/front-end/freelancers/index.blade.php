@@ -20,7 +20,7 @@
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
                                 </div>
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')">Search Temp Jobs
+                                     @click="changeSearchType('job')">Search Adhoc Sessions
                                 </div>
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>
