@@ -159,7 +159,15 @@
                             </div>
                             <div class="wt-jobdetails wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
-                                    <h2>Calendar Booking</h2>                                </div>
+                                    <h2>Calendar Booking</h2>
+                                </div>
+                                <div class="wt-tabscontenttitle" style="margin-top: 20px; ">
+                                    <h2>
+                                        Green equals free this day<br>
+                                        Blue equals booking on this day<br>
+                                        Red equals away on holiday<br>
+                                    </h2>
+                                </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" @click.prevent="preventClick">
                                     {{--<button class="openCal wt-btn">Open Calendar</button>--}}
 
