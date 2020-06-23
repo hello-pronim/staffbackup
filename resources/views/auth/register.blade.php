@@ -857,7 +857,7 @@
 																				   class="form-control"
 																				   name="practice_code"
 																				   placeholder="Practice Code"
-                                           @change="validatePracticeCode"
+                                                                                   @change="validatePracticeCode"
 																				   v-bind:class="{ 'is-invalid': form_step2.is_practice_code_error }">
 																			<span class="help-block"
 																				  v-if="form_step2.practice_code_error">
