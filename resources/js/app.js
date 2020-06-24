@@ -25,6 +25,7 @@ import 'verte/dist/verte.css';
 import vuecal from 'vue-cal';
 
 import Multiselect from 'vue-multiselect'
+
 Vue.component('multiselect', Multiselect)
 
 import VueTimepicker from 'vue2-timepicker'
@@ -104,28 +105,28 @@ Vue.component('location-selector', require('./components/LocationSelector.vue').
 Vue.component('fullcalendar', require('./components/FullCalendar').default);
 
 var itsoftware_options = [
-  'Adastra',
-  'Cerna',
-  'Cerna Millenium',
-  'Cleo',
-  'DGL',
-  'Docman',
-  'Edis & A&E System',
-  'Emis Community',
-  'Emis LV',
-  'Emis PCS',
-  'Emis Web',
-  'Frontdesk',
-  'Heydoc',
-  'Infoslex',
-  'Microtest',
-  'Premiere',
-  'Symphony',
-  'Synergy',
-  'SystmOne',
-  'Torex',
-  'Vision',
-  'Vision Anywhere'
+    'Adastra',
+    'Cerna',
+    'Cerna Millenium',
+    'Cleo',
+    'DGL',
+    'Docman',
+    'Edis & A&E System',
+    'Emis Community',
+    'Emis LV',
+    'Emis PCS',
+    'Emis Web',
+    'Frontdesk',
+    'Heydoc',
+    'Infoslex',
+    'Microtest',
+    'Premiere',
+    'Symphony',
+    'Synergy',
+    'SystmOne',
+    'Torex',
+    'Vision',
+    'Vision Anywhere'
 ];
 
 jQuery(document).ready(function () {
@@ -270,7 +271,7 @@ if (document.getElementById("booking_availability")) {
                     )
                 } else if (dateTime) alert('Wrong date format.')
             },
-             formatDate(date) {
+            formatDate(date) {
                 var d = new Date(date),
                     month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
@@ -285,8 +286,7 @@ if (document.getElementById("booking_availability")) {
             },
             createNewEvent(date) {
                 console.log(date);
-                if((this.clickedDate == "" &&  this.clickedEndDate =='') || (this.clickedDate != "" &&  this.clickedEndDate !='') )
-                {
+                if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
                     this.clickedDate = new Date(date);
                     this.clickedEndDate = "";
                     this.availability_selected_date = this.formatDate(date);
@@ -300,8 +300,8 @@ if (document.getElementById("booking_availability")) {
                 var newObj =
                     {
                         start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),
-                        end: this.formatDate(date) + " " + (this.availability_end_time != "" ?  this.availability_end_time : "23:59") ,
-                        title: this.availability_title != "" ? this.availability_title : "•" ,
+                        end: this.formatDate(date) + " " + (this.availability_end_time != "" ? this.availability_end_time : "23:59"),
+                        title: this.availability_title != "" ? this.availability_title : "•",
                         content: this.availability_content != "" ? this.availability_content : "•",
                         contentFull: this.availability_content,
                         class: 'selected_class'
@@ -310,13 +310,11 @@ if (document.getElementById("booking_availability")) {
                 // if (busy) {
                 //     newObj.class = 'busy_class';
                 // }
-                if(!this.addedToEvents)
-                {
+                if (!this.addedToEvents) {
                     this.events.push(newObj);
                     this.addedToEvents = true;
                 }
-                else
-                {
+                else {
                     this.events.pop();
                     this.events.push(newObj);
                     this.addedToEvents = true;
@@ -343,15 +341,15 @@ if (document.getElementById("booking_availability")) {
                     availability_content = this.availability_content,
                     thistoast = this.$toast,
                     newObj =
-                    {
-                        start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
-                        end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date ) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
-                        title: availability_title != "" ? availability_title : word,
-                        content: availability_content != "" ? availability_content : word,
-                        contentFull: availability_content != "" ? availability_content : word,
-                        class: class_type
-                    };
-                    thistoast.options.position = 'center';
+                        {
+                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
+                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
+                            title: availability_title != "" ? availability_title : word,
+                            content: availability_content != "" ? availability_content : word,
+                            contentFull: availability_content != "" ? availability_content : word,
+                            class: class_type
+                        };
+                thistoast.options.position = 'center';
 
                 //this.events.push(newObj);
                 axios.post('/freelancer/saveCalendarAvailability', newObj)
@@ -362,15 +360,15 @@ if (document.getElementById("booking_availability")) {
                         availability_content = '';
                         // console.log(response.data.status)
                         // console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)
-                        if(busy) {
-                            thistoast.error(' ',"Success " + title_word  + ": \n" + newObj.start + " - " + newObj.end);
+                        if (busy) {
+                            thistoast.error(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
                         } else {
-                            thistoast.success(' ',"Success " + title_word  + ": \n" + newObj.start + " - " + newObj.end);
+                            thistoast.success(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
                         }
                     })
                     .catch(function (error) {
                         // console.log(error);
-                        if(typeof error.response.data.errors != 'undefined') {
+                        if (typeof error.response.data.errors != 'undefined') {
                             thistoast.error('Error', error.status);
                         }
                     });
@@ -400,16 +398,16 @@ if (document.getElementById("message_center")) {
     });
 }
 
-var page=document.getElementById("searchHomePage");
+var page = document.getElementById("searchHomePage");
 
 if (page) {
     const searchHomePage = new Vue({
         el: '#searchHomePage',
         components: {'vue-cal': vuecal, Multiselect},
         mounted: function () {
-          if (this.$refs['radius']){
-            this.radius=this.$refs['radius'].attributes['data-value'].value;
-          }
+            if (this.$refs['radius']) {
+                this.radius = this.$refs['radius'].attributes['data-value'].value;
+            }
         },
         data: {
             events: [],
@@ -438,53 +436,53 @@ if (page) {
 
             },
             submit_search() {
-                var url=APP_URL + '/search-results?type=' + this.search_type;
-                var location=document.getElementById('straddress').value;
+                var url = APP_URL + '/search-results?type=' + this.search_type;
+                var location = document.getElementById('straddress').value;
 
-                if (location != ''){
-                  url += '&location=' + encodeURIComponent(location);
+                if (location != '') {
+                    url += '&location=' + encodeURIComponent(location);
 
-                  var latitude=document.getElementById('latitude').value;
-                  var longitude=document.getElementById('longitude').value;
+                    var latitude = document.getElementById('latitude').value;
+                    var longitude = document.getElementById('longitude').value;
 
-                  if (latitude != '' && longitude != ''){
-                      url += '&latitude=' + latitude + '&longitude=' + longitude;
-                  }
+                    if (latitude != '' && longitude != '') {
+                        url += '&latitude=' + latitude + '&longitude=' + longitude;
+                    }
                 }
 
-                if (this.skill != ''){
-                  url += '&skill=' + encodeURIComponent(this.skill);
+                if (this.skill != '') {
+                    url += '&skill=' + encodeURIComponent(this.skill);
                 }
 
-                if (this.radius != ''){
-                  url += '&radius=' + this.radius;
+                if (this.radius != '') {
+                    url += '&radius=' + this.radius;
                 }
 
-                if (this.selectedDate != ''){
-                  url += '&'+(this.search_type == 'freelancer' ? 'avail_date' : 'start_date')+'='+this.selectedDate;
+                if (this.selectedDate != '') {
+                    url += '&' + (this.search_type == 'freelancer' ? 'avail_date' : 'start_date') + '=' + this.selectedDate;
                 }
 
                 window.location.replace(url);
             },
-            updateAddressLocation: function(place){
-              var data={};
-              for (var i in place.address_components){
-                data[place.address_components[i].types[0]]=place.address_components[i].long_name;
-              }
+            updateAddressLocation: function (place) {
+                var data = {};
+                for (var i in place.address_components) {
+                    data[place.address_components[i].types[0]] = place.address_components[i].long_name;
+                }
 
-              var addr='';
+                var addr = '';
 
-              if (data.street_number){
-                addr+=data.street_number+', ';
-              }
+                if (data.street_number) {
+                    addr += data.street_number + ', ';
+                }
 
-              if (data.route){
-                addr+=data.route;
-                document.getElementById('straddress').value=addr;
-              }
+                if (data.route) {
+                    addr += data.route;
+                    document.getElementById('straddress').value = addr;
+                }
 
-              document.getElementById('latitude').value=place.geometry.location.lat();
-              document.getElementById('longitude').value=place.geometry.location.lng();
+                document.getElementById('latitude').value = place.geometry.location.lat();
+                document.getElementById('longitude').value = place.geometry.location.lng();
             }
         },
         created: function () {
@@ -795,16 +793,16 @@ if (document.getElementById("registration")) {
                 this.form_step2.is_org_type_error = false;
                 this.form_step2.direct_booking_error = '';
                 this.form_step2.is_direct_booking_error = false;
-				this.form_step2.prof_ind_cert = '';
-				this.form_step2.is_prof_ind_cert = false;
-				this.form_step2.passport_visa = '';
-				this.form_step2.is_passport_visa = false;
+                this.form_step2.prof_ind_cert = '';
+                this.form_step2.is_prof_ind_cert = false;
+                this.form_step2.passport_visa = '';
+                this.form_step2.is_passport_visa = false;
                 var self = this;
                 axios.post(APP_URL + '/register/form-step2-custom-errors', form_data).then(function (response) {
                     self.next();
                 })
                     .catch(function (error) {
-						var error_data = error.response.data.errors;
+                        var error_data = error.response.data.errors;
                         if (error_data.prof_ind_cert) {
                             self.form_step2.prof_ind_cert = error_data.prof_ind_cert[0];
                             self.form_step2.is_prof_ind_cert = true;
@@ -879,34 +877,33 @@ if (document.getElementById("registration")) {
             checkStep3: function (error_message) {
 
 
+                if (this.user_role == 'employee') {
 
-                if (this.user_role == 'employee'){
+                    if ($('.paypalemail').val() && $('.paypalemail').val() != '') {
+                        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-                if ($('.paypalemail').val() && $('.paypalemail').val() != '') {
-                    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                        if (reg.test($('.paypalemail').val()) == false) {
+                            this.form_step3.isPaypalEmail_error = true;
+                            $('.paypalemail').addClass('is-invalid');
+                            return false;
+                        }
+                        else {
+                            this.form_step3.isPaypalEmail_error = false;
+                            $('.paypalemail').removeClass('is-invalid');
+                        }
 
-                    if (reg.test($('.paypalemail').val()) == false) {
-                        this.form_step3.isPaypalEmail_error = true;
-                        $('.paypalemail').addClass('is-invalid');
-                        return false;
                     }
-                    else {
-                        this.form_step3.isPaypalEmail_error = false;
-                        $('.paypalemail').removeClass('is-invalid');
-                    }
 
+                    this.submitUser(true);
+                } else {
+                    this.next();
                 }
-
-                this.submitUser(true);
-              } else {
-                  this.next();
-              }
             },
             checkStep4: function (error_message) {
-                if (this.user_role == 'support'){
-                  this.next();
+                if (this.user_role == 'support') {
+                    this.next();
                 } else {
-                  this.submitUser();
+                    this.submitUser();
                 }
             },
             submitUser: function (ajax) {
@@ -992,29 +989,32 @@ if (document.getElementById("registration")) {
                 _scrollUp.animate({scrollTop: 0}, 'slow');
                 jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
             },
-            updateAddressLocation: function(place){
-              var data={};
-              for (var i in place.address_components){
-                data[place.address_components[i].types[0]]=place.address_components[i].long_name;
-              }
+            updateAddressLocation: function (place) {
+                var data = {};
+                for (var i in place.address_components) {
+                    data[place.address_components[i].types[0]] = place.address_components[i].long_name;
+                }
 
-              var addr='';
+                var addr = '';
 
-              if (data.street_number){
-                addr+=data.street_number+', ';
-              }
+                if (data.street_number) {
+                    addr += data.street_number + ', ';
+                }
 
-              if (data.route){
-                addr+=data.route;
-                document.getElementById('straddress').value=addr;
-              }
+                if (data.route) {
+                    addr += data.route;
+                    document.getElementById('straddress').value = addr;
+                }
 
-              document.getElementById('latitude').value=place.geometry.location.lat();
-              document.getElementById('longitude').value=place.geometry.location.lng();
-              document.getElementById('city').value= (data.postal_town ? data.postal_town : (data.locality ? data.locality : ''));
-              document.getElementById('postcode').value=data.postal_code ? data.postal_code : '';
+                document.getElementById('latitude').value = place.geometry.location.lat();
+                document.getElementById('longitude').value = place.geometry.location.lng();
+                document.getElementById('city').value = (data.postal_town ? data.postal_town : (data.locality ? data.locality : ''));
+                document.getElementById('postcode').value = data.postal_code ? data.postal_code : '';
             },
-            validatePracticeCode: validate_practice_code
+            validatePracticeCode: function(){
+                this.insurancecheckbox = true;
+                validate_practice_code(this);
+            }
         }
     });
 
@@ -1882,8 +1882,8 @@ if (document.getElementById("user_profile")) {
                 flashVue.$emit('showFlashMessage');
             }
 
-            if (this.$refs['input']){
-              this.itsoftware=JSON.parse(this.$refs['input'].$attrs['data-value']);
+            if (this.$refs['input']) {
+                this.itsoftware = JSON.parse(this.$refs['input'].$attrs['data-value']);
             }
         },
         created: function () {
@@ -5009,16 +5009,13 @@ $('.timerange').on('click', function (e) {
         if (input.val() !== "") {
             var timerange = input.val();
             var matches = timerange.match(/([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)/);
-            if(!matches)
-            {
+            if (!matches) {
                 matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
             }
-            if(!matches)
-            {
+            if (!matches) {
                 matches = timerange.match(/([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)/);
             }
-            if(!matches)
-            {
+            if (!matches) {
                 matches = timerange.match(/([0-9]{2}):([0-9]{2}) (\bAM\b|\bPM\b)-([0-9]{1}):([0-9]{2}) (\bAM\b|\bPM\b)/);
             }
             if (matches.length === 7) {
@@ -5139,7 +5136,6 @@ $('.timerange').on('click', function (e) {
         );
 
     }
-
 
 
 });
@@ -5274,19 +5270,24 @@ $(document).ready(function () {
     })
 });
 
-function validate_practice_code() {
-  var self=this,val=$.trim($('#practice_code').val());
+function validate_practice_code(e) {
+    var self = e, val = $.trim($('#practice_code').val());
 
 
-  this.form_step2.practice_code_error = '';
-  this.form_step2.is_practice_code_error = false;
+    e.form_step2.practice_code_error = '';
+    e.form_step2.is_practice_code_error = false;
 
-  if (val !== ''){
-      $.getJSON('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/'+encodeURI(val), {_format:'json'}, function(r){
-        console.log('[practice_code] SUCCESS')
-      }).fail(function() {
-          self.form_step2.practice_code_error = 'Company not found';
-          self.form_step2.is_practice_code_error = true ;
-      })
-  }
+    if (val !== '') {
+        $.getJSON('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/' + encodeURI(val), {_format: 'json'}, function (result) {
+            console.log('[practice_code] SUCCESS');
+            let address = result.Organisation.GeoLoc.Location;
+            $('#straddress').val(address.AddrLn1);
+            $('#postcode').val(address.PostCode);
+            $('#city').val(address.Town);
+            $('.org-name').val(result.Organisation.Name);
+        }).fail(function () {
+            self.form_step2.practice_code_error = 'Company not found';
+            self.form_step2.is_practice_code_error = true;
+        })
+    }
 }
