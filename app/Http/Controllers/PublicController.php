@@ -318,6 +318,8 @@ class PublicController extends Controller
             $banner = !empty($profile->banner) ? '/uploads/users/' . $profile->user_id . '/' . $profile->banner : Helper::getUserProfileBanner($user->id);
             $auth_user = Auth::user() ? true : false;
             $user_name = Helper::getUserName($profile->user_id);
+            $user_first_name = Helper::getUserFirstName($profile->user_id);
+            $user_last_name = Helper::getUserLastName($profile->user_id);
             $current_date = Carbon::now()->format('M d, Y');
             $tagline = !empty($profile) ? $profile->tagline : '';
             $desc = !empty($profile) ? $profile->description : '';
@@ -363,6 +365,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'rating',
                             'education',
@@ -401,6 +405,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'rating',
                             'education',
@@ -425,7 +431,7 @@ class PublicController extends Controller
                         )
                     );
                 }
-			}elseif ($user->getRoleNames()->first() === 'support') {
+			} elseif ($user->getRoleNames()->first() === 'support') {
                 $services = array();
                 if (Schema::hasTable('services') && Schema::hasTable('service_user')) {
                     $services = $user->services;
@@ -467,6 +473,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'rating',
                             'education',
@@ -505,6 +513,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'rating',
                             'education',
@@ -551,6 +561,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'followers',
                             'save_employer',
@@ -576,6 +588,8 @@ class PublicController extends Controller
                             'avatar',
                             'banner',
                             'user_name',
+                            'user_first_name',
+                            'user_last_name',
                             'jobs',
                             'followers',
                             'save_employer',

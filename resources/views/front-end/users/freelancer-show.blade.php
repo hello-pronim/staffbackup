@@ -45,25 +45,35 @@
                                     @endif
                                     <div class="wt-title">
                                         @if (!empty($user_name))
-                                            <h3>@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{{ $user_name }}}</h3>
+                                            <h3>@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{{ $user_first_name }}} {{{substr($user_last_name,0,1)}}}</h3>
                                         @endif
                                         <span>
+                                            {{--{{dd($user)}}--}}
                                             {{--<div class="wt-proposalfeedback"><span class="wt-starcontent"> {{{ $rating }}}/<i>5</i>&nbsp;<em>({{{ $reviews->count() }}} {{ trans('lang.feedbacks') }})</em></span></div>--}}
-                                            @if (!empty($joining_date))
-                                                {{{ trans('lang.member_since') }}}&nbsp;{{{ $joining_date }}}
-                                            @endif
-                                            <br>
+                                            {{--@if (!empty($joining_date))--}}
+                                            {{--{{{ trans('lang.member_since') }}}&nbsp;{{{ $joining_date }}}--}}
+                                            {{--@endif--}}
+                                            {{--<br>--}}
                                             <a href="{{url('profile/'.$user->slug)}}">{{ '@' }}{{{ $user->slug }}}</a>
                                         </span>
-                                            @if($user->itsoftware != "")
-                                               <div> <strong>Computer System in use:</strong> {{ implode(', ', $user->getItsoftware()) }}</div>
-                                            @endif
-                                            @if($user->limitied_company_name != "")
-                                                <div> <strong>Limited Company Name:</strong> {{$user->limitied_company_name}}</div>
-                                            @endif
-                                            @if($user->limitied_company_number != "")
-                                                <div> <strong>Limited Company Number:</strong> {{$user->limitied_company_number}}</div>
-                                            @endif
+                                        @if($user->profession != "")
+                                            <span> <strong>Profession:</strong> {{ $user->profession }}</span>
+                                        @endif
+                                        @if (!empty($profile->tagline))
+                                            <span> <strong>Tag line:</strong> {{{ $profile->tagline }}}</span>
+                                        @endif
+                                        @if($user->itsoftware != "")
+                                            <span> <strong>Computer System in use:</strong> {{ implode(', ', $user->getItsoftware()) }}</span>
+                                        @endif
+                                        {{--@if (!empty($profile->hourly_rate))--}}
+                                            {{--<span> <strong><i class="far fa-money-bill-alt"></i> {{ $symbol }}</strong> {{{ $profile->hourly_rate }}} {{{ trans('lang.per_hour') }}}</span>--}}
+                                        {{--@endif--}}
+                                        {{--@if($user->limitied_company_name != "")--}}
+                                            {{--<span> <strong>Limited Company Name:</strong> {{$user->limitied_company_name}}</span>--}}
+                                        {{--@endif--}}
+                                        {{--@if($user->limitied_company_number != "")--}}
+                                            {{--<span> <strong>Limited Company Number:</strong> {{$user->limitied_company_number}}</span>--}}
+                                        {{--@endif--}}
                                     </div>
                                 </div>
                             </div>
@@ -71,12 +81,12 @@
                         <div class="col-12 col-sm-12 col-md-12 col-lg-9 float-left">
                             <div class="row">
                                 <div class="wt-proposalhead wt-userdetails">
-                                    @if (!empty($profile->tagline))
-                                        <h2>{{{ $profile->tagline }}}</h2>
-                                    @endif
+                                    {{--@if (!empty($profile->tagline))--}}
+                                        {{--<h2>{{{ $profile->tagline }}}</h2>--}}
+                                    {{--@endif--}}
                                     <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
                                         @if (!empty($profile->hourly_rate))
-                                            {{--<li><span><i class="far fa-money-bill-alt"></i> {{ $symbol }}{{{ $profile->hourly_rate }}} {{{ trans('lang.per_hour') }}}</span></li>--}}
+                                            <li><span><i class="far fa-money-bill-alt"></i> {{ $symbol }}{{{ $profile->hourly_rate }}} {{{ trans('lang.per_hour') }}}</span></li>
                                         @endif
                                         @if (!empty($user->location->title))
                                             <li>
@@ -108,6 +118,10 @@
                                     @endif
                                 </div>
                                 <div id="wt-statistics" class="wt-statistics wt-profilecounter">
+                                    <div class="wt-description">
+                                        <p>{{ trans('lang.send_offer_note') }}</p>
+                                        <a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>
+                                    </div>
                                     {{--<div class="wt-statisticcontent wt-countercolor1">--}}
                                         {{--<h3 data-from="0" data-to="{{{ Helper::getProposals($user->id, 'hired')->count() }}}" data-speed="800" data-refresh-interval="03">{{{ Helper::getProposals($user->id, 'hired')->count() }}}</h3>--}}
                                         {{--<h4>{{ trans('lang.ongoing_project') }}</h4>--}}
@@ -124,10 +138,6 @@
                                         {{--<h3 data-from="0" data-to="{{ $amount }}" data-speed="8000" data-refresh-interval="100">{{ empty($amount) ? $symbol.'0.00' : $symbol."".$amount }}</h3>--}}
                                         {{--<h4>{{ trans('lang.total_earnings') }}</h4>--}}
                                     {{--</div>--}}
-                                    <div class="wt-description">
-                                        <p>{{ trans('lang.send_offer_note') }}</p>
-                                        <a href="javascript:void(0);" @click.prevent='sendOffer("{{$auth_user}}")' class="wt-btn">{{{ trans('lang.btn_send_offer') }}}</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
