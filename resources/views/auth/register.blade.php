@@ -501,6 +501,17 @@
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
                                             </span>
                                             </div>
+                                            <div v-if="user_role=='employer'" class="form-group form-group-half">
+                                                <input id="practice_code" type="text"
+                                                       class="form-control"
+                                                       name="practice_code"
+                                                       placeholder="Practice Code"
+                                                       @change="validatePracticeCode"
+                                                       v-bind:class="{ 'is-invalid': form_step2.is_practice_code_error }">
+                                                <span class="help-block"
+                                                      v-if="form_step2.practice_code_error">
+																				<strong v-cloak>@{{form_step2.practice_code_error}}</strong>
+                                            </div>
                                             <div class="form-group">
                                                 <button type="submit"
                                                         class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
@@ -757,6 +768,7 @@
                                                                                    style="display: inline-block">Insurance
                                                                                 Details</label> <input
                                                                                     type="checkbox"
+                                                                                    id="ischeck"
                                                                                     name="insurance"
                                                                                     placeholder="Insurance"
                                                                                     v-model="insurancecheckbox">
@@ -764,7 +776,7 @@
                                                                         <div v-if="insurancecheckbox">
                                                                             <div class="form-group ">
                                                                                 <input type="text"
-                                                                                       class="form-control"
+                                                                                       class="form-control org-name"
                                                                                        name="org_name"
                                                                                        placeholder="Organisation name">
                                                                             </div>
@@ -781,7 +793,7 @@
                                                                             </div>
                                                                             <div class="form-group form-group-half">
                                                                                 <input id="org_name" type="text"
-                                                                                       class="form-control"
+                                                                                       class="form-control org-name"
                                                                                        name="org_name"
                                                                                        placeholder="Name">
                                                                             </div>
@@ -852,17 +864,7 @@
                                                                                    name="payment_terms[]"
                                                                                    placeholder="Other Payment terms">
                                                                         </div>
-																		<div v-if="user_role=='employer'" class="form-group form-group-half">
-																			<input id="practice_code" type="text"
-																				   class="form-control"
-																				   name="practice_code"
-																				   placeholder="Practice Code"
-                                                                                   @change="validatePracticeCode"
-																				   v-bind:class="{ 'is-invalid': form_step2.is_practice_code_error }">
-																			<span class="help-block"
-																				  v-if="form_step2.practice_code_error">
-																				<strong v-cloak>@{{form_step2.practice_code_error}}</strong>
-																		</div>
+
                                                                         {{--<div class="form-group form-group-half ">--}}
                                                                         {{--<input id="hourly_rate" type="number"--}}
                                                                         {{--min="0"--}}
