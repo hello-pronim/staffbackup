@@ -77,6 +77,8 @@ class JobController extends Controller
     {
         $languages = Language::pluck('title', 'id');
         $locations = Location::pluck('title', 'id');
+        $user = User::find(Auth::user()->id);
+        $profile = $user->profile;
         $english_levels = Helper::getEnglishLevelList();
         $project_levels = Helper::getProjectLevel();
         $max_distances = array(
@@ -109,6 +111,8 @@ class JobController extends Controller
                     //'job_duration',
                     'freelancer_level',
                     'skills',
+                    'user',
+                    'profile',
                     'categories',
                     'locations',
                     'options'
@@ -120,6 +124,8 @@ class JobController extends Controller
                 compact(
                     'english_levels',
                     'languages',
+    'user',
+    'profile',
                     'project_levels',
                     'max_distances',
                     //'job_duration',
