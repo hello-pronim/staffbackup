@@ -3323,6 +3323,7 @@ if (document.getElementById("post_job")) {
             is_show: false,
             loading: false,
             show_attachments: false,
+            recurring_dates: false,
             is_featured: false,
             is_progress: false,
             is_completed: false,
@@ -3354,6 +3355,7 @@ if (document.getElementById("post_job")) {
                 }
             },
             selecteddate: "",
+            selecteddate_end: "",
             start: "",
             end: "",
             description: "",
@@ -3378,14 +3380,14 @@ if (document.getElementById("post_job")) {
 
                 console.log({
                     start: this.selecteddate + ' ' + this.start,
-                    end: this.selecteddate + ' ' + this.end,
+                    end: this.selecteddate_end + ' ' + this.end,
                     title: this.title,
                     content: this.description,
                     class: 'booking_calendar',
                 });
                 this.events.push({
                     start: this.selecteddate + ' ' + this.start,
-                    end: this.selecteddate + ' ' + this.end,
+                    end: this.selecteddate_end + ' ' + this.end,
                     title: this.title,
                     content: this.description,
                     class: 'booking_calendar',
@@ -3393,6 +3395,11 @@ if (document.getElementById("post_job")) {
             },
             changeSelectedDate(date) {
                 this.selectedDate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
+                // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
+                // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
+            },
+            changeSelectedDateEnd(date) {
+                this.selectedDateEnd = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
                 // this.start = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.start;
                 // this.end = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() + ' ' + this.end;
             },
@@ -3532,6 +3539,11 @@ if (document.getElementById("post_job")) {
                                 self.show_attachments = true;
                             } else {
                                 self.show_attachments = false;
+                            }
+                            if ((response.data.recurring_dates == 'true')) {
+                                self.recurring_dates = true;
+                            } else {
+                                self.recurring_dates = false;
                             }
                         }
                     });
