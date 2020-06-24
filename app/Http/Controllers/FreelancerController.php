@@ -80,16 +80,16 @@ class FreelancerController extends Controller
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $tagline = !empty($profile->tagline) ? $profile->tagline : '';
         $description = !empty($profile->description) ? $profile->description : '';
-        $banner = !empty($profile->banner) ? $profile->banner : '';
         $radius = !empty($profile->radius) ? $profile->radius : '';
         $address = !empty($profile->address) ? $profile->address : '';
         $longitude = !empty($profile->longitude) ? $profile->longitude : '';
         $latitude = !empty($profile->latitude) ? $profile->latitude : '';
+        $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
         $cv_ext = explode('.', $cv);
-        $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
         $hours_avail = !empty($profile->hours_avail) ? $profile->hours_avail : '';
+        $days_avail = !empty($profile->days_avail) ? $profile->days_avail : '';
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $hourly_rate_negotiable = !empty($profile->hourly_rate_negotiable) ? $profile->hourly_rate_negotiable : '';
         $hourly_rate_desc = !empty($profile->hourly_rate_desc) ? $profile->hourly_rate_desc : '';
@@ -115,6 +115,7 @@ class FreelancerController extends Controller
                     'longitude',
                     'latitude',
                     'avater',
+                    'options',
                     'cv',
                     'cv_ext',
                     'days_avail',

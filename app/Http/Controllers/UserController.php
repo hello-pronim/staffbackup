@@ -1323,7 +1323,7 @@ class UserController extends Controller
                 ->get()->first();
             $currency_code = !empty($invoice_info->currency_code) ? strtoupper($invoice_info->currency_code) : 'USD';
             $code = Helper::currencyList($currency_code);
-            $symbol = !empty($code) ? $code['symbol'] : '$';
+            $symbol = !empty($code) ? $code['symbol'] : '£';
             if (Auth::user()->getRoleNames()->first() === 'freelancer') {
                 if (file_exists(resource_path('views/extend/back-end/freelancer/invoices/show.blade.php'))) {
                     return view::make('extend.back-end.freelancer.invoices.show', compact('invoice_info', 'symbol', 'currency_code'));

@@ -85,7 +85,7 @@
                                         @if (!empty($job->price))
                                             <li>
                                                 <span>
-                                                    <i class="wt-viewjobdollar">{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $job->price }}}
+                                                    <i class="wt-viewjobdollar">{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $job->price }}}
                                                 </span>
                                             </li>
                                         @endif
@@ -109,7 +109,7 @@
                                 {!! Form::open(['url' => url('proposal/submit-proposal'), 'class' =>'wt-haslayout', 'id' => 'send-propsal',  '@submit.prevent'=>'submitJobProposal('.$job->id.', '.Auth::user()->id.')']) !!}
                                     <div class="wt-proposalamount accordion">
                                         <div class="form-group">
-                                            <span>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> )</span>
+                                            <span>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> )</span>
                                             {!! Form::input('number', 'amount', null, ['class' => 'form-control', 'min' => 1, 'placeholder' => trans('lang.ph_proposal_amount'), 'v-model'=>'proposal.amount', 'v-on:keyup' => "calculate_amount('$commision')" ])!!}
                                             <a href="javascript:void(0);" class="collapsed" id="headingOne" data-toggle="collapse"
                                                 data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -119,13 +119,13 @@
                                         </div>
                                         <ul class="wt-totalamount collapse show" id="collapseOne" aria-labelledby="headingOne">
                                             <li v-cloak>
-                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> ) <em>- @{{this.proposal.deduction}}</em></h3>
+                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>- @{{this.proposal.deduction}}</em></h3>
                                                 <span><strong>“ {{{ trans('lang.worketic') }}} ”</strong> {{{ trans('lang.service_fee') }}}
                                                     <i class="fa fa-exclamation-circle template-content tipso_style" data-tipso="Plus Member"></i>
                                                 </span>
                                             </li>
                                             <li v-cloak>
-                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> ) <em>@{{this.proposal.total}}</em></h3>
+                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>@{{this.proposal.total}}</em></h3>
                                                 <span>
                                                     {{{ trans('lang.receiving_amount') }}} <strong>“ {{{ trans('lang.receiving_amount') }}} ”</strong>
                                                     {{{ trans('lang.fee_deduction') }}}

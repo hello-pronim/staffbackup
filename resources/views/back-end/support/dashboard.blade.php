@@ -131,7 +131,7 @@
                                 {{--</figure>--}}
                                 {{--<div class="wt-insightdetails">--}}
                                     {{--<div class="wt-title">--}}
-                                        {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'hired') }}}</h3>--}}
+                                        {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'hired') }}}</h3>--}}
                                         {{--<h3>{{ trans('lang.pending_bal') }}</h3>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
@@ -144,7 +144,7 @@
                                 {{--</figure>--}}
                                 {{--<div class="wt-insightdetails">--}}
                                     {{--<div class="wt-title">--}}
-                                    {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'completed') }}}</h3>--}}
+                                    {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'completed') }}}</h3>--}}
                                         {{--<h3>{{ trans('lang.curr_bal') }}</h3>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
@@ -248,7 +248,7 @@
                                                         {{--</a>--}}
                                                     {{--</span>--}}
                                                 {{--</td>--}}
-                                                {{--<td data-th="Project cost"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{$projects->amount}}</span></td>--}}
+                                                {{--<td data-th="Project cost"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{$projects->amount}}</span></td>--}}
                                                 {{--<td data-th="Actions">--}}
                                                     {{--<span class="bt-content">--}}
                                                         {{--<div class="wt-btnarea">--}}
@@ -308,7 +308,7 @@
                                                 {{--<tr class="wt-earning-contents">--}}
                                                     {{--<td class="wt-earnig-single" data-th="Project Title"><span class="bt-content">{{{ $project->job->title }}}</span></td>--}}
                                                     {{--<td data-th="Date"><span class="bt-content">{{$project->updated_at}}</span></td>--}}
-                                                    {{--<td data-th="Earnings"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{$amount}}}</span></td>--}}
+                                                    {{--<td data-th="Earnings"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{$amount}}}</span></td>--}}
                                                 {{--</tr>--}}
                                             {{--@endforeach--}}
                                         {{--</tbody>--}}
@@ -326,7 +326,7 @@
                                                 {{--<tr class="wt-earning-contents">--}}
                                                     {{--<td class="wt-earnig-single" data-th="Project Title"><span class="bt-content">{{{ $service->title }}}</span></td>--}}
                                                     {{--<td data-th="Date"><span class="bt-content">{{$service->updated_at}}</span></td>--}}
-                                                    {{--<td data-th="Earnings"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{$amount}}}</span></td>--}}
+                                                    {{--<td data-th="Earnings"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{$amount}}}</span></td>--}}
                                                 {{--</tr>--}}
                                             {{--@endforeach--}}
                                         {{--</tbody>--}}

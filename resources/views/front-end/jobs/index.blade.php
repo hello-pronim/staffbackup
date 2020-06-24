@@ -225,7 +225,7 @@
                                                             <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->employer->city  }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->project_rates) && !empty($job->project_rates_type) )
-                                                            <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
+                                                            <li><span><i class="fa fa-gbp-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->location->title))
                                                             <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>
