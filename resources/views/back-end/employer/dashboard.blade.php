@@ -139,7 +139,7 @@
                                                         {{--</a>--}}
                                                     {{--</span>--}}
                                                 {{--</td>--}}
-                                                {{--<td data-th="Project cost"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{$project->price}}</span></td>--}}
+                                                {{--<td data-th="Project cost"><span class="bt-content">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{$project->price}}</span></td>--}}
                                                 {{--<td data-th="Actions">--}}
                                                     {{--<span class="bt-content">--}}
                                                         {{--<div class="wt-btnarea">--}}

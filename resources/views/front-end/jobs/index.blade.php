@@ -25,9 +25,9 @@
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
                                      @click="changeSearchType('job')" style="width: 24.5%;">
                                     @if($uProffecional)
-                                        Search Adhoc & Temp Jobs
+                                        Search Adhoc & Adhoc Sessions
                                     @else
-                                        Search Temp Jobs
+                                        Search Adhoc Sessions
                                     @endif
 
                                 </div>
@@ -225,7 +225,7 @@
                                                             <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->employer->city  }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->project_rates) && !empty($job->project_rates_type) )
-                                                            <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
+                                                            <li><span><i class="fa fa-pound-sign wt-viewjobdollar"></i> {{{ $job->project_rates . ' ' . $job->project_rates_type }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->location->title))
                                                             <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>

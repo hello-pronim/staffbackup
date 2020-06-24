@@ -44,7 +44,7 @@
 																	<span class="wt-featuredtagvtwo">Featured</span>
 																@endif
 																<h3>{{{$service['title']}}}</h3>
-																<span><strong>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{$service['price']}}}</strong> {{ trans('lang.starting_from') }}</span>
+																<span><strong>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$service['price']}}}</strong> {{ trans('lang.starting_from') }}</span>
 															</div>
 														</div>
 													</div>

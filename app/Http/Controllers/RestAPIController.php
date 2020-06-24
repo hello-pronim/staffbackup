@@ -64,7 +64,7 @@ class RestAPIController extends Controller
         $json = array();
         $currency   = SiteManagement::getMetaValue('commision');
         $curr_symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
-        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '$';
+        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '£';
         $profile_id = !empty($_GET['profile_id']) ? $_GET['profile_id'] : '';
         $login_user = !empty($profile_id) ? User::find($profile_id) : new User();
         $type = !empty($_GET['listing_type']) ? $_GET['listing_type'] : '';
@@ -778,7 +778,7 @@ class RestAPIController extends Controller
         $type = !empty($_GET['listing_type']) ? $_GET['listing_type'] : '';
         $currency   = SiteManagement::getMetaValue('commision');
         $curr_symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
-        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '$';
+        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '£';
         Paginator::currentPageResolver(
             function () use ($page_number) {
                 return $page_number;
@@ -1383,7 +1383,7 @@ class RestAPIController extends Controller
         $json = array();
         $currency   = SiteManagement::getMetaValue('commision');
         $curr_symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
-        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '$';
+        $symbol = !empty($curr_symbol) ? $curr_symbol['symbol'] : '£';
         $id = !empty($_GET['id']) ? $_GET['id'] : '';
         if (!empty($id)) {
             $user = User::find($id);

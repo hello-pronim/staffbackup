@@ -20,7 +20,7 @@
                                      @click="changeSearchType('freelancer')">Search Adhoc Staff
                                 </div>
                                 <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')">Search Temp Jobs
+                                     @click="changeSearchType('job')">Search Adhoc Sessions
                                 </div>
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>
@@ -247,7 +247,7 @@
                                                     <ul class="wt-userlisting-breadcrumb">
                                                         @if (!empty($freelancer->profile->hourly_rate))
                                                             <li><span><i class="far fa-money-bill-alt"></i>
-                                                                {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '$' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
+                                                                {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '£' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
                                                             </li>
                                                         @endif
                                                             @if (!empty($freelancer->itsoftware))

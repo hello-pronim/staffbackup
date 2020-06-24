@@ -46,7 +46,7 @@
                                             )
                                             <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                 @if (!empty($job->price))
-                                                    <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $job->price }}}</span></li>
+                                                    <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $job->price }}}</span></li>
                                                 @endif
                                                 @if (!empty($job->location->title))
                                                     <li><span><img src="{{{asset(App\Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>
@@ -140,7 +140,7 @@
                                                     <a href="{{{ url('proposal/'.$job->slug.'/'.$job->status) }}}"  class="wt-btn">{{ trans('lang.view_detail') }}</a>
                                                 </div>
                                                 <div class="wt-hireduserstatus">
-                                                    <h5>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{ $accepted_proposal->amount }}}</h5>
+                                                    <h5>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{ $accepted_proposal->amount }}}</h5>
                                                     @if(!empty($completion_time))
                                                         <span>{{{ $completion_time }}}</span>
                                                     @endif
@@ -243,7 +243,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="wt-hireduserstatus">
-                                                            <h5>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{$proposal->amount}}}</h5>
+                                                            <h5>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$proposal->amount}}}</h5>
                                                             @if(!empty($completion_time))
                                                                 <span>{{{ $completion_time }}}</span>
                                                             @endif

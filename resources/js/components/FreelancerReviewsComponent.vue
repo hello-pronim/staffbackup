@@ -11,7 +11,7 @@
                         <h3>Translation and Proof Reading (Multi Language)</h3>
                     </div>
                     <ul class="wt-userlisting-breadcrumb">
-                        <li><span><i class="fa fa-dollar-sign"></i> Beginner</span></li>
+                        <li><span><i class="fa fa-pound-sign"></i> Beginner</span></li>
                         <li><span><img src="images/flag/img-04.png" alt="img description"> England</span></li>
                         <li><span><i class="fas fa-spinner fa-spin"></i> In Progress</span></li>
                     </ul>

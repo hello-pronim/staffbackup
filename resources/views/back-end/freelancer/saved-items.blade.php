@@ -54,7 +54,7 @@
                                                             )
                                                             <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                                 @if (!empty($job->price))
-                                                                    <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $job->price }}}</span></li>
+                                                                    <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $job->price }}}</span></li>
                                                                 @endif
                                                                 @if (!empty($job->location->title))
                                                                     <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>
@@ -181,7 +181,7 @@
                                                     <ul class="wt-userlisting-breadcrumb">
                                                         @if (!empty($profile->hourly_rate))
                                                             <li><span><i class="far fa-money-bill-alt"></i>
-                                                                {{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{ $profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
+                                                                {{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{ $profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
                                                             </li>
                                                         @endif
                                                         <li><span><img src="{{{asset(Helper::getLocationFlag($user->location->flag))}}}" alt="{{{ trans('lang.locations') }}}"> {{{ $user->location->title }}}</span></li>

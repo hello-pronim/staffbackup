@@ -62,15 +62,11 @@
                                                 {{--{!! Form::select('project_levels', $project_levels, null, array('class' => '', 'placeholder' => trans('lang.select_project_level'), 'v-model'=>'project_level')) !!}--}}
                                             {{--</span>--}}
                                         {{--</div>--}}
-                                        <?php
-                                        /*
-                                        <div class="form-group form-group-half wt-formwithlabel">
-                                            <span class="wt-select">
-                                                {!! Form::select('job_duration', $job_duration, null, array('class' => '', 'placeholder' => trans('lang.select_job_duration'), 'v-model'=>'job_duration')) !!}
-                                            </span>
-                                        </div>
-                                        */
-                                        ?>
+                                        {{--<div class="form-group form-group-half wt-formwithlabel">--}}
+                                            {{--<span class="wt-select">--}}
+                                                {{--{!! Form::select('job_duration', $job_duration, null, array('class' => '', 'placeholder' => trans('lang.select_job_duration'), 'v-model'=>'job_duration')) !!}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
                                         {{--<div class="form-group form-group-half wt-formwithlabel">--}}
                                             {{--<span class="wt-select">--}}
                                                 {{--{!! Form::select('freelancer_type', $freelancer_level, null, array('placeholder' => trans('lang.select_freelancer_level'), 'class' => '', 'v-model'=>'freelancer_level')) !!}--}}

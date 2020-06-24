@@ -831,6 +831,39 @@ class Helper extends Model
         } else {
             return '';
         }
+    }/**
+     * Get user first name
+     *
+     * @param integer $user_id ID
+     *
+     * @access public
+     *
+     * @return array
+     */
+    public static function getUserFirstName($user_id)
+    {
+        if (!empty($user_id)) {
+            return User::find($user_id)->first_name;
+        } else {
+            return '';
+        }
+    }
+     /**
+     * Get user last name
+     *
+     * @param integer $user_id ID
+     *
+     * @access public
+     *
+     * @return array
+     */
+    public static function getUserLastName($user_id)
+    {
+        if (!empty($user_id)) {
+            return User::find($user_id)->last_name;
+        } else {
+            return '';
+        }
     }
 
     /**
