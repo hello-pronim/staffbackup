@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="wt-viewjobholder">
                                                 <ul>
-                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i>{{{$job->price}}}</span></li>
+                                                    <li><span>a<i class="fa fa-dollar-sign wt-viewjobdollar"></i>{{{$job->price}}}</span></li>
                                                     @if (!empty($job->location->title))
                                                         <li><span><img src="{{{asset(App\Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>
                                                     @endif

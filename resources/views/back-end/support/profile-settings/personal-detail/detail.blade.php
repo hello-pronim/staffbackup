@@ -35,7 +35,6 @@
 
 
         <div class="form-group">
-{{--            {{dd($user->profession)}}--}}
             <span class="wt-select">
             {!! Form::select('profession', $arrProfReq, $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
             </span>

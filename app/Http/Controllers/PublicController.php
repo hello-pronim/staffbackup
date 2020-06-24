@@ -343,7 +343,7 @@ class PublicController extends Controller
                 $amount = Payout::where('user_id', $user->id)->select('amount')->pluck('amount')->first();
                 $employer_projects = Auth::user() ? Helper::getEmployerJobs(Auth::user()->id) : array();
                 $currency_symbol  = !empty($payment_settings) && !empty($payment_settings[0]['currency']) ? Helper::currencyList($payment_settings[0]['currency']) : array();
-                $symbol = !empty($currency_symbol['symbol']) ? $currency_symbol['symbol'] : '$';
+                $symbol = !empty($currency_symbol['symbol']) ? $currency_symbol['symbol'] : '£';
                 $settings = !empty(SiteManagement::getMetaValue('settings')) ? SiteManagement::getMetaValue('settings') : array();
                 $display_chat = !empty($settings[0]['chat_display']) ? $settings[0]['chat_display'] : false;
                 $payment_settings = SiteManagement::getMetaValue('commision');
@@ -447,7 +447,7 @@ class PublicController extends Controller
                 $amount = Payout::where('user_id', $user->id)->select('amount')->pluck('amount')->first();
                 $employer_projects = Auth::user() ? Helper::getEmployerJobs(Auth::user()->id) : array();
                 $currency_symbol  = !empty($payment_settings) && !empty($payment_settings[0]['currency']) ? Helper::currencyList($payment_settings[0]['currency']) : array();
-                $symbol = !empty($currency_symbol['symbol']) ? $currency_symbol['symbol'] : '$';
+                $symbol = !empty($currency_symbol['symbol']) ? $currency_symbol['symbol'] : '£';
                 $settings = !empty(SiteManagement::getMetaValue('settings')) ? SiteManagement::getMetaValue('settings') : array();
                 $display_chat = !empty($settings[0]['chat_display']) ? $settings[0]['chat_display'] : false;
                 $payment_settings = SiteManagement::getMetaValue('commision');

@@ -56,7 +56,7 @@
                                             @endif
                                             <ul class="wt-userlisting-breadcrumb">
                                                 @if (!empty($job->price))
-                                                    <li><span><i class="far fa-money-bill-alt"></i> {{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{ $job->price }}}</span></li>
+                                                    <li><span><i class="far fa-money-bill-alt"></i> {{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{ $job->price }}}</span></li>
                                                 @endif
                                                 @if (!empty($job->location->title))
                                                     <li>

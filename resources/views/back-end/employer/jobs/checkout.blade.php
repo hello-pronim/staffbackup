@@ -48,7 +48,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{$proposal->amount}}} </td>
+                                    <td>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{$proposal->amount}}} </td>
                                 </tr>
                                 <tr>
                                     <td>{{ trans('lang.freelancer') }}</td>
@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <td>{{ trans('lang.total') }}</td>
-                                    <td>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{{$proposal->amount}}}</td>
+                                    <td>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{$proposal->amount}}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -130,7 +130,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group wt-btnarea">
-                                    <input type="submit" name="button" class="wt-btn" value="Pay {{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}{{$proposal->amount}}">
+                                    <input type="submit" name="button" class="wt-btn" value="Pay {{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{$proposal->amount}}">
                                 </div>
                             </fieldset>
                         </form>

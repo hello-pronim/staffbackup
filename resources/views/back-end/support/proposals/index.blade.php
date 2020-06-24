@@ -46,7 +46,7 @@
                                                         )
                                                         <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                             @if (!empty($proposal->job->price))
-                                                                <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}</i> {{{ $proposal->job->price }}}</span></li>
+                                                                <li><span class="wt-dashboraddoller"><i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $proposal->job->price }}}</span></li>
                                                             @endif
                                                             @if (!empty($proposal->job->location->title))
                                                                 <li><span><img src="{{{asset(Helper::getLocationFlag($proposal->job->location->flag))}}}" alt="{{{ trans('lang.locations') }}}"> {{{ $proposal->job->location->title }}}</span></li>

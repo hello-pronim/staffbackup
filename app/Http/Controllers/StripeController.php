@@ -412,7 +412,7 @@ class StripeController extends Controller
 				if(!$v['active']){
 					continue;
 				}
-				$fiat_sig = $v['currency'] == 'gbp' ? '£' : '$'; // some currency hardcode
+				$fiat_sig = $v['currency'] == 'gbp' ? '£' : '£'; // some currency hardcode
 				$number = number_format((float) ($v['amount'] / 100), 2, '.', '');
 				//$number = bcdiv($v['amount'], '100', 2);
 				$trial = $v['trial_period_days'] ?: '';

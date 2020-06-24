@@ -247,7 +247,7 @@
                                                     <ul class="wt-userlisting-breadcrumb">
                                                         @if (!empty($freelancer->profile->hourly_rate))
                                                             <li><span><i class="far fa-money-bill-alt"></i>
-                                                                {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '$' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
+                                                                {{ (!empty($symbol['symbol'])) ? $symbol['symbol'] : '£' }}{{{ $freelancer->profile->hourly_rate }}} {{ trans('lang.per_hour') }}</span>
                                                             </li>
                                                         @endif
                                                             @if (!empty($freelancer->itsoftware))

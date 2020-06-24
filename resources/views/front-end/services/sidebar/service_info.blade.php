@@ -1,6 +1,6 @@
 <div class="wt-userrating wt-userratingvtwo">
     <div class="wt-ratingtitle">
-       <h3>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{$service->price}}}</h3>
+       <h3>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$service->price}}}</h3>
        <span>{{trans('lang.starting_from')}}</span>
     </div>
     <div class="wt-rating-info">

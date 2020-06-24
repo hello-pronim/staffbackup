@@ -36,7 +36,7 @@
                                             <span class="wt-featuredtagvtwo">{{ trans('lang.featured') }}</span>
                                         @endif
                                         <h3>{{{$service['title']}}}</h3>
-                                        <span><strong>{{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{$service['price']}}}</strong> {{ trans('lang.starting_from') }}</span>
+                                        <span><strong>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$service['price']}}}</strong> {{ trans('lang.starting_from') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                                 @endif
                                                 <ul class="wt-userlisting-breadcrumb">
                                                     @if (!empty($service->price))
-                                                        <li><span><i class="far fa-money-bill-alt"></i> {{ !empty($symbol) ? $symbol['symbol'] : '$' }}{{{ $service->price }}}</span></li>
+                                                        <li><span><i class="far fa-money-bill-alt"></i> {{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{ $service->price }}}</span></li>
                                                     @endif
                                                     @if (!empty($service->location->title))
                                                         <li>

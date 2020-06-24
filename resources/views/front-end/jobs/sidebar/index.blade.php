@@ -11,7 +11,7 @@
         <div class="wt-proposalsrcontent">
             <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-money"></i></span>
             <div class="wt-title">
-                <h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates }}}</h3>
+                <h3>{{{ $job->project_rates }}}</h3>
                 <span>{{{ $job->project_rates_type }}}</span>
             </div>
         </div>
