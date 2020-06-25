@@ -1146,4 +1146,5 @@ return [
         'usd' => 'ریاستہائے متحدہ امریکہ',
         'gpb' => 'عظیم برتانوی پاؤنڈ',
     ],
+    'emp_clinical_setting' => 'Clinical setting',
 ];

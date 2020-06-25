@@ -1111,4 +1111,5 @@ return [
     'delivery_time_updated' => 'Délai de livraison mis à jour',
     'response_time_updated' => 'Temps de réponse mis à jour',
     'show_page_banner' => 'Montrer la bannière de la page',
+    'emp_clinical_setting' => 'Clinical setting',
 ];

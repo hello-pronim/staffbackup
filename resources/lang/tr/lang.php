@@ -1108,4 +1108,5 @@ return [
     'delivery_time_updated' => 'Teslim Süresi Güncelleme',
     'response_time_updated' => 'Tepki Süresi Güncelleme',
     'show_page_banner' => 'Sayfa Afişini Göster',
+    'emp_clinical_setting' => 'Clinical setting',
 ];

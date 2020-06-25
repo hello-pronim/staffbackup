@@ -1108,4 +1108,5 @@ return [
     'delivery_time_updated' => 'Lieferzeit aktualisiert',
     'response_time_updated' => 'Reaktionszeit aktualisiert',
     'show_page_banner' => 'Seitenbanner anzeigen',
+    'emp_clinical_setting' => 'Clinical setting',
 ];

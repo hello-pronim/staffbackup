@@ -1106,4 +1106,5 @@ return [
     'delivery_time_updated' => 'ডেলিভারি সময় আপডেট করা হয়েছে',
     'response_time_updated' => 'প্রতিক্রিয়া সময় আপডেট করা হয়েছে',
     'show_page_banner' => 'পৃষ্ঠা ব্যানার দেখান',
+    'emp_clinical_setting' => 'Clinical setting',
 ];
