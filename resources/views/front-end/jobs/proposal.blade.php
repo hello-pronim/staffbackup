@@ -81,66 +81,66 @@
                                     @if (!empty($job->title))
                                         <h2>{{{ $job->title }}}</h2>
                                     @endif
-                                    <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                        @if (!empty($job->price))
-                                            <li>
-                                                <span>
-                                                    <i class="wt-viewjobdollar">{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $job->price }}}
-                                                </span>
-                                            </li>
-                                        @endif
-                                        @if (!empty($job->location->title))
-                                            <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>
-                                        @endif
-                                        @if (!empty($job->project_type))
-                                            @php $project_type  = Helper::getProjectTypeList($job->project_type); @endphp
-                                            <li><span class="wt-clicksavefolder"><i class="far fa-folder wt-viewjobfolder"></i> {{ trans('lang.type') }} {{{ $project_type }}}</span></li>
-                                        @endif
-                                        @if (!empty($job->duration))
-                                            <li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>
-                                        @endif
-                                    </ul>
+                                    {{--<ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">--}}
+                                        {{--@if (!empty($job->price))--}}
+                                            {{--<li>--}}
+                                                {{--<span>--}}
+                                                    {{--<i class="wt-viewjobdollar">{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> {{{ $job->price }}}--}}
+                                                {{--</span>--}}
+                                            {{--</li>--}}
+                                        {{--@endif--}}
+                                        {{--@if (!empty($job->location->title))--}}
+                                            {{--<li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>--}}
+                                        {{--@endif--}}
+                                        {{--@if (!empty($job->project_type))--}}
+                                            {{--@php $project_type  = Helper::getProjectTypeList($job->project_type); @endphp--}}
+                                            {{--<li><span class="wt-clicksavefolder"><i class="far fa-folder wt-viewjobfolder"></i> {{ trans('lang.type') }} {{{ $project_type }}}</span></li>--}}
+                                        {{--@endif--}}
+                                        {{--@if (!empty($job->duration))--}}
+                                            {{--<li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>--}}
+                                        {{--@endif--}}
+                                    {{--</ul>--}}
                                 </div>
                             </div>
                             <div class="wt-proposalamount-holder">
                                 <div class="wt-title">
-                                    <h2>{{{ trans('lang.proposal_amount') }}}</h2>
+                                    <h2>{{{ trans('lang.hourly_rate') }}}</h2>
                                 </div>
                                 {!! Form::open(['url' => url('proposal/submit-proposal'), 'class' =>'wt-haslayout', 'id' => 'send-propsal',  '@submit.prevent'=>'submitJobProposal('.$job->id.', '.Auth::user()->id.')']) !!}
                                     <div class="wt-proposalamount accordion">
                                         <div class="form-group">
                                             <span>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> )</span>
-                                            {!! Form::input('number', 'amount', null, ['class' => 'form-control', 'min' => 1, 'placeholder' => trans('lang.ph_proposal_amount'), 'v-model'=>'proposal.amount', 'v-on:keyup' => "calculate_amount('$commision')" ])!!}
-                                            <a href="javascript:void(0);" class="collapsed" id="headingOne" data-toggle="collapse"
-                                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                <i class="lnr lnr-chevron-up"></i>
-                                            </a>
-                                            <em>{{{ trans('lang.amount_note') }}}</em>
+                                            {!! Form::input('number', 'amount', null, ['class' => 'form-control', 'min' => 1, 'placeholder' => trans('lang.ph_service_hoyrly_rate'), 'v-model'=>'proposal.amount', 'v-on:keyup' => "calculate_amount('$commision')" ])!!}
+                                            {{--<a href="javascript:void(0);" class="collapsed" id="headingOne" data-toggle="collapse"--}}
+                                                {{--data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">--}}
+                                                {{--<i class="lnr lnr-chevron-up"></i>--}}
+                                            {{--</a>--}}
+{{--                                            <em>{{{ trans('lang.amount_note') }}}</em>--}}
                                         </div>
-                                        <ul class="wt-totalamount collapse show" id="collapseOne" aria-labelledby="headingOne">
-                                            <li v-cloak>
-                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>- @{{this.proposal.deduction}}</em></h3>
-                                                <span><strong>“ {{{ trans('lang.worketic') }}} ”</strong> {{{ trans('lang.service_fee') }}}
-                                                    <i class="fa fa-exclamation-circle template-content tipso_style" data-tipso="Plus Member"></i>
-                                                </span>
-                                            </li>
-                                            <li v-cloak>
-                                                <h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>@{{this.proposal.total}}</em></h3>
-                                                <span>
-                                                    {{{ trans('lang.receiving_amount') }}} <strong>“ {{{ trans('lang.receiving_amount') }}} ”</strong>
-                                                    {{{ trans('lang.fee_deduction') }}}
-                                                    <i class="fa fa-exclamation-circle template-content tipso_style" data-tipso="Plus Member"></i>
-                                                </span>
-                                            </li>
-                                        </ul>
+                                        {{--<ul class="wt-totalamount collapse show" id="collapseOne" aria-labelledby="headingOne">--}}
+                                            {{--<li v-cloak>--}}
+                                                {{--<h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>- @{{this.proposal.deduction}}</em></h3>--}}
+                                                {{--<span><strong>“ {{{ trans('lang.worketic') }}} ”</strong> {{{ trans('lang.service_fee') }}}--}}
+                                                    {{--<i class="fa fa-exclamation-circle template-content tipso_style" data-tipso="Plus Member"></i>--}}
+                                                {{--</span>--}}
+                                            {{--</li>--}}
+                                            {{--<li v-cloak>--}}
+                                                {{--<h3>( <i>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i> ) <em>@{{this.proposal.total}}</em></h3>--}}
+                                                {{--<span>--}}
+                                                    {{--{{{ trans('lang.receiving_amount') }}} <strong>“ {{{ trans('lang.receiving_amount') }}} ”</strong>--}}
+                                                    {{--{{{ trans('lang.fee_deduction') }}}--}}
+                                                    {{--<i class="fa fa-exclamation-circle template-content tipso_style" data-tipso="Plus Member"></i>--}}
+                                                {{--</span>--}}
+                                            {{--</li>--}}
+                                        {{--</ul>--}}
                                     </div>
                                     <div class="wt-formtheme wt-formproposal">
                                         <fieldset>
-                                            <div class="form-group">
-                                                <span class="wt-select">
-                                                    {!! Form::select('completion_time', $job_completion_time, e($job_completion_time['weekly']), array('v-model'=>'proposal.completion_time', 'placeholder' => trans('lang.ph_job_completion_time') )) !!}
-                                                </span>
-                                            </div>
+                                            {{--<div class="form-group">--}}
+                                                {{--<span class="wt-select">--}}
+                                                    {{--{!! Form::select('completion_time', $job_completion_time, e($job_completion_time['weekly']), array('v-model'=>'proposal.completion_time', 'placeholder' => trans('lang.ph_job_completion_time') )) !!}--}}
+                                                {{--</span>--}}
+                                            {{--</div>--}}
                                             <div class="form-group">
                                                 {!! Form::textarea('description', null, ['class' => 'form-control', 'id' => '', 'placeholder' =>  trans('lang.ph_cover_letter') , 'v-model'=>'proposal.description']) !!}
                                             </div>
