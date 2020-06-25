@@ -1052,7 +1052,7 @@
 
     <div class="form-group form-group-half" v-if="insurancecheckbox" v-if="user_role=='freelancer'">
       <div>Professional Indemnity Insurance:</div>
-        <input type="file" name="insurance_file"
+        <input type="file" name="prof_ind_cert"
                class="form-control"
                accept=".pdf, image/*,.doc,.docx">
     </div>
@@ -1395,7 +1395,7 @@
       <div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">
           <input id="hourly_rate_phpdpm" type="number"
                  class="form-control"
-                 name="hourly_rate_phpdpm"
+                 name="hourly_rate"
                  min="0"
                  placeholder="Hour Rate">
       </div>
