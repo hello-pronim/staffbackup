@@ -77,7 +77,6 @@ class FreelancerController extends Controller
         $skills = Skill::pluck('title', 'id');
         $profile = $this->freelancer::where('user_id', Auth::user()->id)->get()->first();
         $gender = !empty($profile->gender) ? $profile->gender : '';
-        $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $tagline = !empty($profile->tagline) ? $profile->tagline : '';
         $description = !empty($profile->description) ? $profile->description : '';
         $radius = !empty($profile->radius) ? $profile->radius : '';

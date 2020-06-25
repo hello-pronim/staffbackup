@@ -932,9 +932,9 @@
     </div>
 
     <div class="form-group" v-bind:class="[user_role=='support'  ? 'form-group-half' : '', '']" v-if="user_role=='employer' || user_role=='support'">
-        <input id="exp_years" type="number" min="0"
+        <input id="experience" type="number" min="0"
                class="form-control"
-               name="exp_years"
+               name="experience"
                placeholder="Experience Years"
                v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
         <span class="help-block"
@@ -1393,7 +1393,7 @@
       </div>
 
       <div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">
-          <input id="hourly_rate_phpdpm" type="number"
+          <input id="hourly_rate" type="number"
                  class="form-control"
                  name="hourly_rate"
                  min="0"
@@ -1417,7 +1417,7 @@
 
       <div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">
         <span class="wt-select">
-        {!! Form::select('payment_mehod', $payment_options, null, array('placeholder' => "Professional Type", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
+        {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Professional Type", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
         </span>
         <input v-if="choosen_payment_mehod=='Other'"
         type="text"
