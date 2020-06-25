@@ -3712,9 +3712,9 @@ if (document.getElementById("jobs")) {
                         if (error.response.data.errors.amount) {
                             self.showError(error.response.data.errors.amount[0]);
                         }
-                        if (error.response.data.errors.completion_time) {
-                            self.showError(error.response.data.errors.completion_time[0]);
-                        }
+                        // if (error.response.data.errors.completion_time) {
+                        //     self.showError(error.response.data.errors.completion_time[0]);
+                        // }
                         if (error.response.data.errors.description) {
                             self.showError(error.response.data.errors.description[0]);
                         }

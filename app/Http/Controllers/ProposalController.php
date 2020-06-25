@@ -187,12 +187,12 @@ class ProposalController extends Controller
                     $request,
                     [
                         'amount' => 'required',
-                        'completion_time'    => 'required',
+                        //'completion_time'    => 'required',
                         'description'    => 'required',
                     ]
                 );
 
-                // $job_query = Job::select('jobs.*')->where('id', '=', $request['id']);
+                 $job_query = Job::select('jobs.*')->where('id', '=', $request['id']);
                 // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
                 //     if (in_array('freelancer', $user->getRoleNames()->toArray())) {
                 //         $distance = Job::distanceQuery($user);
@@ -285,7 +285,7 @@ class ProposalController extends Controller
                                         $email_params['title'] = $job->title;
                                         $email_params['link'] = url('job/' . $job->slug);
                                         $email_params['amount'] = $request['amount'];
-                                        $email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
+                                        //$email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                         $email_params['message'] = $request['description'];
                                         Mail::to($job->employer->email)
                                             ->send(
