@@ -1108,4 +1108,5 @@ return [
     'delivery_time_updated' => '交货时间更新',
     'response_time_updated' => '响应时间已更新',
     'show_page_banner' => '显示页面横幅',
+    'emp_clinical_setting' => 'Clinical setting',
 ];

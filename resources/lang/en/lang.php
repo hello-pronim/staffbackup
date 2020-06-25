@@ -1244,5 +1244,6 @@ return [
         'usd' => 'United States Dollar',
         'gpb' => 'Greater British Pound',
     ],
+    'emp_clinical_setting' => 'Clinical setting',
 
 ];

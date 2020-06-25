@@ -117,6 +117,26 @@
                                             </div>
                                         </div>
                                     @endif
+                                    @if($job->employer->itsoftware != "")
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Computer System in use</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p>&nbsp; {{ implode(', ', $job->employer->getItsoftware()) }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(!empty($job_calendar_event))
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Start and End time</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p>&nbsp; Start: {{$job_calendar_event->start}} &nbsp; End: {{$job_calendar_event->end}}</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @if (!empty($attachments) && $job->show_attachments === 'true')
                                         <div class="wt-attachments">
                                             <div class="wt-title">

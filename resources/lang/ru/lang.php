@@ -1107,4 +1107,5 @@ return [
     'delivery_time_updated' => 'Время доставки обновлено',
     'response_time_updated' => 'Время отклика обновлено',
     'show_page_banner' => 'Показать баннер страницы',
+    'emp_clinical_setting' => 'Клинические условия',
 ];

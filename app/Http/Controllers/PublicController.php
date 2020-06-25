@@ -300,7 +300,7 @@ class PublicController extends Controller
     {
         $auth = auth()->user();
 
-        if (!$auth->hasRole('employer')){
+        if (!$auth->hasRole(['freelancer', 'support', 'admin'])){
             App::abort(403, 'Access Denied');
         }
 

@@ -10,6 +10,9 @@
                     <a href="{{{ url('profile/'.$job->employer->slug) }}}"><i class="fa fa-check-circle"></i> {{ trans('lang.verified_company') }}</a>
                 @endif
                 <a href="{{{ url('profile/'.$job->employer->slug) }}}"><h2>{{{ Helper::getUserName($job->employer->id) }}}</h2></a>
+                @if (!empty(data_get($job, 'employer.profile.tagline')) )
+                    <h4>{{ $job->employer->profile->tagline }}</h4>
+                @endif
             </div>
             <ul class="wt-postarticlemeta">
                 <li>
@@ -42,7 +45,8 @@
 @if ($user->emp_contact != '' ||
                                 $user->emp_telno != '' ||
                                 $user->emp_website != '' ||
-                                $user->emp_cqc_rating != ''
+                                $user->emp_cqc_rating != '' ||
+                                $user->setting != ''
                                 )
     <div class="wt-widget">
         <div class="wt-widgettitle">
@@ -77,6 +81,12 @@
                 <div>
                     <strong>{{ trans('lang.emp_cqc_rating_date') }}</strong><br>
                     <span>{{{ $user->emp_cqc_rating_date }}}</span>
+                </div>
+            @endif
+            @if($user->setting != '')
+                <div>
+                    <strong>{{ trans('lang.emp_clinical_setting') }}</strong><br>
+                    <span>{{{ $user->setting }}}</span>
                 </div>
             @endif
         </div>

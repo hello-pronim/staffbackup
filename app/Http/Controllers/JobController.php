@@ -560,6 +560,18 @@ class JobController extends Controller
             $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
             $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
             $user = $profile->user;
+
+            $job_calendar_event = null;
+            if ($job->employer->calendars()->exists()) {
+                $job_calendar_event = $job->employer
+                    ->calendars()
+                    ->where('class', 'booking_calendar')
+                    ->where('title', $job->title)
+                    ->where('start', 'like', '%' . $job->start_date . '%')
+                    ->where('end', 'like', '%' . $job->start_date . '%')
+                    ->first();
+            }
+
             if (file_exists(resource_path('views/extend/front-end/jobs/show.blade.php'))) {
                 return view(
                     'extend.front-end.jobs.show',
@@ -574,7 +586,8 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user'
+                        'user',
+                        'job_calendar_event'
                     )
                 );
             } else {
@@ -591,7 +604,8 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user'
+                        'user',
+                        'job_calendar_event'
                     )
                 );
             }

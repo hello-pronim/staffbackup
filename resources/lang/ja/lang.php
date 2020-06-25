@@ -1107,4 +1107,5 @@ return [
     'delivery_time_updated' => '配達時間が更新されました',
     'response_time_updated' => '更新された応答時間',
     'show_page_banner' => 'ページバナーを表示',
+    'emp_clinical_setting' => 'Clinical setting',
 ];

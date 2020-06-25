@@ -255,6 +255,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the calendar events associated with the user.
+     *
+     * @return relation
+     */
+    public function calendars()
+    {
+        return $this->hasMany(CalendarEvent::class, 'user_id', 'id');
+    }
+
+    /**
      * Set slug before saving in DB
      *
      * @param string $value value
