@@ -23,6 +23,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import Verte from 'verte';
 import 'verte/dist/verte.css';
 import vuecal from 'vue-cal';
+import CalendarEvents from './components/CalendarEvents/CalendarEvents.vue';
 
 import Multiselect from 'vue-multiselect'
 
@@ -103,6 +104,7 @@ Vue.component('image-attachments', require('./components/UploadServiceAttachment
 Vue.component('freelancer-reviews', require('./components/FreelancerReviewsComponent.vue').default);
 Vue.component('location-selector', require('./components/LocationSelector.vue').default);
 Vue.component('fullcalendar', require('./components/FullCalendar').default);
+Vue.component('calendar-events', require('./components/CalendarEvents/CalendarEvents.vue').default);
 
 var itsoftware_options = [
     'Adastra',
@@ -228,6 +230,20 @@ jQuery(document).ready(function () {
     });
 
 });
+
+// jQuery(document).ready(function () {
+// if (document.getElementById("booking_data")) {
+//     console.log('booking_data');
+//     const booking_data = new Vue({
+//         el: '#booking_data',
+//         components: {
+//             CalendarEvents
+//         },
+//     });
+//
+//    // console.log(mHeaderAAA);
+// }
+// });
 
 if (document.getElementById("booking_availability")) {
     const vmHeader = new Vue({
@@ -508,7 +524,7 @@ if (document.getElementById("dashboard")) {
         el: '#dashboard',
         mounted: function () {
         },
-        components: {'vue-cal': vuecal,},
+        components: {'vue-cal': vuecal,CalendarEvents},
         data: {
             events: [],
             selectedDate: '',
