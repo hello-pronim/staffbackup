@@ -977,12 +977,6 @@
                placeholder="Other Special Interest">
     </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='support'">
-        <span class="wt-select">
-        {!! Form::select('endorsements',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have any endorsements?")) !!}
-        </span>
-    </div>
-
     <div class="form-group" v-if="user_role=='freelancer'">
         <div class="wt-tabscontenttitle">
             <h2>Professional Qualifications</h2>
@@ -1081,6 +1075,13 @@
         {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have a full driving licence?")) !!}
         </span>
     </div>
+
+    <div class="form-group form-group" v-if="user_role=='support'">
+        <span class="wt-select">
+        {!! Form::select('endorsements',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have any endorsements?")) !!}
+        </span>
+    </div>
+
 
     <div class="form-group form-group-half">
         <div>CV Upload:</div>
@@ -1384,7 +1385,7 @@
 
     <div v-if="user_role=='freelancer' || user_role=='support'">
 
-      <div class="form-group form-group-half" v-if="user_role=='support'">
+      <div class="form-group form-group-half" v-if="user_role=='freelancer' || user_role=='support'">
           <input id="hourly_rate" type="number"
                  class="form-control"
                  name="hourly_rate"
@@ -1392,15 +1393,15 @@
                  placeholder="Hourly Rate">
       </div>
 
-      <div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">
-          <input id="hourly_rate" type="number"
-                 class="form-control"
-                 name="hourly_rate"
-                 min="0"
-                 placeholder="Hour Rate">
-      </div>
+      {{--<div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">--}}
+          {{--<input id="hourly_rate" type="number"--}}
+                 {{--class="form-control"--}}
+                 {{--name="hourly_rate"--}}
+                 {{--min="0"--}}
+                 {{--placeholder="Hour Rate">--}}
+      {{--</div>--}}
 
-      <div class="form-group form-group-half" style="margin-bottom: -2px;">
+      <div class="form-group form-group-half" style="margin-bottom: -2px;" v-if="user_role=='freelancer' || user_role=='support'">
         <span class="wt-checkbox"
               style="    margin-bottom: 13px; margin-top: 17px;">
             <span class="wt-checkbox">
