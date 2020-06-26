@@ -164,13 +164,7 @@
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                     <h2>Your Calendar</h2>
                 </div>
-                <div class="wt-tabscontenttitle" >
-                    <h2>
-                        Green equals free this day<br>
-                        Blue equals booking on this day<br>
-                        Red equals away on holiday<br>
-                    </h2>
-                </div>
+
 
                 <div id="dashboard_calendar" style="margin:0 auto; width: 775px;">
 
@@ -186,6 +180,13 @@
 
                     >
                     </vue-cal>
+                    <div class="wt-tabscontenttitle" >
+                        <h2>
+                            Green equals free this day<br>
+                            Blue equals booking on this day<br>
+                            Red equals away on holiday<br>
+                        </h2>
+                    </div>
                 </div>
 
             </div>
