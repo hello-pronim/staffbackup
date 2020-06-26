@@ -97,32 +97,32 @@
 </div>
 
 
-<div class="wt-tabscontenttitle" style="margin-top: 20px;">
-    <h2>Avilable days and hours</h2>
-</div>
-<div class="wt-formtheme">
-    <div class="form-group form-group-half">
-        <select id="multiselect" class="form-control" name="days_avail[]" data-dbValue="{{$days_avail}}" multiple="multiple">
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-            <option>Sunday</option>
-        </select>
-    </div>
-    <div class="form-group form-group-half">
-        <div id="datetimepickerDate" class="input-group timerange">
-                    <input class="form-control" name="hours_avail" type="text" value="{{$hours_avail}}" autocomplete="off">
-                    <span class="input-group-addon" style="">
-          </span>
-        </div>
+{{--<div class="wt-tabscontenttitle" style="margin-top: 20px;">--}}
+    {{--<h2>Avilable days and hours</h2>--}}
+{{--</div>--}}
+{{--<div class="wt-formtheme">--}}
+    {{--<div class="form-group form-group-half">--}}
+        {{--<select id="multiselect" class="form-control" name="days_avail[]" data-dbValue="{{$days_avail}}" multiple="multiple">--}}
+            {{--<option>Monday</option>--}}
+            {{--<option>Tuesday</option>--}}
+            {{--<option>Wednesday</option>--}}
+            {{--<option>Thursday</option>--}}
+            {{--<option>Friday</option>--}}
+            {{--<option>Saturday</option>--}}
+            {{--<option>Sunday</option>--}}
+        {{--</select>--}}
+    {{--</div>--}}
+    {{--<div class="form-group form-group-half">--}}
+        {{--<div id="datetimepickerDate" class="input-group timerange">--}}
+                    {{--<input class="form-control" name="hours_avail" type="text" value="{{$hours_avail}}" autocomplete="off">--}}
+                    {{--<span class="input-group-addon" style="">--}}
+          {{--</span>--}}
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 
 
-</div>
+{{--</div>--}}
 <div class="wt-tabscontenttitle" style="margin-top: 20px;">
     <h2>Computer System in use</h2>
 </div>
