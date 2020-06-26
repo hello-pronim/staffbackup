@@ -351,23 +351,8 @@
             <h2>Your Calendar</h2>
         </div>
 
-        <div id="dashboard_calendar" style="margin:0 auto; width: 775px;">
-
-            <vue-cal ref="vuecal" style="height: 650px;float:left"
-                     :time-from="0 * 60"
-                     :time-to="24 * 60"
-                     :disable-views="['years', 'year']"
-                     :events="events"
-                     :selected-date="selecteddate"
-                     default-view="month">
-            </vue-cal>
-            <div class="wt-tabscontenttitle">
-                <h2>
-                    Green equals free this day<br>
-                    Blue equals booking on this day<br>
-                    Red equals away on holiday<br>
-                </h2>
-            </div>
+        <div class="row" style="width: 100%;" id="booking_data">
+            <calendar-events></calendar-events>
         </div>
     </section>
 @endsection

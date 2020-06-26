@@ -27,82 +27,8 @@
                             @include('back-end.freelancer.profile-settings.tabs')
                         @endif
 
-                        <div class="wt-tabscontent tab-content" id="freelancer_availability">
-
-                            <vue-cal ref="vuecal" style="height: 650px"
-                                     :time-from="0 * 60"
-                                     :time-to="24 * 60"
-                                     :disable-views="['years', 'year']"
-                                     :events="events"
-                                     default-view="month"
-                                     :events-on-month-view="[true, 'short'][true * 1]"
-                                     @cell-click="createNewEvent">
-                            </vue-cal>
-                            <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
-                                <h2>
-                                    Green equals free this day<br>
-                                    Blue equals booking on this day<br>
-                                    Red equals away on holiday<br>
-                                </h2>
-                            </div>
-
-                            <div v-if="clickedDate != ''">
-                                <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
-                                    <div class="wt-tabscontenttitle">
-                                        <h2>Create new availability</h2>
-                                    </div>
-                                </div>
-                                <div class="wt-accordiondetails">
-
-
-                                    <form>
-                                        <div class="form-group form-group-half classScrollTo" style="margin-top: 25px;">
-                                            <label>Picked <span v-if="availability_selected_end_date != ''">Start</span> Date </label>
-
-                                            <input type="text" disabled class="form-control" placeholder="Booking Date"
-                                                   v-model="availability_selected_date">
-                                        </div>
-                                        <div class="form-group form-group-half classScrollTo" style="margin-top: 25px;"
-                                             v-if="availability_selected_end_date != ''">
-                                            <label>Picked End Date </label>
-
-                                            <input type="text" disabled class="form-control"
-                                                   placeholder="Booking End Date"
-                                                   v-model="availability_selected_end_date">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-group form-group-half">
-                                                <label>Start Time</label>
-                                                <vue-timepicker name="availability_start_time" required format="HH:mm"
-                                                                v-model="availability_start_time"></vue-timepicker>
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <label>End Time</label>
-                                                <vue-timepicker name="availability_end_time" required format="HH:mm"
-                                                                v-model="availability_end_time"></vue-timepicker>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="availability_title">Title:</label>
-                                            {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Availability Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="availability_title">Content:</label>
-                                            {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Availability Content', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-success" @click="saveNewEventAvailability">Create
-                                                Availability
-                                            </button>
-                                            <button class="btn btn-success" @click="saveNewEventBusy">Create
-                                                Holiday/Busy
-                                            </button>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
+                        <div id="booking_data">
+                            <calendar-events></calendar-events>
                         </div>
                     </div>
                 </div>
