@@ -218,24 +218,24 @@ class SupportController extends Controller
                 $package_status =!empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
             }
             if ($package_status === 'true') {
-                if ($packages > 0) {
-                    if (!empty($request['skills']) && count($request['skills']) > $skills) {
-                        $json['type'] = 'error';
-                        $json['message'] = trans('lang.cannot_add_morethan') . '' . $options['no_of_skills'] . ' ' . trans('lang.skills');
-                        return $json;
-                    } else {
-                        $profile =  $this->support->storeProfile($request, Auth::user()->id);
-                        if ($profile = 'success') {
-                            $json['type'] = 'success';
-                            $json['message'] = '';
-                            return $json;
-                        }
-                    }
-                } else {
-                    $json['type'] = 'error';
-                    $json['message'] = trans('lang.update_pkg');
-                    return $json;
-                }
+                //if ($packages > 0) {
+                //    if (!empty($request['skills']) && count($request['skills']) > $skills) {
+                //        $json['type'] = 'error';
+                //        $json['message'] = trans('lang.cannot_add_morethan') . '' . $options['no_of_skills'] . ' ' . trans('lang.skills');
+                //        return $json;
+                //    } else {
+                //        $profile =  $this->support->storeProfile($request, Auth::user()->id);
+                //        if ($profile = 'success') {
+                //            $json['type'] = 'success';
+                //            $json['message'] = '';
+                //            return $json;
+                //        }
+                //    }
+                //} else {
+                $json['type'] = 'error';
+                $json['message'] = trans('lang.update_pkg');
+                return $json;
+                //}
             } else {
                 $profile =  $this->support->storeProfile($request, Auth::user()->id);
                 if ($profile = 'success') {
