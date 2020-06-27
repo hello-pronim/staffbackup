@@ -165,6 +165,7 @@
                     <h2>Your Calendar</h2>
                 </div>
 
+
                 <div class="wt-dashboardbox wt-dashboardtabsholder" id="employer_availability">
 
                     <div class="wt-tabscontent tab-content">
@@ -232,7 +233,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
                 </div>
 
             </div>
