@@ -209,6 +209,7 @@ class Job extends Model
             $arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
             $arrNewEvent['end'] = $request['start_date'] . ' ' . $request['booking_end'];
             $arrNewEvent['title'] = $request['title'];
+            $arrNewEvent['recuring_date'] = $request['recuring_date'];
             $arrNewEvent['content'] = $request['booking_content'];
             $arrNewEvent['class'] = 'booking_calendar';
 

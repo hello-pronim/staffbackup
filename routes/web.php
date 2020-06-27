@@ -358,6 +358,12 @@ Route::group(
     ['middleware' => ['role:employer|freelancer|admin|support']],
     function () {
         Route::post('freelancer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
+        Route::post('employer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
+        Route::post('support/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
+
+        Route::post('freelancer/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
+        Route::post('employer/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
+        Route::post('support/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
 
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');
         Route::get('job/proposal/{job_slug}', 'ProposalController@createProposal')->name('createProposal');

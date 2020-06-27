@@ -90,8 +90,8 @@
                                     <h2>Recurring Dates</h2>
                                     <div class="wt-rightarea">
                                         <div class="wt-on-off float-right">
-                                            <switch_button v-model="recurring_dates">Recurring Dates</switch_button>
-                                            <input type="hidden" :value="false" name="recurring_dates">
+                                            <switch_button v-model="recurring_date">Recurring Dates</switch_button>
+                                            <input type="hidden" :value="false" name="recurring_date">
                                         </div>
                                     </div>
                                 </div>

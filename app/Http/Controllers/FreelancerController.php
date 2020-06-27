@@ -28,6 +28,7 @@ use App\Proposal;
 use App\Job;
 use DB;
 use App\Package;
+use App\CalendarEvent;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use ValidateRequests;
@@ -1018,6 +1019,7 @@ class FreelancerController extends Controller
             $arrEvent['contentFull'] = $request['contentFull'];
             $arrEvent['start'] = $request['start'];
             $arrEvent['end'] = $request['end'];
+            $arrEvent['recuring_date'] = $request['recuring_date'];
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
                 $arrEvent
@@ -1025,6 +1027,26 @@ class FreelancerController extends Controller
             return array('succes'=>true);
 
 
+        }
+    }
+
+    public function updateCalendarAvailability(Request $request)
+    {
+        if (Auth::user() && $request['id']) {
+            $user_id = Auth::user()->id;
+            $arrEvent = CalendarEvent::find($request['id']);
+            $arrEvent->user_id = $user_id;
+            $arrEvent->title = $request['title']?$request['title']:"";
+            $arrEvent->content = $request['content']?$request['content']:"";
+            $arrEvent->contentFull = $request['contentFull']?$request['contentFull']:"";
+            $arrEvent->start = $request['start']?$request['start']:"";
+            $arrEvent->end = $request['end']?$request['end']:"";
+            $arrEvent->recuring_date = $request['recuring_date']?$request['recuring_date']:"";
+            $arrEvent->class = $request['class']?$request['class']:"";
+            $arrEvent->save();
+            return array('succes'=>true);
+        } else {
+            return array('error'=>true);
         }
     }
 

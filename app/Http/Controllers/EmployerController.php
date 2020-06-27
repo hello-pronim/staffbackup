@@ -663,7 +663,9 @@ class EmployerController extends Controller
             {
                 case "freelancer":
                     $arrEvents = DB::table('calendar_events')
-                        ->where('user_id','=',Auth::user()->id)->get()->all();
+                        ->where('user_id','=',Auth::user()->id)
+                        ->select('calendar_events.recuring_date AS repeat','calendar_events.*')
+                        ->get()->all();
                     break;
                 case "employer":
                     $arrEvents = DB::table('calendar_events')
@@ -672,6 +674,7 @@ class EmployerController extends Controller
                             $query->whereRaw('class = "available_class" OR class = "busy_class"')
                                 ->where('user_id', '=',  Auth::user()->id);
                         })
+                        ->select('calendar_events.recuring_date AS repeat','calendar_events.*')
                         ->get()->all();
                     break;
 
@@ -681,9 +684,9 @@ class EmployerController extends Controller
         else{
             $arrEvents = DB::table('calendar_events')
                 ->where('class', '=', 'booking_calendar')
+                ->select('calendar_events.recuring_date AS repeat','calendar_events.*')
                 ->get()->all();
         }
-
 
         if(count($arrEvents))
         {

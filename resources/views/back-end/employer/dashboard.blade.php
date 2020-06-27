@@ -164,28 +164,75 @@
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                     <h2>Your Calendar</h2>
                 </div>
-                <div class="wt-tabscontenttitle" >
-                    <h2>
-                        Green equals free this day<br>
-                        Blue equals booking on this day<br>
-                        Red equals away on holiday<br>
-                    </h2>
-                </div>
 
-                <div id="dashboard_calendar" style="margin:0 auto; width: 775px;">
+                <div class="wt-dashboardbox wt-dashboardtabsholder" id="employer_availability">
 
-                    <vue-cal ref="vuecal" style="height: 650px"
-                             :time-from="0 * 60"
-                             :time-to="24 * 60"
-                             :disable-views="['years', 'year']"
-                             :events="events"
-                             :selected-date="selecteddate"
-                             default-view="month"
+                    <div class="wt-tabscontent tab-content">
+                        <vue-cal ref="vuecal" style="height: 650px"
+                                 :time-from="0 * 60"
+                                 :time-to="24 * 60"
+                                 :disable-views="['years', 'year']"
+                                 :events="events"
+                                 default-view="month"
+                                 {{--:events-on-month-view="[true, 'short'][false * 1]"--}}
+                                 :on-event-click="onEventClick"
+                                 @cell-click="createNewEvent">
+                        </vue-cal>
 
-                            {{--events-on-month-view="short"--}}
+                        <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
+                            <h2>
+                                Green equals free this day<br>
+                                Blue equals booking on this day<br>
+                                Red equals away on holiday<br>
+                            </h2>
+                        </div>
+                        <div v-if="clickedDate != ''">
+                            <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>Create new availability</h2>
+                                </div>
+                            </div>
+                            <div class="wt-accordiondetails">
 
-                    >
-                    </vue-cal>
+
+                                <form>
+                                    <div class="form-group classScrollTo" style="">
+                                        <label>Selected Date </label>
+
+                                        <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">
+                                    </div>
+                                    <div class="form-group form-group-half">
+                                        <label for="availability_start_time">Holiday Start date/time:</label>
+                                        <vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>
+
+                                    </div>
+                                    <div class="form-group form-group-half">
+                                        <label for="availability_end_time">Holiday End date/time:</label>
+                                        <vue-timepicker name="availability_end_time" required  format="HH:mm" v-model="availability_end_time"></vue-timepicker>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="availability_title">Title:</label>
+                                        {!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Holiday Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="availability_title">Content:</label>
+                                        {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Holiday description', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recuring_date">Recuring date:
+                                            <input type="checkbox" name="recuring_date" v-model="recuring_date"></label>
+                                    </div>
+                                    <input type="hidden" name="class" >
+                                    <input type="hidden" name="user_id" v-model="user_id">
+                                    <input type="hidden" name="id" v-model="id">
+                                    <button class="btn btn-success" id="available_class" @click="saveNewEventAvailability">Create Availability</button>
+                                    <button class="btn btn-danger" id="busy_class" @click="saveNewEventBusy">Create Holiday/Busy</button>
+                                    <button class="btn btn-danger" id="update_event" @click="updateEvent">Update Event</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
