@@ -79,193 +79,193 @@
     </div>
 </template>
 
-<script>
-    import VueTimepicker from 'vue2-timepicker';
-    import vuecal from 'vue-cal';
+<!--<script>-->
+    <!--import VueTimepicker from 'vue2-timepicker';-->
+    <!--import vuecal from 'vue-cal';-->
 
-    export default {
-        components: {
-            'vue-cal': vuecal,
-            VueTimepicker
-        },
+    <!--export default {-->
+        <!--components: {-->
+            <!--'vue-cal': vuecal,-->
+            <!--VueTimepicker-->
+        <!--},-->
 
-        data() {
-            return {
-                calendarPlugins: [],
-                events: [],
-                availability_title: "",
-                availability_content: "",
-                availability_start_time: "",
-                availability_end_time: "",
-                availability_selected_date: "",
-                availability_selected_end_date: "",
-                clickedDate: "",
-                clickedEndDate: "",
-                addedToEvents: false,
-                renderComponent: false,
-            }
-        },
-        created() {
-            this.rerender();
-        },
-        methods: {
-            getCalendarEvents() {
-                let self = this;
-                axios.get('/employer/getCalendarEvents').then(function (response) {
-                    if (self.events.length > 0) {
-                        self.events.splice(0);
-                    }
+        <!--data() {-->
+            <!--return {-->
+                <!--calendarPlugins: [],-->
+                <!--events: [],-->
+                <!--availability_title: "",-->
+                <!--availability_content: "",-->
+                <!--availability_start_time: "",-->
+                <!--availability_end_time: "",-->
+                <!--availability_selected_date: "",-->
+                <!--availability_selected_end_date: "",-->
+                <!--clickedDate: "",-->
+                <!--clickedEndDate: "",-->
+                <!--addedToEvents: false,-->
+                <!--renderComponent: false,-->
+            <!--}-->
+        <!--},-->
+        <!--created() {-->
+            <!--this.rerender();-->
+        <!--},-->
+        <!--methods: {-->
+            <!--getCalendarEvents() {-->
+                <!--let self = this;-->
+                <!--axios.get('/employer/getCalendarEvents').then(function (response) {-->
+                    <!--if (self.events.length > 0) {-->
+                        <!--self.events.splice(0);-->
+                    <!--}-->
 
-                    if (response && Array.isArray(response.data)) {
-                        response.data.forEach(item => {
-                            item.end = self.convertDateForFormatCalendar(item.end);
-                            item.start = self.convertDateForFormatCalendar(item.start);
-                            if (item.end !== null && item.start !== null) {
-                                self.events.push(item);
-                            }
-                        });
-                    }
-                });
-            },
-            customEventCreation() {
-                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
-                // Check if date format is correct before creating event.
-                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
-                    this.$refs.vuecal.createEvent(
-                        // Formatted start date and time or JavaScript Date object.
-                        dateTime,
-                        // Custom event props (optional).
-                        {title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}
-                    )
-                } else if (dateTime) alert('Wrong date format.')
-            },
-            formatDate(date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
+                    <!--if (response && Array.isArray(response.data)) {-->
+                        <!--response.data.forEach(item => {-->
+                            <!--item.end = self.convertDateForFormatCalendar(item.end);-->
+                            <!--item.start = self.convertDateForFormatCalendar(item.start);-->
+                            <!--if (item.end !== null && item.start !== null) {-->
+                                <!--self.events.push(item);-->
+                            <!--}-->
+                        <!--});-->
+                    <!--}-->
+                <!--});-->
+            <!--},-->
+            <!--customEventCreation() {-->
+                <!--const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')-->
+                <!--// Check if date format is correct before creating event.-->
+                <!--if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {-->
+                    <!--this.$refs.vuecal.createEvent(-->
+                        <!--// Formatted start date and time or JavaScript Date object.-->
+                        <!--dateTime,-->
+                        <!--// Custom event props (optional).-->
+                        <!--{title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}-->
+                    <!--)-->
+                <!--} else if (dateTime) alert('Wrong date format.')-->
+            <!--},-->
+            <!--formatDate(date) {-->
+                <!--var d = new Date(date),-->
+                    <!--month = '' + (d.getMonth() + 1),-->
+                    <!--day = '' + d.getDate(),-->
+                    <!--year = d.getFullYear();-->
 
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
+                <!--if (month.length < 2)-->
+                    <!--month = '0' + month;-->
+                <!--if (day.length < 2)-->
+                    <!--day = '0' + day;-->
 
-                return [day, month, year].join('-');
-            },
-            createNewEvent(date) {
-                console.log(date);
-                if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
-                    this.clickedDate = new Date(date);
-                    this.clickedEndDate = "";
-                    this.availability_selected_date = this.formatDate(date);
-                }
-                else {
-                    this.clickedEndDate = new Date(date);
-                    this.availability_selected_end_date = this.formatDate(date);
+                <!--return [day, month, year].join('-');-->
+            <!--},-->
+            <!--createNewEvent(date) {-->
+                <!--console.log(date);-->
+                <!--if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {-->
+                    <!--this.clickedDate = new Date(date);-->
+                    <!--this.clickedEndDate = "";-->
+                    <!--this.availability_selected_date = this.formatDate(date);-->
+                <!--}-->
+                <!--else {-->
+                    <!--this.clickedEndDate = new Date(date);-->
+                    <!--this.availability_selected_end_date = this.formatDate(date);-->
 
 
-                }
-                var newObj =
-                    {
-                        start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),
-                        end: this.formatDate(date) + " " + (this.availability_end_time != "" ? this.availability_end_time : "23:59"),
-                        title: this.availability_title != "" ? this.availability_title : "•",
-                        content: this.availability_content != "" ? this.availability_content : "•",
-                        contentFull: this.availability_content,
-                        class: 'selected_class'
-                    };
-                console.log(newObj);
-                // if (busy) {
-                //     newObj.class = 'busy_class';
-                // }
-                if (!this.addedToEvents) {
-                    this.events.push(newObj);
-                    this.addedToEvents = true;
-                }
-                else {
-                    this.events.pop();
-                    this.events.push(newObj);
-                    this.addedToEvents = true;
-                }
+                <!--}-->
+                <!--var newObj =-->
+                    <!--{-->
+                        <!--start: this.availability_selected_date + " " + (this.availability_start_time != "" ? this.availability_start_time : "00:01"),-->
+                        <!--end: this.formatDate(date) + " " + (this.availability_end_time != "" ? this.availability_end_time : "23:59"),-->
+                        <!--title: this.availability_title != "" ? this.availability_title : "•",-->
+                        <!--content: this.availability_content != "" ? this.availability_content : "•",-->
+                        <!--contentFull: this.availability_content,-->
+                        <!--class: 'selected_class'-->
+                    <!--};-->
+                <!--console.log(newObj);-->
+                <!--// if (busy) {-->
+                <!--//     newObj.class = 'busy_class';-->
+                <!--// }-->
+                <!--if (!this.addedToEvents) {-->
+                    <!--this.events.push(newObj);-->
+                    <!--this.addedToEvents = true;-->
+                <!--}-->
+                <!--else {-->
+                    <!--this.events.pop();-->
+                    <!--this.events.push(newObj);-->
+                    <!--this.addedToEvents = true;-->
+                <!--}-->
 
-            },
-            saveNewEventBusy(e) {
-                this.saveNewEventAvailability(e, true);
-            },
-            saveNewEventAvailability(e, busy) {
-                e.preventDefault();
-                var word = '•';
-                var title_word = 'Available'
-                var class_type = 'available_class';
-                if (busy) {
-                    class_type = 'busy_class';
-                    word = title_word = 'Busy/Holiday';
-                }
+            <!--},-->
+            <!--saveNewEventBusy(e) {-->
+                <!--this.saveNewEventAvailability(e, true);-->
+            <!--},-->
+            <!--saveNewEventAvailability(e, busy) {-->
+                <!--e.preventDefault();-->
+                <!--var word = '•';-->
+                <!--var title_word = 'Available'-->
+                <!--var class_type = 'available_class';-->
+                <!--if (busy) {-->
+                    <!--class_type = 'busy_class';-->
+                    <!--word = title_word = 'Busy/Holiday';-->
+                <!--}-->
 
-                var
-                    availability_start_time = this.availability_start_time,
-                    availability_end_time = this.availability_end_time,
-                    availability_title = this.availability_title,
-                    availability_content = this.availability_content,
-                    thistoast = this.$toast,
-                    newObj =
-                        {
-                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
-                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
-                            title: availability_title != "" ? availability_title : word,
-                            content: availability_content != "" ? availability_content : word,
-                            contentFull: availability_content != "" ? availability_content : word,
-                            class: class_type
-                        };
-                thistoast.options.position = 'center';
+                <!--var-->
+                    <!--availability_start_time = this.availability_start_time,-->
+                    <!--availability_end_time = this.availability_end_time,-->
+                    <!--availability_title = this.availability_title,-->
+                    <!--availability_content = this.availability_content,-->
+                    <!--thistoast = this.$toast,-->
+                    <!--newObj =-->
+                        <!--{-->
+                            <!--start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),-->
+                            <!--end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),-->
+                            <!--title: availability_title != "" ? availability_title : word,-->
+                            <!--content: availability_content != "" ? availability_content : word,-->
+                            <!--contentFull: availability_content != "" ? availability_content : word,-->
+                            <!--class: class_type-->
+                        <!--};-->
+                <!--thistoast.options.position = 'center';-->
 
-                //this.events.push(newObj);
+                <!--//this.events.push(newObj);-->
 
-                let self = this;
-                axios.post('/freelancer/saveCalendarAvailability', newObj)
-                    .then(function (response) {
-                        self.getCalendarEvents();
-                        availability_start_time = '';
-                        availability_end_time = '';
-                        availability_title = '';
-                        availability_content = '';
-                        // console.log(response.data.status)
-                        // console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)
-                        if (busy) {
-                            thistoast.error(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
-                        } else {
-                            thistoast.success(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
-                        }
-                    })
-                    .catch(function (error) {
-                        // console.log(error);
-                        if (typeof error.response.data.errors != 'undefined') {
-                            thistoast.error('Error', error.status);
-                        }
-                    });
-            },
-            convertDateForFormatCalendar(date) {
-                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
-                    return date;
-                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
-                    let all_date_parts = date.split(' ');
-                    let date_parts = all_date_parts[0].split('-');
-                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
-                }
+                <!--let self = this;-->
+                <!--axios.post('/freelancer/saveCalendarAvailability', newObj)-->
+                    <!--.then(function (response) {-->
+                        <!--self.getCalendarEvents();-->
+                        <!--availability_start_time = '';-->
+                        <!--availability_end_time = '';-->
+                        <!--availability_title = '';-->
+                        <!--availability_content = '';-->
+                        <!--// console.log(response.data.status)-->
+                        <!--// console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)-->
+                        <!--if (busy) {-->
+                            <!--thistoast.error(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);-->
+                        <!--} else {-->
+                            <!--thistoast.success(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);-->
+                        <!--}-->
+                    <!--})-->
+                    <!--.catch(function (error) {-->
+                        <!--// console.log(error);-->
+                        <!--if (typeof error.response.data.errors != 'undefined') {-->
+                            <!--thistoast.error('Error', error.status);-->
+                        <!--}-->
+                    <!--});-->
+            <!--},-->
+            <!--convertDateForFormatCalendar(date) {-->
+                <!--if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {-->
+                    <!--return date;-->
+                <!--} else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {-->
+                    <!--let all_date_parts = date.split(' ');-->
+                    <!--let date_parts = all_date_parts[0].split('-');-->
+                    <!--return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];-->
+                <!--}-->
 
-                return null;
-            },
-            rerender() {
-                this.renderComponent = false;
-                this.$nextTick(() => {
-                    this.renderComponent = true;
-                    this.getCalendarEvents();
-                });
-            }
-        }
+                <!--return null;-->
+            <!--},-->
+            <!--rerender() {-->
+                <!--this.renderComponent = false;-->
+                <!--this.$nextTick(() => {-->
+                    <!--this.renderComponent = true;-->
+                    <!--this.getCalendarEvents();-->
+                <!--});-->
+            <!--}-->
+        <!--}-->
 
-    }
-</script>
+    <!--}-->
+<!--</script>-->
 <style>
     /*#booking_data .slide-fade--right-enter {
         opacity: 1;

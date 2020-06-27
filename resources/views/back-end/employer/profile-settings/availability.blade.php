@@ -3,7 +3,7 @@
 <div class="wt-dbsectionspace wt-haslayout la-ed-freelancer">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-            <div class="freelancer-profile" id="booking_availability">
+            <div class="freelancer-profile">
                 @if (Session::has('message'))
                 <div class="flash_msg">
                     <flash_messages :message_class="'success'" :time ='5' :message="'{{{ Session::get('message') }}}'" v-cloak></flash_messages>
@@ -33,7 +33,7 @@
                                  :events="events"
                                  default-view="month"
                                  {{--:events-on-month-view="[true, 'short'][false * 1]"--}}
-
+                                 :on-event-click="onEventClick"
                                  @cell-click="createNewEvent">
                         </vue-cal>
 
@@ -59,12 +59,12 @@
 
                                         <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">
                                     </div>
-                                    <div class="form-group-half">
+                                    <div class="form-group form-group-half">
                                         <label for="availability_start_time">Holiday Start date/time:</label>
                                         <vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>
 
                                     </div>
-                                    <div class="form-group-half">
+                                    <div class="form-group form-group-half">
                                         <label for="availability_end_time">Holiday End date/time:</label>
                                         <vue-timepicker name="availability_end_time" required  format="HH:mm" v-model="availability_end_time"></vue-timepicker>
 
@@ -77,7 +77,16 @@
                                         <label for="availability_title">Content:</label>
                                         {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Holiday description', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
                                     </div>
-                                    <button class="btn btn-success" @click="saveNewEventBusy">Create Holiday/Busy</button>
+                                    <div class="form-group">
+                                        <label for="recuring_date">Recuring date:
+                                        <input type="checkbox" name="recuring_date" v-model="recuring_date"></label>
+                                    </div>
+                                    <input type="hidden" name="class" >
+                                    <input type="hidden" name="user_id" v-model="user_id">
+                                    <input type="hidden" name="id" v-model="id">
+                                    <button class="btn btn-success" id="available_class" @click="saveNewEventAvailability">Create Availability</button>
+                                    <button class="btn btn-danger" id="busy_class" @click="saveNewEventBusy">Create Holiday/Busy</button>
+                                    <button class="btn btn-danger" id="update_event" @click="updateEvent">Update Event</button>
                                 </form>
                             </div>
                         </div>
