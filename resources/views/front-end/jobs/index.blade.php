@@ -17,20 +17,23 @@
                                     $user = auth()->user();
                                     $uProffecional = $user->hasRole('freelancer');
                                 @endphp
-                                @if(!$uProffecional)
+                                @if ($user->hasRole('employer'))
                                     <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
-                                         @click="changeSearchType('freelancer')">Search Adhoc Staff
+                                         @click="changeSearchType('freelancer')">
+                                        Search Adhoc Staff
+                                    </div>
+                                    <div class="searchtype searchtype-inactive">
+                                        Search Adhoc Sessions
+                                    </div>
+                                @elseif (auth()->user()->hasRole(['freelancer', 'support']))
+                                    <div class="searchtype searchtype-inactive">
+                                        Search Adhoc Staff
+                                    </div>
+                                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
+                                         @click="changeSearchType('job')" style="width: 24.5%;">
+                                        Search Adhoc Sessions
                                     </div>
                                 @endif
-                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')" style="width: 24.5%;">
-                                    @if($uProffecional)
-                                        Search Adhoc & Adhoc Sessions
-                                    @else
-                                        Search Adhoc Sessions
-                                    @endif
-
-                                </div>
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>
                                 </div>
