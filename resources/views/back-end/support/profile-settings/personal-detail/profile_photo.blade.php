@@ -10,7 +10,7 @@
                     <upload-image
                         :id="'avater_id'"
                         :img_ref="'avater_ref'"
-                        :url="'{{url('freelancer/upload-temp-image')}}'"
+                        :url="'{{url('support/upload-temp-image')}}'"
                         :name="'hidden_avater_image'"
                         >
                     </upload-image>
@@ -29,7 +29,7 @@
                 <upload-image
                     :id="'avater_id'"
                     :img_ref="'avater_ref'"
-                    :url="'{{url('freelancer/upload-temp-image')}}'"
+                    :url="'{{url('support/upload-temp-image')}}'"
                     :name="'hidden_avater_image'"
                     >
                 </upload-image>
@@ -54,7 +54,7 @@
                     <upload-image-cv
                             :id="'cv'"
                             :img_ref="'cv_ref'"
-                            :url="'{{url('freelancer/upload-temp-image')}}'"
+                            :url="'{{url('support/upload-temp-image')}}'"
                             :name="'hidden_cv_image'"
                     >
                     </upload-image-cv>
@@ -82,7 +82,7 @@
                 <upload-image-cv
                         :id="'cv_id'"
                         :img_ref="'cv_ref'"
-                        :url="'{{url('freelancer/upload-temp-image')}}'"
+                        :url="'{{url('support/upload-temp-image')}}'"
                         :name="'hidden_cv_image'"
                 >
                 </upload-image-cv>
