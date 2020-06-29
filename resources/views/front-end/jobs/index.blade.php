@@ -137,14 +137,15 @@
             <div class="container">
                 <div class="row">
                     <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
-                            @if (file_exists(resource_path('views/extend/front-end/jobs/filters.blade.php')))
-                                @include('extend.front-end.jobs.filters')
-                            @else
-                                @include('front-end.jobs.filters')
-                            @endif
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+                        {{--<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4">--}}
+                            {{--@if (file_exists(resource_path('views/extend/front-end/jobs/filters.blade.php')))--}}
+                                {{--@include('extend.front-end.jobs.filters')--}}
+                            {{--@else--}}
+                                {{--@include('front-end.jobs.filters')--}}
+                            {{--@endif--}}
+                        {{--</div>--}}
+                        {{--<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8">--}}
+                        <div class="row">
                             <div class="wt-userlistingholder wt-haslayout">
                                 @if (!empty($keyword))
                                     <div class="wt-userlistingtitle">
