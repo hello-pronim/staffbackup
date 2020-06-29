@@ -299,12 +299,12 @@ class PublicController extends Controller
     public function showUserProfile($slug)
     {
         $auth = auth()->user();
+        $user = User::select('id')->where('slug', $slug)->first();
 
-        if (!$auth->hasRole(['freelancer', 'support', 'admin'])){
+        if (!$user->hasRole(['freelancer','support','admin'])){
             App::abort(403, 'Access Denied');
         }
 
-        $user = User::select('id')->where('slug', $slug)->first();
         if (!empty($user)) {
             $user = User::find($user->id);
             if ($user->is_disabled == 'true') {
