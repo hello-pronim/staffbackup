@@ -16,12 +16,21 @@
 
                         <div class="search" id="searchHomePage" attr-type="freelancer">
                             <div class="searchtop">
-                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
-                                     @click="changeSearchType('freelancer')">Search Adhoc Staff
-                                </div>
-                                <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
-                                     @click="changeSearchType('job')">Search Adhoc Sessions
-                                </div>
+                                @if (auth()->user()->hasRole('employer'))
+                                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
+                                         @click="changeSearchType('freelancer')">Search Adhoc Staff
+                                    </div>
+                                    <div class="searchtype searchtype-inactive">
+                                        Search Adhoc Sessions
+                                    </div>
+                                @elseif (auth()->user()->hasRole(['freelancer', 'support']))
+                                    <div class="searchtype searchtype-inactive">
+                                        Search Adhoc Staff
+                                    </div>
+                                    <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'job')}"
+                                         @click="changeSearchType('job')">Search Adhoc Sessions
+                                    </div>
+                                @endif
                                 <div class="searchbtn">
                                     <button @click="submit_search">Search</button>
                                 </div>
