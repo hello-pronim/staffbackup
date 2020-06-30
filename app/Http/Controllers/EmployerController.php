@@ -136,8 +136,8 @@ class EmployerController extends Controller
                     'org_type',
                     'hourly_rate_negotiable',
                     'hourly_rate',
-                    'hourly_rate_desc'
-
+                    'hourly_rate_desc',
+                    'profile'
 
                 )
             );
@@ -170,7 +170,8 @@ class EmployerController extends Controller
                     'org_type',
                     'hourly_rate_negotiable',
                     'hourly_rate',
-                    'hourly_rate_desc'
+                    'hourly_rate_desc',
+                    'profile'
                 )
             );
         }

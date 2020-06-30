@@ -1027,4 +1027,17 @@ class User extends Authenticatable
       $unserialized = $this->itsoftware ? @unserialize($this->itsoftware) : null;
       return $unserialized ? $unserialized : [$this->itsoftware];
     }
+
+    /**
+     * Returns a list of professions by role
+     *
+     * @param string $role
+     *
+     * @return array
+     */
+    public static function getProfessionsByRole (string $role): array
+    {
+        $professions = config('user-professions');
+        return array_key_exists($role, $professions) ? $professions[$role] : [];
+    }
 }
