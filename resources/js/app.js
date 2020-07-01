@@ -248,7 +248,6 @@ jQuery(document).ready(function () {
 
 
 /*support calendar*/
-
 if (document.getElementById("support_availability")) {
     var role = 'support';
     const vmHeader = new Vue({
@@ -267,22 +266,56 @@ if (document.getElementById("support_availability")) {
             clickedEndDate: "",
             recuring_date: "",
             user_id: "",
-            user_id: "",
+            skill_id: "",
             id: "",
             addedToEvents: false,
+            selectedEvent: null,
+            selectedEventDrag: false
         },
         created() {
             var events = [];
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(function (response) {
-                console.log(this);
-                if (response) {
-                    self.events = response.data;
+                if (self.events.length > 0) {
+                    self.events.splice(0);
                 }
-            })
+
+                if (response && Array.isArray(response.data)) {
+                    response.data.forEach(item => {
+                        item.end = self.convertDateForFormatCalendar(item.end);
+                        item.start = self.convertDateForFormatCalendar(item.start);
+                        if (item.end !== null && item.start !== null) {
+                            self.events.push(item);
+                        }
+                    });
+                }
+            });
         },
+
         methods: {
 
+            convertDateForFormatCalendar(date) {
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            convertDateForFormatView(date) {
+                if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
             customEventCreation() {
                 const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
                 // Check if date format is correct before creating event.
@@ -291,7 +324,7 @@ if (document.getElementById("support_availability")) {
                         // Formatted start date and time or JavaScript Date object.
                         dateTime,
                         // Custom event props (optional).
-                        {title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}
+                        {title: 'New Event', content: 'yay! �', classes: ['leisure']}
                     )
                 } else if (dateTime) alert('Wrong date format.')
             },
@@ -308,14 +341,57 @@ if (document.getElementById("support_availability")) {
 
                 return [day, month, year].join('-');
             },
+            onEventCreate (event, deleteEventFunction) {
+                this.addedToEvents = false;
+                console.log('onEventCreate', event)
+                // this.createNewEvent(event);
+            },
+            onEventFocus() {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                this.onEventClick(event)
+                // return event;
+            },
+            onEventDragCreate(event) {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                // return this.createNewEvent(event)
+                return event;
+            },
+            onEventDurationChange(event) {
+                this.addedToEvents = false;
+                console.log('onEventDurationChange', event);
+                this.onEventClick(event);
+                return event;
+            },
             createNewEvent(date) {
+                console.log('createNewEvent');
                 console.log(date);
-                if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
+                this.selectedEventDrag = false;
+                if (date.start != null && typeof date.start != 'undefined') {
+                    date.start = this.convertDateForFormatView(date.start);
+                    this.selectedEventDrag = true;
+                }
+                if (date.end != null && typeof date.end != 'undefined') {
+                    date.end = this.convertDateForFormatView(date.end);
+                    this.selectedEventDrag = true;
+                }
+
+                if (!this.selectedEventDrag && (this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
                     this.clickedDate = new Date(date);
-                    this.clickedEndDate = "";
+                    this.clickedEndDate = new Date(date);
                     this.availability_selected_date = this.formatDate(date);
+                    this.availability_selected_end_date = this.formatDate(date);
                     this.availability_start_time = "00:01";
                     this.availability_end_time = "23:59";
+                } else if (this.selectedEventDrag) {
+                    var startdate = date.start.split(' ');
+                    var enddate = date.end.split(' ');
+                    this.availability_selected_date = startdate[0];
+                    this.availability_selected_end_date = enddate[0];
+                    this.availability_start_time = startdate[1];
+                    this.availability_end_time = enddate[1];
+                    this.selectedEventDrag = false
                 }
                 else {
                     this.clickedEndDate = new Date(date);
@@ -327,9 +403,10 @@ if (document.getElementById("support_availability")) {
                 var newObj =
                     {
                         start: this.availability_selected_date + " " + this.availability_start_time,
-                        end: this.formatDate(date) + " " + this.availability_end_time,
+                        end: this.availability_selected_end_date + " " + this.availability_end_time,
                         title: this.availability_title != "" ? this.availability_title : "•",
                         content: this.availability_content != "" ? this.availability_content : "•",
+                        skill_id: this.skill_id,
                         contentFull: this.availability_content,
                         class: 'selected_class'
                     };
@@ -374,6 +451,8 @@ if (document.getElementById("support_availability")) {
                             title: availability_title != "" ? availability_title : word,
                             content: availability_content != "" ? availability_content : word,
                             contentFull: availability_content != "" ? availability_content : word,
+                            recuring_date: (this.recuring_date == true) ? 'week' : null,
+                            skill_id: this.skill_id,
                             class: class_type
                         };
                 thistoast.options.position = 'center';
@@ -421,6 +500,7 @@ if (document.getElementById("support_availability")) {
                             end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
                             title: availability_title,
                             content: availability_content,
+                            skill_id: this.skill_id,
                             contentFull: availability_content,
                             class: class_type
                         };
@@ -429,13 +509,14 @@ if (document.getElementById("support_availability")) {
                 //this.events.push(newObj);
                 axios.post('/' + role + '/updateCalendarAvailability', updObj)
                     .then(function (response) {
-                        availability_start_time = '';
-                        availability_end_time = '';
-                        availability_title = '';
-                        availability_content = '';
-                        id = '';
-                        user_id = '';
-                        recuring_date = '';
+                        // availability_start_time = '';
+                        // availability_end_time = '';
+                        // availability_title = '';
+                        // availability_content = '';
+                        // skill = '';
+                        // id = '';
+                        // user_id = '';
+                        // recuring_date = '';
                         thistoast.success(' ', "Updated : \n" + updObj.start + " - " + updObj.end);
                     })
                     .catch(function (error) {
@@ -445,8 +526,8 @@ if (document.getElementById("support_availability")) {
                         }
                     });
             },
-            onEventClick (event, e) {
-                console.log(event);
+            onEventClick(event) {
+                // this.confButton();
                 this.selectedEvent = event;
                 var startdate = event.start.split(' ');
                 var enddate = event.end.split(' ');
@@ -455,29 +536,54 @@ if (document.getElementById("support_availability")) {
                 var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
 
                 this.availability_selected_date = formatdatestart;
+                this.availability_selected_end_date = formatdateend;
                 this.availability_start_time = startdate[1];
                 this.availability_end_time = enddate[1];
                 this.availability_content = event.contentFull;
+                this.skill_id = event.skill_id;
                 this.availability_title = event.title;
                 this.recuring_date = event.recuring_date;
                 this.user_id = event.user_id;
                 this.id = event.id;
 
-                if($(".classScrollTo").length) {
+            },
+            onEdeditableEvents(event) {
+                this.confButton();
+                console.log('onEdeditableEvents', event);
+                // this.selectedEvent = event;
+                // var startdate = event.start.split(' ');
+                // var enddate = event.end.split(' ');
+                //
+                // var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                // var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                //
+                // this.availability_selected_date = formatdatestart;
+                // this.availability_selected_end_date = formatdateend;
+                // this.availability_start_time = startdate[1];
+                // this.availability_end_time = enddate[1];
+                // this.availability_content = event.contentFull;
+                // this.skill_id = event.skill_id;
+                // this.availability_title = event.title;
+                // this.recuring_date = event.recuring_date;
+                // this.user_id = event.user_id;
+                // this.id = event.id;
+                // e.stopPropagation()
+            },
+            confButton() {
+                this.ckickedDate = true;
+                $(document).on('click', '.confirmButton', function () {
                     $('html, body').animate({
                         scrollTop: ($(".classScrollTo").offset().top)
                     }, 1000);
-                }
-                // Prevent navigating to narrower view (default vue-cal behavior).
-                e.stopPropagation()
+                });
             }
         }
     });
 }
 
 
-/*freelancer calendar*/
 
+/*freelancer calendar*/
 if (document.getElementById("freelancer_availability")) {
     var role = 'freelancer';
     const vmHeader = new Vue({
@@ -496,22 +602,56 @@ if (document.getElementById("freelancer_availability")) {
             clickedEndDate: "",
             recuring_date: "",
             user_id: "",
-            user_id: "",
+            skill_id: "",
             id: "",
             addedToEvents: false,
+            selectedEvent: null,
+            selectedEventDrag: false
         },
         created() {
             var events = [];
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(function (response) {
-                console.log(this);
-                if (response) {
-                    self.events = response.data;
+                if (self.events.length > 0) {
+                    self.events.splice(0);
                 }
-            })
+
+                if (response && Array.isArray(response.data)) {
+                    response.data.forEach(item => {
+                        item.end = self.convertDateForFormatCalendar(item.end);
+                        item.start = self.convertDateForFormatCalendar(item.start);
+                        if (item.end !== null && item.start !== null) {
+                            self.events.push(item);
+                        }
+                    });
+                }
+            });
         },
+
         methods: {
 
+            convertDateForFormatCalendar(date) {
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            convertDateForFormatView(date) {
+                if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
             customEventCreation() {
                 const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
                 // Check if date format is correct before creating event.
@@ -520,7 +660,7 @@ if (document.getElementById("freelancer_availability")) {
                         // Formatted start date and time or JavaScript Date object.
                         dateTime,
                         // Custom event props (optional).
-                        {title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}
+                        {title: 'New Event', content: 'yay! �', classes: ['leisure']}
                     )
                 } else if (dateTime) alert('Wrong date format.')
             },
@@ -537,14 +677,57 @@ if (document.getElementById("freelancer_availability")) {
 
                 return [day, month, year].join('-');
             },
+            onEventCreate (event, deleteEventFunction) {
+                this.addedToEvents = false;
+                console.log('onEventCreate', event)
+                // this.createNewEvent(event);
+            },
+            onEventFocus() {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                this.onEventClick(event)
+                // return event;
+            },
+            onEventDragCreate(event) {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                // return this.createNewEvent(event)
+                return event;
+            },
+            onEventDurationChange(event) {
+                this.addedToEvents = false;
+                console.log('onEventDurationChange', event);
+                this.onEventClick(event);
+                return event;
+            },
             createNewEvent(date) {
+                console.log('createNewEvent');
                 console.log(date);
-                if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
+                this.selectedEventDrag = false;
+                if (date.start != null && typeof date.start != 'undefined') {
+                    date.start = this.convertDateForFormatView(date.start);
+                    this.selectedEventDrag = true;
+                }
+                if (date.end != null && typeof date.end != 'undefined') {
+                    date.end = this.convertDateForFormatView(date.end);
+                    this.selectedEventDrag = true;
+                }
+
+                if (!this.selectedEventDrag && (this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
                     this.clickedDate = new Date(date);
-                    this.clickedEndDate = "";
+                    this.clickedEndDate = new Date(date);
                     this.availability_selected_date = this.formatDate(date);
+                    this.availability_selected_end_date = this.formatDate(date);
                     this.availability_start_time = "00:01";
                     this.availability_end_time = "23:59";
+                } else if (this.selectedEventDrag) {
+                    var startdate = date.start.split(' ');
+                    var enddate = date.end.split(' ');
+                    this.availability_selected_date = startdate[0];
+                    this.availability_selected_end_date = enddate[0];
+                    this.availability_start_time = startdate[1];
+                    this.availability_end_time = enddate[1];
+                    this.selectedEventDrag = false
                 }
                 else {
                     this.clickedEndDate = new Date(date);
@@ -556,9 +739,10 @@ if (document.getElementById("freelancer_availability")) {
                 var newObj =
                     {
                         start: this.availability_selected_date + " " + this.availability_start_time,
-                        end: this.formatDate(date) + " " + this.availability_end_time,
+                        end: this.availability_selected_end_date + " " + this.availability_end_time,
                         title: this.availability_title != "" ? this.availability_title : "•",
                         content: this.availability_content != "" ? this.availability_content : "•",
+                        skill_id: this.skill_id,
                         contentFull: this.availability_content,
                         class: 'selected_class'
                     };
@@ -603,6 +787,8 @@ if (document.getElementById("freelancer_availability")) {
                             title: availability_title != "" ? availability_title : word,
                             content: availability_content != "" ? availability_content : word,
                             contentFull: availability_content != "" ? availability_content : word,
+                            recuring_date: (this.recuring_date == true) ? 'week' : null,
+                            skill_id: this.skill_id,
                             class: class_type
                         };
                 thistoast.options.position = 'center';
@@ -650,6 +836,7 @@ if (document.getElementById("freelancer_availability")) {
                             end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
                             title: availability_title,
                             content: availability_content,
+                            skill_id: this.skill_id,
                             contentFull: availability_content,
                             class: class_type
                         };
@@ -658,13 +845,14 @@ if (document.getElementById("freelancer_availability")) {
                 //this.events.push(newObj);
                 axios.post('/' + role + '/updateCalendarAvailability', updObj)
                     .then(function (response) {
-                        availability_start_time = '';
-                        availability_end_time = '';
-                        availability_title = '';
-                        availability_content = '';
-                        id = '';
-                        user_id = '';
-                        recuring_date = '';
+                        // availability_start_time = '';
+                        // availability_end_time = '';
+                        // availability_title = '';
+                        // availability_content = '';
+                        // skill = '';
+                        // id = '';
+                        // user_id = '';
+                        // recuring_date = '';
                         thistoast.success(' ', "Updated : \n" + updObj.start + " - " + updObj.end);
                     })
                     .catch(function (error) {
@@ -674,8 +862,8 @@ if (document.getElementById("freelancer_availability")) {
                         }
                     });
             },
-            onEventClick (event, e) {
-                console.log(event);
+            onEventClick(event) {
+                // this.confButton();
                 this.selectedEvent = event;
                 var startdate = event.start.split(' ');
                 var enddate = event.end.split(' ');
@@ -684,21 +872,381 @@ if (document.getElementById("freelancer_availability")) {
                 var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
 
                 this.availability_selected_date = formatdatestart;
+                this.availability_selected_end_date = formatdateend;
                 this.availability_start_time = startdate[1];
                 this.availability_end_time = enddate[1];
                 this.availability_content = event.contentFull;
+                this.skill_id = event.skill_id;
                 this.availability_title = event.title;
                 this.recuring_date = event.recuring_date;
                 this.user_id = event.user_id;
                 this.id = event.id;
 
-                if($(".classScrollTo").length) {
+            },
+            onEdeditableEvents(event) {
+                this.confButton();
+                console.log('onEdeditableEvents', event);
+                // this.selectedEvent = event;
+                // var startdate = event.start.split(' ');
+                // var enddate = event.end.split(' ');
+                //
+                // var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                // var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                //
+                // this.availability_selected_date = formatdatestart;
+                // this.availability_selected_end_date = formatdateend;
+                // this.availability_start_time = startdate[1];
+                // this.availability_end_time = enddate[1];
+                // this.availability_content = event.contentFull;
+                // this.skill_id = event.skill_id;
+                // this.availability_title = event.title;
+                // this.recuring_date = event.recuring_date;
+                // this.user_id = event.user_id;
+                // this.id = event.id;
+                // e.stopPropagation()
+            },
+            confButton() {
+                this.ckickedDate = true;
+                $(document).on('click', '.confirmButton', function () {
                     $('html, body').animate({
                         scrollTop: ($(".classScrollTo").offset().top)
                     }, 1000);
+                });
+            }
+        }
+    });
+}
+
+
+/*employer calendar*/
+if (document.getElementById("employer_availability")) {
+    var role = 'employer';
+    const vmHeader = new Vue({
+        el: '#employer_availability',
+        components: {'vue-cal': vuecal, VueTimepicker},
+        data: {
+            calendarPlugins: [],
+            events: [],
+            availability_title: "",
+            availability_content: "",
+            availability_start_time: "",
+            availability_end_time: "",
+            availability_selected_date: "",
+            availability_selected_end_date: "",
+            clickedDate: "",
+            clickedEndDate: "",
+            recuring_date: "",
+            user_id: "",
+            skill_id: "",
+            id: "",
+            addedToEvents: false,
+            selectedEvent: null,
+            selectedEventDrag: false
+        },
+        created() {
+            var events = [];
+            let self = this;
+            axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                if (self.events.length > 0) {
+                    self.events.splice(0);
                 }
-                // Prevent navigating to narrower view (default vue-cal behavior).
-                e.stopPropagation()
+
+                if (response && Array.isArray(response.data)) {
+                    response.data.forEach(item => {
+                        item.end = self.convertDateForFormatCalendar(item.end);
+                        item.start = self.convertDateForFormatCalendar(item.start);
+                        if (item.end !== null && item.start !== null) {
+                            self.events.push(item);
+                        }
+                    });
+                }
+            });
+        },
+
+        methods: {
+
+            convertDateForFormatCalendar(date) {
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            convertDateForFormatView(date) {
+                if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            customEventCreation() {
+                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
+                // Check if date format is correct before creating event.
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
+                    this.$refs.vuecal.createEvent(
+                        // Formatted start date and time or JavaScript Date object.
+                        dateTime,
+                        // Custom event props (optional).
+                        {title: 'New Event', content: 'yay! �', classes: ['leisure']}
+                    )
+                } else if (dateTime) alert('Wrong date format.')
+            },
+            formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [day, month, year].join('-');
+            },
+            onEventCreate (event, deleteEventFunction) {
+                this.addedToEvents = false;
+                console.log('onEventCreate', event)
+                // this.createNewEvent(event);
+            },
+            onEventFocus() {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                this.onEventClick(event)
+                // return event;
+            },
+            onEventDragCreate(event) {
+                this.addedToEvents = false;
+                console.log('eventDragCreate', event);
+                // return this.createNewEvent(event)
+                return event;
+            },
+            onEventDurationChange(event) {
+                this.addedToEvents = false;
+                console.log('onEventDurationChange', event);
+                this.onEventClick(event);
+                return event;
+            },
+            createNewEvent(date) {
+                console.log('createNewEvent');
+                console.log(date);
+                this.selectedEventDrag = false;
+                if (date.start != null && typeof date.start != 'undefined') {
+                    date.start = this.convertDateForFormatView(date.start);
+                    this.selectedEventDrag = true;
+                }
+                if (date.end != null && typeof date.end != 'undefined') {
+                    date.end = this.convertDateForFormatView(date.end);
+                    this.selectedEventDrag = true;
+                }
+
+                if (!this.selectedEventDrag && (this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
+                    this.clickedDate = new Date(date);
+                    this.clickedEndDate = new Date(date);
+                    this.availability_selected_date = this.formatDate(date);
+                    this.availability_selected_end_date = this.formatDate(date);
+                    this.availability_start_time = "00:01";
+                    this.availability_end_time = "23:59";
+                } else if (this.selectedEventDrag) {
+                    var startdate = date.start.split(' ');
+                    var enddate = date.end.split(' ');
+                    this.availability_selected_date = startdate[0];
+                    this.availability_selected_end_date = enddate[0];
+                    this.availability_start_time = startdate[1];
+                    this.availability_end_time = enddate[1];
+                    this.selectedEventDrag = false
+                }
+                else {
+                    this.clickedEndDate = new Date(date);
+                    this.availability_selected_end_date = this.formatDate(date);
+                }
+                // this.availability_start_time = (this.availability_start_time != "") ? this.availability_start_time : "00:01";
+                // this.availability_end_time = (this.availability_end_time != "") ? this.availability_end_time : "23:59";
+
+                var newObj =
+                    {
+                        start: this.availability_selected_date + " " + this.availability_start_time,
+                        end: this.availability_selected_end_date + " " + this.availability_end_time,
+                        title: this.availability_title != "" ? this.availability_title : "•",
+                        content: this.availability_content != "" ? this.availability_content : "•",
+                        skill_id: this.skill_id,
+                        contentFull: this.availability_content,
+                        class: 'selected_class'
+                    };
+                console.log(newObj);
+                // if (busy) {
+                //     newObj.class = 'busy_class';
+                // }
+                if (!this.addedToEvents) {
+                    this.events.push(newObj);
+                    this.addedToEvents = true;
+                }
+                else {
+                    this.events.pop();
+                    this.events.push(newObj);
+                    this.addedToEvents = true;
+                }
+
+            },
+            saveNewEventBusy(e) {
+                this.saveNewEventAvailability(e, true);
+            },
+            saveNewEventAvailability(e, busy) {
+                e.preventDefault();
+                var word = '•';
+                var title_word = 'Available'
+                var class_type = 'available_class';
+                if (busy) {
+                    class_type = 'busy_class';
+                    word = title_word = 'Busy/Holiday';
+                }
+                e.target.classList.remove(class_type)
+                var
+                    availability_start_time = this.availability_start_time,
+                    availability_end_time = this.availability_end_time,
+                    availability_title = this.availability_title,
+                    availability_content = this.availability_content,
+                    thistoast = this.$toast,
+                    newObj =
+                        {
+                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
+                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
+                            title: availability_title != "" ? availability_title : word,
+                            content: availability_content != "" ? availability_content : word,
+                            contentFull: availability_content != "" ? availability_content : word,
+                            recuring_date: (this.recuring_date == true) ? 'week' : null,
+                            skill_id: this.skill_id,
+                            class: class_type
+                        };
+                thistoast.options.position = 'center';
+
+                //this.events.push(newObj);
+                axios.post('/' + role + '/saveCalendarAvailability', newObj)
+                    .then(function (response) {
+                        availability_start_time = '';
+                        availability_end_time = '';
+                        availability_title = '';
+                        availability_content = '';
+                        // console.log(response.data.status)
+                        // console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)
+                        if (busy) {
+                            thistoast.error(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
+                        } else {
+                            thistoast.success(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
+                        }
+                    })
+                    .catch(function (error) {
+                        // console.log(error);
+                        if (typeof error.response.data.errors != 'undefined') {
+                            thistoast.error('Error', error.status);
+                        }
+                    });
+            },
+            updateEvent(e){
+                e.preventDefault();
+                console.log(this);
+                var availability_start_time = this.availability_start_time,
+                    availability_end_time = this.availability_end_time,
+                    availability_title = this.availability_title,
+                    class_type = this.class_type,
+                    availability_content = this.availability_content,
+                    thistoast = this.$toast,
+                    id = this.id,
+                    user_id = this.user_id,
+                    recuring_date = (this.recuring_date == true) ? 'week' : null,
+                    updObj =
+                        {
+                            id: id,
+                            user_id: user_id,
+                            recuring_date: recuring_date,
+                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
+                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
+                            title: availability_title,
+                            content: availability_content,
+                            skill_id: this.skill_id,
+                            contentFull: availability_content,
+                            class: class_type
+                        };
+                thistoast.options.position = 'center';
+
+                //this.events.push(newObj);
+                axios.post('/' + role + '/updateCalendarAvailability', updObj)
+                    .then(function (response) {
+                        // availability_start_time = '';
+                        // availability_end_time = '';
+                        // availability_title = '';
+                        // availability_content = '';
+                        // skill = '';
+                        // id = '';
+                        // user_id = '';
+                        // recuring_date = '';
+                        thistoast.success(' ', "Updated : \n" + updObj.start + " - " + updObj.end);
+                    })
+                    .catch(function (error) {
+                        // console.log(error);
+                        if (typeof error.response != 'undefined') {
+                            thistoast.error('Error', error.status);
+                        }
+                    });
+            },
+            onEventClick(event) {
+                // this.confButton();
+                this.selectedEvent = event;
+                var startdate = event.start.split(' ');
+                var enddate = event.end.split(' ');
+
+                var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+
+                this.availability_selected_date = formatdatestart;
+                this.availability_selected_end_date = formatdateend;
+                this.availability_start_time = startdate[1];
+                this.availability_end_time = enddate[1];
+                this.availability_content = event.contentFull;
+                this.skill_id = event.skill_id;
+                this.availability_title = event.title;
+                this.recuring_date = event.recuring_date;
+                this.user_id = event.user_id;
+                this.id = event.id;
+
+            },
+            onEdeditableEvents(event) {
+                this.confButton();
+                console.log('onEdeditableEvents', event);
+                // this.selectedEvent = event;
+                // var startdate = event.start.split(' ');
+                // var enddate = event.end.split(' ');
+                //
+                // var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                // var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
+                //
+                // this.availability_selected_date = formatdatestart;
+                // this.availability_selected_end_date = formatdateend;
+                // this.availability_start_time = startdate[1];
+                // this.availability_end_time = enddate[1];
+                // this.availability_content = event.contentFull;
+                // this.skill_id = event.skill_id;
+                // this.availability_title = event.title;
+                // this.recuring_date = event.recuring_date;
+                // this.user_id = event.user_id;
+                // this.id = event.id;
+                // e.stopPropagation()
+            },
+            confButton() {
+                this.ckickedDate = true;
+                $(document).on('click', '.confirmButton', function () {
+                    $('html, body').animate({
+                        scrollTop: ($(".classScrollTo").offset().top)
+                    }, 1000);
+                });
             }
         }
     });
@@ -828,234 +1376,6 @@ if (page) {
                     self.skills = response.data.skills;
                 }
             });
-        }
-    });
-}
-
-/*employer calendar*/
-
-if (document.getElementById("employer_availability")) {
-    var role = 'employer';
-    const vmHeader = new Vue({
-        el: '#employer_availability',
-        components: {'vue-cal': vuecal, VueTimepicker},
-        data: {
-            calendarPlugins: [],
-            events: [],
-            availability_title: "",
-            availability_content: "",
-            availability_start_time: "",
-            availability_end_time: "",
-            availability_selected_date: "",
-            availability_selected_end_date: "",
-            clickedDate: "",
-            clickedEndDate: "",
-            recuring_date: "",
-            user_id: "",
-            user_id: "",
-            id: "",
-            addedToEvents: false,
-        },
-        created() {
-            var events = [];
-            let self = this;
-            axios.get('/' + role + '/getCalendarEvents').then(function (response) {
-                console.log(this);
-                if (response) {
-                    self.events = response.data;
-                }
-            })
-        },
-        methods: {
-
-            customEventCreation() {
-                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
-                // Check if date format is correct before creating event.
-                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
-                    this.$refs.vuecal.createEvent(
-                        // Formatted start date and time or JavaScript Date object.
-                        dateTime,
-                        // Custom event props (optional).
-                        {title: 'New Event', content: 'yay! 🎉', classes: ['leisure']}
-                    )
-                } else if (dateTime) alert('Wrong date format.')
-            },
-            formatDate(date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
-
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
-
-                return [day, month, year].join('-');
-            },
-            createNewEvent(date) {
-                console.log(date);
-                if ((this.clickedDate == "" && this.clickedEndDate == '') || (this.clickedDate != "" && this.clickedEndDate != '')) {
-                    this.clickedDate = new Date(date);
-                    this.clickedEndDate = "";
-                    this.availability_selected_date = this.formatDate(date);
-                    this.availability_start_time = "00:01";
-                    this.availability_end_time = "23:59";
-                }
-                else {
-                    this.clickedEndDate = new Date(date);
-                    this.availability_selected_end_date = this.formatDate(date);
-                }
-                // this.availability_start_time = (this.availability_start_time != "") ? this.availability_start_time : "00:01";
-                // this.availability_end_time = (this.availability_end_time != "") ? this.availability_end_time : "23:59";
-
-                var newObj =
-                    {
-                        start: this.availability_selected_date + " " + this.availability_start_time,
-                        end: this.formatDate(date) + " " + this.availability_end_time,
-                        title: this.availability_title != "" ? this.availability_title : "•",
-                        content: this.availability_content != "" ? this.availability_content : "•",
-                        contentFull: this.availability_content,
-                        class: 'selected_class'
-                    };
-                console.log(newObj);
-                // if (busy) {
-                //     newObj.class = 'busy_class';
-                // }
-                if (!this.addedToEvents) {
-                    this.events.push(newObj);
-                    this.addedToEvents = true;
-                }
-                else {
-                    this.events.pop();
-                    this.events.push(newObj);
-                    this.addedToEvents = true;
-                }
-
-            },
-            saveNewEventBusy(e) {
-                this.saveNewEventAvailability(e, true);
-            },
-            saveNewEventAvailability(e, busy) {
-                e.preventDefault();
-                var word = '•';
-                var title_word = 'Available'
-                var class_type = 'available_class';
-                if (busy) {
-                    class_type = 'busy_class';
-                    word = title_word = 'Busy/Holiday';
-                }
-                e.target.classList.remove(class_type)
-                var
-                    availability_start_time = this.availability_start_time,
-                    availability_end_time = this.availability_end_time,
-                    availability_title = this.availability_title,
-                    availability_content = this.availability_content,
-                    thistoast = this.$toast,
-                    newObj =
-                        {
-                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
-                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
-                            title: availability_title != "" ? availability_title : word,
-                            content: availability_content != "" ? availability_content : word,
-                            contentFull: availability_content != "" ? availability_content : word,
-                            class: class_type
-                        };
-                thistoast.options.position = 'center';
-
-                //this.events.push(newObj);
-                axios.post('/' + role + '/saveCalendarAvailability', newObj)
-                    .then(function (response) {
-                        availability_start_time = '';
-                        availability_end_time = '';
-                        availability_title = '';
-                        availability_content = '';
-                        // console.log(response.data.status)
-                        // console.log('Success ' + word + ': ' + newObj.start + '-' + newObj.end)
-                        if (busy) {
-                            thistoast.error(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
-                        } else {
-                            thistoast.success(' ', "Success " + title_word + ": \n" + newObj.start + " - " + newObj.end);
-                        }
-                    })
-                    .catch(function (error) {
-                        // console.log(error);
-                        if (typeof error.response.data.errors != 'undefined') {
-                            thistoast.error('Error', error.status);
-                        }
-                    });
-            },
-            updateEvent(e){
-                e.preventDefault();
-                console.log(this);
-                var availability_start_time = this.availability_start_time,
-                    availability_end_time = this.availability_end_time,
-                    availability_title = this.availability_title,
-                    class_type = this.class_type,
-                    availability_content = this.availability_content,
-                    thistoast = this.$toast,
-                    id = this.id,
-                    user_id = this.user_id,
-                    recuring_date = (this.recuring_date == true) ? 'week' : null,
-                    updObj =
-                        {
-                            id: id,
-                            user_id: user_id,
-                            recuring_date: recuring_date,
-                            start: this.availability_selected_date + " " + (availability_start_time != "" ? availability_start_time : "00:01"),
-                            end: (this.availability_selected_end_date != '' ? this.availability_selected_end_date : this.availability_selected_date) + " " + (availability_end_time != "" ? availability_end_time : "23:59"),
-                            title: availability_title,
-                            content: availability_content,
-                            contentFull: availability_content,
-                            class: class_type
-                        };
-                thistoast.options.position = 'center';
-
-                //this.events.push(newObj);
-                axios.post('/' + role + '/updateCalendarAvailability', updObj)
-                    .then(function (response) {
-                        availability_start_time = '';
-                        availability_end_time = '';
-                        availability_title = '';
-                        availability_content = '';
-                        id = '';
-                        user_id = '';
-                        recuring_date = '';
-                        thistoast.success(' ', "Updated : \n" + updObj.start + " - " + updObj.end);
-                    })
-                    .catch(function (error) {
-                        // console.log(error);
-                        if (typeof error.response != 'undefined') {
-                            thistoast.error('Error', error.status);
-                        }
-                    });
-            },
-            onEventClick (event, e) {
-                console.log(event);
-                this.selectedEvent = event;
-                var startdate = event.start.split(' ');
-                var enddate = event.end.split(' ');
-
-                var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
-                var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
-
-                this.availability_selected_date = formatdatestart;
-                this.availability_start_time = startdate[1];
-                this.availability_end_time = enddate[1];
-                this.availability_content = event.contentFull;
-                this.availability_title = event.title;
-                this.recuring_date = event.recuring_date;
-                this.user_id = event.user_id;
-                this.id = event.id;
-
-                if($(".classScrollTo").length) {
-                    $('html, body').animate({
-                        scrollTop: ($(".classScrollTo").offset().top)
-                    }, 1000);
-                }
-                // Prevent navigating to narrower view (default vue-cal behavior).
-                e.stopPropagation()
-            }
         }
     });
 }
@@ -5765,6 +6085,7 @@ $(document).ready(function () {
     setTimeout(function () {
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
         $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
         $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
     }, 2000);
 
@@ -5787,17 +6108,38 @@ $(document).ready(function () {
         $('#employer_availability .bookbutton').remove();
         $('#freelancer_availability .bookbutton').remove();
         $('#freelancer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
         $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
 
     });
 
+    $(document).on('click', '.vuecal__cell-content, .vuecal__cell--selected, .vuecal__cell--has-events', function () {
+        if(!$('.confirmButton').length) {
+            $('.vuecal__header').before('<button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>');
+        } else {
+            $('.confirmButton').slideDown();
+        }
+    });
 
     $(document).on('click', '.bookbutton, .availButton', function () {
         // $('.vuecal ').slideUp();
+
+        // $('html, body').animate({
+        //     scrollTop: ($(".classScrollTo").offset().top)
+        // }, 1000);
+    });
+
+    // $(document).on('click', '.vuecal__cell', function () {
+    //     $('.confirmButton').slideUp();
+    // });
+
+    $(document).on('click', '.confirmButton', function () {
         $('html, body').animate({
             scrollTop: ($(".classScrollTo").offset().top)
         }, 1000);
     });
+
+
     $(document).on('click', '.openCal', function () {
         // $('.vuecal ').slideDown();
         $('#post_job .bookbutton').remove();
