@@ -62,32 +62,6 @@
     'Community Service'=>'Community Service',
     'Other'=>'Other',
     );
-    $arrProfReq = array(
-        'GP'=>'GP',
-        'Physicians Associate/Assistant'=>'Physicians Associate/Assistant',
-        'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
-        'Practice Nurse'=>'Practice Nurse',
-        'Community Nurse'=>'Community Nurse',
-        'District Nurse'=>'District Nurse',
-        'Health Care Assistant'=>'Health Care Assistant',
-        'Phlebotomist'=>'Phlebotomist',
-        'Clinical Pharmacist'=>'Clinical Pharmacist',
-        'Community Psychiatric Nurse'=>'Community Psychiatric Nurse',
-        'Mental Health Nurse'=>'Mental Health Nurse',
-        'Counsellor'=>'Counsellor',
-        'Drug and Alcohol worker'=>'Drug and Alcohol worker',
-        'Social Worker'=>'Social Worker',
-
-    );
-    $arrSupportProfReq = [
-        'Admin & Clerical'=>'Admin & Clerical',
-        'Receptionist'=>'Receptionist',
-        'Secretary'=>'Secretary',
-        'Driver'=>'Driver',
-        'Cleaner'=>'Cleaner',
-        'Practice Manager'=>'Practice Manager',
-        'Read Coder'=>'Read Coder',
-	];
 
     $arrSpecialInterests = array(
     'Diabetes'=>'Diabetes',
@@ -819,9 +793,9 @@
                                                                                        placeholder="Direct Contact No">
                                                                             </div>
                                                                         </div>
-                                                                        {{--<div class="form-group">--}}
-                                                                        {{--{!! Form::select('prof_required', $arrProfReq, null, array('placeholder' => "Professional Required")) !!}--}}
-                                                                        {{--</div>--}}
+                                                                        <div class="form-group">
+                                                                            {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), null, array('placeholder' => "Professional Required")) !!}
+                                                                        </div>
                                                                         <div class="form-group">
                                                                             <div class="wt-tabscontenttitle">
                                                                                 <h2>Company Policies and
@@ -921,13 +895,13 @@
 
     <div class="form-group form-group-half" v-if="user_role=='freelancer'">
         <span class="wt-select">
-        {!! Form::select('profession', $arrProfReq, null, array('placeholder' => "Profession")) !!}
+        {!! Form::select('profession', \App\User::getProfessionsByRole('freelancer'), null, array('placeholder' => "Profession")) !!}
         </span>
     </div>
 
     <div class="form-group form-group-half" v-if="user_role=='support'">
         <span class="wt-select">
-        {!! Form::select('profession', $arrSupportProfReq, null, array('placeholder' => "Profession")) !!}
+        {!! Form::select('profession', \App\User::getProfessionsByRole('support'), null, array('placeholder' => "Profession")) !!}
         </span>
     </div>
 

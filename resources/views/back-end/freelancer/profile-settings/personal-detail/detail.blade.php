@@ -1,23 +1,4 @@
 @php
-
-        $arrProfReq = array(
-        'GP'=>'GP',
-        'Physicians Associate/Assistant'=>'Physicians Associate/Assistant',
-        'Advanced Nurse Practitioner'=>'Advanced Nurse Practitioner',
-        'Practice Nurse'=>'Practice Nurse',
-        'Community Nurse'=>'Community Nurse',
-        'District Nurse'=>'District Nurse',
-        'Health Care Assistant'=>'Health Care Assistant',
-        'Phlebotomist'=>'Phlebotomist',
-        'Clinical Pharmacist'=>'Clinical Pharmacist',
-        'Community Psychiatric Nurse'=>'Community Psychiatric Nurse',
-        'Mental Health Nurse'=>'Mental Health Nurse',
-        'Counsellor'=>'Counsellor',
-        'Drug and Alcohol worker'=>'Drug and Alcohol worker',
-        'Social Worker'=>'Social Worker',
-     );
-
-
         $user = Auth::user();
 @endphp
 <div class="wt-tabscontenttitle">
@@ -41,7 +22,7 @@
 
         <div class="form-group">
             <span class="wt-select">
-            {!! Form::select('profession', $arrProfReq, $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
+            {!! Form::select('profession', \App\User::getProfessionsByRole('freelancer'), $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
             </span>
         </div>
         <div class="form-group form-group-half">

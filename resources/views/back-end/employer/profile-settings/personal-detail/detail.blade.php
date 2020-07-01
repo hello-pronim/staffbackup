@@ -326,6 +326,15 @@
     </fieldset>
 </div>
 
+<div class="wt-tabscontenttitle">
+    <h2>Professional Required</h2>
+</div>
+<div class="lara-detail-form">
+    <div class="form-group">
+        {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), data_get($profile, 'user.prof_required', null), array('placeholder' => "Professional Required")) !!}
+    </div>
+</div>
+
 <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your service</label>
 
 <div class="wt-tabscontenttitle">
