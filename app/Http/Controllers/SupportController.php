@@ -294,7 +294,10 @@ class SupportController extends Controller
 
     public function bookingAndAvailability()
     {
-       return view('back-end.support.profile-settings.booking_availability');
+        $skills = Skill::pluck('title', 'id');
+       return view('back-end.support.profile-settings.booking_availability',compact(
+           'skills'
+       ));
     }
 
     /**
@@ -1008,6 +1011,8 @@ class SupportController extends Controller
             $arrEvent['contentFull'] = $request['contentFull'];
             $arrEvent['start'] = $request['start'];
             $arrEvent['end'] = $request['end'];
+            $arrEvent['skill_id'] = null;
+            $arrEvent['recuring_date'] = $request['recuring_date'];
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
                 $arrEvent

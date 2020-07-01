@@ -177,6 +177,7 @@
                                  default-view="month"
                          events-on-month-view="short"
                          resize-y
+                         resize-x
                          editable-events
                          {{--:on-event-create="onEventCreate"--}}
                          {{--@event-drag-create="onEventCreate"--}}
