@@ -1,6 +1,7 @@
 <template>
     <div v-if="renderComponent">
         <div class="wt-tabscontent tab-content" >
+            <button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>
             <vue-cal v-if="renderComponent" ref="vuecal" style="height: 650px"
                      :time-from="0 * 60"
                      :time-to="24 * 60"
@@ -63,6 +64,14 @@
                             <label for="availability_title2">Content:</label>
                             <input id="availability_title2" class="form-control" placeholder="Availability Content" v-model="availability_content"/>
                         </div>
+                        <div class="form-group">
+                            <h2>{{ trans('lang.skills') }}</h2>
+                            <div class="wt-checkboxholder wt-verticalscrollbar" v-for="(item, index) in getSkills">
+                                {{item}} - {{index}}
+                            </div>
+
+                        </div>
+
                         <div class="form-group">
                             <button class="btn btn-success" @click="saveNewEventAvailability">Create
                                 Availability
@@ -270,4 +279,22 @@
     /*#booking_data .slide-fade--right-enter {
         opacity: 1;
     }*/
+     .vuecal__event {background-color: rgba(76, 172, 175, 0.35);}
+     .vuecal__cell--selected {
+         background-color: rgba(235,255,245,1) !important;
+         /*border: 2px solid #ff0000 !important;*/
+     }
+    .vuecal__event--focus, .vuecal__event:focus {
+        box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
+        z-index: 3;
+        outline: none;
+    }
+    .vuecal__event--dragging{
+        background-color:#ff0000;
+    }
+    .vuecal__event--focus, .vuecal__event:focus {
+        box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
+        z-index: 3;
+        outline: none;
+    }
 </style>

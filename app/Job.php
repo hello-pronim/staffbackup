@@ -207,11 +207,12 @@ class Job extends Model
             $arrNewEvent = [];
             $arrNewEvent['user_id'] = Auth::user()->id;
             $arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
-            $arrNewEvent['end'] = $request['start_date'] . ' ' . $request['booking_end'];
+            $arrNewEvent['end'] = $request['end_date'] . ' ' . $request['booking_end'];
             $arrNewEvent['title'] = $request['title'];
             $arrNewEvent['recuring_date'] = $request['recuring_date'];
             $arrNewEvent['content'] = $request['booking_content'];
             $arrNewEvent['class'] = 'booking_calendar';
+            $arrNewEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:'';
 
             DB::table('calendar_events')->insert($arrNewEvent);
 

@@ -175,10 +175,17 @@
                                  :disable-views="['years', 'year']"
                                  :events="events"
                                  default-view="month"
-                                 {{--:events-on-month-view="[true, 'short'][false * 1]"--}}
-                                 :on-event-click="onEventClick"
-                                 @cell-click="createNewEvent">
-                        </vue-cal>
+                         events-on-month-view="short"
+                         resize-y
+                         editable-events
+                         {{--:on-event-create="onEventCreate"--}}
+                         {{--@event-drag-create="onEventCreate"--}}
+                         @event-drag-create="onEventCreate"
+                         :on-event-click="onEventClick"
+                         {{--@cell-click=false--}}
+                >
+                    <button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>
+                </vue-cal>
 
                         <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                             <h2>
@@ -187,7 +194,7 @@
                                 Red equals away on holiday<br>
                             </h2>
                         </div>
-                        <div v-if="clickedDate != ''">
+                <div{{-- v-if="clickedDate != ''"--}}>
                             <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Create new availability</h2>
@@ -196,11 +203,14 @@
                             <div class="wt-accordiondetails">
 
 
-                                <form>
-                                    <div class="form-group classScrollTo" style="">
-                                        <label>Selected Date </label>
-
-                                        <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">
+                        <form>
+                            <div class="form-group form-group-half classScrollTo" style="">
+                                <label>Selected Start Date </label>
+                                <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">
+                            </div>
+                            <div class="form-group form-group-half" style="">
+                                <label>Selected End Date </label>
+                                <input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_end_date">
                                     </div>
                                     <div class="form-group form-group-half">
                                         <label for="availability_start_time">Holiday Start date/time:</label>

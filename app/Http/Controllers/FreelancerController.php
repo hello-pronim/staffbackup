@@ -714,6 +714,7 @@ class FreelancerController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
+            $skills = Skill::pluck('title', 'id');
 
 
             if (file_exists(resource_path('views/extend/back-end/freelancer/dashboard.blade.php'))) {
@@ -741,7 +742,8 @@ class FreelancerController extends Controller
                         'completed_services_icon',
                         'ongoing_services_icon',
                         'enable_package',
-                        'package'
+                        'package',
+                        'skills'
 
 
                     )
@@ -771,7 +773,8 @@ class FreelancerController extends Controller
                         'completed_services_icon',
                         'ongoing_services_icon',
                         'enable_package',
-                        'package'
+                        'package',
+                        'skills'
                     )
                 );
             }
@@ -1019,6 +1022,7 @@ class FreelancerController extends Controller
             $arrEvent['contentFull'] = $request['contentFull'];
             $arrEvent['start'] = $request['start'];
             $arrEvent['end'] = $request['end'];
+            $arrEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:'';
             $arrEvent['recuring_date'] = $request['recuring_date'];
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
@@ -1061,7 +1065,7 @@ class FreelancerController extends Controller
 
         }
         else{
-            return false;
+            return [];
         }
     }
 }
