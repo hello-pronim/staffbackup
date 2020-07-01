@@ -303,91 +303,101 @@
                    placeholder="Practice Code"
                    value="{{ $user->practice_code }}">
         </div>
-    </fieldset>
+    </fieldset><br>
 </div>
 
-<div class="wt-tabscontenttitle">
-    <h2>Company Contacts</h2>
-</div>
-<div class="lara-detail-form">
-    <fieldset>
-      <div class="form-group form-group-half">
-          {!! Form::text( 'emp_contact', e($user->emp_contact), ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}
-      </div>
-      <div class="form-group form-group-half">
-          {!! Form::tel( 'emp_telno', e($user->emp_telno), ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}
-      </div>
-      <div class="form-group form-group-half">
-          {!! Form::url( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}
-      </div>
-      <div class="form-group form-group-half">
-          {!! Form::email( 'emp_email', e($user->emp_email), ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}
-      </div>
-    </fieldset>
-</div>
-
-<div class="wt-tabscontenttitle">
-    <h2>Professional Required</h2>
-</div>
-<div class="lara-detail-form">
-    <div class="form-group">
-        {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), data_get($profile, 'user.prof_required', null), array('placeholder' => "Professional Required")) !!}
-    </div>
-</div>
+{{--<div class="wt-tabscontenttitle">--}}
+    {{--<h2>Company Contacts</h2>--}}
+{{--</div>--}}
+{{--<div class="lara-detail-form">--}}
+    {{--<fieldset>--}}
+      {{--<div class="form-group form-group-half">--}}
+          {{--{!! Form::text( 'emp_contact', e($user->emp_contact), ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group form-group-half">--}}
+          {{--{!! Form::tel( 'emp_telno', e($user->emp_telno), ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group form-group-half">--}}
+          {{--{!! Form::url( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}--}}
+      {{--</div>--}}
+      {{--<div class="form-group form-group-half">--}}
+          {{--{!! Form::email( 'emp_email', e($user->emp_email), ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}--}}
+      {{--</div>--}}
+    {{--</fieldset>--}}
+{{--</div>--}}
 
 <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your service</label>
 
+<div class="lara-detail-form">
+    <fieldset>
+        <div class="form-group">
+            {!! Form::text('org_desc', $user->org_desc, ['class' => 'form-group', 'placeholder' => 'Organisation description']) !!}
+        </div>
+    </fieldset><br>
+</div>
 <div class="wt-tabscontenttitle">
     <h2>Certifications</h2>
 </div>
+
 <div class="lara-detail-form">
     <fieldset>
-      <div class="form-group form-group-half">
-          {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, $user->emp_cqc_rating_date, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group')) !!}
-      </div>
-      <div class="form-group form-group-half">
-          {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
-      </div>
-      {{--<div class="form-group">--}}
-          {{--{!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('class' => 'form-group', 'placeholder' => "Organisation type")) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group form-group-half ">--}}
-          {{--{!! Form::text('org_desc', $user->org_desc, ['class' => 'form-group', 'placeholder' => 'Organisation description']) !!}--}}
-      {{--</div>--}}
+        <div class="form-group form-group-half">
+            {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, $user->emp_cqc_rating_date, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group')) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
+        </div>
+        {{--<div class="form-group">--}}
+        {{--{!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type, array('class' => 'form-group', 'placeholder' => "Organisation type")) !!}--}}
+        {{--</div>--}}
 
-      {{--<div class="form-group ">--}}
-          {{--{!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group ">--}}
-          {{--<input id="other_setting" type="text"--}}
-                 {{--class="form-control"--}}
-                 {{--name="setting[]"--}}
-                 {{--placeholder="Other Setting">--}}
-      {{--</div>--}}
-      <div class="form-group form-group">
-          <label for="insurance"
-                 style="display: inline-block">Insurance  Details</label>
-              <input
-                  type="checkbox"
-                  name="insurance"
-                  {{$user->insurance=='on'? 'checked' : ''}}
-                  placeholder="In surance"/>
-      </div>
-      {{--<div class="form-group ">--}}
-          {{--<input type="text"--}}
-                 {{--class="form-control bg-success"--}}
-                 {{--name="org_name"--}}
-                 {{--value="{{$user->org_name}}"--}}
-                 {{--placeholder="Organisation name">--}}
-      {{--</div>--}}
-      <div class="form-group">
-          {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
-      </div>
-      <div class="form-group">
-          {!! Form::textarea( 'description', e($description), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_desc')] ) !!}
-      </div>
+
+        {{--<div class="form-group ">--}}
+        {{--{!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}--}}
+        {{--</div>--}}
+        {{--<div class="form-group ">--}}
+        {{--<input id="other_setting" type="text"--}}
+        {{--class="form-control"--}}
+        {{--name="setting[]"--}}
+        {{--placeholder="Other Setting">--}}
+        {{--</div>--}}
+        <div class="form-group form-group">
+            <label for="insurance"
+                   style="display: inline-block">Insurance  Details</label>
+            <input
+                    type="checkbox"
+                    name="insurance"
+                    {{$user->insurance=='on'? 'checked' : ''}}
+                    placeholder="In surance"/>
+        </div>
+        <div class="form-group ">
+            <input type="text"
+                   class="form-control bg-success"
+                   name="org_name"
+                   value="{{$user->org_name}}"
+                   placeholder="Organisation name">
+        </div>
+        <div class="form-group">
+            {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::textarea( 'description', e($description), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_desc')] ) !!}
+        </div>
     </fieldset>
+    <br>
 </div>
+
+
+
+{{--<div class="wt-tabscontenttitle">--}}
+    {{--<h2>Professional Required</h2>--}}
+{{--</div>--}}
+{{--<div class="lara-detail-form">--}}
+    {{--<div class="form-group">--}}
+        {{--{!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), data_get($profile, 'user.prof_required', null), array('placeholder' => "Professional Required")) !!}--}}
+    {{--</div>--}}
+{{--</div>--}}
+
 {{--<div class="wt-tabscontenttitle">--}}
     {{--<h2>Certifications</h2>--}}
 {{--</div>--}}
@@ -437,10 +447,10 @@
     {{--</fieldset>--}}
 {{--</div>--}}
 
-<div class="wt-tabscontenttitle bg-success" style="margin-top: 20px;">
+<div class="wt-tabscontenttitle">
     <h2>Computer System in use</h2>
 </div>
-<div class="wt-formtheme bg-success">
+<div class="wt-formtheme">
     <div class="form-group ">
       <multiselect v-model="itsoftware"
                    :options="itsoftware_options"
@@ -458,11 +468,12 @@
       </select>
     </div>
 </div>
+
+
+
 <div class="wt-tabscontenttitle">
-    <h2>{{{ trans('lang.your_details') }}}</h2>
+    <h2>Contact Information</h2>
 </div>
-
-
 <div class="lara-detail-form">
     <fieldset>
         <div class="form-group form-group-20">
