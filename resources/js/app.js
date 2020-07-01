@@ -4279,8 +4279,8 @@ if (document.getElementById("post_job")) {
                 this.loading = true;
                 let register_Form = document.getElementById('post_job_form');
                 let form_data = new FormData(register_Form);
-                var description = tinyMCE.get('wt-tinymceeditor').getContent();
-                form_data.append('description', description);
+                // var description = tinyMCE.get('wt-tinymceeditor').getContent();
+                // form_data.append('description', description);
                 var self = this;
                 axios.post(APP_URL + '/job/post-job', form_data)
                     .then(function (response) {
@@ -4315,9 +4315,9 @@ if (document.getElementById("post_job")) {
                         // if (error.response.data.errors.project_cost) {
                         //     self.showError(error.response.data.errors.project_cost[0]);
                         // }
-                        if (error.response.data.errors.description) {
-                            self.showError(error.response.data.errors.description[0]);
-                        }
+                        // if (error.response.data.errors.description) {
+                        //     self.showError(error.response.data.errors.description[0]);
+                        // }
                         if (error.response.data.errors.booking_start) {
                             self.showError(error.response.data.errors.booking_start[0]);
                         }
@@ -4331,8 +4331,8 @@ if (document.getElementById("post_job")) {
                 this.loading = true;
                 let register_Form = document.getElementById('job_edit_form');
                 let form_data = new FormData(register_Form);
-                var description = tinyMCE.get('wt-tinymceeditor').getContent();
-                form_data.append('description', description);
+                // var description = tinyMCE.get('wt-tinymceeditor').getContent();
+                // form_data.append('description', description);
                 form_data.append('id', id);
                 var self = this;
                 axios.post(APP_URL + '/job/update-job', form_data)
@@ -4368,9 +4368,9 @@ if (document.getElementById("post_job")) {
                         // if (error.response.data.errors.project_cost) {
                         //     self.showError(error.response.data.errors.project_cost[0]);
                         // }
-                        if (error.response.data.errors.description) {
-                            self.showError(error.response.data.errors.description[0]);
-                        }
+                        // if (error.response.data.errors.description) {
+                        //     self.showError(error.response.data.errors.description[0]);
+                        // }
                     });
             },
             getSettings: function () {

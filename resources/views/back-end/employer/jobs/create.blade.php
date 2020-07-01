@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="form-group" style="margin-top: 25px;">
                                         <label>Booking description</label>
-                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
+                                        {!! Form::textarea('booking_content', null, ['class' => 'wt-tinymceeditor', 'id' => 'wt-tinymceeditor','placeholder' => 'Booking description']) !!}
                                     </div>
                                     {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
 
@@ -181,7 +181,7 @@
 
                             <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
-                                    <h2>{{ trans('lang.job_desc') }}</h2>
+                                    <h2>{{ trans('lang.job_title') }}</h2>
                                 </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo">
                                     <fieldset>
@@ -242,14 +242,14 @@
                                     <input type="text"
                                            class="form-control"
                                            name="org_name"
-                                           value="{{$user->org_name}}"
+                                           value="{{$user->emp_contact}}"
                                            placeholder="Organisation name">
                                 </div>
                                 <div class="form-group form-group-half">
                                     <input id="organisation_position" type="text"
                                            class="form-control"
                                            name="organisation_position"
-                                           value="{{$user->organisation_position}}"
+                                           value="{{$user->emp_pos}}"
 
                                            placeholder="Position">
                                 </div>
@@ -257,7 +257,7 @@
                                     <input id="organisation_email" type="email"
                                            class="form-control"
                                            name="organisation_email"
-                                           value="{{$user->organisation_email}}"
+                                           value="{{$user->emp_email}}"
 
                                            placeholder="Email">
                                 </div>
@@ -265,7 +265,7 @@
                                     <input id="organisation_contact" type="text"
                                            class="form-control"
                                            name="organisation_contact"
-                                           value="{{$user->organisation_contact}}"
+                                           value="{{$user->emp_telno}}"
                                            placeholder="Direct Contact No">
                                 </div>
 

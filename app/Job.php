@@ -212,7 +212,7 @@ class Job extends Model
             $arrNewEvent['recuring_date'] = $request['recuring_date'];
             $arrNewEvent['content'] = $request['booking_content'];
             $arrNewEvent['class'] = 'booking_calendar';
-            $arrNewEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:'';
+            $arrNewEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:null;
 
             DB::table('calendar_events')->insert($arrNewEvent);
 
