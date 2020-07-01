@@ -304,7 +304,12 @@ class FreelancerController extends Controller
 
     public function bookingAndAvailability()
     {
-       return view('back-end.freelancer.profile-settings.booking_availability');
+        $skills = Skill::pluck('title', 'id');
+
+        return view('back-end.freelancer.profile-settings.booking_availability',
+            compact(
+                'skills'
+            ));
     }
 
     /**
@@ -1022,7 +1027,7 @@ class FreelancerController extends Controller
             $arrEvent['contentFull'] = $request['contentFull'];
             $arrEvent['start'] = $request['start'];
             $arrEvent['end'] = $request['end'];
-            $arrEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:'';
+            $arrEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:null;
             $arrEvent['recuring_date'] = $request['recuring_date'];
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
@@ -1045,6 +1050,7 @@ class FreelancerController extends Controller
             $arrEvent->contentFull = $request['contentFull']?$request['contentFull']:"";
             $arrEvent->start = $request['start']?$request['start']:"";
             $arrEvent->end = $request['end']?$request['end']:"";
+            $arrEvent->skill_id = $request['skill_id']?$request['skill_id']:null;
             $arrEvent->recuring_date = $request['recuring_date']?$request['recuring_date']:"";
             $arrEvent->class = $request['class']?$request['class']:"";
             $arrEvent->save();
