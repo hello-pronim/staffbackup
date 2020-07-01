@@ -304,7 +304,7 @@ class JobController extends Controller
             [
                 'title' => 'required',
                 //'job_duration'    => 'required',
-                'description'    => 'required',
+                //'description'    => 'required',
                 'start_date'    => 'required',
                 'booking_start'    => 'required',
                 'booking_end'    => 'required',

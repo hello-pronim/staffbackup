@@ -175,15 +175,15 @@
                                  :disable-views="['years', 'year']"
                                  :events="events"
                                  default-view="month"
-                         events-on-month-view="short"
-                         resize-y
-                         resize-x
-                         editable-events
-                         {{--:on-event-create="onEventCreate"--}}
-                         {{--@event-drag-create="onEventCreate"--}}
-                         @event-drag-create="onEventCreate"
-                         :on-event-click="onEventClick"
-                         {{--@cell-click=false--}}
+                                 events-on-month-view="short"
+                                 resize-y
+                                 resize-x
+                                 editable-events
+                                 {{--:on-event-create="onEventCreate"--}}
+                                 {{--@event-drag-create="onEventCreate"--}}
+                                 @event-drag-create="onEventCreate"
+                                 :on-event-click="onEventClick"
+                                 {{--@cell-click=false--}}
                 >
                     <button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>
                 </vue-cal>
