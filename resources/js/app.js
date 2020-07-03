@@ -4522,12 +4522,18 @@ if (document.getElementById("post_job_dashboard")) {
                 console.log(date);
                 this.clickedDate = true;
                 // this.selecteddate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
-                this.selecteddate = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate();
+                this.selecteddate = date.getFullYear() + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
                 if(this.selecteddate < this.selecteddate_end) {
-                    this.selecteddate_end = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
+                    this.selecteddate_end = date.getFullYear() + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
                 }
                 this.start = (this.start!='')?this.start:'00:00';
                 this.end = (this.end!='')?this.end:'23:59';
+                setTimeout(function () {
+                    $('html, body').animate({
+                        scrollTop: ($(".classScrollTo").offset().top)
+                    }, 1000);
+                })
+
             },
             createList(event) {
                 console.log(this.selecteddate);
@@ -4548,7 +4554,7 @@ if (document.getElementById("post_job_dashboard")) {
                 // event.preventDefault();
             },
             changeSelectedDateEnd(date) {
-                this.selecteddate_end = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
+                this.selecteddate_end = ('0' + date.getDate()).slice(-2) + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + date.getFullYear();
                 this.start = (this.start!='')?this.start:'00:00';
                 this.end = (this.end!='')?this.end:'23:59';
             },
@@ -4561,7 +4567,7 @@ if (document.getElementById("post_job_dashboard")) {
             },
             changeSelectedLastRecuringDate(event){
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-                this.selecteddate = date.getDate() + "/" + (date.getMonth() + 1) + '/' + date.getFullYear();
+                this.selecteddate = ('0' + date.getDate()).slice(-2) + "/" + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
                 jQuery('#calendar_small').hide();
                 //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
                 // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
@@ -4591,8 +4597,9 @@ if (document.getElementById("post_job_dashboard")) {
                         if (response.data.type == 'success') {
                             self.loading = false;
                             self.showInfo(Vue.prototype.trans('lang.job_submitting'));
-                            self.setBooking(self);
-
+                            setTimeout(function () {
+                                window.location.replace(APP_URL + '/employer/dashboard');
+                            }, 4000);
                         } else {
                             self.loading = false;
                             self.showError(response.data.message);
@@ -6413,12 +6420,6 @@ $(document).ready(function () {
         $('#calendar_small').toggle("slow", function () {
         });
     });
-    $('#post_job_dashboard_form, .selectDatePicker').click(function (event) {
-        event.stopPropagation();
-
-        $('#calendar_small').toggle("slow", function () {
-        });
-    });
     $(window).click(function () {
         $('#calendar_small').slideUp('slow');
     });
@@ -6432,13 +6433,6 @@ $(document).ready(function () {
 
     });
 
-    // $(document).on('click', '.vuecal__cell-content, .vuecal__cell--selected, .vuecal__cell--has-events', function () {
-    //     if(!$('.confirmButton').length) {
-    //         $('.vuecal__header').before('<button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>');
-    //     } else {
-    //         $('.confirmButton').slideDown();
-    //     }
-    // });
 
     $(document).on('click', '.bookbutton, .availButton', function () {
         // $('.vuecal ').slideUp();
