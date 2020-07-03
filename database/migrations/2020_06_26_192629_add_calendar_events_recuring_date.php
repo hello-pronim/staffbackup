@@ -14,7 +14,7 @@ class AddCalendarEventsRecuringDate extends Migration
     public function up()
     {
         Schema::table('calendar_events', function (Blueprint $table) {
-            $table->string('recuring_date')->nullable()->after('end');
+            $table->string('recurring_date')->nullable()->after('end');
         });
     }
 

@@ -28,7 +28,7 @@ class CalendarEvent extends Model
         'contentFull',
         'start',
         'end',
-        'recuring_date',
+        'recurring_date',
         'class',
     );
 
