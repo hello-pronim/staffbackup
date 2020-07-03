@@ -342,7 +342,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                     <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="selecteddate"></date-picker>
+                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="selecteddate"></date-picker>
                                     </span>
                                             </div>
                                         </div>
@@ -351,7 +351,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                     <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="selecteddate_end"></date-picker>
+                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="selecteddate_end"></date-picker>
                                     </span>
                                             </div>
                                         </div>
@@ -362,7 +362,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
@@ -402,25 +402,25 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" v-if="selecteddate < selecteddate_end">
+                            <div class="form-group" {{--v-if="selecteddate < selecteddate_end"--}}>
                                 <div class="wt-tabscontenttitle">
                                     <div class="float-left">
                                         <h2>Recurring date</h2>
                                     </div>
+                                    <div class="form-group form-group-half  float-right">
+                                        <switch_button v-model="is_recurring">Recurring Dates</switch_button>
+                                        <input type="hidden" :value="false" name="recurring_date">
+                                    </div>
                                 </div>
-                                <div class="form-group form-group-half float-left">
-                                    <switch_button v-model="is_recurring">Recurring Dates</switch_button>
-                                    <input type="hidden" :value="false" name="recurring_date">
-                                </div>
-                                <div class="form-group form-group-half float-right" v-if="is_recurring != false && selecteddate >= selecteddate_end">
+                                <div class="form-group form-group-half float-left" v-if="is_recurring != false && selecteddate >= selecteddate_end">
                                     {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], null, ['class' => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date']) !!}
                                 </div>
-                                <div class="form-group form-group-half float-right" v-if="is_recurring != false && selecteddate < selecteddate_end">
+                                <div class="form-group form-group-half float-left" v-if="is_recurring != false && selecteddate < selecteddate_end">
                                     {!! Form::select('recurring_date', ['week'=>'week','month'=>'month'], null, ['class' => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date']) !!}
                                 </div>
-                                <div class="form-group form-group-half" v-if="recurring_date != '' && is_recurring != false">
+                                <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
                                     <span class="wt-select">
-                                    <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" name="recurring_end_date" placeholder="Time, Date..." requare value="" v-model="recurring_end_date"></date-picker>
+                                    <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
                                     </span>
                                 </div>
                             </div>
@@ -471,14 +471,10 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" @click.prevent="preventClick">
+                                <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" style=" display: none;" @click.prevent="preventClick">
                                     <div class="form-group " style="margin-top: 25px;">
                                         <label>Booking Title / Job Title</label>
                                         <input type="text" name="booking_title" disabled class="form-control " placeholder="Booking Title" v-model="title">
-                                    </div>
-                                    <div class="form-group form-group-half" style="margin-top: 25px; ">
-                                        <label>Booking Date </label>
-                                        <input type="text" disabled class="form-control " placeholder="Booking Date" v-model="selecteddate">
                                     </div>
                                     <div class="form-group" style="margin-top: 25px;">
                                         <label>Booking description</label>
