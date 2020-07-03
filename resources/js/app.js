@@ -4536,17 +4536,17 @@ if (document.getElementById("post_job_dashboard")) {
 
             },
             createList(event) {
-                var parent = document.getElementById('listDates'),
-                newElem = parent.querySelector('.getIsDay'),
-                isDay = parent.querySelectorAll('.isDay');
-                newElem.classList.add('isDay');
+                var parent = document.getElementById('listDates');
+                var newElem = parent.querySelector('.getIsDay');
+                var elem = parent.querySelectorAll('.isDay');
                 newElem.classList.remove('getIsDay');
+                newElem.classList.add('isDay');
                 newElem.style.display = '';
-                newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (isDay.length) + "]");
-                newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (isDay.length) + "]");
+                newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (elem.length) + "]");
+                newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (elem.length) + "]");
                 // newElem.children[0].querySelector('input').value = '';
                 newElem.children[1].querySelector('input').value = '';
-                this.addDay = isDay.length;
+                this.addDay = elem.length;
                 // event.preventDefault();
             },
             changeSelectedDateEnd(date) {
@@ -6388,14 +6388,6 @@ function decrementHour(value, max, min) {
 }
 
 $(document).ready(function () {
-
-    $(document).on('click', '#addDay', function () {
-        console.log('#addDay')
-        let parent = document.getElementById('listDates');
-        let elem = parent.querySelector('.isDay');
-        let clone = elem.cloneNode(true);
-        parent.appendChild(clone);
-    });
 
     setTimeout(function () {
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
