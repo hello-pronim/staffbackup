@@ -4536,9 +4536,9 @@ if (document.getElementById("post_job_dashboard")) {
 
             },
             createList(event) {
-                var parent = document.getElementById('listDates');
-                var newElem = parent.querySelector('.getIsDay');
-                var elem = parent.querySelectorAll('.isDay');
+                var parent = document.getElementById('listDates'),
+                    newElem = parent.querySelector('.getIsDay'),
+                    elem = parent.querySelectorAll('.isDay');
                 newElem.classList.remove('getIsDay');
                 newElem.classList.add('isDay');
                 newElem.style.display = '';
