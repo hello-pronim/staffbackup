@@ -4491,7 +4491,7 @@ if (document.getElementById("post_job_dashboard")) {
             var events = [];
             let self = this;
             axios.get('/employer/getCalendarEvents').then(function (response) {
-                console.log(this);
+                // console.log(this);
                 if (response) {
                     self.events = response.data;
                 }
@@ -4536,21 +4536,17 @@ if (document.getElementById("post_job_dashboard")) {
 
             },
             createList(event) {
-                console.log(this.selecteddate);
-                console.log(this.selecteddate_end);
-                var parent = document.getElementById('listDates');
-                var newElem = parent.querySelector('.getIsDay');
-                var elem = parent.querySelectorAll('.isDay');
-                newElem.classList.remove('getIsDay');
+                var parent = document.getElementById('listDates'),
+                newElem = parent.querySelector('.getIsDay'),
+                isDay = parent.querySelectorAll('.isDay');
                 newElem.classList.add('isDay');
+                newElem.classList.remove('getIsDay');
                 newElem.style.display = '';
-                newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (elem.length) + "]");
-                newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (elem.length) + "]");
+                newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (isDay.length) + "]");
+                newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (isDay.length) + "]");
                 // newElem.children[0].querySelector('input').value = '';
                 newElem.children[1].querySelector('input').value = '';
-                if(elem.length == 6){
-                    this.addDay = elem.length;
-                }
+                this.addDay = isDay.length;
                 // event.preventDefault();
             },
             changeSelectedDateEnd(date) {
