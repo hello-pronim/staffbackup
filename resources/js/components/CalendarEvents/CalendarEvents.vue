@@ -1,7 +1,6 @@
 <template>
     <div v-if="renderComponent">
         <div class="wt-tabscontent tab-content" >
-            <button class="confirmButton btn btn-outline-primary float-right" @click="confButton">confirm</button>
             <vue-cal v-if="renderComponent" ref="vuecal" style="height: 650px"
                      :time-from="0 * 60"
                      :time-to="24 * 60"

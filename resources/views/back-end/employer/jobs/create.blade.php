@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="form-group" style="margin-top: 25px;">
                                         <label>Booking description</label>
-                                        {!! Form::textarea('booking_content', null, ['class' => 'wt-tinymceeditor', 'id' => 'wt-tinymceeditor','placeholder' => 'Booking description']) !!}
+                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
                                     </div>
                                     {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
 

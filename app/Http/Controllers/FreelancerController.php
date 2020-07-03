@@ -1028,7 +1028,7 @@ class FreelancerController extends Controller
             $arrEvent['start'] = $request['start'];
             $arrEvent['end'] = $request['end'];
             $arrEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:null;
-            $arrEvent['recuring_date'] = $request['recuring_date'];
+            $arrEvent['recurring_date'] = $request['recurring_date'];
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
                 $arrEvent
@@ -1051,7 +1051,7 @@ class FreelancerController extends Controller
             $arrEvent->start = $request['start']?$request['start']:"";
             $arrEvent->end = $request['end']?$request['end']:"";
             $arrEvent->skill_id = $request['skill_id']?$request['skill_id']:null;
-            $arrEvent->recuring_date = $request['recuring_date']?$request['recuring_date']:"";
+            $arrEvent->recurring_date = $request['recurring_date']?$request['recurring_date']:"";
             $arrEvent->class = $request['class']?$request['class']:"";
             $arrEvent->save();
             return array('succes'=>true);

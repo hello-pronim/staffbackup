@@ -89,8 +89,8 @@
                                             {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Holiday description', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
                                         </div>
                                         <div class="form-group">
-                                            <label for="recuring_date">Recuring date:
-                                                <input type="checkbox" name="recuring_date" v-model="recuring_date"></label>
+                                            <label for="recurring_date">Recurring date:
+                                                <input type="checkbox" name="recurring_date" v-model="recurring_date"></label>
                                         </div>
                                         <input type="hidden" name="class" >
                                         <input type="hidden" name="user_id" v-model="user_id">

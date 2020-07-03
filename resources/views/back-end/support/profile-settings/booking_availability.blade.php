@@ -90,8 +90,8 @@
                                                     {!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Holiday description', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="recuring_date">Recuring date:
-                                                        <input type="checkbox" name="recuring_date" v-model="recuring_date"></label>
+                                                    <label for="recurring_date">Recurring date:
+                                                        <input type="checkbox" name="recurring_date" v-model="recurring_date"></label>
                                                 </div>
                                                 <div class="form-group">
                                                     {!! Form::select('skill_id', $skills, null, ['placeholder' => trans('lang.skills'), 'v-model'=>'skill_id']) !!}
