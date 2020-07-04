@@ -170,6 +170,7 @@ class Job extends Model
             $this->project_level = filter_var($request['project_levels'], FILTER_SANITIZE_STRING);
             $this->description = $request['description'];
             $this->english_level = filter_var($request['english_level'], FILTER_SANITIZE_STRING);
+            $this->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
             $this->duration = ''; //filter_var($request['job_duration'], FILTER_SANITIZE_STRING);
             $this->freelancer_type = filter_var($request['freelancer_type'], FILTER_SANITIZE_STRING);
             $this->is_featured = filter_var($request['is_featured'], FILTER_SANITIZE_STRING);
@@ -315,6 +316,7 @@ class Job extends Model
             $job->project_level = filter_var($request['project_levels'], FILTER_SANITIZE_STRING);
             $job->description = $request['description'];
             $job->english_level = filter_var($request['english_level'], FILTER_SANITIZE_STRING);
+            $job->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
             $job->duration = '';// filter_var($request['job_duration'], FILTER_SANITIZE_STRING);
             $job->freelancer_type = filter_var($request['freelancer_type'], FILTER_SANITIZE_STRING);
             $job->is_featured = filter_var($request['is_featured'], FILTER_SANITIZE_STRING);

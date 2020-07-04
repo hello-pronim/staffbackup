@@ -17,6 +17,12 @@
             'month'=>'month'
         ];
 
+        $homeVisits = [
+            'Yes'=>'Yes',
+            'No'=>'No',
+            'N/A'=>'N/A'
+        ];
+
         $arrBreaks = array(
             'Morning Break'=>'Morning Break',
             'Lunch Break'=>'Lunch Break',
@@ -192,112 +198,7 @@
                     <h2>Your Calendar</h2>
                 </div>
 
-
-                {{--<div class="wt-dashboardbox wt-dashboardtabsholder" id="employer_availability">--}}
-
-                    {{--<div class="wt-tabscontent tab-content">--}}
-                        {{--<vue-cal ref="vuecal" style="height: 650px"--}}
-                                 {{--:time-from="0 * 60"--}}
-                                 {{--:time-to="24 * 60"--}}
-                                 {{--:disable-views="['years', 'year']"--}}
-                                 {{--:events="events"--}}
-                                 {{--:selected-date="selecteddate"--}}
-                                 {{--default-view="month"--}}
-                                 {{--events-on-month-view="short"--}}
-                                 {{--@cell-click="createNewEvent"--}}
-                        {{-->--}}
-                        {{--</vue-cal>--}}
-
-                        {{--<div class="wt-tabscontenttitle" style="margin-top: 50px; ">--}}
-                            {{--<h2>--}}
-                                {{--Green equals free this day<br>--}}
-                                {{--Blue equals booking on this day<br>--}}
-                                {{--Red equals away on holiday<br>--}}
-                            {{--</h2>--}}
-                        {{--</div>--}}
-
-                {{--<div--}}{{-- v-if="clickedDate != ''"--}}{{-->--}}
-                            {{--<div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">--}}
-                                {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>Create new availability</h2>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="wt-accordiondetails">--}}
-                                {{--<form>--}}
-                            {{--<div class="form-group form-group-half classScrollTo" style="">--}}
-                                {{--<label>Selected Start Date </label>--}}
-                                {{--<input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_date">--}}
-                            {{--</div>--}}
-                            {{--<div class="form-group form-group-half" style="">--}}
-                                {{--<label>Selected End Date </label>--}}
-                                {{--<input type="text" disabled class="form-control " placeholder="Selected Date" v-model="availability_selected_end_date">--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group form-group-half">--}}
-                                        {{--<label for="availability_start_time">Holiday Start date/time:</label>--}}
-                                        {{--<vue-timepicker name="availability_start_time" required  format="HH:mm" v-model="availability_start_time"></vue-timepicker>--}}
-
-                                    {{--</div>--}}
-                                    {{--<div class="form-group form-group-half">--}}
-                                        {{--<label for="availability_end_time">Holiday End date/time:</label>--}}
-                                        {{--<vue-timepicker name="availability_end_time" required  format="HH:mm" v-model="availability_end_time"></vue-timepicker>--}}
-
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label for="availability_title">Title:</label>--}}
-                                        {{--{!! Form::text( 'availability_title',null, ['class' =>'form-control', 'placeholder' => 'Holiday Title', 'v-model'=>'availability_title', 'required'=>'required'] ) !!}--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label for="availability_title">Content:</label>--}}
-                                        {{--{!! Form::text( 'availability_content',null, ['class' =>'form-control', 'placeholder' => 'Holiday description', 'v-model'=>'availability_content', 'required'=>'required'] ) !!}--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label for="recurring_date">Recurring date:--}}
-                                            {{--<input type="checkbox" name="recurring_date" v-model="is_recurring"></label>--}}
-                                        {{--<div v-if="is_recurring != false">--}}
-                                        {{--{!! Form::select('recurring_date', $recurringDates, null, array( 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date')) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div v-if="recurring_date != ''">--}}
-                                            {{--<input type="text" name="recurring_end_date" v-model="recurring_end_date" placeholder="Time, Date..." class="selectDatePicker">--}}
-                                            {{--<vue-cal id="calendar_small"--}}
-                                                     {{--style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"--}}
-                                                     {{--class="vuecal--green-theme"--}}
-                                                     {{--xsmall--}}
-                                                     {{--hide-view-selector--}}
-                                                     {{--:time="false"--}}
-                                                     {{--default-view="month"--}}
-                                                     {{--:disable-views="['week', 'day', 'year']"--}}
-                                                     {{--@cell-click="changeSelectedLastRecuringDate"--}}
-                                                     {{--:events="events"--}}
-                                            {{-->--}}
-                                            {{--</vue-cal>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<input type="hidden" name="class" >--}}
-                                    {{--<input type="hidden" name="user_id" v-model="user_id">--}}
-                                    {{--<input type="hidden" name="id" v-model="id">--}}
-                                    {{--<button class="btn btn-success" id="available_class" @click="saveNewEventAvailability">Create Availability</button>--}}
-                                    {{--<button class="btn btn-danger" id="busy_class" @click="saveNewEventBusy">Create Holiday/Busy</button>--}}
-                                    {{--<button class="btn btn-danger" id="update_event" @click="updateEvent">Update Event</button>--}}
-                                {{--</form>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                {{--</div>--}}
-                    {{----}}
-
-            {{--</div>--}}
-
-
                 <div id="post_job_dashboard">
-                    {{--<vue-cal ref="vuecal" style="height: 650px"--}}
-                             {{--:time-from="0 * 60"--}}
-                             {{--:time-to="24 * 60"--}}
-                             {{--:disable-views="['years', 'year']"--}}
-                             {{--:events="events"--}}
-                             {{--:selected-date="selecteddate"--}}
-                             {{--default-view="month"--}}
-                             {{--events-on-month-view="short"--}}
-                             {{--@cell-click="changeSelectedDate">--}}
-                    {{--</vue-cal>--}}
                     <vue-cal ref="vuecal" style="height: 650px"
                             :time-from="0 * 60"
                             :time-to="24 * 60"
@@ -402,7 +303,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" {{--v-if="selecteddate < selecteddate_end"--}}>
+                            <div class="form-group">
                                 <div class="wt-tabscontenttitle">
                                     <div class="float-left">
                                         <h2>Recurring date</h2>
@@ -420,7 +321,7 @@
                                 </div>
                                 <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
                                     <span class="wt-select">
-                                    <date-picker :config="{format: 'YYYY-MM-DD'}" @cell-click="changeSelectedLastRecuringDate" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
+                                    <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
                                     </span>
                                 </div>
                             </div>
@@ -431,7 +332,7 @@
                                     <h2>Other Appointment</h2>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'appo_slot_times')) !!}
+                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Timesa",'v-model'=>'appo_slot_times')) !!}
                                 </div>
                                 <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
                                     <input id="other_appo" type="text"
@@ -445,6 +346,10 @@
                             </div>
                             <div class="form-group form-group-half">
                                 {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+                            </div>
+
+                            <div class="form-group form-group-half">
+                                {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits")) !!}
                             </div>
 
 
