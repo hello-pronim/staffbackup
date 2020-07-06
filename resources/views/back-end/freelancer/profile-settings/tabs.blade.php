@@ -9,6 +9,9 @@
         <li class="nav-item">
             <a class="{{{ \Request::route()->getName()==='bookingAndAvailability'? 'active': '' }}}" href="{{{ route('bookingAndAvailability') }}}">Availability</a>
         </li>
+        <li class="nav-item">
+            <a class="{{{ \Request::route()->getName()==='resetPassword'? 'active': '' }}}" href="{{{ route('resetPassword') }}}">{{{ trans('lang.reset_pass') }}}</a>
+        </li>
         {{--<li class="nav-item">--}}
             {{--<a class="{{{ \Request::route()->getName()==='projectAwards'? 'active': '' }}}" href="{{{ route('projectAwards') }}}">{{{ trans('lang.project_awards') }}}</a>--}}
         {{--</li>--}}

@@ -311,7 +311,9 @@
         'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
     );
     @endphp
-    {{--<script src="https://js.stripe.com/v3" xmlns:v-bind="http://www.w3.org/1999/xhtml"></script>--}}
+    @if (env('APP_ENV') != 'local')
+        <script src="https://js.stripe.com/v3" xmlns:v-bind="http://www.w3.org/1999/xhtml"></script>
+    @endif
     <style type="text/css">
         select {
             width: 100% !important;
