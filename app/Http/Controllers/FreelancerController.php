@@ -1085,8 +1085,9 @@ class FreelancerController extends Controller
 
                     }
                     else {
-                        $arrNewEvent['start'] = Carbon::parse($request['start'][$d])->addDay($request['start'][$d])->format('Y-m-d') . $booking_end;
-                        $arrNewEvent['end'] = Carbon::parse($request['end'][$d])->addDay($request['end'][$d])->format('Y-m-d') . $booking_start;
+
+                        $arrNewEvent['start'] = Carbon::parse($request['start_date'][$d])->format('Y-m-d') . ' ' . $booking_start;
+                        $arrNewEvent['end'] = Carbon::parse($request['end_date'][$d])->format('Y-m-d') . ' ' . $booking_end;
                         //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
                         DB::table('calendar_events')->insert($arrNewEvent);
                     }
