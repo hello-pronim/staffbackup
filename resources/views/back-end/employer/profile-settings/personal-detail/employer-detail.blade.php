@@ -64,7 +64,7 @@
     <h4>Backup Company contact</h4>
     <div class="form-group form-group-half">
         <input id="backup_emp_contact" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="backup_emp_contact"
                value="{{$user->backup_emp_contact}}"
                placeholder="Backup Company Contact"
@@ -72,7 +72,7 @@
     </div>
     <div class="form-group form-group-half">
         <input id="backup_emp_email" type="email"
-               class="form-control bg-success"
+               class="form-control"
                name="backup_emp_email"
                value="{{$user->backup_emp_email}}"
                placeholder="Backup Company Email"
@@ -80,7 +80,7 @@
     </div>
     <div class="form-group form-group-half">
         <input id="backup_emp_pos" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="backup_emp_pos"
                value="{{$user->backup_emp_pos}}"
                placeholder="Backup Company Position"
@@ -88,7 +88,7 @@
     </div>
     <div class="form-group form-group-half">
         <input id="backup_emp_tel" type="number"
-               class="form-control bg-success"
+               class="form-control"
                name="backup_emp_tel"
                value="{{$user->backup_emp_tel}}"
                placeholder="Backup Company Tel"
@@ -97,7 +97,7 @@
 
     {{--<div class="form-group">--}}
         {{--<input id="emp_desc" type="text"--}}
-               {{--class="form-control bg-success"--}}
+               {{--class="form-control"--}}
                {{--name="emp_desc"--}}
                {{--value="{{$user->emp_desc}}"--}}
                {{--placeholder="Description"--}}
@@ -112,7 +112,7 @@
 
     <div class="form-group form-group-half">
         <input type="text"
-               class="form-control bg-success"
+               class="form-control"
                value="{{$user->pin}}"
                name="pin"
                placeholder="Pin">
@@ -120,7 +120,7 @@
     <div class="form-group form-group-half">
         <date-picker
                 :config="{format: 'YYYY-MM-DD'}"
-                class="form-control bg-success"
+                class="form-control"
                 value="{{$user->pin_date_revalid}}"
                 name="pin_date_revalid"
                 placeholder="Pin date of revalidation"
@@ -142,7 +142,7 @@
 
     <div class="form-group form-group-half">
         <input id="organisation_position" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="organisation_position"
                value="{{$user->organisation_position}}"
 
@@ -150,7 +150,7 @@
     </div>
     <div class="form-group form-group-half">
         <input id="organisation_email" type="email"
-               class="form-control bg-success"
+               class="form-control"
                name="organisation_email"
                value="{{$user->organisation_email}}"
 
@@ -158,7 +158,7 @@
     </div>
     <div class="form-group form-group-half">
         <input id="organisation_contact" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="organisation_contact"
                value="{{$user->organisation_contact}}"
                placeholder="Direct Contact No">
@@ -173,7 +173,7 @@
          <a href="{{url('uploads/files/'.$user->prof_ind_cert)}}" target="_blank">Click To open</a>
        @endif
         <input type="file" name="prof_ind_cert"
-               class="form-control bg-success"
+               class="form-control"
                accept=".pdf, image/*,.doc,.docx">
     </div>
     <div class="form-group">
@@ -184,7 +184,7 @@
     </div>
     <div class="form-group">
         <input type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="special_interests[]"
                placeholder="Other Special Interest">
     </div>
@@ -197,7 +197,7 @@
     </div>
     <div class="form-group">
         <input id="other_time_allo" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="time_allowed[]"
                placeholder="Other Time Allocated">
     </div>
@@ -206,7 +206,7 @@
     </div>
     <div class="form-group" >
         <input id="hourly_rate" type="number"
-               class="form-control bg-success"
+               class="form-control"
                name="hourly_rate"
                value="{{$hourly_rate}}"
                placeholder="Hourly Rate">
@@ -236,28 +236,28 @@
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="session_ad_by"
                value="{{$user->session_ad_by}}"
                placeholder="Name">
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by_position" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="session_ad_by_position"
                value="{{$user->session_ad_by_position}}"
                placeholder="Position">
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by_email" type="email"
-               class="form-control bg-success"
+               class="form-control"
                name="session_ad_by_email"
                value="{{$user->session_ad_by_email}}"
                placeholder="Email">
     </div>
     <div class="form-group form-group-half">
         <input id="session_ad_by_contact" type="text"
-               class="form-control bg-success"
+               class="form-control"
                name="session_ad_by_contact"
                value="{{$user->session_ad_by_contact}}"
                placeholder="Direct Contact No">

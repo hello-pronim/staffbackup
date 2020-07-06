@@ -372,16 +372,16 @@
         </div>
         <div class="form-group ">
             <input type="text"
-                   class="form-control bg-success"
+                   class="form-control"
                    name="org_name"
                    value="{{$user->org_name}}"
                    placeholder="Organisation name">
         </div>
         <div class="form-group">
-            {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
+            {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
         </div>
         <div class="form-group">
-            {!! Form::textarea( 'description', e($description), ['class' =>'form-control bg-success', 'placeholder' => trans('lang.ph_desc')] ) !!}
+            {!! Form::textarea( 'description', e($description), ['class' =>'form-control', 'placeholder' => trans('lang.ph_desc')] ) !!}
         </div>
     </fieldset>
     <br>
