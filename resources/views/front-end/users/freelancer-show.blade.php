@@ -48,7 +48,6 @@
                                             <h3>@if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{{ $user_first_name }}} {{{substr($user_last_name,0,1)}}}</h3>
                                         @endif
                                         <span>
-                                            {{--{{dd($user)}}--}}
                                             {{--<div class="wt-proposalfeedback"><span class="wt-starcontent"> {{{ $rating }}}/<i>5</i>&nbsp;<em>({{{ $reviews->count() }}} {{ trans('lang.feedbacks') }})</em></span></div>--}}
                                             {{--@if (!empty($joining_date))--}}
                                             {{--{{{ trans('lang.member_since') }}}&nbsp;{{{ $joining_date }}}--}}
