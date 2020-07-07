@@ -50,4 +50,13 @@ class Message extends Model
         $json['receiver'] =  $request['receiver_id'];
         return $json;
     }
+
+    public function saveNofiticationMessage($request){
+        $this->user_id = intval($request['author_id']);
+        $this->receiver_id = intval($request['receiver_id']);
+        $this->body = filter_var($request['message'], FILTER_SANITIZE_STRING);
+        $this->status = 0;
+        $this->save();
+    }
+
 }

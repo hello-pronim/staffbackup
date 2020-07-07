@@ -579,30 +579,50 @@ class RestAPIController extends Controller
                                 $email_params['amount'] = $amount;
                                 $email_params['duration'] = Helper::getJobDurationList($duration);
                                 $email_params['message'] = $description;
+
+                                $templateMailUser = new EmployerEmailMailable(
+                                    'employer_email_proposal_received',
+                                    $template_data,
+                                    $email_params
+                                );
                                 Mail::to($job->employer->email)
                                     ->send(
-                                        new EmployerEmailMailable(
-                                            'employer_email_proposal_received',
-                                            $template_data,
-                                            $email_params
-                                        )
+                                        $templateMailUser
                                     );
+                                $messageBodyUser = $templateMailUser->prepareEmployerEmailPropsalReceived($email_params);
+                                $notificationMessageUser = ['receiver_id' => $job->employer->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $serviceUser = new Message();
+                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
+                                $templateMailUser = new EmployerEmailMailable(
+                                    'employer_email_proposal_message',
+                                    $template_data,
+                                    $email_params
+                                );
                                 Mail::to($job->employer->email)
                                     ->send(
-                                        new EmployerEmailMailable(
-                                            'employer_email_proposal_message',
-                                            $template_message_data,
-                                            $email_params
-                                        )
+                                        $templateMailUser
                                     );
+                                $messageBodyUser = $templateMailUser->prepareEmployerEmailProposalMessage($email_params);
+                                $notificationMessageUser = ['receiver_id' => $job->employer->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $serviceUser = new Message();
+                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
+
+                                $templateMailUser = new FreelancerEmailMailable(
+                                    'freelancer_email_new_proposal_submitted',
+                                    $template_data,
+                                    $email_params
+                                );
                                 Mail::to($user->email)
                                     ->send(
-                                        new FreelancerEmailMailable(
-                                            'freelancer_email_new_proposal_submitted',
-                                            $template_submit_proposal,
-                                            $email_params
-                                        )
+                                        $templateMailUser
                                     );
+                                $messageBodyUser = $templateMailUser->prepareFreelancerEmailPropsalSubmitted($email_params);
+                                $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $serviceUser = new Message();
+                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
                             }
                         }
                         return Response::json($json, 200);
@@ -1719,14 +1739,21 @@ class RestAPIController extends Controller
                                 )
                             );
                         if (!empty($user->email)) {
+
+                            $templateMailUser = new EmployerEmailMailable(
+                                'employer_email_new_job_posted',
+                                $template_data_employer,
+                                $email_params
+                            );
                             Mail::to($user->email)
                                 ->send(
-                                    new EmployerEmailMailable(
-                                        'employer_email_new_job_posted',
-                                        $template_data_employer,
-                                        $email_params
-                                    )
+                                    $templateMailUser
                                 );
+                            $messageBodyUser = $templateMailUser->prepareEmployerEmailJobPosted($email_params);
+                            $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                            $serviceUser = new Message();
+                            $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
                         }
                     }
                 }

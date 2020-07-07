@@ -225,14 +225,23 @@ class StripeController extends Controller
                                                 $email_params['name'] = $package->title;
                                                 $email_params['price'] = $package->cost;
                                                 $email_params['expiry_date'] = !empty($expiry_date) ? Carbon::parse($expiry_date)->format('M d, Y') : '';
+
+
+                                                $templateMailUser = new EmployerEmailMailable(
+                                                    'employer_email_package_subscribed',
+                                                    $template_data,
+                                                    $email_params
+                                                );
                                                 Mail::to(Auth::user()->email)
                                                     ->send(
-                                                        new EmployerEmailMailable(
-                                                            'employer_email_package_subscribed',
-                                                            $template_data,
-                                                            $email_params
-                                                        )
+                                                        $templateMailUser
                                                     );
+                                                $messageBodyUser = $templateMailUser->prepareEmployerEmailPackagePurchased($email_params);
+                                                $notificationMessageUser = ['receiver_id' => Auth::user()->id,'author_id' => 1,'message' => $messageBodyUser];
+                                                $serviceUser = new Message();
+                                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
+
                                             }
                                         }
                                     } elseif ($role === 'freelancer') {
@@ -246,14 +255,20 @@ class StripeController extends Controller
                                                 $email_params['name'] = $package->title;
                                                 $email_params['price'] = $package->cost;
                                                 $email_params['expiry_date'] = !empty($expiry_date) ? Carbon::parse($expiry_date)->format('M d, Y') : '';
+
+                                                $templateMailUser = new FreelancerEmailMailable(
+                                                    'freelancer_email_package_subscribed',
+                                                    $template_data,
+                                                    $email_params
+                                                );
                                                 Mail::to(Auth::user()->email)
                                                     ->send(
-                                                        new FreelancerEmailMailable(
-                                                            'freelancer_email_package_subscribed',
-                                                            $template_data,
-                                                            $email_params
-                                                        )
+                                                        $templateMailUser
                                                     );
+                                                $messageBodyUser = $templateMailUser->prepareFreelancerEmailPackagePurchased($email_params);
+                                                $notificationMessageUser = ['receiver_id' => Auth::user()->id,'author_id' => 1,'message' => $messageBodyUser];
+                                                $serviceUser = new Message();
+                                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
                                             }
                                         }
                                     }
@@ -287,14 +302,20 @@ class StripeController extends Controller
                                         $email_params['employer_profile'] = url('profile/' . $user->slug);
                                         $email_params['employer_name'] = Helper::getUserName($user->id);
                                         $freelancer_data = User::find(intval($freelancer));
+
+                                        $templateMailUser = new FreelancerEmailMailable(
+                                            'freelancer_email_new_order',
+                                            $template_data,
+                                            $email_params
+                                        );
                                         Mail::to($freelancer_data->email)
                                             ->send(
-                                                new FreelancerEmailMailable(
-                                                    'freelancer_email_new_order',
-                                                    $template_data,
-                                                    $email_params
-                                                )
+                                                $templateMailUser
                                             );
+                                        $messageBodyUser = $templateMailUser->prepareFreelancerEmailNewOrder($email_params);
+                                        $notificationMessageUser = ['receiver_id' => $freelancer_data->id,'author_id' => 1,'message' => $messageBodyUser];
+                                        $serviceUser = new Message();
+                                        $serviceUser->saveNofiticationMessage($notificationMessageUser);
                                     }
                                 }
                             } else {
@@ -329,14 +350,22 @@ class StripeController extends Controller
                                             $email_params['link'] = url('profile/' . $freelancer->slug);
                                             $email_params['employer_profile'] = url('profile/' . $employer->slug);
                                             $email_params['emp_name'] = Helper::getUserName($employer->id);
+
+                                            $templateMailUser = new FreelancerEmailMailable(
+                                                'freelancer_email_hire_freelancer',
+                                                $template_data,
+                                                $email_params
+                                            );
                                             Mail::to($freelancer->email)
                                                 ->send(
-                                                    new FreelancerEmailMailable(
-                                                        'freelancer_email_hire_freelancer',
-                                                        $template_data,
-                                                        $email_params
-                                                    )
+                                                    $templateMailUser
                                                 );
+                                            $messageBodyUser = $templateMailUser->prepareFreelancerEmailFreelancerHired($email_params);
+                                            $notificationMessageUser = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBodyUser];
+                                            $serviceUser = new Message();
+                                            $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
+
                                         }
                                     }
                                 }
