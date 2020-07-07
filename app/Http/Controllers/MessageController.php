@@ -95,7 +95,6 @@ class MessageController extends Controller
             )
         );
         $json = array();
-        dd($users,$user_id);
         if (!empty($users)) {
             foreach ($users as $key => $userVal) {
                 $chat_user_id   = '';
