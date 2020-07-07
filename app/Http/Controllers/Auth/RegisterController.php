@@ -12,6 +12,8 @@
  */
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\MessageController;
+use App\Message;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -168,16 +170,18 @@ class RegisterController extends Controller
 
                         break;
                 }
-                Mail::to($request['email'])
-                    ->send(
-                        new GeneralEmailMailable(
-                            'new_user',
-                            $template_data,
-                            $email_params
-                        )
-                    );
-            }
 
+
+                $templateMail = new GeneralEmailMailable('new_user', $template_data, $email_params);
+
+                Mail::to($request['email'])->send($templateMail);
+
+                $messageBody = $templateMail->prepareEmailNewRegisteredUser($email_params);
+                $notificationMessage = ['receiver_id' => $user_id,'author_id' => 1,'message' => $messageBody];
+                $service = new Message();
+                $service->saveNofiticationMessage($notificationMessage);
+
+            }
 
         } else {
             $id = Session::get('user_id');

@@ -219,14 +219,23 @@ class PublicController extends Controller
                             $email_params['name'] = Helper::getUserName($id);
                             $email_params['email'] = $email;
                             $email_params['password'] = $password;
+
+                            $templateMail = new GeneralEmailMailable(
+                                'new_user',
+                                $template_data,
+                                $email_params
+                            );
+
                             Mail::to($email)
                                 ->send(
-                                    new GeneralEmailMailable(
-                                        'new_user',
-                                        $template_data,
-                                        $email_params
-                                    )
+                                    $templateMail
                                 );
+
+                            $messageBody = $templateMail->prepareEmailNewRegisteredUser($email_params);
+                            $notificationMessage = ['receiver_id' => $id,'author_id' => 1,'message' => $messageBody];
+                            $service = new Message();
+                            $service->saveNofiticationMessage($notificationMessage);
+
                         }
                         $admin_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_registration')->get()->first();
                         if (!empty($template->id)) {

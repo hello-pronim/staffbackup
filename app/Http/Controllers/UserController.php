@@ -205,14 +205,19 @@ class UserController extends Controller
                             $email_params['email'] = $user->email;
                             $email_params['password'] = $request->confirm_password;
                             try {
+                                $templateMail = new GeneralEmailMailable(
+                                    'reset_password_email',
+                                    $template_data,
+                                    $email_params
+                                );
                                 Mail::to($user->email)
                                     ->send(
-                                        new GeneralEmailMailable(
-                                            'reset_password_email',
-                                            $template_data,
-                                            $email_params
-                                        )
+                                        $templateMail
                                     );
+                                $messageBody = $templateMail->prepareEmailResetPassword($email_params);
+                                $notificationMessage = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBody];
+                                $service = new Message();
+                                $service->saveNofiticationMessage($notificationMessage);
                             } catch (\Exception $e) {
                                 Session::flash('error', trans('lang.ph_email_warning'));
                                 return Redirect::back();
@@ -738,28 +743,44 @@ class UserController extends Controller
                         $freelancer_job_completed_template = DB::table('email_types')->select('id')->where('email_type', 'freelancer_email_job_completed')->get()->first();
                         if (!empty($freelancer_job_completed_template->id)) {
                             $template_data = EmailTemplate::getEmailTemplateByID($freelancer_job_completed_template->id);
+                            $templateMail = new FreelancerEmailMailable(
+                                'freelancer_email_job_completed',
+                                $template_data,
+                                $email_params
+                            );
                             Mail::to($freelancer->email)
                                 ->send(
-                                    new FreelancerEmailMailable(
-                                        'freelancer_email_job_completed',
-                                        $template_data,
-                                        $email_params
-                                    )
+                                    $templateMail
                                 );
+                            $messageBody = $templateMail->prepareFreelancerEmailJobCompleted($email_params);
+                            $notificationMessage = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBody];
+                            $service = new Message();
+                            $service->saveNofiticationMessage($notificationMessage);
+
                         }
                     } else if ($project_type == 'service') {
                         $service = Service::find($request['service_id']);
                         $email_params['project_title'] = $service->title;
                         $email_params['completed_project_link'] = url('service/' . $service->slug);
                         $template_data = Helper::getFreelancerCompletedServiceEmailContent();
+
+                        $templateMail = new FreelancerEmailMailable(
+                            'freelancer_email_job_completed',
+                            $template_data,
+                            $email_params
+                        );
+
                         Mail::to($freelancer->email)
                             ->send(
-                                new FreelancerEmailMailable(
-                                    'freelancer_email_job_completed',
-                                    $template_data,
-                                    $email_params
-                                )
+                                $templateMail
                             );
+                        $messageBody = $templateMail->prepareFreelancerEmailJobCompleted($email_params);
+                        $notificationMessage = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBody];
+                        $service = new Message();
+                        $service->saveNofiticationMessage($notificationMessage);
+
+
+
                     }
                 }
                 return $json;
@@ -936,14 +957,20 @@ class UserController extends Controller
                             $email_params['employer_profile'] = url('profile/' . Auth::user()->slug);
                             $email_params['emp_name'] = Helper::getUserName(Auth::user()->id);
                             $email_params['msg'] = $request['description'];
-                            Mail::to($freelancer->email)
+                            $templateMail = new FreelancerEmailMailable(
+                                'freelancer_email_cancel_job',
+                                $template_data,
+                                $email_params
+                            );
+                                Mail::to($freelancer->email)
                                 ->send(
-                                    new FreelancerEmailMailable(
-                                        'freelancer_email_cancel_job',
-                                        $template_data,
-                                        $email_params
-                                    )
+                                    $templateMail
                                 );
+                            $messageBody = $templateMail->prepareFreelancerEmailJobCancelled($email_params);
+                            $notificationMessage = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBody];
+                            $service = new Message();
+                            $service->saveNofiticationMessage($notificationMessage);
+
                             $job_cancelle_admin_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_cancel_job')->get()->first();
                             if (!empty($job_cancelle_admin_template)) {
                                 $template_data = EmailTemplate::getEmailTemplateByID($job_cancelle_admin_template->id);
@@ -975,14 +1002,20 @@ class UserController extends Controller
                             $email_params['employer_profile'] = url('profile/' . Auth::user()->slug);
                             $email_params['emp_name'] = Helper::getUserName(Auth::user()->id);
                             $email_params['msg'] = $request['description'];
+                            $templateMail = new FreelancerEmailMailable(
+                                'freelancer_email_cancel_job',
+                                $template_data,
+                                $email_params
+                            );
                             Mail::to($freelancer->email)
                                 ->send(
-                                    new FreelancerEmailMailable(
-                                        'freelancer_email_cancel_job',
-                                        $template_data,
-                                        $email_params
-                                    )
+                                    $templateMail
                                 );
+                            $messageBody = $templateMail->prepareFreelancerEmailJobCancelled($email_params);
+                            $notificationMessage = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBody];
+                            $service = new Message();
+                            $service->saveNofiticationMessage($notificationMessage);
+
                         }
 
                         $job_cancelle_admin_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_cancel_job')->get()->first();
@@ -1491,14 +1524,20 @@ class UserController extends Controller
                             $email_params['link'] = $f_link;
                             $email_params['name'] = $f_name;
                             $email_params['msg'] = $msg;
+                            $templateMail = new FreelancerEmailMailable(
+                                'freelancer_email_send_offer',
+                                $template_data,
+                                $email_params
+                            );
                             Mail::to($freelancer->email)
                                 ->send(
-                                    new FreelancerEmailMailable(
-                                        'freelancer_email_send_offer',
-                                        $template_data,
-                                        $email_params
-                                    )
+                                    $templateMail
                                 );
+                            $messageBody = $templateMail->prepareFreelancerEmailSendOffer($email_params);
+                            $notificationMessage = ['receiver_id' => $freelancer->id,'author_id' => 1,'message' => $messageBody];
+                            $service = new Message();
+                            $service->saveNofiticationMessage($notificationMessage);
+
                         }
                     }
                     return $json;

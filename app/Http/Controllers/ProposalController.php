@@ -287,22 +287,36 @@ class ProposalController extends Controller
                                         $email_params['amount'] = $request['amount'];
                                         //$email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                         $email_params['message'] = $request['description'];
+
+                                        $templateMail = new EmployerEmailMailable(
+                                            'employer_email_proposal_received',
+                                            $template_data,
+                                            $email_params
+                                        );
                                         Mail::to($job->employer->email)
                                             ->send(
-                                                new EmployerEmailMailable(
-                                                    'employer_email_proposal_received',
-                                                    $template_data,
-                                                    $email_params
-                                                )
+                                                $templateMail
                                             );
+                                        $messageBody = $templateMail->prepareEmployerEmailPropsalReceived($email_params);
+                                        $notificationMessage = ['receiver_id' => $job->employer->id,'author_id' => 1,'message' => $messageBody];
+                                        $service = new Message();
+                                        $service->saveNofiticationMessage($notificationMessage);
+
+
+                                        $templateMailUser = new FreelancerEmailMailable(
+                                            'freelancer_email_new_proposal_submitted',
+                                            $template_submit_proposal,
+                                            $email_params
+                                        );
                                         Mail::to($user->email)
                                             ->send(
-                                                new FreelancerEmailMailable(
-                                                    'freelancer_email_new_proposal_submitted',
-                                                    $template_submit_proposal,
-                                                    $email_params
-                                                )
+                                                $templateMailUser
                                             );
+                                        $messageBodyUser = $templateMailUser->prepareFreelancerEmailPropsalSubmitted($email_params);
+                                        $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                                        $serviceUser = new Message();
+                                        $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
                                     } else {
                                         $json['type'] = 'error';
                                         $json['message'] = trans('lang.something_wrong');
@@ -344,22 +358,36 @@ class ProposalController extends Controller
                                     $email_params['amount'] = $request['amount'];
                                     $email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                     $email_params['message'] = $request['description'];
+
+                                    $templateMail = new EmployerEmailMailable(
+                                        'employer_email_proposal_received',
+                                        $template_data,
+                                        $email_params
+                                    );
                                     Mail::to($job->employer->email)
                                         ->send(
-                                            new EmployerEmailMailable(
-                                                'employer_email_proposal_received',
-                                                $template_data,
-                                                $email_params
-                                            )
+                                            $templateMail
                                         );
+                                    $messageBody = $templateMail->prepareEmployerEmailPropsalReceived($email_params);
+                                    $notificationMessage = ['receiver_id' => $job->employer->id,'author_id' => 1,'message' => $messageBody];
+                                    $service = new Message();
+                                    $service->saveNofiticationMessage($notificationMessage);
+
+
+                                    $templateMailUser = new FreelancerEmailMailable(
+                                        'freelancer_email_new_proposal_submitted',
+                                        $template_submit_proposal,
+                                        $email_params
+                                    );
                                     Mail::to($user->email)
                                         ->send(
-                                            new FreelancerEmailMailable(
-                                                'freelancer_email_new_proposal_submitted',
-                                                $template_submit_proposal,
-                                                $email_params
-                                            )
+                                            $templateMailUser
                                         );
+                                    $messageBodyUser = $templateMailUser->prepareFreelancerEmailPropsalSubmitted($email_params);
+                                    $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                                    $serviceUser = new Message();
+                                    $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
                                 } else {
                                     $json['type'] = 'error';
                                     $json['message'] = trans('lang.something_wrong');

@@ -386,14 +386,19 @@ class JobController extends Controller
                                 )
                             );
                             if (!empty($user->email)) {
+                                $templateMailUser = new EmployerEmailMailable(
+                                    'employer_email_new_job_posted',
+                                    $template_data_employer,
+                                    $email_params
+                                );
                                 Mail::to($user->email)
                                 ->send(
-                                    new EmployerEmailMailable(
-                                        'employer_email_new_job_posted',
-                                        $template_data_employer,
-                                        $email_params
-                                    )
+                                    $templateMailUser
                                 );
+                                $messageBodyUser = $templateMailUser->prepareEmployerEmailJobPosted($email_params);
+                                $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $serviceUser = new Message();
+                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
                             }
                         }
 
@@ -406,14 +411,19 @@ class JobController extends Controller
 
                             if ($professonals->count()) {
                                 foreach ($professonals as $professonal){
+                                    $templateMailUser = new FreelancerEmailMailable(
+                                        'freelancer_email_new_job_posted',
+                                        $template_data,
+                                        $email_params
+                                    );
                                     Mail::to($professonal->email)
                                     ->send(
-                                        new FreelancerEmailMailable(
-                                            'freelancer_email_new_job_posted',
-                                            $template_data,
-                                            $email_params
-                                        )
+                                        $templateMailUser
                                     );
+                                    $messageBodyUser = $templateMailUser->prepareFreelancerEmailNewJobPosted($email_params);
+                                    $notificationMessageUser = ['receiver_id' => $professonal->id,'author_id' => 1,'message' => $messageBodyUser];
+                                    $serviceUser = new Message();
+                                    $serviceUser->saveNofiticationMessage($notificationMessageUser);
                                 }
                             }
 
@@ -422,14 +432,21 @@ class JobController extends Controller
 
                             if ($supports->count()) {
                                 foreach ($supports as $support){
+                                    $templateMailUser = new SupportEmailMailable(
+                                        'support_email_new_job_posted',
+                                        $template_data,
+                                        $email_params
+                                    );
                                     Mail::to($support->email)
                                     ->send(
-                                        new SupportEmailMailable(
-                                            'support_email_new_job_posted',
-                                            $template_data,
-                                            $email_params
-                                        )
+                                        $templateMailUser
                                     );
+
+                                    $messageBodyUser = $templateMailUser->prepareSupportEmailNewJobPosted($email_params);
+                                    $notificationMessageUser = ['receiver_id' => $support->id,'author_id' => 1,'message' => $messageBodyUser];
+                                    $serviceUser = new Message();
+                                    $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
                                 }
                             }
                         }
@@ -467,14 +484,19 @@ class JobController extends Controller
                             )
                         );
                         if (!empty($user->email)) {
+                            $templateMailUser = new EmployerEmailMailable(
+                                'employer_email_new_job_posted',
+                                $template_data_employer,
+                                $email_params
+                            );
                             Mail::to($user->email)
                             ->send(
-                                new EmployerEmailMailable(
-                                    'employer_email_new_job_posted',
-                                    $template_data_employer,
-                                    $email_params
-                                )
+                                $templateMailUser
                             );
+                            $messageBodyUser = $templateMailUser->prepareEmployerEmailJobPosted($email_params);
+                            $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                            $serviceUser = new Message();
+                            $serviceUser->saveNofiticationMessage($notificationMessageUser);
                         }
                     }
                 }
