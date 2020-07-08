@@ -39,17 +39,17 @@
             {{--<span>Email:info@staffbackup.co.uk</span>--}}
             {{--</div>--}}
         </div>
-        <div class="row" style="margin:0 auto;width: 850px;padding-bottom: 150px;">
+        <div class="row headernew-second">
 
             <div class="headingcenter text-center">
                 <h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>
                 <div>15 years professional clinical experience in Primary Health Care</div>
             </div>
             <div class="signupBtn">
-                <a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "SIGN-UP"}}</a>
                 @if(!Auth::user())
-                    <a href="{{{ url('login')}}}" class="loginbtnHome">Login</a>
+                    <a href="{{{ url('login')}}}" style="background: #a1b1d8 !important; font-size: 14px;" class="loginbtnHome">Log In</a>
                 @endif
+                    <a href="{{{ Auth::user() ? url($user_role.'/dashboard') : url('register')}}}">{{Auth::user() ? "Dashboard" : "Sing Up"}}</a>
             </div>
 
         </div>
