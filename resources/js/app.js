@@ -4687,10 +4687,6 @@ if (document.getElementById("post_job_dashboard")) {
                     this.job_id = this.selectedEvent.job_id;
                     this.booking_title = this.selectedEvent.title;
                     this.booking_content = this.selectedEvent.content;
-                    if(this.job_id){
-                        var thisJob = this.jobs[this.job_id];
-                         this.home_visits = thisJob.home_visits;
-                    }
 
                     this.start = selDateStart[1];
                     this.end = selDateEnd[1];
