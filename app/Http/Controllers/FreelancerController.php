@@ -1121,6 +1121,7 @@ class FreelancerController extends Controller
             $arrNewEvent->recurring_date = ($request['recurring_date'])?$request['recurring_date']:null;
             $arrNewEvent->class = $request['class']?$request['class']:"";
             $arrNewEvent->skill_id = ($request['skill_id'])?$request['skill_id']:null;
+            $arrNewEvent->job_id = ($request['job_id'])?$request['job_id']:null;
             $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
             $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
             array_filter($request['start_date']);

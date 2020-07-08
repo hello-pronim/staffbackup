@@ -7,7 +7,7 @@
             '20 minutes'=>'20 minutes',
             'Other'=>'Other'
         );
-        if(!isset($arrAppo_slot_times[$user->appo_slot_times]))
+        if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
         {
             $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
         }
@@ -200,13 +200,13 @@
 
                 <div id="post_job_dashboard">
                     <vue-cal ref="vuecal" style="height: 650px"
-                            :time-from="0 * 60"
-                            :time-to="24 * 60"
-                            :disable-views="['years', 'year']"
-                            :events="events"
-                            :selected-date="selecteddate"
-                             events-on-month-view="short"
+                             :time-from="0 * 60"
+                             :time-to="24 * 60"
+                             :disable-views="['years', 'year']"
                              default-view="month"
+                             events-on-month-view="short"
+                             :events="events"
+                             :on-event-click="onEventClick"
                              @cell-click="changeSelectedDate"
                     >
                     </vue-cal>
@@ -219,12 +219,8 @@
                             padding-right: 16px;
                             height: 36px;
                             padding-top: 5px;"><img src="{{url('images/icons/jobpost.png')}}" alt=""></div>
-                            <h2 style="
-                            font-weight: bold;
-                             text-transform: uppercase;
-                              font-family: AganeLight;
-                              color:#263b65;
-                              margin: 7px 0;">{{ trans('lang.post_job') }}</h2>
+                            <h2   v-if="event_id != ''" style=" font-weight: bold; text-transform: uppercase; font-family: AganeLight; color:#263b65; margin: 7px 0;">Update post event</h2>
+                            <h2   v-if="event_id == ''" style=" font-weight: bold; text-transform: uppercase; font-family: AganeLight; color:#263b65; margin: 7px 0;">{{ trans('lang.post_job') }}</h2>
                         </div>
                         <div class="wt-dashboardboxcontent  classScrollTo">
                             <div class="form-group form-group-half">
@@ -242,28 +238,28 @@
                                     <div class="form-group form-group-half">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                    <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="selecteddate"></date-picker>
-                                    </span>
+                                                <span class="wt-select">
+                                                    <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="selecteddate"></date-picker>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group form-group-half" v-if="selecteddate!=''">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                    <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="selecteddate_end"></date-picker>
-                                    </span>
+                                                <span class="wt-select">
+                                                    <date-picker :config="{format: 'DD-MM-YYYY'}"  class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="selecteddate_end"></date-picker>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="getIsDay" v-for="d in 6" style="display:none">
+                                <div class="getIsDay" v-if="event_id == ''"  v-for="d in 6" style="display:none">
                                     <div class="form-group form-group-half">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
@@ -272,13 +268,13 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="wt-btn" v-on:click="createList" v-if="addDay!=6" id="addDay">add day</button>
+                                <button type="button" class="wt-btn" v-if="event_id == ''" v-on:click="createList" v-if="addDay!=6" id="addDay">add day</button>
                             </div>
 
 
@@ -303,8 +299,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="wt-tabscontenttitle">
+                            <div class="form-group" v-if="event_id == ''">
+                                <div class="wt-tabscontenttitle" style="height: 40px;">
                                     <div class="float-left">
                                         <h2>Recurring date</h2>
                                     </div>
@@ -321,125 +317,145 @@
                                 </div>
                                 <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
                                     <span class="wt-select">
-                                    <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
+                                    <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
                                     </span>
                                 </div>
                             </div>
 
 
-                            <div class="wt-jobdescription wt-tabsinfo">
+                            <div class="wt-jobdescription wt-tabsinfo" v-if="event_id == ''">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Other Appointment</h2>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Timesa",'v-model'=>'appo_slot_times')) !!}
+                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'appo_slot_times')) !!}
                                 </div>
                                 <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
                                     <input id="other_appo" type="text"
                                            class="form-control"
-                                           name="appo_slot_times[]"
-                                           placeholder="Other Appointment Slot Times">
+                                           name="appo_slot_times[]">
                                 </div>
                             </div>
-                            <div class="form-group form-group-half">
-                                {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided")) !!}
-                            </div>
-                            <div class="form-group form-group-half">
-                                {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+
+                            <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
+                                <div class="form-group form-group-half">
+                                    {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                </div>
+                                <div class="form-group form-group-half">
+                                    {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+                                </div>
+
+                                <div class="form-group form-group-half">
+                                    {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits",'v-model'=>'home_visits')) !!}
+                                </div>
                             </div>
 
-                            <div class="form-group form-group-half">
-                                {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits")) !!}
+                            <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>Professions</h2>
+                                </div>
+                                <div class="la-jobedit-content">
+                                    <job_skills :placeholder="'select professions'"></job_skills>
+                                </div>
                             </div>
-
 
                             <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
-                                    <h2>Job Details</h2>
+                                    <h2>{{ trans('lang.job_title') }}</h2>
                                 </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo">
                                     <fieldset>
                                         <div class="form-group">
-                                            <input type="text" name="title" class="form-control" placeholder="{{ trans('lang.job_title') }}" v-model="title">
+                                            <input type="text" name="title" class="form-control" placeholder="{{ trans('lang.job_title') }}" v-model="booking_title">
                                         </div>
 
-                                        <div class="form-group"></div>
-
-                                        <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            {!! Form::text('project_rates', null, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => trans('lang.project_rates'), 'min'=>'0')) !!}
+                                        <div class="form-group">
+                                            {!! Form::textarea('description', null, ['class' =>'form-control', 'placeholder' => trans('lang.job_dtl_note') , 'v-model'=>'booking_content']) !!}
                                         </div>
 
-                                        <div class="form-group form-group-half wt-formwithlabel job-rates-input">
-                                            <span class="wt-select">
-                                            {!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day', 'Per Month'=> 'Per Month'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}
-                                            </span>
+                                        <div class="form-group form-group-half"  v-if="event_id == ''">
+                                            {!! Form::text('project_rates', null, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0')) !!}
                                         </div>
+
+                                        {{--<div class="form-group form-group-half wt-formwithlabel job-rates-input">--}}
+                                            {{--<span class="wt-select">--}}
+                                            {{--{!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day', 'Per Month'=> 'Per Month'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
                                     </fieldset>
                                 </div>
                                 <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" style=" display: none;" @click.prevent="preventClick">
                                     <div class="form-group " style="margin-top: 25px;">
                                         <label>Booking Title / Job Title</label>
-                                        <input type="text" name="booking_title" disabled class="form-control " placeholder="Booking Title" v-model="title">
+                                        <input type="text" name="booking_title" disabled class="form-control " placeholder="Booking Title" v-model="booking_title">
                                     </div>
                                     <div class="form-group" style="margin-top: 25px;">
                                         <label>Booking description</label>
-                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description']) !!}
+                                        {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description' , 'v-model'=>'booking_content']) !!}
                                     </div>
                                     {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
 
                                 </div>
                             </div>
 
-                            <div class="wt-jobcategories wt-tabsinfo">
+                            <div class="wt-jobcategories wt-tabsinfo"  v-if="event_id == ''">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Direct Bookings</h2>
                                 </div>
                                 <div class="wt-divtheme wt-userform wt-userformvtwo">
                                     <div class="form-group">
-                                        {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), null, array('placeholder' => "Direct Bookings")) !!}
+                                        {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
                                     </div>
 
                                 </div>
                             </div>
 
+                            <div class="wt-tabscontenttitle">
+                                <h2>Booking Contact Details</h2>
+                            </div>
                             <div class="wt-jobcategories wt-tabsinfo">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>Booking Contact Details</h2>
-                                </div>
-                                <div class="form-group ">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="org_name"
-                                           value="{{$user->emp_contact}}"
-                                           placeholder="Organisation name">
+
+                                <div class="form-group form-group-half">
+                                    {!! Form::text( 'first_name', $user->first_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input id="organisation_position" type="text"
-                                           class="form-control"
-                                           name="organisation_position"
-                                           value="{{$user->emp_pos}}"
-
-                                           placeholder="Position">
+                                    {!! Form::text( 'last_name', $user->last_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input id="organisation_email" type="email"
-                                           class="form-control"
-                                           name="organisation_email"
-                                           value="{{$user->emp_email}}"
-
-                                           placeholder="Email">
+                                    {!! Form::email( 'email', $user->email, ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input id="organisation_contact" type="text"
-                                           class="form-control"
-                                           name="organisation_contact"
-                                           value="{{$user->emp_telno}}"
-                                           placeholder="Direct Contact No">
+                                    {!! Form::number( 'number', $user->number, ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
                                 </div>
 
+
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--{!! Form::text('emp_contact', $user->emp_contact, ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--{!! Form::tel('emp_telno', $user->emp_telno, ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--{!! Form::url('emp_pos', $user->emp_pos, ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--{!! Form::email('emp_email', $user->emp_email, ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}--}}
+                                {{--</div>--}}
+
+                                {{--<div class="form-group ">--}}
+                                    {{--<input type="text" class="form-control" name="org_name" value="{{$user->emp_contact}}" placeholder="Organisation name">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--<input id="organisation_position" type="text" class="form-control" name="organisation_position" value="{{$user->emp_pos}}" placeholder="Position">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--<input id="organisation_email" type="email" class="form-control" name="organisation_email" value="{{$user->emp_email}}" placeholder="Email">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group form-group-half">--}}
+                                    {{--<input id="organisation_contact" type="text" class="form-control" name="organisation_contact" value="{{$user->emp_telno}}" placeholder="Direct Contact No">--}}
+                                {{--</div>--}}
 
                             </div>
-
 
                             {{--<div class="wt-jobcategories wt-tabsinfo">--}}
                             {{--<div class="wt-tabscontenttitle">--}}
@@ -564,7 +580,17 @@
 
 
                         </div>
-                        <div class="wt-updatall">
+                        <div class="wt-updatall"   v-if="event_id != ''">
+                            <input type="hidden" name="recurring_date" v-if="event_id" v-model="recurring_date">
+                            <input type="hidden" name="job_id" v-if="job_id" v-model="job_id">
+                            <input type="hidden" name="event_id" v-if="event_id" v-model="event_id">
+
+                            <i class="ti-announcement"></i>
+                            <span>{{{ trans('lang.save_changes_note') }}}</span>
+                            {!! Form::submit(trans('lang.btn_save_update'), ['class' => 'wt-btn', '@click'=>'updateEvent', 'id'=>'submit-profile']) !!}
+
+                        </div>
+                        <div class="wt-updatall"   v-if="event_id == ''">
                             <i class="ti-announcement"></i>
                             <span>{{{ trans('lang.save_changes_note') }}}</span>
                             {!! Form::submit(trans('lang.post_job'), ['class' => 'wt-btn', 'id'=>'submit-profile']) !!}

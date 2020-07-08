@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Message;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use App\User;

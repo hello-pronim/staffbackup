@@ -4334,8 +4334,8 @@ if (document.getElementById("post_job")) {
                 this.loading = true;
                 let register_Form = document.getElementById('post_job_form');
                 let form_data = new FormData(register_Form);
-                // var description = tinyMCE.get('wt-tinymceeditor').getContent();
-                // form_data.append('description', description);
+                var description = tinyMCE.get('wt-tinymceeditor').getContent();
+                form_data.append('description', description);
                 var self = this;
                 axios.post(APP_URL + '/job/post-job', form_data)
                     .then(function (response) {
@@ -4386,8 +4386,8 @@ if (document.getElementById("post_job")) {
                 this.loading = true;
                 let register_Form = document.getElementById('job_edit_form');
                 let form_data = new FormData(register_Form);
-                // var description = tinyMCE.get('wt-tinymceeditor').getContent();
-                // form_data.append('description', description);
+                var description = tinyMCE.get('wt-tinymceeditor').getContent();
+                form_data.append('description', description);
                 form_data.append('id', id);
                 var self = this;
                 axios.post(APP_URL + '/job/update-job', form_data)
@@ -4475,6 +4475,7 @@ if (document.getElementById("post_job_dashboard")) {
         data: {
             calendarPlugins: [],
             events: [],
+            jobs: [],
             availability_title: "",
             availability_content: "",
             availability_start_time: "",
@@ -4487,6 +4488,8 @@ if (document.getElementById("post_job_dashboard")) {
             user_id: "",
             skill_id: "",
             id: "",
+            event_id: "",
+            job_id: "",
             addedToEvents: false,
             selectedEvent: null,
             selectedEventDrag: false,
@@ -4498,12 +4501,13 @@ if (document.getElementById("post_job_dashboard")) {
             home_visits: '',
             english_level: '',
             message: '',
+            booking_title: '',
+            booking_content: '',
             form_errors: [],
             custom_error: false,
             is_show: false,
             loading: false,
             show_attachments: false,
-            recurring_date: false,
             recurring_end_date: "",
             is_recurring: false,
             is_featured: false,
@@ -4551,14 +4555,85 @@ if (document.getElementById("post_job_dashboard")) {
             let self = this;
             axios.get('/employer/getCalendarEvents').then(function (response) {
                 // console.log(this);
-                if (response) {
-                    self.events = response.data;
+                // if (response) {
+                //     self.events = response.data;
+                // }
+
+                if (self.events.length > 0) {
+                    self.events.splice(0);
                 }
+                // self.jobs = response.data.jobs;
+                // console.log(response.data);
+                // response.data.splice(response.data.length, 1, 'jobs');
+                // console.log(response.data);
+
+                if (response && Array.isArray(response.data)) {
+
+
+                    response.data.forEach(item => {
+                        item.end = self.convertDateForFormatCalendar(item.end);
+                        item.start = self.convertDateForFormatCalendar(item.start);
+                        if (item.end !== null && item.start !== null) {
+                            self.events.push(item);
+                        }
+                    });
+                }
+
             });
 
 
         },
         methods: {
+            convertDateForFormatCalendar(date) {
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            convertDateForFormatView(date) {
+                if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            customEventCreation() {
+                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
+                // Check if date format is correct before creating event.
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
+                    this.$refs.vuecal.createEvent(
+                        // Formatted start date and time or JavaScript Date object.
+                        dateTime,
+                        // Custom event props (optional).
+                        {title: 'New Event', content: 'yay! �', classes: ['leisure']}
+                    )
+                } else if (dateTime) alert('Wrong date format.')
+            },
+            formatDate(date,calendar = false) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+                if(calendar === true) {
+                    return [year, month, day].join('-');
+                } else {
+                    return [day, month, year].join('-');
+                }
+            },
             setBooking(e) {
                 e.preventDefault();
 
@@ -4570,23 +4645,67 @@ if (document.getElementById("post_job_dashboard")) {
                     class: 'booking_calendar',
                 });
                 this.events.push({
-                    start: this.selecteddate + ' ' + this.start,
-                    end: this.selecteddate_end + ' ' + this.end,
+                    start: this.convertDateForFormatCalendar(this.selecteddate) + ' ' + this.start,
+                    end: this.convertDateForFormatCalendar(this.selecteddate_end) + ' ' + this.end,
                     title: this.title,
                     content: this.description,
                     class: 'booking_calendar',
                 });
             },
+            reloadCalendar(){
+                var events = [];
+                console.log(events);
+                console.log(this.events);
+                let self = this;
+                axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                    if (self.events.length > 0) {
+                        self.events.splice(0);
+                    }
+
+                    if (response && Array.isArray(response.data)) {
+                        response.data.forEach(item => {
+                            item.end = self.convertDateForFormatCalendar(item.end);
+                            item.start = self.convertDateForFormatCalendar(item.start);
+                            if (item.end !== null && item.start !== null) {
+                                self.events.push(item);
+                            }
+                        });
+                    }
+                });
+            },
             changeSelectedDate(date) {
                 console.log(date);
                 this.clickedDate = true;
-                // this.selecteddate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
-                this.selecteddate = date.getFullYear() + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-                if(this.selecteddate < this.selecteddate_end) {
-                    this.selecteddate_end = date.getFullYear() + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+                if(this.selectedEvent){
+                    var selDateStart = this.selectedEvent.start.split(' ');
+                    var selDateEnd = this.selectedEvent.end.split(' ');
+                    this.selecteddate = this.formatDate(selDateStart[0]);
+                    this.selecteddate_end = this.formatDate(selDateEnd[0]);
+
+
+                    this.event_id = this.selectedEvent.id;
+                    this.job_id = this.selectedEvent.job_id;
+                    this.booking_title = this.selectedEvent.title;
+                    this.booking_content = this.selectedEvent.content;
+
+                    this.start = selDateStart[1];
+                    this.end = selDateEnd[1];
+                    this.selectedEvent = false;
+                } else {
+                    // this.selecteddate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
+                    this.selecteddate = this.formatDate(date);
+                    if (this.selecteddate < this.selecteddate_end) {
+                        this.selecteddate_end = this.formatDate(date);
+                    }
+
+                    this.event_id = '';
+                    this.job_id = '';
+                    this.booking_title = '';
+                    this.booking_content = '';
+
+                    this.start = '00:00';
+                    this.end = '23:59';
                 }
-                this.start = (this.start!='')?this.start:'00:00';
-                this.end = (this.end!='')?this.end:'23:59';
                 setTimeout(function () {
                     $('html, body').animate({
                         scrollTop: ($(".classScrollTo").offset().top)
@@ -4609,7 +4728,7 @@ if (document.getElementById("post_job_dashboard")) {
                 // event.preventDefault();
             },
             changeSelectedDateEnd(date) {
-                this.selecteddate_end = ('0' + date.getDate()).slice(-2) + "-" + ('0' + (date.getMonth()+1)).slice(-2) + '-' + date.getFullYear();
+                this.selecteddate_end = this.formatDate(date);
                 this.start = (this.start!='')?this.start:'00:00';
                 this.end = (this.end!='')?this.end:'23:59';
             },
@@ -4622,7 +4741,8 @@ if (document.getElementById("post_job_dashboard")) {
             },
             changeSelectedLastrecurringDate(event){
                 //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-                this.selecteddate = ('0' + date.getDate()).slice(-2) + "/" + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
+                // this.selecteddate = ('0' + date.getDate()).slice(-2) + "/" + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
+                this.selecteddate =  this.formatDate(date,true);
                 jQuery('#calendar_small').hide();
                 //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
                 // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
@@ -4640,6 +4760,11 @@ if (document.getElementById("post_job_dashboard")) {
             showError(error) {
                 return this.$toast.error(' ', error, this.notificationSystem.options.error);
             },
+            onEventClick(event){
+                console.log(event);
+                this.selectedEvent = event;
+            },
+
             submitJob: function () {
                 this.loading = true;
                 let register_Form = document.getElementById('post_job_dashboard_form');
@@ -4652,9 +4777,11 @@ if (document.getElementById("post_job_dashboard")) {
                         if (response.data.type == 'success') {
                             self.loading = false;
                             self.showInfo(Vue.prototype.trans('lang.job_submitting'));
-                            setTimeout(function () {
+                            setTimeout(function (self) {
                                 window.location.replace(APP_URL + '/employer/dashboard');
+                                self.clickedDate = false;
                             }, 4000);
+
                         } else {
                             self.loading = false;
                             self.showError(response.data.message);
@@ -4694,7 +4821,7 @@ if (document.getElementById("post_job_dashboard")) {
             },
             updateJob: function (id) {
                 this.loading = true;
-                let register_Form = document.getElementById('job_edit_form');
+                let register_Form = document.getElementById('post_job_dashboard_form');
                 let form_data = new FormData(register_Form);
                 // var description = tinyMCE.get('wt-tinymceeditor').getContent();
                 // form_data.append('description', description);
@@ -4737,6 +4864,48 @@ if (document.getElementById("post_job_dashboard")) {
                         //     self.showError(error.response.data.errors.description[0]);
                         // }
                     });
+            },
+            updateEvent(e){
+                e.preventDefault();
+                console.log(this);
+                var thistoast = this.$toast;
+                thistoast.options.position = 'center';
+                var self = this;
+                let register_Form = document.getElementById('post_job_dashboard_form');
+                let form_data = new FormData(register_Form);
+                //this.events.push(newObj);
+                axios.post('/employer/updateCalendarEvent', form_data)
+                    .then(function (response) {
+                        self.reloadCalendar();
+                        self.showInfo(Vue.prototype.trans('lang.job_updating'));
+                        this.selectedDate = false;
+                        setTimeout(function () {
+                            $('html, body').animate({
+                                scrollTop: ($(".scrolToCalend").offset().top)
+                            }, 1000);
+                        })
+                    })
+                    .catch(function (error) {
+                        if(typeof error.response != "undefined") {
+                            if (error.response.data.errors.title) {
+                                thistoast.error(' ', error.response.data.errors.title[0]);
+                            }
+                            if (error.response.data.errors.availability_content) {
+                                thistoast.error(' ', error.response.data.errors.availability_content[0]);
+                            }
+                            if (error.response.data.errors.start_date) {
+                                thistoast.error(' ', error.response.data.errors.start_date[0]);
+                            }
+                            if (error.response.data.errors.booking_start) {
+                                thistoast.error(' ', error.response.data.errors.booking_start[0]);
+                            }
+                            if (error.response.data.errors.booking_end) {
+                                thistoast.error(' ', error.response.data.errors.booking_end[0]);
+                            }
+                        }
+
+                    });
+                e.stopPropagation()
             },
             getSettings: function () {
                 let self = this;

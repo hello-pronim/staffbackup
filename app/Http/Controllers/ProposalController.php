@@ -12,6 +12,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Distance;
+use App\Message;
 use Illuminate\Http\Request;
 use App\Proposal;
 use App\Job;

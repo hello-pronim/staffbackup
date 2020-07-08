@@ -181,8 +181,9 @@ class Job extends Model
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
             $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
             $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
-            $this->start_date = filter_var(is_array($request['start_date']) ? $request['start_date'][0] : $request['start_date'], FILTER_SANITIZE_STRING);
+            $this->start_date = filter_var(is_array($request['start_date']) ? Carbon::parse($request['start_date'][0])->format('Y-m-d') : Carbon::parse($request['start_date'])->format('Y-m-d'), FILTER_SANITIZE_STRING);
             $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : "0" , FILTER_SANITIZE_STRING);
+            $this->skills = (count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
 
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
@@ -205,14 +206,15 @@ class Job extends Model
             }
             $this->code = $code;
             $this->save();
+            $job_id = $this->id;
 
             $arrNewEvent = [];
             $arrNewEvent['user_id'] = Auth::user()->id;
+            $arrNewEvent['job_id'] = $job_id;
             $arrNewEvent['title'] = $request['title'];
             $arrNewEvent['recurring_date'] = $request['recurring_date'];
             $arrNewEvent['content'] = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent['class'] = 'booking_calendar';
-            $arrNewEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:null;
             $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
             $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
             array_filter($request['start_date']);
@@ -269,7 +271,6 @@ class Job extends Model
                 }
             }
             //dd($arrNewEvent);
-            $job_id = $this->id;
             $skills = $request['skills'];
             $this->skills()->detach();
             if (!empty($skills)) {
