@@ -1311,4 +1311,9 @@ class PublicController extends Controller
 
         return view('front-end.contact-us');
     }
+
+    public function mainPage()
+    {
+        return view('front-end.index-main');
+    }
 }

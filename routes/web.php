@@ -437,3 +437,5 @@ Route::get('service/payment-process/{id}', 'ServiceController@employerPaymentPro
 Route::get('test', 'TestController@test');
 
 Route::any('contact-us', 'PublicController@contactUs');
+
+Route::get('main', 'PublicController@mainPage');
