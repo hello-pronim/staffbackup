@@ -4,9 +4,9 @@
         $search_menu = \App\SiteManagement::getMetaValue('search_menu');
         $menu_title = DB::table('site_managements')->select('meta_value')->where('meta_key', 'menu_title')->get()->first();
     @endphp
-    <footer id="wt-footer">
+    <footer id="wt-footer" class="wt-footer wt-haslayout">
         <div class="row">
-        <div class="footerCopyright col-md-5" style="margin:0 auto;padding-top: 44px;">
+        <div class="footerCopyright" style="margin:0 auto;">
             COPYRIGHT © STAFF BACKUP LTD 2019, ALL RIGHTS RESERVED
         </div>
             </div>

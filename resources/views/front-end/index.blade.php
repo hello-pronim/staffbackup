@@ -40,23 +40,23 @@
             {{--<div><a href="#">It's as simple as 1,2,3</a></div>--}}
             {{--<div style="margin-top:6px"><span>SEARCH &nbsp;&nbsp;&nbsp;&nbsp; CONNECT &nbsp;&nbsp;&nbsp;&nbsp; HIRE!</span></div>--}}
         {{--</div>--}}
-        <div style="text-align: center;margin-top: 325px;margin-bottom: -23px" class="footermargins">
+        <div class="footermargins">
             <div class="boxes3 bg-orange" >
-                <div class="boxheading">Locate</div>
+                <div class="boxheading">Locate Adhoc Staff</div>
                 <img src="{{url('images/icons/Layer 89.png')}}">
                 <p>
                     Search staff using loactions that suit you, actually need.
                 </p>
             </div>
             <div class="boxes3 bg-blue" style="height: 270px;padding-top: 50px;">
-                <div class="boxheading">Book</div>
+                <div class="boxheading">Short notice bookings</div>
                 <img src="{{url('images/icons/Layer 84.png')}}">
                 <p>
                     Search staff using loactions that suit you, actually need.
                 </p>
             </div>
             <div class="boxes3 bg-green">
-                <div class="boxheading">Staff</div>
+                <div class="boxheading">Skilled temp staff</div>
                 <img src="{{url('images/icons/Layer 79.png')}}">
                 <p>
                     Search staff using loactions that suit you, actually need.
@@ -67,7 +67,9 @@
     </div>
     <style>
         .wt-wrapper{padding: 0px}
-        .boxes3{margin-bottom: -48px;   }
+        .boxes3{
+            margin-bottom: 0;
+        }
     </style>
 
 @endsection
