@@ -470,6 +470,25 @@
 </div>
 
 
+{{--<div class="wt-tabscontenttitle">
+    <h2>Company Contacts</h2>
+</div>
+<div class="lara-detail-form">
+    <fieldset>
+        <div class="form-group form-group-half">
+            {!! Form::text( 'emp_contact', e($user->emp_contact), ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::tel( 'emp_telno', e($user->emp_telno), ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::url( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}
+        </div>
+        <div class="form-group form-group-half">
+            {!! Form::email( 'emp_email', e($user->emp_email), ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}
+        </div>
+    </fieldset>
+</div>--}}
 
 <div class="wt-tabscontenttitle">
     <h2>Contact Information</h2>
@@ -491,7 +510,6 @@
         <div class="form-group form-group-half">
             {!! Form::number( 'number', e($user->number), ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
         </div>
-
         <div class="form-group">
             {{--        {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}--}}
             {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ",'class' => 'form-group')) !!}

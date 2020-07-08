@@ -230,7 +230,7 @@ class SkillController extends Controller
     public function getJobSkills(Request $request)
     {
         $json = array();
-        if (!empty($request['slug']) && $request['slug'] != "post-job") {
+        if (!empty($request['slug']) && $request['slug'] != "post-job" && $request['slug'] != "dashboard") {
             $job = Job::where('slug', $request['slug'])->select('id')->first();
             $db_skills = Skill::select('id')->get()->pluck('id')->toArray();
             $job_skills = Skill::getJobSkill($job->id);

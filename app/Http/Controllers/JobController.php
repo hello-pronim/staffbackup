@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Job;
+use App\Message;
 use Illuminate\Http\Request;
 use Auth;
 use Session;

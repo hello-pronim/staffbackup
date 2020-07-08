@@ -280,9 +280,9 @@
                                     <div class="form-group form-group-half" v-if="availability_selected_date!=''">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                    <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="availability_selected_end_date"></date-picker>
-                                    </span>
+                                                <span class="wt-select">
+                                                    <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="availability_selected_end_date"></date-picker>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -329,6 +329,15 @@
                                     <div class="form-group">
                                         <vue-timepicker name="booking_end"  required   format="HH:mm"  v-model="end"></vue-timepicker>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="wt-jobskills wt-tabsinfo la-jobedit"  id="post_job">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>{{ trans('lang.skills_req') }}</h2>
+                                </div>
+                                <div class="la-jobedit-content">
+                                    <job_skills :placeholder="'select skills'"></job_skills>
                                 </div>
                             </div>
 

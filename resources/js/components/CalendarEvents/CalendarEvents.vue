@@ -278,15 +278,23 @@
     /*#booking_data .slide-fade--right-enter {
         opacity: 1;
     }*/
-     .vuecal__event {background-color: rgba(76, 172, 175, 0.35);}
+     .vuecal__event {
+         background-color: rgba(76, 172, 175, 0.35);}
      .vuecal__cell--selected {
          background-color: rgba(235,255,245,1) !important;
-         /*border: 2px solid #ff0000 !important;*/
+         border: 1px solid #6698c5 !important;
      }
     .vuecal__event--focus, .vuecal__event:focus {
         box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
         z-index: 3;
         outline: none;
+    }
+    .vuecal__cell:hover, .vuecal__event:hover {
+        border: 1px solid #6698c5 !important;
+    }
+    .vuecal__event {
+        text-align: center !important;
+        cursor: pointer;
     }
     .vuecal__event--dragging{
         background-color:#ff0000;
