@@ -43,7 +43,7 @@ Route::get(
             if (file_exists(resource_path('views/extend/front-end/index.blade.php'))) {
                 return view('extend.front-end.index');
             } else {
-                return view('front-end.index');
+                return view('front-end.index-main'); //return view('front-end.index');
             }
         } else {
             if (!empty(env('DB_DATABASE'))) {
