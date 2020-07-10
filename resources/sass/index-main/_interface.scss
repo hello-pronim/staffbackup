@@ -95,6 +95,13 @@ Header
 .index-main .header {
   min-height: 135px;
 
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none
+    }
+  }
+
   &-logo__wrapper {
     display: flex;
     flex-direction: column;

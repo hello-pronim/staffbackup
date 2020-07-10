@@ -9,10 +9,14 @@
             <div class="header-wrapper">
                 <header class="header">
                     <div class="header__container index-main-container">
-                        <div class="header-logo__wrapper">
-                            <img class="header-logo__img" src="images/img/index-main/logo-3.png">
-                            <span class="header-logo__slogan">Dedicated to Primary Health Care</span>
-                        </div><!-- .header-logo__wrapper -->
+                        <div class="header-logo">
+                            <a href="{{ url('/') }}">
+                                <div class="header-logo__wrapper">
+                                    <img class="header-logo__img" src="images/img/index-main/logo-3.png">
+                                    <span class="header-logo__slogan">Dedicated to Primary Health Care</span>
+                                </div><!-- .header-logo__wrapper -->
+                            </a>
+                        </div>
 
                         <div class="header-navigation">
                             <div class="header-navigation__menu-item-wrapper">
@@ -25,7 +29,7 @@
                                 <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
                             </div>
                             <div class="header-navigation__menu-item-wrapper">
-                                <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
+                                <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US FOR INFORMATION</a>
                             </div>
                         </div>
 
@@ -58,7 +62,7 @@
                         <a class="header-sm-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
                     </div>
                     <div class="header-sm-navigation__menu-item-wrapper">
-                        <a class="header-sm-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
+                        <a class="header-sm-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US FOR INFORMATION</a>
                     </div>
                 </div>
             </section><!-- .header-sm-navigation -->
