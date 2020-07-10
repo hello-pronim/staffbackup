@@ -13,6 +13,7 @@
 
 @section('headcss')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type='text/css'>
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize-min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome/fontawesome-all.min.css') }}" rel="stylesheet">
 @endsection
