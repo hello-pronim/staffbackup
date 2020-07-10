@@ -1,6 +1,9 @@
 /* ==========================================================================
 Basic Styling
 ========================================================================== */
+body.register-body .wt-contentwrapper{
+  position: relative;
+}
 
 .wt-haslayout.wt-main-section.wt-main-section-doctor-bkg {
   padding-bottom: 340px;
@@ -25,6 +28,10 @@ Footer
   margin-left: -1px;
   margin-right: -1px;
 
+  position: absolute;
+  bottom: -2px;
+  width: 100%;
+
   .short-footer-cards {
     z-index: 1;
     margin-top: -350px;
@@ -34,6 +41,7 @@ Footer
       flex-direction: row;
       justify-content: center;
       align-items: flex-end;
+      width: 100%;
     }
 
     .footer-cards__item {

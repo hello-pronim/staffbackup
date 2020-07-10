@@ -72,7 +72,7 @@
 	</script>
 </head>
 
-<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}}">
+<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}} @if (\Request::is('register')) register-body @endif">
     {{ \App::setLocale(env('APP_LANG')) }}
 	<!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
