@@ -6,8 +6,12 @@
 @section('header')
 	@if (file_exists(resource_path('views/extend/includes/header.blade.php')))
 		@include('extend.includes.header')
-	@else 
-		@include('includes.header')
+	@else
+		@if (\Request::is('register'))
+			@include('components.header.regiter-header')
+		@else
+			@include('includes.header')
+		@endif
 	@endif
 @endsection
 
@@ -22,8 +26,12 @@
 @section('footer')
 	@if (file_exists(resource_path('views/extend/front-end/includes/footer.blade.php')))
 		@include('extend.front-end.includes.footer')
-	@else 
-		@include('front-end.includes.footer')
+	@else
+		@if (\Request::is('register'))
+			@include('components.footer.register-footer')
+		@else
+			@include('front-end.includes.footer')
+		@endif
 	@endif
 @endsection
 

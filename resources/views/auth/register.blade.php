@@ -317,20 +317,20 @@
             width: 100% !important;
         }
     </style>
-    @if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')
-        <div class="headernew">
-        <div class="row" style="margin:0 auto;width: 850px;padding: 65px 0px">
+    {{--@if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')--}}
+        {{--<div class="headernew">--}}
+        {{--<div class="row" style="margin:0 auto;width: 850px;padding: 65px 0px">--}}
 
-            <div class="headingcenter text-center">
-                <h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>
-                <div>15 years professional clinical experience in Primary Health Care</div>
-            </div>
+            {{--<div class="headingcenter text-center">--}}
+                {{--<h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>--}}
+                {{--<div>15 years professional clinical experience in Primary Health Care</div>--}}
+            {{--</div>--}}
 
 
-        </div>
-        </div>
-    @endif
-    <div class="wt-haslayout wt-main-section" style="padding: 0px">
+        {{--</div>--}}
+        {{--</div>--}}
+    {{--@endif--}}
+    <div class="wt-haslayout wt-main-section wt-main-section-doctor-bkg">
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-xs-12 col-sm-12 col-md-10 push-md-1 col-lg-8 push-lg-2" id="registration">
