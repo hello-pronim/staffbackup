@@ -252,7 +252,8 @@
                 <div v-if="clickedDate != ''">
                     <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
                         <div class="wt-tabscontenttitle">
-                            <h2>Create new availability</h2>
+                            <h2 v-if="event_id">Update availability</h2>
+                            <h2 v-if="!event_id">Create new availability</h2>
                         </div>
                     </div>
                     <div class="wt-accordiondetails classScrollTo">
@@ -332,15 +333,6 @@
                                 </div>
                             </div>
 
-                            <div class="wt-jobskills wt-tabsinfo la-jobedit"  id="post_job">
-                                <div class="wt-tabscontenttitle">
-                                    <h2>{{ trans('lang.skills_req') }}</h2>
-                                </div>
-                                <div class="la-jobedit-content">
-                                    <job_skills :placeholder="'select skills'"></job_skills>
-                                </div>
-                            </div>
-
                             <div class="form-group" v-if="!event_id">
                                 <div class="wt-tabscontenttitle">
                                     <div class="float-left">
@@ -364,10 +356,16 @@
                                     </span>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                {!! Form::select('skill_id', $skills, null, ['placeholder' => trans('lang.skills'), 'v-model'=>'skill_id']) !!}
+                            <div class="wt-jobskills wt-tabsinfo la-jobedit"  id="post_job">
+                                <div class="wt-tabscontenttitle">
+                                    <h2>{{ trans('lang.skills_req') }}</h2>
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::select('skill_id', $skills, null, ['placeholder' => trans('lang.skills_req'), 'v-model'=>'skill_id']) !!}
+                                </div>
                             </div>
+                            <div class="text-center">
+
                             <input type="hidden" name="recurring_date" v-if="event_id" v-model="recurring_date">
                             <input type="hidden" name="class" v-if="event_class" v-model="event_class">
                             <input type="hidden" name="user_id" v-if="user_id" v-model="user_id">
@@ -375,6 +373,7 @@
                             <button class="btn btn-success" v-if="!event_id" @click="saveNewEventAvailability">Create Availability</button>
                             <button class="btn btn-danger" v-if="!event_id" @click="saveNewEventBusy">Create Holiday/Busy</button>
                             <button class="btn btn-danger" v-if="event_id" @click="updateEvent">Update Availability</button>
+                            </div>
                         </form>
                     </div>
                 </div>

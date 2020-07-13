@@ -329,7 +329,7 @@
                             {{--</div>--}}
                             {{--<div class="wt-jobskills wt-jobskills-holder wt-tabsinfo">--}}
                                 {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.skills_req') }}</h2>--}}
+                                    {{--<h2>Profession</h2>--}}
                                 {{--</div>--}}
                                 {{--<job_skills :placeholder="'skills already selected'"></job_skills>--}}
                             {{--</div>--}}

@@ -69,7 +69,7 @@
                                                                                                         data-value="{{ $radius }}"></div>
                                 </div>
                                 <div class="filters">
-                                    <div>Profession</div>
+                                    <div>{{ trans('lang.skills_req') }}</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
                                         <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
