@@ -199,6 +199,7 @@
                 </div>
 
                 <div id="post_job_dashboard"  class="scrolToCalend" style="margin:0 auto;">
+                    <div class="wt-tabscontent tab-content">
                     <vue-cal ref="vuecal" style="height: 650px"
                              :time-from="0 * 60"
                              :time-to="24 * 60"
@@ -210,7 +211,6 @@
                              @cell-click="changeSelectedDate"
                     >
                     </vue-cal>
-
                     {!! Form::open(['url' => url('job/post-job'), 'class' =>'post-job-form wt-haslayout', 'id' => 'post_job_dashboard_form',  '@submit.prevent'=>'submitJob']) !!}
                     <div class="wt-dashboardbox" v-if="clickedDate!=''">
                         <div class="wt-dashboardboxtitle text-center">
@@ -599,7 +599,7 @@
                         {!! form::close(); !!}
 
                     </div>
-
+                    </div>
                 </div>
         @endif
     </section>
