@@ -63,7 +63,7 @@
                         @if ($access_type == 'jobs' || $access_type== 'both')
 
                             <div class="newBoxStyle">
-                                <div class="firsthalf"><a href="{{{ route('employerManageJobs') }}}">Applications</a></div>
+                                <div class="firsthalf"><a href="{{{ route('employerManageJobs') }}}">Jobs</a></div>
                                 <div class="secondhalf">{{$user->jobs()->count()}}</div>
                                 {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>

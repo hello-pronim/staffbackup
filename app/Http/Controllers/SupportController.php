@@ -707,7 +707,7 @@ class SupportController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
-            $offers = Offer::where('freelancer_id',$support_id)->count();
+            $applications = Proposal::where('freelancer_id',$support_id)->count();
             $skills = Skill::pluck('title', 'id');
             $lastest_proposals = Proposal::getLastWeekProposals($support_id);
 
@@ -740,7 +740,7 @@ class SupportController extends Controller
                         'package',
                         'lastest_proposals',
                         'message_status',
-                        'offers'
+                        'applications'
                     )
                 );
             } else {
@@ -772,7 +772,7 @@ class SupportController extends Controller
                         'package',
                         'lastest_proposals',
                         'message_status',
-                        'offers'
+                        'applications'
                     )
                 );
             }

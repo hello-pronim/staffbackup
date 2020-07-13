@@ -721,7 +721,7 @@ class FreelancerController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
-            $offers = Offer::where('freelancer_id',$freelancer_id)->count();
+            $applications = Proposal::where('freelancer_id',$freelancer_id)->count();
             $skills = Skill::pluck('title', 'id');
             $lastest_proposals = Proposal::getLastWeekProposals($freelancer_id);
 
@@ -755,7 +755,7 @@ class FreelancerController extends Controller
                         'skills',
                         'lastest_proposals',
                         'message_status',
-                        'offers'
+                        'applications'
                     )
                 );
             } else {
@@ -787,7 +787,7 @@ class FreelancerController extends Controller
                         'skills',
                         'lastest_proposals',
                         'message_status',
-                        'offers'
+                        'applications'
                     )
                 );
             }

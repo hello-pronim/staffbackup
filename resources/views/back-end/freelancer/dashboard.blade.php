@@ -39,8 +39,8 @@
                     </div>
 
                     <div class="newBoxStyle">
-                        <div class="firsthalf">Applications</div>
-                        <div class="secondhalf">{{$offers}}</div>
+                        <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">Applications</a></div>
+                        <div class="secondhalf">{{$applications}}</div>
                         {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                     </div>
 
