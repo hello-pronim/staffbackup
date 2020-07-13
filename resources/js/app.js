@@ -394,8 +394,8 @@ if (document.getElementById("support_availability")) {
             },
             reloadCalendar(){
                 var events = [];
-                console.log(events);
-                console.log(this.events);
+                // console.log(events);
+                // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
                     if (self.events.length > 0) {
@@ -499,12 +499,16 @@ if (document.getElementById("support_availability")) {
                 axios.post('/' + role + '/updateCalendarAvailability', form_data)
                     .then(function (response) {
                         self.reloadCalendar();
-                        thistoast.success(' ', "Updated : \n" + self.start + " - " + self.end);
-                        setTimeout(function () {
+                        thistoast.success(' ', "Updated : <br>" +
+                            self.availability_title + " " + self.availability_content + "<br>" +
+                            self.start + " - " + self.end);
+                        setTimeout(function (self) {
                             $('html, body').animate({
                                 scrollTop: ($(".scrolToCalend").offset().top)
                             }, 1000);
-                        })
+
+                        });
+                        self.clickedDate = false;
                     })
                     .catch(function (error) {
                         if(typeof error.response != "undefined") {
@@ -552,15 +556,20 @@ if (document.getElementById("support_availability")) {
                     .then(function (response) {
                         self.reloadCalendar();
                         if (busy) {
-                            thistoast.error(' ', "Success " + title_word + ": \n" + self.start + " - " + self.end);
+                            thistoast.error(' ', "Success <br>" +
+                                self.availability_title + " " + self.availability_content + "<br>" +
+                                self.start + " - " + self.end);
                         } else {
-                            thistoast.success(' ', "Success " + title_word + ": \n" + self.start + " - " + self.end);
+                            thistoast.success(' ', "Success <br>" +
+                                self.availability_title + " " + self.availability_content + "<br>" +
+                                self.start + " - " + self.end);
                         }
                         setTimeout(function () {
                             $('html, body').animate({
                                 scrollTop: ($(".scrolToCalend").offset().top)
                             }, 1000);
                         })
+                        self.clickedDate = false;
                     })
                     .catch(function (error) {
                         if(typeof error.response != "undefined" && error.response.data.errors != undefined) {
@@ -756,8 +765,8 @@ if (document.getElementById("freelancer_availability")) {
             },
             reloadCalendar(){
                 var events = [];
-                console.log(events);
-                console.log(this.events);
+                // console.log(events);
+                // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
                     if (self.events.length > 0) {
@@ -861,12 +870,16 @@ if (document.getElementById("freelancer_availability")) {
                 axios.post('/' + role + '/updateCalendarAvailability', form_data)
                     .then(function (response) {
                         self.reloadCalendar();
-                        thistoast.success(' ', "Updated : \n" + self.start + " - " + self.end);
-                        setTimeout(function () {
+                        thistoast.success(' ', "Updated : <br>" +
+                            self.availability_title + " " + self.availability_content + "<br>" +
+                            self.start + " - " + self.end);
+                        setTimeout(function (self) {
                             $('html, body').animate({
                                 scrollTop: ($(".scrolToCalend").offset().top)
                             }, 1000);
-                        })
+
+                        });
+                        self.clickedDate = false;
                     })
                     .catch(function (error) {
                         if(typeof error.response != "undefined") {
@@ -899,7 +912,7 @@ if (document.getElementById("freelancer_availability")) {
                 var title_word = 'Available'
                 var class_type = 'available_class';
                 var thistoast = this.$toast;
-                    if (busy) {
+                if (busy) {
                     class_type = 'busy_class';
                     word = title_word = 'Busy/Holiday';
                 }
@@ -914,15 +927,20 @@ if (document.getElementById("freelancer_availability")) {
                     .then(function (response) {
                         self.reloadCalendar();
                         if (busy) {
-                            thistoast.error(' ', "Success " + title_word + ": \n" + self.start + " - " + self.end);
+                            thistoast.error(' ', "Success <br>" +
+                                self.availability_title + " " + self.availability_content + "<br>" +
+                                self.start + " - " + self.end);
                         } else {
-                            thistoast.success(' ', "Success " + title_word + ": \n" + self.start + " - " + self.end);
+                            thistoast.success(' ', "Success <br>" +
+                                self.availability_title + " " + self.availability_content + "<br>" +
+                                self.start + " - " + self.end);
                         }
                         setTimeout(function () {
                             $('html, body').animate({
                                 scrollTop: ($(".scrolToCalend").offset().top)
                             }, 1000);
                         })
+                        self.clickedDate = false;
                     })
                     .catch(function (error) {
                         if(typeof error.response != "undefined" && error.response.data.errors != undefined) {
@@ -4654,10 +4672,10 @@ if (document.getElementById("post_job_dashboard")) {
             },
             reloadCalendar(){
                 var events = [];
-                console.log(events);
-                console.log(this.events);
+                // console.log(events);
+                // console.log(this.events);
                 let self = this;
-                axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                axios.get('/employer/getCalendarEvents').then(function (response) {
                     if (self.events.length > 0) {
                         self.events.splice(0);
                     }
@@ -4777,10 +4795,17 @@ if (document.getElementById("post_job_dashboard")) {
                         if (response.data.type == 'success') {
                             self.loading = false;
                             self.showInfo(Vue.prototype.trans('lang.job_submitting'));
+                            // setTimeout(function (self) {
+                            //     window.location.replace(APP_URL + '/employer/dashboard');
+                            //     self.clickedDate = false;
+                            // }, 4000);
+                            self.reloadCalendar();
+                            self.clickedDate = false;
                             setTimeout(function (self) {
-                                window.location.replace(APP_URL + '/employer/dashboard');
-                                self.clickedDate = false;
-                            }, 4000);
+                                $('html, body').animate({
+                                    scrollTop: ($(".scrolToCalend").offset().top)
+                                }, 1000);
+                            });
 
                         } else {
                             self.loading = false;
@@ -4839,6 +4864,14 @@ if (document.getElementById("post_job_dashboard")) {
                             //         window.location.replace(APP_URL + '/admin/jobs');
                             //     }
                             // }, 4000);
+
+                            self.reloadCalendar();
+                            self.clickedDate = false;
+                            setTimeout(function (self) {
+                                $('html, body').animate({
+                                    scrollTop: ($(".scrolToCalend").offset().top)
+                                }, 1000);
+                            });
                         } else {
                             self.showError(response.data.message);
                         }
@@ -4878,7 +4911,7 @@ if (document.getElementById("post_job_dashboard")) {
                     .then(function (response) {
                         self.reloadCalendar();
                         self.showInfo(Vue.prototype.trans('lang.job_updating'));
-                        this.selectedDate = false;
+                        self.clickedDate = false;
                         setTimeout(function () {
                             $('html, body').animate({
                                 scrollTop: ($(".scrolToCalend").offset().top)
@@ -6619,10 +6652,10 @@ $(document).ready(function () {
 
     setTimeout(function () {
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
-        $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
-        $('#post_job_dashboard .vuecal__cell-date').after('<button class="availButton">+</button>');
-        $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
-        $('#freelancer_availability .vuecal__cell-date').after('<button v-on:click="createNewEvent" class="availButton">+</button>');
+        // $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        // $('#post_job_dashboard .vuecal__cell-date').after('<button class="availButton">+</button>');
+        // $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        // $('#freelancer_availability .vuecal__cell-date').after('<button v-on:click="createNewEvent" class="availButton">+</button>');
     }, 2000);
 
     $(document).on('click', '#post_job .vuecal__menu, #post_job.vuecal__title-bar', function () {
@@ -6643,9 +6676,9 @@ $(document).ready(function () {
     $(document).on('click', '#employer_availability .vuecal__menu, #employer_availability .vuecal__title-bar,     #freelancer_availability .vuecal__menu, #freelancer_availability .vuecal__title-bar', function () {
         $('#employer_availability .bookbutton').remove();
         $('#freelancer_availability .bookbutton').remove();
-        $('#freelancer_availability .vuecal__cell-date').after('<button @click="createNewEvent" class="availButton">+</button>');
-        $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
-        $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        // $('#freelancer_availability .vuecal__cell-date').after('<button @click="createNewEvent" class="availButton">+</button>');
+        // $('#support_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
+        // $('#employer_availability .vuecal__cell-date').after('<button class="availButton">+</button>');
 
     });
 

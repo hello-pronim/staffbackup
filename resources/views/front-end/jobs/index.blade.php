@@ -207,9 +207,11 @@
                                                         <span>lng: {{ $job->longitude }}</span>*/ ?>
                                                     </div>
                                                     <div class="wt-tag wt-widgettag">
+                                                        @if($job->skills != "")
                                                         @foreach ($job->skills as $skill )
                                                             <a href="{{{url('search-results?type=job&skills%5B%5D='.$skill->slug)}}}">{{$skill->title}}</a>
                                                         @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="wt-viewjobholder">
@@ -219,7 +221,7 @@
                                                         @if($job->employer->itsoftware != "")
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
-                                                        @if (count($job->skills) != 0 )
+                                                        @if ($job->skills != "")
                                                             <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $job->skills[0]->title }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->duration) )

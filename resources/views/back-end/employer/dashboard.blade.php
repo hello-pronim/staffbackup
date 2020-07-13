@@ -198,7 +198,7 @@
                     <h2>Your Calendar</h2>
                 </div>
 
-                <div id="post_job_dashboard">
+                <div id="post_job_dashboard"  class="scrolToCalend" style="margin:0 auto;">
                     <vue-cal ref="vuecal" style="height: 650px"
                              :time-from="0 * 60"
                              :time-to="24 * 60"
@@ -352,7 +352,7 @@
 
                             <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
                                 <div class="wt-tabscontenttitle">
-                                    <h2>Professions</h2>
+                                    <h2>{{ trans('lang.skills_req') }}</h2>
                                 </div>
                                 <div class="la-jobedit-content">
                                     <job_skills :placeholder="'select professions'"></job_skills>
