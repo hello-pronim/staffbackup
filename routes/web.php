@@ -344,7 +344,7 @@ Route::group(
         Route::get('support/get-support-awards', 'SupportController@getSupportAwards');
         Route::get('support/jobs/{status}', 'SupportController@showSupportJobs');
         Route::get('support/job/{slug}', 'SupportController@showOnGoingJobDetail');
-        Route::get('support/proposals', 'SupportController@showSupportProposals');
+        Route::get('support/proposals', 'SupportController@showSupportProposals')->name('showSupportProposals');;
         Route::get('support/dashboard', 'SupportController@supportDashboard');
         Route::get('support/profile', 'SupportController@index');
         Route::post('support/upload-temp-image', 'SupportController@uploadTempImage');

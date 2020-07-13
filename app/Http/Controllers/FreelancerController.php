@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use App\Freelancer;
+use App\Offer;
 use Illuminate\Http\Request;
 use App\Helper;
 use App\Location;
@@ -616,6 +617,7 @@ class FreelancerController extends Controller
             $employer_profile = User::find($job->user_id)->profile;
             $employer_avatar = !empty($employer_profile) ? $employer_profile->avater : '';
             $user_image = !empty($profile) ? $profile->avater : '';
+            $job->skills = (!empty($job->skills))?unserialize($job->skills):"";
             $profile_image = !empty($user_image) ? '/uploads/users/' . Auth::user()->id . '/' . $user_image : 'images/user-login.png';
             $employer_image = !empty($employer_avatar) ? '/uploads/users/' . $job->user_id . '/' . $employer_avatar : 'images/user-login.png';
             $currency   = SiteManagement::getMetaValue('commision');
@@ -719,7 +721,9 @@ class FreelancerController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
+            $offers = Offer::where('freelancer_id',$freelancer_id)->count();
             $skills = Skill::pluck('title', 'id');
+            $lastest_proposals = Proposal::getLastWeekProposals($freelancer_id);
 
 
             if (file_exists(resource_path('views/extend/back-end/freelancer/dashboard.blade.php'))) {
@@ -748,9 +752,10 @@ class FreelancerController extends Controller
                         'ongoing_services_icon',
                         'enable_package',
                         'package',
-                        'skills'
-
-
+                        'skills',
+                        'lastest_proposals',
+                        'message_status',
+                        'offers'
                     )
                 );
             } else {
@@ -779,7 +784,10 @@ class FreelancerController extends Controller
                         'ongoing_services_icon',
                         'enable_package',
                         'package',
-                        'skills'
+                        'skills',
+                        'lastest_proposals',
+                        'message_status',
+                        'offers'
                     )
                 );
             }

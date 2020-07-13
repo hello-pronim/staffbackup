@@ -50,21 +50,21 @@
 
 
                         <div class="newBoxStyle">
-                            <div class="firsthalf">Jobs</div>
-                            <div class="secondhalf">9</div>
-                            {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
+                            <div class="firsthalf"><a href="{{{ route('employerManageJobs') }}}">Latest Proposals</a></div>
+                            <div class="secondhalf">{{$latest_proposal}}</div>
+                            {{--   {{ trans('lang.click_view') }}</a>--}}
                         </div>
                         <div class="newBoxStyle">
-                            <div class="firsthalf">Messages</div>
-                            <div class="secondhalf">10</div>
-{{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
+                            <div class="firsthalf"><a href="{{ url('message-center') }}">Messages</a></div>
+                            <div class="secondhalf">{{$message_status}}</div>
+{{--                            {{ trans('lang.click_view') }}--}}
 
                         </div>
                         @if ($access_type == 'jobs' || $access_type== 'both')
 
                             <div class="newBoxStyle">
-                                <div class="firsthalf">Applications</div>
-                                <div class="secondhalf">23</div>
+                                <div class="firsthalf"><a href="{{{ route('employerManageJobs') }}}">Applications</a></div>
+                                <div class="secondhalf">{{$user->jobs()->count()}}</div>
                                 {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                             </div>
                         @endif

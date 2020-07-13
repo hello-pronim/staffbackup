@@ -77,7 +77,7 @@ class ProposalController extends Controller
             $job = $job_query->firstOrFail();
 
             if (!empty($job)) {
-                $job_skills = $job->skills->pluck('id')->toArray();
+                $job_skills = (!empty($job->skills))?collect(unserialize($job->skills))->pluck('id')->toArray():'';
                 $check_skill_req = $this->proposal->getJobSkillRequirement($job_skills);
                 $proposal_status = Job::find($job->id)->proposals()->where('status', 'hired')->first();
                 $role_id =  Helper::getRoleByUserID(Auth::user()->id);

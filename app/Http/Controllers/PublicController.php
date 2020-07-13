@@ -554,6 +554,7 @@ class PublicController extends Controller
                 $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
                 $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
                 $user = $profile->user;
+                $skills = Skill::all();
                 if (file_exists(resource_path('views/extend/front-end/users/employer-show.blade.php'))) {
                     return View(
                         'extend.front-end.users.employer-show',

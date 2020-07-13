@@ -11,6 +11,7 @@
  */
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use File;
 use Storage;
@@ -221,7 +222,7 @@ class Proposal extends Model
             ->where('private_messages.project_type', $project_type)
             ->orderBy('private_messages.created_at')->get()->toArray();
     }
-    
+
 
     /**
      * Get proposals by status.
@@ -289,4 +290,26 @@ class Proposal extends Model
         }
         return $proposal->delete();
     }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public static function getLastWeekProposals($id){
+        $date = Carbon::today()->subDays(7)->format('Y-m-d H:i:s');
+        return Proposal::where('freelancer_id',$id)->where('created_at','>=',$date)->count();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public static function getLastWeekProposalsByJobList($id){
+        $job_list = Job::where('user_id',$id)->get()->pluck('id')->toArray();
+        $date = Carbon::today()->subDays(7)->format('Y-m-d H:i:s');
+        return Proposal::whereIn('job_id',$job_list)->where('created_at','>=',$date)->count();
+    }
+
 }
