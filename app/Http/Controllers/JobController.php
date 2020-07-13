@@ -147,7 +147,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $job_details = $this->job->latest()->where('user_id', Auth::user()->id)->paginate(5);
+        $job_details = $this->job->latest()->where('user_id', Auth::user()->id)->paginate(50);
         $currency   = SiteManagement::getMetaValue('commision');
         $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
         if (file_exists(resource_path('views/extend/back-end/employer/jobs/index.blade.php'))) {
@@ -589,6 +589,9 @@ class JobController extends Controller
             $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
             $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
             $user = $profile->user;
+            $job->skills = (!empty($job->skills))?unserialize($job->skills):"";
+            $skills = Skill::all();
+
 
             $job_calendar_event = null;
             if ($job->employer->calendars()->exists()) {
@@ -616,7 +619,8 @@ class JobController extends Controller
                         'project_type',
                         'show_breadcrumbs',
                         'user',
-                        'job_calendar_event'
+                        'job_calendar_event',
+                        'skills'
                     )
                 );
             } else {
@@ -634,7 +638,8 @@ class JobController extends Controller
                         'project_type',
                         'show_breadcrumbs',
                         'user',
-                        'job_calendar_event'
+                        'job_calendar_event',
+                        'skills'
                     )
                 );
             }

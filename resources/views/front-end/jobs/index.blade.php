@@ -160,6 +160,7 @@
                                             $featured_class = $job->is_featured == 'true' ? 'wt-featured' : '';
                                             $user = Auth::user() ? \App\User::find(Auth::user()->id) : '';
                                             $project_type  = Helper::getProjectTypeList($job->project_type);
+                                            $job->skills = ($job->skills != "")?unserialize($job->skills):"";
 
                                         if( isset($_GET['hours_avail']) && !empty($_GET['hours_avail']))
                                         {
@@ -209,7 +210,7 @@
                                                     <div class="wt-tag wt-widgettag">
                                                         @if($job->skills != "")
                                                         @foreach ($job->skills as $skill )
-                                                            <a href="{{{url('search-results?type=job&skills%5B%5D='.$skill->slug)}}}">{{$skill->title}}</a>
+                                                            <a href="{{{url('search-results?type=job&skills%5B%5D='.$skills[$skill['id']]->slug)}}}">{{$skills[$skill['id']]->title}}</a>
                                                         @endforeach
                                                         @endif
                                                     </div>
@@ -222,7 +223,7 @@
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
                                                         @if ($job->skills != "")
-                                                            <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $job->skills[0]->title }}}</span></li>
+                                                            <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $skills[$job->skills[0]['id']]->title }}}</span></li>
                                                         @endif
                                                         @if (!empty($job->duration) )
                                                             <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->duration  }}}</span></li>

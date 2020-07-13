@@ -12,6 +12,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Offer;
 use App\Support;
 use Illuminate\Http\Request;
 use App\Helper;
@@ -75,8 +76,7 @@ class SupportController extends Controller
     {
         $locations = Location::pluck('title', 'id');
         $skills = Skill::pluck('title', 'id');
-        $profile = $this->support::where('user_id', Auth::user()->id)
-            ->get()->first();
+        $profile = $this->support::where('user_id', Auth::user()->id)->get()->first();
         $gender = !empty($profile->gender) ? $profile->gender : '';
         $hourly_rate = !empty($profile->hourly_rate) ? $profile->hourly_rate : '';
         $tagline = !empty($profile->tagline) ? $profile->tagline : '';
@@ -707,7 +707,10 @@ class SupportController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
+            $applications = Proposal::where('freelancer_id',$support_id)->count();
             $skills = Skill::pluck('title', 'id');
+            $lastest_proposals = Proposal::getLastWeekProposals($support_id);
+
             if (file_exists(resource_path('views/extend/back-end/support/dashboard.blade.php'))) {
                 return view(
                     'extend.back-end.support.dashboard',
@@ -734,7 +737,10 @@ class SupportController extends Controller
                         'completed_services_icon',
                         'ongoing_services_icon',
                         'enable_package',
-                        'package'
+                        'package',
+                        'lastest_proposals',
+                        'message_status',
+                        'applications'
                     )
                 );
             } else {
@@ -763,7 +769,10 @@ class SupportController extends Controller
                         'completed_services_icon',
                         'ongoing_services_icon',
                         'enable_package',
-                        'package'
+                        'package',
+                        'lastest_proposals',
+                        'message_status',
+                        'applications'
                     )
                 );
             }

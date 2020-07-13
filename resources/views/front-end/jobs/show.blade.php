@@ -105,14 +105,14 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if (!empty($job->skills) && $job->skills->count() > 0)
+                                    @if (!empty($job->skills))
                                         <div class="wt-skillsrequired">
                                             <div class="wt-title">
                                                 <h3>{{ trans('lang.skills_req') }}</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                                @foreach ($job->skills as $skill)
-                                                    <a href="{{{url('search-results?type=job&skills%5B%5D='.$skill->slug)}}}">{{{ $skill->title }}}</a>
+                                            @foreach ($job->skills as $skill)
+                                                    <a href="{{{url('search-results?type=job&skills%5B%5D='.$skills[$skill['id']]->slug)}}}">{{{ $skills[$skill['id']]->title }}}</a>
                                                 @endforeach
                                             </div>
                                         </div>

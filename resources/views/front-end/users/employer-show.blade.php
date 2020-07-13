@@ -221,6 +221,8 @@
                                         $description = strip_tags(stripslashes($job->description));
                                         $featured_class = $job->is_featured == 'true' ? 'wt-featured' : '';
                                         $project_type  = Helper::getProjectTypeList($job->project_type);
+                                        $job->skills = ($job->skills != "")?unserialize($job->skills):"";
+
                                     @endphp
                                     <div class="wt-userlistinghold wt-userlistingholdvtwo {{$featured_class}}">
                                         @if ($job->is_featured == 'true')
@@ -241,9 +243,11 @@
                                                     <p>@php echo htmlspecialchars_decode(stripslashes(str_limit($description, 200))); @endphp</p>
                                                 </div>
                                                 <div class="wt-tag wt-widgettag">
+                                                    @if($job->skills != '')
                                                     @foreach ($job->skills as $skill )
-                                                        <a href="{{{url('search-results?type=job&skills%5B%5D='.$skill->slug)}}}">{{$skill->title}}</a>
+                                                        <a href="{{{url('search-results?type=job&skills%5B%5D='.$skills[$skill['id']]->slug)}}}">{{$skills[$skill['id']]->title}}</a>
                                                     @endforeach
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="wt-viewjobholder">

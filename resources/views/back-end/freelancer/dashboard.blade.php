@@ -27,22 +27,20 @@
             <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
                 <div style="margin: 0 auto">
                     <div class="newBoxStyle">
-                        <div class="firsthalf"><a
-                                    href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a>
-                        </div>
-                        <div class="secondhalf">9</div>
+                        <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a></div>
+                        <div class="secondhalf">{{$lastest_proposals}}</div>
                         {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                     </div>
                     <div class="newBoxStyle">
                         <div class="firsthalf"><a href="{{{ route('message') }}}">{{ trans('lang.new_msgs') }}</a></div>
-                        <div class="secondhalf">10</div>
+                        <div class="secondhalf">{{$message_status}}</div>
                         {{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
 
                     </div>
 
                     <div class="newBoxStyle">
-                        <div class="firsthalf">Applications</div>
-                        <div class="secondhalf">23</div>
+                        <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">Applications</a></div>
+                        <div class="secondhalf">{{$applications}}</div>
                         {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                     </div>
 

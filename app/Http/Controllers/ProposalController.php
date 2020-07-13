@@ -77,7 +77,7 @@ class ProposalController extends Controller
             $job = $job_query->firstOrFail();
 
             if (!empty($job)) {
-                $job_skills = $job->skills->pluck('id')->toArray();
+                $job_skills = (!empty($job->skills))?collect(unserialize($job->skills))->pluck('id')->toArray():'';
                 $check_skill_req = $this->proposal->getJobSkillRequirement($job_skills);
                 $proposal_status = Job::find($job->id)->proposals()->where('status', 'hired')->first();
                 $role_id =  Helper::getRoleByUserID(Auth::user()->id);
@@ -187,7 +187,7 @@ class ProposalController extends Controller
                 $this->validate(
                     $request,
                     [
-                        'amount' => 'required',
+                        //'amount' => 'required',
                         //'completion_time'    => 'required',
                         'description'    => 'required',
                     ]
@@ -216,11 +216,11 @@ class ProposalController extends Controller
                     return $json;
                 }
 
-                if (intval($request['amount']) > $job->price) {
-                    $json['type'] = 'error';
-                    $json['message'] = trans('lang.proposal_exceed');
-                    return $json;
-                }
+                //if (intval($request['amount']) > $job->price) {
+                //    $json['type'] = 'error';
+                //    $json['message'] = trans('lang.proposal_exceed');
+                //    return $json;
+                //}
 
                 if (!ProposalController::checkDistance($job)) {
                     $json['type'] = 'error';
@@ -285,7 +285,7 @@ class ProposalController extends Controller
                                         $email_params['freelancer_profile'] = url('profile/' . $user->slug);
                                         $email_params['title'] = $job->title;
                                         $email_params['link'] = url('job/' . $job->slug);
-                                        $email_params['amount'] = $request['amount'];
+                                        $email_params['amount'] = (int)$request['amount'];
                                         //$email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                         $email_params['message'] = $request['description'];
 
@@ -356,7 +356,7 @@ class ProposalController extends Controller
                                     $email_params['freelancer_profile'] = url('profile/' . $user->slug);
                                     $email_params['title'] = $job->title;
                                     $email_params['link'] = url('job/' . $job->slug);
-                                    $email_params['amount'] = $request['amount'];
+                                    $email_params['amount'] = (int)$request['amount'];
                                     $email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                     $email_params['message'] = $request['description'];
 
