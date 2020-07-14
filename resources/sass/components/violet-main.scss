@@ -15,9 +15,11 @@ Main
       margin-top: -1px;
       position: absolute;
       background: #dddddd;
+      z-index: 3;
     }
 
     & li:first-child::before,
+    & li.wt-active:last-child:after,
     & li.wt-done-next a {
       background: #a2b1d8;
     }
@@ -31,6 +33,7 @@ Main
       margin-top: -1px;
       background: #ddd;
       position: absolute;
+      z-index: 2;
     }
     & li div {
       position: absolute;
@@ -45,7 +48,8 @@ Main
     & .wt-active a,
     & li.wt-done-next a{
       background: #a2b1d8;
-      border-color: #a2b1d8;
+      border-color: #a2b1d8 !important;
+      color: #fff !important;
     }
     & .wt-active:before,
     & li.wt-done-next:before{
