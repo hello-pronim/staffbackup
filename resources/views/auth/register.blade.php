@@ -364,7 +364,7 @@
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-                                                <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
+                                                <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
 
 <ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
@@ -511,7 +511,7 @@
                                                 <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
                                                 <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-                                                <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
+                                                <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
                                             <div class="form-group">
                                                 <div class="wt-tabscontenttitle">
@@ -1191,7 +1191,7 @@
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
       <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
       <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
+      <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
   </ul>
 
   <figure class="wt-joinformsimg">
@@ -1328,7 +1328,7 @@
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
       <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
+      <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
   </ul>
 
   <fieldset class="wt-formregisterstart">
@@ -1439,7 +1439,7 @@
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
       <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li class="wt-active"><a href="javascrip:void(0);">05</a></li>
+      <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
   </ul>
 
   <fieldset class="wt-formregisterstart" style="width: 100%;">
