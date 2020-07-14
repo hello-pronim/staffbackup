@@ -3,12 +3,16 @@
 
 @endpush
 
+@php
+	$updatedRoutes = ['register', 'showUserProfile']
+@endphp
+
 @section('header')
 	@if (file_exists(resource_path('views/extend/includes/header.blade.php')))
 		@include('extend.includes.header')
 	@else
-		@if (\Request::is('register'))
-			@include('components.header.regiter-header')
+		@if (in_array(Route::currentRouteName(), $updatedRoutes))
+			@include('components.header.header')
 		@else
 			@include('includes.header')
 		@endif
@@ -27,7 +31,7 @@
 	@if (file_exists(resource_path('views/extend/front-end/includes/footer.blade.php')))
 		@include('extend.front-end.includes.footer')
 	@else
-		@if (\Request::is('register'))
+		@if (in_array(Route::currentRouteName(), $updatedRoutes))
 			@include('components.footer.register-footer')
 		@else
 			@include('front-end.includes.footer')

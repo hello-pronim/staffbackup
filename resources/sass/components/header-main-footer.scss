@@ -1,0 +1,31 @@
+/* ==========================================================================
+Basic Styling
+========================================================================== */
+body.register-body .wt-wrapper{
+  padding-bottom: 0px;
+}
+body.register-body .wt-contentwrapper{
+  position: relative;
+}
+
+.header-main-footer-wrapper {
+  .main-wrapper {
+    overflow: auto;
+    padding-bottom: 260px;
+    background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left -48px bottom, right bottom;
+    background-size: 260px;
+    background-color: white;
+
+    @media (max-width: 620px) {
+      background-image: url(/images/img/index-main/doctor1.png);
+      background-repeat: no-repeat, no-repeat;
+      background-position: left -48px bottom;
+    }
+  }
+
+  .wt-main {
+    background-color: transparent;
+  }
+}
