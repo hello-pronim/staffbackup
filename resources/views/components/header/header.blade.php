@@ -12,10 +12,10 @@
 
             <div class="header-navigation">
                 <div class="header-navigation__menu-item-wrapper">
-                    <a class="header-navigation__menu-item" href="{{ url('/') }}">START BROWSING ADHOC STAFF</a>
+                    <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
                 </div>
                 <div class="header-navigation__menu-item-wrapper">
-                    <a class="header-navigation__menu-item" href="{{ url('/page/how-it-works') }}">FIND TEMPORARY SHORT TERM WORK</a>
+                    <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
                 </div>
                 <div class="header-navigation__menu-item-wrapper">
                     <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
@@ -51,10 +51,10 @@
 
     <div class="header__container header-navigation header-sm-navigation">
         <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
-            <a class="header-navigation__menu-item" href="{{ url('/') }}">START BROWSING ADHOC STAFF</a>
+            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
         </div>
         <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ url('/page/how-it-works') }}">FIND TEMPORARY SHORT TERM WORK</a>
+            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
         </div>
         <div class="header-navigation__menu-item-wrapper">
             <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
