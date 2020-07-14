@@ -360,10 +360,10 @@
                                                 </div>
                                             </div>
                                             <ul class="wt-joinsteps">
-                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.01') }}}</a></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02') }}}</a></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
                                             </ul>
 
@@ -507,12 +507,10 @@
                                                 @endif
                                             </div>
                                             <ul class="wt-joinsteps">
-                                                <li class="wt-done-next">
-                                                  <a href="javascrip:void(0);"><i class="fa fa-check"></i></a>
-                                                </li>
-                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.02') }}}</a></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+                                                <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
                                             </ul>
                                             <div class="form-group">
@@ -1189,13 +1187,10 @@
   </div>
 
   <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                      class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i
-                      class="fa fa-check"></i></a></li>
-      <li class="wt-active"><a
-                  href="javascrip:void(0);">{{{ trans('lang.03') }}}</a></li>
-      <li><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+      <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+      <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
       <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
   </ul>
 
@@ -1329,10 +1324,10 @@
   </div>
 
   <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04') }}}</a></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+      <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
       <li v-if="user_role=='support'"><a href="javascrip:void(0);">05</a></li>
   </ul>
 
@@ -1440,10 +1435,10 @@
 
 <div class="wt-gotodashboard" v-show="step === 5" v-cloak>
   <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);"><i class="fa fa-check"></i></a></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
       <li class="wt-active"><a href="javascrip:void(0);">05</a></li>
   </ul>
 
