@@ -1,12 +1,19 @@
 /* ==========================================================================
 Main
 ========================================================================== */
-  ul.wt-joinsteps {
+
+ul.wt-joinsteps {
+  & li div {
+    display: none;
+  }
+  //registration steps
+  /*
+
     li {
       padding: 0 14px;
     }
 
-    & li:before{
+    & li:before {
       width: 100%;
       content: '';
       top: calc(50% - 4px);
@@ -23,8 +30,7 @@ Main
     & li.wt-done-next a {
       background: #a2b1d8;
     }
-    & li:last-child::after
-    {
+    & li:last-child::after {
       width: 100%;
       content: '';
       top: calc(50% - 4px);
@@ -46,13 +52,14 @@ Main
       background: #ddd;
     }
     & .wt-active a,
-    & li.wt-done-next a{
+    & li.wt-done-next a {
       background: #a2b1d8;
       border-color: #a2b1d8 !important;
       color: #fff !important;
     }
     & .wt-active:before,
-    & li.wt-done-next:before{
+    & li.wt-done-next:before {
       background: #a2b1d8;
     }
-  }
+  */
+}
