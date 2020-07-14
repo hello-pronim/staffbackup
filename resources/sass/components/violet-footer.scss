@@ -1,35 +1,12 @@
 /* ==========================================================================
-Basic Styling
-========================================================================== */
-body.register-body .wt-contentwrapper{
-  position: relative;
-}
-
-.wt-haslayout.wt-main-section.wt-main-section-doctor-bkg {
-  padding-bottom: 340px;
-
-  background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
-  background-repeat: no-repeat, no-repeat;
-  background-position: left -48px bottom, right bottom;
-  background-size: 260px;
-
-  @media (max-width: 620px) {
-    background-image: url(/images/img/index-main/doctor1.png);
-    background-repeat: no-repeat, no-repeat;
-    background-position: left -48px bottom;
-  }
-}
-
-/* ==========================================================================
 Footer
 ========================================================================== */
 .short-footer {
-  border: 1px solid;
-  margin-left: -1px;
-  margin-right: -1px;
+  margin-left: 0px;
+  margin-right: 0px;
 
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   width: 100%;
 
   .short-footer-cards {

@@ -4,7 +4,7 @@
             <div class="header-logo">
                 <a href="{{ url('/') }}">
                     <div class="header-logo__wrapper">
-                        <img class="header-logo__img" src="images/img/index-main/logo-3.png">
+                        <img class="header-logo__img" src="/images/img/index-main/logo-3.png" alt="{{ trans('lang.site_logo') }}">
                         <span class="header-logo__slogan">Dedicated to Primary Health Care</span>
                     </div><!-- .header-logo__wrapper -->
                 </a>
@@ -25,10 +25,12 @@
                 </div>
             </div>
 
-            <div class="header__buttons">
-                <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
-                <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
-            </div>
+            @if(!\Auth::User())
+                <div class="header__buttons">
+                    <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
+                    <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
+                </div>
+            @endif
 
         </div><!-- .header__container -->
     </header>
@@ -38,10 +40,12 @@
             <div class="hero__wrapper">
                 <h1 class="hero__title">Adhoc and temp staff are just a new steps away...</h1>
             </div><!-- .hero__wrapper -->
-            <div class="hero__buttons">
-                <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
-                <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
-            </div>
+            @if(!\Auth::User())
+                <div class="hero__buttons">
+                    <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
+                    <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
+                </div>
+            @endif
         </div><!-- .hero__container -->
     </section><!-- .hero -->
 
@@ -60,3 +64,7 @@
         </div>
     </div>
 </div>
+
+@if (!\Request::is('register'))
+    @include('components.header.header-navbar')
+@endif

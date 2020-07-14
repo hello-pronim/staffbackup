@@ -72,7 +72,11 @@
 	</script>
 </head>
 
-<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}} @if (\Request::is('register')) register-body @endif">
+@php
+	$updatedRoutes = ['register', 'showUserProfile']
+@endphp
+
+<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}} @if (in_array(\Route::currentRouteName(), $updatedRoutes) ) register-body @endif">
     {{ \App::setLocale(env('APP_LANG')) }}
 	<!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -87,6 +91,11 @@
 	<div id="wt-wrapper" class="wt-wrapper wt-haslayout">
 		<!-- Content Wrapper Start -->
 		<div class="wt-contentwrapper">
+		@php
+			$updatedRoutes = ['register', 'showUserProfile']
+		@endphp
+
+		@if (!in_array(Route::currentRouteName(), $updatedRoutes))
 			<!-- Header Start -->
 			@yield('header')
 			<!--Header End-->
@@ -96,8 +105,22 @@
 			<!--Footer Start-->
 			@yield('footer')
 			<!--Footer End-->
-		</div>
-		<!--Content Wrapper End-->
+		@else
+			<div class="header-main-footer-wrapper">
+				<!-- Header Start -->
+				@yield('header')
+				<!--Header End-->
+				<!--Main Start-->
+				<div class="main-wrapper">
+					@yield('main')
+				</div>
+				<!--Main End-->
+				<!--Footer Start-->
+				@yield('footer')
+				<!--Footer End-->
+			</div>
+		@endif
+		</div><!--Content Wrapper End-->
 	</div>
 	<!--Wrapper End-->
 	<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
