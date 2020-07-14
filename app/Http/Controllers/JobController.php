@@ -147,7 +147,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $job_details = $this->job->latest()->where('user_id', Auth::user()->id)->paginate(50);
+        $job_details = $this->job->latest()->where('user_id', Auth::user()->id)->paginate(5);
         $currency   = SiteManagement::getMetaValue('commision');
         $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
         if (file_exists(resource_path('views/extend/back-end/employer/jobs/index.blade.php'))) {
