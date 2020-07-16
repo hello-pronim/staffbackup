@@ -3,6 +3,7 @@ Basic Styling
 ========================================================================== */
 body.register-body .wt-wrapper{
   padding-bottom: 0px;
+  background-color: $color__background-white;
 }
 body.register-body .wt-contentwrapper{
   position: relative;
@@ -16,7 +17,7 @@ body.register-body .wt-contentwrapper{
     background-repeat: no-repeat, no-repeat;
     background-position: left -48px bottom, right bottom;
     background-size: 270px;
-    background-color: white;
+    background-color: transparent;
 
     @media (max-width: 620px) {
       background-image: url(/images/img/index-main/doctor1.png);
