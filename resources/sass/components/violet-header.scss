@@ -215,6 +215,9 @@ Hero
   &__container {
     margin-top: 15px;
     position: relative;
+    @media (max-width: 768px) {
+      margin-top: 15px!important;
+    }
   }
 
   &__wrapper {

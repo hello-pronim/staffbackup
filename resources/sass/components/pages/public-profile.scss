@@ -20,6 +20,9 @@
   @media (max-width: 1620px) {
     margin-top: -190px;
   }
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 }
 
 .public-profile-body .header-main-footer-wrapper .short-footer .footer-arc-social {
@@ -58,7 +61,7 @@ Content public profile
     width: 100%;
     margin-left: 5px;
     margin-right: 5px;
-    background-color: rgba(255, 255, 255, 0.87);
+    background-color: rgba(255, 255, 255, 0.67);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

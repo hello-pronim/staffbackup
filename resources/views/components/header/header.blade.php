@@ -49,22 +49,20 @@
         </div><!-- .hero__container -->
     </section><!-- .hero -->
 
-    @if(\Route::currentRouteName() !== 'showUserProfile')
-        <div class="header__container header-navigation header-sm-navigation">
-            <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
-                <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
-            </div>
-            <div class="header-navigation__menu-item-wrapper">
-                <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
-            </div>
-            <div class="header-navigation__menu-item-wrapper">
-                <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
-            </div>
-            <div class="header-navigation__menu-item-wrapper">
-                <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
-            </div>
+    <div class="header__container header-navigation header-sm-navigation">
+        <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
+            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
         </div>
-    @endif
+        <div class="header-navigation__menu-item-wrapper">
+            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
+        </div>
+        <div class="header-navigation__menu-item-wrapper">
+            <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+        </div>
+        <div class="header-navigation__menu-item-wrapper">
+            <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
+        </div>
+    </div>
 </div>
 
 @if (!(in_array(Route::currentRouteName(), ['register', 'showUserProfile'])))
