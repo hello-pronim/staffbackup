@@ -1,4 +1,4 @@
-<div class="short-header-wrapper header-wrapper">
+<div class="short-header-wrapper header-wrapper @if(\Route::currentRouteName()=='showUserProfile') header-public-profile @endif">
     <header class="header">
         <div class="header__container index-main-container">
             <div class="header-logo">
@@ -49,22 +49,24 @@
         </div><!-- .hero__container -->
     </section><!-- .hero -->
 
-    <div class="header__container header-navigation header-sm-navigation">
-        <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
-            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
+    @if(\Route::currentRouteName() !== 'showUserProfile')
+        <div class="header__container header-navigation header-sm-navigation">
+            <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
+                <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
+            </div>
+            <div class="header-navigation__menu-item-wrapper">
+                <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
+            </div>
+            <div class="header-navigation__menu-item-wrapper">
+                <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+            </div>
+            <div class="header-navigation__menu-item-wrapper">
+                <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
+            </div>
         </div>
-        <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
-        </div>
-        <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
-        </div>
-        <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
-        </div>
-    </div>
+    @endif
 </div>
 
-@if (!\Request::is('register'))
+@if (!(in_array(Route::currentRouteName(), ['register', 'showUserProfile'])))
     @include('components.header.header-navbar')
 @endif

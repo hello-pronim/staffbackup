@@ -29,3 +29,4 @@ v8-compile-cache-0/
 makefile
 composer.phar
 /docker
+/public/images/img

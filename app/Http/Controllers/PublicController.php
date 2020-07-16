@@ -505,7 +505,7 @@ class PublicController extends Controller
                     );
                 } else {
                     return View(
-                        'front-end.users.support-show',
+                        'front-end.users.public-profile.support-show',//'front-end.users.support-show',
                         compact(
                             'services',
                             'profile',
