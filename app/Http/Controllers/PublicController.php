@@ -397,7 +397,7 @@ class PublicController extends Controller
                     );
                 } else {
                     return View(
-                        'front-end.users.freelancer-show',
+                        'front-end.users.public-profile.support-show', //'front-end.users.freelancer-show',
                         compact(
                             'services',
                             'profile',
@@ -584,7 +584,7 @@ class PublicController extends Controller
                     );
                 } else {
                     return View(
-                        'front-end.users.employer-show',
+                        'front-end.users.public-profile.support-show', //'front-end.users.employer-show',
                         compact(
                             'profile',
                             'skills',
