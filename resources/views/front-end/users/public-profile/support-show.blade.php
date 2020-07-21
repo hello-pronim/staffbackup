@@ -72,7 +72,7 @@
 
                         <div class="content-public-profile__main-content-separator"></div>
                         <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                            <div>
+                            <div class="content-public-profile__main-content-stars-wrapper">
                                 <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
                             </div>
                             <div class="wt-proposalfeedback"><span class="wt-starcontent"> {{ $rating }}/<i>5</i>&nbsp;<em>({{ $reviews->count() }} {{ trans('lang.feedbacks') }})</em></span></div>
