@@ -203,9 +203,9 @@
                                         </div>
                                 @endforeach
                                 @if ( method_exists($jobs,'links') )
-                                        <div class="mtop35">
-                                            {{ $jobs->links('pagination.custom') }}
-                                        </div>
+                                    <div class="content-public-profile__main-content-text-block-job-pagination">
+                                        {{ $jobs->links('pagination.custom') }}
+                                    </div>
                                 @endif
                             @else
                                 @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))

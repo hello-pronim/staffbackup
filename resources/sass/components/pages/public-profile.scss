@@ -290,12 +290,13 @@ Job block
   width: 100%;
   overflow: auto;
 
-  .wt-userlistinghold.wt-userlistingholdvtwo.wt-featured {
-    border: 1px solid $color__background-pale-violet;
+  .wt-userlistinghold {
+    border: 1px solid $color__background-pale-violet!important;
   }
 
   .wt-contenthead {
     overflow: auto;
+    width: 100%;
     padding-bottom: 30px;
     border: 0;
     border-bottom: 1px solid #ddd;
@@ -312,7 +313,6 @@ Job block
     position: static;
     padding-top: 30px;
     background: transparent;
-    //border-top: 1px solid #ddd;
     border: none!important;
     height: auto;
 
@@ -328,6 +328,20 @@ Job block
       text-align: center;
       .wt-btn {
         width: 80%;
+      }
+    }
+  }
+
+  .content-public-profile__main-content-text-block-job-pagination {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border-radius: 4px;
+
+    .wt-pagination {
+      ul li a {
+        margin: 0;
       }
     }
   }
