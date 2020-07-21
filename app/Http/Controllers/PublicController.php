@@ -340,6 +340,7 @@ class PublicController extends Controller
                 $education = !empty($profile->education) ? unserialize($profile->education) : array();
                 $freelancer_rating  = !empty($user->profile->ratings) ? Helper::getUnserializeData($user->profile->ratings) : 0;
                 $rating = !empty($freelancer_rating) ? $freelancer_rating[0] : 0;
+                $stars  =  !empty($freelancer_rating) ? $freelancer_rating[0] / 5 * 100 : 0;
                 $joining_date = !empty($profile->created_at) ? Carbon::parse($profile->created_at)->format('M d, Y') : '';
                 $jobs = Job::select('title', 'id')->get()->pluck('title', 'id');
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ? unserialize(auth()->user()->profile->saved_freelancer) : array();
@@ -414,6 +415,7 @@ class PublicController extends Controller
                             'user_last_name',
                             'jobs',
                             'rating',
+                            'stars',
                             'education',
                             'experiences',
                             'projects',
@@ -448,6 +450,7 @@ class PublicController extends Controller
                 $education = !empty($profile->education) ? unserialize($profile->education) : array();
                 $freelancer_rating  = !empty($user->profile->ratings) ? Helper::getUnserializeData($user->profile->ratings) : 0;
                 $rating = !empty($freelancer_rating) ? $freelancer_rating[0] : 0;
+                $stars  =  !empty($freelancer_rating) ? $freelancer_rating[0] / 5 * 100 : 0;
                 $joining_date = !empty($profile->created_at) ? Carbon::parse($profile->created_at)->format('M d, Y') : '';
                 $jobs = Job::select('title', 'id')->get()->pluck('title', 'id');
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ? unserialize(auth()->user()->profile->saved_freelancer) : array();
@@ -522,6 +525,7 @@ class PublicController extends Controller
                             'user_last_name',
                             'jobs',
                             'rating',
+                            'stars',
                             'education',
                             'experiences',
                             'projects',
@@ -545,7 +549,7 @@ class PublicController extends Controller
                     );
                 }
             } elseif ($user->getRoleNames()->first() === 'employer') {
-                $jobs = Job::where('user_id', $profile->user_id)->latest()->paginate(7);
+                $jobs = Job::where('user_id', $profile->user_id)->latest()->paginate(5);
                 $followers = DB::table('followers')->where('following', $profile->user_id)->get();
                 $save_employer = !empty(auth()->user()->profile->saved_employers) ? unserialize(auth()->user()->profile->saved_employers) : array();
                 $save_jobs = !empty(auth()->user()->profile->saved_jobs) ? unserialize(auth()->user()->profile->saved_jobs) : array();

@@ -3119,7 +3119,8 @@ if (document.getElementById("user_profile")) {
                 if (auth_user == 1) {
                     this.$refs.myModalRef.show();
                 } else {
-                    jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
+                    //jQuery('.wt-loginarea .wt-loginformhold').slideToggle();
+                    window.location.replace(APP_URL+'/login');
                 }
             },
             submitProjectOffer: function (id) {
@@ -6739,3 +6740,21 @@ function validate_practice_code(e) {
         })
     }
 }
+
+/*Show full-less block*/
+$( document ).ready(function() {
+    let btns = $('.content-full-less_link');
+    if (btns.length > 0) {
+        btns.on('click', function(event){
+            let content = $(this).attr("data-content");
+            $('#' + content).toggleClass('content-full-less-paragraph__more');
+
+            if ($('#' + content).length > 0 && $('#' + content).hasClass('content-full-less-paragraph__more')) {
+                $(this).text($(this).attr("data-less"));
+            } else {
+                $(this).text($(this).attr("data-more"));
+            }
+        });
+    }
+});
+

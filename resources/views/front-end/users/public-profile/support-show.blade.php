@@ -5,7 +5,7 @@
 @section('title'){{ $user_name }} | {{ $tagline }} @stop
 @section('description', "$desc")
 @section('content')
-    <div class="content-public-profile">
+    <div class="content-public-profile" id="user_profile">
         <div class="content-public-profile__wrapper">
             <section class="block-circles">
                 <div class="block-circles__container">
@@ -19,24 +19,135 @@
 
             <section class="content-public-profile__main-content">
                 <div class="content-public-profile__main-content-wrapper">
+                    <!-- Left content -->
                     <div class="content-public-profile__main-content-left">
-                        <img class="content-public-profile__main-content-avatar" src="/images/user.jpg" alt="avatar">
-                        <h2 class="content-public-profile__main-content-name mbottom35">Christine</h2>
-                        <h4 class="content-public-profile__main-content-slag mbottom35">@christine-updated</h4>
-                        <div class="content-public-profile__main-content-text-block mbottom35">
-                            <span class="content-public-profile__main-content-title">Profession:</span> Doctor
+                        @if (!empty($badge) && !empty($enable_package) && $enable_package === 'true')
+                            <span class="content-public-profile__main-content-badge" style="border-top: 40px solid {{ $badge_color }};">
+                                <img src="{{ asset(Helper::getBadgeImage($badge_img))   }}" alt="{{ trans('lang.is_featured') }}" data-tipso="Plus Member" class="template-content tipso_style">
+                            </span>
+                        @endif
+                        <img class="content-public-profile__main-content-avatar" src="{{ !empty($avatar) ? asset($avatar) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">
+                        <h2 class="content-public-profile__main-content-name mbottom35">@if (!empty($user_name)) @if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{ $user_name }} @else Undefined @endif</h2>
+                        <div class="content-public-profile__main-content-send-sm  mbottom35">
+                            <div class="content-public-profile__main-content-send-wrapper">
+                                <p>Send an offer to this professional by clicking on the button</p>
+                                <a class="content-public-profile__main-content-send-link" @click.prevent='sendOffer("{{$auth_user}}")' href="javascript:void(0);"><button>{{ trans('lang.btn_send_offer') }}</button></a>
+                            </div>
                         </div>
-                        <div class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue"></div>
+
+                        <div class="mbottom35">
+                            <h4 class="content-public-profile__main-content-slag">{{ '@' }}{{ $user->slug }}</h4>
+                            @if (!empty($joining_date))
+                                <p>{{ trans('lang.member_since') }}&nbsp;{{ $joining_date }} </p>
+                            @endif
+                        </div>
+
+                        @if($user->profession != "")
+                            <div class="content-public-profile__main-content-separator"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Profession:</span> {{ $user->profession }}
+                            </div>
+                        @endif
+
+                        @if($user->itsoftware != "")
+                            <div class="content-public-profile__main-content-separator"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Computer System in use:</span> {{ implode(', ', $user->getItsoftware()) }}
+                            </div>
+                        @endif
+
+                        @if($user->limitied_company_name != "")
+                            <div class="content-public-profile__main-content-separator"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Limited Company Name:</span> {{ $user->limitied_company_name }}
+                            </div>
+                        @endif
+
+                        @if($user->limitied_company_number != "")
+                            <div class="content-public-profile__main-content-separator"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Limited Company Number:</span> {{ $user->limitied_company_number }}
+                            </div>
+                        @endif
+
+                        <div class="content-public-profile__main-content-separator"></div>
                         <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                            <span class="content-public-profile__main-content-title">Availability:</span> Doctor
+                            <div>
+                                <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
+                            </div>
+                            <div class="wt-proposalfeedback"><span class="wt-starcontent"> {{ $rating }}/<i>5</i>&nbsp;<em>({{ $reviews->count() }} {{ trans('lang.feedbacks') }})</em></span></div>
                         </div>
-                        <div class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue"></div>
+
+                        <div class="content-public-profile__main-content-separator"></div>
+                        <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                            <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
+                            @if (!empty($skills) && $skills->count() > 0)
+                                <p>
+                                    @foreach ($skills as $skill)
+                                        <span>{{ $skill->title }} <em>{{ $skill->pivot->skill_rating }}%</em>, </span>
+                                    @endforeach
+                                </p>
+                            @else
+                                <p>{{ trans('lang.no_skills') }}</p>
+                            @endif
+                        </div>
                     </div>
+
+                    <!-- Right content -->
                     <div class="content-public-profile__main-content-right">
-                        text right
+                        <div class="content-public-profile__main-content-send">
+                            <div class="content-public-profile__main-content-send-wrapper">
+                                <p>Send an offer to this professional by clicking on the button</p>
+                                <a class="content-public-profile__main-content-send-link" @click.prevent='sendOffer("{{$auth_user}}")' href="javascript:void(0);"><button>{{ trans('lang.btn_send_offer') }}</button></a>
+                            </div>
+                        </div>
+
+                        <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                            @if (!empty($profile->tagline))
+                                <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
+                            @endif
+                            @if (!empty($profile->description))
+                                <div class="content-full-less">
+                                    <div id="profile-description" class="content-full-less-paragraph">
+                                        <p class="content-public-profile__main-content-description">
+                                            {{ $profile->description }}
+                                        </p>
+                                    </div>
+                                    <div class="content-full-less_link-wrapper">
+                                        <span class="content-full-less_link" data-more="Read More" data-less="Less" data-content="profile-description">Read More</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        @if (!empty($profile->hourly_rate))
+                            <div class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Hour Rate:</span>
+                                <p class="content-public-profile__main-content-paragraph-large"><i class="far fa-money-bill-alt"></i> {{ $symbol }}{{ $profile->hourly_rate }} {{ trans('lang.per_hour') }}</p>
+                            </div>
+                        @endif
+
+                        @if (!empty($user->location->title))
+                            <div class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue"></div>
+                            <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                                <span class="content-public-profile__main-content-title">Location:</span>
+                                <p class="content-public-profile__main-content-paragraph-large"><span>
+                                    <img src="{{ asset(Helper::getLocationFlag($user->location->flag)) }}" alt="{{ trans('lang.flag_img') }}"> {{ $user->location->title }}
+                                </span></p>
+                            </div>
+                        @endif
+
+                        @if (in_array($profile->id, $save_freelancer))
+                            <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
+                                <i class="fa fa-heart"></i>
+                                {{ trans('lang.saved') }}
+                            </a>
+                        @endif
                     </div>
                 </div>
             </section>
+            <!-- .content-public-profile__main-content -->
 
             <section class="block-circles">
                 <div class="block-circles__container block-circles__container-last">
@@ -48,61 +159,29 @@
                 </div>
             </section><!-- .circles -->
         </div>
+
+        <b-modal ref="myModalRef" hide-footer title="Project Status">
+            <div class="d-block text-center">
+                {!! Form::open(['url' => '', 'class' =>'wt-formtheme wt-userform', 'id' =>'send-offer-form', '@submit.prevent'=>'submitProjectOffer("'.$profile->user_id.'")'])!!}
+                <div class="wt-projectdropdown-hold">
+                    <div class="wt-projectdropdown">
+                <span class="wt-select">
+                    {{{ Form::select('projects', $employer_projects, null, array('class' => 'form-control', 'placeholder' => trans('lang.ph_select_projects'))) }}}
+                </span>
+                    </div>
+                </div>
+                <div class="wt-formtheme wt-formpopup">
+                    <fieldset>
+                        <div class="form-group">
+                            {{{ Form::textarea('desc', null, array('class' => 'form-control-text-area', 'placeholder' => trans('lang.ph_add_desc'))) }}}
+                        </div>
+                        <div class="form-group wt-btnarea">
+                            {!! Form::submit(trans('lang.btn_send_offer'), ['class' => 'wt-btn']) !!}
+                        </div>
+                    </fieldset>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </b-modal>
     </div>
 @endsection
-@push('scripts')
-<script type="text/javascript" src="{{ asset('js/readmore.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/countTo.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/appear.js') }}"></script>
-<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-<script>
-    /* FREELANCERS SLIDER */
-    var _wt_freelancerslider = jQuery('.wt-freelancerslider')
-    _wt_freelancerslider.owlCarousel({
-        items: 1,
-        loop:true,
-        nav:true,
-        margin: 0,
-        autoplay:false,
-        navClass: ['wt-prev', 'wt-next'],
-        navContainerClass: 'wt-search-slider-nav',
-        navText: ['<span class="lnr lnr-chevron-left"></span>', '<span class="lnr lnr-chevron-right"></span>'],
-    });
-
-    var _readmore = jQuery('.wt-userdetails .wt-description');
-    _readmore.readmore({
-        speed: 500,
-        collapsedHeight: 230,
-        moreLink: '<a class="wt-btntext" href="#">'+readmore_trans+'</a>',
-        lessLink: '<a class="wt-btntext" href="#">'+less_trans+'</a>',
-    });
-    $('#wt-ourskill').appear(function () {
-        jQuery('.wt-skillholder').each(function () {
-            jQuery(this).find('.wt-skillbar').animate({
-                width: jQuery(this).attr('data-percent')
-            }, 2500);
-        });
-    });
-    var popupMeta = {
-        width: 400,
-        height: 400
-    }
-    $(document).on('click', '.social-share', function(event){
-        event.preventDefault();
-
-        var vPosition = Math.floor(($(window).width() - popupMeta.width) / 2),
-            hPosition = Math.floor(($(window).height() - popupMeta.height) / 2);
-
-        var url = $(this).attr('href');
-        var popup = window.open(url, 'Social Share',
-            'width='+popupMeta.width+',height='+popupMeta.height+
-            ',left='+vPosition+',top='+hPosition+
-            ',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
-
-        if (popup) {
-            popup.focus();
-            return false;
-        }
-    });
-</script>
-@endpush
