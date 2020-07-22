@@ -1496,6 +1496,8 @@ if (document.getElementById("registration")) {
             //     this.is_show_freelancer = false;
             //     this.is_show = false;
             // }
+
+            this.initBackgroundImages();
         },
         data: {
             notificationSystem: {
@@ -1568,7 +1570,9 @@ if (document.getElementById("registration")) {
             specialInterest: "",
             dbscheck: "",
             itsoftware: '',
-            itsoftware_options: itsoftware_options
+            itsoftware_options: itsoftware_options,
+            all_background_classes: '',
+            max_background_images: 0,
         },
         methods: {
             checkoutStripe(plan_id) {
@@ -1601,9 +1605,31 @@ if (document.getElementById("registration")) {
             },
             prev: function () {
                 this.step--;
+                this.changeBkgroundImages(this.step);
             },
             next: function () {
                 this.step++;
+                this.changeBkgroundImages(this.step);
+            },
+            initBackgroundImages () {
+                this.max_background_images = 4;
+                this.all_background_classes = '';
+                for (let i = 1; i <= this.max_background_images; i++) {
+                    this.all_background_classes += " main-wrapper-register-" + i;
+                }
+            },
+            changeBkgroundImages (step) {
+                let element = jQuery('.main-wrapper');
+                if (element.length > 0) {
+                    let currentImg = 1;
+                    if (step >= 1 && step <= this.max_background_images) {
+                        currentImg = step;
+                    } else {
+                        currentImg = (step % this.max_background_images) > 0 ? step % this.max_background_images : 1;
+                    }
+
+                    element.removeClass(this.all_background_classes).addClass('main-wrapper-register-' + currentImg);
+                }
             },
             selectedRole: function (role) {
                 if (role.toLowerCase() == 'employer') {

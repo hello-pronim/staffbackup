@@ -10969,7 +10969,7 @@ body.register-body .wt-contentwrapper {
   background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
   background-repeat: no-repeat, no-repeat;
   background-position: left -48px bottom, right bottom;
-  background-size: 270px;
+  background-size: auto 510px;
   background-color: transparent;
 }
 
@@ -11751,7 +11751,7 @@ Header
 .short-header-wrapper .header .header__buttons-right {
   background-color: #a2b1d8;
   padding: 3px 5px;
-  width: 65px;
+  width: 68px;
   border: none;
   color: #ffffff;
   font-size: 12px;
@@ -11895,7 +11895,7 @@ Hero
 .short-header-wrapper .hero__buttons-right {
   background-color: #a2b1d8;
   padding: 3px 5px;
-  width: 65px;
+  width: 68px;
   border: none;
   color: #ffffff;
   font-size: 12px;
@@ -12152,6 +12152,43 @@ Footer
   }
 }
 
+.dashboard-pages-body .short-header-wrapper {
+  z-index: 10;
+  position: relative;
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .dashboard-pages-body .short-header-wrapper {
+    background-color: #ffffff;
+  }
+}
+
+/* ==========================================================================
+Dashboard sidebar
+========================================================================== */
+
+.dashboard-pages-body .wt-sidebarwrapper .wt-companysinfo {
+  margin-top: 180px !important;
+  padding: 30px 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-pages-body .wt-sidebarwrapper .wt-companysinfo {
+    margin-top: 270px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .dashboard-pages-body .wt-sidebarwrapper .wt-companysinfo {
+    margin-top: 210px !important;
+  }
+}
+
+.dashboard-pages-body .wt-sidebarwrapper .wt-btnmenutoggle {
+  top: 350px;
+}
+
 /* ==========================================================================
 Main
 ========================================================================== */
@@ -12216,6 +12253,68 @@ ul.wt-joinsteps {
 
 ul.wt-joinsteps li div {
   display: none;
+}
+
+body.register-body .header-main-footer-wrapper .main-wrapper,
+body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-1 {
+  overflow: auto;
+  padding-bottom: 270px;
+  background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: left -48px bottom, right bottom;
+  background-size: auto 510px;
+  background-color: transparent;
+}
+
+@media (max-width: 620px) {
+  body.register-body .header-main-footer-wrapper .main-wrapper,
+  body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-1 {
+    background-image: url(/images/img/index-main/doctor1.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left -48px bottom;
+  }
+}
+
+body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-2 {
+  background-image: url(/images/img/registration/bkg2.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: left bottom;
+}
+
+@media (max-width: 620px) {
+  body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-2 {
+    background-image: url(/images/img/index-main/doctor1.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left -48px bottom;
+  }
+}
+
+body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-3 {
+  background-image: url(/images/img/registration/bkg3.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right bottom;
+}
+
+@media (max-width: 620px) {
+  body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-3 {
+    background-image: url(/images/img/index-main/doctor1.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left -48px bottom;
+  }
+}
+
+body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-4 {
+  background-image: url(/images/img/registration/bkg4.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: left bottom;
+}
+
+@media (max-width: 620px) {
+  body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-4 {
+    background-image: url(/images/img/index-main/doctor1.png);
+    background-repeat: no-repeat, no-repeat;
+    background-position: left -48px bottom;
+  }
 }
 
 .public-profile-body .header-main-footer-wrapper {
@@ -12288,7 +12387,7 @@ Content public profile
   background-image: url(/images/img/public-profile/top-bkgnd.png), url(/images/img/public-profile/bottom-bkgnd.png);
   background-repeat: no-repeat, no-repeat;
   background-position: left top -3px, right bottom;
-  min-height: 915px;
+  min-height: 500px;
   max-width: 925px;
   width: 100%;
   margin-left: 5px;
@@ -12364,6 +12463,23 @@ Content public profile
   }
 }
 
+.content-public-profile__main-content-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-top: 40px solid #e67e22;
+  border-top: 40px solid #f1c40f;
+  border-right: 40px solid transparent;
+}
+
+.content-public-profile__main-content-badge img {
+  max-width: 40px;
+  margin: -85px 4px 0;
+  border: 0;
+}
+
 .content-public-profile__main-content-avatar {
   position: absolute;
   top: -75px;
@@ -12399,23 +12515,214 @@ Content public profile
   color: #263b65;
 }
 
+@media (max-width: 500px) {
+  .content-public-profile__main-content-name {
+    font-size: 26px;
+  }
+}
+
 .content-public-profile__main-content-slag {
   color: #78d0e3;
+}
+
+.content-public-profile__main-content p,
+.content-public-profile__main-content-paragraph-large {
+  font-size: 11px;
+  color: #263b65;
+  margin-bottom: 8px;
+}
+
+.content-public-profile__main-content-paragraph-large {
+  font-size: 18px !important;
+  margin-top: 20px;
 }
 
 .content-public-profile__main-content-text-block {
   font-size: 20px;
   color: #263b65;
+  text-align: center;
+  width: 100%;
 }
 
 .content-public-profile__main-content-title {
   font-weight: 600;
 }
 
+.content-public-profile__main-content-description {
+  margin-top: 15px;
+}
+
+.content-public-profile__main-content-send,
+.content-public-profile__main-content-send-sm {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .content-public-profile__main-content-send,
+  .content-public-profile__main-content-send-sm {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-public-profile__main-content-send {
+    display: none;
+  }
+}
+
+.content-public-profile__main-content-send-sm {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .content-public-profile__main-content-send-sm {
+    display: flex;
+  }
+}
+
+.content-public-profile__main-content-send-wrapper {
+  width: 30%;
+  min-width: 190px;
+  text-align: center;
+}
+
+.content-public-profile__main-content-send-wrapper p {
+  font-size: 11px;
+  line-height: 12px;
+  width: 100%;
+}
+
+.content-public-profile__main-content-send-link:focus {
+  outline: 0;
+}
+
+.content-public-profile__main-content-send-link button {
+  color: #ffffff;
+  padding: 10px 30px;
+  font-weight: 600;
+  min-width: 160px;
+  border-radius: 10px;
+  background-color: #263b65;
+  border: 1px solid #263b65;
+}
+
+.content-public-profile__main-content-send-link button:hover {
+  color: #263b65;
+  border: 1px solid #263b65;
+  background-color: #ffffff;
+}
+
+.content-public-profile__main-content-send-link button:focus {
+  outline: 0;
+}
+
+.content-public-profile__main-content-stars-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .content-public-profile__main-content-separator {
   width: 41px;
   height: 12px;
   background-color: #d2cdfe;
+}
+
+.content-public-profile__main-content-separator-blue {
+  background-color: #cbe5fd;
+}
+
+/* ==========================================================================
+Report job block
+========================================================================== */
+
+.content-public-profile__main-content .content-public-profile__reportjob {
+  background-color: transparent;
+}
+
+.content-public-profile__main-content .content-public-profile__reportjob .wt-widgettitle h2 {
+  color: #263b65;
+}
+
+.content-public-profile__main-content .wt-pagination {
+  padding-top: 20px;
+}
+
+.content-public-profile__main-content .wt-pagination ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content-public-profile__main-content .wt-pagination ul li {
+  margin: 0;
+}
+
+/* ==========================================================================
+Job block
+========================================================================== */
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job {
+  width: 100%;
+  overflow: auto;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-userlistinghold {
+  border: 1px solid #d2cdfe !important;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-contenthead {
+  overflow: auto;
+  width: 100%;
+  padding-bottom: 30px;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-contenthead .wt-title h2 {
+  white-space: normal;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-viewjobholder {
+  overflow: auto;
+  width: 100%;
+  margin-top: 0px;
+  position: static;
+  padding-top: 30px;
+  background: transparent;
+  border: none !important;
+  height: auto;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-viewjobholder ul {
+  padding: 0px;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-viewjobholder ul li {
+  text-align: left;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-viewjobholder ul li.wt-btnarea {
+  text-align: center;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .wt-viewjobholder ul li.wt-btnarea .wt-btn {
+  width: 80%;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .content-public-profile__main-content-text-block-job-pagination {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.content-public-profile__main-content .content-public-profile__main-content-text-block-job .content-public-profile__main-content-text-block-job-pagination .wt-pagination ul li a {
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -12503,6 +12810,72 @@ Block circles
 
 .content-public-profile .block-circles__item-yellow {
   background-color: #fae079;
+}
+
+/* ==========================================================================
+Modal text-area
+========================================================================== */
+
+.public-profile-body .wt-formtheme .wt-formpopup .form-control-text-area {
+  width: 100%;
+}
+
+/* ==========================================================================
+More - less links
+========================================================================== */
+
+.content-full-less .content-full-less-paragraph {
+  max-height: 100px;
+  overflow-y: hidden;
+}
+
+.content-full-less .content-full-less-paragraph.content-full-less-paragraph__more {
+  max-height: unset;
+  height: auto;
+}
+
+.content-full-less .content-full-less_link-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.content-full-less .content-full-less_link-wrapper .content-full-less_link {
+  color: #a2b1d8;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.content-full-less .content-full-less_link-wrapper .content-full-less_link:hover {
+  color: #fac816;
+}
+
+.dashboard-pages-body .header-main-footer-wrapper {
+  background-color: #ffffff;
+  background-image: none;
+}
+
+.dashboard-pages-body .header-main-footer-wrapper .main-wrapper {
+  background-image: url(/images/img/public-profile/doctor3.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right bottom;
+  background-color: transparent;
+  background-size: 50% auto;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-pages-body .header-main-footer-wrapper .main-wrapper {
+    background-size: 65% auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-pages-body .header-main-footer-wrapper .main-wrapper {
+    background-size: 80% auto;
+  }
 }
 
 .navbar-laravel {
