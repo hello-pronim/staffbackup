@@ -6,11 +6,20 @@
     <link href="{{ asset('css/emojionearea.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/basictable.css') }}" rel="stylesheet">
 @endpush
+
+@php
+    $violetLayoutClasses = \Helper::getVioletLayoutClasses()['addUpdatedBodyStyles'];
+@endphp
+
 @section('header')
     @if (file_exists(resource_path('views/extend/includes/header.blade.php')))
         @include('extend.includes.header')
-    @else 
-        @include('includes.header')
+    @else
+        @if (isset($violetLayoutClasses) && !empty($violetLayoutClasses))
+            @include('components.header.header')
+        @else
+            @include('includes.header')
+        @endif
     @endif
 @endsection
 @section('main')
@@ -27,6 +36,11 @@
     </main>
 
 @endsection
+@if (isset($violetLayoutClasses) && !empty($violetLayoutClasses))
+    @section('footer')
+        @include('components.footer.register-footer')
+    @endsection
+@endif
 @push('scripts')
     <script src="{{ asset('js/chosen.jquery.js') }}"></script>
     <script src="{{ asset('js/jquery.basictable.min.js') }}"></script>

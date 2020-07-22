@@ -4,14 +4,14 @@
 @endpush
 
 @php
-	$updatedRoutes = ['register', 'showUserProfile']
+	$violetLayoutClasses = \Helper::getVioletLayoutClasses()['addUpdatedBodyStyles'];
 @endphp
 
 @section('header')
 	@if (file_exists(resource_path('views/extend/includes/header.blade.php')))
 		@include('extend.includes.header')
 	@else
-		@if (in_array(Route::currentRouteName(), $updatedRoutes))
+		@if (isset($violetLayoutClasses) && !empty($violetLayoutClasses))
 			@include('components.header.header')
 		@else
 			@include('includes.header')
@@ -31,7 +31,7 @@
 	@if (file_exists(resource_path('views/extend/front-end/includes/footer.blade.php')))
 		@include('extend.front-end.includes.footer')
 	@else
-		@if (in_array(Route::currentRouteName(), $updatedRoutes))
+		@if (isset($violetLayoutClasses) && !empty($violetLayoutClasses))
 			@include('components.footer.register-footer')
 		@else
 			@include('front-end.includes.footer')

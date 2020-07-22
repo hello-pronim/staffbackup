@@ -1,6 +1,6 @@
 <div class="clearfix" style="clear: both;"></div>
 <div class="short-footer">
-    @if(\Route::currentRouteName() !== 'showUserProfile')
+    @if(isset($needShortFooterCards))
     <section class="short-footer-cards">
         <div class="short-footer-cards-wrapper index-main-container">
             <div class="footer-cards__item footer-cards__item-yellow">

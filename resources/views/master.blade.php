@@ -72,18 +72,7 @@
 	</script>
 </head>
 
-@php
-	$addUpdatedBodyStyles = '';
-    $updatedRoutes = ['register', 'showUserProfile'];
-	if ((in_array(\Route::currentRouteName(), $updatedRoutes) )) {
-		$addUpdatedBodyStyles .= ' register-body';
-	}
-	if (\Route::currentRouteName() === 'showUserProfile') {
-		$addUpdatedBodyStyles .= ' public-profile-body';
-	}
-@endphp
-
-<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}} {{$addUpdatedBodyStyles}}">
+<body class="wt-login {{Helper::getBodyLangClass()}} {{Helper::getTextDirection()}} {{ isset($violetLayoutClasses) && !empty($violetLayoutClasses) ? $violetLayoutClasses : '' }}">
     {{ \App::setLocale(env('APP_LANG')) }}
 	<!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -98,11 +87,8 @@
 	<div id="wt-wrapper" class="wt-wrapper wt-haslayout">
 		<!-- Content Wrapper Start -->
 		<div class="wt-contentwrapper">
-		@php
-			$updatedRoutes = ['register', 'showUserProfile']
-		@endphp
 
-		@if (!in_array(Route::currentRouteName(), $updatedRoutes))
+		@if (!isset($violetLayoutClasses) || empty($violetLayoutClasses))
 			<!-- Header Start -->
 			@yield('header')
 			<!--Header End-->

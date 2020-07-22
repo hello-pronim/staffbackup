@@ -22,7 +22,7 @@
                 {{--<figure class="wt-companysimg">--}}
                     {{--<img src="{{{ asset(Helper::getUserProfileBanner($user->id, 'small')) }}}" alt="{{{ trans('lang.profile_banner') }}}">--}}
                 {{--</figure>--}}
-                <div class="wt-companysinfo" style="margin-top: 110px;">
+                <div class="wt-companysinfo" style="{{ (!isset($violetLayoutClasses)  || empty($violetLayoutClasses)) ? 'margin-top: 110px;' : '' }}">
 
 
                     @if ($role === 'employer')

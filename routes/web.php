@@ -276,7 +276,7 @@ Route::group(
         Route::post('skills/get-job-skills', 'SkillController@getJobSkills');
         Route::get('employer/dashboard/post-job', 'JobController@postJob')->name('employerPostJob');
         Route::get('employer/dashboard/manage-jobs', 'JobController@index')->name('employerManageJobs');
-        Route::get('employer/jobs/{status}', 'EmployerController@showEmployerJobs');
+        Route::get('employer/jobs/{status}', 'EmployerController@showEmployerJobs')->name('employerJobsByStatus');
         Route::get('employer/dashboard/job/{slug}/proposals', 'ProposalController@getJobProposals')->name('getProposals');
         Route::get('employer/dashboard', 'EmployerController@employerDashboard')->name('employerDashboard');
         Route::get('employer/profile', 'EmployerController@index')->name('employerPersonalDetail');
@@ -313,7 +313,7 @@ Route::group(
         Route::get('freelancer/get-freelancer-projects', 'FreelancerController@getFreelancerProjects');
         Route::get('freelancer/get-freelancer-educations', 'FreelancerController@getFreelancerEducations');
         Route::get('freelancer/get-freelancer-awards', 'FreelancerController@getFreelancerAwards');
-        Route::get('freelancer/jobs/{status}', 'FreelancerController@showFreelancerJobs');
+        Route::get('freelancer/jobs/{status}', 'FreelancerController@showFreelancerJobs')->name('freelancerJobsByStatus');
         Route::get('freelancer/job/{slug}', 'FreelancerController@showOnGoingJobDetail')->name('showOnGoingJobDetail');
         Route::get('freelancer/proposals', 'FreelancerController@showFreelancerProposals')->name('showFreelancerProposals');
         Route::get('freelancer/dashboard', 'FreelancerController@freelancerDashboard')->name('freelancerDashboard');
@@ -330,8 +330,8 @@ Route::group(
     function () {
         Route::get('support/dispute/{slug}', 'UserController@raiseDispute');
         Route::post('support/store-dispute', 'UserController@storeDispute');
-        Route::get('support/dashboard/experience-education', 'SupportController@experienceEducationSettings');
-        Route::get('support/bookingAndAvailability', 'SupportController@bookingAndAvailability');
+        Route::get('support/dashboard/experience-education', 'SupportController@experienceEducationSettings')->name('supportExperienceEducation');
+        Route::get('support/bookingAndAvailability', 'SupportController@bookingAndAvailability')->name('supportBookingAndAvailability');
         Route::get('support/getCalendarEvents', 'SupportController@getCalendarEvents');
         Route::get('support/dashboard/project-awards', 'SupportController@projectAwardsSettings');
         Route::post('support/store-profile-settings', 'SupportController@storeProfileSettings');
@@ -342,11 +342,11 @@ Route::group(
         Route::get('support/get-support-projects', 'SupportController@getSupportProjects');
         Route::get('support/get-support-educations', 'SupportController@getSupportEducations');
         Route::get('support/get-support-awards', 'SupportController@getSupportAwards');
-        Route::get('support/jobs/{status}', 'SupportController@showSupportJobs');
+        Route::get('support/jobs/{status}', 'SupportController@showSupportJobs')->name('supportJobsByStatus');
         Route::get('support/job/{slug}', 'SupportController@showOnGoingJobDetail');
         Route::get('support/proposals', 'SupportController@showSupportProposals')->name('showSupportProposals');;
-        Route::get('support/dashboard', 'SupportController@supportDashboard');
-        Route::get('support/profile', 'SupportController@index');
+        Route::get('support/dashboard', 'SupportController@supportDashboard')->name('supportDashboard');
+        Route::get('support/profile', 'SupportController@index')->name('supportProfile');
         Route::post('support/upload-temp-image', 'SupportController@uploadTempImage');
         Route::get('support/dashboard/post-service', 'ServiceController@create');
         Route::get('support/payout-settings', 'SupportController@payoutSettings');

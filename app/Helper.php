@@ -3089,4 +3089,59 @@ class Helper extends Model
 		$list = app()->call('App\Http\Controllers\StripeController@getPlans');
 		return $list;
 	}
+
+    /**
+     * @return array
+     */
+	public static function getVioletLayoutClasses()
+    {
+        $addUpdatedBodyStyles = '';
+        $dashboardRoutes = [
+            'employerDashboard',
+            'employerPersonalDetail',
+            'employerAvailability',
+            'employerPostJob',
+            'employerManageJobs',
+            'employerJobsByStatus',
+
+            'message',
+            'manageAccount',
+            'emailNotificationSettings',
+            'paymentSettings',
+            'deleteAccount',
+            'resetPassword',
+
+            'freelancerDashboard',
+            'personalDetail',
+            'experienceEducation',
+            'bookingAndAvailability',
+            'freelancerJobsByStatus',
+
+            'supportDashboard',
+            'supportProfile',
+            'supportBookingAndAvailability',
+            'supportExperienceEducation',
+            'supportJobsByStatus',
+        ];
+        $updatedRoutes = array_merge(['register', 'showUserProfile'], $dashboardRoutes);
+
+        if ((in_array(\Route::currentRouteName(), $updatedRoutes) )) {
+            $addUpdatedBodyStyles .= ' register-body';
+        }
+        if (\Route::currentRouteName() === 'showUserProfile') {
+            $addUpdatedBodyStyles .= ' public-profile-body';
+        }
+
+        if ((in_array(\Route::currentRouteName(), $dashboardRoutes) )) {
+            $addUpdatedBodyStyles .= ' dashboard-pages-body';
+        }
+
+        return [
+            'updatedRoutes'          => $updatedRoutes,
+            'addUpdatedBodyStyles'   => $addUpdatedBodyStyles,
+            'dashboardRoutes'        => $dashboardRoutes,
+            'needShortFooterCards'   => !(in_array(\Route::currentRouteName(), array_merge(['showUserProfile'], $dashboardRoutes))),
+            'needYellowFooterSocial' => (in_array(\Route::currentRouteName(), array_merge(['showUserProfile'], $dashboardRoutes))),
+        ];
+    }
 }

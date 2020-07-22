@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 'extend.front-end.master' : 'front-end.master')
+@extends((file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 'extend.front-end.master' : 'front-end.master'), ['needShortFooterCards' => true])
 @section('content')
     @php
         $employees      = Helper::getEmployeesList();
