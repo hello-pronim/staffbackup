@@ -1,4 +1,4 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 'extend.front-end.master' : 'front-end.master')
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 'extend.front-end.master' : 'front-end.master', ['needShortFooterCards' => true] )
 @section('content')
     <div class="container">
         <div class="wt-main-section wt-haslayout wt-forgotpassword-holder">

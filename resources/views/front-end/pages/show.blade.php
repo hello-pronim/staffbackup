@@ -1,6 +1,6 @@
-@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ? 
+@extends(file_exists(resource_path('views/extend/front-end/master.blade.php')) ?
 'extend.front-end.master':
- 'front-end.master', ['body_class' => 'wt-innerbgcolor'] )
+ 'front-end.master', ['body_class' => 'wt-innerbgcolor', 'needShortFooterCards' => true] )
 @push('stylesheets')
     <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
 @endpush

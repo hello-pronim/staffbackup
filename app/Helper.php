@@ -3096,6 +3096,8 @@ class Helper extends Model
 	public static function getVioletLayoutClasses()
     {
         $addUpdatedBodyStyles = '';
+
+        $frontEndRoutes = ['register', 'showUserProfile', 'contactUs'];
         $dashboardRoutes = [
             'employerDashboard',
             'employerPersonalDetail',
@@ -3123,16 +3125,26 @@ class Helper extends Model
             'supportExperienceEducation',
             'supportJobsByStatus',
         ];
-        $updatedRoutes = array_merge(['register', 'showUserProfile'], $dashboardRoutes);
 
-        if ((in_array(\Route::currentRouteName(), $updatedRoutes) )) {
+        $updatedRoutes = array_merge($frontEndRoutes, $dashboardRoutes);
+
+        //updated routes by slug
+        if (\Route::currentRouteName() == 'showPage') {
+            $slug = array_get(\Route::current()->parameters(), 'slug', null);
+            if(in_array($slug, ['main', 'about-us'])) {
+                array_push($updatedRoutes, 'showPage');
+            }
+        }
+
+        if (in_array(\Route::currentRouteName(), $updatedRoutes)) {
             $addUpdatedBodyStyles .= ' register-body';
         }
+
         if (\Route::currentRouteName() === 'showUserProfile') {
             $addUpdatedBodyStyles .= ' public-profile-body';
         }
 
-        if ((in_array(\Route::currentRouteName(), $dashboardRoutes) )) {
+        if (in_array(\Route::currentRouteName(), $dashboardRoutes)) {
             $addUpdatedBodyStyles .= ' dashboard-pages-body';
         }
 

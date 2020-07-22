@@ -16,7 +16,7 @@ body.register-body .wt-contentwrapper{
     background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
     background-repeat: no-repeat, no-repeat;
     background-position: left -48px bottom, right bottom;
-    background-size: 270px;
+    background-size: auto 510px;
     background-color: transparent;
 
     @media (max-width: 620px) {
