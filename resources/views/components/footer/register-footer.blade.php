@@ -66,9 +66,11 @@
             @endif
         </div>
         <div class="footer-copyright">
+            @if (!isset($withoutCopyright))
             <p>
                 ALL COPYRIGHTS STAFFBACKUP LIMITED 2019 &#9400;
             </p>
+            @endif
         </div>
     </div><!-- .footer-arc-->
 </div>

@@ -38,7 +38,7 @@
 @endsection
 @if (isset($violetLayoutClasses) && !empty($violetLayoutClasses))
     @section('footer')
-        @include('components.footer.register-footer')
+        @include('components.footer.register-footer', ['withoutCopyright' => true])
     @endsection
 @endif
 @push('scripts')
