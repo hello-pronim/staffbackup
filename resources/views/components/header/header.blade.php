@@ -27,7 +27,7 @@
 
             @if(!\Auth::User())
                 <div class="header__buttons">
-                    <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
+                    <a href="{{ route('login') }}"><button class="hero__buttons-left">Sign In</button></a>
                     <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
                 </div>
             @endif
@@ -42,7 +42,7 @@
             </div><!-- .hero__wrapper -->
             @if(!\Auth::User())
                 <div class="hero__buttons">
-                    <a href="{{ route('register') }}"><button class="hero__buttons-left">Sign In</button></a>
+                    <a href="{{ route('login') }}"><button class="hero__buttons-left">Sign In</button></a>
                     <a href="{{ route('register') }}" class="hero__buttons-right-link"><button class="hero__buttons-right">{{ trans('lang.join_now') }}</button></a>
                 </div>
             @endif
