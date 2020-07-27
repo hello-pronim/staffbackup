@@ -10,6 +10,7 @@ body {
   height: 100%;
 }
 .wrapper {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-image: url(/images/img/index-main/doctor1.png), url(/images/img/index-main/doctor2.png);
