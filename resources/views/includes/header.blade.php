@@ -24,12 +24,16 @@
             </div>
 
             <div class="header-navigation">
+                @if ( Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='')
                 <div class="header-navigation__menu-item-wrapper">
-                    <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
+                    <a class="header-navigation__menu-item" href="{{ url('search-results?type=freelancer') }}">START BROWSING ADHOC STAFF</a>
                 </div>
+                @endif
+                @if ( Helper::getAuthRoleName()!='Organisation')
                 <div class="header-navigation__menu-item-wrapper">
-                    <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
+                    <a class="header-navigation__menu-item" href="{{ url('search-results?type=job')}}">FIND TEMPORARY SHORT TERM WORK</a>
                 </div>
+                @endif
                 <div class="header-navigation__menu-item-wrapper">
                     <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
                 </div>
@@ -91,17 +95,21 @@
     </section><!-- .hero -->
 
     <div class="header__container header-navigation header-sm-navigation">
-        <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
-            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='') ? url('search-results?type=freelancer') : '' }}">START BROWSING ADHOC STAFF</a>
-        </div>
+        @if ( Helper::getAuthRoleName()=='Organisation' || Helper::getAuthRoleName()=='')
+            <div class="header-navigation__menu-item-wrapper header-navigation__menu-item-wrapper-without-border">
+                <a class="header-navigation__menu-item" href="{{url('search-results?type=freelancer')}}">START BROWSING ADHOC STAFF</a>
+            </div>
+        @endif
+        @if (Helper::getAuthRoleName()!='Organisation')
         <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
+            <a class="header-navigation__menu-item" href="{{url('search-results?type=job')}}">FIND TEMPORARY SHORT TERM WORK</a>
         </div>
+        @endif
         <div class="header-navigation__menu-item-wrapper">
             <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
         </div>
         <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>
+            <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US<br> FOR INFORMATION</a>
         </div>
     </div>
 </div>
