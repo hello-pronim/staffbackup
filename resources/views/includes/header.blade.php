@@ -76,6 +76,7 @@
                     $employer_payment_module = !empty($payment_settings) && !empty($payment_settings[0]['employer_package']) ? $payment_settings[0]['employer_package'] : 'true';
                 @endphp
                 <div class="wt-userlogedin">
+                    <div class="wt-userlogedin-wrap">
                     <figure class="wt-userimg" style="float:none">
                         <img src="{{{ asset($profile_image) }}}"
                              alt="{{{ trans('lang.user_avatar') }}}">
@@ -89,6 +90,7 @@
                     @else
                         @include('back-end.includes.profile-menu')
                     @endif
+                    </div>
                 </div>
             @endauth
         </div><!-- .hero__container -->

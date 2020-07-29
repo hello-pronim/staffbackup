@@ -10,6 +10,24 @@ body.register-body .wt-contentwrapper{
   position: relative;
 }
 
+body nav.wt-usernav {
+  z-index: 112;
+}
+
+body .wt-userlogedin {
+  margin: 0;
+  padding: 0;
+  .wt-userlogedin-wrap {
+    position: absolute;
+    right: 0;
+  }
+}
+
+body #searchHomePage {
+  box-shadow: 6px 13px 25px -10px rgba(148, 148, 148, 1);
+}
+
+
 .header-main-footer-wrapper {
   .main-wrapper {
     overflow: auto;
