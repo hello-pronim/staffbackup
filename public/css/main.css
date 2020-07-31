@@ -40,6 +40,14 @@ Version: 1.0.0
 	font-family: AganeExtraBold;
 	src: url("webfonts/Agane(Extra Bold).ttf") format("truetype");
 }
+@font-face {
+	font-family: AganeRegular;
+	src: url("webfonts/Agane_55_(roman).ttf") format("truetype");
+}
+@font-face {
+	font-family: AganeRegularS;
+	src: url("webfonts/Agane_55_(roman)_sign.ttf") format("truetype");
+}
 
 @font-face {
 	font-family: AvertaBold;
