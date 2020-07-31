@@ -1,6 +1,13 @@
 /* ==========================================================================
 Footer
 ========================================================================== */
+body.wt-login:not(.register-body) {
+  .short-footer {
+    position: relative;
+  }
+
+}
+
 .short-footer {
   margin-left: 0px;
   margin-right: 0px;
