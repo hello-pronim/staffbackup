@@ -1514,7 +1514,7 @@ if (document.getElementById("registration")) {
                     }
                 }
             },
-            step: 1,
+            step: 0,
             user_email: '',
             first_name: '',
             last_name: '',

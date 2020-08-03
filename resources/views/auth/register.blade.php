@@ -350,6 +350,65 @@
                                     <input type="hidden" name="stripe_token" v-model="stripe_token"/>
 
                                     <fieldset class="wt-registerformgroup">
+                                        <div class="wt-haslayout" v-show="step === 0" v-cloak>
+                                            <div class="wt-registerhead">
+                                                <div class="wt-title">
+                                                    <h3>{{{ $reg_one_title }}}</h3>
+                                                </div>
+                                                <div class="wt-description">
+                                                    <p>{{{ $reg_one_subtitle }}}</p>
+                                                </div>
+                                            </div>
+                                            <ul class="wt-joinsteps">
+                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                                <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                            </ul>
+
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
+                                                @foreach ($roles as $key => $role)
+                                                    @if (!in_array($role['id'] == 1, $roles))
+                                                        <li style="width:33%; <?php if ($key != 3) {
+                                                            echo 'padding-right: 10px;';
+                                                        };?>">
+                                                            <div class="wt-accordiontitle role-{{$role['role_type']}}"
+                                                                 id="headingOne"
+                                                                 style="height: 69px; border: 1px solid #ddd;"
+                                                                 data-toggle="collapse" data-target="#collapseOne">
+                                                                <span class="wt-radio">
+                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
+                                                                       value="{{{ $role['role_type'] }}}" checked="<?php echo (isset($_GET['role']) && $_GET['role'] ==$role['role_type']) ? "checked" : "";?>"
+                                                                       v-model="user_role"
+                                                                       v-on:change="selectedRole(user_role)">
+                                                                <label style="margin-top: 8px"
+                                                                       for="wt-company-{{$key}}">
+																		@if ($role['name'] === 'freelancer')
+                                                                        {{ trans('lang.freelancer') }}
+                                                                    @endif
+                                                                    @if ($role['name'] === 'support')
+                                                                        {{ trans('lang.support') }}
+                                                                    @endif
+                                                                    @if ($role['name'] === 'employer')
+                                                                        {{ trans('lang.employer') }}
+                                                                    @endif
+                                                                </label>
+                                                                </span>
+                                                            </div>
+
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+
+                                            <div class="form-group">
+                                                <button type="submit" class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="wt-registerformgroup">
                                         <div class="wt-haslayout" v-show="step === 1" v-cloak>
                                             <div class="wt-registerhead">
                                                 <div class="wt-title">
@@ -367,40 +426,7 @@
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
 
-<ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
-@foreach ($roles as $key => $role)
-  @if (!in_array($role['id'] == 1, $roles))
-                                                        <li style="width:33%; <?php if ($key != 3) {
-                                                            echo 'padding-right: 10px;';
-                                                        };?>">
-                                                            <div class="wt-accordiontitle role-{{$role['role_type']}}"
-                                                                 id="headingOne"
-                                                                 style="height: 69px; border: 1px solid #ddd;"
-                                                                 data-toggle="collapse" data-target="#collapseOne">
-                                                                <span class="wt-radio">
-                                                                <input id="wt-company-{{$key}}" type="radio" name="role"
-                                                                       value="{{{ $role['role_type'] }}}" checked="<?php echo (isset($_GET['role']) && $_GET['role'] ==$role['role_type']) ? "checked" : "";?>"
-                                                                       v-model="user_role"
-                                                                       v-on:change="selectedRole(user_role)">
-                                                                <label style="margin-top: 8px"
-                                                                       for="wt-company-{{$key}}">
-																		@if ($role['name'] === 'freelancer')
-																			{{ trans('lang.freelancer') }}
-																		@endif
-																		@if ($role['name'] === 'support')
-																			{{ trans('lang.support') }}
-																		@endif
-																		@if ($role['name'] === 'employer')
-																			{{ trans('lang.employer') }}
-																		@endif
-                                                                </label>
-                                                                </span>
-                                                            </div>
 
-                                                        </li>
-  @endif
-@endforeach
-</ul>
                                             <div class="form-group" v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
                                                 <span class="wt-select">
                                                 {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] : null , array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
@@ -487,11 +513,13 @@
 																				<strong v-cloak>@{{form_step2.practice_code_error}}</strong>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit"
-                                                        class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
+                                                <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                                <a href="#" @click.prevent="next()" class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                             </div>
                                         </div>
                                     </fieldset>
+
+
                                     <div class="wt-haslayout" v-show="step === 2" v-cloak>
                                         <fieldset class="wt-registerformgroup">
                                             <div class="wt-registerhead">
@@ -1178,288 +1206,288 @@
 
 
 
-<div class="wt-joinformc" v-show="step === 3" v-cloak>
+                                    <div class="wt-joinformc" v-show="step === 3" v-cloak>
 
-  <div class="wt-registerhead" v-if="user_role=='employer'">
-    <div class="wt-title">
-        <h3>{{{ $reg_three_title }}}</h3>
-    </div>
-  </div>
+                                      <div class="wt-registerhead" v-if="user_role=='employer'">
+                                        <div class="wt-title">
+                                            <h3>{{{ $reg_three_title }}}</h3>
+                                        </div>
+                                      </div>
 
-  <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-      <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-      <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
-  </ul>
+                                      <ul class="wt-joinsteps">
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                          <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                          <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                          <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                      </ul>
 
-  <figure class="wt-joinformsimg">
-      {{--<img src="{{ asset($register_image)}}" alt="{{{ trans('lang.verification_code_img') }}}">--}}
-  </figure>
+                                      <figure class="wt-joinformsimg">
+                                          {{--<img src="{{ asset($register_image)}}" alt="{{{ trans('lang.verification_code_img') }}}">--}}
+                                      </figure>
 
-  <fieldset class="wt-formregisterstart">
-      <div class="form-group-n">
-          {{--<label>--}}
-          {{--{{{ trans('lang.verify_code_note') }}}--}}
-          {{--@if (!empty($reg_page))--}}
-          {{--<a target="_blank" href="{{{url($reg_page)}}}">--}}
-          {{--{{{ trans('lang.why_need_code') }}}--}}
-          {{--</a>--}}
-          {{--@else--}}
-          {{--<a href="javascript:void(0)">--}}
-          {{--{{{ trans('lang.why_need_code') }}}--}}
-          {{--</a>--}}
-          {{--@endif--}}
-          {{--</label>--}}
-          {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
-          {{--<div v-if="user_role=='freelancer'">--}}
+                                      <fieldset class="wt-formregisterstart">
+                                          <div class="form-group-n">
+                                              {{--<label>--}}
+                                              {{--{{{ trans('lang.verify_code_note') }}}--}}
+                                              {{--@if (!empty($reg_page))--}}
+                                              {{--<a target="_blank" href="{{{url($reg_page)}}}">--}}
+                                              {{--{{{ trans('lang.why_need_code') }}}--}}
+                                              {{--</a>--}}
+                                              {{--@else--}}
+                                              {{--<a href="javascript:void(0)">--}}
+                                              {{--{{{ trans('lang.why_need_code') }}}--}}
+                                              {{--</a>--}}
+                                              {{--@endif--}}
+                                              {{--</label>--}}
+                                              {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
+                                              {{--<div v-if="user_role=='freelancer'">--}}
 
-        <div v-if="user_role!='employer'">
+                                            <div v-if="user_role!='employer'">
 
-          <div class="form-group form-group-half" style="margin-top: 23px;">
-              <span class="wt-select">
-              {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
-              </span>
-          </div>
+                                              <div class="form-group form-group-half" style="margin-top: 23px;">
+                                                  <span class="wt-select">
+                                                  {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
+                                                  </span>
+                                              </div>
 
-          <div class="form-group form-group-half">
-            <div>Passport or Visa:</div>
-            <input type="file" name="passport_visa"
-                   class="form-control"
-                   v-bind:class="{ 'is-invalid': form_step2.is_passport_visa }"
-                   accept=".pdf, image/*,.doc,.docx">
-            <span class="help-block"
-            v-if="form_step2.is_passport_visa">
-            <strong v-cloak>@{{form_step2.passport_visa}}</strong>
-            </span>
-          </div>
+                                              <div class="form-group form-group-half">
+                                                <div>Passport or Visa:</div>
+                                                <input type="file" name="passport_visa"
+                                                       class="form-control"
+                                                       v-bind:class="{ 'is-invalid': form_step2.is_passport_visa }"
+                                                       accept=".pdf, image/*,.doc,.docx">
+                                                <span class="help-block"
+                                                v-if="form_step2.is_passport_visa">
+                                                <strong v-cloak>@{{form_step2.passport_visa}}</strong>
+                                                </span>
+                                              </div>
 
-          <div class="form-group form-group-half">
-              <span class="wt-select halfWidth">
-              {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
-              </span>
-          </div>
-<?php
-/*
-            <div class="form-group form-group-half" v-if="user_role=='support'">
-              <span class="wt-checkbox" style="margin-bottom: 13px; margin-top: 17px;">
-                <span class="wt-checkbox">
-                  <input id="hourly_rate_negotiable"
-                      type="checkbox"
-                      name="hourly_rate_negotiable"
-                      checked="">
-                  <label for="hourly_rate_negotiable"><span> Hourly rate negotiable?</span></label>
-                </span>
-              </span>
-            </div>
+                                              <div class="form-group form-group-half">
+                                                  <span class="wt-select halfWidth">
+                                                  {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
+                                                  </span>
+                                              </div>
+                                    <?php
+                                    /*
+                                                <div class="form-group form-group-half" v-if="user_role=='support'">
+                                                  <span class="wt-checkbox" style="margin-bottom: 13px; margin-top: 17px;">
+                                                    <span class="wt-checkbox">
+                                                      <input id="hourly_rate_negotiable"
+                                                          type="checkbox"
+                                                          name="hourly_rate_negotiable"
+                                                          checked="">
+                                                      <label for="hourly_rate_negotiable"><span> Hourly rate negotiable?</span></label>
+                                                    </span>
+                                                  </span>
+                                                </div>
 
-            <div class="form-group form-group-half" v-if="user_role=='support'">
-            <span class="wt-select halfWidth">
-            {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate'{{--,  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }'--}})) !!}
-            </span>
-            {{--
-            <span class="help-block"
-            v-if="form_step2.rate_error">
-            <strong v-cloak>@{{form_step2.rate_error}}</strong>
-            </span>
-            --}}
-            </div>
+                                                <div class="form-group form-group-half" v-if="user_role=='support'">
+                                                <span class="wt-select halfWidth">
+                                                {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate'{{--,  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }'--}})) !!}
+                                                </span>
+                                                {{--
+                                                <span class="help-block"
+                                                v-if="form_step2.rate_error">
+                                                <strong v-cloak>@{{form_step2.rate_error}}</strong>
+                                                </span>
+                                                --}}
+                                                </div>
 
-            <div class="form-group" v-if="user_role=='support'">
-            <span class="wt-select">
-            {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
-            </span>
-            </div>
-
-
-
-
-            <div class="form-group form-group-half" v-if="P60upload">
-                <strong>P60 Upload:</strong>
-                <input type="file" name="p60" class="form-control"
-                       accept=".pdf, image/*,.doc,.docx">
-            </div>
-            <div class="form-group" v-if="paypal_show">
-                <strong>Paypal Account:</strong>
-                <input type="email" name="paypal" class="form-control paypalemail"
-                       placeholder="Paypal email address"/>
-                <span class="help-block" v-if="form_step3.isPaypalEmail_error">
-                <strong v-cloak>Not a valid email</strong>
-                </span>
-            </div>
-            <div class="form-group" v-if="cheque_show">
-                <strong>Cheque:</strong>
-                <p>Your current address details will be used</p>
-            </div>
-*/
-?>
-
-          </div>
-          <div v-if="user_role=='employer'">
-              <span class="wt-select">
-              {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}
-              </span>
-          </div>
-
-      </div>
-
-      <div class="form-group wt-btnarea">
-          <a href="#" @click.prevent="prev()"
-             class="wt-btn">{{{ trans('lang.previous') }}}</a>
-          <a href="#" @click.prevent="checkStep3()"
-             class="wt-btn">{{{ trans('lang.continue') }}}</a>
-      </div>
-
-  </fieldset>
-</div>
-
-
-<div class="wt-gotodashboard" v-show="step === 4" v-cloak>
-
-  <div class="wt-registerhead" v-if="user_role=='freelancer' || user_role=='support'">
-    <div class="wt-title">
-        <h3>{{{ $reg_three_title }}}</h3>
-    </div>
-  </div>
-
-  <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-      <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
-  </ul>
-
-  <fieldset class="wt-formregisterstart">
-
-    <div v-if="user_role=='employer'">
-      <div class="wt-registerhead">
-          <div class="wt-title">
-              <h3>Last step</h3>
-          </div>
-          {{--<div class="description">--}}
-          {{--<p>{{{ $reg_four_subtitle }}}</p>--}}
-          {{--</div>--}}
-      </div>
-
-
-      <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
-         v-if="subscription">Go To Checkout</a>
-
-
-      <a href="#" v-if="!subscription" class="wt-btn"
-         @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
-    </div>
-
-    <div v-if="user_role=='freelancer' || user_role=='support'">
-
-      <div class="form-group form-group-half" v-if="user_role=='freelancer' || user_role=='support'">
-          <input id="hourly_rate" type="number"
-                 class="form-control"
-                 name="hourly_rate"
-                 min="0"
-                 placeholder="Hourly Rate">
-      </div>
-
-      {{--<div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">--}}
-          {{--<input id="hourly_rate" type="number"--}}
-                 {{--class="form-control"--}}
-                 {{--name="hourly_rate"--}}
-                 {{--min="0"--}}
-                 {{--placeholder="Hour Rate">--}}
-      {{--</div>--}}
-
-      <div class="form-group form-group-half" style="margin-bottom: -2px;" v-if="user_role=='freelancer' || user_role=='support'">
-        <span class="wt-checkbox"
-              style="    margin-bottom: 13px; margin-top: 17px;">
-            <span class="wt-checkbox">
-              <input id="hourly_rate_negotiable"
-                     type="checkbox"
-                     name="hourly_rate_negotiable"
-                     checked="">
-              <label for="hourly_rate_negotiable"><span> Rate Negotiable?</span></label>
-            </span>
-        </span>
-      </div>
+                                                <div class="form-group" v-if="user_role=='support'">
+                                                <span class="wt-select">
+                                                {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                                </span>
+                                                </div>
 
 
 
-      <div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">
-        <span class="wt-select">
-        {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Professional Type", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
-        </span>
-        <input v-if="choosen_payment_mehod=='Other'"
-        type="text"
-        name="payment_mehod_other"
-        class="form-control"
-        placeholder="Please specify">
-      </div>
 
-      <div class="form-group form-group-half" v-if="user_role=='support'">
-        <span class="wt-select">
-        {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}
-        </span>
-        <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
+                                                <div class="form-group form-group-half" v-if="P60upload">
+                                                    <strong>P60 Upload:</strong>
+                                                    <input type="file" name="p60" class="form-control"
+                                                           accept=".pdf, image/*,.doc,.docx">
+                                                </div>
+                                                <div class="form-group" v-if="paypal_show">
+                                                    <strong>Paypal Account:</strong>
+                                                    <input type="email" name="paypal" class="form-control paypalemail"
+                                                           placeholder="Paypal email address"/>
+                                                    <span class="help-block" v-if="form_step3.isPaypalEmail_error">
+                                                    <strong v-cloak>Not a valid email</strong>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group" v-if="cheque_show">
+                                                    <strong>Cheque:</strong>
+                                                    <p>Your current address details will be used</p>
+                                                </div>
+                                    */
+                                    ?>
 
-        <input v-if="payment_method=='Limited Company'"
-        type="text"
-        name="limitied_company_number"
-        class="form-control"
-        placeholder="Limited Company Number "><br>
-        <input v-if="payment_method=='Limited Company'"
-        type="text"
-        name="limitied_company_name"
-        class="form-control"
-        placeholder="Limited Company Name ">
-      </div>
+                                              </div>
+                                              <div v-if="user_role=='employer'">
+                                                  <span class="wt-select">
+                                                  {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}
+                                                  </span>
+                                              </div>
 
-      <div class="form-group form-group-half">
-          <span class="wt-select">
-          {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
-          </span>
-      </div>
+                                          </div>
 
-      <div class="form-group wt-btnarea">
-          <a href="#" @click.prevent="prev()"
-             class="wt-btn">{{{ trans('lang.previous') }}}</a>
-          <a href="#" v-if="user_role=='support'" @click.prevent="checkStep4()"
-             class="wt-btn">{{{ trans('lang.continue') }}}</a>
-          <a href="#" v-if="user_role=='freelancer'" class="wt-btn"
-            @click.prevent="checkStep4()">{{{ trans('lang.goto_dashboard') }}}</a>
-      </div>
-    </div>
+                                          <div class="form-group wt-btnarea">
+                                              <a href="#" @click.prevent="prev()"
+                                                 class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                              <a href="#" @click.prevent="checkStep3()"
+                                                 class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                          </div>
 
-  </fieldset>
-</div>
+                                      </fieldset>
+                                    </div>
 
-<div class="wt-gotodashboard" v-show="step === 5" v-cloak>
-  <ul class="wt-joinsteps">
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-      <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-      <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
-  </ul>
 
-  <fieldset class="wt-formregisterstart" style="width: 100%;">
-    <div class="form-group form-group-half">
-      <span class="wt-select">
-      {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
-      </span>
-      <input v-if="choosen_payment=='Other'"
-      type="text"
-      name="payment_option_other"
-      class="form-control"
-      placeholder="Please specify">
-    </div>
-  </@>
+                                    <div class="wt-gotodashboard" v-show="step === 4" v-cloak>
 
-  <div class="form-group wt-btnarea">
-      <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
-      <a href="#" class="wt-btn" @click.prevent="submitUser()">{{{ trans('lang.goto_dashboard') }}}</a>
-  </div>
-</div>
+                                      <div class="wt-registerhead" v-if="user_role=='freelancer' || user_role=='support'">
+                                        <div class="wt-title">
+                                            <h3>{{{ $reg_three_title }}}</h3>
+                                        </div>
+                                      </div>
+
+                                      <ul class="wt-joinsteps">
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                          <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                          <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                      </ul>
+
+                                      <fieldset class="wt-formregisterstart">
+
+                                        <div v-if="user_role=='employer'">
+                                          <div class="wt-registerhead">
+                                              <div class="wt-title">
+                                                  <h3>Last step</h3>
+                                              </div>
+                                              {{--<div class="description">--}}
+                                              {{--<p>{{{ $reg_four_subtitle }}}</p>--}}
+                                              {{--</div>--}}
+                                          </div>
+
+
+                                          <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
+                                             v-if="subscription">Go To Checkout</a>
+
+
+                                          <a href="#" v-if="!subscription" class="wt-btn"
+                                             @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                        </div>
+
+                                        <div v-if="user_role=='freelancer' || user_role=='support'" >
+
+                                          <div class="form-group form-group-half" v-if="user_role=='freelancer' || user_role=='support'">
+                                              <input id="hourly_rate" type="number"
+                                                     class="form-control"
+                                                     name="hourly_rate"
+                                                     min="0"
+                                                     placeholder="Hourly Rate">
+                                          </div>
+
+                                          {{--<div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">--}}
+                                              {{--<input id="hourly_rate" type="number"--}}
+                                                     {{--class="form-control"--}}
+                                                     {{--name="hourly_rate"--}}
+                                                     {{--min="0"--}}
+                                                     {{--placeholder="Hour Rate">--}}
+                                          {{--</div>--}}
+
+                                          <div class="form-group form-group-half" style="margin-bottom: -2px;" v-if="user_role=='freelancer' || user_role=='support'">
+                                            <span class="wt-checkbox"
+                                                  style="    margin-bottom: 13px; margin-top: 17px;">
+                                                <span class="wt-checkbox">
+                                                  <input id="hourly_rate_negotiable"
+                                                         type="checkbox"
+                                                         name="hourly_rate_negotiable"
+                                                         checked="">
+                                                  <label for="hourly_rate_negotiable"><span> Rate Negotiable?</span></label>
+                                                </span>
+                                            </span>
+                                          </div>
+
+
+
+                                          {{--<div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">--}}
+                                            {{--<span class="wt-select">--}}
+                                            {{--{!! Form::select('payment_option', $payment_options, null, ['placeholder' => 'Preferred Payment Method', 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)']) !!}--}}
+                                            {{--</span>--}}
+                                            {{--<input v-if="choosen_payment_mehod=='Other'"--}}
+                                            {{--type="text"--}}
+                                            {{--name="payment_mehod_other"--}}
+                                            {{--class="form-control"--}}
+                                            {{--placeholder="Please specify">--}}
+                                          {{--</div>--}}
+
+                                          {{--<div class="form-group form-group-half" v-if="user_role=='support'">--}}
+                                            {{--<span class="wt-select">--}}
+                                            {{--{!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}--}}
+                                            {{--</span>--}}
+                                            {{--<span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>--}}
+
+                                            {{--<input v-if="payment_method=='Limited Company'"--}}
+                                            {{--type="text"--}}
+                                            {{--name="limitied_company_number"--}}
+                                            {{--class="form-control"--}}
+                                            {{--placeholder="Limited Company Number "><br>--}}
+                                            {{--<input v-if="payment_method=='Limited Company'"--}}
+                                            {{--type="text"--}}
+                                            {{--name="limitied_company_name"--}}
+                                            {{--class="form-control"--}}
+                                            {{--placeholder="Limited Company Name ">--}}
+                                          {{--</div>--}}
+
+                                          <div class="form-group form-group-half">
+                                              <span class="wt-select">
+                                              {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
+                                              </span>
+                                          </div>
+
+                                          <div class="form-group wt-btnarea">
+                                              <a href="#" @click.prevent="prev()"
+                                                 class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                              <a href="#" v-if="user_role=='support'" @click.prevent="checkStep4()"
+                                                 class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                              <a href="#" v-if="user_role=='freelancer'" class="wt-btn"
+                                                @click.prevent="checkStep4()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                          </div>
+                                        </div>
+
+                                      </fieldset>
+                                    </div>
+
+                                    <div class="wt-gotodashboard" v-show="step === 5" v-cloak>
+                                      <ul class="wt-joinsteps">
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
+                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                          <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
+                                      </ul>
+
+                                      <fieldset class="wt-formregisterstart" style="width: 100%;">
+                                        <div class="form-group form-group-half">
+                                          <span class="wt-select">
+                                          {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
+                                          </span>
+                                          <input v-if="choosen_payment=='Other'"
+                                          type="text"
+                                          name="payment_option_other"
+                                          class="form-control"
+                                          placeholder="Please specify">
+                                        </div>
+                                      </@>
+
+                                      <div class="form-group wt-btnarea">
+                                          <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                          <a href="#" class="wt-btn" @click.prevent="submitUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                      </div>
+                                    </div>
 
                                 </div>
                             </div>
