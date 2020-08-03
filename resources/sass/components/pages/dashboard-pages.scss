@@ -18,3 +18,13 @@ body.register-body.dashboard-pages-body .header-main-footer-wrapper .main-wrappe
     background-size: 80% auto;
   }
 }
+
+body.register-body.dashboard-pages-body .short-footer .footer-arc {
+  z-index: 50;
+
+  @media (max-width: 480px) {
+    .footer-arc-social-wrapper {
+      opacity: 0;
+    }
+  }
+}

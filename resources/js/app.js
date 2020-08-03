@@ -174,12 +174,18 @@ jQuery(document).ready(function () {
 
 
     function fixedNav() {
+        let isDashboardPages = jQuery("body").hasClass("dashboard-pages-body");
+
         $(window).scroll(function () {
             var $pscroll = $(window).scrollTop();
             if ($pscroll > 76) {
                 $('.wt-sidebarwrapper').addClass('wt-fixednav');
             } else {
                 $('.wt-sidebarwrapper').removeClass('wt-fixednav');
+            }
+
+            if (isDashboardPages && ($pscroll + $(window).height() > $(document).height() - 120)) {
+                jQuery('.wt-verticalscrollbar').mCustomScrollbar('scrollTo','bottom');
             }
         });
     }

@@ -368,7 +368,7 @@
             </div>
             <div class="orangeline" style="margin-top: 25px"></div>
 
-            <div style="margin-top: 20px;float: left;margin-left: 25px;font-size: 12px;text-align: center;padding: 0px 24px;">
+            <div style="margin-top: 20px; float: left;margin-left: 25px;font-size: 12px;text-align: center;padding: 0px 24px; margin-bottom: 80px;">
                 <span>{{{ $copyright }}}</span>
             </div>
         </div>
