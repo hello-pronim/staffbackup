@@ -1385,34 +1385,34 @@
 
 
 
-      <div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">
-        <span class="wt-select">
-        {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Professional Type", 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)')) !!}
-        </span>
-        <input v-if="choosen_payment_mehod=='Other'"
-        type="text"
-        name="payment_mehod_other"
-        class="form-control"
-        placeholder="Please specify">
-      </div>
+      {{--<div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">--}}
+        {{--<span class="wt-select">--}}
+        {{--{!! Form::select('payment_option', $payment_options, null, ['placeholder' => 'Preferred Payment Method', 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)']) !!}--}}
+        {{--</span>--}}
+        {{--<input v-if="choosen_payment_mehod=='Other'"--}}
+        {{--type="text"--}}
+        {{--name="payment_mehod_other"--}}
+        {{--class="form-control"--}}
+        {{--placeholder="Please specify">--}}
+      {{--</div>--}}
 
-      <div class="form-group form-group-half" v-if="user_role=='support'">
-        <span class="wt-select">
-        {!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}
-        </span>
-        <span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>
+      {{--<div class="form-group form-group-half" v-if="user_role=='support'">--}}
+        {{--<span class="wt-select">--}}
+        {{--{!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}--}}
+        {{--</span>--}}
+        {{--<span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>--}}
 
-        <input v-if="payment_method=='Limited Company'"
-        type="text"
-        name="limitied_company_number"
-        class="form-control"
-        placeholder="Limited Company Number "><br>
-        <input v-if="payment_method=='Limited Company'"
-        type="text"
-        name="limitied_company_name"
-        class="form-control"
-        placeholder="Limited Company Name ">
-      </div>
+        {{--<input v-if="payment_method=='Limited Company'"--}}
+        {{--type="text"--}}
+        {{--name="limitied_company_number"--}}
+        {{--class="form-control"--}}
+        {{--placeholder="Limited Company Number "><br>--}}
+        {{--<input v-if="payment_method=='Limited Company'"--}}
+        {{--type="text"--}}
+        {{--name="limitied_company_name"--}}
+        {{--class="form-control"--}}
+        {{--placeholder="Limited Company Name ">--}}
+      {{--</div>--}}
 
       <div class="form-group form-group-half">
           <span class="wt-select">

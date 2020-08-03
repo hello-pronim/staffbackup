@@ -481,12 +481,11 @@
             {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
             </span>
         </div>
-        <div class="form-group">
-        <span class="wt-select">
-
-            {!! Form::select('c_payment_methods',$arrPaymentMethods, $user->c_payment_methods, array('placeholder' => "Company Status")) !!}
-            </span>
-        </div>
+        {{--<div class="form-group">--}}
+            {{--<span class="wt-select">--}}
+                {{--{!! Form::select('c_payment_methods',$arrPaymentMethods, $user->c_payment_methods, array('placeholder' => "Company Status")) !!}--}}
+            {{--</span>--}}
+        {{--</div>--}}
         @if($user->c_payment_methods == 'Limited Company')
         <div class="form-group ">
             <input id="c_ltd_comp_name" type=" text"
