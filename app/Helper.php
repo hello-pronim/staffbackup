@@ -1292,7 +1292,7 @@ class Helper extends Model
      */
     public static function getProfileImage($user_id)
     {
-        $profile_image = User::find($user_id)->profile->avater;
+        $profile_image = (isset(User::find($user_id)->profile->avater)?User::find($user_id)->profile->avater:"");
         if (file_exists('/uploads/users/' . $user_id . '/' . $profile_image)) {
             return !empty($profile_image) ? '/uploads/users/' . $user_id . '/' . $profile_image : '/images/user.jpg';
         } else {
@@ -1303,7 +1303,7 @@ class Helper extends Model
 
     public static function getProfileImageSmall($user_id)
     {
-        $profile_image = User::find($user_id)->profile->avater;
+        $profile_image = (isset(User::find($user_id)->profile->avater)?User::find($user_id)->profile->avater:"");
         if(!empty($profile_image))
         {
             return '/uploads/users/' . $user_id . '/medium-' . $profile_image;
