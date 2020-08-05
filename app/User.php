@@ -485,7 +485,7 @@ class User extends Authenticatable
             }
 
             $profile->org_type = isset($request['org_type']) ? filter_var($request['org_type'], FILTER_SANITIZE_STRING) : "";
-            $profile->hourly_rate = isset($request['hourly_rate']) ? filter_var($request['hourly_rate'], FILTER_SANITIZE_STRING) : "";
+            $profile->hourly_rate = isset($request['hourly_rate']) ? filter_var($request['hourly_rate'], FILTER_SANITIZE_STRING) : NULL;
             $profile->hourly_rate_negotiable = isset($request['hourly_rate_negotiable']) ? filter_var($request['hourly_rate_negotiable'], FILTER_SANITIZE_STRING) : "";
             $profile->hourly_rate_desc = isset($request['hourly_rate_desc']) ? filter_var($request['hourly_rate_desc'], FILTER_SANITIZE_STRING) : "";
 

@@ -1835,7 +1835,7 @@ if (document.getElementById("registration")) {
             checkStep3: function (error_message) {
 
 
-                if (this.user_role == 'employee') {
+                if (this.user_role == 'employer') {
 
                     if ($('.paypalemail').val() && $('.paypalemail').val() != '') {
                         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
