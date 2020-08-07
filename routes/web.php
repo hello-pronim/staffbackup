@@ -401,7 +401,7 @@ Route::group(
 Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');
 
 Route::get('/get-skills', 'SkillController@getSkills');
-Route::get('/dashboard', 'PublicController@goToDashboard');
+Route::get('/dashboard', 'PublicController@goToDashboard')->name('goToDashboard');
 
 Route::post('job/get-wishlist', 'JobController@getWishlist');
 Route::get('dashboard/packages/{role}', 'PackageController@index');

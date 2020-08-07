@@ -19,6 +19,8 @@
 
             <section class="content-public-profile__main-content">
                 <div class="content-public-profile__main-content-wrapper">
+                    <a class="content-public-profile__main-content-back-btn" href="{{ $back_url }}"><button>Back</button></a>
+
                     <!-- Left content -->
                     <div class="content-public-profile__main-content-left">
                         <img class="content-public-profile__main-content-avatar" src="{{ !empty($avatar) ? asset($avatar) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">

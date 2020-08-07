@@ -66,6 +66,8 @@ Content public profile
     flex-direction: row;
     justify-content: space-between;
 
+    position: relative;
+
     border: 2px solid;
     border-image-slice: 1;
     border-radius: 4px;
@@ -82,6 +84,32 @@ Content public profile
       background-image: url(/images/img/public-profile/bottom-bkgnd.png);
       background-repeat: no-repeat, no-repeat;
       background-position: right bottom;
+    }
+  }
+
+  &-back-btn {
+    position: absolute;
+    top: -55px;
+    right: 0;
+    text-decoration: none;
+
+    button {
+      background-color: $color__background-light-violet;
+      padding: 3px 5px;
+      width: 68px;
+      border: none;
+      color: $color__text-white;
+      font-size: 12px;
+      font-weight: bolder;
+      font-family: AganeBold;
+      @media (max-width: 440px) {
+        font-size: 10px;
+        width: 65px;
+        padding: 3px 3px;
+      }
+    }
+    @media (max-width: 480px) {
+      top: -40px;
     }
   }
 

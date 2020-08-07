@@ -308,6 +308,13 @@ class PublicController extends Controller
      */
     public function showUserProfile($slug)
     {
+        $back_url = route('goToDashboard');
+        $urlPrevious = url()->previous();
+        $backRouteName = app('router')->getRoutes($urlPrevious)->match(app('request')->create($urlPrevious))->getName();
+        if (in_array($backRouteName, ['searchResults', 'employerDashboard', 'freelancerDashboard', 'supportDashboard'])) {
+            $back_url = $urlPrevious;
+        }
+
         $user = User::select('id')->where('slug', $slug)->first();
 
         if (!empty($user)) {
@@ -434,7 +441,8 @@ class PublicController extends Controller
                             'tagline',
                             'desc',
                             'display_chat',
-                            'enable_package'
+                            'enable_package',
+                            'back_url'
                         )
                     );
                 }
@@ -544,7 +552,8 @@ class PublicController extends Controller
                             'tagline',
                             'desc',
                             'display_chat',
-                            'enable_package'
+                            'enable_package',
+                            'back_url'
                         )
                     );
                 }
@@ -610,7 +619,8 @@ class PublicController extends Controller
                             'tagline',
                             'desc',
                             'show_breadcrumbs',
-                            'user'
+                            'user',
+                            'back_url'
                         )
                     );
                 }
