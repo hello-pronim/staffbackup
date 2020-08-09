@@ -2,8 +2,10 @@
 Footer
 ========================================================================== */
 body.wt-login:not(.register-body) {
-  .short-footer {
-    position: relative;
+  @media (max-width: 991px) {
+    .short-footer {
+      position: relative;
+    }
   }
 
 }
