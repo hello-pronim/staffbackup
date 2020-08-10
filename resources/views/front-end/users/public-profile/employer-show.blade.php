@@ -23,7 +23,7 @@
 
                     <!-- Left content -->
                     <div class="content-public-profile__main-content-left">
-                        <img class="content-public-profile__main-content-avatar" src="{{ !empty($avatar) ? asset($avatar) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">
+                        <img class="content-public-profile__main-content-avatar" src="{{ file_exists(Helper::PublicPath().Helper::getProfileImageSmall($user->id)) ? asset(Helper::getProfileImageSmall($user->id)) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">
                         @if ($user->user_verified === 1)
                             <div>
                                 <i class="fa fa-check-circle"></i> {{ trans('lang.verified_company') }}

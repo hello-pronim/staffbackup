@@ -28,7 +28,7 @@
                                 <img src="{{ asset(Helper::getBadgeImage($badge_img))   }}" alt="{{ trans('lang.is_featured') }}" data-tipso="Plus Member" class="template-content tipso_style">
                             </span>
                         @endif
-                        <img class="content-public-profile__main-content-avatar" src="{{ !empty($avatar) ? asset($avatar) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">
+                        <img class="content-public-profile__main-content-avatar" src="{{ file_exists(Helper::PublicPath().Helper::getProfileImageSmall($user->id)) ? asset(Helper::getProfileImageSmall($user->id)) : '/images/user.jpg' }}" alt="{{ trans('lang.user_avatar') }}">
                         <h2 class="content-public-profile__main-content-name mbottom35">@if (!empty($user_name)) @if ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{ $user_name }} @else Undefined @endif</h2>
                         <div class="content-public-profile__main-content-send-sm  mbottom35">
                             <div class="content-public-profile__main-content-send-wrapper">
