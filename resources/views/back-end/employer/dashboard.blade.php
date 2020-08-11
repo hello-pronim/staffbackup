@@ -203,7 +203,7 @@
                     <vue-cal ref="vuecal" style="height: 650px"
                              :time-from="0 * 60"
                              :time-to="24 * 60"
-                             :disable-views="['years', 'year']"
+                             :disable-views="['years', 'year', 'week', 'day']"
                              default-view="month"
                              events-on-month-view="short"
                              :events="events"
