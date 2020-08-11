@@ -78,7 +78,7 @@
                 <div class="wt-userlogedin">
                     <div class="wt-userlogedin-wrap">
                     <figure class="wt-userimg" style="float:none">
-                        <img src="{{{ asset($profile_image) }}}"
+                        <img src="{{ !empty($user) && file_exists(Helper::PublicPath().Helper::getProfileImageSmall($user->id)) ? asset(Helper::getProfileImageSmall($user->id)) : '/images/user.jpg' }}"
                              alt="{{{ trans('lang.user_avatar') }}}">
                     </figure>
                     <div class="wt-username" style="margin-top: 10px; text-align: center">
