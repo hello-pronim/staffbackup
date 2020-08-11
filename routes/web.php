@@ -368,7 +368,7 @@ Route::group(
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');
         Route::get('job/proposal/{job_slug}', 'ProposalController@createProposal')->name('createProposal');
         Route::get('profile/settings/manage-account', 'UserController@accountSettings')->name('manageAccount');
-        Route::get('profile/settings/reset-password', 'UserController@resetPassword')->name('resetPassword');
+        Route::get('profile/settings/reset-password/{role?}', 'UserController@resetPassword')->name('resetPassword');
         Route::post('profile/settings/request-password', 'UserController@requestPassword');
         Route::get('profile/settings/email-notification-settings', 'UserController@emailNotificationSettings')->name('emailNotificationSettings');
         Route::get('profile/settings/payment-settings', 'UserController@paymentSettings')->name('paymentSettings');

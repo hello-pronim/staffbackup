@@ -150,8 +150,20 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function resetPassword()
+    public function resetPassword($role = null)
     {
+        if ($role == 'employer') {
+            return view('back-end.employer.profile-settings.reset_password');
+        }
+
+        if ($role == 'freelancer') {
+            return view('back-end.freelancer.profile-settings.reset_password');
+        }
+
+        if ($role == 'support') {
+            return view('back-end.support.profile-settings.reset_password');
+        }
+
         if (file_exists(resource_path('views/extend/back-end/settings/reset-password.blade.php'))) {
             return view('extend.back-end.settings.reset-password');
         } else {

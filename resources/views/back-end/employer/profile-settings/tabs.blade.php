@@ -3,8 +3,11 @@
         <li class="nav-item">
             <a class="{{{ \Request::route()->getName()==='personalDetail'? 'active': '' }}}" href="{{{ route('employerPersonalDetail') }}}">{{{ trans('lang.profile_detail') }}}</a>
         </li>
+        {{--<li class="nav-item">--}}
+            {{--<a class="{{{ \Request::route()->getName()==='employer_availability'? 'active': '' }}}" href="{{{ route('employerAvailability') }}}">Availability</a>--}}
+        {{--</li>--}}
         <li class="nav-item">
-            <a class="{{{ \Request::route()->getName()==='employer_availability'? 'active': '' }}}" href="{{{ route('employerAvailability') }}}">Availability</a>
+            <a class="{{{ \Request::route()->getName()==='resetPassword'? 'active': '' }}}" href="{{{ route('resetPassword', ['role' => 'employer']) }}}">{{{ trans('lang.reset_pass') }}}</a>
         </li>
     </ul>
 </div>
