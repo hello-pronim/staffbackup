@@ -217,13 +217,13 @@
                                     </a>
                                 </li>
                             @endif
-                            <li>
-                                <img src="{{url('images/icons/leftmenu/Layer 75.png')}}"/>
+                            {{--<li>--}}
+                                {{--<img src="{{url('images/icons/leftmenu/Layer 75.png')}}"/>--}}
 
-                                <a href="{{{ url($role.'/notifications') }}}">
-                                    <span>Notifications</span>
-                                </a>
-                            </li>
+                                {{--<a href="{{{ url($role.'/notifications') }}}">--}}
+                                    {{--<span>Notifications</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
                             @if ($role === 'employer')
 
                             @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
