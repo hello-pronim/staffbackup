@@ -2923,7 +2923,17 @@ if (document.getElementById("user_profile")) {
         ready: function () {
 
         },
+        created() {
+            this.initEmployerData();
+        },
         methods: {
+            initEmployerData() {
+                if(document.getElementById("employer_data")){
+                    this.setting = document.getElementById("initialSetting") !== null ? document.getElementById("initialSetting").value : '';
+                    this.appoSlotTime =  document.getElementById("initialAppoSlotTimes") !== null ? document.getElementById("initialAppoSlotTimes").value : '';
+                    this.paymentTerm = document.getElementById("initialPaymentTerms") !== null ? document.getElementById("initialPaymentTerms").value : '';
+                }
+            },
             showCompleted(message) {
                 return this.$toast.success(' ', message, this.notificationSystem.options.completed);
             },

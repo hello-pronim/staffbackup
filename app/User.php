@@ -58,6 +58,7 @@ class User extends Authenticatable
         'emp_website',
         'emp_cqc_rating',
         'emp_cqc_rating_date',
+        'setting'
     ];
 
     /**
@@ -321,7 +322,7 @@ class User extends Authenticatable
             $this->expiry_date = null;
             $this->telno = filter_var(isset($request['telno']) ? $request['telno'] : "", FILTER_SANITIZE_STRING);;
             $this->title = filter_var(isset($request['title']) ? $request['title'] : "", FILTER_SANITIZE_STRING);;
-            $this->dob = filter_var(isset($request['dob']) ? $request['dob'] : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);;
+            $this->dob = filter_var(isset($request['dob']) ? date('Y-m-d H:i:s', strtotime($request['dob'])) : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
             $this->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);;
             $this->number = filter_var(isset($request['number']) ? $request['number'] : "", FILTER_SANITIZE_STRING);;
             $this->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);;
@@ -548,6 +549,7 @@ class User extends Authenticatable
             $user->emp_website = filter_var(isset($request['emp_website']) ? $request['emp_website'] : "", FILTER_SANITIZE_URL);;
             $user->emp_cqc_rating = filter_var(isset($request['emp_cqc_rating']) ? $request['emp_cqc_rating'] : "", FILTER_SANITIZE_STRING);;
             $user->emp_cqc_rating_date = filter_var(isset($request['emp_cqc_rating_date']) ? $request['emp_cqc_rating_date'] : "", FILTER_SANITIZE_STRING);
+            $user->dob = filter_var(isset($request['dob']) && is_string($request['dob']) ? date('Y-m-d H:i:s', strtotime($request['dob'])) : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
 
             $user->organisation_email = (!empty($request['organisation_email']))?filter_var($request['organisation_email'], FILTER_SANITIZE_EMAIL):"";
             $user->organisation_position = (!empty($request['organisation_position'])) ? filter_var($request['organisation_position'], FILTER_SANITIZE_STRING) : "";
@@ -600,13 +602,13 @@ class User extends Authenticatable
                 $file->move($destinationPath,$newfiename);
                 $user->prof_ind_cert = $newfiename;
             }
-            if(isset($request['certs']) && $file = $request['certs'])
+            /*if(isset($request['certs']) && $file = $request['certs'])
             {
                 $destinationPath = 'uploads/files';
                 $newfiename = time().$file->getClientOriginalName();
                 $file->move($destinationPath,$newfiename);
                 $user->certs = $newfiename;
-            }
+            }*/
 
 
             $user->save();

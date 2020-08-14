@@ -117,6 +117,7 @@ class Profile extends Model
         $user->limitied_company_name = filter_var(isset($request['limitied_company_name']) ? $request['limitied_company_name'] : "", FILTER_SANITIZE_STRING);
         $user->drive_license = filter_var(isset($request['drive_license']) ? $request['drive_license'] : "", FILTER_SANITIZE_STRING);
         $user->endorsements = filter_var(isset($request['endorsements']) ? $request['endorsements'] : "", FILTER_SANITIZE_STRING);
+        $user->dob = filter_var(isset($request['dob']) ? date('Y-m-d H:i:s', strtotime($request['dob'])) : date('Y-m-d H:i:s', strtotime(null)), FILTER_SANITIZE_STRING);
         //new files fields
 
         if(isset($request['prof_ind_cert']) && $file = $request['prof_ind_cert'])
@@ -130,7 +131,7 @@ class Profile extends Model
         {
             $destinationPath = 'uploads/files';
             $newfiename = time().$file->getClientOriginalName();
-            $file->move($destinationPath,$newfiename);
+            $request->file('certs')->move($destinationPath,$newfiename); //$file->move($destinationPath,$newfiename);
             $user->certs = $newfiename;
         }
 

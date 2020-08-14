@@ -54,14 +54,7 @@
     'plan_G6DuLUGgkizyrs'=>'Monthly'
     );
 */
-    $arrSettings = array(
-    'GP Surgery'=>'GP Surgery',
-    'Walk-In centre'=>'Walk-In centre',
-    'Urgent Care Centre'=>'Urgent Care Centre',
-    'GP Out Of Hours'=>'GP Out Of Hours',
-    'Community Service'=>'Community Service',
-    'Other'=>'Other',
-    );
+    $arrSettings = config('user-settings.settings');
 
     $arrSpecialInterests = array(
     'Diabetes'=>'Diabetes',
@@ -78,13 +71,7 @@
     'Other'=>'Other',
     );
 
-    $arrAppo_slot_times = array(
-    '10 minutes'=>'10 minutes',
-    '15 minutes'=>'15 minutes',
-    '20 minutes'=>'20 minutes',
-    '30 minutes'=>'30 minutes',
-    'Other'=>'Other',
-    );
+    $arrAppo_slot_times = config('user-settings.appo_slot_times');
 
     $arrBreaks = array(
     'Morning Break'=>'Morning Break',
@@ -94,11 +81,8 @@
     'Not Applicable' => 'Not Applicable',
     );
 
-    $arrPaymentTerms = array(
-    'Invoices usually paid within 7 days of receipt'=>'Invoices usually paid within 7 days of receipt',
-    'Invoices usually paid within 14 days of receipt'=>'Invoices usually paid within 14 days of receipt',
-    'Other'=>'Other',
-    );
+    $arrPaymentTerms = config('user-settings.payment_terms');
+
     $nationals = array(
         'Afghan',
         'Albanian',
@@ -892,7 +876,7 @@
 <div class="wt-accordiondetails" v-if="user_role!='employer'" {{--v-if="is_show_freelancer"--}} >
 
     <div class="form-group form-group-half" v-bind:class="[user_role!='employer' ? 'float-none' : '', '']">
-        <date-picker :config="{format: 'DD/MM/YYYY'}"
+        <date-picker :config="{format: 'YYYY-MM-DD'}"
                      value=""
                      id="dob" class="form-control"
                      name="dob"

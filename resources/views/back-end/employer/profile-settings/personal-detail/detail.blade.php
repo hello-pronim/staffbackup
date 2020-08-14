@@ -27,25 +27,14 @@
       'plan_G6DuLUGgkizyrs '=>'Monthly'
       );
 
-      $arrSettings = array(
-      'GP Surgery'=>'GP Surgery',
-      'Walk-In centre'=>'Walk-In centre',
-      'Urgent Care Centre'=>'Urgent Care Centre',
-      'GP Out Of Hours'=>'GP Out Of Hours',
-      'Community Service'=>'Community Service',
-      'Other'=>'Other'
-      );
-      if(!isset($arrSettings[$user->setting]))
+      $arrSettings = config('user-settings.settings');
+      if(!empty($user->setting) && !isset($arrSettings[$user->setting]))
       {
         $arrSettings[$user->setting] = $user->setting;
       }
 
-      $arrPaymentTerms = array(
-      'Invoices usually paid within 7 days of receipt'=>'Invoices usually paid within 7 days of receipt',
-      'Invoices usually paid within 14 days of receipt'=>'Invoices usually paid within 14 days of receipt',
-      'Other'=>'Other',
-      );
-      if(!isset($arrPaymentTerms[$user->payment_terms]))
+      $arrPaymentTerms = config('user-settings.payment_terms');
+      if(!empty($user->payment_terms) && !isset($arrPaymentTerms[$user->payment_terms]))
       {
         $arrPaymentTerms[$user->payment_terms] = $user->payment_terms;
       }
@@ -264,14 +253,8 @@
         'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
     );
 
-    $arrAppo_slot_times = array(
-    '10 minutes'=>'10 minutes',
-    '15 minutes'=>'15 minutes',
-    '20 minutes'=>'20 minutes',
-    '30 minutes'=>'30 minutes',
-    'Other'=>'Other',
-    );
-    if(!isset($arrAppo_slot_times[$user->appo_slot_times]))
+    $arrAppo_slot_times = config('user-settings.appo_slot_times');
+    if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
     {
       $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
     }
@@ -306,26 +289,6 @@
     </fieldset><br>
 </div>
 
-{{--<div class="wt-tabscontenttitle">--}}
-    {{--<h2>Company Contacts</h2>--}}
-{{--</div>--}}
-{{--<div class="lara-detail-form">--}}
-    {{--<fieldset>--}}
-      {{--<div class="form-group form-group-half">--}}
-          {{--{!! Form::text( 'emp_contact', e($user->emp_contact), ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group form-group-half">--}}
-          {{--{!! Form::tel( 'emp_telno', e($user->emp_telno), ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group form-group-half">--}}
-          {{--{!! Form::url( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group form-group-half">--}}
-          {{--{!! Form::email( 'emp_email', e($user->emp_email), ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}--}}
-      {{--</div>--}}
-    {{--</fieldset>--}}
-{{--</div>--}}
-
 <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your service</label>
 
 <div class="lara-detail-form">
@@ -352,15 +315,17 @@
         {{--</div>--}}
 
 
-        {{--<div class="form-group ">--}}
-        {{--{!! Form::select('setting[]', $arrSettings, $user->setting, array('class' => 'form-group',  'placeholder' => "Setting")) !!}--}}
-        {{--</div>--}}
-        {{--<div class="form-group ">--}}
-        {{--<input id="other_setting" type="text"--}}
-        {{--class="form-control"--}}
-        {{--name="setting[]"--}}
-        {{--placeholder="Other Setting">--}}
-        {{--</div>--}}
+        <div class="form-group ">
+            <input type="hidden" id="initialSetting" value="{{ $user->setting }}">
+            {!! Form::select('setting[]', $arrSettings, null, array('class' => 'form-group', 'v-model'=>'setting', 'placeholder' => "Setting")) !!}
+        </div>
+        <div class="form-group" v-if="setting=='Other'">
+            <input id="other_setting" type="text"
+                   class="form-control"
+                   name="setting[]"
+                   placeholder="Other Setting">
+        </div>
+
         <div class="form-group form-group">
             <label for="insurance"
                    style="display: inline-block">Insurance  Details</label>
@@ -378,10 +343,87 @@
                    placeholder="Organisation name">
         </div>
         <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   name="policy_number"
+                   value="{{$user->policy_number}}"
+                   placeholder="Policy Number"/>
+        </div>
+
+        <label for="insurance" style="display: block; padding-left: 5px;">Organisation Contact</label>
+        <div class="form-group form-group-half">
+            <input id="organisation_position" type="text"
+                   class="form-control"
+                   name="organisation_position"
+                   value="{{$user->organisation_position}}"
+
+                   placeholder="Position">
+        </div>
+        <div class="form-group form-group-half">
+            <input id="organisation_email" type="email"
+                   class="form-control"
+                   name="organisation_email"
+                   value="{{$user->organisation_email}}"
+
+                   placeholder="Email">
+        </div>
+        <div class="form-group form-group-half">
+            <input id="organisation_contact" type="text"
+                   class="form-control"
+                   name="organisation_contact"
+                   value="{{$user->organisation_contact}}"
+                   placeholder="Direct Contact No">
+        </div>
+        <div class="form-group">
+            {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), $user->prof_required, array('placeholder' => "Professional Required")) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
         </div>
         <div class="form-group">
             {!! Form::textarea( 'description', e($description), ['class' =>'form-control', 'placeholder' => trans('lang.ph_desc')] ) !!}
+        </div>
+
+        <div class="form-group form-group">
+            <label for="insurance"
+                   style="display: inline-block">Certificates –Vaccinations & immunisation (Measles/Mumps/Rubella/Hepatitis B/Varicella):</label>
+            @if(!empty($user->certs))
+                <a href="{{url('uploads/files/'.$user->certs)}}" target="_blank">Click To open</a>
+            @endif
+            <input type="file" name="certs"
+                   class="form-control"
+                   accept=".pdf, image/*,.doc,.docx">
+        </div>
+        <div class="form-group">
+            <input type="hidden" id="initialAppoSlotTimes" value="{{ $user->appo_slot_times }}">
+            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, ['v-model'=>'appoSlotTime', 'placeholder' => "Appointment Slot Times"]) !!}
+        </div>
+        <div class="form-group" v-if="appoSlotTime=='Other'">
+            <input id="other_appo" type="text"
+                   class="form-control"
+                   name="appo_slot_times[]"
+                   placeholder="Other Appointment Slot Times">
+        </div>
+        <div class="form-group">
+            <input type="hidden" id="initialPaymentTerms" value="{{ $user->payment_terms }}">
+            {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
+        </div>
+        <div class="form-group" v-if="paymentTerm=='Other'">
+            <input id="other_payment_terms" type="text"
+                   class="form-control"
+                   name="payment_terms[]"
+                   placeholder="Other Payment terms">
+        </div>
+        <div class="form-group">
+            <label for="hourly_rate_desc" style="display: inline-block"> Please enter additional information in the
+                communication box if required</label>
+            <input id="hourly_rate_desc" type="text"
+                   class="form-control"
+                   name="hourly_rate_desc"
+                   placeholder="Additional info"
+                   value="{{$user->profile->hourly_rate_desc}}"
+            >
         </div>
     </fieldset>
     <br>
@@ -470,7 +512,7 @@
 </div>
 
 
-{{--<div class="wt-tabscontenttitle">
+<div class="wt-tabscontenttitle">
     <h2>Company Contacts</h2>
 </div>
 <div class="lara-detail-form">
@@ -482,13 +524,13 @@
             {!! Form::tel( 'emp_telno', e($user->emp_telno), ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}
         </div>
         <div class="form-group form-group-half">
-            {!! Form::url( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}
+            {!! Form::text( 'emp_pos', e($user->emp_pos), ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}
         </div>
         <div class="form-group form-group-half">
             {!! Form::email( 'emp_email', e($user->emp_email), ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}
         </div>
     </fieldset>
-</div>--}}
+</div>
 
 <div class="wt-tabscontenttitle">
     <h2>Contact Information</h2>

@@ -26,6 +26,18 @@
         <div class="form-group form-group-half">
             {!! Form::text( 'telno', $user->telno, ['class' =>'form-control', 'placeholder' => trans('lang.phone')] ) !!}
         </div>
+        @php
+            $user_dob = is_string($user->dob) ? date('Y-m-d',  strtotime($user->dob)) : "";
+        @endphp
+        <div class="form-group birthday">
+            <date-picker
+                :config="{format: 'YYYY-MM-DD'}"
+                value="{{ $user_dob }}"
+                class="form-control"
+                name="dob"
+                placeholder="Date of birth"
+            ></date-picker>
+        </div>
 
         {{--<div class="form-group form-group-half">--}}
             {{--<span class="wt-select">--}}
