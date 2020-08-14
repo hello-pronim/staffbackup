@@ -52,3 +52,20 @@ Calendar
     }
   }
 }
+
+.dashboard-pages-body .dashboard-vuecal-wrapper {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  border-left: 1px solid #f2f2f2;
+  padding: 30px;
+  background-color: $color__background-white;
+
+  @media (max-width: 1199px) {
+    width: 100%;
+  }
+}
+
+.dashboard-pages-body .post_job_dashboard-wrapper {
+  width: 100%;
+}

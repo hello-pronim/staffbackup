@@ -227,7 +227,7 @@
         </div>
 
         <div class="freelancer-profile scrolToCalend" id="freelancer_availability">
-            <div class="wt-tabscontent tab-content">
+            <div class="dashboard-vuecal-wrapper">
                 <vue-cal ref="vuecal" style="height: 650px"
                          :time-from="0 * 60"
                          :time-to="24 * 60"
@@ -237,9 +237,12 @@
                          events-on-month-view="short"
                          :events="events"
                          :on-event-click="onEventClick"
-                         @cell-click="createNewEvent"
+                @cell-click="createNewEvent"
                 >
                 </vue-cal>
+            </div>
+
+            <div class="wt-tabscontent tab-content">
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                     <h2>
                         Green equals free this day<br>
