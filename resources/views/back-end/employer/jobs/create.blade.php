@@ -66,22 +66,22 @@
             </div>
                 <div id="post_job_dashboard" class="post_job_dashboard-wrapper">
                     <div class="dashboard-vuecal-wrapper dashboard-vuecal-wrapper-employer">
-                        <vue-cal ref="vuecal"
-                                 :time-from="0 * 60"
-                                 :time-to="24 * 60"
-                                 :disable-views="['years', 'year', 'week', 'day']"
-                                 default-view="month"
-                                 events-on-month-view="short"
-                                 :events="events"
-                                 :on-event-click="onEventClick"
-                                 @cell-click="changeSelectedDate"
-                        >
-                        </vue-cal>
+                        {{--<vue-cal ref="vuecal"--}}
+                                 {{--:time-from="0 * 60"--}}
+                                 {{--:time-to="24 * 60"--}}
+                                 {{--:disable-views="['years', 'year', 'week', 'day']"--}}
+                                 {{--default-view="month"--}}
+                                 {{--events-on-month-view="short"--}}
+                                 {{--:events="events"--}}
+                                 {{--:on-event-click="onEventClick"--}}
+                                 {{--@cell-click="changeSelectedDate"--}}
+                        {{-->--}}
+                        {{--</vue-cal>--}}
                     </div>
                     <div  class="scrolToCalend">
                         <div class="wt-tabscontent tab-content">
                             {!! Form::open(['url' => url('job/post-job'), 'class' =>'post-job-form wt-haslayout', 'id' => 'post_job_dashboard_form',  '@submit.prevent'=>'submitJob']) !!}
-                            <div class="wt-dashboardbox" v-if="clickedDate!=''">
+                            <div class="wt-dashboardbox">
                                 <div class="wt-dashboardboxtitle text-center">
                                     <div class="float-left" style="
                             border-right:4px solid #ffe188;
