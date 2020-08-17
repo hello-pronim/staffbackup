@@ -51,7 +51,7 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name', 'last_name', 'slug', 'email', 'password',
         'avatar', 'banner', 'tagline', 'description',
-        'location_id', 'verification_code', 'address',
+        'location_id', 'verification_code', 'address', 'straddress',
         'longitude', 'latitude',
         'emp_contact',
         'emp_telno',
@@ -303,6 +303,14 @@ class User extends Authenticatable
      */
     public function storeUser($request, $verification_code)
     {
+        $this->prof_ind_cert = '';
+        $this->passport_visa = '';
+        $this->prof_qualifications='';
+        $this->mand_training = '';
+        $this->cert_of_crbdbs = '';
+        $this->occup_health = '';
+        $this->certs = '';
+
         if (!empty($request)) {
             $this->first_name = filter_var($request['first_name'], FILTER_SANITIZE_STRING);
             $this->last_name = filter_var($request['last_name'], FILTER_SANITIZE_STRING);
@@ -516,8 +524,12 @@ class User extends Authenticatable
               $profile->longitude = $request['longitude'];
             }
 
-            $profile->save();
             $role_id = Helper::getRoleByUserID($user_id);
+            if(Helper::getRoleNameByRoleID($role_id) === 'freelancer') {
+                $profile->address = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
+            }
+
+            $profile->save();
             $package = Package::select('id', 'title', 'cost')->where('role_id', $role_id)->where('trial', 1)->get()->first();
             $trial_invoice = Invoice::select('id')->where('type', 'trial')->get()->first();
             if (!empty($package) && !empty($trial_invoice)) {
@@ -618,6 +630,25 @@ class User extends Authenticatable
             return false;
         }
 
+    }
+
+    /**
+     * Save User employer fields
+     * @param $request
+     * @param $user_id
+     * @return bool
+     */
+    public function storeFreelancerFields($request, $user)
+    {
+        if (!empty($request) && $user) {
+            if (isset($request['address'])) {
+                $user->straddress = filter_var($request['address'], FILTER_SANITIZE_STRING);
+            }
+            if (isset($request['postcode'])) {
+                $user->postcode = filter_var($request['postcode'], FILTER_SANITIZE_STRING);
+            }
+            $user->save();
+        }
     }
 
     /**
