@@ -183,7 +183,7 @@ class Job extends Model
             $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
             $this->start_date = filter_var(is_array($request['start_date']) ? Carbon::parse($request['start_date'][0])->format('Y-m-d') : Carbon::parse($request['start_date'])->format('Y-m-d'), FILTER_SANITIZE_STRING);
             $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : "0" , FILTER_SANITIZE_STRING);
-            $this->skills = (count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
+            $this->skills = (isset($request['skills']) && count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
 
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
