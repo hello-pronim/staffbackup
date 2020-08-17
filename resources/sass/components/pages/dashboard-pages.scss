@@ -57,10 +57,8 @@ Calendar
   width: 70%;
   display: flex;
   justify-content: center;
-  border-left: 1px solid #f2f2f2;
   padding: 30px;
   background-color: $color__background-white;
-
   @media (max-width: 1199px) {
     width: 100%;
   }
@@ -68,4 +66,41 @@ Calendar
 
 .dashboard-pages-body .post_job_dashboard-wrapper {
   width: 100%;
+}
+
+.dashboard-pages-body .dashboard-vuecal-wrapper-employer,
+.dashboard-pages-body .dashboard-vuecal-wrapper
+{
+  margin: 0 auto;
+}
+
+.dashboard-pages-body .newStyleBoxes {
+  display: flex!important;
+  margin: 0!important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+
+  .newBoxStyle {
+    @media (max-width: 1199px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .newStyleBoxesWrapper {
+    @media (max-width: 1199px) {
+      display: flex!important;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}
+
+.dashboard-pages-body .dashboard-wt-tabscontent-wrapper {
+  margin-right: 0;
+  margin-left: 0;
 }
