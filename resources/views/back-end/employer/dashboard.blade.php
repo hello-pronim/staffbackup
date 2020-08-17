@@ -197,6 +197,11 @@
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                     <h2>Your Calendar</h2>
                 </div>
+                <div class="preloader-section" v-if="loading" v-cloak>
+                    <div class="preloader-holder">
+                        <div class="loader"></div>
+                    </div>
+                </div>
 
                 <div id="post_job_dashboard" class="post_job_dashboard-wrapper">
                 <div class="dashboard-vuecal-wrapper dashboard-vuecal-wrapper-employer">
