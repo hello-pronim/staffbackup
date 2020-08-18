@@ -4,11 +4,12 @@
 }
 
 body.register-body.dashboard-pages-body .header-main-footer-wrapper .main-wrapper {
-  background-image: url(/images/img/public-profile/doctor3.png);
+  /*background-image: url(/images/img/public-profile/doctor3.png);
   background-repeat: no-repeat, no-repeat;
   background-position: right bottom;
   background-color: transparent;
-  background-size: 50% auto;
+  background-size: 50% auto;*/
+  background-image: none;
   padding-bottom: 120px;
 
   @media (max-width: 768px) {
