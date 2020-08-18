@@ -238,7 +238,6 @@ class FreelancerController extends Controller
                         return $json;
                     } else {
                         $profile =  $this->freelancer->storeProfile($request, Auth::user()->id);
-                        (new User())->storeFreelancerFields($request, Auth::user());
                         if ($profile = 'success') {
                             $json['type'] = 'success';
                             $json['message'] = '';
@@ -252,7 +251,6 @@ class FreelancerController extends Controller
                 }
             } else {
                 $profile =  $this->freelancer->storeProfile($request, Auth::user()->id);
-                (new User())->storeFreelancerFields($request, Auth::user());
                 if ($profile = 'success') {
                     $json['type'] = 'success';
                     $json['message'] = '';

@@ -303,14 +303,6 @@ class User extends Authenticatable
      */
     public function storeUser($request, $verification_code)
     {
-        $this->prof_ind_cert = '';
-        $this->passport_visa = '';
-        $this->prof_qualifications='';
-        $this->mand_training = '';
-        $this->cert_of_crbdbs = '';
-        $this->occup_health = '';
-        $this->certs = '';
-
         if (!empty($request)) {
             $this->first_name = filter_var($request['first_name'], FILTER_SANITIZE_STRING);
             $this->last_name = filter_var($request['last_name'], FILTER_SANITIZE_STRING);
@@ -630,25 +622,6 @@ class User extends Authenticatable
             return false;
         }
 
-    }
-
-    /**
-     * Save User employer fields
-     * @param $request
-     * @param $user_id
-     * @return bool
-     */
-    public function storeFreelancerFields($request, $user)
-    {
-        if (!empty($request) && $user) {
-            if (isset($request['address'])) {
-                $user->straddress = filter_var($request['address'], FILTER_SANITIZE_STRING);
-            }
-            if (isset($request['postcode'])) {
-                $user->postcode = filter_var($request['postcode'], FILTER_SANITIZE_STRING);
-            }
-            $user->save();
-        }
     }
 
     /**

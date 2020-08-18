@@ -49,21 +49,6 @@
                     lat: event.latLng.lat(),
                     lng: event.latLng.lng()
                 }
-
-                const geocoder = new google.maps.Geocoder();
-                console.log(geocoder);
-                geocoder.geocode({ location: this.latLng }, (results, status) => {
-                    if (status === "OK") {
-                        if (results[0]) {
-
-                            console.log(results[0].formatted_address);
-                        } else {
-                            console.log("No results found");
-                        }
-                    } else {
-                        console.log("Geocoder failed due to: " + status);
-                    }
-                });
             },
             setPlace(event) {
                 this.latLng = {

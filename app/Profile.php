@@ -195,7 +195,7 @@ class Profile extends Model
             $user->occup_health = $newfiename;
         }
 
-
+        $this->fillFreelancerFields($request, $user);
 
 
 
@@ -321,6 +321,30 @@ class Profile extends Model
         return $profile->save();
     }
 
+    /**
+     * Fill freelancer fields
+     *
+     * @param $request
+     * @param $user
+     */
+    public function fillFreelancerFields($request, &$user)
+    {
+        if (empty($user) || empty($request)) {
+            return;
+        }
+
+        $role_id = Helper::getRoleByUserID($user->id);
+        if(Helper::getRoleNameByRoleID($role_id) !== 'freelancer') {
+            return;
+        }
+
+        if (isset($request['address'])) {
+            $user->straddress = filter_var($request['address'], FILTER_SANITIZE_STRING);
+        }
+        if (isset($request['postcode'])) {
+            $user->postcode = filter_var($request['postcode'], FILTER_SANITIZE_STRING);
+        }
+    }
 
     /**
      * Store Email Notifications in database
