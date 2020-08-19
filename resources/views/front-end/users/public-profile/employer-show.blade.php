@@ -98,6 +98,20 @@
                         </div>
 
                         <div class="content-public-profile__main-content-separator"></div>
+                        <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                            <span class="content-public-profile__main-content-title">Clinical Setting:</span>
+                            {{ !empty($user->setting) ? $user->setting : 'not set'  }}
+                        </div>
+
+                        <div class="content-public-profile__main-content-separator"></div>
+                        <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                            <span class="content-public-profile__main-content-title">Tagline:</span>
+                            <p>
+                                {{ $user->profile()->exists() && !empty($user->profile->tagline) ? $user->profile->tagline : 'not set'  }}
+                            </p>
+                        </div>
+
+                        <div class="content-public-profile__main-content-separator"></div>
                         <div class="wt-widget wt-reportjob mtop35 content-public-profile__reportjob">
                             <div class="wt-widgettitle">
                                 <h2>{{ trans('lang.report_employer') }}</h2>
