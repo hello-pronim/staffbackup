@@ -1558,6 +1558,7 @@ if (document.getElementById("registration")) {
                 },
             loading: false,
             user_role: 'employer',
+            practice_code_checked: false,
             is_show: true,
             is_show_freelancer: false,
             error_message: '',
@@ -1614,8 +1615,14 @@ if (document.getElementById("registration")) {
                 this.changeBkgroundImages(this.step);
             },
             next: function () {
+                if (this.user_role === 'employer' && this.practice_code_checked === false && this.step !== 0) {
+                    return;
+                }
                 this.step++;
                 this.changeBkgroundImages(this.step);
+            },
+            practiceCodeChanging() {
+                this.practice_code_checked = false;
             },
             initBackgroundImages () {
                 this.max_background_images = 4;
@@ -1638,6 +1645,7 @@ if (document.getElementById("registration")) {
                 }
             },
             selectedRole: function (role) {
+                this.practice_code_checked = false;
                 if (role.toLowerCase() == 'employer') {
                     this.is_show = true;
                     this.is_show_freelancer = false;
@@ -1971,6 +1979,7 @@ if (document.getElementById("registration")) {
             },
             validatePracticeCode: function(){
                 this.insurancecheckbox = true;
+                this.practice_code_checked = false;
                 validate_practice_code(this);
             }
         }
@@ -2879,6 +2888,7 @@ if (document.getElementById("user_profile")) {
             timeAllocated: "",
             paymentTerm: "",
             specialInterest: "",
+            practice_code_checked: false,
             report: {
                 reason: '',
                 description: '',
@@ -6771,6 +6781,7 @@ function validate_practice_code(e) {
     if (val !== '') {
         $.getJSON('https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/' + encodeURI(val), {_format: 'json'}, function (result) {
             console.log('[practice_code] SUCCESS');
+            self.practice_code_checked = true;
             let address = result.Organisation.GeoLoc.Location;
             $('#straddress').val(address.AddrLn1);
             $('#postcode').val(address.PostCode);

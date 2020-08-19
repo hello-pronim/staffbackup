@@ -410,7 +410,7 @@
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
 
-
+                                            <div v-show="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)">
                                             <div class="form-group" v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
                                                 <span class="wt-select">
                                                 {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] : null , array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
@@ -485,20 +485,25 @@
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
                                             </span>
                                             </div>
+                                            </div>
                                             <div v-if="user_role=='employer'" class="form-group form-group-half">
                                                 <input id="practice_code" type="text"
                                                        class="form-control"
                                                        name="practice_code"
                                                        placeholder="Practice Code"
-                                                       @change="validatePracticeCode"
+                                                       @input="practiceCodeChanging"
                                                        v-bind:class="{ 'is-invalid': form_step2.is_practice_code_error }">
                                                 <span class="help-block"
                                                       v-if="form_step2.practice_code_error">
-																				<strong v-cloak>@{{form_step2.practice_code_error}}</strong>
+                                                <strong v-cloak>@{{form_step2.practice_code_error}}</strong>
                                             </div>
+                                            <div v-show="user_role=='employer' && !this.practice_code_checked" class="form-group form-group-half">
+                                                <a href="#" @click.prevent="validatePracticeCode" class="wt-btn">Verify</a>
+                                            </div>
+
                                             <div class="form-group">
                                                 <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
-                                                <a href="#" @click.prevent="next()" class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                                <a v-if="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)" href="#" @click.prevent="next()" class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                             </div>
                                         </div>
                                     </fieldset>

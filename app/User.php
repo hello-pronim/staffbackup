@@ -585,7 +585,7 @@ class User extends Authenticatable
                 (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
             //End With Others
 
-            $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+            //$user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
             $user->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
 
 
