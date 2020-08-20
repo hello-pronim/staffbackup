@@ -231,27 +231,27 @@
                                                                 </div>
                                                             </div>
                                                         @endif
-                                                        <div class="wt-proposalfeedback">
-                                                            <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
-                                                            <span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub> <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
-                                                        </div>
+                                                        {{--<div class="wt-proposalfeedback">--}}
+                                                            {{--<span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>--}}
+                                                            {{--<span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub> <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>--}}
+                                                        {{--</div>--}}
                                                     </div>
                                                     <div class="wt-rightarea">
-                                                        <div class="wt-btnarea">
-                                                            @if (empty($accepted_proposal))
-                                                                <a href="javascript:void(0);"  v-on:click.prevent="hireFreelancer('{{{$proposal->id}}}')" class="wt-btn">{{ trans('lang.hire_now') }}</a>
-                                                            @endif
-                                                        </div>
+                                                        {{--<div class="wt-btnarea">--}}
+                                                            {{--@if (empty($accepted_proposal))--}}
+                                                                {{--<a href="javascript:void(0);"  v-on:click.prevent="hireFreelancer('{{{$proposal->id}}}')" class="wt-btn">{{ trans('lang.hire_now') }}</a>--}}
+                                                            {{--@endif--}}
+                                                        {{--</div>--}}
                                                         <div class="wt-hireduserstatus">
                                                             <h5>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$proposal->amount}}}</h5>
                                                             @if(!empty($completion_time))
                                                                 <span>{{{ $completion_time }}}</span>
                                                             @endif
                                                         </div>
-                                                        <div class="wt-hireduserstatus">
-                                                            <i class="far fa-envelope"></i>
-                                                            <a href="javascript:void(0);"  v-on:click.prevent="showCoverLetter('{{ $proposal->id }}')" ><span>{{ trans('lang.cover_letter') }}</span></a>
-                                                        </div>
+                                                        {{--<div class="wt-hireduserstatus">--}}
+                                                            {{--<i class="far fa-envelope"></i>--}}
+                                                            {{--<a href="javascript:void(0);"  v-on:click.prevent="showCoverLetter('{{ $proposal->id }}')" ><span>{{ trans('lang.cover_letter') }}</span></a>--}}
+                                                        {{--</div>--}}
                                                         <div class="wt-hireduserstatus">
                                                             <i class="fa fa-paperclip"></i>
                                                             @if (!empty($attachments))
