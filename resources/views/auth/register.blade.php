@@ -553,6 +553,7 @@
                                                                    name="straddress"
                                                                    @place_changed="updateAddressLocation($event)"
                                                                    :select-first-on-enter="true"
+                                                                   :disabled="user_role=='employer'"
                                                                    v-bind:class="{ 'is-invalid': form_step2.straddress_error }">
                                                   <template v-slot:input="slotProps">
                                                     <v-text-field outlined
@@ -562,6 +563,7 @@
                                                     </v-text-field>
                                                   </template>
                                                 </gmap-autocomplete>
+                                                <input v-if="user_role=='employer'" type="hidden" id="straddress-emloyer" name="straddress" value="">
                                                 <span class="help-block"
                                                       v-if="form_step2.straddress_error">
 													<strong v-cloak>@{{form_step2.straddress_error}}</strong>
