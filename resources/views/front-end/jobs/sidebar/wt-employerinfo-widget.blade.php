@@ -25,19 +25,19 @@
                         <span>{{ trans('lang.full_profile') }}</span>
                     </a>
                 </li>
-                @if (!empty($save_employers))
-                    <li class="wt-btndisbaled">
-                        <a href="javascript:void(0);">
-                            <span v-cloak>{{trans("lang.following")}}</span>
-                        </a>
-                    </li>
-                @else
-                    <li v-bind:class="disable_follow">
-                        <a href="javascript:void(0);" id="profile-{{$job->employer->id}}" @click.prevent="add_wishlist('profile-{{$job->employer->id}}', {{$job->employer->id}}, 'saved_employers', '{{trans("lang.following")}}')" v-cloak>
-                            <span v-cloak>@{{follow_text}}</span>
-                        </a>
-                    </li>
-                @endif
+                {{--@if (!empty($save_employers))--}}
+                    {{--<li class="wt-btndisbaled">--}}
+                        {{--<a href="javascript:void(0);">--}}
+                            {{--<span v-cloak>{{trans("lang.following")}}</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--@else--}}
+                    {{--<li v-bind:class="disable_follow">--}}
+                        {{--<a href="javascript:void(0);" id="profile-{{$job->employer->id}}" @click.prevent="add_wishlist('profile-{{$job->employer->id}}', {{$job->employer->id}}, 'saved_employers', '{{trans("lang.following")}}')" v-cloak>--}}
+                            {{--<span v-cloak>@{{follow_text}}</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--@endif--}}
             </ul>
         </div>
     </div>
