@@ -12,11 +12,11 @@ class AddProfilesRadius extends Migration
      * @return void
      */
     public function up()
-    {
+    {/*
         Schema::table('profiles', function (Blueprint $table) {
           $table->float('radius')->nullable()->after('saved_employers');
         });
-    }
+    */}
 
     /**
      * Reverse the migrations.
