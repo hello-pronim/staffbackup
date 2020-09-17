@@ -12,7 +12,7 @@ class AddEmailTypesNewJobNotificationEmplates extends Migration
      * @return void
      */
     public function up()
-    {/*
+    {
         DB::statement("ALTER TABLE email_types MODIFY COLUMN email_type ENUM('new_user',
           'verification_code','lost_password','account_verification',
           'invitation','contact_form_received','admin_email_registration',
@@ -27,5 +27,5 @@ class AddEmailTypesNewJobNotificationEmplates extends Migration
           'freelancer_email_job_completed','freelancer_email_new_job_posted',
           'support_email_new_job_posted','admin_email_dispute_raised',
           'reset_password_email','admin_email_cancel_job')");
-    */}
+    }
 }

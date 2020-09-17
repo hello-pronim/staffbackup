@@ -12,11 +12,11 @@ class AddRadiusToProfilesTable extends Migration
      * @return void
      */
     public function up()
-    {/*
+    {
         Schema::table('profiles', function (Blueprint $table) {
             $table->string('radius')->default('');
         });
-    */}
+    }
 
     /**
      * Reverse the migrations.
