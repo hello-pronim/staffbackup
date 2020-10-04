@@ -4416,15 +4416,15 @@ if (document.getElementById("post_job")) {
                         // if (error.response.data.errors.job_duration) {
                         //     self.showError(error.response.data.errors.job_duration[0]);
                         // }
-                        if (error.response.data.errors.english_level) {
-                            self.showError(error.response.data.errors.english_level[0]);
-                        }
+                        // if (error.response.data.errors.english_level) {
+                        //     self.showError(error.response.data.errors.english_level[0]);
+                        // }
                         if (error.response.data.errors.title) {
                             self.showError(error.response.data.errors.title[0]);
                         }
-                        if (error.response.data.errors.project_levels) {
-                            self.showError(error.response.data.errors.project_levels[0]);
-                        }
+                        // if (error.response.data.errors.project_levels) {
+                        //     self.showError(error.response.data.errors.project_levels[0]);
+                        // }
                         if (error.response.data.errors.freelancer_type) {
                             self.showError(error.response.data.errors.freelancer_type[0]);
                         }
@@ -4983,6 +4983,459 @@ if (document.getElementById("post_job_dashboard")) {
                     });
                 e.stopPropagation()
             },
+            getSettings: function () {
+                let self = this;
+                var segment_str = window.location.pathname;
+                var segment_array = segment_str.split('/');
+                var slug = segment_array[segment_array.length - 1];
+                axios.post(APP_URL + '/job/get-job-settings', {
+                    slug: slug
+                })
+                    .then(function (response) {
+                        if (response.data.type == 'success') {
+                            if ((response.data.is_featured == 'true')) {
+                                self.is_featured = true;
+                            } else {
+                                self.is_featured = false;
+                            }
+                            if ((response.data.show_attachments == 'true')) {
+                                self.show_attachments = true;
+                            } else {
+                                self.show_attachments = false;
+                            }
+                            if ((response.data.recurring_date == 'true')) {
+                                self.recurring_date = true;
+                            } else {
+                                self.recurring_date = false;
+                            }
+                        }
+                    });
+            },
+            deleteAttachment: function (id) {
+                jQuery('#' + id).remove();
+            }
+        }
+    });
+}
+
+if (document.getElementById("post_job_edit")) {
+    const vmpostJob = new Vue({
+        el: '#post_job_edit',
+        mounted: function () {
+            if (document.getElementsByClassName("flash_msg") != null) {
+                flashVue.$emit('showFlashMessage');
+            }
+        },
+        components: {'vue-cal': vuecal, VueTimepicker},
+        data: {
+            calendarPlugins: [],
+            events: [],
+            jobs: [],
+            availability_title: "",
+            availability_content: "",
+            availability_start_time: "",
+            availability_end_time: "",
+            availability_selected_date: "",
+            availability_selected_end_date: "",
+            clickedDate: "",
+            clickedEndDate: "",
+            recurring_date: "",
+            user_id: "",
+            skill_id: "",
+            id: "",
+            event_id: "1",
+            job_id: "",
+            addedToEvents: false,
+            selectedEvent: null,
+            selectedEventDrag: false,
+            title: '',
+            project_level: '',
+            // job_duration: this.value,
+            // appo_slot_times: this.value,
+            // freelancer_level: this.value,
+            // home_visits: this.value,
+            breaks: '',
+            english_level: '',
+            message: '',
+            // booking_title: this.value,
+            // booking_content: this.value,
+            form_errors: [],
+            custom_error: false,
+            is_show: false,
+            loading: false,
+            show_attachments: false,
+            recurring_end_date: "",
+            is_recurring: false,
+            changing_date: false,
+            is_featured: false,
+            is_progress: false,
+            is_completed: false,
+            dayslist: [],
+            addDay: 1,
+            errors: '',
+            notificationSystem: {
+                options: {
+                    success: {
+                        position: "topRight",
+                        timeout: 4000
+                    },
+                    error: {
+                        position: "topRight",
+                        timeout: 7000
+                    },
+                    completed: {
+                        position: 'center',
+                        timeout: 1000,
+                        progressBar: false
+                    },
+                    info: {
+                        overlay: true,
+                        zindex: 999,
+                        position: 'center',
+                        timeout: 3000,
+                        onClosing: function (instance, toast, closedBy) {
+                            vmpostJob.showCompleted(Vue.prototype.trans('lang.process_cmplted_success'));
+                        }
+                    }
+                }
+            },
+            selecteddate:'',
+            selecteddate_end:'',
+            start: "",
+            end: "",
+            description: "",
+            currentEvent: {},
+        },
+        created: function () {
+            this.getSettings();
+            var events = [];
+            let self = this;
+            var e = document.getElementById("recurring_date");
+            var sel_recurring_date = e.options[e.selectedIndex].value;
+            if(sel_recurring_date){
+                this.recurring_date = sel_recurring_date;
+                this.is_recurring = true;
+            }
+
+        },
+        methods: {
+            convertDateForFormatCalendar(date) {
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            convertDateForFormatView(date) {
+                if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+                    return date;
+                } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+                    let all_date_parts = date.split(' ');
+                    let date_parts = all_date_parts[0].split('-');
+                    return date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0] + ' ' + all_date_parts[1];
+                }
+
+                return null;
+            },
+            customEventCreation() {
+                const dateTime = prompt('Create event on (yyyy-mm-dd hh:mm)', '2018-11-20 13:15')
+                // Check if date format is correct before creating event.
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
+                    this.$refs.vuecal.createEvent(
+                        // Formatted start date and time or JavaScript Date object.
+                        dateTime,
+                        // Custom event props (optional).
+                        {title: 'New Event', content: 'yay! �', classes: ['leisure']}
+                    )
+                } else if (dateTime) alert('Wrong date format.')
+            },
+            formatDate(date,calendar = false) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+                if(calendar === true) {
+                    return [year, month, day].join('-');
+                } else {
+                    return [day, month, year].join('-');
+                }
+            },
+            setBooking(e) {
+                e.preventDefault();
+
+                console.log({
+                    start: this.selecteddate + ' ' + this.start,
+                    end: this.selecteddate_end + ' ' + this.end,
+                    title: this.title,
+                    content: this.description,
+                    class: 'booking_calendar',
+                });
+                this.events.push({
+                    start: this.convertDateForFormatCalendar(this.selecteddate) + ' ' + this.start,
+                    end: this.convertDateForFormatCalendar(this.selecteddate_end) + ' ' + this.end,
+                    title: this.title,
+                    content: this.description,
+                    class: 'booking_calendar',
+                });
+            },
+            changeSelectedDate(date) {
+                console.log(date);
+                // this.clickedDate = true;
+                // if(this.selectedEvent){
+                //     // var selDateStart = this.selectedEvent.start.split(' ');
+                //     // var selDateEnd = this.selectedEvent.end.split(' ');
+                //     this.selecteddate = this.formatDate(this.selecteddate);
+                //     this.selecteddate_end = this.formatDate(this.selecteddate_end);
+                //
+                //
+                //     this.event_id = this.selectedEvent.id;
+                //     this.job_id = this.selectedEvent.job_id;
+                //     this.booking_title = this.selectedEvent.title;
+                //     this.booking_content = this.selectedEvent.content;
+                //
+                //     this.start = selDateStart[1];
+                //     this.end = selDateEnd[1];
+                //     this.selectedEvent = false;
+                // } else {
+                //     // this.selecteddate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
+                //     this.selecteddate = this.formatDate(date);
+                //     if (this.selecteddate < this.selecteddate_end) {
+                //         this.selecteddate_end = this.formatDate(date);
+                //     }
+                //
+                //     this.event_id = '';
+                //     this.job_id = '';
+                //     this.booking_title = '';
+                //     this.booking_content = '';
+                //
+                //     this.start = '00:00';
+                //     this.end = '23:59';
+                // }
+                // setTimeout(function () {
+                //     $('html, body').animate({
+                //         scrollTop: ($(".classScrollTo").offset().top)
+                //     }, 1000);
+                // })
+
+            },
+            createList(event) {
+                var parent = document.getElementById('listDates'),
+                    newElem = parent.querySelector('.getIsDay'),
+                    elem = parent.querySelectorAll('.isDay');
+                newElem.classList.remove('getIsDay');
+                newElem.classList.add('isDay');
+                newElem.style.display = '';
+                newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (elem.length) + "]");
+                newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (elem.length) + "]");
+                // newElem.children[0].querySelector('input').value = '';
+                newElem.children[1].querySelector('input').value = '';
+                this.addDay = elem.length;
+                // event.preventDefault();
+            },
+            changeSelectedDateEnd(date) {
+                // this.selecteddate_end = this.formatDate(date);
+                // this.start = (this.start!='')?this.start:'00:00';
+                // this.end = (this.end!='')?this.end:'23:59';
+            },
+            preventClick() {
+
+            },
+            changeview(e) {
+                e.preventDefault();
+                vuecal.switchView('day');
+            },
+            changeSelectedLastrecurringDate(event){
+                //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+                // this.selecteddate = ('0' + date.getDate()).slice(-2) + "/" + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
+                // this.selecteddate =  this.formatDate(date,true);
+                // jQuery('#calendar_small').hide();
+                //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
+                // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+
+            },
+            showCompleted(message) {
+                return this.$toast.success(' ', message, this.notificationSystem.options.completed);
+            },
+            showInfo(message) {
+                return this.$toast.info(' ', message, this.notificationSystem.options.info);
+            },
+            showMessage(message) {
+                return this.$toast.success(Vue.prototype.trans('lang.success'), message, this.notificationSystem.options.success);
+            },
+            showError(error) {
+                return this.$toast.error(' ', error, this.notificationSystem.options.error);
+            },
+            onEventClick(event){
+                console.log(event);
+                this.selectedEvent = event;
+            },
+
+            // submitJob: function () {
+            //     this.loading = true;
+            //     let register_Form = document.getElementById('post_job_dashboard_form');
+            //     let form_data = new FormData(register_Form);
+            //     // var description = tinyMCE.get('wt-tinymceeditor').getContent();
+            //     // form_data.append('description', description);
+            //     var self = this;
+            //     axios.post(APP_URL + '/job/post-job', form_data)
+            //         .then(function (response) {
+            //             if (response.data.type == 'success') {
+            //                 self.loading = false;
+            //                 self.showInfo(Vue.prototype.trans('lang.job_submitting'));
+            //                 // setTimeout(function (self) {
+            //                 //     window.location.replace(APP_URL + '/employer/dashboard');
+            //                 //     self.clickedDate = false;
+            //                 // }, 4000);
+            //                 self.reloadCalendar();
+            //                 self.clickedDate = false;
+            //                 setTimeout(function (self) {
+            //                     $('html, body').animate({
+            //                         scrollTop: ($(".scrolToCalend").offset().top)
+            //                     }, 1000);
+            //                 });
+            //
+            //             } else {
+            //                 self.loading = false;
+            //                 self.showError(response.data.message);
+            //             }
+            //         })
+            //         .catch(function (error) {
+            //             self.loading = false;
+            //             // if (error.response.data.errors.job_duration) {
+            //             //     self.showError(error.response.data.errors.job_duration[0]);
+            //             // }
+            //             if (error.response.data.errors.english_level) {
+            //                 self.showError(error.response.data.errors.english_level[0]);
+            //             }
+            //             if (error.response.data.errors.title) {
+            //                 self.showError(error.response.data.errors.title[0]);
+            //             }
+            //             if (error.response.data.errors.project_levels) {
+            //                 self.showError(error.response.data.errors.project_levels[0]);
+            //             }
+            //             if (error.response.data.errors.freelancer_type) {
+            //                 self.showError(error.response.data.errors.freelancer_type[0]);
+            //             }
+            //             // if (error.response.data.errors.project_cost) {
+            //             //     self.showError(error.response.data.errors.project_cost[0]);
+            //             // }
+            //             // if (error.response.data.errors.description) {
+            //             //     self.showError(error.response.data.errors.description[0]);
+            //             // }
+            //             if (error.response.data.errors.booking_start) {
+            //                 self.showError(error.response.data.errors.booking_start[0]);
+            //             }
+            //             if (error.response.data.errors.booking_end) {
+            //                 self.showError(error.response.data.errors.booking_end[0]);
+            //             }
+            //
+            //         });
+            // },
+            updateJob: function (id) {
+                this.loading = true;
+                let register_Form = document.getElementById('post_job_edit_form');
+                let form_data = new FormData(register_Form);
+                // var description = tinyMCE.get('wt-tinymceeditor').getContent();
+                // form_data.append('description', description);
+                form_data.append('id', id);
+                var self = this;
+                axios.post(APP_URL + '/job/update-job', form_data)
+                    .then(function (response) {
+                        self.loading = false;
+                        if (response.data.type == 'success') {
+                            self.showInfo(Vue.prototype.trans('lang.job_updating'));
+                            setInterval(function(){
+                                var new_url = window.location.href;
+                                var turl = new_url.replace(/\/[^\/]*$/, '/'+response.data.redirect);
+                                window.location.href = turl;
+
+                            },1000)
+                        } else {
+                            self.showError(response.data.message);
+                        }
+                    })
+                    .catch(function (error) {
+                        self.loading = false;
+                        // if (error.response.data.errors.job_duration) {
+                        //     self.showError(error.response.data.errors.job_duration[0]);
+                        // }
+                        // if (error.response.data.errors.english_level) {
+                        //     self.showError(error.response.data.errors.english_level[0]);
+                        // }
+                        if (error.response.data.errors.title) {
+                            self.showError(error.response.data.errors.title[0]);
+                        }
+                        // if (error.response.data.errors.project_levels) {
+                        //     self.showError(error.response.data.errors.project_levels[0]);
+                        // }
+                        // if (error.response.data.errors.freelancer_type) {
+                        //     self.showError(error.response.data.errors.freelancer_type[0]);
+                        // }
+                        // // if (error.response.data.errors.project_cost) {
+                        //     self.showError(error.response.data.errors.project_cost[0]);
+                        // }
+                        // if (error.response.data.errors.description) {
+                        //     self.showError(error.response.data.errors.description[0]);
+                        // }
+                        if (error.response.data.errors.booking_start) {
+                            self.showError(error.response.data.errors.booking_start[0]);
+                        }
+                        if (error.response.data.errors.booking_end) {
+                            self.showError(error.response.data.errors.booking_end[0]);
+                        }
+                    });
+            },
+            // updateEvent(e){
+            //     e.preventDefault();
+            //     console.log(this);
+            //     var thistoast = this.$toast;
+            //     thistoast.options.position = 'center';
+            //     var self = this;
+            //     let register_Form = document.getElementById('job_edit_form');
+            //     let form_data = new FormData(register_Form);
+            //     //this.events.push(newObj);
+            //     axios.post('/employer/updateCalendarEvent', form_data)
+            //         .then(function (response) {
+            //             self.reloadCalendar();
+            //             self.showInfo(Vue.prototype.trans('lang.job_updating'));
+            //             self.clickedDate = false;
+            //             setTimeout(function () {
+            //                 $('html, body').animate({
+            //                     scrollTop: ($(".scrolToCalend").offset().top)
+            //                 }, 1000);
+            //             })
+            //         })
+            //         .catch(function (error) {
+            //             if(typeof error.response != "undefined") {
+            //                 if (error.response.data.errors.title) {
+            //                     thistoast.error(' ', error.response.data.errors.title[0]);
+            //                 }
+            //                 if (error.response.data.errors.availability_content) {
+            //                     thistoast.error(' ', error.response.data.errors.availability_content[0]);
+            //                 }
+            //                 if (error.response.data.errors.start_date) {
+            //                     thistoast.error(' ', error.response.data.errors.start_date[0]);
+            //                 }
+            //                 if (error.response.data.errors.booking_start) {
+            //                     thistoast.error(' ', error.response.data.errors.booking_start[0]);
+            //                 }
+            //                 if (error.response.data.errors.booking_end) {
+            //                     thistoast.error(' ', error.response.data.errors.booking_end[0]);
+            //                 }
+            //             }
+            //
+            //         });
+            //     e.stopPropagation()
+            // },
             getSettings: function () {
                 let self = this;
                 var segment_str = window.location.pathname;
