@@ -1,16 +1,10 @@
 @php
     $user = Auth::user();
 
-        $arrAppo_slot_times = array(
-            '10 minutes'=>'10 minutes',
-            '15 minutes'=>'15 minutes',
-            '20 minutes'=>'20 minutes',
-            'Other'=>'Other'
-        );
-        if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
-        {
-            $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
-        }
+        $arrJob_Appo_slot_times = config('job-settings.appo_slot_times');
+
+        $arrJob_Adm_catch_time_interval = config('job-settings.adm_catch_time_interval');
+
         $recurringDates = [
             'day'=>'day',
             'week'=>'week',
