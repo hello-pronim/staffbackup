@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\CalendarEvent;
 use App\Job;
 use App\Message;
 use Illuminate\Http\Request;
@@ -167,6 +168,7 @@ class JobController extends Controller
         return redirect('employer/dashboard/manage-jobs');
 
     }
+
     public function reactivate($job_slug)
     {
         if (!empty($job_slug)) {
@@ -198,7 +200,11 @@ class JobController extends Controller
             $english_levels = Helper::getEnglishLevelList();
             //$job_duration = Helper::getJobDurationList();
             $freelancer_level_list = Helper::getFreelancerLevelList();
+            $jobEvents = CalendarEvent::where('job_id',$job->id)->get()->toArray();
             $attachments = !empty($job->attachments) ? unserialize($job->attachments) : '';
+            $firstJob = CalendarEvent::where('job_id',$job->id)->first();
+            $firstJobStart = ($firstJob)?[Carbon::parse($firstJob->start)->format('d-m-Y'),Carbon::parse($firstJob->start)->format('H:i')]:false;
+            $firstJobEnd = ($firstJob)?[Carbon::parse($firstJob->end)->format('d-m-Y'),Carbon::parse($firstJob->end)->format('H:i')]:false;
             if (!empty($job)) {
                 if (file_exists(resource_path('views/extend/back-end/employer/jobs/edit.blade.php'))) {
                     return View(
@@ -213,7 +219,11 @@ class JobController extends Controller
                             'categories',
                             'skills',
                             'locations',
-                            'attachments'
+                            'attachments',
+                            'jobEvents',
+                            'firstJob',
+                            'firstJobStart',
+                            'firstJobEnd'
                         )
                     );
                 } else {
@@ -229,7 +239,11 @@ class JobController extends Controller
                             'categories',
                             'skills',
                             'locations',
-                            'attachments'
+                            'attachments',
+                            'jobEvents',
+                            'firstJob',
+                            'firstJobStart',
+                            'firstJobEnd'
                         )
                     );
                 }
@@ -534,6 +548,7 @@ class JobController extends Controller
         $id = $request['id'];
         $job_update = $this->job->updateJobs($request, $id);
         if ($job_update['type'] = 'success') {
+            $json['redirect'] = $job_update['redirect'];
             $json['type'] = 'success';
             $json['role'] = Auth::user()->getRoleNames()->first();
             $json['message'] = trans('lang.job_update_success');
@@ -660,9 +675,11 @@ class JobController extends Controller
         $json = array();
         if (!empty($request['slug'])) {
             $job = $this->job::where('slug', $request['slug'])->select('id')->first();
+            //dd($this->job::where('id', $job['id'])->first());
             if (!empty($job)) {
                 $jobs = $this->job::find($job['id']);
-                $skills = $jobs->skills->toArray();
+                $skillIds = collect(unserialize($jobs->skills))->pluck('id');
+                $skills = Skill::whereIn('id',$skillIds)->get()->toArray();
                 if (!empty($skills)) {
                     $json['type'] = 'success';
                     $json['skills'] = $skills;

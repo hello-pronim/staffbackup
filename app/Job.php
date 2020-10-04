@@ -219,6 +219,7 @@ class Job extends Model
             $this->save();
             $job_id = $this->id;
 
+            //create events
             $arrNewEvent = [];
             $arrNewEvent['user_id'] = Auth::user()->id;
             $arrNewEvent['job_id'] = $job_id;
@@ -281,6 +282,8 @@ class Job extends Model
                     }
                 }
             }
+            //end events
+
             //dd($arrNewEvent);
             $skills = $request['skills'];
             $this->skills()->detach();
@@ -315,6 +318,7 @@ class Job extends Model
         $json = array();
         if (!empty($request)) {
             $job = self::find($id);
+            //dd($request);
             $random_number = Helper::generateRandomCode(8);
             $user_id = $job->user_id;
             $location = $request['locations'];
@@ -336,7 +340,11 @@ class Job extends Model
             $job->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
             $job->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $job->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
+            if($request['changing_date']!='false'){
+                $job->start_date = filter_var(is_array($request['start_date']) ? Carbon::parse($request['start_date'][0])->format('Y-m-d') : Carbon::parse($request['start_date'])->format('Y-m-d'), FILTER_SANITIZE_STRING);
+            }
             $job->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : 0 , FILTER_SANITIZE_STRING);
+            $job->skills = (isset($request['skills']) && count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
 
             $job->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $job->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
@@ -366,6 +374,87 @@ class Job extends Model
             }
             $job->save();
             $job_id = $job->id;
+            //if dates need to change
+            $arrNewEvent = [];
+            $arrNewEvent['user_id'] = Auth::user()->id;
+            $arrNewEvent['title'] = $request['title'];
+            $arrNewEvent['content'] = ($request['booking_content']) ? $request['booking_content'] : $request['description'];
+            $arrNewEvent['contentFull'] = ($request['booking_content']) ? $request['booking_content'] : $request['description'];
+            $arrNewEvent['class'] = 'booking_calendar';
+            //dd($arrNewEvent,$request);
+            //dd($request['changing_date']);
+            if($request['changing_date']!='false') {
+                $get_events = CalendarEvent::where('job_id', $id)->delete();
+                $arrNewEvent['job_id'] = $job_id;
+                $arrNewEvent['recurring_date'] = $request['recurring_date'];
+                $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
+                $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
+                array_filter($request['start_date']);
+                array_filter($request['end_date']);
+                //$arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
+                //$arrNewEvent['end'] = (($request['end_date']) ? $request['end_date'] : $request['start_date']) . ' ' . $request['booking_end'];
+                //dd($request['start_date'],count($request['start_date']));
+                for ($d = 0; $d < count($request['start_date']); $d++) {
+                    if ($request['start_date']) {
+                        if ($request['recurring_date']) {
+                            $reqStart = $request['start_date'][$d];
+                            $reqEnd = ($request['end_date'][$d]) ? $request['end_date'][$d] : $request['start_date'][$d];
+                            $recurringEndDay = Carbon::parse($request['recurring_end_date']);
+                            $carbStart = new Carbon($reqStart);
+                            $carbEnd = Carbon::parse($reqEnd);
+                            if ($request['recurring_date'] == 'day') {
+                                $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInDays($recurringEndDay);
+                                echo $difference;
+                                for ($g = 0; $g <= $difference; $g++) {
+                                    $arrNewEvent['start'] = Carbon::parse($reqStart)->addDay($g)->format('Y-m-d') . ' ' . $booking_start;
+                                    $arrNewEvent['end'] = Carbon::parse($reqEnd)->addDay($g)->format('Y-m-d') . ' ' . $booking_end;
+                                    //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
+                                    DB::table('calendar_events')->insert($arrNewEvent);
+                                }
+                            } else {
+                                if ($request['recurring_date'] == 'week') {
+                                    $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInWeeks($recurringEndDay);
+                                    for ($g = 0; $g <= $difference; $g++) {
+                                        $arrNewEvent['start'] = Carbon::parse($reqStart)->addDay($g * 7)->format('Y-m-d') . ' ' . $booking_start;
+                                        $arrNewEvent['end'] = Carbon::parse($reqEnd)->addDay($g * 7)->format('Y-m-d') . ' ' . $booking_end;
+                                        //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
+                                        DB::table('calendar_events')->insert($arrNewEvent);
+                                    }
+                                } else {
+                                    if ($request['recurring_date'] == 'month') {
+                                        $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInMonths($recurringEndDay);
+                                        for ($g = 0; $g <= $difference; $g++) {
+                                            $arrNewEvent['start'] = Carbon::parse($reqStart)->addMonth($g)->format('Y-m-d') . ' ' . $booking_start;
+                                            $arrNewEvent['end'] = Carbon::parse($reqEnd)->addMonth($g)->format('Y-m-d') . ' ' . $booking_end;
+                                            //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
+                                            DB::table('calendar_events')->insert($arrNewEvent);
+                                        }
+                                    }
+                                }
+                            }
+
+                        } else {
+                            $arrNewEvent['start'] = Carbon::parse($request['start'][$d])->addDay($request['start'][$d])->format('Y-m-d') . $booking_end;
+                            $arrNewEvent['end'] = Carbon::parse($request['end'][$d])->addDay($request['end'][$d])->format('Y-m-d') . $booking_start;
+                            //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
+                            DB::table('calendar_events')->insert($arrNewEvent);
+                        }
+                    }
+                }
+            } else {
+
+                $get_events = CalendarEvent::where('job_id', $id)->update($arrNewEvent);
+                //
+                //
+                //$order = DB::table('service_user')
+                //    ->where('id', $request['order_id'])
+                //    ->update(['status' => 'completed']);
+
+
+            }
+
+
+
             $skills = $request['skills'];
             $job->skills()->detach();
             if (!empty($skills)) {
@@ -378,6 +467,7 @@ class Job extends Model
             $job->languages()->sync($languages);
             $categories = $request['categories'];
             $job->categories()->sync($categories);
+            $json['redirect'] = $job->slug;
             $json['type'] = 'success';
             return $json;
         } else {
@@ -385,6 +475,7 @@ class Job extends Model
             return $json;
         }
     }
+
 
     /**
      * Get all of the categories for the job.
