@@ -20,12 +20,12 @@
     </div>
     <section class="wt-haslayout wt-dbsectionspace wt-insightuser" id="dashboard">
 
-        <div class="row">
+        <div class="row dashboard-wt-tabscontent-wrapper">
             <div class="wt-tabscontenttitle">
                 <h2>Your Updates</h2>
             </div>
             <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
-                <div style="margin: 0 auto">
+                <div class="newStyleBoxesWrapper" style="margin: 0 auto">
                     <div class="newBoxStyle">
                         <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a></div>
                         <div class="secondhalf">{{$lastest_proposals}}</div>

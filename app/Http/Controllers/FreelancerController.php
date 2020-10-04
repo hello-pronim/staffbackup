@@ -85,6 +85,7 @@ class FreelancerController extends Controller
         $address = !empty($profile->address) ? $profile->address : '';
         $longitude = !empty($profile->longitude) ? $profile->longitude : '';
         $latitude = !empty($profile->latitude) ? $profile->latitude : '';
+        $postcode = Auth::user() && !empty(Auth::user()->postcode) ? Auth::user()->postcode : '';
         $banner = !empty($profile->banner) ? $profile->banner : '';
         $avater = !empty($profile->avater) ? $profile->avater : '';
         $cv = !empty($profile->cvFile) ? $profile->cvFile : '';
@@ -151,7 +152,8 @@ class FreelancerController extends Controller
                     'hours_avail',
                     'hourly_rate_negotiable',
                     'hourly_rate',
-                    'hourly_rate_desc'
+                    'hourly_rate_desc',
+                    'postcode'
                 )
             );
         }

@@ -268,7 +268,7 @@
           {!! Form::text( 'emp_website', e($emp_website), ['class' =>'form-control', 'placeholder' => trans('lang.emp_website')] ) !!}
       </div>
       <div class="form-group form-group-half">
-          {!! Form::text( 'straddress', e($user->straddress), ['class' =>'form-control', 'placeholder' => 'Address'] ) !!}
+          {!! Form::text( 'straddress', e($user->straddress), ['class' =>'form-control', 'placeholder' => 'Address', 'readonly'] ) !!}
       </div>
       <div class="form-group form-group-half">
           {!! Form::text( 'city', e($user->city), ['class' =>'form-control', 'placeholder' => trans('lang.city')] ) !!}

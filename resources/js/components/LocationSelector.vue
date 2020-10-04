@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        props: ['latitude', 'longitude', 'address'],
+        props: ['latitude', 'longitude', 'address', 'needgeocode'],
         data() {
             return {
                 latLng: this.latitude && this.longitude ? { lat: +this.latitude, lng: +this.longitude } : null,
@@ -36,6 +36,11 @@
                 latitudePlaceholder: Vue.prototype.trans('lang.ph_enter_latitude'),
                 longitudePlaceholder: Vue.prototype.trans('lang.ph_enter_logitude'),
                 selectedAddress: this.address
+            }
+        },
+        mounted() {
+            if (this.needgeocode === '1') {
+                this.getLatLng();
             }
         },
         methods: {
@@ -54,7 +59,39 @@
                 this.selectedAddress = event.formatted_address;
 
                 this.zoom = 18;
-            }
+            },
+            getLatLng() {
+                let i = 1;
+                const interval = setInterval(() => {
+                    if (i === 6) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    if ('google' in window) {
+                        this.getGeometryPlacesService();
+                        clearInterval(interval);
+                        return;
+                    }
+                    i++;
+                }, 500);
+            },
+            getGeometryPlacesService()
+            {
+                let request = {
+                    query: this.address,
+                    fields: ['name', 'geometry'],
+                };
+                let service = new google.maps.places.PlacesService(document.createElement('span'));
+
+                service.findPlaceFromQuery(request, (results, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        this.latLng = {
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng()
+                        };
+                    }
+                });
+            },
         }
     }
 </script>

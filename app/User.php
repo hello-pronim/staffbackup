@@ -51,7 +51,7 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name', 'last_name', 'slug', 'email', 'password',
         'avatar', 'banner', 'tagline', 'description',
-        'location_id', 'verification_code', 'address',
+        'location_id', 'verification_code', 'address', 'straddress',
         'longitude', 'latitude',
         'emp_contact',
         'emp_telno',
@@ -516,8 +516,12 @@ class User extends Authenticatable
               $profile->longitude = $request['longitude'];
             }
 
-            $profile->save();
             $role_id = Helper::getRoleByUserID($user_id);
+            if(Helper::getRoleNameByRoleID($role_id) === 'freelancer') {
+                $profile->address = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
+            }
+
+            $profile->save();
             $package = Package::select('id', 'title', 'cost')->where('role_id', $role_id)->where('trial', 1)->get()->first();
             $trial_invoice = Invoice::select('id')->where('type', 'trial')->get()->first();
             if (!empty($package) && !empty($trial_invoice)) {
@@ -581,7 +585,7 @@ class User extends Authenticatable
                 (isset($request['payment_terms']) && $request['payment_terms'][0] == "Other" ? $request['payment_terms'][1] : ""), FILTER_SANITIZE_STRING);
             //End With Others
 
-            $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+            //$user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
             $user->plan_id = filter_var(isset($request['plan_id']) ? $request['plan_id'] : "", FILTER_SANITIZE_STRING);
 
 

@@ -187,6 +187,17 @@ class Job extends Model
 
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
+
+            $this->job_appo_slot_times = filter_var((isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] != "Other") ? $request['job_appo_slot_times'][0] :
+                (isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] == "Other" ? $request['job_appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
+            $this->job_adm_catch_time = filter_var(isset($request['job_adm_catch_time']) ? $request['job_adm_catch_time'] : "", FILTER_SANITIZE_STRING);
+
+            $this->job_adm_catch_time_interval = '';
+            if ($this->job_adm_catch_time === 'Yes') {
+                $this->job_adm_catch_time_interval = filter_var((isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] != "Other") ? $request['job_adm_catch_time_interval'][0] :
+                    (isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] == "Other" ? $request['job_adm_catch_time_interval'][1] : ""), FILTER_SANITIZE_STRING);
+            }
+
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {

@@ -1296,9 +1296,10 @@ class PublicController extends Controller
             if($role_id==2)
             {
                 $role = 'employer';
-            }
-            else{
+            } elseif ($role_id == 3) {
                 $role = 'freelancer';
+            } else {
+                $role = 'support';
             }
             return Redirect::to('/'.$role.'/dashboard');
         }

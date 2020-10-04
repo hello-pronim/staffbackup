@@ -108,10 +108,14 @@ class Profile extends Model
         $user->itsoftware = !empty($request['itsoftware']) ? serialize($request['itsoftware']) : "";
         $user->special_interests = filter_var((isset($request['special_interests']) && $request['special_interests'][0] != "Other") ? $request['special_interests'][0] :
             (isset($request['special_interests']) && $request['special_interests'][0] == "Other" ? $request['special_interests'][1] : ""), FILTER_SANITIZE_STRING);
-        $user->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);
-        $user->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);
-        $user->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
-        $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+
+        $role_id = Helper::getRoleByUserID($user->id);
+        if(Helper::getRoleNameByRoleID($role_id) !== 'employer') {
+            $user->city = filter_var(isset($request['city']) ? $request['city'] : "", FILTER_SANITIZE_STRING);
+            $user->postcode = filter_var(isset($request['postcode']) ? $request['postcode'] : "", FILTER_SANITIZE_STRING);
+            $user->straddress = filter_var(isset($request['straddress']) ? $request['straddress'] : "", FILTER_SANITIZE_STRING);
+            $user->practice_code = filter_var(isset($request['practice_code']) ? $request['practice_code'] : "", FILTER_SANITIZE_STRING);
+        }
 
         $user->limitied_company_number = filter_var(isset($request['limitied_company_number']) ? $request['limitied_company_number'] : "", FILTER_SANITIZE_STRING);
         $user->limitied_company_name = filter_var(isset($request['limitied_company_name']) ? $request['limitied_company_name'] : "", FILTER_SANITIZE_STRING);
@@ -195,7 +199,7 @@ class Profile extends Model
             $user->occup_health = $newfiename;
         }
 
-
+        $this->fillFreelancerFields($request, $user);
 
 
 
@@ -321,6 +325,30 @@ class Profile extends Model
         return $profile->save();
     }
 
+    /**
+     * Fill freelancer fields
+     *
+     * @param $request
+     * @param $user
+     */
+    public function fillFreelancerFields($request, &$user)
+    {
+        if (empty($user) || empty($request)) {
+            return;
+        }
+
+        $role_id = Helper::getRoleByUserID($user->id);
+        if(Helper::getRoleNameByRoleID($role_id) !== 'freelancer') {
+            return;
+        }
+
+        if (isset($request['address'])) {
+            $user->straddress = filter_var($request['address'], FILTER_SANITIZE_STRING);
+        }
+        if (isset($request['postcode'])) {
+            $user->postcode = filter_var($request['postcode'], FILTER_SANITIZE_STRING);
+        }
+    }
 
     /**
      * Store Email Notifications in database

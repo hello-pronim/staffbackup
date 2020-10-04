@@ -501,7 +501,7 @@ return [
     'paypal' => 'Paypal',
     'freelancer' => 'Professional',
     'employer' => 'Organisation',
-    'support' => 'Personal',
+    'support' => 'Support Worker',
     'profile_img' => 'Profile Image',
     'profile_cv' => 'Profile CV',
     'location_img' => 'Location Image',

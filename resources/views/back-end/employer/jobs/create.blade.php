@@ -1,16 +1,10 @@
 @php
     $user = Auth::user();
 
-        $arrAppo_slot_times = array(
-            '10 minutes'=>'10 minutes',
-            '15 minutes'=>'15 minutes',
-            '20 minutes'=>'20 minutes',
-            'Other'=>'Other'
-        );
-        if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
-        {
-            $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
-        }
+        $arrJob_Appo_slot_times = config('job-settings.appo_slot_times');
+
+        $arrJob_Adm_catch_time_interval = config('job-settings.adm_catch_time_interval');
+
         $recurringDates = [
             'day'=>'day',
             'week'=>'week',
@@ -197,19 +191,30 @@
                                             <h2>Other Appointment</h2>
                                         </div>
                                         <div class="form-group form-group-half">
-                                            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'appo_slot_times')) !!}
+                                            {!! Form::select('job_appo_slot_times[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'job_appo_slot_times')) !!}
                                         </div>
-                                        <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
+                                        <div class="form-group form-group-half" v-if="this.job_appo_slot_times=='Other'">
                                             <input id="other_appo" type="text"
                                                    class="form-control"
-                                                   name="appo_slot_times[]">
+                                                   name="job_appo_slot_times[]">
                                         </div>
                                     </div>
 
                                     <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
                                         <div class="form-group form-group-half">
-                                            {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                            {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
                                         </div>
+                                        <div class="form-group form-group-half"  v-if="this.job_adm_catch_time=='Yes'">
+                                            {!! Form::select('job_adm_catch_time_interval[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Admin Catch Up Provided (interval)",'v-model'=>'job_adm_catch_time_interval')) !!}
+                                        </div>
+                                        <div class="form-group form-group-half" v-if="this.job_adm_catch_time_interval=='Other'">
+                                            <input id="other_appo" type="text"
+                                                   class="form-control"
+                                                   name="job_adm_catch_time_interval[]">
+                                        </div>
+                                    </div>
+
+                                    <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
                                         <div class="form-group form-group-half">
                                             {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
                                         </div>
