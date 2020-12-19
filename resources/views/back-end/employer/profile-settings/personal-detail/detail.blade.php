@@ -265,16 +265,16 @@
 <div class="lara-detail-form">
     <fieldset>
       <div class="form-group form-group-half">
-          {!! Form::text( 'emp_website', e($emp_website), ['class' =>'form-control', 'placeholder' => trans('lang.emp_website')] ) !!}
+          {!! Form::text( 'emp_website', e($emp_website), ['class' =>'form-control', 'placeholder' => trans('lang.emp_website'), 'readonly']) !!}
       </div>
       <div class="form-group form-group-half">
           {!! Form::text( 'straddress', e($user->straddress), ['class' =>'form-control', 'placeholder' => 'Address', 'readonly'] ) !!}
       </div>
       <div class="form-group form-group-half">
-          {!! Form::text( 'city', e($user->city), ['class' =>'form-control', 'placeholder' => trans('lang.city')] ) !!}
+          {!! Form::text( 'city', e($user->city), ['class' =>'form-control', 'placeholder' => trans('lang.city'), 'readonly']) !!}
       </div>
       <div class="form-group form-group-half">
-          {!! Form::text( 'postcode', e($user->postcode), ['class' =>'form-control', 'placeholder' => trans('lang.postcode')] ) !!}
+          {!! Form::text( 'postcode', e($user->postcode), ['class' =>'form-control', 'placeholder' => trans('lang.postcode'), 'readonly']) !!}
       </div>
       {{--<div class="form-group">--}}
           {{--<location-selector latitude="{{ $latitude }}" longitude="{{ $longitude }}" address="{{ $address }}"></location-selector>--}}
@@ -284,7 +284,9 @@
                    class="form-control"
                    name="practice_code"
                    placeholder="Practice Code"
-                   value="{{ $user->practice_code }}">
+                   value="{{ $user->practice_code }}"
+                   readonly
+            >
         </div>
     </fieldset><br>
 </div>

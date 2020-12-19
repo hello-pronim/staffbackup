@@ -538,6 +538,7 @@
                                             <div class="form-group form-group-half" v-if="user_role=='employer'">
                                                 <input id="emp_website" type="url"
                                                        class="form-control"
+                                                       :disabled="user_role=='employer'"
                                                        name="emp_website"
                                                        placeholder="{{{ trans('lang.emp_website') }}}"
                                                        v-bind:class="{ 'is-invalid': form_step2.emp_website_error }">
@@ -578,6 +579,7 @@
                                                        class="form-control"
                                                        name="city"
                                                        placeholder="{{{ trans('lang.city') }}}"
+                                                       :disabled="user_role=='employer'"
                                                        v-bind:class="{ 'is-invalid': form_step2.city_error }">
                                                 <span class="help-block"
                                                       v-if="form_step2.city_error">
@@ -589,6 +591,7 @@
                                                        class="form-control"
                                                        name="telno"
                                                        placeholder="{{{ trans('lang.phone') }}}"
+                                                       :disabled="user_role=='employer'"
                                                        v-bind:class="{ 'is-invalid': form_step2.telno_error }">
                                                 <span class="help-block"
                                                       v-if="form_step2.telno_error">
@@ -600,6 +603,7 @@
                                                        class="form-control"
                                                        name="postcode"
                                                        placeholder="{{{ trans('lang.postcode') }}}"
+                                                       :disabled="user_role=='employer'"
                                                        v-bind:class="{ 'is-invalid': form_step2.postcode_error }"
                                                        v-bind:class="[user_role=='employer' ? 'halfWidth' : '', '']">
                                                 <span class="help-block"

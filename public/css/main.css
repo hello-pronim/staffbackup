@@ -8353,8 +8353,9 @@ input:-webkit-autofill {
 
 }
 .searchtype-inactive{
-	background-color: grey;
+	background-color: #f7f7f7;
 	cursor: default;
+	color: darkgrey;
 }
 .searchactive:after {
 	content: '';
