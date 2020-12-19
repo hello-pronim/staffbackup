@@ -179,7 +179,7 @@ class Job extends Model
             $this->radius = $request['radius'] ?? null;
             $this->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $this->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
-            $this->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
+            $this->project_rates = filter_var($request->project_rates, FILTER_SANITIZE_STRING);
             $this->project_rates_type = filter_var($request['project_rates_type'], FILTER_SANITIZE_STRING);
             $this->start_date = filter_var(is_array($request['start_date']) ? Carbon::parse($request['start_date'][0])->format('Y-m-d') : Carbon::parse($request['start_date'])->format('Y-m-d'), FILTER_SANITIZE_STRING);
             $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : "0" , FILTER_SANITIZE_STRING);
@@ -338,6 +338,7 @@ class Job extends Model
             $job->is_featured = filter_var($request['is_featured'], FILTER_SANITIZE_STRING);
             $job->show_attachments = filter_var($request['show_attachments'], FILTER_SANITIZE_STRING);
             $job->address = filter_var($request['address'], FILTER_SANITIZE_STRING);
+            $job->project_rates = filter_var($request->project_rates, FILTER_SANITIZE_STRING);
             $job->longitude = filter_var($request['longitude'], FILTER_SANITIZE_STRING);
             $job->latitude = filter_var($request['latitude'], FILTER_SANITIZE_STRING);
             if($request['changing_date']!='false'){
