@@ -396,6 +396,7 @@ Route::group(
         // Route::post('user/verify/emailcode', 'UserController@verifyUserEmailCode');
         Route::post('user/update-payout-detail', 'UserController@updatePayoutDetail');
         Route::get('user/get-payout-detail', 'UserController@getPayoutDetail');
+        Route::get('get-professions', 'Api\ProfessionController@index')->name('getProfessions');
     }
 );
 Route::get('employer/getCalendarEvents', 'EmployerController@getCalendarEvents');

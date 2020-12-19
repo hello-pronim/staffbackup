@@ -1369,6 +1369,7 @@ if (page) {
         data: {
             events: [],
             skills: [],
+            professions: [],
             skill: "",
             location: "",
             selecteddate: '',
@@ -1454,6 +1455,12 @@ if (page) {
 
                 if (response.data.type == 'success') {
                     self.skills = response.data.skills;
+                }
+            });
+
+            axios.get('/get-professions').then(function (response) {
+                if (response.status == 200) {
+                    self.professions = response.data;
                 }
             });
         }
