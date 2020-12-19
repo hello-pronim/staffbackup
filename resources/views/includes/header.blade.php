@@ -55,7 +55,9 @@
     <section class="hero">
         <div class="header__container hero__container">
             <div class="hero__wrapper">
-                <h1 class="hero__title">Adhoc and temp staff are just a new steps away...</h1>
+                <h1 class="hero__title">
+                    Adhoc staff and Available sessions are just a few steps away...
+                </h1>
             </div><!-- .hero__wrapper -->
             @if(!\Auth::User())
                 <div class="hero__buttons">
