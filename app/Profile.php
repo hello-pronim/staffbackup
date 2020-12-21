@@ -97,6 +97,7 @@ class Profile extends Model
 
         $user->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
         $user->profession = filter_var(isset($request['profession']) ? $request['profession'] : "", FILTER_SANITIZE_STRING);
+        $user->profession_id = $request->profession_id;
         $user->right_of_work = filter_var(isset($request['right_of_work']) ? $request['right_of_work'] : "", FILTER_SANITIZE_STRING);
         $user->c_prof_ind_insurance = filter_var(isset($request['c_prof_ind_insurance']) ? $request['c_prof_ind_insurance'] : "", FILTER_SANITIZE_STRING);
         $user->c_payment_methods = filter_var(isset($request['c_payment_methods']) ? $request['c_payment_methods'] : "", FILTER_SANITIZE_STRING);

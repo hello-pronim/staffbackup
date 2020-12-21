@@ -1003,7 +1003,7 @@
                                                                     </select>
                                                                 </div>
 
-                                                                66666666666245345345
+
 
                                                                 <div class="form-group form-group-half"
                                                                      v-if="user_role=='freelancer'">

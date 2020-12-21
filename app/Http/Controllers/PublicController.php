@@ -735,6 +735,7 @@ class PublicController extends Controller
         $radius = $request->input('radius');
         $profession_id = $request->profession_id;
 
+
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
                 $skill = '';
@@ -958,6 +959,7 @@ class PublicController extends Controller
                 {
                     $job_date = $_GET['start_date'];
                 }
+
                 $results = Job::getSearchResult(
                     $user,
                     $keyword,
@@ -972,7 +974,8 @@ class PublicController extends Controller
                     $location,
                     $latitude,
                     $longitude,
-                    $radius
+                    $radius,
+                    $profession_id
                 );
 
                 $jobs = $results['jobs'];

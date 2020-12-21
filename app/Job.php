@@ -494,13 +494,13 @@ class Job extends Model
         $user, $keyword, $search_categories, $search_locations,
         $search_skills, $search_project_lengths,
         $search_languages, $days_avail, $hours_avail, $job_date, $location,
-        $latitude, $longitude, $radius
+        $latitude, $longitude, $radius, $profession_id = null
     ) {
 
         $json = array();
         $filters = array();
         $jobs = Job::select('jobs.*');
-
+        $profession_users = User::where('profession_id', $profession_id)->pluck('id')->toArray();
         $query_radius = $radius ?: 'jobs.radius';
 
         if ($radius != null) {
@@ -607,25 +607,11 @@ class Job extends Model
 
         if(!empty($job_date))
         {
-//            $events = DB::table('calendar_events')
-//                ->where('class', '=', 'booking_calendar')
-//                ->where('start', 'like', '%'.$job_date.'%')
-//                ->where('end', 'like', '%'.$job_date.'%')->get()->toArray();
-//            if(!empty($events))
-//            {
-//                $user_id = array();
-//                foreach ($events as $event)
-//                {
-//                    $user_id[] = $event->user_id;
-//                }
-//                $jobs->whereIn('jobs.user_id', $user_id);
-//            }
             $jobs->where('start_date', '=', $job_date);
-
         }
 
-        //$jobs->where('start_date', "!=","0000-00-00");
         $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
+        $jobs->whereIn('user_id', $profession_users);
 
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
 
