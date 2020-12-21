@@ -1466,7 +1466,7 @@ if (page) {
                 }
             });
 
-            axios.get('/get-professions?role_id' + role).then(function (response) {
+            axios.get('/get-professions').then(function (response) {
                 if (response.status == 200) {
                     self.professions = response.data;
                 }
