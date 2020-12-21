@@ -377,7 +377,7 @@
                    placeholder="Direct Contact No">
         </div>
         <div class="form-group">
-            {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), $user->prof_required, array('placeholder' => "Professional Required")) !!}
+            {!! Form::select('prof_required', \App\User::getProfessionsByRole(App\Role::EMPLOYER_ROLE), $user->prof_required, array('placeholder' => "Professional Required")) !!}
         </div>
 
         <div class="form-group">
@@ -430,66 +430,6 @@
     </fieldset>
     <br>
 </div>
-
-
-
-{{--<div class="wt-tabscontenttitle">--}}
-    {{--<h2>Professional Required</h2>--}}
-{{--</div>--}}
-{{--<div class="lara-detail-form">--}}
-    {{--<div class="form-group">--}}
-        {{--{!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), data_get($profile, 'user.prof_required', null), array('placeholder' => "Professional Required")) !!}--}}
-    {{--</div>--}}
-{{--</div>--}}
-
-{{--<div class="wt-tabscontenttitle">--}}
-    {{--<h2>Certifications</h2>--}}
-{{--</div>--}}
-{{--<div class="lara-detail-form">--}}
-    {{--<fieldset>--}}
-      {{--<div class="form-group">--}}
-          {{--<strong>Certificates –Vaccinations &--}}
-              {{--immunisation--}}
-              {{--(Measles/Mumps/Rubella/Hepatitis--}}
-              {{--B/Varicella):</strong><br>--}}
-          {{--@if(!empty($user->certs))--}}
-              {{--<a href="{{url('uploads/files/'.$user->certs)}}" target="_blank">Click To open</a>--}}
-          {{--@endif--}}
-          {{--<input type="file" name="certs"--}}
-                 {{--class="form-control"--}}
-                 {{--accept=".pdf, image/*,.doc,.docx">--}}
-      {{--</div>--}}
-      {{--<div class="form-group">--}}
-          {{--{!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group">--}}
-            {{--<input id="other_appo" type="text"--}}
-                 {{--class="form-control"--}}
-                 {{--name="appo_slot_times[]"--}}
-                 {{--placeholder="Other Appointment Slot Times">--}}
-      {{--</div>--}}
-      {{--<div class="form-group">--}}
-          {{--{!! Form::select('payment_terms[]', $arrPaymentTerms, $user->payment_terms, array('placeholder' => "Payment Terms")) !!}--}}
-      {{--</div>--}}
-      {{--<div class="form-group">--}}
-          {{--<input id="other_payment_terms" type="text"--}}
-                 {{--class="form-control"--}}
-                 {{--name="payment_terms[]"--}}
-                 {{--placeholder="Other Payment terms">--}}
-      {{--</div>--}}
-
-      {{--<div class="form-group">--}}
-          {{--<label for="hourly_rate_desc">Please enter--}}
-              {{--additional information in the--}}
-              {{--communication box if required</label>--}}
-          {{--<input id="hourly_rate_desc" type="text"--}}
-                 {{--class="form-control"--}}
-                 {{--name="hourly_rate_desc"--}}
-                 {{--value="{{ $user->profile->hourly_rate_desc }}"--}}
-                 {{--placeholder="Additional info">--}}
-      {{--</div>--}}
-    {{--</fieldset>--}}
-{{--</div>--}}
 
 <div class="wt-tabscontenttitle">
     <h2>Computer System in use</h2>

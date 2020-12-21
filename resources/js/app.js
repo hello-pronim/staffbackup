@@ -1366,6 +1366,9 @@ if (page) {
                 this.radius = this.$refs['radius'].attributes['data-value'].value;
             }
         },
+        props: [
+            'role_id'
+        ],
         data: {
             events: [],
             skills: [],
@@ -1377,7 +1380,8 @@ if (page) {
             selectedSkills: "",
             selectedLocation: "",
             search_type: (page.attributes['attr-type'] ? page.attributes['attr-type'].value : "freelancer"),
-            radius: ''
+            radius: '',
+            profession_id: '',
         },
         methods: {
             changeSearchType(type) {
@@ -1414,6 +1418,10 @@ if (page) {
 
                 if (this.radius != '') {
                     url += '&radius=' + this.radius;
+                }
+
+                if(this.profession_id != '') {
+                    url += '&profession_id=' + this.profession_id
                 }
 
                 if (this.selectedDate != '') {
@@ -1458,7 +1466,7 @@ if (page) {
                 }
             });
 
-            axios.get('/get-professions').then(function (response) {
+            axios.get('/get-professions?role_id' + role).then(function (response) {
                 if (response.status == 200) {
                     self.professions = response.data;
                 }

@@ -11,7 +11,7 @@
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
 
-                        <div class="search" id="searchHomePage" attr-type="job">
+                        <div class="search" id="searchHomePage" attr-type="job" role_id="">
                             <div class="searchtop">
                                 @php
                                     $user = auth()->user();
@@ -43,19 +43,21 @@
                                     <div>LOCATION</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 46.png')}}" alt="">
-                                         <gmap-autocomplete class="form-control"
-                                                            placeholder="Area or Postcode"
-                                                            id="straddress"
-                                                            name="straddress"
-                                                            @place_changed="updateAddressLocation($event)"
-                                                            :select-first-on-enter="true"
-                                                            value="{{ $location ?? '' }}"
-                                                            >
+                                         <gmap-autocomplete
+                                             class="form-control"
+                                             placeholder="Area or Postcode"
+                                             id="straddress"
+                                             name="straddress"
+                                             @place_changed="updateAddressLocation($event)"
+                                             :select-first-on-enter="true"
+                                             value="{{ $location ?? '' }}"
+                                         >
                                              <template v-slot:input="slotProps">
-                                                 <v-text-field outlined
-                                                               ref="input"
-                                                               v-on:listeners="slotProps.listeners"
-                                                               v-on:attrs="slotProps.attrs">
+                                                 <v-text-field
+                                                     outlined
+                                                     ref="input"
+                                                     v-on:listeners="slotProps.listeners"
+                                                     v-on:attrs="slotProps.attrs">
                                                  </v-text-field>
                                              </template>
                                          </gmap-autocomplete>
@@ -74,26 +76,29 @@
                                     <div>Profession</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
-                                        <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
-                                                v-model="selectedSkills" v-model="skill">
-                                            <option value="" disabled selected>Profession</option>
-
-                                            <option v-for="skill in skills" v-bind:value="skill.title">
-                                                @{{ skill.title}}
+                                        <select
+                                            style="font-weight: normal;border:none;padding:0px;width: 80%;"
+                                            v-model="profession_id"
+                                        >
+                                            <option value="" disabled selected>
+                                                Profession
                                             </option>
-                                            ]
+                                            <option v-for="profession in professions" :value="profession.id">
+                                                @{{ profession.title}}
+                                            </option>
                                         </select>
-
                                     </div>
                                 </div>
 
                                 <div class="filters">
                                     <div>DATE</div>
-                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt=""><input type="text"
-                                                                                                       name=""
-                                                                                                       v-model="selectedDate"
-                                                                                                       placeholder="Date..."
-                                                                                                       class="selectDatePicker">
+                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                                        <input type="text"
+                                               name=""
+                                               v-model="selectedDate"
+                                               placeholder="Date..."
+                                               class="selectDatePicker"
+                                        />
                                         <vue-cal id="calendar_small"
                                                  style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                                  class=" vuecal--green-theme"
@@ -110,8 +115,9 @@
                                 </div>
                                 <div class="filters" style="border-right:none">
                                     <div>RATE</div>
-                                    <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"
-                                                                                                       placeholder="Per Hour">
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 49.png')}}" alt="">
+                                        <input type="text" placeholder="Per Hour">
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +125,6 @@
                         </div>
                         <div class="text-center searchTagline">
                             <h1>Job Search</h1>
-
                         </div>
                     </div>
                 </div>

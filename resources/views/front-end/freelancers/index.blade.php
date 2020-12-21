@@ -8,13 +8,20 @@
 @section('description', $f_list_meta_desc)
 @section('content')
     @if ($show_f_banner == 'true')
-        @php $breadcrumbs = Breadcrumbs::generate('searchResults'); @endphp
+        @php
+            $breadcrumbs = Breadcrumbs::generate('searchResults');
+            $user = auth()->user();
+        @endphp
         <div class="wt-haslayout wt-innerbannerholder" style="background-image:url({{{ asset(Helper::getBannerImage('uploads/settings/general/'.$f_inner_banner)) }}})">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
-
-                        <div class="search" id="searchHomePage" attr-type="freelancer">
+                        <div
+                            class="search"
+                            id="searchHomePage"
+                            attr-type="freelancer"
+                            role-id="{{ $user->roles[0]->id }}"
+                        >
                             <div class="searchtop">
                                 @if (auth()->user()->hasRole('employer'))
                                     <div v-bind:class="{'searchtype':true, 'searchactive':(search_type === 'freelancer')}"
@@ -77,10 +84,10 @@
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
                                         <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
-                                                v-model="selectedSkills" v-model="skill">
+                                                v-model="profession_id">
                                             <option value="" disabled selected>Profession...</option>
 
-                                            <option v-for="profession in professions" v-bind:value="profession.title">
+                                            <option v-for="profession in professions" :value="profession.id">
                                                 @{{ profession.title}}
                                             </option>
                                             ]

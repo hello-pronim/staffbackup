@@ -301,19 +301,6 @@
             width: 100% !important;
         }
     </style>
-    {{--@if (!empty($show_reg_form_banner) && $show_reg_form_banner === 'true')--}}
-        {{--<div class="headernew">--}}
-        {{--<div class="row" style="margin:0 auto;width: 850px;padding: 65px 0px">--}}
-
-            {{--<div class="headingcenter text-center">--}}
-                {{--<h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>--}}
-                {{--<div>15 years professional clinical experience in Primary Health Care</div>--}}
-            {{--</div>--}}
-
-
-        {{--</div>--}}
-        {{--</div>--}}
-    {{--@endif--}}
     <div class="wt-haslayout wt-main-section wt-main-section-doctor-bkg">
         <div class="container">
             <div class="row justify-content-md-center">
@@ -344,14 +331,24 @@
                                                 </div>
                                             </div>
                                             <ul class="wt-joinsteps">
-                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                                <li class="wt-active"><a
+                                                            href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    <div>{{{ trans('lang.01_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                    <div>{{{ trans('lang.02_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                    <div>{{{ trans('lang.03_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                    <div>{{{ trans('lang.04_step') }}}</div>
+                                                </li>
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
 
-                                            <ul class="wt-accordionhold wt-formaccordionhold accordion" style="margin-bottom: 5px">
+                                            <ul class="wt-accordionhold wt-formaccordionhold accordion"
+                                                style="margin-bottom: 5px">
                                                 @foreach ($roles as $key => $role)
                                                     @if (!in_array($role['id'] == 1, $roles))
                                                         <li style="width:33%; <?php if ($key != 3) {
@@ -363,7 +360,8 @@
                                                                  data-toggle="collapse" data-target="#collapseOne">
                                                                 <span class="wt-radio">
                                                                 <input id="wt-company-{{$key}}" type="radio" name="role"
-                                                                       value="{{{ $role['role_type'] }}}" checked="<?php echo (isset($_GET['role']) && $_GET['role'] ==$role['role_type']) ? "checked" : "";?>"
+                                                                       value="{{{ $role['role_type'] }}}"
+                                                                       checked="<?php echo (isset($_GET['role']) && $_GET['role'] == $role['role_type']) ? "checked" : "";?>"
                                                                        v-model="user_role"
                                                                        v-on:change="selectedRole(user_role)">
                                                                 <label style="margin-top: 8px"
@@ -387,7 +385,8 @@
                                             </ul>
 
                                             <div class="form-group">
-                                                <button type="submit" class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
+                                                <button type="submit"
+                                                        class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -403,88 +402,101 @@
                                                 </div>
                                             </div>
                                             <ul class="wt-joinsteps">
-                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                                <li class="wt-active"><a
+                                                            href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    <div>{{{ trans('lang.01_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                    <div>{{{ trans('lang.02_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                    <div>{{{ trans('lang.03_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                    <div>{{{ trans('lang.04_step') }}}</div>
+                                                </li>
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
 
                                             <div v-show="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)">
-                                            <div class="form-group" v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
+                                                <div class="form-group"
+                                                     v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
                                                 <span class="wt-select">
                                                 {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms", "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] : null , array('placeholder' => trans('lang.title'),  'v-bind:class' => '{ "is-invalid": form_step2.title_error }')) !!}
                                                     </span>
-                                                <span class="help-block"
-                                                      v-if="form_step2.title_error">
+                                                    <span class="help-block"
+                                                          v-if="form_step2.title_error">
                                                                                 <strong v-cloak>@{{form_step2.title_error}}</strong>
                                                                             </span>
-                                            </div>
-                                            <div class="form-group" v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
-                                                <input type="text" name="first_name" class="form-control"
-                                                       placeholder="{{{ trans('lang.ph_first_name') }}}"
-                                                       value="{{ isset($_GET['first_name']) ? $_GET['first_name'] : "" }}"
-                                                       v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }"
-                                                >
-                                                <span class="help-block" v-if="form_step1.first_name_error">
+                                                </div>
+                                                <div class="form-group"
+                                                     v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
+                                                    <input type="text" name="first_name" class="form-control"
+                                                           placeholder="{{{ trans('lang.ph_first_name') }}}"
+                                                           value="{{ isset($_GET['first_name']) ? $_GET['first_name'] : "" }}"
+                                                           v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }"
+                                                    >
+                                                    <span class="help-block" v-if="form_step1.first_name_error">
                                                 <strong v-cloak>@{{form_step1.first_name_error}}</strong>
                                             </span>
-                                            </div>
-                                            <div class="form-group form-group-half" v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
-                                                <input type="text" name="last_name" class="form-control"
-                                                       placeholder="{{{ trans('lang.ph_surname') }}}"
-                                                       v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
-                                                       value="{{ isset($_GET['last_name']) ? $_GET['last_name'] : "" }}"
-                                                >
-                                                <span class="help-block" v-if="form_step1.last_name_error">
+                                                </div>
+                                                <div class="form-group form-group-half"
+                                                     v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
+                                                    <input type="text" name="last_name" class="form-control"
+                                                           placeholder="{{{ trans('lang.ph_surname') }}}"
+                                                           v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
+                                                           value="{{ isset($_GET['last_name']) ? $_GET['last_name'] : "" }}"
+                                                    >
+                                                    <span class="help-block" v-if="form_step1.last_name_error">
                                                 <strong v-cloak>@{{form_step1.last_name_error}}</strong>
                                             </span>
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="user_email" type="email" class="form-control" name="email"
-                                                       placeholder="{{{ trans('lang.ph_email') }}}"
-                                                       v-bind:class="{ 'is-invalid': form_step1.is_email_error }"
-                                                       value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}"
+                                                </div>
+                                                <div class="form-group form-group-half">
+                                                    <input id="user_email" type="email" class="form-control"
+                                                           name="email"
+                                                           placeholder="{{{ trans('lang.ph_email') }}}"
+                                                           v-bind:class="{ 'is-invalid': form_step1.is_email_error }"
+                                                           value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}"
 
-                                                >
-                                                <span class="help-block" v-if="form_step1.email_error">
+                                                    >
+                                                    <span class="help-block" v-if="form_step1.email_error">
                                                 <strong v-cloak>@{{form_step1.email_error}}</strong>
                                                 </span>
-                                            </div>
-                                            <div class="form-group form-group-half" v-if="user_role=='employer'">
-                                                <input id="number" type="number"
-                                                       class="form-control"
-                                                       name="number"
-                                                       value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}"
+                                                </div>
+                                                <div class="form-group form-group-half" v-if="user_role=='employer'">
+                                                    <input id="number" type="number"
+                                                           class="form-control"
+                                                           name="number"
+                                                           value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}"
 
-                                                       min="0"
-                                                       placeholder="{{{ trans('lang.number') }}}"
-                                                >
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="password" type="password" class="form-control"
-                                                       name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
-                                                       value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+                                                           min="0"
+                                                           placeholder="{{{ trans('lang.number') }}}"
+                                                    >
+                                                </div>
+                                                <div class="form-group form-group-half">
+                                                    <input id="password" type="password" class="form-control"
+                                                           name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
+                                                           value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
 
-                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
-                                                <span class="help-block" v-if="form_step2.password_error">
+                                                           v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
+                                                    <span class="help-block" v-if="form_step2.password_error">
                                                     <strong v-cloak>@{{form_step2.password_error}}</strong>
                                                 </span>
 
-                                            </div>
-                                            <div class="form-group form-group-half">
+                                                </div>
+                                                <div class="form-group form-group-half">
 
-                                                <input id="password-confirm" type="password"
-                                                       class=" form-control"
-                                                       name="password_confirmation"
-                                                       placeholder="{{{ trans('lang.ph_retry_pass') }}}"
-                                                       value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+                                                    <input id="password-confirm" type="password"
+                                                           class=" form-control"
+                                                           name="password_confirmation"
+                                                           placeholder="{{{ trans('lang.ph_retry_pass') }}}"
+                                                           value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
 
-                                                       v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
-                                                <span class="help-block" v-if="form_step2.password_confirm_error">
+                                                           v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
+                                                    <span class="help-block" v-if="form_step2.password_confirm_error">
                                                 <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
                                             </span>
-                                            </div>
+                                                </div>
                                             </div>
                                             <div v-if="user_role=='employer'" class="form-group form-group-half">
                                                 <input id="practice_code" type="text"
@@ -497,13 +509,18 @@
                                                       v-if="form_step2.practice_code_error">
                                                 <strong v-cloak>@{{form_step2.practice_code_error}}</strong>
                                             </div>
-                                            <div v-show="user_role=='employer' && !this.practice_code_checked" class="form-group form-group-half">
-                                                <a href="#" @click.prevent="validatePracticeCode" class="wt-btn">Verify</a>
+                                            <div v-show="user_role=='employer' && !this.practice_code_checked"
+                                                 class="form-group form-group-half">
+                                                <a href="#" @click.prevent="validatePracticeCode"
+                                                   class="wt-btn">Verify</a>
                                             </div>
 
                                             <div class="form-group">
-                                                <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
-                                                <a v-if="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)" href="#" @click.prevent="next()" class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                                <a href="#" @click.prevent="prev()"
+                                                   class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                                <a v-if="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)"
+                                                   href="#" @click.prevent="next()"
+                                                   class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -524,10 +541,20 @@
                                                 @endif
                                             </div>
                                             <ul class="wt-joinsteps">
-                                                <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                                <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
+                                                <li class="wt-done-next"><a
+                                                            href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    <div>{{{ trans('lang.01_step') }}}</div>
+                                                </li>
+                                                <li class="wt-active"><a
+                                                            href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                    <div>{{{ trans('lang.02_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                    <div>{{{ trans('lang.03_step') }}}</div>
+                                                </li>
+                                                <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                    <div>{{{ trans('lang.04_step') }}}</div>
+                                                </li>
                                                 <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
                                             </ul>
                                             <div class="form-group">
@@ -556,15 +583,16 @@
                                                                    :select-first-on-enter="true"
                                                                    :disabled="user_role=='employer'"
                                                                    v-bind:class="{ 'is-invalid': form_step2.straddress_error }">
-                                                  <template v-slot:input="slotProps">
-                                                    <v-text-field outlined
-                                                                  ref="input"
-                                                                  v-on:listeners="slotProps.listeners"
-                                                                  v-on:attrs="slotProps.attrs">
-                                                    </v-text-field>
-                                                  </template>
+                                                    <template v-slot:input="slotProps">
+                                                        <v-text-field outlined
+                                                                      ref="input"
+                                                                      v-on:listeners="slotProps.listeners"
+                                                                      v-on:attrs="slotProps.attrs">
+                                                        </v-text-field>
+                                                    </template>
                                                 </gmap-autocomplete>
-                                                <input v-if="user_role=='employer'" type="hidden" id="straddress-emloyer" name="straddress" value="">
+                                                <input v-if="user_role=='employer'" type="hidden"
+                                                       id="straddress-emloyer" name="straddress" value="">
                                                 <span class="help-block"
                                                       v-if="form_step2.straddress_error">
 													<strong v-cloak>@{{form_step2.straddress_error}}</strong>
@@ -614,440 +642,470 @@
 
                                         </fieldset>
 
-<fieldset class="wt-formregisterstart">
+                                        <fieldset class="wt-formregisterstart">
 
-@if(!empty($roles))
-  @foreach ($roles as $key => $role)
-    @if (!in_array($role['id'] == 1, $roles))
-      @if ($role['role_type'] === 'employer')
-                                                                <div class="wt-accordiondetails "
-                                                                     v-if="is_show">
+                                            @if(!empty($roles))
+                                                @foreach ($roles as $key => $role)
+                                                    @if (!in_array($role['id'] == 1, $roles))
+                                                        @if ($role['role_type'] === 'employer')
+                                                            <div class="wt-accordiondetails "
+                                                                 v-if="is_show">
 
-                                                                    <div>
-                                                                        <div class="form-group">
-                                                                            <div class="wt-tabscontenttitle">
-                                                                                <h2>Company Contacts</h2>
-                                                                            </div>
+                                                                <div>
+                                                                    <div class="form-group">
+                                                                        <div class="wt-tabscontenttitle">
+                                                                            <h2>Company Contacts</h2>
                                                                         </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="emp_contact" type="text"
-                                                                                   class="form-control"
-                                                                                   name="emp_contact"
-                                                                                   placeholder="{{{ trans('lang.emp_contact') }}}"
-                                                                                   v-bind:class="{ 'is-invalid': form_step2.emp_contact_error }">
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_contact_error">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_contact" type="text"
+                                                                               class="form-control"
+                                                                               name="emp_contact"
+                                                                               placeholder="{{{ trans('lang.emp_contact') }}}"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_contact_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_contact_error">
                                                                             <strong v-cloak>@{{form_step2.emp_contact_error}}</strong>
                                                                             </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="emp_telno" type="tel"
-                                                                                   class="form-control"
-                                                                                   name="emp_telno"
-                                                                                   placeholder="{{{ trans('lang.emp_telno') }}}"
-                                                                                   v-bind:class="{ 'is-invalid': form_step2.emp_telno_error }">
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_telno_error">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_telno" type="tel"
+                                                                               class="form-control"
+                                                                               name="emp_telno"
+                                                                               placeholder="{{{ trans('lang.emp_telno') }}}"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_telno_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_telno_error">
                                                                         <strong v-cloak>@{{form_step2.emp_telno_error}}</strong>
                                                                             </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="emp_pos" type="url"
-                                                                                   class="form-control"
-                                                                                   name="emp_pos"
-                                                                                   placeholder="Position"
-                                                                            >
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="emp_email" type="email"
-                                                                                   class="form-control"
-                                                                                   name="emp_email"
-                                                                                   placeholder="Email"
-																				   v-bind:class="{ 'is-invalid': form_step2.emp_email_error }">
-																			<span class="help-block"
-																				  v-if="form_step2.emp_email_error">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_pos" type="url"
+                                                                               class="form-control"
+                                                                               name="emp_pos"
+                                                                               placeholder="Position"
+                                                                        >
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="emp_email" type="email"
+                                                                               class="form-control"
+                                                                               name="emp_email"
+                                                                               placeholder="Email"
+                                                                               v-bind:class="{ 'is-invalid': form_step2.emp_email_error }">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_email_error">
 																				<strong v-cloak>@{{form_step2.emp_email_error}}</strong>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <div class="wt-tabscontenttitle">
+                                                                            <h2>Certifications</h2>
                                                                         </div>
+                                                                    </div>
 
-
-                                                                        <div class="form-group">
-                                                                            <div class="wt-tabscontenttitle">
-                                                                                <h2>Certifications</h2>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="form-group form-group-half">
+                                                                    <div class="form-group form-group-half">
                                                                             <span class="wt-select">
                                                                             {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, null, array('placeholder' => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_date_error }')) !!}
                                                                             </span>
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_cqc_rating_error">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_cqc_rating_error">
                                                                                     <strong v-cloak>@{{form_step2.emp_cqc_rating_date_error}}</strong>
                                                                                 </span>
 
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
                                                                             <span class="wt-select">
                                                                             {!! Form::select('emp_cqc_rating', $cqc_ratings, null, array('placeholder' => trans('lang.emp_cqc_rating'), 'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.emp_cqc_rating_error }')) !!}
                                                                             </span>
 
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.emp_cqc_rating_error">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.emp_cqc_rating_error">
                                                                                     <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
                                                                                 </span>
-                                                                        </div>
+                                                                    </div>
 
-                                                                        <!-- New columns for sheet-->
+                                                                    <!-- New columns for sheet-->
 
-                                                                        <label for="org_type" style="margin-top: 20px">Please
-                                                                            indicate the
-                                                                            organisation which best describes your
-                                                                            service</label>
-                                                                        <div class="form-group form-group-half ">
+                                                                    <label for="org_type" style="margin-top: 20px">Please
+                                                                        indicate the
+                                                                        organisation which best describes your
+                                                                        service</label>
+                                                                    <div class="form-group form-group-half ">
                                                                             <span class="wt-select">
                                                                             {!! Form::select('org_type', $arrOrgTypes, null, array('placeholder' => "Organisation type", 'v-bind:class' => '{ "is-invalid": form_step2.is_org_type_error }')) !!}
                                                                             </span>
-                                                                            <span class="help-block"
-                                                                                  v-if="form_step2.org_type_error">
+                                                                        <span class="help-block"
+                                                                              v-if="form_step2.org_type_error">
                                                                                     <strong v-cloak>@{{form_step2.org_type_error}}</strong>
                                                                                 </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half">
-                                                                            <input id="org_desc" type="text"
-                                                                                   class="form-control"
-                                                                                   name="org_desc"
-                                                                                   placeholder="Organisation description">
-                                                                        </div>
-                                                                        <div class="form-group form-group-half ">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        <input id="org_desc" type="text"
+                                                                               class="form-control"
+                                                                               name="org_desc"
+                                                                               placeholder="Organisation description">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half ">
                                                                             <span class="wt-select halfWidth">
                                                                             {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'appoSlotTime', 'placeholder' => "Setting")) !!}
                                                                             </span>
-                                                                        </div>
-                                                                        <div class="form-group "
-                                                                             v-if="appoSlotTime=='Other'">
-                                                                            <input id="other_setting" type="text"
-                                                                                   class="form-control"
-                                                                                   name="setting[]"
-                                                                                   placeholder="Other Setting">
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group "
+                                                                         v-if="appoSlotTime=='Other'">
+                                                                        <input id="other_setting" type="text"
+                                                                               class="form-control"
+                                                                               name="setting[]"
+                                                                               placeholder="Other Setting">
+                                                                    </div>
 
-																		<div v-if="user_role=='freelancer'">
-																			<div class="form-group form-group-half">
-																				<input type="text"
-																					   class="halfWidth form-control"
-																					   name="pin"
-																					   placeholder="Pin"
-																					   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
-																				<span class="help-block"
-																					  v-if="form_step2.pin_error">
+                                                                    <div v-if="user_role=='freelancer'">
+                                                                        <div class="form-group form-group-half">
+                                                                            <input type="text"
+                                                                                   class="halfWidth form-control"
+                                                                                   name="pin"
+                                                                                   placeholder="Pin"
+                                                                                   v-bind:class="{ 'is-invalid': form_step2.pin_error }">
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.pin_error">
 																					<strong v-cloak>@{{form_step2.pin_error}}</strong>
-																			</div>
-																			<div class="form-group form-group-half">
-																				<date-picker
-																						:config="{format: 'YYYY-MM-DD'}"
-																						value=""
-																						class="form-control"
-																						name="pin_date_revalid"
-																						placeholder="Pin date of revalidation"
-																						v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
-																				></date-picker>
-																				<span class="help-block"
-																					  v-if="form_step2.pin_date_revalid_error">
-																					<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
-																			</div>
-                                                                        </div>
-                                                                        <br>
-
-                                                                        <div class="form-group form-group">
-                                                                            <label for="insurance"
-                                                                                   style="display: inline-block">Insurance
-                                                                                Details</label> <input
-                                                                                    type="checkbox"
-                                                                                    id="ischeck"
-                                                                                    name="insurance"
-                                                                                    placeholder="Insurance"
-                                                                                    v-model="insurancecheckbox">
-                                                                        </div>
-                                                                        <div v-if="insurancecheckbox">
-                                                                            <div class="form-group ">
-                                                                                <input type="text"
-                                                                                       class="form-control org-name"
-                                                                                       name="org_name"
-                                                                                       placeholder="Organisation name">
-                                                                            </div>
-                                                                            <div class="form-group ">
-                                                                                <input type="text"
-                                                                                       class="form-control"
-                                                                                       name="policy_number"
-                                                                                       placeholder="Policy Number">
-                                                                            </div>
-
-
-                                                                            <div class="form-group">
-                                                                                <label>Organisation Contact</label>
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="org_name" type="text"
-                                                                                       class="form-control org-name"
-                                                                                       name="org_name"
-                                                                                       placeholder="Name">
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="organisation_position"
-                                                                                       type="text"
-                                                                                       class="form-control"
-                                                                                       name="organisation_position"
-                                                                                       placeholder="Position">
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="organisation_email"
-                                                                                       type="email"
-                                                                                       class="form-control"
-                                                                                       name="organisation_email"
-                                                                                       placeholder="Email">
-                                                                            </div>
-                                                                            <div class="form-group form-group-half">
-                                                                                <input id="organisation_contact"
-                                                                                       type="text"
-                                                                                       class="form-control"
-                                                                                       name="organisation_contact"
-                                                                                       placeholder="Direct Contact No">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            {!! Form::select('prof_required', \App\User::getProfessionsByRole('employer'), null, array('placeholder' => "Professional Required")) !!}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <div class="wt-tabscontenttitle">
-                                                                                <h2>Company Policies and
-                                                                                    Information</h2>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="form-group">
-                                                                            <div>Certificates –Vaccinations &
-                                                                                immunisation
-                                                                                (Measles/Mumps/Rubella/Hepatitis
-                                                                                B/Varicella):
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half ">
-
-                                                                            <input type="file" name="certs"
-                                                                                   class="form-control"
-                                                                                   accept=".pdf, image/*,.doc,.docx">
                                                                         </div>
                                                                         <div class="form-group form-group-half">
-                                                                            {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, array('v-model'=>'appoSlotTime', 'class'=>'halfWidth', 'placeholder' => "Appointment Slot Times")) !!}
+                                                                            <date-picker
+                                                                                    :config="{format: 'YYYY-MM-DD'}"
+                                                                                    value=""
+                                                                                    class="form-control"
+                                                                                    name="pin_date_revalid"
+                                                                                    placeholder="Pin date of revalidation"
+                                                                                    v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
+                                                                            ></date-picker>
+                                                                            <span class="help-block"
+                                                                                  v-if="form_step2.pin_date_revalid_error">
+																					<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
                                                                         </div>
-                                                                        <div class="form-group form-group-half"
-                                                                             v-if="appoSlotTime=='Other'">
-                                                                            <input id="other_appo" type="text"
-                                                                                   class="form-control halfWidth"
-                                                                                   name="appo_slot_times[]"
-                                                                                   placeholder="Other Appointment Slot Times">
+                                                                    </div>
+                                                                    <br>
+
+                                                                    <div class="form-group form-group">
+                                                                        <label for="insurance"
+                                                                               style="display: inline-block">Insurance
+                                                                            Details</label> <input
+                                                                                type="checkbox"
+                                                                                id="ischeck"
+                                                                                name="insurance"
+                                                                                placeholder="Insurance"
+                                                                                v-model="insurancecheckbox">
+                                                                    </div>
+                                                                    <div v-if="insurancecheckbox">
+                                                                        <div class="form-group ">
+                                                                            <input type="text"
+                                                                                   class="form-control org-name"
+                                                                                   name="org_name"
+                                                                                   placeholder="Organisation name">
                                                                         </div>
+                                                                        <div class="form-group ">
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   name="policy_number"
+                                                                                   placeholder="Policy Number">
+                                                                        </div>
+
+
                                                                         <div class="form-group">
+                                                                            <label>Organisation Contact</label>
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="org_name" type="text"
+                                                                                   class="form-control org-name"
+                                                                                   name="org_name"
+                                                                                   placeholder="Name">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="organisation_position"
+                                                                                   type="text"
+                                                                                   class="form-control"
+                                                                                   name="organisation_position"
+                                                                                   placeholder="Position">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="organisation_email"
+                                                                                   type="email"
+                                                                                   class="form-control"
+                                                                                   name="organisation_email"
+                                                                                   placeholder="Email">
+                                                                        </div>
+                                                                        <div class="form-group form-group-half">
+                                                                            <input id="organisation_contact"
+                                                                                   type="text"
+                                                                                   class="form-control"
+                                                                                   name="organisation_contact"
+                                                                                   placeholder="Direct Contact No">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        {!! Form::select('prof_required', \App\User::getProfessionsByRole(App\Role::EMPLOYER_ROLE), null, ['placeholder' => "Professional Required"]) !!}
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="wt-tabscontenttitle">
+                                                                            <h2>Company Policies and
+                                                                                Information</h2>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div>Certificates –Vaccinations &
+                                                                            immunisation
+                                                                            (Measles/Mumps/Rubella/Hepatitis
+                                                                            B/Varicella):
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group form-group-half ">
+
+                                                                        <input type="file" name="certs"
+                                                                               class="form-control"
+                                                                               accept=".pdf, image/*,.doc,.docx">
+                                                                    </div>
+                                                                    <div class="form-group form-group-half">
+                                                                        {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, null, array('v-model'=>'appoSlotTime', 'class'=>'halfWidth', 'placeholder' => "Appointment Slot Times")) !!}
+                                                                    </div>
+                                                                    <div class="form-group form-group-half"
+                                                                         v-if="appoSlotTime=='Other'">
+                                                                        <input id="other_appo" type="text"
+                                                                               class="form-control halfWidth"
+                                                                               name="appo_slot_times[]"
+                                                                               placeholder="Other Appointment Slot Times">
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                             <span class="wt-select">
                                                                             {!! Form::select('payment_terms[]', $arrPaymentTerms, null, array('v-model'=>'paymentTerm', 'placeholder' => "Payment Terms")) !!}
                                                                             </span>
-                                                                        </div>
-                                                                        <div class="form-group form-group-half"
-                                                                             v-if="paymentTerm=='Other'">
-                                                                            <input id="other_payment_terms" type="text"
-                                                                                   class="form-control"
-                                                                                   name="payment_terms[]"
-                                                                                   placeholder="Other Payment terms">
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group form-group-half"
+                                                                         v-if="paymentTerm=='Other'">
+                                                                        <input id="other_payment_terms" type="text"
+                                                                               class="form-control"
+                                                                               name="payment_terms[]"
+                                                                               placeholder="Other Payment terms">
+                                                                    </div>
 
-                                                                        {{--<div class="form-group form-group-half ">--}}
-                                                                        {{--<input id="hourly_rate" type="number"--}}
-                                                                        {{--min="0"--}}
-                                                                        {{--class="halfWidth form-control"--}}
-                                                                        {{--name="hourly_rate"--}}
-                                                                        {{--placeholder="Hourly Rate">--}}
-                                                                        {{--</div>--}}
-
-                                                                        <div class="form-group">
-                                                                            <label for="hourly_rate_desc">Please enter
-                                                                                additional information in the
-                                                                                communication box if required</label>
-                                                                            <input id="hourly_rate_desc" type="text"
-                                                                                   class="form-control"
-                                                                                   name="hourly_rate_desc"
-                                                                                   placeholder="Additional info">
-                                                                        </div>
+                                                                    <div class="form-group">
+                                                                        <label for="hourly_rate_desc">Please enter
+                                                                            additional information in the
+                                                                            communication box if required</label>
+                                                                        <input id="hourly_rate_desc" type="text"
+                                                                               class="form-control"
+                                                                               name="hourly_rate_desc"
+                                                                               placeholder="Additional info">
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
 
-      @endif
-      @if(in_array($role['id']==3, $roles))
+                                                        @endif
+                                                        @if(in_array($role['id']==3, $roles))
 
-<div class="wt-accordiondetails" v-if="user_role!='employer'" {{--v-if="is_show_freelancer"--}} >
+                                                            <div class="wt-accordiondetails"
+                                                                 v-if="user_role!='employer'" {{--v-if="is_show_freelancer"--}} >
 
-    <div class="form-group form-group-half" v-bind:class="[user_role!='employer' ? 'float-none' : '', '']">
-        <date-picker :config="{format: 'YYYY-MM-DD'}"
-                     value=""
-                     id="dob" class="form-control"
-                     name="dob"
-                     placeholder="{{{ trans('lang.dob') }}}"
-                     v-bind:class="{ 'is-invalid': form_step2.dob_error }"></date-picker>
-        <span class="help-block"
-              v-if="form_step2.dob_error">
+                                                                <div class="form-group form-group-half"
+                                                                     v-bind:class="[user_role!='employer' ? 'float-none' : '', '']">
+                                                                    <date-picker :config="{format: 'YYYY-MM-DD'}"
+                                                                                 value=""
+                                                                                 id="dob" class="form-control"
+                                                                                 name="dob"
+                                                                                 placeholder="{{{ trans('lang.dob') }}}"
+                                                                                 v-bind:class="{ 'is-invalid': form_step2.dob_error }"></date-picker>
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.dob_error">
             <strong v-cloak>@{{form_step2.dob_error}}</strong>
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='employer'">
-        <date-picker :config="{format: 'DD/MM/YYYY'}"
-                     id="date_available"
-                     value=""
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='employer'">
+                                                                    <date-picker :config="{format: 'DD/MM/YYYY'}"
+                                                                                 id="date_available"
+                                                                                 value=""
 
-                     class="form-control"
-                     name="date_available"
-                     placeholder="{{{ trans('lang.date_available') }}}"
-                     v-bind:class="{ 'is-invalid': form_step2.date_available_error }"></date-picker>
-        <span class="help-block"
-              v-if="form_step2.date_available_error">
+                                                                                 class="form-control"
+                                                                                 name="date_available"
+                                                                                 placeholder="{{{ trans('lang.date_available') }}}"
+                                                                                 v-bind:class="{ 'is-invalid': form_step2.date_available_error }"></date-picker>
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.date_available_error">
             <strong v-cloak>@{{form_step2.date_available_error}}</strong>
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='freelancer'">
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='freelancer'">
         <span class="wt-select">
-        {!! Form::select('profession', \App\User::getProfessionsByRole('freelancer'), null, array('placeholder' => "Profession")) !!}
+        {!! Form::select('profession', \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE), null, array('placeholder' => "Profession")) !!}
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='support'">
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='support'">
         <span class="wt-select">
-        {!! Form::select('profession', \App\User::getProfessionsByRole('support'), null, array('placeholder' => "Profession")) !!}
+        {!! Form::select('profession', \App\User::getProfessionsByRole(App\Role::SUPPORT_ROLE), null, array('placeholder' => "Profession")) !!}
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group" v-bind:class="[user_role=='support'  ? 'form-group-half' : '', '']" v-if="user_role=='employer' || user_role=='support'">
-        <input id="experience" type="number" min="0"
-               class="form-control"
-               name="experience"
-               placeholder="Experience Years"
-               v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
-        <span class="help-block"
-              v-if="form_step2.exp_years_error">
+                                                                <div class="form-group"
+                                                                     v-bind:class="[user_role=='support'  ? 'form-group-half' : '', '']"
+                                                                     v-if="user_role=='employer' || user_role=='support'">
+                                                                    <input id="experience" type="number" min="0"
+                                                                           class="form-control"
+                                                                           name="experience"
+                                                                           placeholder="Experience Years"
+                                                                           v-bind:class="{ 'is-invalid': form_step2.exp_years_error }">
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.exp_years_error">
                     <strong v-cloak>@{{form_step2.exp_years_error}}</strong>
                 </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='freelancer'">
-      <input type="text"
-           class="form-control"
-           name="pin"
-           placeholder="PIN /GMC/GPhC No."
-           v-bind:class="{ 'is-invalid': form_step2.pin_error }">
-      <span class="help-block"
-          v-if="form_step2.pin_error">
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           name="pin"
+                                                                           placeholder="PIN /GMC/GPhC No."
+                                                                           v-bind:class="{ 'is-invalid': form_step2.pin_error }">
+                                                                    <span class="help-block"
+                                                                          v-if="form_step2.pin_error">
         <strong v-cloak>@{{form_step2.pin_error}}</strong>
       </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='freelancer'">
-        <multiselect v-model="itsoftware" :options="itsoftware_options" :searchable="false" :close-on-select="false" :clear-on-select="false" :preserve-search="false" :show-labels="false" :multiple="true" placeholder="Computer Systems" name="itsoftware" class="multiselect-upd">
-            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>
-        </multiselect>
-        <select name="itsoftware[]" style="display:none;" multiple>
-             <option v-for="value in itsoftware" :value="value" selected></option>
-        </select>
-    </div>
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <multiselect v-model="itsoftware"
+                                                                                 :options="itsoftware_options"
+                                                                                 :searchable="false"
+                                                                                 :close-on-select="false"
+                                                                                 :clear-on-select="false"
+                                                                                 :preserve-search="false"
+                                                                                 :show-labels="false" :multiple="true"
+                                                                                 placeholder="Computer Systems"
+                                                                                 name="itsoftware"
+                                                                                 class="multiselect-upd">
+                                                                        <template slot="selection"
+                                                                                  slot-scope="{ values, search, isOpen }">
+                                                                            <span class="multiselect__single"
+                                                                                  v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span>
+                                                                        </template>
+                                                                    </multiselect>
+                                                                    <select name="itsoftware[]" style="display:none;"
+                                                                            multiple>
+                                                                        <option v-for="value in itsoftware"
+                                                                                :value="value" selected></option>
+                                                                    </select>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='freelancer'">
+                                                                66666666666245345345
+
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='freelancer'">
         <span class="wt-select">
         {!! Form::select('special_interests[]', $arrSpecialInterests, null, array('v-model'=>'specialInterest','placeholder' => "Special Interest")) !!}
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group" v-if="specialInterest=='Other'">
-        <input type="text"
-               class="form-control"
-               name="special_interests[]"
-               placeholder="Other Special Interest">
-    </div>
+                                                                <div class="form-group" v-if="specialInterest=='Other'">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           name="special_interests[]"
+                                                                           placeholder="Other Special Interest">
+                                                                </div>
 
-    <div class="form-group" v-if="user_role=='freelancer'">
-        <div class="wt-tabscontenttitle">
-            <h2>Professional Qualifications</h2>
-        </div>
-    </div>
+                                                                <div class="form-group" v-if="user_role=='freelancer'">
+                                                                    <div class="wt-tabscontenttitle">
+                                                                        <h2>Professional Qualifications</h2>
+                                                                    </div>
+                                                                </div>
 
-    <div class="form-group form-group" v-if="user_role=='freelancer'">
-      <span class="text-right" id="plusQual" style="cursor:pointer;font-size: 16px; background-color: #fccf17;color:white;padding:7px;border-radius:5px">+</span>
-    </div>
+                                                                <div class="form-group form-group"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <span class="text-right" id="plusQual"
+                                                                          style="cursor:pointer;font-size: 16px; background-color: #fccf17;color:white;padding:7px;border-radius:5px">+</span>
+                                                                </div>
 
-    <div class="profQualif_block" v-if="user_role=='freelancer'">
-        <table>
-            <tr>
-                <td><input type="text"
-                           class="form-control"
-                           name="profQualLevel[]"
-                           placeholder="Level"></td>
-                <td><input type="text"
-                           class="form-control"
-                           name="profQualName[]"
-                           placeholder="Name"></td>
-                <td><input type="text"
-                           class="form-control"
-                           name="profQualPlace[]"
-                           placeholder="Place of Study">
-                </td>
-                <td><input type="number"
-                           min="0"
-                           class="form-control"
-                           name="profQualYear[]"
-                           placeholder="Year"></td>
-            </tr>
-        </table>
-    </div>
+                                                                <div class="profQualif_block"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td><input type="text"
+                                                                                       class="form-control"
+                                                                                       name="profQualLevel[]"
+                                                                                       placeholder="Level"></td>
+                                                                            <td><input type="text"
+                                                                                       class="form-control"
+                                                                                       name="profQualName[]"
+                                                                                       placeholder="Name"></td>
+                                                                            <td><input type="text"
+                                                                                       class="form-control"
+                                                                                       name="profQualPlace[]"
+                                                                                       placeholder="Place of Study">
+                                                                            </td>
+                                                                            <td><input type="number"
+                                                                                       min="0"
+                                                                                       class="form-control"
+                                                                                       name="profQualYear[]"
+                                                                                       placeholder="Year"></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="user_role=='freelancer'">
-      <div>Professional Qualifications:</div>
-        <input type="file" name="prof_qual_cert"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <div>Professional Qualifications:</div>
+                                                                    <input type="file" name="prof_qual_cert"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
 
-    <div class="form-group form-group-half" v-bind:class="[user_role=='support' ? 'float-right' : '', '']">
-      <div>Mandatory Training:</div>
-        <input type="file" name="mand_training"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
+                                                                <div class="form-group form-group-half"
+                                                                     v-bind:class="[user_role=='support' ? 'float-right' : '', '']">
+                                                                    <div>Mandatory Training:</div>
+                                                                    <input type="file" name="mand_training"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
 
-    <div class="form-group form-group-half" v-bind:class="[user_role=='support' ? 'float-left' : 'float-none', '']">
-      <div>Occupational Health:</div>
-        <input type="file" name="occup_health"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
+                                                                <div class="form-group form-group-half"
+                                                                     v-bind:class="[user_role=='support' ? 'float-left' : 'float-none', '']">
+                                                                    <div>Occupational Health:</div>
+                                                                    <input type="file" name="occup_health"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
 
-    <div class="form-group" v-bind:class="[insurancecheckbox ? 'form-group-half' : '', '']" v-if="user_role=='freelancer'">
-        <div class="wt-checkboxholder">
+                                                                <div class="form-group"
+                                                                     v-bind:class="[insurancecheckbox ? 'form-group-half' : '', '']"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <div class="wt-checkboxholder">
             <span class="wt-checkbox">
                 <input id="insurancecheckbox" type="checkbox"
                        name="insurancecheckbox"
                        v-model="insurancecheckbox">
                 <label for="insurancecheckbox"><span>Do you have professional indemnity insurance?</span></label>
             </span>
-        </div>
-    </div>
+                                                                    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="insurancecheckbox" v-if="user_role=='freelancer'">
-      <div>Professional Indemnity Insurance:</div>
-        <input type="file" name="prof_ind_cert"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
+                                                                <div class="form-group form-group-half"
+                                                                     v-if="insurancecheckbox"
+                                                                     v-if="user_role=='freelancer'">
+                                                                    <div>Professional Indemnity Insurance:</div>
+                                                                    <input type="file" name="prof_ind_cert"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
 
-    <div class="form-group" v-bind:class="[dbscheck ? 'form-group-half' : '', '']">
-        <div class="wt-checkboxholder">
+                                                                <div class="form-group"
+                                                                     v-bind:class="[dbscheck ? 'form-group-half' : '', '']">
+                                                                    <div class="wt-checkboxholder">
             <span class="wt-checkbox">
                 <input id="dbscheck" type="checkbox"
                        name="dbscheck"
@@ -1055,137 +1113,47 @@
                        v-model="dbscheck">
                 <label for="dbscheck"><span>DBS checked</span></label>
             </span>
-        </div>
-    </div>
+                                                                    </div>
+                                                                </div>
 
-    <div class="form-group form-group-half" v-if="dbscheck">
-        <div>Certificate of CRB/DBS:</div>
-        <input type="file" name="cert_of_crbdbs"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
+                                                                <div class="form-group form-group-half" v-if="dbscheck">
+                                                                    <div>Certificate of CRB/DBS:</div>
+                                                                    <input type="file" name="cert_of_crbdbs"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
+                                                                </div>
 
-    <div class="form-group form-group" v-if="user_role=='support' || user_role=='freelancer'">
+                                                                <div class="form-group form-group"
+                                                                     v-if="user_role=='support' || user_role=='freelancer'">
         <span class="wt-select">
         {!! Form::select('drive_license',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have a full driving licence?")) !!}
         </span>
-    </div>
+                                                                </div>
 
-    <div class="form-group form-group" v-if="user_role=='support'">
+                                                                <div class="form-group form-group"
+                                                                     v-if="user_role=='support'">
         <span class="wt-select">
         {!! Form::select('endorsements',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Do you have any endorsements?")) !!}
         </span>
-    </div>
-
-
-    <div class="form-group form-group-half">
-        <div>CV Upload:</div>
-        <input type="file" name="cvfile"
-               class="form-control"
-               accept=".pdf, image/*,.doc,.docx">
-    </div>
-
-
-
-<?php
-/*
-                                                                <div class="form-group form-group-half" v-if="user_role=='freelancer'">
-                                                                    <span class="wt-select halfWidth">
-                                                                    {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate',  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }')) !!}
-                                                                    </span>
-                                                                    <span class="help-block"
-                                                                          v-if="form_step2.rate_error">
-                                                                                    <strong v-cloak>@{{form_step2.rate_error}}</strong>
-                                                                                </span>
                                                                 </div>
 
 
-
-																<div v-if="user_role=='freelancer'">
-
-																	<div class="form-group form-group-half">
-																		<date-picker :config="{format: 'YYYY-MM-DD'}"
-																					value=""
-																					class="form-control"
-																					name="pin_date_revalid"
-																					placeholder="Pin date of revalidation"
-																					v-bind:class="{ 'is-invalid': form_step2.pin_date_revalid_error }"
-																		></date-picker>
-																		<span class="help-block"
-																			  v-if="form_step2.pin_date_revalid_error">
-																			<strong v-cloak>@{{form_step2.pin_date_revalid_error}}</strong>
-																		</span>
-																	</div>
+                                                                <div class="form-group form-group-half">
+                                                                    <div>CV Upload:</div>
+                                                                    <input type="file" name="cvfile"
+                                                                           class="form-control"
+                                                                           accept=".pdf, image/*,.doc,.docx">
                                                                 </div>
 
 
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </fieldset>
 
-
-
-
-
-
-
-
-
-
-
-																<div v-if="user_role=='freelancer'">
-																	<div class="form-group">
-																		<div>Professional Indemnity
-																			Certificate:
-																		</div>
-																	</div>
-																	<div class="form-group form-group-half">
-
-																		<input type="file" name="prof_ind_cert"
-																			   class="form-control"
-																				v-bind:class="{ 'is-invalid': form_step2.is_prof_ind_cert }"
-																			   accept=".pdf, image/*,.doc,.docx">
-																		<span class="help-block"
-																			  v-if="form_step2.is_prof_ind_cert">
-																			<strong v-cloak>@{{form_step2.prof_ind_cert}}</strong>
-																		</span>
-																	</div>
-																</div>
-
-                                                                <div class="form-group" v-if="user_role=='freelancer'">
-                                                                    <label for="insurance"
-                                                                           style="display: inline-block">Professional
-                                                                        Indemnity Insurance</label> <input
-                                                                            type="checkbox"
-                                                                            name="insurance"
-                                                                            placeholder="Insurance"
-                                                                            v-model="insurancecheckbox">
-                                                                </div>
-
-                                                                <div v-if="insurancecheckbox">
-                                                                    <div class="form-group ">
-                                                                        <input type="text"
-                                                                               class="form-control"
-                                                                               name="org_name"
-                                                                               placeholder="Organisation name">
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <input type="text"
-                                                                               class="form-control"
-                                                                               name="policy_number"
-                                                                               placeholder="Insurance Policy Number">
-                                                                    </div>
-                                                                </div>
-
-
-
-                                                            </div>
-*/ ?>
-        @endif
-      @endif
-    @endforeach
-  @endif
-  </fieldset>
-
-  <fieldset class="wt-termsconditions">
-    <div class="wt-checkboxholder">
+                                        <fieldset class="wt-termsconditions">
+                                            <div class="wt-checkboxholder">
       <span class="wt-checkbox">
         <input id="termsconditions" type="checkbox" name="termsconditions">
         <label for="termsconditions"><span>Agree to T&Cs and Privacy</span></label>
@@ -1193,207 +1161,154 @@
             <strong style="color: red;" v-cloak>{{trans('lang.register_termsconditions_error')}}</strong>
         </span>
       </span>
-      <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
-      <a href="#" @click.prevent="checkStep2('Email is not configured')" class="wt-btn">{{{ trans('lang.continue') }}}</a>
-    </div>
-  </fieldset>
-</div>
-
+                                                <a href="#" @click.prevent="prev()"
+                                                   class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                                <a href="#" @click.prevent="checkStep2('Email is not configured')"
+                                                   class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                            </div>
+                                        </fieldset>
+                                    </div>
 
 
                                     <div class="wt-joinformc" v-show="step === 3" v-cloak>
 
-                                      <div class="wt-registerhead" v-if="user_role=='employer'">
-                                        <div class="wt-title">
-                                            <h3>{{{ $reg_three_title }}}</h3>
+                                        <div class="wt-registerhead" v-if="user_role=='employer'">
+                                            <div class="wt-title">
+                                                <h3>{{{ $reg_three_title }}}</h3>
+                                            </div>
                                         </div>
-                                      </div>
 
-                                      <ul class="wt-joinsteps">
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                          <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                          <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-                                          <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
-                                      </ul>
+                                        <ul class="wt-joinsteps">
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                <div>{{{ trans('lang.01_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                <div>{{{ trans('lang.02_step') }}}</div>
+                                            </li>
+                                            <li class="wt-active"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                <div>{{{ trans('lang.03_step') }}}</div>
+                                            </li>
+                                            <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                <div>{{{ trans('lang.04_step') }}}</div>
+                                            </li>
+                                            <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                        </ul>
 
-                                      <figure class="wt-joinformsimg">
-                                          {{--<img src="{{ asset($register_image)}}" alt="{{{ trans('lang.verification_code_img') }}}">--}}
-                                      </figure>
+                                        <figure class="wt-joinformsimg"></figure>
 
-                                      <fieldset class="wt-formregisterstart">
-                                          <div class="form-group-n">
-                                              {{--<label>--}}
-                                              {{--{{{ trans('lang.verify_code_note') }}}--}}
-                                              {{--@if (!empty($reg_page))--}}
-                                              {{--<a target="_blank" href="{{{url($reg_page)}}}">--}}
-                                              {{--{{{ trans('lang.why_need_code') }}}--}}
-                                              {{--</a>--}}
-                                              {{--@else--}}
-                                              {{--<a href="javascript:void(0)">--}}
-                                              {{--{{{ trans('lang.why_need_code') }}}--}}
-                                              {{--</a>--}}
-                                              {{--@endif--}}
-                                              {{--</label>--}}
-                                              {{--<input type="text" name="code" class="form-control" placeholder="{{{ trans('lang.enter_code') }}}">--}}
-                                              {{--<div v-if="user_role=='freelancer'">--}}
+                                        <fieldset class="wt-formregisterstart">
+                                            <div class="form-group-n">
 
-                                            <div v-if="user_role!='employer'">
+                                                <div v-if="user_role!='employer'">
 
-                                              <div class="form-group form-group-half" style="margin-top: 23px;">
+                                                    <div class="form-group form-group-half" style="margin-top: 23px;">
                                                   <span class="wt-select">
                                                   {!! Form::select('right_of_work',  array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Right to work")) !!}
                                                   </span>
-                                              </div>
+                                                    </div>
 
-                                              <div class="form-group form-group-half">
-                                                <div>Passport or Visa:</div>
-                                                <input type="file" name="passport_visa"
-                                                       class="form-control"
-                                                       v-bind:class="{ 'is-invalid': form_step2.is_passport_visa }"
-                                                       accept=".pdf, image/*,.doc,.docx">
-                                                <span class="help-block"
-                                                v-if="form_step2.is_passport_visa">
+                                                    <div class="form-group form-group-half">
+                                                        <div>Passport or Visa:</div>
+                                                        <input type="file" name="passport_visa"
+                                                               class="form-control"
+                                                               v-bind:class="{ 'is-invalid': form_step2.is_passport_visa }"
+                                                               accept=".pdf, image/*,.doc,.docx">
+                                                        <span class="help-block"
+                                                              v-if="form_step2.is_passport_visa">
                                                 <strong v-cloak>@{{form_step2.passport_visa}}</strong>
                                                 </span>
-                                              </div>
+                                                    </div>
 
-                                              <div class="form-group form-group-half">
+                                                    <div class="form-group form-group-half">
                                                   <span class="wt-select halfWidth">
                                                   {!! Form::select('nationality', $arrNationals, null, array('placeholder' => "Nationality")) !!}
                                                   </span>
-                                              </div>
-                                    <?php
-                                    /*
-                                                <div class="form-group form-group-half" v-if="user_role=='support'">
-                                                  <span class="wt-checkbox" style="margin-bottom: 13px; margin-top: 17px;">
-                                                    <span class="wt-checkbox">
-                                                      <input id="hourly_rate_negotiable"
-                                                          type="checkbox"
-                                                          name="hourly_rate_negotiable"
-                                                          checked="">
-                                                      <label for="hourly_rate_negotiable"><span> Hourly rate negotiable?</span></label>
-                                                    </span>
-                                                  </span>
+                                                    </div>
+
                                                 </div>
-
-                                                <div class="form-group form-group-half" v-if="user_role=='support'">
-                                                <span class="wt-select halfWidth">
-                                                {!! Form::select('rate', array("p/h"=>"p/h", "p/m"=>"p/m", "p/a"=>"p/a"), null, array('placeholder' => 'Rate'{{--,  'v-bind:class' => '{ "is-invalid": form_step2.rate_error }'--}})) !!}
-                                                </span>
-                                                {{--
-                                                <span class="help-block"
-                                                v-if="form_step2.rate_error">
-                                                <strong v-cloak>@{{form_step2.rate_error}}</strong>
-                                                </span>
-                                                --}}
-                                                </div>
-
-                                                <div class="form-group" v-if="user_role=='support'">
-                                                <span class="wt-select">
-                                                {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
-                                                </span>
-                                                </div>
-
-
-
-
-                                                <div class="form-group form-group-half" v-if="P60upload">
-                                                    <strong>P60 Upload:</strong>
-                                                    <input type="file" name="p60" class="form-control"
-                                                           accept=".pdf, image/*,.doc,.docx">
-                                                </div>
-                                                <div class="form-group" v-if="paypal_show">
-                                                    <strong>Paypal Account:</strong>
-                                                    <input type="email" name="paypal" class="form-control paypalemail"
-                                                           placeholder="Paypal email address"/>
-                                                    <span class="help-block" v-if="form_step3.isPaypalEmail_error">
-                                                    <strong v-cloak>Not a valid email</strong>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group" v-if="cheque_show">
-                                                    <strong>Cheque:</strong>
-                                                    <p>Your current address details will be used</p>
-                                                </div>
-                                    */
-                                    ?>
-
-                                              </div>
-                                              <div v-if="user_role=='employer'">
+                                                <div v-if="user_role=='employer'">
                                                   <span class="wt-select">
                                                   {!! Form::select('plan_id', $subscribe_options, null, array('placeholder' => "Select subscription ", 'v-model'=>'subscription' ,'class' => 'form-group',  'v-on:change' => 'selectedSubscription(subscription)')) !!}
                                                   </span>
-                                              </div>
+                                                </div>
 
-                                          </div>
+                                            </div>
 
-                                          <div class="form-group wt-btnarea">
-                                              <a href="#" @click.prevent="prev()"
-                                                 class="wt-btn">{{{ trans('lang.previous') }}}</a>
-                                              <a href="#" @click.prevent="checkStep3()"
-                                                 class="wt-btn">{{{ trans('lang.continue') }}}</a>
-                                          </div>
+                                            <div class="form-group wt-btnarea">
+                                                <a href="#" @click.prevent="prev()"
+                                                   class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                                <a href="#" @click.prevent="checkStep3()"
+                                                   class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                            </div>
 
-                                      </fieldset>
+                                        </fieldset>
                                     </div>
 
 
                                     <div class="wt-gotodashboard" v-show="step === 4" v-cloak>
 
-                                      <div class="wt-registerhead" v-if="user_role=='freelancer' || user_role=='support'">
-                                        <div class="wt-title">
-                                            <h3>{{{ $reg_three_title }}}</h3>
-                                        </div>
-                                      </div>
-
-                                      <ul class="wt-joinsteps">
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                          <li class="wt-active"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-                                          <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
-                                      </ul>
-
-                                      <fieldset class="wt-formregisterstart">
-
-                                        <div v-if="user_role=='employer'">
-                                          <div class="wt-registerhead">
-                                              <div class="wt-title">
-                                                  <h3>Last step</h3>
-                                              </div>
-                                              {{--<div class="description">--}}
-                                              {{--<p>{{{ $reg_four_subtitle }}}</p>--}}
-                                              {{--</div>--}}
-                                          </div>
-
-
-                                          <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
-                                             v-if="subscription">Go To Checkout</a>
-
-
-                                          <a href="#" v-if="!subscription" class="wt-btn"
-                                             @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                        <div class="wt-registerhead"
+                                             v-if="user_role=='freelancer' || user_role=='support'">
+                                            <div class="wt-title">
+                                                <h3>{{{ $reg_three_title }}}</h3>
+                                            </div>
                                         </div>
 
-                                        <div v-if="user_role=='freelancer' || user_role=='support'" >
+                                        <ul class="wt-joinsteps">
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                <div>{{{ trans('lang.01_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                <div>{{{ trans('lang.02_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                <div>{{{ trans('lang.03_step') }}}</div>
+                                            </li>
+                                            <li class="wt-active"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                <div>{{{ trans('lang.04_step') }}}</div>
+                                            </li>
+                                            <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                        </ul>
 
-                                          <div class="form-group form-group-half" v-if="user_role=='freelancer' || user_role=='support'">
-                                              <input id="hourly_rate" type="number"
-                                                     class="form-control"
-                                                     name="hourly_rate"
-                                                     min="0"
-                                                     placeholder="Hourly Rate">
-                                          </div>
+                                        <fieldset class="wt-formregisterstart">
 
-                                          {{--<div class="form-group form-group-half" v-bind:class="[user_role=='freelancer' ? 'float-right' : '', '']">--}}
-                                              {{--<input id="hourly_rate" type="number"--}}
-                                                     {{--class="form-control"--}}
-                                                     {{--name="hourly_rate"--}}
-                                                     {{--min="0"--}}
-                                                     {{--placeholder="Hour Rate">--}}
-                                          {{--</div>--}}
+                                            <div v-if="user_role=='employer'">
+                                                <div class="wt-registerhead">
+                                                    <div class="wt-title">
+                                                        <h3>Last step</h3>
+                                                    </div>
 
-                                          <div class="form-group form-group-half" style="margin-bottom: -2px;" v-if="user_role=='freelancer' || user_role=='support'">
+                                                </div>
+
+
+                                                <a href="#" class="wt-btn" @click.prevent="checkoutStripe(subscription)"
+                                                   v-if="subscription">Go To Checkout</a>
+
+
+                                                <a href="#" v-if="!subscription" class="wt-btn"
+                                                   @click.prevent="loginRegisterUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                            </div>
+
+                                            <div v-if="user_role=='freelancer' || user_role=='support'">
+
+                                                <div class="form-group form-group-half"
+                                                     v-if="user_role=='freelancer' || user_role=='support'">
+                                                    <input id="hourly_rate" type="number"
+                                                           class="form-control"
+                                                           name="hourly_rate"
+                                                           min="0"
+                                                           placeholder="Hourly Rate">
+                                                </div>
+
+                                                <div class="form-group form-group-half" style="margin-bottom: -2px;"
+                                                     v-if="user_role=='freelancer' || user_role=='support'">
                                             <span class="wt-checkbox"
                                                   style="    margin-bottom: 13px; margin-top: 17px;">
                                                 <span class="wt-checkbox">
@@ -1404,84 +1319,69 @@
                                                   <label for="hourly_rate_negotiable"><span> Rate Negotiable?</span></label>
                                                 </span>
                                             </span>
-                                          </div>
+                                                </div>
 
-
-
-                                          {{--<div class="form-group form-group-half float-right" v-if="user_role=='freelancer'">--}}
-                                            {{--<span class="wt-select">--}}
-                                            {{--{!! Form::select('payment_option', $payment_options, null, ['placeholder' => 'Preferred Payment Method', 'v-model'=>'choosen_payment_mehod' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment_mehod)']) !!}--}}
-                                            {{--</span>--}}
-                                            {{--<input v-if="choosen_payment_mehod=='Other'"--}}
-                                            {{--type="text"--}}
-                                            {{--name="payment_mehod_other"--}}
-                                            {{--class="form-control"--}}
-                                            {{--placeholder="Please specify">--}}
-                                          {{--</div>--}}
-
-                                          {{--<div class="form-group form-group-half" v-if="user_role=='support'">--}}
-                                            {{--<span class="wt-select">--}}
-                                            {{--{!! Form::select('c_payment_methods',$arrPaymentMethods, null, array('placeholder' => "Preferred Payment Method", 'v-model'=>'payment_method')) !!}--}}
-                                            {{--</span>--}}
-                                            {{--<span v-if="payment_method=='Self Employed'">Please invoice the employer directly for payment</span>--}}
-
-                                            {{--<input v-if="payment_method=='Limited Company'"--}}
-                                            {{--type="text"--}}
-                                            {{--name="limitied_company_number"--}}
-                                            {{--class="form-control"--}}
-                                            {{--placeholder="Limited Company Number "><br>--}}
-                                            {{--<input v-if="payment_method=='Limited Company'"--}}
-                                            {{--type="text"--}}
-                                            {{--name="limitied_company_name"--}}
-                                            {{--class="form-control"--}}
-                                            {{--placeholder="Limited Company Name ">--}}
-                                          {{--</div>--}}
-
-                                          <div class="form-group form-group-half">
+                                                <div class="form-group form-group-half">
                                               <span class="wt-select">
                                               {!! Form::select('direct_booking', array('Direct Bookings accepted'=>'Direct Bookings accepted', 'Direct Bookings not accepted'=>'Direct Bookings not accepted'), null, array('placeholder' => "Direct Bookings")) !!}
                                               </span>
-                                          </div>
+                                                </div>
 
-                                          <div class="form-group wt-btnarea">
-                                              <a href="#" @click.prevent="prev()"
-                                                 class="wt-btn">{{{ trans('lang.previous') }}}</a>
-                                              <a href="#" v-if="user_role=='support'" @click.prevent="checkStep4()"
-                                                 class="wt-btn">{{{ trans('lang.continue') }}}</a>
-                                              <a href="#" v-if="user_role=='freelancer'" class="wt-btn"
-                                                @click.prevent="checkStep4()">{{{ trans('lang.goto_dashboard') }}}</a>
-                                          </div>
-                                        </div>
+                                                <div class="form-group wt-btnarea">
+                                                    <a href="#" @click.prevent="prev()"
+                                                       class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                                    <a href="#" v-if="user_role=='support'"
+                                                       @click.prevent="checkStep4()"
+                                                       class="wt-btn">{{{ trans('lang.continue') }}}</a>
+                                                    <a href="#" v-if="user_role=='freelancer'" class="wt-btn"
+                                                       @click.prevent="checkStep4()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                                </div>
+                                            </div>
 
-                                      </fieldset>
+                                        </fieldset>
                                     </div>
 
                                     <div class="wt-gotodashboard" v-show="step === 5" v-cloak>
-                                      <ul class="wt-joinsteps">
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a><div>{{{ trans('lang.01_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a><div>{{{ trans('lang.02_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a><div>{{{ trans('lang.03_step') }}}</div></li>
-                                          <li class="wt-done-next"><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a><div>{{{ trans('lang.04_step') }}}</div></li>
-                                          <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
-                                      </ul>
+                                        <ul class="wt-joinsteps">
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                <div>{{{ trans('lang.01_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                <div>{{{ trans('lang.02_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                <div>{{{ trans('lang.03_step') }}}</div>
+                                            </li>
+                                            <li class="wt-done-next"><a
+                                                        href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                <div>{{{ trans('lang.04_step') }}}</div>
+                                            </li>
+                                            <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
+                                        </ul>
 
-                                      <fieldset class="wt-formregisterstart" style="width: 100%;">
-                                        <div class="form-group form-group-half">
+                                        <fieldset class="wt-formregisterstart" style="width: 100%;">
+                                            <div class="form-group form-group-half">
                                           <span class="wt-select">
                                           {!! Form::select('payment_option', $payment_options, null, array('placeholder' => "Select Payment Option", 'v-model'=>'choosen_payment' ,'class' => 'form-group', 'v-bind:class' => '{ "is-invalid": form_step2.payment_option_error }', 'v-on:change' => 'selectedPayment(choosen_payment)')) !!}
                                           </span>
-                                          <input v-if="choosen_payment=='Other'"
-                                          type="text"
-                                          name="payment_option_other"
-                                          class="form-control"
-                                          placeholder="Please specify">
-                                        </div>
-                                      </@>
+                                                <input v-if="choosen_payment=='Other'"
+                                                       type="text"
+                                                       name="payment_option_other"
+                                                       class="form-control"
+                                                       placeholder="Please specify">
+                                            </div>
+                                        </
+                                        @>
 
-                                      <div class="form-group wt-btnarea">
-                                          <a href="#" @click.prevent="prev()" class="wt-btn">{{{ trans('lang.previous') }}}</a>
-                                          <a href="#" class="wt-btn" @click.prevent="submitUser()">{{{ trans('lang.goto_dashboard') }}}</a>
-                                      </div>
+                                        <div class="form-group wt-btnarea">
+                                            <a href="#" @click.prevent="prev()"
+                                               class="wt-btn">{{{ trans('lang.previous') }}}</a>
+                                            <a href="#" class="wt-btn"
+                                               @click.prevent="submitUser()">{{{ trans('lang.goto_dashboard') }}}</a>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -1497,6 +1397,3 @@
         </div>
     </div>
 @endsection
-<style>
-
-</style>

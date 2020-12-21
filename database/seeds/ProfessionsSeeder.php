@@ -14,15 +14,31 @@ class ProfessionsSeeder extends Seeder
      */
     public function run()
     {
-        $professions = config('user-professions.freelancer');
+        $freelancer_professions = config('user-professions.freelancer');
+        $this->seed($freelancer_professions, Role::FREELANCER_ROLE);
 
-        foreach ($professions as $profession) {
-            DB::table('professions')->insert([
-                'title' => $profession,
-                'role_id' => Role::FREELANCER_ROLE,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+        $employer_professions = config('user-professions.employer');
+        $this->seed($employer_professions, Role::EMPLOYER_ROLE);
+
+        $support_professions = config('user-professions.support');
+        $this->seed($support_professions, Role::SUPPORT_ROLE);
+    }
+
+    /**
+     * @param $professions
+     * @param $role
+     */
+    private function seed($professions, $role)
+    {
+        if (!empty($professions)) {
+            foreach ($professions as $profession) {
+                DB::table('professions')->insert([
+                    'title' => $profession,
+                    'role_id' => $role,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
+            }
         }
     }
 }

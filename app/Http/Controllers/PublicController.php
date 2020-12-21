@@ -14,16 +14,13 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Http\Requests\SearchJobsRequest;
 use App\Message;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use App\User;
 use App\Language;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailVerificationMailable;
-use Illuminate\Support\Facades\Validator;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
 use Auth;
@@ -35,22 +32,14 @@ use App\Location;
 use App\Skill;
 use Session;
 use Sage;
-use App\Report;
 use App\Job;
-use App\Proposal;
 use App\EmailTemplate;
 use App\Mail\GeneralEmailMailable;
 use App\Mail\AdminEmailMailable;
 use App\SiteManagement;
 use App\Review;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Pagination\LengthAwarePaginator;
 use App\Payout;
-use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 use App\Service;
 use App\DeliveryTime;
 use App\ResponseTime;
@@ -678,42 +667,25 @@ class PublicController extends Controller
         }
     }
 
+
     /**
-     * Get search result.
+     * Get search results
      *
-     * @param string $search_type search type
-     *
-     * @access public
-     *
-     * @return \Illuminate\Http\Response
+     * @param SearchJobsRequest $request
+     * @param string $search_type
+     * @return mixed
      */
-    public function getSearchResult(Request $request, $search_type = "")
+    public function getSearchResult(SearchJobsRequest $request, $search_type = "")
     {
-        $this->validate($request, [
-            'location' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'radius' => 'nullable|numeric'
-        ]);
-
         $user = auth()->user();
-
-        $categories = array();
-        $locations  = array();
-        $languages  = array();
         $categories = Category::all();
-        $locations  = Location::all();
-        $languages  = Language::all();
-        $skills     = Skill::all();
-        $currency   = SiteManagement::getMetaValue('commision');
-        $symbol     = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
+        $locations = Location::all();
+        $languages = Language::all();
+        $skills = Skill::all();
         $freelancer_skills = Helper::getFreelancerLevelList();
         $project_length = Helper::getJobDurationList();
         $keyword = !empty($_GET['s']) ? $_GET['s'] : '';
         $type = !empty($_GET['type']) ? $_GET['type'] : $search_type;
-
-
-
         $has_access = true;
 
         switch ($type) {
@@ -734,17 +706,6 @@ class PublicController extends Controller
         if (!$has_access) {
           App::abort(403, 'Access Denied');
         }
-
-        // if ($type == 'job') {
-        //     if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services') {
-        //         abort(404);
-        //     }
-        // }
-        // if ($type == 'service') {
-        //     if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs') {
-        //         abort(404);
-        //     }
-        // }
 
         $search_categories = !empty($_GET['category']) ? $_GET['category'] : array();
         $search_locations = !empty($_GET['locations']) ? $_GET['locations'] : array();
@@ -772,6 +733,7 @@ class PublicController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $radius = $request->input('radius');
+        $profession_id = $request->profession_id;
 
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
@@ -801,7 +763,8 @@ class PublicController extends Controller
                     $location,
                     $latitude,
                     $longitude,
-                    $radius
+                    $radius,
+                    $profession_id
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?

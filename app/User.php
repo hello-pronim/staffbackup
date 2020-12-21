@@ -310,6 +310,7 @@ class User extends Authenticatable
                 filter_var($request['last_name'], FILTER_SANITIZE_STRING);
             $this->email = filter_var($request['email'], FILTER_VALIDATE_EMAIL);
             $this->password = Hash::make($request['password']);
+            $this->profession_id = $request->profession_id;
             //passing email verification process
             $this->verification_code = "";//$verification_code;
             $this->user_verified = 1;//0;
@@ -659,6 +660,7 @@ class User extends Authenticatable
      * @param integer $search_freelaner_types search_freelaner_types
      * @param integer $search_english_levels  search_english_levels
      * @param integer $search_languages       search_languages
+     * @param integer $profession
      *
      * @access public
      *
@@ -681,16 +683,12 @@ class User extends Authenticatable
         $location,
         $latitude,
         $longitude,
-        $radius
+        $radius,
+        $profession_id = null
     ) {
-        // TODO: fix access!!!
-        if ($user == null) {
-            return ['users' => []];
-        }
         $json = array();
         $user_id = array();
         $filters = array('type' => $type);
-
         $role = Helper::getAuthRoleName();
 
         $users = User::select('users.*')
@@ -700,6 +698,10 @@ class User extends Authenticatable
             ->where('model_has_roles.model_type', '=', 'App\User')
             ->where('users.id','!=', $user->id)
             ->where('roles.role_type', '=', $type);
+
+            if ($profession_id) {
+                $users->where('profession_id', $profession_id);
+            }
 
             if (!empty($keyword)) {
                 $filters['s'] = $keyword;
@@ -1037,13 +1039,18 @@ class User extends Authenticatable
     /**
      * Returns a list of professions by role
      *
-     * @param string $role
-     *
+     * @param int $role_id
      * @return array
      */
-    public static function getProfessionsByRole (string $role): array
+    public static function getProfessionsByRole (int $role_id): array
     {
-        $professions = config('user-professions');
-        return array_key_exists($role, $professions) ? $professions[$role] : [];
+        return Profession::where('role_id', $role_id)
+            ->pluck('title', 'id')
+            ->toArray();
+    }
+
+    public function profession()
+    {
+        $this->hasOne(Profession::class);
     }
 }

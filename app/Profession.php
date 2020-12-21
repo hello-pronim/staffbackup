@@ -10,4 +10,9 @@ class Profession extends Model
         'title',
         'role_id',
     ];
+
+    public function role()
+    {
+        return $this->hasOne(Role::class);
+    }
 }

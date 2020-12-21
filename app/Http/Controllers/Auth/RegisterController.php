@@ -135,22 +135,6 @@ class RegisterController extends Controller
         session()->put(['password' => $request['password']]);
         if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
             $email_params = array();
-//            $template = DB::table('email_types')->select('id')
-//                ->where('email_type', 'verification_code')->get()->first();
-//            if (!empty($template->id)) {
-//                $template_data = EmailTemplate::getEmailTemplateByID($template->id);
-//                $email_params['verification_code'] = $user->verification_code;
-//                $email_params['name'] = Helper::getUserName($user->id);
-//                $email_params['email'] = $user->email;
-//                Mail::to($user->email)
-//                    ->send(
-//                        new GeneralEmailMailable(
-//                            'verification_code',
-//                            $template_data,
-//                            $email_params
-//                        )
-//                    );
-//            }
             $template = DB::table('email_types')->select('id')
                 ->where('email_type', 'new_user')->get()->first();
             if (!empty($template->id)) {

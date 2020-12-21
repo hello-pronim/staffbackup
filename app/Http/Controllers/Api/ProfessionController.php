@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Profession;
-use Illuminate\Http\Request;
+use App\Repositories\ProfessionRepository;
 use App\Http\Controllers\Controller;
 
 class ProfessionController extends Controller
 {
+    protected $professionRepository;
+
     /**
-     * Get all roles
+     * ProfessionController constructor.
+     * @param ProfessionRepository $professionRepository
+     */
+    public function __construct(ProfessionRepository $professionRepository)
+    {
+        $this->professionRepository = $professionRepository;
+    }
+
+    /**
+     * Get professions by role
      */
     public function index()
     {
-        $roles = Profession::all();
-
-        return response()->json($roles);
+        $professions = $this->professionRepository->getProfessionsByRole();
+        return response()->json($professions);
     }
 }

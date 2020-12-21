@@ -435,6 +435,5 @@ Route::post('addmoney/stripe', array('as' => 'addmoney.stripe', 'uses' => 'Strip
 
 
 Route::get('service/payment-process/{id}', 'ServiceController@employerPaymentProcess');
-Route::get('test', 'TestController@test');
 
 Route::any('contact-us', 'PublicController@contactUs')->name('contactUs');

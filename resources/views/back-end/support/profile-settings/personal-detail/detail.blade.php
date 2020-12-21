@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <span class="wt-select">
-            {!! Form::select('profession', \App\User::getProfessionsByRole('support'), $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
+            {!! Form::select('profession', \App\User::getProfessionsByRole(\App\Role::SUPPORT_ROLE), $user->profession, array('placeholder' => "Profession", "class"=>"form-control")) !!}
             </span>
         </div>
 {{--
