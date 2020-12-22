@@ -338,9 +338,11 @@
                     placeholder="In surance"/>
         </div>
         <div class="form-group ">
+            123
             <input type="text"
                    class="form-control"
                    name="org_name"
+                   @if($user->roles[0]->name == 'employer') readonly @endif
                    value="{{$user->org_name}}"
                    placeholder="Organisation name">
         </div>
