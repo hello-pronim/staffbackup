@@ -338,7 +338,6 @@
                     placeholder="In surance"/>
         </div>
         <div class="form-group ">
-            123
             <input type="text"
                    class="form-control"
                    name="org_name"
