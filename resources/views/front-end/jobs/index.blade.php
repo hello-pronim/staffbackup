@@ -159,6 +159,7 @@
                                 @endif
                                 @if (!empty($jobs) && $jobs->count() > 0)
                                     @foreach ($jobs as $__job)
+
                                         @php
                                             $job = \App\Job::find($__job->id);
                                             $description = strip_tags(stripslashes($job->description));
@@ -219,11 +220,12 @@
                                                         @endforeach
                                                         @endif
                                                     </div>
+                                                    @if($job->project_rates)
+                                                        <div>£ {{ $job->project_rates }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="wt-viewjobholder">
                                                     <ul>
-
-
                                                         @if($job->employer->itsoftware != "")
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
@@ -242,19 +244,9 @@
                                                         @if (!empty($job->location->title))
                                                             <li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>
                                                         @endif
-{{--
-                                                        <li><span><i class="far fa-clock wt-viewjobclock"></i>{{{ Helper::getJobDurationList($job->duration)}}}</span></li>
---}}
                                                         <li><span><i class="fa fa-tag wt-viewjobtag"></i>{{{ trans('lang.job_id') }}} {{{$job->code}}}</span></li>
                                                         @if (!empty($user->profile->saved_jobs) && in_array($job->id, unserialize($user->profile->saved_jobs)))
                                                             <li style=pointer-events:none;><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> {{trans("lang.saved")}}</a></li>
-                                                        @else
-                                                            {{--<li>--}}
-                                                                {{--<a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>--}}
-                                                                    {{--<i class="fa fa-heart"></i>--}}
-                                                                    {{--<span class="save_text">{{ trans('lang.click_to_save') }}</span>--}}
-                                                                {{--</a>--}}
-                                                            {{--</li>--}}
                                                         @endif
                                                         <li class="wt-btnarea"><a href="{{url('job/'.$job->slug)}}" class="wt-btn">{{{ trans('lang.view_job') }}}</a></li>
                                                     </ul>

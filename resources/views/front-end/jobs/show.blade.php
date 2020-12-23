@@ -56,38 +56,33 @@
                                             @if (!empty($job->title))
                                                 <h2>{{{ $job->title }}}</h2>
                                             @endif
-                                            @if (
-                                                !empty($job->professional_level) ||
-                                                !empty($location['title'])  ||
-                                                !empty($job->price) ||
-                                                !empty($job->duration)
-                                                )
-                                                {{--<ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">--}}
-                                                    {{--@if (!empty($job->project_level))--}}
-                                                        {{--<li><span><i class="fa fa-pound-sign wt-viewjobdollar"></i> {{{Helper::getProjectLevel($job->project_level)}}}</span></li>--}}
-                                                    {{--@endif--}}
-                                                    {{--@if (!empty($job->location->title))--}}
-                                                        {{--<li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>--}}
-                                                    {{--@endif--}}
-                                                    {{--@if (!empty($job->project_type))--}}
-                                                        {{--<li><span class="wt-clicksavefolder"><i class="far fa-folder wt-viewjobfolder"></i> {{ trans('lang.type') }} {{{$project_type}}}</span></li>--}}
-                                                    {{--@endif--}}
-                                                    {{--@if (!empty($job->duration))--}}
-                                                        {{--<li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>--}}
-                                                    {{--@endif--}}
-                                                        {{--@if($job->employer->itsoftware != "")--}}
-                                                            {{--<li><span class="wt-dashboradclock"><i class="far fa-user"></i> {{$job->employer->itsoftware}}</span></li>--}}
 
-                                                        {{--@endif--}}
-                                                    {{-- @if (!empty($job->price))--}}
-                                                        {{--<li>--}}
-                                                            {{--<span>--}}
-                                                                {{--<i class="wt-budget">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->price }}}--}}
-                                                            {{--</span>--}}
-                                                        {{--</li>--}}
-                                                    {{--@endif --}}
-                                                {{--</ul>--}}
-                                            @endif
+                                            <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
+                                                {{--@if (!empty($job->project_level))--}}
+                                                    {{--<li><span><i class="fa fa-pound-sign wt-viewjobdollar"></i> {{{Helper::getProjectLevel($job->project_level)}}}</span></li>--}}
+                                                {{--@endif--}}
+                                                {{--@if (!empty($job->location->title))--}}
+                                                    {{--<li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>--}}
+                                                {{--@endif--}}
+                                                {{--@if (!empty($job->project_type))--}}
+                                                    {{--<li><span class="wt-clicksavefolder"><i class="far fa-folder wt-viewjobfolder"></i> {{ trans('lang.type') }} {{{$project_type}}}</span></li>--}}
+                                                {{--@endif--}}
+                                                {{--@if (!empty($job->duration))--}}
+                                                    {{--<li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>--}}
+                                                {{--@endif--}}
+                                                    {{--@if($job->employer->itsoftware != "")--}}
+                                                        {{--<li><span class="wt-dashboradclock"><i class="far fa-user"></i> {{$job->employer->itsoftware}}</span></li>--}}
+
+                                                    {{--@endif--}}
+                                                 @if ($job->project_rates)
+                                                    <li>
+                                                        <span>
+                                                            <i class="wt-budget">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates }}}
+                                                        </span>
+                                                    </li>
+                                                @endif
+                                            </ul>
+
                                         </div>
                                     @endif
                                     <div class="wt-btnarea"><a href="javascript:void(0);" @click.prevent="check_auth('{{ $job->slug }}')" class="wt-btn">{{{ trans('lang.send_propsal') }}}</a></div>

@@ -238,7 +238,10 @@
                                         </div>
 
                                         <div class="form-group form-group-half">
-                                            {!! Form::text('project_rates', $job->project_rates, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0')) !!}
+                                            <div class="left-inner-addon">
+                                                <span>£</span>
+                                                {!! Form::text('project_rates', $job->project_rates, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0')) !!}
+                                            </div>
                                         </div>
                                     </fieldset>
                                 </div>

@@ -200,6 +200,7 @@ class JobController extends Controller
             $english_levels = Helper::getEnglishLevelList();
             //$job_duration = Helper::getJobDurationList();
             $freelancer_level_list = Helper::getFreelancerLevelList();
+
             $jobEvents = CalendarEvent::where('job_id',$job->id)->get()->toArray();
             $attachments = !empty($job->attachments) ? unserialize($job->attachments) : '';
             $firstJob = CalendarEvent::where('job_id',$job->id)->first();
@@ -572,15 +573,6 @@ class JobController extends Controller
         $user = auth()->user();
 
         $job_query = Job::select('jobs.*')->where('slug', '=', $slug);
-
-        // if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-        //     if (in_array('freelancer', $user->getRoleNames()->toArray())) {
-        //         $distance = Job::distanceQuery($user);
-        //         $job_query->addSelect(DB::raw('(' . $distance . ') AS distance'));
-        //         $job_query->whereRaw(DB::raw('(' . $distance . '<=jobs.radius)'));
-        //     }
-        // }
-
         $job = $job_query->firstOrFail();
 
         if ($job->user_id != $user->id && !$user->hasRole(['freelancer', 'support'])){
@@ -606,7 +598,6 @@ class JobController extends Controller
             $user = $profile->user;
             $job->skills = (!empty($job->skills))?unserialize($job->skills):"";
             $skills = Skill::all();
-
 
             $job_calendar_event = null;
             if ($job->employer->calendars()->exists()) {

@@ -172,6 +172,7 @@
                                         $job->skills = '';//($job->skills != "")?unserialize($job->skills):"";
 
                                     @endphp
+
                                         <div class="wt-userlistinghold wt-userlistingholdvtwo {{$featured_class}}" >
                                             @if ($job->is_featured == 'true')
                                                 <span class="wt-featuredtag"><img src="{{{ asset('images/featured.png') }}}" alt="{{{ trans('lang.is_featured') }}}" data-tipso="Plus Member" class="template-content tipso_style"></span>
@@ -200,7 +201,16 @@
                                                 </div>
                                                 <div class="wt-viewjobholder">
                                                     <ul>
-                                                        <li><span><i class="wt-viewjobdollar">{{ !empty($symbol) ? $symbol['symbol'] : '£' }}</i>{{{$job->price}}}</span></li>
+                                                        @if($job->project_rates)
+                                                            <li>
+                                                                <span>
+                                                                    <i class="wt-viewjobdollar">
+                                                                        {{ !empty($symbol) ? $symbol['symbol'] : '£' }}
+                                                                    </i>
+                                                                    {{{$job->project_rates}}}
+                                                                </span>
+                                                            </li>
+                                                        @endif
                                                         @if (!empty($job->location->title))
                                                             <li><span><img src="{{{asset(App\Helper::getLocationFlag($job->location->flag))}}}" alt="{{{ trans('lang.location') }}}"> {{{ $job->location->title }}}</span></li>
                                                         @endif
