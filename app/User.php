@@ -310,7 +310,7 @@ class User extends Authenticatable
                 filter_var($request['last_name'], FILTER_SANITIZE_STRING);
             $this->email = filter_var($request['email'], FILTER_VALIDATE_EMAIL);
             $this->password = Hash::make($request['password']);
-            $this->profession_id = $request->profession_id;
+            $this->profession_id = $request['profession_id'] ?? null;
             //passing email verification process
             $this->verification_code = "";//$verification_code;
             $this->user_verified = 1;//0;

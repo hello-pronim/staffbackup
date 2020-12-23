@@ -7231,15 +7231,15 @@ $(document).ready(function () {
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
 
-   $('.ratePicker').on('change', function () {
-        console.log('ratePicker')
-        if (!isNaN($(this).val())) {
-            $(this).val('£ ' + parseFloat($(this).val()));
-        }
-        else {
-            $(this).val('');
-        }
-    })
+   // $('.ratePicker').on('change', function () {
+   //      console.log('ratePicker')
+   //      if (!isNaN($(this).val())) {
+   //          $(this).val('£ ' + parseFloat($(this).val()));
+   //      }
+   //      else {
+   //          $(this).val('');
+   //      }
+   //  })
 });
 
 function validate_practice_code(e) {

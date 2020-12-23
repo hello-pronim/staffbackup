@@ -60,17 +60,6 @@
             </div>
                 <div id="post_job_dashboard" class="post_job_dashboard-wrapper">
                     <div class="dashboard-vuecal-wrapper dashboard-vuecal-wrapper-employer">
-                        {{--<vue-cal ref="vuecal"--}}
-                                 {{--:time-from="0 * 60"--}}
-                                 {{--:time-to="24 * 60"--}}
-                                 {{--:disable-views="['years', 'year', 'week', 'day']"--}}
-                                 {{--default-view="month"--}}
-                                 {{--events-on-month-view="short"--}}
-                                 {{--:events="events"--}}
-                                 {{--:on-event-click="onEventClick"--}}
-                                 {{--@cell-click="changeSelectedDate"--}}
-                        {{-->--}}
-                        {{--</vue-cal>--}}
                     </div>
                     <div  class="scrolToCalend">
                         <div class="wt-tabscontent tab-content">
@@ -139,8 +128,6 @@
                                         </div>
                                         <button type="button" class="wt-btn" v-if="event_id == ''" v-on:click="createList" v-if="addDay!=6" id="addDay">add day</button>
                                     </div>
-
-
                                     <div class="form-group form-group-half">
                                         <div class="wt-tabscontenttitle">
                                             <h2>Start Time</h2>
@@ -161,7 +148,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group" v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle" style="height: 40px;">
                                             <div class="float-left">
@@ -184,8 +170,6 @@
                                     </span>
                                         </div>
                                     </div>
-
-
                                     <div class="wt-jobdescription wt-tabsinfo" v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>Other Appointment</h2>
@@ -199,7 +183,6 @@
                                                    name="job_appo_slot_times[]">
                                         </div>
                                     </div>
-
                                     <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
                                         <div class="form-group form-group-half">
                                             {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
@@ -213,7 +196,6 @@
                                                    name="job_adm_catch_time_interval[]">
                                         </div>
                                     </div>
-
                                     <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
                                         <div class="form-group form-group-half">
                                             {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
@@ -223,7 +205,6 @@
                                             {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits",'v-model'=>'home_visits')) !!}
                                         </div>
                                     </div>
-
                                     <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>{{ trans('lang.skills_req') }}</h2>
@@ -232,7 +213,6 @@
                                             <job_skills :placeholder="'select professions'"></job_skills>
                                         </div>
                                     </div>
-
                                     <div class="wt-jobdescription wt-tabsinfo">
                                         <div class="wt-tabscontenttitle">
                                             <h2>{{ trans('lang.job_title') }}</h2>
@@ -250,12 +230,6 @@
                                                 <div class="form-group form-group-half"  v-if="event_id == ''">
                                                     {!! Form::text('project_rates', null, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0')) !!}
                                                 </div>
-
-                                                {{--<div class="form-group form-group-half wt-formwithlabel job-rates-input">--}}
-                                                {{--<span class="wt-select">--}}
-                                                {{--{!! Form::select('project_rates_type', array('Per hour'=>'Per hour', 'Per day'=>'Per day', 'Per Month'=> 'Per Month'), array('class' => 'form-control', 'placeholder' => trans('lang.project_rates_type'))) !!}--}}
-                                                {{--</span>--}}
-                                                {{--</div>--}}
                                             </fieldset>
                                         </div>
                                         <div class="wt-formtheme wt-userform wt-userformvtwo calendarbookingform" style=" display: none;" @click.prevent="preventClick">
@@ -267,11 +241,8 @@
                                                 <label>Booking description</label>
                                                 {!! Form::textarea('booking_content', null, ['placeholder' => 'Booking description' , 'v-model'=>'booking_content']) !!}
                                             </div>
-                                            {{--<button @click="setBooking" class="wt-btn" style="margin-top: 25px;">See booking in calendar</button>--}}
-
                                         </div>
                                     </div>
-
                                     <div class="wt-jobcategories wt-tabsinfo"  v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>Direct Bookings</h2>
@@ -303,156 +274,7 @@
                                         </div>
 
 
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--{!! Form::text('emp_contact', $user->emp_contact, ['class' =>'form-control', 'placeholder' => trans('lang.emp_contact')] ) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--{!! Form::tel('emp_telno', $user->emp_telno, ['class' =>'form-control', 'placeholder' => trans('lang.emp_telno')] ) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--{!! Form::url('emp_pos', $user->emp_pos, ['class' =>'form-control', 'placeholder' => 'Position'] ) !!}--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--{!! Form::email('emp_email', $user->emp_email, ['class' =>'form-control', 'placeholder' => 'Email'] ) !!}--}}
-                                        {{--</div>--}}
-
-                                        {{--<div class="form-group ">--}}
-                                        {{--<input type="text" class="form-control" name="org_name" value="{{$user->emp_contact}}" placeholder="Organisation name">--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--<input id="organisation_position" type="text" class="form-control" name="organisation_position" value="{{$user->emp_pos}}" placeholder="Position">--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--<input id="organisation_email" type="email" class="form-control" name="organisation_email" value="{{$user->emp_email}}" placeholder="Email">--}}
-                                        {{--</div>--}}
-                                        {{--<div class="form-group form-group-half">--}}
-                                        {{--<input id="organisation_contact" type="text" class="form-control" name="organisation_contact" value="{{$user->emp_telno}}" placeholder="Direct Contact No">--}}
-                                        {{--</div>--}}
-
                                     </div>
-
-                                    {{--<div class="wt-jobcategories wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.job_cats') }}</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-divtheme wt-userform wt-userformvtwo">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<span class="wt-select">--}}
-                                    {{--{!! Form::select('categories[]', $categories, null, array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_job_cats'))) !!}--}}
-                                    {{--</span>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-languages-holder wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.langs') }}</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-divtheme wt-userform wt-userformvtwo">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<span class="wt-select">--}}
-                                    {{--{!! Form::select('languages[]', $languages, null, array('class' => 'chosen-select', 'multiple', 'data-placeholder' => trans('lang.select_lang'))) !!}--}}
-                                    {{--</span>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
-                                    {{--<div class="wt-jobdetails wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>Calendar Booking</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-tabscontenttitle" style="margin-top: 20px; ">--}}
-                                    {{--<h2>--}}
-                                    {{--Green equals free this day<br>--}}
-                                    {{--Blue equals booking on this day<br>--}}
-                                    {{--Red equals away on holiday<br>--}}
-                                    {{--</h2>--}}
-                                    {{--</div>--}}
-
-                                    {{--</div>--}}
-                                    {{--<div class="wt-jobdetails wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.job_dtl') }}</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-formtheme wt-userform wt-userformvtwo">--}}
-                                    {{--{!! Form::textarea('description', null, ['class' => 'wt-tinymceeditor', 'id' => 'wt-tinymceeditor', 'placeholder' => trans('lang.job_dtl_note'), 'v-model'=>'description']) !!}--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<label for="hourly_rate_desc">Please enter--}}
-                                    {{--additional information in the--}}
-                                    {{--communication box if required</label>--}}
-                                    {{--<input id="hourly_rate_desc" type="text"--}}
-                                    {{--class="form-control"--}}
-                                    {{--name="hourly_rate_desc"--}}
-                                    {{--value="{{ $user->profile->hourly_rate_desc }}"--}}
-                                    {{--placeholder="Additional info">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-jobskills wt-jobskills-holder wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.skills_req') }}</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<job_skills :placeholder="'skills already selected'"></job_skills>--}}
-                                    {{--</div>--}}
-
-                                    {{--<div class="wt-joblocation wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.your_loc') }}</h2>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-formtheme wt-userform">--}}
-                                    {{--<div class="wt-tabsinfo">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<input type="text" name="radius" class="form-control" placeholder="Radius" />--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group form-group-half">--}}
-                                    {{--<span class="wt-select">--}}
-                                    {{--{!! Form::select('locations', $locations, null, array('class' => 'skill-dynamic-field', 'placeholder' => trans('lang.select_locations'))) !!}--}}
-                                    {{--</span>--}}
-                                    {{--</div>--}}
-                                    {{--<location-selector></location-selector>--}}
-
-
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-featuredholder wt-tabsinfo">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.is_featured') }}</h2>--}}
-                                    {{--<div class="wt-rightarea">--}}
-                                    {{--<div class="wt-on-off float-right">--}}
-                                    {{--<switch_button v-model="is_featured">{{{ trans('lang.is_featured') }}}</switch_button>--}}
-                                    {{--<input type="hidden" :value="is_featured" name="is_featured">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="wt-attachmentsholder">--}}
-                                    {{--<div class="lara-attachment-files">--}}
-                                    {{--<div class="wt-tabscontenttitle">--}}
-                                    {{--<h2>{{ trans('lang.attachments') }}</h2>--}}
-                                    {{--<div class="wt-rightarea">--}}
-                                    {{--<div class="wt-on-off float-right">--}}
-                                    {{--<switch_button v-model="show_attachments">{{{ trans('lang.attachments_note') }}}</switch_button>--}}
-                                    {{--<input type="hidden" :value="show_attachments" name="show_attachments">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<job_attachments :temp_url="'{{url('job/upload-temp-image')}}'"></job_attachments>--}}
-                                    {{--<div class="form-group input-preview">--}}
-                                    {{--<ul class="wt-attachfile dropzone-previews">--}}
-
-                                    {{--</ul>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
-                                    {{--</div>--}}
-
-
-
-                                    {{--</div>--}}
-
-
-
-
                                 </div>
                                 <div class="wt-updatall"   v-if="event_id != ''">
                                     <input type="hidden" name="recurring_date" v-if="event_id" v-model="recurring_date">
@@ -470,14 +292,11 @@
                                     {!! Form::submit(trans('lang.post_job'), ['class' => 'wt-btn', 'id'=>'submit-profile']) !!}
 
                                 </div>
-
-
                             </div>
                             {!! form::close(); !!}
                         </div>
                     </div>
                 </div>
-
         </div>
     </div>
     </section>
