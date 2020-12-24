@@ -318,6 +318,7 @@ if (document.getElementById("support_availability")) {
                     self.events.splice(0);
                 }
 
+
                 response.data.forEach(item => {
                     if (item.end !== null && item.start !== null) {
                         self.events.push(item);
@@ -687,8 +688,6 @@ if (document.getElementById("freelancer_availability")) {
 
                 if (response && Array.isArray(response.data)) {
                     response.data.forEach(item => {
-                        item.end = self.convertDateForFormatCalendar(item.end);
-                        item.start = self.convertDateForFormatCalendar(item.start);
                         if (item.end !== null && item.start !== null) {
                             self.events.push(item);
                         }
