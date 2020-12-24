@@ -1035,16 +1035,9 @@ class SupportController extends Controller
     public function getCalendarEvents()
     {
         $arrEvents = DB::table('calendar_events')
-            ->where('user_id','=',Auth::user()->id)
+            ->where('user_id', auth()->id())
             ->get()->all();
 
-        if(count($arrEvents))
-        {
-            return $arrEvents;
-
-        }
-        else{
-            return 'false';
-        }
+        return $arrEvents ?? [];
     }
 }

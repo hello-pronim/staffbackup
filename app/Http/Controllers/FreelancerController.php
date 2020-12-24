@@ -1204,12 +1204,6 @@ class FreelancerController extends Controller
             ->where('user_id','=',Auth::user()->id)
             ->get()->all();
 
-        if(count($arrEvents))
-        {
-            return $arrEvents;
-        }
-        else{
-            return [];
-        }
+        return $arrEvents ?? [];
     }
 }

@@ -29,21 +29,15 @@
                     <div class="newBoxStyle">
                         <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a></div>
                         <div class="secondhalf">{{$lastest_proposals}}</div>
-                        {{--   <a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                     </div>
                     <div class="newBoxStyle">
                         <div class="firsthalf"><a href="{{{ route('message') }}}">{{ trans('lang.new_msgs') }}</a></div>
                         <div class="secondhalf">{{$message_status}}</div>
-                        {{--                            <a href="{{ url('message-center') }}">{{ trans('lang.click_view') }}</a>--}}
-
                     </div>
-
                     <div class="newBoxStyle">
                         <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">Applications</a></div>
                         <div class="secondhalf">{{$applications}}</div>
-                        {{--   <a href="{{{ url('employer/dashboard/manage-jobs') }}}">{{ trans('lang.click_view') }}</a>--}}
                     </div>
-
                 </div>
             </div>
 
@@ -274,7 +268,13 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                     <span class="wt-select">
-                                        <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="availability_selected_date"></date-picker>
+                                        <date-picker
+                                                :config="{format: 'DD-MM-YYYY'}"
+                                                class="form-control"
+                                                name="start_date[0]"
+                                                placeholder="{{ trans('lang.start_date') }}"
+                                                v-model="start_date">
+                                        </date-picker>
                                     </span>
                                             </div>
                                         </div>
@@ -283,7 +283,13 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                                 <span class="wt-select">
-                                                    <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="availability_selected_end_date"></date-picker>
+                                                    <date-picker
+                                                            :config="{format: 'DD-MM-YYYY'}"
+                                                            class="form-control"
+                                                            name="end_date[0]"
+                                                            placeholder="{{ trans('lang.end_date') }}"
+                                                            v-model="start_date">
+                                                    </date-picker>
                                                 </span>
                                             </div>
                                         </div>
@@ -294,7 +300,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
@@ -303,7 +309,7 @@
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
                                         <span class="wt-select">
-                                            <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
+                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
                                         </span>
                                             </div>
                                         </div>
@@ -352,8 +358,8 @@
                                 </div>
 
                                 <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
-                                    <span class="wt-select">
-                                    <date-picker :config="{format: 'YYYY-MM-DD'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
+                                    <span class="wt-select">11111
+                                    <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
                                     </span>
                                 </div>
                             </div>

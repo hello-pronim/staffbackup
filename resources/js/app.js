@@ -260,6 +260,7 @@ if (document.getElementById("support_availability")) {
         el: '#support_availability',
         components: {'vue-cal': vuecal, VueTimepicker},
         data: {
+            start_date: "",
             calendarPlugins: [],
             events: [],
             availability_title: "",
@@ -310,23 +311,18 @@ if (document.getElementById("support_availability")) {
                 }
             },
         },
-        created() {
-            var events = [];
+        mounted() {
             let self = this;
-            axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+            axios.get('/' + role + '/getCalendarEvents').then(response => {
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
 
-                if (response && Array.isArray(response.data)) {
-                    response.data.forEach(item => {
-                        item.end = self.convertDateForFormatCalendar(item.end);
-                        item.start = self.convertDateForFormatCalendar(item.start);
-                        if (item.end !== null && item.start !== null) {
-                            self.events.push(item);
-                        }
-                    });
-                }
+                response.data.forEach(item => {
+                    if (item.end !== null && item.start !== null) {
+                        self.events.push(item);
+                    }
+                });
             });
         },
 
@@ -432,6 +428,7 @@ if (document.getElementById("support_availability")) {
             createNewEvent(event) {
                 console.log('createNewEvent');
                 console.log(event);
+                this.start_date = moment(event).format('DD-MM-YYYY');
 
                 if (this.selectedEvent) {
                     event = this.selectedEvent;
@@ -439,8 +436,6 @@ if (document.getElementById("support_availability")) {
                     var enddate = event.end.split(' ');
                     this.clickedDate = true;
                     this.clickedEndDate = "";
-                    // var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
-                    // var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
                     this.availability_selected_date = startdate[0];
                     this.availability_selected_end_date = enddate[0];
                     this.start = this.availability_start_time = startdate[1];
@@ -631,6 +626,7 @@ if (document.getElementById("freelancer_availability")) {
         el: '#freelancer_availability',
         components: {'vue-cal': vuecal, VueTimepicker},
         data: {
+            start_date: "",
             calendarPlugins: [],
             events: [],
             availability_title: "",
@@ -803,6 +799,7 @@ if (document.getElementById("freelancer_availability")) {
             createNewEvent(event) {
                 console.log('createNewEvent');
                 console.log(event);
+                this.start_date = moment(event).format('DD-MM-YYYY');
 
                 if (this.selectedEvent) {
                     event = this.selectedEvent;
@@ -810,8 +807,6 @@ if (document.getElementById("freelancer_availability")) {
                     var enddate = event.end.split(' ');
                     this.clickedDate = true;
                     this.clickedEndDate = "";
-                    // var formatdatestart = moment(startdate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
-                    // var formatdateend = moment(enddate[0], 'YYYY-MM-DD').format('DD-MM-YYYY');
                     this.availability_selected_date = startdate[0];
                     this.availability_selected_end_date = enddate[0];
                     this.start = this.availability_start_time = startdate[1];

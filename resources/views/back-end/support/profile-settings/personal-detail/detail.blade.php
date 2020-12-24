@@ -41,7 +41,10 @@
 		</div>
 --}}
         <div class="form-group form-group-half">
-            {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+            <div class="left-inner-addon">
+                <span>£</span>
+                {!! Form::text( 'hourly_rate', e($hourly_rate), ['class' =>'form-control', 'placeholder' => trans('lang.ph_service_hoyrly_rate')] ) !!}
+            </div>
         </div>
 
 
