@@ -358,7 +358,7 @@
                                 </div>
 
                                 <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
-                                    <span class="wt-select">11111
+                                    <span class="wt-select">
                                     <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value="" v-model="recurring_end_date"></date-picker>
                                     </span>
                                 </div>
