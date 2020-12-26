@@ -264,6 +264,42 @@
                                                         @if (!empty($freelancer->profile->tagline))
                                                             <h2><a href="{{{ url('profile/'.$freelancer->slug) }}}">{{{ $freelancer->profile->tagline }}}</a></h2>
                                                         @endif
+                                                        <h5>Availability</h5>
+                                                        @php
+                                                            $dates = [];
+                                                            $singleDates = [];
+
+                                                            foreach($freelancer->calendars as $calendar) {
+                                                                $dates[$calendar->created_at->timestamp][] = $calendar;
+                                                            }
+
+                                                            foreach($dates as $date) {
+                                                                if(count($date) > 1) {
+                                                                    echo $date[0]->recurring_date . 'ly ';
+                                                                    if ($date[0]->recurring_date != 'day') {
+                                                                        echo '(' . $date[0]->start->format('l') . ')';
+                                                                    }
+                                                                    echo '<br>from: ' . $date[0]->start->format('d-m-yy');
+                                                                    echo ' to: ' . end($date)->end->format('d-m-yy') . '<br>';
+                                                                    echo '<br>';
+                                                                } else {
+                                                                    $singleDates[] = $date[0];
+                                                                }
+                                                            }
+
+                                                            if(count($singleDates)) {
+                                                                echo 'single dates: <br>';
+
+                                                                $singleDatesCounter = count($singleDates);
+                                                                foreach($singleDates as $k => $date) {
+                                                                    echo $date->start->format('d-m-yy');
+                                                                    if($singleDatesCounter > 1 && ($k != $singleDatesCounter - 1 )) {
+                                                                        echo ', ';
+                                                                    }
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        <hr>
                                                     </div>
                                                     <ul class="wt-userlisting-breadcrumb">
                                                         @if (!empty($freelancer->profile->hourly_rate))
