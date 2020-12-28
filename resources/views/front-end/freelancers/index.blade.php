@@ -275,7 +275,15 @@
 
                                                             foreach($dates as $date) {
                                                                 if(count($date) > 1) {
-                                                                    echo $date[0]->recurring_date . 'ly ';
+
+                                                                    if($date[0]->recurring_date == 'day') {
+                                                                        echo 'Daily ';
+                                                                    } else if($date[0]->recurring_date == 'week') {
+                                                                        echo 'Weekly ';
+                                                                    } else if($date[0]->recurring_date == 'year') {
+                                                                        echo 'Yearly ';
+                                                                    }
+
                                                                     if ($date[0]->recurring_date != 'day') {
                                                                         echo '(' . $date[0]->start->format('l') . ')';
                                                                     }
@@ -337,17 +345,18 @@
                                                             {{--</li>--}}
                                                         @endif
                                                     </ul>
+                                                    @if (!empty($freelancer->profile->description))
+                                                        <div class="wt-description" style="padding-top: 40px">
+                                                            <p>{{{ str_limit($freelancer->profile->description, 180) }}}</p>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="wt-rightarea">
                                                     <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
                                                     <span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub> <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
                                                 </div>
                                             </div>
-                                            @if (!empty($freelancer->profile->description))
-                                                <div class="wt-description">
-                                                    <p>{{{ str_limit($freelancer->profile->description, 180) }}}</p>
-                                                </div>
-                                            @endif
+
                                             @if (!empty($freelancer->skills))
                                                 <div class="wt-tag wt-widgettag">
                                                     @foreach($freelancer->skills as $skill)
