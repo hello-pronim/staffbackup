@@ -1356,7 +1356,7 @@ var page = document.getElementById("searchHomePage");
 if (page) {
     const searchHomePage = new Vue({
         el: '#searchHomePage',
-        components: {'vue-cal': vuecal, Multiselect},
+        components: {'vue-cal': vuecal, Multiselect, VueTimepicker},
         mounted: function () {
             if (this.$refs['radius']) {
                 this.radius = this.$refs['radius'].attributes['data-value'].value;
@@ -1378,6 +1378,8 @@ if (page) {
             search_type: (page.attributes['attr-type'] ? page.attributes['attr-type'].value : "freelancer"),
             radius: '',
             profession_id: '',
+            showTimePicker: false,
+            selectedTime: null,
         },
         methods: {
             changeSearchType(type) {
@@ -1422,6 +1424,11 @@ if (page) {
 
                 if (this.selectedDate != '') {
                     url += '&' + (this.search_type == 'freelancer' ? 'avail_date' : 'start_date') + '=' + this.selectedDate;
+                }
+
+                if (this.selectedTime) {
+                    url += '&hours=' + this.selectedTime.HH;
+                    url += '&minutes=' + this.selectedTime.mm;
                 }
 
                 window.location.replace(url);

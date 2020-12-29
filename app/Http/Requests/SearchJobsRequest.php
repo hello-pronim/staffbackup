@@ -28,7 +28,9 @@ class SearchJobsRequest extends FormRequest
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'radius' => 'nullable|numeric',
-            'profession_id' => 'integer'
+            'profession_id' => 'integer',
+            'hours' => 'numeric',
+            'minutes' => 'numeric'
         ];
     }
 }

@@ -10958,6 +10958,16 @@ body #searchHomePage {
   box-shadow: 6px 13px 25px -10px #949494;
 }
 
+body #searchHomePage .timepicker {
+  display: inline;
+}
+
+body #searchHomePage .timepicker input.display-time {
+  border: none !important;
+  font-size: 12px !important;
+  height: 50px;
+}
+
 .header-main-footer-wrapper .main-wrapper {
   overflow: auto;
   padding-bottom: 270px;

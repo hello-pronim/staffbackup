@@ -98,11 +98,13 @@
 
                                 <div class="filters">
                                     <div>DATE</div>
-                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt=""><input type="text"
-                                                                                                       name=""
-                                                                                                       v-model="selectedDate"
-                                                                                                       placeholder="Date..."
-                                                                                                       class="selectDatePicker">
+                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                                        <input type="text"
+                                           name=""
+                                           v-model="selectedDate"
+                                           placeholder="Date..."
+                                           class="selectDatePicker"
+                                        />
                                         <vue-cal id="calendar_small"
                                                  style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                                  class=" vuecal--green-theme"
@@ -117,6 +119,20 @@
                                         </vue-cal>
                                     </div>
                                 </div>
+
+                                <div class="filters">
+                                    <div>TIME</div>
+                                    <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                                        <vue-timepicker
+                                            name="time"
+                                            format="HH:mm"
+                                            v-model="selectedTime"
+                                            class="timepicker"
+                                        >
+                                        </vue-timepicker>
+                                    </div>
+                                </div>
+
                                 <div class="filters" style="border-right:none">
                                     <div>RATE</div>
                                     <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"

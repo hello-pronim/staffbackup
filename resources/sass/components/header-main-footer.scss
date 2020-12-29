@@ -25,7 +25,16 @@ body .wt-userlogedin {
 
 body #searchHomePage {
   box-shadow: 6px 13px 25px -10px rgba(148, 148, 148, 1);
+    .timepicker {
+      display: inline;
+      input.display-time {
+        border: none !important;
+        font-size: 12px !important;
+        height: 50px;
+      }
+    }
 }
+
 
 
 .header-main-footer-wrapper {
