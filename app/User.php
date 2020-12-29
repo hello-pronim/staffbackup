@@ -661,6 +661,7 @@ class User extends Authenticatable
      * @param integer $search_english_levels  search_english_levels
      * @param integer $search_languages       search_languages
      * @param integer $profession
+     * @param bool $only_date
      *
      * @access public
      *
@@ -684,7 +685,8 @@ class User extends Authenticatable
         $latitude,
         $longitude,
         $radius,
-        $profession_id = null
+        $profession_id = null,
+        $only_date
     ) {
         $json = array();
         $user_id = array();
@@ -819,13 +821,24 @@ class User extends Authenticatable
                     $users->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
                 }
             }
-
-            if(!empty($avail_date))
-            {
+        
+            if($avail_date) {
                 $events = DB::table('calendar_events')
-                    ->where('class', '=', 'available_class')
-                ->where('start', 'like', '%'.$avail_date.'%')
-                ->where('end', 'like', '%'.$avail_date.'%')->get()->toArray();
+                    ->where('class', '=', 'available_class');
+
+                if ($only_date) {
+                    $events
+                        ->whereDate('start', '<=', $avail_date)
+                        ->whereDate('end', '>=', $avail_date);
+                } else {
+                    $events
+                        ->where('start', '<', $avail_date)
+                        ->where('end', '>', $avail_date);
+                }
+            }
+            
+             $events = $events->get()->toArray();
+               
                 if(!empty($events))
                 {
                     $user_id = array();
@@ -836,7 +849,8 @@ class User extends Authenticatable
                     $users->whereIn('users.id', $user_id);
 
                 }
-            }
+            
+            
 
         if ($type = 'freelancer' && ($role == 'Professional' || $role == 'Personal') ) {
             $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');

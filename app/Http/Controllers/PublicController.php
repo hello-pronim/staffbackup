@@ -677,7 +677,6 @@ class PublicController extends Controller
      */
     public function getSearchResult(SearchJobsRequest $request, $search_type = "")
     {
-        //dd($request->all());
         $user = auth()->user();
         $categories = Category::all();
         $locations = Location::all();
@@ -735,17 +734,27 @@ class PublicController extends Controller
         $longitude = $request->input('longitude');
         $radius = $request->input('radius');
         $profession_id = $request->profession_id;
+        $only_date = true;
+        
+        //dd($request->all());
+        
+        if($request->hours) {
+            $only_date = false;
+            $avail_date = $request->avail_date . ' ' . $request->hours . ':' . $request->minutes . ':00';
+            $avail_date = Carbon::createFromFormat('d/m/Y h:i:s', $avail_date)->format('Y-m-d h:i:s');
+        } else {
+            $avail_date = $request->avail_date;
+            $avail_date = Carbon::createFromFormat('d/m/Y', $avail_date)->format('Y-m-d');
+        }
+        
+//        $avail_date = $request->avail_date . ;
+        
+        //dd($avail_date);
 
 
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
                 $skill = '';
-                $avail_date = '';
-
-                if(isset($_GET['start_date']) && !empty($_GET['start_date']))
-                {
-                    $avail_date = $_GET['start_date'];
-                }
 
                 $users_total_records = User::count();
                 $search =  User::getSearchResult(
@@ -766,7 +775,8 @@ class PublicController extends Controller
                     $latitude,
                     $longitude,
                     $radius,
-                    $profession_id
+                    $profession_id,
+                    $only_date
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
