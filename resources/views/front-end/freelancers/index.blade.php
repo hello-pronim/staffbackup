@@ -264,6 +264,50 @@
                                                         @if (!empty($freelancer->profile->tagline))
                                                             <h2><a href="{{{ url('profile/'.$freelancer->slug) }}}">{{{ $freelancer->profile->tagline }}}</a></h2>
                                                         @endif
+                                                        <h5>Availability</h5>
+                                                        @php
+                                                            $dates = [];
+                                                            $singleDates = [];
+
+                                                            foreach($freelancer->calendars as $calendar) {
+                                                                $dates[$calendar->created_at->timestamp][] = $calendar;
+                                                            }
+
+                                                            foreach($dates as $date) {
+                                                                if(count($date) > 1) {
+
+                                                                    if($date[0]->recurring_date == 'day') {
+                                                                        echo 'Daily ';
+                                                                    } else if($date[0]->recurring_date == 'week') {
+                                                                        echo 'Weekly ';
+                                                                    } else if($date[0]->recurring_date == 'year') {
+                                                                        echo 'Yearly ';
+                                                                    }
+
+                                                                    if ($date[0]->recurring_date != 'day') {
+                                                                        echo '(' . $date[0]->start->format('l') . ')';
+                                                                    }
+                                                                    echo '<br>from: ' . $date[0]->start->format('d-m-yy');
+                                                                    echo ' to: ' . end($date)->end->format('d-m-yy') . '<br>';
+                                                                    echo '<br>';
+                                                                } else {
+                                                                    $singleDates[] = $date[0];
+                                                                }
+                                                            }
+
+                                                            if(count($singleDates)) {
+                                                                echo 'single dates: <br>';
+
+                                                                $singleDatesCounter = count($singleDates);
+                                                                foreach($singleDates as $k => $date) {
+                                                                    echo $date->start->format('d-m-yy');
+                                                                    if($singleDatesCounter > 1 && ($k != $singleDatesCounter - 1 )) {
+                                                                        echo ', ';
+                                                                    }
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        <hr>
                                                     </div>
                                                     <ul class="wt-userlisting-breadcrumb">
                                                         @if (!empty($freelancer->profile->hourly_rate))
@@ -301,17 +345,18 @@
                                                             {{--</li>--}}
                                                         @endif
                                                     </ul>
+                                                    @if (!empty($freelancer->profile->description))
+                                                        <div class="wt-description" style="padding-top: 40px">
+                                                            <p>{{{ str_limit($freelancer->profile->description, 180) }}}</p>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="wt-rightarea">
                                                     <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
                                                     <span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub> <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
                                                 </div>
                                             </div>
-                                            @if (!empty($freelancer->profile->description))
-                                                <div class="wt-description">
-                                                    <p>{{{ str_limit($freelancer->profile->description, 180) }}}</p>
-                                                </div>
-                                            @endif
+
                                             @if (!empty($freelancer->skills))
                                                 <div class="wt-tag wt-widgettag">
                                                     @foreach($freelancer->skills as $skill)
