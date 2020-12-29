@@ -314,6 +314,7 @@ if (document.getElementById("support_availability")) {
         mounted() {
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(response => {
+                console.log(1);
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
@@ -401,6 +402,7 @@ if (document.getElementById("support_availability")) {
                 // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                    console.log(2);
                     if (self.events.length > 0) {
                         self.events.splice(0);
                     }
@@ -680,6 +682,7 @@ if (document.getElementById("freelancer_availability")) {
             var events = [];
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                console.log(3);
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
@@ -768,6 +771,7 @@ if (document.getElementById("freelancer_availability")) {
                 // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                    console.log(4);
                     if (self.events.length > 0) {
                         self.events.splice(0);
                     }
@@ -1015,6 +1019,7 @@ if (document.getElementById("employer_availability")) {
             var events = [];
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(function (response) {
+                console.log(5);
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
@@ -1445,7 +1450,7 @@ if (page) {
         created: function () {
             let self = this;
             axios.get('/employer/getCalendarEvents').then(function (response) {
-                console.log(this);
+                console.log(6);
                 if (response) {
                     self.events = response.data;
                 }
@@ -4351,7 +4356,7 @@ if (document.getElementById("post_job")) {
             var events = [];
             let self = this;
             axios.get('/employer/getCalendarEvents').then(function (response) {
-                console.log(this);
+                console.log(7);
                 if (response) {
                     self.events = response.data;
                 }
@@ -4631,37 +4636,20 @@ if (document.getElementById("post_job_dashboard")) {
         },
         created: function () {
             this.getSettings();
-            var events = [];
             let self = this;
-            axios.get('/employer/getCalendarEvents').then(function (response) {
-                // console.log(this);
-                // if (response) {
-                //     self.events = response.data;
-                // }
-
+            axios.get('/employer/get-jobs').then(function (response) {
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
-                // self.jobs = response.data.jobs;
-                // console.log(response.data);
-                // response.data.splice(response.data.length, 1, 'jobs');
-                // console.log(response.data);
 
                 if (response && Array.isArray(response.data)) {
-
-
                     response.data.forEach(item => {
-                        item.end = self.convertDateForFormatCalendar(item.end);
-                        item.start = self.convertDateForFormatCalendar(item.start);
-                        if (item.end !== null && item.start !== null) {
-                            self.events.push(item);
-                        }
+                        item.start = item.start_date
+                        item.end = item.start_date
+                        self.events.push(item);
                     });
                 }
-
             });
-
-
         },
         methods: {
             convertDateForFormatCalendar(date) {
@@ -4737,18 +4725,17 @@ if (document.getElementById("post_job_dashboard")) {
                 // console.log(events);
                 // console.log(this.events);
                 let self = this;
-                axios.get('/employer/getCalendarEvents').then(function (response) {
+                axios.get('/employer/get-jobs').then(function (response) {
+                    console.log(9);
                     if (self.events.length > 0) {
                         self.events.splice(0);
                     }
 
                     if (response && Array.isArray(response.data)) {
                         response.data.forEach(item => {
-                            item.end = self.convertDateForFormatCalendar(item.end);
-                            item.start = self.convertDateForFormatCalendar(item.start);
-                            if (item.end !== null && item.start !== null) {
-                                self.events.push(item);
-                            }
+                            item.start = item.start_date;
+                            item.end = item.start_date;
+                            self.events.push(item);
                         });
                     }
                 });

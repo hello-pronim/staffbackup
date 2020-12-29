@@ -291,6 +291,7 @@ Route::group(
         Route::get('employer/payout-settings', 'EmployerController@payoutSettings')->name('employerPayoutsSettings');
         Route::get('employer/payouts', 'EmployerController@getPayouts')->name('getEmployerPayouts');
         Route::get('employer/availability', 'EmployerController@availability')->name('employerAvailability');
+        Route::get('employer/get-jobs', 'EmployerController@getJobs')->name('employer.getJobs');
 
     }
 );

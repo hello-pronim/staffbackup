@@ -708,6 +708,13 @@ class EmployerController extends Controller
         }
     }
 
+    public function getJobs()
+    {
+        $jobs = auth()->user()->jobs->toArray();
+
+        return response($jobs);
+    }
+
     public function availability()
     {
         return view('back-end.employer.profile-settings.availability');
