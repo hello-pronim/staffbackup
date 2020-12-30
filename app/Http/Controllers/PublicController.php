@@ -728,6 +728,7 @@ class PublicController extends Controller
         $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
         $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
         $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
+        $avail_date = null;
 
         $location = $request->input('location');
         $latitude = $request->input('latitude');

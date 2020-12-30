@@ -821,11 +821,11 @@ class User extends Authenticatable
                     $users->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
                 }
             }
+
+            $events = DB::table('calendar_events')
+                ->where('class', '=', 'available_class');
         
             if($avail_date) {
-                $events = DB::table('calendar_events')
-                    ->where('class', '=', 'available_class');
-
                 if ($only_date) {
                     $events
                         ->whereDate('start', '<=', $avail_date)
