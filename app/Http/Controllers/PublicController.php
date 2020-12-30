@@ -738,19 +738,14 @@ class PublicController extends Controller
         
         //dd($request->all());
         
-        if($request->hours) {
+        if($request->avail_date && $request->hours) {
             $only_date = false;
             $avail_date = $request->avail_date . ' ' . $request->hours . ':' . $request->minutes . ':00';
             $avail_date = Carbon::createFromFormat('d/m/Y h:i:s', $avail_date)->format('Y-m-d h:i:s');
-        } else {
+        } else if($request->avail_date) {
             $avail_date = $request->avail_date;
             $avail_date = Carbon::createFromFormat('d/m/Y', $avail_date)->format('Y-m-d');
         }
-        
-//        $avail_date = $request->avail_date . ;
-        
-        //dd($avail_date);
-
 
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {

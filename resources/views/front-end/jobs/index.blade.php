@@ -117,23 +117,13 @@
                                 <div class="filters">
                                     <div>TIME</div>
                                     <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
-                                        <input type="text"
-                                               name=""
-                                               v-model="selectedDate"
-                                               placeholder="Date..."
-                                               class="selectDatePicker"
-                                        />
-
-                                        <div class="form-group form-group-half">
-                                            <div class="wt-tabscontenttitle">
-                                                <h2>End Time</h2>
-                                            </div>
-                                            <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                                <div class="form-group">
-                                                    <vue-timepicker name="booking_end"  required   format="HH:mm"  v-model="end"></vue-timepicker>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <vue-timepicker
+                                                name="time"
+                                                format="HH:mm"
+                                                v-model="selectedTime"
+                                                class="timepicker"
+                                        >
+                                        </vue-timepicker>
                                     </div>
                                 </div>
 
