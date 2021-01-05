@@ -14,6 +14,8 @@ class CreateJobProfessionTable extends Migration
      */
     public function up()
     {
+        DB::table('jobs')->truncate();
+
         Schema::create('job_profession', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
@@ -31,8 +33,6 @@ class CreateJobProfessionTable extends Migration
                 ->on('professions');
 
         });
-
-        DB::table('jobs')->truncate();
     }
 
     /**
