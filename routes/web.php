@@ -292,7 +292,7 @@ Route::group(
         Route::get('employer/payouts', 'EmployerController@getPayouts')->name('getEmployerPayouts');
         Route::get('employer/availability', 'EmployerController@availability')->name('employerAvailability');
         Route::get('employer/get-jobs', 'EmployerController@getJobs')->name('employer.getJobs');
-
+        Route::get('employer/get-professions', 'EmployerController@getProfessions')->name('employer.getProfessions');
     }
 );
 // Freelancer Routes

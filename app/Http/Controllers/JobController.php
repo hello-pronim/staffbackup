@@ -305,6 +305,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $json = array();
         $server = Helper::worketicIsDemoSiteAjax();
         if (!empty($server)) {

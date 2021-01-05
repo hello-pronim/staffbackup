@@ -92,27 +92,35 @@
                         },
                     }
                 },
+              professions: [],
             }
         },
         methods: {
             showInfo(message){
                 return this.$toast.info(' ', message, this.notificationSystem.options.info);
             },
-            getSkills(){
-                let self = this;
-                var segment_str = window.location.pathname;
-                var segment_array = segment_str.split( '/' );
-                var slug = segment_array[segment_array.length - 1];
-                axios.post(APP_URL + '/skills/get-job-skills',{
-                    slug: slug
+            // getSkills(){
+            //     console.log(777);
+            //     let self = this;
+            //     var segment_str = window.location.pathname;
+            //     var segment_array = segment_str.split( '/' );
+            //     var slug = segment_array[segment_array.length - 1];
+            //     axios.post(APP_URL + '/skills/get-job-skills',{
+            //         slug: slug
+            //     })
+            //     .then(function (response) {
+            //         self.stored_skills = response.data.skills;
+            //         if(self.stored_skills.length == 0) {
+            //             self.all_skills_selected = response.data.message;
+            //             self.is_empty = true;
+            //         }
+            //     });
+            // },
+            getProfessions() {
+                axios.get(APP_URL + '/employer/get-professions').then(response => {
+                  //this.professions = response.data
+                  this.stored_skills = response.data
                 })
-                .then(function (response) {
-                    self.stored_skills = response.data.skills;
-                    if(self.stored_skills.length == 0) {
-                        self.all_skills_selected = response.data.message;
-                        self.is_empty = true;
-                    }
-                });
             },
             addSkill: function () {
                 if(this.is_empty == false) {
@@ -221,10 +229,9 @@
                 var edit_skill_value = _this.parents('li').find('.skill-dynamic-field input:text').val();
                 _this.parents('li').find('.skill-dynamic-html em').html(edit_skill_value);
             });
-        },
-        created: function() {
-            this.getSkills();
-            this.getJobSkills();
+           this.getProfessions();
+           //this.getSkills();
+           this.getJobSkills();
         }
     }
 </script>

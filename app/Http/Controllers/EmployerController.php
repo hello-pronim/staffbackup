@@ -13,6 +13,8 @@
 namespace App\Http\Controllers;
 
 use App\CalendarEvent;
+use App\Profession;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Helper;
 use App\Department;
@@ -713,6 +715,16 @@ class EmployerController extends Controller
         $jobs = auth()->user()->jobs->toArray();
 
         return response($jobs);
+    }
+
+    public function getProfessions()
+    {
+        $professions = Profession::whereIn('role_id', [
+            Role::FREELANCER_ROLE,
+            Role::SUPPORT_ROLE,
+        ])->get()->toArray();
+
+        return response($professions);
     }
 
     public function availability()
