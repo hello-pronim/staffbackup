@@ -737,8 +737,6 @@ class PublicController extends Controller
         $profession_id = $request->profession_id;
         $only_date = true;
         
-        //dd($request->all());
-        
         if($request->avail_date && $request->hours) {
             $only_date = false;
             $avail_date = $request->avail_date . ' ' . $request->hours . ':' . $request->minutes . ':00';

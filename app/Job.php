@@ -628,6 +628,13 @@ class Job extends Model
             $jobs->whereHas('professions', function (Builder $query) use ($profession_id) {
                 $query->where('profession_id', $profession_id);
             });
+        } else {
+            $auth_user_role_id = Helper::getRoleByUserID(auth()->id());
+            $available_profession_ids = Profession::where('role_id', $auth_user_role_id)->pluck('id');
+
+            $jobs->whereHas('professions', function (Builder $query) use ($available_profession_ids) {
+                $query->whereIn('profession_id', $available_profession_ids);
+            });
         }
 
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
