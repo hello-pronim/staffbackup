@@ -230,11 +230,11 @@
                                                         <span>lng: {{ $job->longitude }}</span>*/ ?>
                                                     </div>
                                                     <div class="wt-tag wt-widgettag">
-                                                        @if($job->skills != "")
-                                                        @foreach ($job->skills as $skill )
-                                                            <a href="{{{url('search-results?type=job&skills%5B%5D='.$skills[$skill['id']]->slug)}}}">{{$skills[$skill['id']]->title}}</a>
+                                                        @foreach ($job->professions as $profession )
+                                                            <a href="#">
+                                                                {{ $profession->title }}
+                                                            </a>
                                                         @endforeach
-                                                        @endif
                                                     </div>
                                                     @if($job->project_rates)
                                                         <div>£ {{ $job->project_rates }}</div>
@@ -245,8 +245,13 @@
                                                         @if($job->employer->itsoftware != "")
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
-                                                        @if ($job->skills != "")
-                                                            <li><span><i class="fa fa-tag wt-viewjobtag"></i> {{{ $skills[$job->skills[0]['id']]->title }}}</span></li>
+                                                        @if ($job->professions)
+                                                            <li>
+                                                                <span>
+                                                                    <i class="fa fa-tag wt-viewjobtag"></i>
+                                                                    {{ $job->professions[0]->title }}
+                                                                </span>
+                                                            </li>
                                                         @endif
                                                         @if (!empty($job->duration) )
                                                             <li><span><i class="fa fa-tag wt-viewjobdollar"></i> {{{ $job->duration  }}}</span></li>
@@ -269,11 +274,15 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     @endforeach
+
                                     @if ( method_exists($jobs,'links') )
                                         {{ $jobs->links('pagination.custom') }}
                                     @endif
+
                                 @else
+
                                     @if (file_exists(resource_path('views/extend/errors/no-record.blade.php')))
                                         @include('extend.errors.no-record')
                                     @else

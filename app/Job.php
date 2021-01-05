@@ -14,6 +14,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use File;
 use Storage;
@@ -54,10 +55,16 @@ class Job extends Model
      * The skills that belong to the job.
      *
      * @return relation
+     * @todo delete relation (replaced with professions)
      */
     public function skills()
     {
         return $this->belongsToMany('App\Skill');
+    }
+
+    public function professions()
+    {
+        return $this->belongsToMany(Profession::class);
     }
 
     /**
@@ -156,6 +163,7 @@ class Job extends Model
      */
     public function storeJobs($request)
     {
+        //dd($request->all());
         $json = array();
         if (!empty($request)) {
             $random_number = Helper::generateRandomCode(8);
@@ -184,7 +192,6 @@ class Job extends Model
             $this->start_date = filter_var(is_array($request['start_date']) ? Carbon::parse($request['start_date'][0])->format('Y-m-d') : Carbon::parse($request['start_date'])->format('Y-m-d'), FILTER_SANITIZE_STRING);
             $this->maximum_distance = filter_var($request['maximum_distance'] ? $request['maximum_distance']  : "0" , FILTER_SANITIZE_STRING);
             $this->skills = (isset($request['skills']) && count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
-
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
 
@@ -284,12 +291,18 @@ class Job extends Model
             }
             //end events
 
-            //dd($arrNewEvent);
             $skills = $request['skills'];
+
+            //@todo delete skills
             $this->skills()->detach();
+            $this->professions()->detach();
+
             if (!empty($skills)) {
                 foreach ($skills as $skill) {
+                    //@todo delete skills
                     $this->skills()->attach($skill['id']);
+
+                    $this->professions()->attach($skill['id']);
                 }
             }
             $job = Job::find($job_id);
@@ -500,7 +513,6 @@ class Job extends Model
         $json = array();
         $filters = array();
         $jobs = Job::select('jobs.*');
-        $profession_users = User::where('profession_id', $profession_id)->pluck('id')->toArray();
         $query_radius = $radius ?: 'jobs.radius';
 
         if ($radius != null) {
@@ -611,7 +623,12 @@ class Job extends Model
         }
 
         $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
-        $jobs->whereIn('user_id', $profession_users);
+
+        if ($profession_id) {
+            $jobs->whereHas('professions', function (Builder $query) use ($profession_id) {
+                $query->where('profession_id', $profession_id);
+            });
+        }
 
         $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
 

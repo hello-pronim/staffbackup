@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,11 +22,17 @@ class CreateJobProfessionTable extends Migration
         });
 
         Schema::table('job_profession', function (Blueprint $table) {
+            $table->foreign('job_id')
+                ->references('id')
+                ->on('jobs');
+
             $table->foreign('profession_id')
                 ->references('id')
-                ->on('professions')
-                ->onDelete('set null');
+                ->on('professions');
+
         });
+
+        DB::table('jobs')->truncate();
     }
 
     /**

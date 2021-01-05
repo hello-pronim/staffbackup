@@ -305,7 +305,6 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $json = array();
         $server = Helper::worketicIsDemoSiteAjax();
         if (!empty($server)) {
@@ -346,11 +345,6 @@ class JobController extends Controller
             $package_status = !empty($payment_settings[0]['employer_package']) ? $payment_settings[0]['employer_package'] : 'true';
         }
         if ($package_status === 'true') {
-//            if ($current_date > $expiry_date) {
-//                $json['type'] = 'error';
-//                $json['message'] = trans('lang.need_to_purchase_pkg');
-//                return $json;
-//            }
             if ($request['is_featured'] == 'true') {
                 if ($posted_featured_jobs >= intval($option['featured_jobs'])) {
                     $json['type'] = 'error';
@@ -517,6 +511,7 @@ class JobController extends Controller
                         }
                     }
                 }
+
                 return $json;
             }
         }

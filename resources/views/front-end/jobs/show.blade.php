@@ -82,7 +82,6 @@
                                                     </li>
                                                 @endif
                                             </ul>
-
                                         </div>
                                     @endif
                                     <div class="wt-btnarea"><a href="javascript:void(0);" @click.prevent="check_auth('{{ $job->slug }}')" class="wt-btn">{{{ trans('lang.send_propsal') }}}</a></div>
@@ -100,15 +99,15 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if (!empty($job->skills))
+                                    @if (!empty($job->professions))
                                         <div class="wt-skillsrequired">
                                             <div class="wt-title">
                                                 <h3>{{ trans('lang.skills_req') }}</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                            @foreach ($job->skills as $skill)
-                                                    <a href="{{{url('search-results?type=job&skills%5B%5D='.$skills[$skill['id']]->slug)}}}">{{{ $skills[$skill['id']]->title }}}</a>
-                                                @endforeach
+                                            @foreach ($job->professions as $profession)
+                                                <a href="#">{{{ $profession->title }}}</a>
+                                            @endforeach
                                             </div>
                                         </div>
                                     @endif

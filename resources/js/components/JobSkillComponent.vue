@@ -92,7 +92,6 @@
                         },
                     }
                 },
-              professions: [],
             }
         },
         methods: {
@@ -118,7 +117,6 @@
             // },
             getProfessions() {
                 axios.get(APP_URL + '/employer/get-professions').then(response => {
-                  //this.professions = response.data
                   this.stored_skills = response.data
                 })
             },

@@ -22,9 +22,9 @@ class ProfessionRepository
         } else if ($auth_user_role_id == Role::FREELANCER_ROLE) {
             $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->get();
         } else if ($auth_user_role_id == Role::SUPPORT_ROLE) {
-            $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->get();
+            $professions = Profession::where('role_id', Role::SUPPORT_ROLE)->get();
         } else {
-            $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->get();
+            $professions = Profession::all();
         }
 
         return $professions;
