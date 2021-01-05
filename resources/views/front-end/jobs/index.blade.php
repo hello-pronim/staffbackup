@@ -245,7 +245,8 @@
                                                         @if($job->employer->itsoftware != "")
                                                             <li><span><i class="fa fa-user wt-viewjobdollar"></i><strong>Computer System in use: </strong>{{ implode(', ', $job->employer->getItsoftware()) }}</span></li>
                                                         @endif
-                                                        @if ($job->professions)
+
+                                                        @if ($job->professions->count())
                                                             <li>
                                                                 <span>
                                                                     <i class="fa fa-tag wt-viewjobtag"></i>
