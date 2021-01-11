@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\CalendarEvent;
+use App\Http\Requests\CreateJobRequest;
 use App\Job;
 use App\Message;
 use Illuminate\Http\Request;
@@ -303,7 +304,7 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateJobRequest $request)
     {
         $json = array();
         $server = Helper::worketicIsDemoSiteAjax();
@@ -315,35 +316,19 @@ class JobController extends Controller
             $json['type'] = 'job_warning';
             return $json;
         }
-        $this->validate(
-            $request,
-            [
-                'title' => 'required',
-                //'job_duration'    => 'required',
-                //'description'    => 'required',
-                'start_date'    => 'required',
-                'booking_start'    => 'required',
-                'booking_end'    => 'required',
-                'radius'    => 'nullable|numeric',
-                'latitude'    => 'nullable|numeric',
-                'longitude'    => 'nullable|numeric',
-            ]
-        );
+
         $package_item = Item::where('subscriber', Auth::user()->id)->first();
         $package = !empty($package_item) ? Package::find($package_item->product_id) : '';
         $option = !empty($package) ? unserialize($package->options) : '';
-        $expiry = !empty($option) ? $package_item->created_at->addDays($option['duration']) : '';
-        $expiry_date = !empty($expiry) ? Carbon::parse($expiry)->format('Y-m-d') : '';
-        $current_date = Carbon::now()->format('Y-m-d');
-        $posted_jobs = $this->job::where('user_id', Auth::user()->id)->count();
         $posted_featured_jobs = Job::where('user_id', Auth::user()->id)->where('is_featured', 'true')->count();
         $payment_settings = \App\SiteManagement::getMetaValue('commision');
-        $package_status = '';
+
         if (empty($payment_settings)) {
             $package_status = 'true';
         } else {
             $package_status = !empty($payment_settings[0]['employer_package']) ? $payment_settings[0]['employer_package'] : 'true';
         }
+
         if ($package_status === 'true') {
             if ($request['is_featured'] == 'true') {
                 if ($posted_featured_jobs >= intval($option['featured_jobs'])) {
@@ -353,118 +338,112 @@ class JobController extends Controller
                 }
             }
 
-            if (false) {//$posted_jobs >= intval($option['jobs'])) {
-                $json['type'] = 'error';
-                $json['message'] = trans('lang.sorry_cannot_submit') .' '. $option['jobs'] .' ' . trans('lang.jobs_acc_to_pkg');
-                return $json;
-            } else {
-                if($request['project_rates_type']=='Per hour')
-                {
-                    $request['project_type'] = "hourly";
-                }
-                else{
-                    $request['project_type'] = "fixed";
-                }
-                $request['english_level'] = "basic";
-                $request['freelancer_type'] = "pro_independent";
-                $request['project_levels'] = "basic";
-                $job_post = $this->job->storeJobs($request);
-                if ($job_post = 'success') {
-                    $json['type'] = 'success';
-                    $json['message'] = trans('lang.job_post_success');
-                    // Send Email
-                    $user = User::find(Auth::user()->id);
-                    //send email to admin
-                    if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
-                        $job = $this->job::where('user_id', Auth::user()->id)->latest()->first();
-                        $email_params = array();
-                        $new_posted_job_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_new_job_posted')->get()->first();
-                        $new_posted_job_template_employer = DB::table('email_types')->select('id')->where('email_type', 'employer_email_new_job_posted')->get()->first();
-                        if (!empty($new_posted_job_template->id) || !empty($new_posted_job_template_employer)) {
-                            $template_data = EmailTemplate::getEmailTemplateByID($new_posted_job_template->id);
-                            $template_data_employer = EmailTemplate::getEmailTemplateByID($new_posted_job_template_employer->id);
-                            $email_params['job_title'] = $job->title;
-                            $email_params['posted_job_link'] = url('/job/' . $job->slug);
-                            $email_params['name'] = Helper::getUserName(Auth::user()->id);
-                            $email_params['link'] = url('profile/' . $user->slug);
-                            //TODO
-                            Mail::to(config('mail.username'))
+            if($request['project_rates_type']=='Per hour')
+            {
+                $request['project_type'] = "hourly";
+            }
+            else{
+                $request['project_type'] = "fixed";
+            }
+            $request['english_level'] = "basic";
+            $request['freelancer_type'] = "pro_independent";
+            $request['project_levels'] = "basic";
+            $job_post = $this->job->storeJobs($request);
+            if ($job_post = 'success') {
+                $json['type'] = 'success';
+                $json['message'] = trans('lang.job_post_success');
+                // Send Email
+                $user = User::find(Auth::user()->id);
+                //send email to admin
+                if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
+                    $job = $this->job::where('user_id', Auth::user()->id)->latest()->first();
+                    $email_params = array();
+                    $new_posted_job_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_new_job_posted')->get()->first();
+                    $new_posted_job_template_employer = DB::table('email_types')->select('id')->where('email_type', 'employer_email_new_job_posted')->get()->first();
+                    if (!empty($new_posted_job_template->id) || !empty($new_posted_job_template_employer)) {
+                        $template_data = EmailTemplate::getEmailTemplateByID($new_posted_job_template->id);
+                        $template_data_employer = EmailTemplate::getEmailTemplateByID($new_posted_job_template_employer->id);
+                        $email_params['job_title'] = $job->title;
+                        $email_params['posted_job_link'] = url('/job/' . $job->slug);
+                        $email_params['name'] = Helper::getUserName(Auth::user()->id);
+                        $email_params['link'] = url('profile/' . $user->slug);
+                        //TODO
+                        Mail::to(config('mail.username'))
+                        ->send(
+                            new AdminEmailMailable(
+                                'admin_email_new_job_posted',
+                                $template_data,
+                                $email_params
+                            )
+                        );
+                        if (!empty($user->email)) {
+                            $templateMailUser = new EmployerEmailMailable(
+                                'employer_email_new_job_posted',
+                                $template_data_employer,
+                                $email_params
+                            );
+                            Mail::to($user->email)
                             ->send(
-                                new AdminEmailMailable(
-                                    'admin_email_new_job_posted',
+                                $templateMailUser
+                            );
+                            $messageBodyUser = $templateMailUser->prepareEmployerEmailJobPosted($email_params);
+                            $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                            $serviceUser = new Message();
+                            $serviceUser->saveNofiticationMessage($notificationMessageUser);
+                        }
+                    }
+
+                    if (!empty($job->latitude) && !empty($job->longitude) && !empty($job->radius)) {
+                        $template_data = [];
+                        $email_params = [];
+
+                        // notify professonals
+                        $professonals = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'freelancer');
+
+                        if ($professonals->count()) {
+                            foreach ($professonals as $professonal){
+                                $templateMailUser = new FreelancerEmailMailable(
+                                    'freelancer_email_new_job_posted',
                                     $template_data,
                                     $email_params
-                                )
-                            );
-                            if (!empty($user->email)) {
-                                $templateMailUser = new EmployerEmailMailable(
-                                    'employer_email_new_job_posted',
-                                    $template_data_employer,
-                                    $email_params
                                 );
-                                Mail::to($user->email)
+                                Mail::to($professonal->email)
                                 ->send(
                                     $templateMailUser
                                 );
-                                $messageBodyUser = $templateMailUser->prepareEmployerEmailJobPosted($email_params);
-                                $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $messageBodyUser = $templateMailUser->prepareFreelancerEmailNewJobPosted($email_params);
+                                $notificationMessageUser = ['receiver_id' => $professonal->id,'author_id' => 1,'message' => $messageBodyUser];
                                 $serviceUser = new Message();
                                 $serviceUser->saveNofiticationMessage($notificationMessageUser);
                             }
                         }
 
-                        if (!empty($job->latitude) && !empty($job->longitude) && !empty($job->radius)) {
-                            $template_data = [];
-                            $email_params = [];
+                        // notify support workers
+                        $supports = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'support');
 
-                            // notify professonals
-                            $professonals = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'freelancer');
+                        if ($supports->count()) {
+                            foreach ($supports as $support){
+                                $templateMailUser = new SupportEmailMailable(
+                                    'support_email_new_job_posted',
+                                    $template_data,
+                                    $email_params
+                                );
+                                Mail::to($support->email)
+                                ->send(
+                                    $templateMailUser
+                                );
 
-                            if ($professonals->count()) {
-                                foreach ($professonals as $professonal){
-                                    $templateMailUser = new FreelancerEmailMailable(
-                                        'freelancer_email_new_job_posted',
-                                        $template_data,
-                                        $email_params
-                                    );
-                                    Mail::to($professonal->email)
-                                    ->send(
-                                        $templateMailUser
-                                    );
-                                    $messageBodyUser = $templateMailUser->prepareFreelancerEmailNewJobPosted($email_params);
-                                    $notificationMessageUser = ['receiver_id' => $professonal->id,'author_id' => 1,'message' => $messageBodyUser];
-                                    $serviceUser = new Message();
-                                    $serviceUser->saveNofiticationMessage($notificationMessageUser);
-                                }
-                            }
+                                $messageBodyUser = $templateMailUser->prepareSupportEmailNewJobPosted($email_params);
+                                $notificationMessageUser = ['receiver_id' => $support->id,'author_id' => 1,'message' => $messageBodyUser];
+                                $serviceUser = new Message();
+                                $serviceUser->saveNofiticationMessage($notificationMessageUser);
 
-                            // notify support workers
-                            $supports = User::findByLocation($job->latitude, $job->longitude, $job->radius, 'support');
-
-                            if ($supports->count()) {
-                                foreach ($supports as $support){
-                                    $templateMailUser = new SupportEmailMailable(
-                                        'support_email_new_job_posted',
-                                        $template_data,
-                                        $email_params
-                                    );
-                                    Mail::to($support->email)
-                                    ->send(
-                                        $templateMailUser
-                                    );
-
-                                    $messageBodyUser = $templateMailUser->prepareSupportEmailNewJobPosted($email_params);
-                                    $notificationMessageUser = ['receiver_id' => $support->id,'author_id' => 1,'message' => $messageBodyUser];
-                                    $serviceUser = new Message();
-                                    $serviceUser->saveNofiticationMessage($notificationMessageUser);
-
-                                }
                             }
                         }
-
                     }
-                    return $json;
+
                 }
+                return $json;
             }
         } else {
             $job_post = $this->job->storeJobs($request);

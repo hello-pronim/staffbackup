@@ -14,6 +14,7 @@ namespace App\Http\Controllers;
 
 use App\Freelancer;
 use App\Offer;
+use App\Repositories\ProfessionRepository;
 use Illuminate\Http\Request;
 use App\Helper;
 use App\Location;
@@ -56,16 +57,19 @@ class FreelancerController extends Controller
      */
     protected $freelancer;
 
+    protected $professionRepository;
+
     /**
      * Create a new controller instance.
      *
-     * @param instance $freelancer instance
-     *
-     * @return void
+     * @param Profile $freelancer instance
+     * @param Payout $payout
+     * @param ProfessionRepository $professionRepository
      */
-    public function __construct(Profile $freelancer, Payout $payout)
+    public function __construct(Profile $freelancer, Payout $payout, ProfessionRepository $professionRepository)
     {
         $this->freelancer = $freelancer;
+        $this->professionRepository = $professionRepository;
     }
 
     /**
@@ -724,9 +728,8 @@ class FreelancerController extends Controller
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
             $applications = Proposal::where('freelancer_id',$freelancer_id)->count();
-            $skills = Skill::pluck('title', 'id');
+            $professions = $this->professionRepository->getProfessionsByRole();
             $lastest_proposals = Proposal::getLastWeekProposals($freelancer_id);
-
 
             if (file_exists(resource_path('views/extend/back-end/freelancer/dashboard.blade.php'))) {
                 return view(
@@ -754,10 +757,10 @@ class FreelancerController extends Controller
                         'ongoing_services_icon',
                         'enable_package',
                         'package',
-                        'skills',
                         'lastest_proposals',
                         'message_status',
-                        'applications'
+                        'applications',
+                        'professions'
                     )
                 );
             } else {
@@ -786,10 +789,10 @@ class FreelancerController extends Controller
                         'ongoing_services_icon',
                         'enable_package',
                         'package',
-                        'skills',
                         'lastest_proposals',
                         'message_status',
-                        'applications'
+                        'applications',
+                        'professions'
                     )
                 );
             }

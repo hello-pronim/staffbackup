@@ -803,6 +803,7 @@ class User extends Authenticatable
             }
 
             if ($location != null) {
+                dd($location);
                 $filters['location'] = $location;
 
                 if ($latitude != null && $longitude != null) {
@@ -832,43 +833,28 @@ class User extends Authenticatable
                         ->whereDate('end', '>=', $avail_date);
                 } else {
                     $events
-                        ->where('start', '<', $avail_date)
-                        ->where('end', '>', $avail_date);
+                        ->where('start', '<=', $avail_date)
+                        ->where('end', '>=', $avail_date);
                 }
             }
             
-             $events = $events->get()->toArray();
-               
-                if(!empty($events))
-                {
-                    $user_id = array();
-                    foreach ($events as $event)
-                    {
-                        $user_id[] = $event->user_id;
-                    }
-                    $users->whereIn('users.id', $user_id);
+            $events = $events->get()->toArray();
 
+            if(!empty($events)) {
+                $user_id = [];
+
+                foreach ($events as $event) {
+                    $user_id[] = $event->user_id;
                 }
-            
-            
 
-        if ($type = 'freelancer' && ($role == 'Professional' || $role == 'Personal') ) {
-            $users = $users->orderByRaw('-badge_id DESC')->orderBy('expiry_date', 'DESC');
-        } else {
-            $users = $users->orderBy('created_at', 'DESC');
-        }
-
-        $users = $users->paginate(8)->setPath('');
-
-        foreach ($filters as $key => $filter) {
-            $pagination = $users->appends(
-                array(
-                    $key => $filter
-                )
-            );
-        }
+                $users->whereIn('users.id', $user_id);
+                $users = $users->paginate(8);
+            } else {
+                $users = [];
+            }
 
         $json['users'] = $users;
+
         return $json;
     }
 

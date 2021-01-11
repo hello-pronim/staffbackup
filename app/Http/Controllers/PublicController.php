@@ -748,8 +748,6 @@ class PublicController extends Controller
 
         if (!empty($_GET['type'])) {
             if ($type == 'employer' || $type == 'freelancer' || $type == 'avail_date' || $type == 'location' || $type == 'skill') {
-                $skill = '';
-
                 $users_total_records = User::count();
                 $search =  User::getSearchResult(
                     $user,
