@@ -18,7 +18,10 @@ class ProfessionRepository
         $auth_user_role_id = Auth::user()->roles[0]->id;
 
         if ($auth_user_role_id == Role::EMPLOYER_ROLE) {
-            $professions = Profession::where('role_id', Role::EMPLOYER_ROLE)->get();
+            $professions = Profession::whereIn('role_id', [
+                Role::FREELANCER_ROLE,
+                Role::SUPPORT_ROLE,
+            ])->get();
         } else if ($auth_user_role_id == Role::FREELANCER_ROLE) {
             $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->get();
         } else if ($auth_user_role_id == Role::SUPPORT_ROLE) {
