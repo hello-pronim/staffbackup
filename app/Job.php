@@ -112,6 +112,11 @@ class Job extends Model
     {
         return $this->morphMany('App\Report', 'reportable');
     }
+    
+    public function calendars()
+    {
+        return $this->hasMany('App\CalendarEvent');
+    }
 
     /**
      * Uppload Attcahments.
@@ -484,14 +489,56 @@ class Job extends Model
 
     /**
      * Search jobs
+     * 
+     * @param $request
+     * @return array
      */
-    public static function getSearchResult()
+    public static function getSearchResult($request)
     {
-        $json = [];
         $filters = [];
         $jobs = Job::select('jobs.*');
 
-        $query_radius = $radius ?: 'jobs.radius';
+        if ($request->radius != null) {
+            $filters['radius'] = $request->radius;
+        }
+        
+        $filters['type'] = 'job';
+
+        $jobs->where('is_active', '1');
+        $jobs->where('start_date', '>=', Carbon::today());
+
+        if ($request->start_date) {
+            if($request->hours) {
+                $start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
+                $start_date->setTime($request->hours, $request->minutes ?? null);
+            } else {
+                $start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
+            }
+            
+            $jobs->whereHas('calendars', function(Builder $query) use ($start_date) {
+                $query->where('start', '<=', $start_date);
+                $query->where('end', '>=', $start_date);
+            });
+        }
+        
+        if ($request->profession_id) {
+            $profession_ids = [$request->profession_id];
+        } else {
+            $auth_user_role_id = Helper::getRoleByUserID(auth()->id());
+            $profession_ids = Profession::where('role_id', $auth_user_role_id)->pluck('id');
+        }
+
+        $jobs->whereHas('professions', function (Builder $query) use ($profession_ids) {
+            $query->whereIn('profession_id', $profession_ids);
+        });
+
+        $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
+
+        foreach ($filters as $key => $filter) {
+            $jobs->appends([$key => $filter]);
+        }
+        
+        return ['jobs' => $jobs];
     }
 
     /**
@@ -507,157 +554,156 @@ class Job extends Model
      * @return relation
      * @todo delete if not use
      */
-    public static function getSearchResult_deprecated(
-        $user, $keyword, $search_categories, $search_locations,
-        $search_skills, $search_project_lengths,
-        $search_languages, $days_avail, $hours_avail, $job_date, $location,
-        $latitude, $longitude, $radius, $profession_id = null
-    ) {
-
-        $json = array();
-        $filters = array();
-        $jobs = Job::select('jobs.*');
-        $query_radius = $radius ?: 'jobs.radius';
-
-        if ($radius != null) {
-            $filters['radius'] = $radius;
-        }
-
-        if ($location != null) {
-            $filters['location'] = $location;
-            if ($latitude != null && $longitude != null) {
-                $filters['latitude'] = $latitude;
-                $filters['longitude'] = $longitude;
-                $distance = self::distanceQuery($latitude, $longitude);
-                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
-                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
-            } else {
-                $jobs->where('address', 'like', '%'.$location.'%');
-            }
-        } else {
-            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
-                $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
-                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
-                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
-            }
-        }
-
-        $job_id = array();
-        $filters['type'] = 'job';
-
-        if (!empty($keyword)) {
-            $filters['s'] = $keyword;
-            $jobs->where('title', 'like', '%' . $keyword . '%');
-        };
-
-        $jobs->where('is_active', '1');
-
-        if (!empty($search_categories)) {
-            $filters['category'] = $search_categories;
-            foreach ($search_categories as $key => $search_category) {
-                $categor_obj = Category::where('slug', $search_category)->first();
-                $category = Category::find($categor_obj->id);
-                if (!empty($category->jobs)) {
-                    $category_jobs = $category->jobs->pluck('id')->toArray();
-                    foreach ($category_jobs as $id) {
-                        $job_id[] = $id;
-                    }
-                }
-            }
-            $jobs->whereIn('id', $job_id);
-        }
-
-        if (!empty($search_locations)) {
-            $filters['locations'] = $search_locations;
-            $locations = Location::select('id')->whereIn('slug', $search_locations)->get()->pluck('id')->toArray();
-            $jobs->whereIn('location_id', $locations);
-        }
-
-        if (!empty($search_skills)) {
-            $filters['skills'] = $search_skills;
-            foreach ($search_skills as $key => $search_skill) {
-                $skill_obj = Skill::where('title', $search_skill)->first();
-                $skill = Skill::find($skill_obj->id);
-                if (!empty($skill->jobs)) {
-                    $skill_jobs = $skill->jobs->pluck('id')->toArray();
-                    foreach ($skill_jobs as $id) {
-                        $job_id[] = $id;
-                    }
-                }
-            }
-            $jobs->whereIn('id', $job_id);
-        }
-
-        if (!empty($search_project_lengths)) {
-            $filters['project_lengths'] = $search_project_lengths;
-            $jobs->whereIn('duration', $search_project_lengths);
-        }
-
-        if (!empty($search_languages)) {
-            $filters['languages'] = $search_languages;
-            $languages = Language::whereIn('slug', $search_languages)->get();
-            foreach ($languages as $key => $language) {
-                if (!empty($language->jobs[$key]->id)) {
-                    $job_id[] = $language->jobs[$key]->id;
-                }
-            }
-            $jobs->whereIn('id', $job_id);
-        }
-
-        if (!empty($days_avail)) {
-            $arrjobs = DB::table('jobs');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
-            $filters['days_avail'] = json_encode($days_avail);
-
-            foreach($days_avail as $day)
-            {
-                $jobs->where('days_avail', 'like', '%' . $day . '%');
-            }
-            $arrjobs = $jobs->get();
-            foreach ($arrjobs as $key => $job) {
-                if (!empty($job->id)) {
-                    $job_id[] = $job->id;
-                }
-            }
-            $jobs->whereIn('id', $job_id);
-        }
-        dump($jobs->get());
-        dump(get_defined_vars());
-        if(!empty($job_date))
-        {
-            $jobs->where('start_date', '=', $job_date);
-        }
-
-        $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
-
-
-        if ($profession_id) {
-            $jobs->whereHas('professions', function (Builder $query) use ($profession_id) {
-                $query->where('profession_id', $profession_id);
-            });
-        } else {
-            $auth_user_role_id = Helper::getRoleByUserID(auth()->id());
-            $available_profession_ids = Profession::where('role_id', $auth_user_role_id)->pluck('id');
-
-            $jobs->whereHas('professions', function (Builder $query) use ($available_profession_ids) {
-                $query->whereIn('profession_id', $available_profession_ids);
-            });
-        }
-
-        $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
-
-        foreach ($filters as $key => $filter ) {
-            $pagination = $jobs->appends(
-                array(
-                    $key => $filter
-                )
-            );
-        }
-
-        $json['jobs'] = $jobs;
-        dd($jobs);
-
-        return $json;
-    }
+//    public static function getSearchResult_deprecated(
+//        $user, $keyword, $search_categories, $search_locations,
+//        $search_skills, $search_project_lengths,
+//        $search_languages, $days_avail, $hours_avail, $job_date, $location,
+//        $latitude, $longitude, $radius, $profession_id = null
+//    ) {
+//
+//        $json = array();
+//        $filters = array();
+//        $jobs = Job::select('jobs.*');
+//        $query_radius = $radius ?: 'jobs.radius';
+//
+//        if ($radius != null) {
+//            $filters['radius'] = $radius;
+//        }
+//
+//        if ($location != null) {
+//            $filters['location'] = $location;
+//            if ($latitude != null && $longitude != null) {
+//                $filters['latitude'] = $latitude;
+//                $filters['longitude'] = $longitude;
+//                $distance = self::distanceQuery($latitude, $longitude);
+//                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+//                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+//            } else {
+//                $jobs->where('address', 'like', '%'.$location.'%');
+//            }
+//        } else {
+//            if (!empty($user->profile->latitude) && !empty($user->profile->longitude)) {
+//                $distance = self::distanceQuery($user->profile->latitude, $user->profile->longitude);
+//                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+//                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+//            }
+//        }
+//
+//        $job_id = array();
+//        $filters['type'] = 'job';
+//
+//        if (!empty($keyword)) {
+//            $filters['s'] = $keyword;
+//            $jobs->where('title', 'like', '%' . $keyword . '%');
+//        };
+//
+//        $jobs->where('is_active', '1');
+//
+//        if (!empty($search_categories)) {
+//            $filters['category'] = $search_categories;
+//            foreach ($search_categories as $key => $search_category) {
+//                $categor_obj = Category::where('slug', $search_category)->first();
+//                $category = Category::find($categor_obj->id);
+//                if (!empty($category->jobs)) {
+//                    $category_jobs = $category->jobs->pluck('id')->toArray();
+//                    foreach ($category_jobs as $id) {
+//                        $job_id[] = $id;
+//                    }
+//                }
+//            }
+//            $jobs->whereIn('id', $job_id);
+//        }
+//
+//        if (!empty($search_locations)) {
+//            $filters['locations'] = $search_locations;
+//            $locations = Location::select('id')->whereIn('slug', $search_locations)->get()->pluck('id')->toArray();
+//            $jobs->whereIn('location_id', $locations);
+//        }
+//
+//        if (!empty($search_skills)) {
+//            $filters['skills'] = $search_skills;
+//            foreach ($search_skills as $key => $search_skill) {
+//                $skill_obj = Skill::where('title', $search_skill)->first();
+//                $skill = Skill::find($skill_obj->id);
+//                if (!empty($skill->jobs)) {
+//                    $skill_jobs = $skill->jobs->pluck('id')->toArray();
+//                    foreach ($skill_jobs as $id) {
+//                        $job_id[] = $id;
+//                    }
+//                }
+//            }
+//            $jobs->whereIn('id', $job_id);
+//        }
+//
+//        if (!empty($search_project_lengths)) {
+//            $filters['project_lengths'] = $search_project_lengths;
+//            $jobs->whereIn('duration', $search_project_lengths);
+//        }
+//
+//        if (!empty($search_languages)) {
+//            $filters['languages'] = $search_languages;
+//            $languages = Language::whereIn('slug', $search_languages)->get();
+//            foreach ($languages as $key => $language) {
+//                if (!empty($language->jobs[$key]->id)) {
+//                    $job_id[] = $language->jobs[$key]->id;
+//                }
+//            }
+//            $jobs->whereIn('id', $job_id);
+//        }
+//
+//        if (!empty($days_avail)) {
+//            $arrjobs = DB::table('jobs');//Profile::where('days_avail', 'like', '%' . Input::get('name') . '%');
+//            $filters['days_avail'] = json_encode($days_avail);
+//
+//            foreach($days_avail as $day)
+//            {
+//                $jobs->where('days_avail', 'like', '%' . $day . '%');
+//            }
+//            $arrjobs = $jobs->get();
+//            foreach ($arrjobs as $key => $job) {
+//                if (!empty($job->id)) {
+//                    $job_id[] = $job->id;
+//                }
+//            }
+//            $jobs->whereIn('id', $job_id);
+//        }
+//      
+//        if(!empty($job_date))
+//        {
+//            $jobs->where('start_date', '=', $job_date);
+//        }
+//
+//        $jobs->where('start_date', '>=', DB::raw('CURDATE()'));
+//
+//
+//        if ($profession_id) {
+//            $jobs->whereHas('professions', function (Builder $query) use ($profession_id) {
+//                $query->where('profession_id', $profession_id);
+//            });
+//        } else {
+//            $auth_user_role_id = Helper::getRoleByUserID(auth()->id());
+//            $available_profession_ids = Profession::where('role_id', $auth_user_role_id)->pluck('id');
+//
+//            $jobs->whereHas('professions', function (Builder $query) use ($available_profession_ids) {
+//                $query->whereIn('profession_id', $available_profession_ids);
+//            });
+//        }
+//
+//        $jobs = $jobs->orderByRaw("is_featured DESC, updated_at DESC")->paginate(7)->setPath('');
+//
+//        foreach ($filters as $key => $filter ) {
+//            $pagination = $jobs->appends(
+//                array(
+//                    $key => $filter
+//                )
+//            );
+//        }
+//
+//        $json['jobs'] = $jobs;
+//        dd($jobs);
+//
+//        return $json;
+//    }
 
     /**
      * Delete recoed from storage
