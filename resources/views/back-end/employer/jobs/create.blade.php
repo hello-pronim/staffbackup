@@ -228,7 +228,10 @@
                                                 </div>
 
                                                 <div class="form-group form-group-half"  v-if="event_id == ''">
-                                                    {!! Form::text('project_rates', null, array('class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0')) !!}
+                                                    <div class="left-inner-addon">
+                                                        <span>£</span>
+                                                        {!! Form::text('project_rates', null, ['class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0']) !!}
+                                                    </div>
                                                 </div>
                                             </fieldset>
                                         </div>
