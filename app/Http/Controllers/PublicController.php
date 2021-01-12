@@ -677,6 +677,7 @@ class PublicController extends Controller
      */
     public function getSearchResult(SearchJobsRequest $request, $search_type = "")
     {
+        //dd($request->all());
         $user = auth()->user();
         $categories = Category::all();
         $locations = Location::all();
@@ -958,28 +959,12 @@ class PublicController extends Controller
                 $show_job_banner = !empty($inner_page) && !empty($inner_page[0]['show_job_banner']) ? $inner_page[0]['show_job_banner'] : 'true';
                 $job_inner_banner = !empty($inner_page) && !empty($inner_page[0]['job_inner_banner']) ? $inner_page[0]['job_inner_banner'] : null;
                 $job_date = '';
-                if(isset($_GET['start_date']) && !empty($_GET['start_date']))
-                {
+
+                if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
                     $job_date = $_GET['start_date'];
                 }
 
-                $results = Job::getSearchResult(
-                    $user,
-                    $keyword,
-                    $search_categories,
-                    $search_locations,
-                    $search_skills,
-                    $search_project_lengths,
-                    $search_languages,
-                    $days_avail,
-                    $hours_avail,
-                    $job_date,
-                    $location,
-                    $latitude,
-                    $longitude,
-                    $radius,
-                    $profession_id
-                );
+                $results = Job::getSearchResult($request);
 
                 $jobs = $results['jobs'];
                 if (!empty($jobs)) {

@@ -712,7 +712,7 @@ class EmployerController extends Controller
 
     public function getJobs()
     {
-        $jobs = auth()->user()->jobs->toArray();
+        $jobs = auth()->user()->calendars->toArray();
 
         return response($jobs);
     }

@@ -306,18 +306,21 @@ class JobController extends Controller
      */
     public function store(CreateJobRequest $request)
     {
-        $json = array();
+        $json = [];
         $server = Helper::worketicIsDemoSiteAjax();
+
         if (!empty($server)) {
             $response['message'] = $server->getData()->message;
             return $response;
         }
+
         if (Helper::getAccessType() == 'services') {
             $json['type'] = 'job_warning';
             return $json;
         }
 
         $package_item = Item::where('subscriber', Auth::user()->id)->first();
+
         $package = !empty($package_item) ? Package::find($package_item->product_id) : '';
         $option = !empty($package) ? unserialize($package->options) : '';
         $posted_featured_jobs = Job::where('user_id', Auth::user()->id)->where('is_featured', 'true')->count();

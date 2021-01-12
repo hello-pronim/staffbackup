@@ -4651,8 +4651,8 @@ if (document.getElementById("post_job_dashboard")) {
 
                 if (response && Array.isArray(response.data)) {
                     response.data.forEach(item => {
-                        item.start = item.start_date
-                        item.end = item.start_date
+                        item.start = item.start
+                        item.end = item.start
                         self.events.push(item);
                     });
                 }
@@ -4740,8 +4740,8 @@ if (document.getElementById("post_job_dashboard")) {
 
                     if (response && Array.isArray(response.data)) {
                         response.data.forEach(item => {
-                            item.start = item.start_date;
-                            item.end = item.start_date;
+                            item.start = item.start;
+                            item.end = item.start;
                             self.events.push(item);
                         });
                     }
