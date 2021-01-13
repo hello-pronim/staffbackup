@@ -7178,7 +7178,12 @@ $(document).ready(function () {
         $('#calendar_small').toggle("slow", function () {
         });
     });
-    $(window).click(function () {
+    
+    $('#calendar_small').on('click', event => {
+        return false; 
+    });
+
+    $(window).on('click', event => {
         $('#calendar_small').slideUp('slow');
     });
 
