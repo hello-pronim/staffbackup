@@ -12944,22 +12944,22 @@ body.register-body.dashboard-pages-body .short-footer .footer-arc {
 Calendar
 ========================================================================== */
 
-.month-view .vuecal__cell {
+.dashboard-vuecal-wrapper .month-view .vuecal__cell {
   height: 80px;
 }
 
-.month-view .vuecal__cell-content {
+.dashboard-vuecal-wrapper .month-view .vuecal__cell-content {
   justify-content: flex-start;
   height: 100%;
   align-items: flex-end;
 }
 
-.month-view .vuecal__cell-events {
+.dashboard-vuecal-wrapper .month-view .vuecal__cell-events {
   max-height: 30px;
   overflow-y: hidden;
 }
 
-.month-view .vuecal__cell-events:hover {
+.dashboard-vuecal-wrapper .month-view .vuecal__cell-events:hover {
   max-height: unset;
   overflow-y: auto;
 }

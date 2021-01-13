@@ -33,23 +33,25 @@ body.register-body.dashboard-pages-body .short-footer .footer-arc {
 /* ==========================================================================
 Calendar
 ========================================================================== */
-.month-view {
-  .vuecal__cell {
-    height: 80px;
-  }
+.dashboard-vuecal-wrapper {
+  .month-view {
+    .vuecal__cell {
+      height: 80px;
+    }
 
-  .vuecal__cell-content {
-    justify-content: flex-start;
-    height: 100%;
-    align-items: flex-end;
-  }
+    .vuecal__cell-content {
+      justify-content: flex-start;
+      height: 100%;
+      align-items: flex-end;
+    }
 
-  .vuecal__cell-events {
-    max-height: 30px;
-    overflow-y: hidden;
-    &:hover {
-      max-height: unset;
-      overflow-y: auto;
+    .vuecal__cell-events {
+      max-height: 30px;
+      overflow-y: hidden;
+      &:hover {
+        max-height: unset;
+        overflow-y: auto;
+      }
     }
   }
 }
