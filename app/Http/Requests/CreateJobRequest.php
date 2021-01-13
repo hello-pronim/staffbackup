@@ -33,6 +33,14 @@ class CreateJobRequest extends FormRequest
             'longitude' => 'nullable|numeric',
             'start' => 'nullable|date',
             'end' => 'nullable|date',
+            'skills' => 'required',
+        ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'skills.required' => 'The professions field is required'
         ];
     }
 }

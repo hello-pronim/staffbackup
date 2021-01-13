@@ -4870,34 +4870,12 @@ if (document.getElementById("post_job_dashboard")) {
                     })
                     .catch(function (error) {
                         self.loading = false;
-                        // if (error.response.data.errors.job_duration) {
-                        //     self.showError(error.response.data.errors.job_duration[0]);
-                        // }
-                        if (error.response.data.errors.english_level) {
-                            self.showError(error.response.data.errors.english_level[0]);
+                        
+                        for (const [key, value] of Object.entries(error.response.data.errors)) {
+                            self.showError(value[0]);
                         }
-                        if (error.response.data.errors.title) {
-                            self.showError(error.response.data.errors.title[0]);
-                        }
-                        if (error.response.data.errors.project_levels) {
-                            self.showError(error.response.data.errors.project_levels[0]);
-                        }
-                        if (error.response.data.errors.freelancer_type) {
-                            self.showError(error.response.data.errors.freelancer_type[0]);
-                        }
-                        // if (error.response.data.errors.project_cost) {
-                        //     self.showError(error.response.data.errors.project_cost[0]);
-                        // }
-                        // if (error.response.data.errors.description) {
-                        //     self.showError(error.response.data.errors.description[0]);
-                        // }
-                        if (error.response.data.errors.booking_start) {
-                            self.showError(error.response.data.errors.booking_start[0]);
-                        }
-                        if (error.response.data.errors.booking_end) {
-                            self.showError(error.response.data.errors.booking_end[0]);
-                        }
-
+      
+                        return false;
                     });
             },
             updateJob: function (id) {
