@@ -951,7 +951,7 @@ return [
     'ph_user_delete_message' => 'User Deleted',
     'del_select_rec' => 'Delete Selected Records',
     'success' => 'Success',
-    'job_submitting' => 'Job is Submitting',
+    'job_submitting' => 'Your job post is being submitted. Please wait.',
     'clear_selected_cache' => 'Clear Selected Cache',
     'deleted' => 'Deleted',
     'cache_cleared' => 'Cache Cleared',

@@ -79,7 +79,7 @@
                     <ul class="sub-menu">
                         <li><a href="{{{ route('adminProfile') }}}">{{ trans('lang.acc_settings') }}</a></li>
                         <li><a href="{{{ route('settings') }}}">{{ trans('lang.general_settings') }}</a></li>
-                        <li><a href="{{{ route('resetPasswordphp') }}}">{{ trans('lang.resphpet_pass') }}</a></li>
+                        <li><a href="{{{ route('resetPassword') }}}">{{ trans('lang.resphpet_pass') }}</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children">
