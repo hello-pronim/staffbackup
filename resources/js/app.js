@@ -4643,20 +4643,9 @@ if (document.getElementById("post_job_dashboard")) {
         },
         created: function () {
             this.getSettings();
-            let self = this;
-            axios.get('/employer/get-jobs').then(function (response) {
-                if (self.events.length > 0) {
-                    self.events.splice(0);
-                }
-
-                if (response && Array.isArray(response.data)) {
-                    response.data.forEach(item => {
-                        item.start = item.start
-                        item.end = item.start
-                        self.events.push(item);
-                    });
-                }
-            });
+            axios.get('/employer/get-jobs').then(response => {
+                this.events = response.data
+            })
         },
         methods: {
             convertDateForFormatCalendar(date) {
@@ -4870,11 +4859,11 @@ if (document.getElementById("post_job_dashboard")) {
                     })
                     .catch(function (error) {
                         self.loading = false;
-                        
+
                         for (const [key, value] of Object.entries(error.response.data.errors)) {
                             self.showError(value[0]);
                         }
-      
+
                         return false;
                     });
             },
@@ -7156,9 +7145,9 @@ $(document).ready(function () {
         $('#calendar_small').toggle("slow", function () {
         });
     });
-    
+
     $('#calendar_small').on('click', event => {
-        return false; 
+        return false;
     });
 
     $(window).on('click', event => {
@@ -7199,15 +7188,15 @@ $(document).ready(function () {
         $('#post_job .vuecal__cell-date').after('<button class="bookbutton">+</button>');
     });
 
-   // $('.ratePicker').on('change', function () {
-   //      console.log('ratePicker')
-   //      if (!isNaN($(this).val())) {
-   //          $(this).val('£ ' + parseFloat($(this).val()));
-   //      }
-   //      else {
-   //          $(this).val('');
-   //      }
-   //  })
+    // $('.ratePicker').on('change', function () {
+    //      console.log('ratePicker')
+    //      if (!isNaN($(this).val())) {
+    //          $(this).val('£ ' + parseFloat($(this).val()));
+    //      }
+    //      else {
+    //          $(this).val('');
+    //      }
+    //  })
 });
 
 function validate_practice_code(e) {
@@ -7250,4 +7239,3 @@ $( document ).ready(function() {
         });
     }
 });
-
