@@ -4717,23 +4717,9 @@ if (document.getElementById("post_job_dashboard")) {
                 });
             },
             reloadCalendar(){
-                var events = [];
-                // console.log(events);
-                // console.log(this.events);
-                let self = this;
-                axios.get('/employer/get-jobs').then(function (response) {
+                axios.get('/employer/get-jobs').then(response => {
                     console.log(9);
-                    if (self.events.length > 0) {
-                        self.events.splice(0);
-                    }
-
-                    if (response && Array.isArray(response.data)) {
-                        response.data.forEach(item => {
-                            item.start = item.start;
-                            item.end = item.start;
-                            self.events.push(item);
-                        });
-                    }
+                    this.events = response.data;
                 });
             },
             changeSelectedDate(date) {
