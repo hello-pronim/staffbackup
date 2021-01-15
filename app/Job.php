@@ -210,7 +210,18 @@ class Job extends Model
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $this->breaks = $request->breaks;
+            
+            if (auth()->user()->postcode) {
+                $response = json_decode(\GoogleMaps::load('geocoding')
+                    ->setParam (['address' => auth()->user()->postcode])
+                    ->get());
 
+                if ($response->status !== 'ZERO_RESULTS') {
+                    $this->latitude = $response->results[0]->geometry->location->lat;
+                    $this->longitude = $response->results[0]->geometry->location->lng;
+                }
+            }
+            
             $this->job_appo_slot_times = filter_var((isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] != "Other") ? $request['job_appo_slot_times'][0] :
                 (isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] == "Other" ? $request['job_appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
             $this->job_adm_catch_time = filter_var(isset($request['job_adm_catch_time']) ? $request['job_adm_catch_time'] : "", FILTER_SANITIZE_STRING);
@@ -499,8 +510,11 @@ class Job extends Model
      */
     public static function getSearchResult($request)
     {
+        //dd($request->all());
         $filters = [];
+       
         $jobs = Job::select('jobs.*');
+        $query_radius = $request->radius ?: 'jobs.radius';
 
         if ($request->radius != null) {
             $filters['radius'] = $request->radius;
@@ -523,6 +537,17 @@ class Job extends Model
                 $query->where('start', '<=', $start_date);
                 $query->where('end', '>=', $start_date);
             });
+        }
+
+        if ($request->location) {
+            $filters['location'] = $request->location;
+            if ($request->latitude && $request->longitude) {
+                $filters['latitude'] = $request->latitude;
+                $filters['longitude'] = $request->longitude;
+                $distance = self::distanceQuery($request->latitude, $request->longitude);
+                $jobs->addSelect(DB::raw('(' . $distance . ') AS distance'));
+                $jobs->whereRaw(DB::raw('(' . $distance . '<=' . $query_radius . ')'));
+            } 
         }
         
         if ($request->profession_id) {

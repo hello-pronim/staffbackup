@@ -677,7 +677,6 @@ class PublicController extends Controller
      */
     public function getSearchResult(SearchJobsRequest $request, $search_type = "")
     {
-        //dd($request->all());
         $user = auth()->user();
         $categories = Category::all();
         $locations = Location::all();
