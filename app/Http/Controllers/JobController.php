@@ -352,7 +352,9 @@ class JobController extends Controller
             $request['freelancer_type'] = "pro_independent";
             $request['project_levels'] = "basic";
             $job_post = $this->job->storeJobs($request);
+
             if ($job_post = 'success') {
+
                 $json['type'] = 'success';
                 $json['message'] = trans('lang.job_post_success');
                 // Send Email
@@ -540,24 +542,14 @@ class JobController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $slug Job Slug
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
      */
-    public function show($slug)
+    public function show(Request $request)
     {
-        $user = auth()->user();
+        $job = Job::where('slug', $request->slug)->firstOrFail();
 
-        $job_query = Job::select('jobs.*')->where('slug', '=', $slug);
-        $job = $job_query->firstOrFail();
-
-        if ($job->user_id != $user->id && !$user->hasRole(['freelancer', 'support'])){
-            App::abort(403, 'Access Denied');
-        }
-
-        if (!empty($job)) {
+        if ($job) {
             $submitted_proposals = $job->proposals->where('status', '!=', 'cancelled')->pluck('freelancer_id')->toArray();
             $employer_id = $job->employer->id;
             $profile = User::find($employer_id)->profile;
@@ -574,19 +566,6 @@ class JobController extends Controller
             $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
             $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
             $user = $profile->user;
-            $job->skills = (!empty($job->skills))?unserialize($job->skills):"";
-            $skills = Skill::all();
-
-            $job_calendar_event = null;
-            if ($job->employer->calendars()->exists()) {
-                $job_calendar_event = $job->employer
-                    ->calendars()
-                    ->where('class', 'booking_calendar')
-                    ->where('title', $job->title)
-                    ->where('start', 'like', '%' . $job->start_date . '%')
-                    ->where('end', 'like', '%' . $job->start_date . '%')
-                    ->first();
-            }
 
             if (file_exists(resource_path('views/extend/front-end/jobs/show.blade.php'))) {
                 return view(
@@ -602,9 +581,7 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user',
-                        'job_calendar_event',
-                        'skills'
+                        'user'
                     )
                 );
             } else {
@@ -621,9 +598,7 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user',
-                        'job_calendar_event',
-                        'skills'
+                        'user'
                     )
                 );
             }

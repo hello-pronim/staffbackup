@@ -58,22 +58,6 @@
                                             @endif
 
                                             <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                                {{--@if (!empty($job->project_level))--}}
-                                                    {{--<li><span><i class="fa fa-pound-sign wt-viewjobdollar"></i> {{{Helper::getProjectLevel($job->project_level)}}}</span></li>--}}
-                                                {{--@endif--}}
-                                                {{--@if (!empty($job->location->title))--}}
-                                                    {{--<li><span><img src="{{{asset(Helper::getLocationFlag($job->location->flag))}}}" alt="{{ trans('lang.img') }}"> {{{ $job->location->title }}}</span></li>--}}
-                                                {{--@endif--}}
-                                                {{--@if (!empty($job->project_type))--}}
-                                                    {{--<li><span class="wt-clicksavefolder"><i class="far fa-folder wt-viewjobfolder"></i> {{ trans('lang.type') }} {{{$project_type}}}</span></li>--}}
-                                                {{--@endif--}}
-                                                {{--@if (!empty($job->duration))--}}
-                                                    {{--<li><span class="wt-dashboradclock"><i class="far fa-clock wt-viewjobclock"></i> {{ trans('lang.duration') }} {{{ Helper::getJobDurationList($job->duration) }}}</span></li>--}}
-                                                {{--@endif--}}
-                                                    {{--@if($job->employer->itsoftware != "")--}}
-                                                        {{--<li><span class="wt-dashboradclock"><i class="far fa-user"></i> {{$job->employer->itsoftware}}</span></li>--}}
-
-                                                    {{--@endif--}}
                                                  @if ($job->project_rates)
                                                     <li>
                                                         <span>
@@ -95,7 +79,7 @@
                                                 <h3>{{ trans('lang.project_detail') }}</h3>
                                             </div>
                                             <div class="wt-description">
-                                                @php echo htmlspecialchars_decode(stripslashes($job->description)); @endphp
+                                                {{ $job->description }}
                                             </div>
                                         </div>
                                     @endif
@@ -117,17 +101,59 @@
                                                 <h3>Computer System in use</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                                <p>&nbsp; {{ implode(', ', $job->employer->getItsoftware()) }}</p>
+                                                <p>{{ implode(', ', $job->employer->getItsoftware()) }}</p>
                                             </div>
                                         </div>
                                     @endif
-                                    @if(!empty($job_calendar_event))
+                                    @if(!empty($job->calendars))
                                         <div class="wt-skillsrequired">
                                             <div class="wt-title">
                                                 <h3>Start and End time</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                                <p>&nbsp; Start: {{$job_calendar_event->start}} &nbsp; End: {{$job_calendar_event->end}}</p>
+                                                @foreach($job->calendars as $calendar_event)
+                                                    <p>Start: {{$calendar_event->start->format('d-m-Y h:m')}} &nbsp; End: {{$calendar_event->end->format('d-m-Y h:m')}}</p>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($job->breaks)
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Breaks</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p>{{ $job->breaks }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($job->breaks)
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Admin Catch Up Provided (interval)</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p>{{ $job->job_adm_catch_time_interval }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($job->job_appo_slot_times)
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Appointment Slot Times</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p> {{ $job->job_appo_slot_times }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($job->home_visits)
+                                        <div class="wt-skillsrequired">
+                                            <div class="wt-title">
+                                                <h3>Home Visits</h3>
+                                            </div>
+                                            <div class="wt-tag wt-widgettag">
+                                                <p> {{ $job->home_visits }}</p>
                                             </div>
                                         </div>
                                     @endif

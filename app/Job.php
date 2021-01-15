@@ -36,7 +36,7 @@ class Job extends Model
         'start_time',
         'end_time',
     ];
-    
+
     /**
      * Get all of the categories for the job.
      *
@@ -112,7 +112,11 @@ class Job extends Model
     {
         return $this->morphMany('App\Report', 'reportable');
     }
-    
+
+    /**
+     * Calendar events relation
+     * @return mixed
+     */
     public function calendars()
     {
         return $this->hasMany('App\CalendarEvent');
@@ -177,8 +181,6 @@ class Job extends Model
         $json = [];
 
         if (!empty($request)) {
-
-//            dd($request->all());
             $random_number = Helper::generateRandomCode(8);
             $code = strtoupper($random_number);
             $user_id = Auth::user()->id;
@@ -207,6 +209,7 @@ class Job extends Model
             $this->skills = (isset($request['skills']) && count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
+            $this->breaks = $request->breaks;
 
             $this->job_appo_slot_times = filter_var((isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] != "Other") ? $request['job_appo_slot_times'][0] :
                 (isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] == "Other" ? $request['job_appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
@@ -219,8 +222,9 @@ class Job extends Model
             }
 
             $old_path = 'uploads\jobs\temp';
-            $job_attachments = array();
+
             if (!empty($request['attachments'])) {
+                $job_attachments = [];
                 $attachments = $request['attachments'];
                 foreach ($attachments as $key => $attachment) {
                     if (Storage::disk('local')->exists($old_path . '/' . $attachment)) {
@@ -254,9 +258,9 @@ class Job extends Model
 
             for($d=0;$d<count($request['start_date']);$d++) {
                 if ($request['start_date']) {
-                    if ($request['recurring_date']) {
-                        $reqStart = $request['start_date'][$d];
-                        $reqEnd = ($request['end_date'][$d]) ? $request['end_date'][$d] : $request['start_date'][$d];
+                    $reqStart = $request['start_date'][$d];
+                    $reqEnd = ($request['end_date'][$d]) ? $request['end_date'][$d] : $request['start_date'][$d];
+                    if ($request->recuring_date) {
                         $recurringEndDay = Carbon::parse($request['recurring_end_date']);
                         $carbStart = new Carbon($reqStart);
 
@@ -285,11 +289,11 @@ class Job extends Model
                                 DB::table('calendar_events')->insert($arrNewEvent);
                             }
                         }
+                    } else {
+                        $arrNewEvent['start'] = Carbon::parse($reqStart)->format('Y-m-d') . ' ' . $booking_start;
+                        $arrNewEvent['end'] = Carbon::parse($reqEnd)->format('Y-m-d') . ' ' . $booking_end;
+                        DB::table('calendar_events')->insert($arrNewEvent);
                     }
-                } else {
-                    $arrNewEvent['start'] = Carbon::parse($request['start'][$d])->addDay($request['start'][$d])->format('Y-m-d') . $booking_end;
-                    $arrNewEvent['end'] = Carbon::parse($request['end'][$d])->addDay($request['end'][$d])->format('Y-m-d') . $booking_start;
-                    DB::table('calendar_events')->insert($arrNewEvent);
                 }
             }
 
