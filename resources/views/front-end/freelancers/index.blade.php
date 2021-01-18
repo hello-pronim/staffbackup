@@ -20,7 +20,6 @@
                             class="search"
                             id="searchHomePage"
                             attr-type="freelancer"
-                            role-id="{{ $user->roles[0]->id }}"
                         >
                             <div class="searchtop">
                                 @if (auth()->user()->hasRole('employer'))
@@ -83,16 +82,17 @@
                                     <div>{{ trans('lang.skills_req') }}</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 47.png')}}" alt="">
-                                        <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
-                                                v-model="profession_id">
+                                        <select
+                                                style="font-weight: normal;border:none;padding:0px;width: 80%;"
+                                                v-model="profession_id"
+                                                ref="profession"
+                                                data-value="{{ $profession_id }}"
+                                        >
                                             <option value="" disabled selected>Profession...</option>
-
                                             <option v-for="profession in professions" :value="profession.id">
                                                 @{{ profession.title}}
                                             </option>
-                                            ]
                                         </select>
-
                                     </div>
                                 </div>
 
@@ -104,6 +104,8 @@
                                            v-model="selectedDate"
                                            placeholder="Date..."
                                            class="selectDatePicker"
+                                           ref="availDate"
+                                           data-value="{{ $date }}"
                                         />
                                         <vue-cal id="calendar_small"
                                                  style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
@@ -121,7 +123,13 @@
                                 </div>
 
                                 <div class="filters">
-                                    <div>TIME</div>
+                                    <div
+                                        ref="time"
+                                        data-hours="{{ $time['hours'] }}"
+                                        data-minutes="{{ $time['minutes'] }}"
+                                    >
+                                        TIME
+                                    </div>
                                     <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                         <vue-timepicker
                                             name="time"
@@ -135,8 +143,15 @@
 
                                 <div class="filters" style="border-right:none">
                                     <div>RATE</div>
-                                    <div><img src="{{url('images/icons/Layer 49.png')}}" alt=""><input type="text"
-                                                                                                       placeholder="Per Hour">
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 49.png')}}" alt="">
+                                        <input
+                                            type="text"
+                                            placeholder="Per Hour"
+                                            v-model="rate"
+                                            value="{{ $rate }}"
+                                            ref="rate"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +159,6 @@
                         </div>
                         <div class="text-center searchTagline">
                             <h1>Professional Search</h1>
-
                         </div>
                     </div>
                 </div>

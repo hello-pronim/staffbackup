@@ -734,7 +734,14 @@ class PublicController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $radius = $request->input('radius');
-        $profession_id = $request->profession_id;
+        $profession_id = $request->input('profession_id');
+        $date = $request->input('avail_date') ?? $request->input('start_date') ?? null;
+        $time = [
+            'hours' => $request->input('hours'),
+            'minutes' => $request->input('minutes')
+        ];
+        $rate = $request->input('rate');
+
         $only_date = true;
         
         if($request->avail_date && $request->hours) {
@@ -768,7 +775,8 @@ class PublicController extends Controller
                     $longitude,
                     $radius,
                     $profession_id,
-                    $only_date
+                    $only_date,
+                    $rate
                 );
                 $users = count($search['users']) > 0 ? $search['users'] : '';
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
@@ -855,7 +863,11 @@ class PublicController extends Controller
                                 'location',
                                 'latitude',
                                 'longitude',
-                                'radius'
+                                'radius',
+                                'profession_id',
+                                'date',
+                                'time',
+                                'rate'
                             )
                         );
                     } else {
@@ -883,7 +895,11 @@ class PublicController extends Controller
                                 'location',
                                 'latitude',
                                 'longitude',
-                                'radius'
+                                'radius',
+                                'profession_id',
+                                'date',
+                                'time',
+                                'rate'
                             )
                         );
                     }
@@ -991,7 +1007,11 @@ class PublicController extends Controller
                                 'location',
                                 'latitude',
                                 'longitude',
-                                'radius'
+                                'radius',
+                                'profession_id',
+                                'date',
+                                'time',
+                                'rate'
                             )
                         );
                     } else {
@@ -1018,7 +1038,11 @@ class PublicController extends Controller
                                 'location',
                                 'latitude',
                                 'longitude',
-                                'radius'
+                                'radius',
+                                'profession_id',
+                                'date',
+                                'time',
+                                'rate'
                             )
                         );
                     }

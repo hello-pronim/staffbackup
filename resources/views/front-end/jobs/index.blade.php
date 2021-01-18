@@ -11,7 +11,10 @@
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-10 push-lg-3">
 
-                        <div class="search" id="searchHomePage" attr-type="job" role_id="">
+                        <div class="search"
+                             id="searchHomePage"
+                             attr-type="job"
+                        >
                             <div class="searchtop">
                                 @php
                                     $user = auth()->user();
@@ -67,10 +70,14 @@
                                 </div>
                                 <div class="filters">
                                     <div>RADIUS</div>
-                                    <div><img src="{{url('images/icons/Layer 46.png')}}" alt=""><input type="text"
-                                                                                                        v-model="radius"
-                                                                                                        ref="radius"
-                                                                                                        data-value="{{ $radius ?? '' }}"></div>
+                                    <div>
+                                        <img src="{{url('images/icons/Layer 46.png')}}" alt="">
+                                        <input
+                                            type="text"
+                                            v-model="radius"
+                                            ref="radius"
+                                            data-value="{{ $radius }}">
+                                    </div>
                                 </div>
                                 <div class="filters">
                                     <div>Profession</div>
@@ -79,6 +86,8 @@
                                         <select
                                             style="font-weight: normal;border:none;padding:0px;width: 80%;"
                                             v-model="profession_id"
+                                            ref="profession"
+                                            data-value="{{ $profession_id }}"
                                         >
                                             <option value="" disabled selected>
                                                 Profession
@@ -98,6 +107,8 @@
                                                v-model="selectedDate"
                                                placeholder="Date..."
                                                class="selectDatePicker"
+                                               ref="availDate"
+                                               data-value="{{ $date }}"
                                         />
                                         <vue-cal id="calendar_small"
                                                  style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
@@ -115,7 +126,13 @@
                                 </div>
 
                                 <div class="filters">
-                                    <div>TIME</div>
+                                    <div
+                                        ref="time"
+                                        data-hours="{{ $time['hours'] }}"
+                                        data-minutes="{{ $time['minutes'] }}"
+                                    >
+                                        TIME
+                                    </div>
                                     <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                         <vue-timepicker
                                                 name="time"
@@ -133,7 +150,13 @@
                                     <div>RATE</div>
                                     <div>
                                         <img src="{{url('images/icons/Layer 49.png')}}" alt="">
-                                        <input type="text" placeholder="Per Hour">
+                                        <input
+                                            type="text"
+                                            placeholder="Per Hour"
+                                            v-model="rate"
+                                            value="{{ $rate }}"
+                                            ref="rate"
+                                        >
                                     </div>
                                 </div>
                             </div>

@@ -686,7 +686,8 @@ class User extends Authenticatable
         $longitude,
         $radius,
         $profession_id = null,
-        $only_date
+        $only_date,
+        $rate = null
     ) {
         $json = array();
         $user_id = array();
@@ -703,6 +704,12 @@ class User extends Authenticatable
 
             if ($profession_id) {
                 $users->where('profession_id', $profession_id);
+            }
+
+            if ($rate) {
+               $users->whereHas('profile', function($query) use ($rate) {
+                    $query->where('hourly_rate', '>=', $rate);
+               });
             }
 
             if (!empty($keyword)) {

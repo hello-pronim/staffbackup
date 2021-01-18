@@ -1361,17 +1361,26 @@ if (page) {
             if (this.$refs['radius']) {
                 this.radius = this.$refs['radius'].attributes['data-value'].value;
             }
+            if (this.$refs['profession']) {
+                this.profession_id = this.$refs['profession'].attributes['data-value'].value;
+            }
+            if (this.$refs['availDate']) {
+                this.selectedDate = this.$refs['availDate'].attributes['data-value'].value;
+            }
+            if (this.$refs['time']) {
+                this.selectedTime.HH = this.$refs['time'].attributes['data-hours'].value;
+                this.selectedTime.mm = this.$refs['time'].attributes['data-minutes'].value;
+            }
+            if (this.$refs['rate']) {
+               this.rate = this.$refs['rate'].attributes['value'].value;
+            }
         },
-        props: [
-            'role_id'
-        ],
         data: {
             events: [],
             skills: [],
             professions: [],
             skill: "",
             location: "",
-            selecteddate: '',
             selectedDate: '',
             selectedSkills: "",
             selectedLocation: "",
@@ -1379,7 +1388,8 @@ if (page) {
             radius: '',
             profession_id: '',
             showTimePicker: false,
-            selectedTime: null,
+            selectedTime: {},
+            rate: null
         },
         methods: {
             changeSearchType(type) {
@@ -1426,9 +1436,13 @@ if (page) {
                     url += '&' + (this.search_type == 'freelancer' ? 'avail_date' : 'start_date') + '=' + this.selectedDate;
                 }
 
-                if (this.selectedTime) {
+                if (this.selectedTime.HH || this.selectedTime.mm) {
                     url += '&hours=' + this.selectedTime.HH;
                     url += '&minutes=' + this.selectedTime.mm;
+                }
+
+                if (this.rate) {
+                    url += '&rate=' + this.rate
                 }
 
                 window.location.replace(url);
@@ -1474,6 +1488,8 @@ if (page) {
                     self.professions = response.data;
                 }
             });
+
+            this.profession_id = this.profession;
         }
     });
 }
