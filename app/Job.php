@@ -215,8 +215,8 @@ class Job extends Model
                 $response = json_decode(\GoogleMaps::load('geocoding')
                     ->setParam (['address' => auth()->user()->postcode])
                     ->get());
-
-                if ($response->status !== 'ZERO_RESULTS') {
+                //dd(auth()->user()->postcode);
+                if ($response->status !== 'ZERO_RESULTS' && $response->status !== 'REQUEST_DENIED') {
                     $this->latitude = $response->results[0]->geometry->location->lat;
                     $this->longitude = $response->results[0]->geometry->location->lng;
                 }

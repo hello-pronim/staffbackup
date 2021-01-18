@@ -740,7 +740,7 @@ class PublicController extends Controller
         if($request->avail_date && $request->hours) {
             $only_date = false;
             $avail_date = $request->avail_date . ' ' . $request->hours . ':' . $request->minutes . ':00';
-            $avail_date = Carbon::createFromFormat('d/m/Y h:i:s', $avail_date)->format('Y-m-d h:i:s');
+            $avail_date = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date)->format('Y-m-d H:i:s');
         } else if($request->avail_date) {
             $avail_date = $request->avail_date;
             $avail_date = Carbon::createFromFormat('d/m/Y', $avail_date)->format('Y-m-d');
