@@ -710,7 +710,6 @@ class User extends Authenticatable
                 $users->where('first_name', 'like', '%' . $keyword . '%');
                 $users->orWhere('last_name', 'like', '%' . $keyword . '%');
                 $users->orWhere('slug', 'like', '%' . $keyword . '%');
-                $users->whereIn('users.id', $user_by_role);
                 $users->where('is_disabled', 'false');
             }
             if (!empty($search_locations)) {
@@ -760,8 +759,11 @@ class User extends Authenticatable
                     if (!empty($hourly_rates[1])) {
                         $max = $hourly_rates[1];
                     }
-                    $user_id = Profile::select('user_id')->whereIn('user_id', $user_by_role)
-                        ->whereBetween('hourly_rate', [$min, $max])->get()->pluck('user_id')->toArray();
+                    $user_id = Profile::select('user_id')
+                        ->whereBetween('hourly_rate', [$min, $max])
+                        ->get()
+                        ->pluck('user_id')
+                        ->toArray();
                 }
                 $users->whereIn('users.id', $user_id);
             }
@@ -803,7 +805,6 @@ class User extends Authenticatable
             }
 
             if ($location != null) {
-                dd($location);
                 $filters['location'] = $location;
 
                 if ($latitude != null && $longitude != null) {

@@ -10,7 +10,16 @@
     </div>
 </div>
 <div class="wt-formtheme">
+{{--    {{ dump($address) }}--}}
+    {{ dump($latitude) }}
+    {{ dump($longitude) }}
+
     <fieldset>
-        <location-selector latitude="{{ $latitude }}" longitude="{{ $longitude }}" address="{{ $address }}" needgeocode="{{ (empty($latitude) || empty($longitude)) && !empty($address)}}"></location-selector>
+        <location-selector
+                latitude="{{ $latitude }}"
+                longitude="{{ $longitude }}"
+                address="{{ $address }}"
+                needgeocode="{{ (empty($latitude) || empty($longitude)) && !empty($address)}}">
+        </location-selector>
     </fieldset>
 </div>
