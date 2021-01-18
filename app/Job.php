@@ -510,7 +510,7 @@ class Job extends Model
      */
     public static function getSearchResult($request)
     {
-        //dd($request->all());
+        dd($request->all());
         $filters = [];
        
         $jobs = Job::select('jobs.*');
@@ -518,6 +518,10 @@ class Job extends Model
 
         if ($request->radius != null) {
             $filters['radius'] = $request->radius;
+        }
+
+        if ($request->rate) {
+            $jobs->where('project_rates', '<=', $request->rate);
         }
         
         $filters['type'] = 'job';
