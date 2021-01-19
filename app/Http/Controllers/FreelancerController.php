@@ -1194,7 +1194,7 @@ class FreelancerController extends Controller
             //        }
             //    }
             //}
-            return array('success'=>true);
+            return ['success' => true];
     }
 
     public function getCalendarEvents()
