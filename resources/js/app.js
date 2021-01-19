@@ -797,7 +797,6 @@ if (document.getElementById("freelancer_availability")) {
             },
             createNewEvent(event) {
                 console.log('createNewEvent');
-                console.log(event);
                 this.start_date = moment(event).format('DD-MM-YYYY');
 
                 if (this.selectedEvent) {
@@ -806,8 +805,8 @@ if (document.getElementById("freelancer_availability")) {
                     var enddate = event.end.split(' ');
                     this.clickedDate = true;
                     this.clickedEndDate = "";
-                    this.availability_selected_date = startdate[0];
-                    this.availability_selected_end_date = enddate[0];
+                    this.availability_selected_date = this.formatDate(event.start);
+                    this.availability_selected_end_date = this.formatDate(event.end);
                     this.start = this.availability_start_time = startdate[1];
                     this.end = this.availability_end_time = enddate[1];
                     this.availability_content = event.contentFull;

@@ -694,7 +694,6 @@ class FreelancerController extends Controller
     public function freelancerDashboard()
     {
         if (Auth::user()) {
-            $ongoing_jobs = array();
             $freelancer_id = Auth::user()->id;
             $ongoing_projects = Proposal::getProposalsByStatus($freelancer_id, 'hired', 3);
             $cancelled_projects = Proposal::getProposalsByStatus($freelancer_id, 'cancelled');
@@ -706,10 +705,10 @@ class FreelancerController extends Controller
             $message_status = Message::where('status', 0)->where('receiver_id', $freelancer_id)->count();
             $notify_class = $message_status > 0 ? 'wt-insightnoticon' : '';
             $completed_projects = Proposal::getProposalsByStatus($freelancer_id, 'completed');
-            $currency   = SiteManagement::getMetaValue('commision');
-            $symbol     = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
-            $trail      = !empty($package) && $package['trial'] == 1 ? 'true' : 'false';
-            $icons      = SiteManagement::getMetaValue('icons');
+            $currency = SiteManagement::getMetaValue('commision');
+            $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
+            $trail = !empty($package) && $package['trial'] == 1 ? 'true' : 'false';
+            $icons = SiteManagement::getMetaValue('icons');
             $enable_package = !empty($currency) && !empty($currency[0]['enable_packages']) ? $currency[0]['enable_packages'] : 'true';
             $latest_proposals_icon = !empty($icons['hidden_latest_proposal']) ? $icons['hidden_latest_proposal'] : 'img-20.png';
             $latest_package_expiry_icon = !empty($icons['hidden_package_expiry']) ? $icons['hidden_package_expiry'] : 'img-21.png';
@@ -728,71 +727,37 @@ class FreelancerController extends Controller
             $professions = $this->professionRepository->getProfessionsByRole();
             $lastest_proposals = Proposal::getLastWeekProposals($freelancer_id);
 
-            if (file_exists(resource_path('views/extend/back-end/freelancer/dashboard.blade.php'))) {
-                return view(
-                    'extend.back-end.freelancer.dashboard',
-                    compact(
-                        'access_type',
-                        'ongoing_projects',
-                        'cancelled_projects',
-                        'expiry_date',
-                        'notify_class',
-                        'completed_projects',
-                        'symbol',
-                        'trail',
-                        'latest_proposals_icon',
-                        'latest_package_expiry_icon',
-                        'latest_new_message_icon',
-                        'latest_saved_item_icon',
-                        'latest_cancel_project_icon',
-                        'latest_ongoing_project_icon',
-                        'latest_pending_balance_icon',
-                        'latest_current_balance_icon',
-                        'published_services_icon',
-                        'cancelled_services_icon',
-                        'completed_services_icon',
-                        'ongoing_services_icon',
-                        'enable_package',
-                        'package',
-                        'lastest_proposals',
-                        'message_status',
-                        'applications',
-                        'professions'
-                    )
-                );
-            } else {
-                return view(
-                    'back-end.freelancer.dashboard',
-                    compact(
-                        'access_type',
-                        'ongoing_projects',
-                        'cancelled_projects',
-                        'expiry_date',
-                        'notify_class',
-                        'completed_projects',
-                        'symbol',
-                        'trail',
-                        'latest_proposals_icon',
-                        'latest_package_expiry_icon',
-                        'latest_new_message_icon',
-                        'latest_saved_item_icon',
-                        'latest_cancel_project_icon',
-                        'latest_ongoing_project_icon',
-                        'latest_pending_balance_icon',
-                        'latest_current_balance_icon',
-                        'published_services_icon',
-                        'cancelled_services_icon',
-                        'completed_services_icon',
-                        'ongoing_services_icon',
-                        'enable_package',
-                        'package',
-                        'lastest_proposals',
-                        'message_status',
-                        'applications',
-                        'professions'
-                    )
-                );
-            }
+            return view(
+                'back-end.freelancer.dashboard',
+                compact(
+                    'access_type',
+                    'ongoing_projects',
+                    'cancelled_projects',
+                    'expiry_date',
+                    'notify_class',
+                    'completed_projects',
+                    'symbol',
+                    'trail',
+                    'latest_proposals_icon',
+                    'latest_package_expiry_icon',
+                    'latest_new_message_icon',
+                    'latest_saved_item_icon',
+                    'latest_cancel_project_icon',
+                    'latest_ongoing_project_icon',
+                    'latest_pending_balance_icon',
+                    'latest_current_balance_icon',
+                    'published_services_icon',
+                    'cancelled_services_icon',
+                    'completed_services_icon',
+                    'ongoing_services_icon',
+                    'enable_package',
+                    'package',
+                    'lastest_proposals',
+                    'message_status',
+                    'applications',
+                    'professions'
+                )
+            );
         }
     }
 
