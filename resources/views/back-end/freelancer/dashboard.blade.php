@@ -267,7 +267,7 @@
                                     <div class="form-group form-group-half">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                    <span class="wt-select">
+                                    <span class="wt-select">111
                                         <date-picker
                                                 :config="{format: 'DD-MM-YYYY'}"
                                                 class="form-control"
@@ -282,7 +282,7 @@
                                     <div class="form-group form-group-half" v-if="availability_selected_date!=''">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                                <span class="wt-select">
+                                                <span class="wt-select">222
                                                     <date-picker
                                                             :config="{format: 'DD-MM-YYYY'}"
                                                             class="form-control"
