@@ -1117,7 +1117,7 @@ class FreelancerController extends Controller
 
     /**
      * @param UpdateAvailabilityRequest $request
-     * @return bool[]
+     * @return mixed
      */
     public function updateCalendarAvailability(UpdateAvailabilityRequest $request)
     {
@@ -1143,58 +1143,7 @@ class FreelancerController extends Controller
             'end' => $end
         ]);
 
-            //$arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
-            //$arrNewEvent['end'] = (($request['end_date']) ? $request['end_date'] : $request['start_date']) . ' ' . $request['booking_end'];
-            //dd($request,count($request['start_date']));
-            //for($d=0;$d<count($request['start_date']);$d++) {
-            //    if ($request['start_date']) {
-            //        if ($request['recurring_date']) {
-            //            $reqStart = $request['start_date'][$d];
-            //            $reqEnd = ($request['end_date'][$d]) ? $request['end_date'][$d] : $request['start_date'][$d];
-            //            $recurringEndDay = Carbon::parse($request['recurring_end_date']);
-            //            $carbStart = new Carbon($reqStart);
-            //            $carbEnd = Carbon::parse($reqEnd);
-            //            if ($request['recurring_date'] == 'day') {
-            //                $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInDays($recurringEndDay);
-            //                echo $difference;
-            //                for ($g = 0; $g <= $difference; $g++) {
-            //                    $arrNewEvent['start'] = Carbon::parse($reqStart)->addDay($g)->format('Y-m-d') . ' ' . $booking_start;
-            //                    $arrNewEvent['end'] = Carbon::parse($reqEnd)->addDay($g)->format('Y-m-d') . ' ' . $booking_end;
-            //                    //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
-            //                    DB::table('calendar_events')->insert($arrNewEvent);
-            //                }
-            //            } else {
-            //                if ($request['recurring_date'] == 'week') {
-            //                    $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInWeeks($recurringEndDay);
-            //                    for ($g = 0; $g <= $difference; $g++) {
-            //                        $arrNewEvent['start'] = Carbon::parse($reqStart)->addDay($g * 7)->format('Y-m-d') . ' ' . $booking_start;
-            //                        $arrNewEvent['end'] = Carbon::parse($reqEnd)->addDay($g * 7)->format('Y-m-d') . ' ' . $booking_end;
-            //                        //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
-            //                        DB::table('calendar_events')->insert($arrNewEvent);
-            //                    }
-            //                } else {
-            //                    if ($request['recurring_date'] == 'month') {
-            //                        $difference = ($carbStart->diff($recurringEndDay)->days < 1) ? 'today' : $carbStart->diffInMonths($recurringEndDay);
-            //                        for ($g = 0; $g <= $difference; $g++) {
-            //                            $arrNewEvent['start'] = Carbon::parse($reqStart)->addMonth($g)->format('Y-m-d') . ' ' . $booking_start;
-            //                            $arrNewEvent['end'] = Carbon::parse($reqEnd)->addMonth($g)->format('Y-m-d') . ' ' . $booking_end;
-            //                            //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
-            //                            DB::table('calendar_events')->insert($arrNewEvent);
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //
-            //        }
-            //        else {
-            //            $arrNewEvent['start'] = Carbon::parse($request['start'][$d])->addDay($request['start'][$d])->format('Y-m-d') . $booking_end;
-            //            $arrNewEvent['end'] = Carbon::parse($request['end'][$d])->addDay($request['end'][$d])->format('Y-m-d') . $booking_start;
-            //            //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
-            //            DB::table('calendar_events')->insert($arrNewEvent);
-            //        }
-            //    }
-            //}
-            return ['success' => true];
+        return ['success' => true];
     }
 
     public function getCalendarEvents()
