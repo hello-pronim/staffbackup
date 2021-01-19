@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use App\Freelancer;
+use App\Http\Requests\UpdateAvailabilityRequest;
 use App\Offer;
 use App\Repositories\ProfessionRepository;
 use Illuminate\Http\Request;
@@ -1114,37 +1115,33 @@ class FreelancerController extends Controller
         }
     }
 
-    public function updateCalendarAvailability(Request $request)
+    /**
+     * @param UpdateAvailabilityRequest $request
+     * @return bool[]
+     */
+    public function updateCalendarAvailability(UpdateAvailabilityRequest $request)
     {
-        if (Auth::user() && $request['event_id']) {
+        if ($request->booking_start && $request->booking_end) {
+            $start = Carbon::createFromFormat(
+                'd-m-Y H:i:s',
+                $request->start_date[0] . $request->booking_start . ':00'
+            )->format('Y-m-d H:i:s');
+            $end = Carbon::createFromFormat(
+                'd-m-Y H:i:s',
+                $request->end_date[0] . $request->booking_end . ':00'
+            )->format('Y-m-d H:i:s');
+        } else {
+            $start = Carbon::createFromFormat('d-m-Y', $request->start_date[0])->format('Y-m-d');
+            $end = Carbon::createFromFormat('d-m-Y', $request->end_date[0])->format('Y-m-d');
+        }
 
-            $this->validate(
-                $request,
-                [
-                    'availability_title' => 'required',
-                    'availability_content'    => 'required',
-                    'start_date'    => 'required',
-                    'booking_start'    => 'required',
-                    'booking_end'    => 'required',
-                ]
-            );
-            $arrNewEvent = CalendarEvent::find($request['event_id']);
-            $arrNewEvent->user_id = Auth::user()->id;
-            $arrNewEvent->title = $request['availability_title'];
-            $arrNewEvent->content = ($request['availability_content'])?$request['availability_content']:'';
-            $arrNewEvent->contentFull = ($request['availability_content'])?$request['availability_content']:'';
-            $arrNewEvent->recurring_date = ($request['recurring_date'])?$request['recurring_date']:null;
-            $arrNewEvent->class = $request['class']?$request['class']:"";
-            $arrNewEvent->skill_id = ($request['skill_id'])?$request['skill_id']:null;
-            $arrNewEvent->job_id = ($request['job_id'])?$request['job_id']:null;
-            $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
-            $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
-            array_filter($request['start_date']);
-            array_filter($request['end_date']);
-            $arrNewEvent->start = Carbon::parse($request['start_date'][0])->format('Y-m-d') . ' ' . $booking_start;
-            $arrNewEvent->end = Carbon::parse($request['end_date'][0])->format('Y-m-d') . ' ' . $booking_end;
-            $arrNewEvent->save();
-
+        CalendarEvent::find($request->event_id)->update([
+            'title' => $request->availability_title,
+            'content' => $request->availability_content,
+            'class' => $request->class,
+            'start' => $start,
+            'end' => $end
+        ]);
 
             //$arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
             //$arrNewEvent['end'] = (($request['end_date']) ? $request['end_date'] : $request['start_date']) . ' ' . $request['booking_end'];
@@ -1198,9 +1195,6 @@ class FreelancerController extends Controller
             //    }
             //}
             return array('success'=>true);
-        } else {
-            return array('error'=>true);
-        }
     }
 
     public function getCalendarEvents()
