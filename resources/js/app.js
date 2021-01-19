@@ -798,9 +798,16 @@ if (document.getElementById("freelancer_availability")) {
             createNewEvent(event) {
                 console.log('createNewEvent');
                 this.start_date = moment(event).format('DD-MM-YYYY');
+                console.log('event: ', event);
+                console.log('start_date: ', this.start_date);
 
                 if (this.selectedEvent) {
                     event = this.selectedEvent;
+                    console.log('selected_event: ', event);
+
+
+
+
                     var startdate = event.start.split(' ');
                     var enddate = event.end.split(' ');
                     this.clickedDate = true;
