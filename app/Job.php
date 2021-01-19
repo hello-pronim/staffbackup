@@ -510,7 +510,6 @@ class Job extends Model
      */
     public static function getSearchResult($request)
     {
-        dd($request->all());
         $filters = [];
        
         $jobs = Job::select('jobs.*');
