@@ -260,6 +260,7 @@ if (document.getElementById("support_availability")) {
         el: '#support_availability',
         components: {'vue-cal': vuecal, VueTimepicker},
         data: {
+            selected_date: null,
             start_date: "",
             calendarPlugins: [],
             events: [],
@@ -312,22 +313,15 @@ if (document.getElementById("support_availability")) {
             },
         },
         mounted() {
-            let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(response => {
-                console.log(1);
-                if (self.events.length > 0) {
-                    self.events.splice(0);
-                }
-
-
                 response.data.forEach(item => {
-                    if (item.end !== null && item.start !== null) {
-                        self.events.push(item);
+                    if (item.end && item.start) {
+                        this.events.push(item);
                     }
                 });
             });
+            console.log(this.events);
         },
-
         methods: {
 
             convertDateForFormatCalendar(date) {
@@ -375,31 +369,27 @@ if (document.getElementById("support_availability")) {
                 if (day.length < 2)
                     day = '0' + day;
 
-                return [year, month, day].join('-');
+                return [day, month, year].join('-');
             },
             onEventCreate (event, deleteEventFunction) {
                 this.addedToEvents = false;
                 console.log('onEventCreate', event)
-                // this.createNewEvent(event);
+              
             },
             onEventFocus() {
                 this.addedToEvents = false;
                 console.log('eventDragCreate', event);
                 this.onEventClick(event)
                 event.stopPropagation();
-                // return event;
+            
             },
             onEventDragCreate(event) {
                 this.addedToEvents = false;
                 console.log('eventDragCreate', event);
-                // return this.createNewEvent(event)
                 event.stopPropagation();
                 return event;
             },
             reloadCalendar(){
-                var events = [];
-                // console.log(events);
-                // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
                     console.log(2);
@@ -427,30 +417,26 @@ if (document.getElementById("support_availability")) {
                 return event;
             },
             createNewEvent(event) {
-                console.log('createNewEvent');
-                console.log(event);
-                this.start_date = moment(event).format('DD-MM-YYYY');
-
                 if (this.selectedEvent) {
-                    event = this.selectedEvent;
-                    var startdate = event.start.split(' ');
-                    var enddate = event.end.split(' ');
-                    this.clickedDate = true;
-                    this.clickedEndDate = "";
-                    this.availability_selected_date = startdate[0];
-                    this.availability_selected_end_date = enddate[0];
-                    this.start = this.availability_start_time = startdate[1];
-                    this.end = this.availability_end_time = enddate[1];
-                    this.availability_content = event.contentFull;
-                    this.availability_title = event.title;
-                    this.recurring_date = event.recurring_date;
-                    this.skill_id = event.skill_id;
-                    this.event_id = event.id;
-                    this.user_id = event['user_id'];
-                    this.event_class = event['class'];
+                    let ev = this.selectedEvent;
+                    this.clickedDate = new Date(event);
+                    this.clickedEndDate = new Date(event);
+
+                    this.availability_selected_date = moment(ev.startDate).format('DD-MM-YYYY');
+                    this.availability_selected_end_date = moment(ev.endDate).format('DD-MM-YYYY');
+                    this.start = moment(ev.startDate).format('HH:mm');
+                    this.end = moment(ev.endDate).format('HH:mm');
+
+                    this.availability_content = ev.content;
+                    this.availability_title = ev.title;
+                    this.recurring_date = ev.recurring_date;
+                    this.skill_id = ev.skill_id;
+                    this.event_id = ev.id;
+                    this.user_id = ev['user_id'];
+                    this.event_class = ev['class'];
                     this.selectedEvent = null;
-                    event = null;
                 } else {
+                    console.log(event);
                     this.clickedDate = new Date(event);
                     this.clickedEndDate = new Date(event);
                     this.availability_selected_date = this.formatDate(event);
@@ -464,13 +450,55 @@ if (document.getElementById("support_availability")) {
                     this.event_class = '';
                     this.availability_content = '';
                     this.availability_title = '';
-                    this.availability_selected_end_date = this.formatDate(event);
                 }
                 setTimeout(function () {
                     $('html, body').animate({
                         scrollTop: ($(".classScrollTo").offset().top)
                     }, 1000);
-                })
+                });
+                
+                // this.start_date = moment(event).format('DD-MM-YYYY');
+                //
+                // if (this.selectedEvent) {
+                //     event = this.selectedEvent;
+                //     var startdate = event.start.split(' ');
+                //     var enddate = event.end.split(' ');
+                //     this.clickedDate = true;
+                //     this.clickedEndDate = "";
+                //     this.availability_selected_date = startdate[0];
+                //     this.availability_selected_end_date = enddate[0];
+                //     this.start = this.availability_start_time = startdate[1];
+                //     this.end = this.availability_end_time = enddate[1];
+                //     this.availability_content = event.content;
+                //     this.availability_title = event.title;
+                //     this.recurring_date = event.recurring_date;
+                //     this.skill_id = event.skill_id;
+                //     this.event_id = event.id;
+                //     this.user_id = event['user_id'];
+                //     this.event_class = event['class'];
+                //     this.selectedEvent = null;
+                //     event = null;
+                // } else {
+                //     this.clickedDate = new Date(event);
+                //     this.clickedEndDate = new Date(event);
+                //     this.availability_selected_date = this.formatDate(event);
+                //     this.availability_selected_end_date = this.formatDate(event);
+                //     this.start = this.availability_start_time = "00:01";
+                //     this.end = this.availability_end_time = "23:59";
+                //     this.recurring_date = '';
+                //     this.skill_id = '';
+                //     this.event_id = '';
+                //     this.user_id = '';
+                //     this.event_class = '';
+                //     this.availability_content = '';
+                //     this.availability_title = '';
+                //     this.availability_selected_end_date = this.formatDate(event);
+                // }
+                // setTimeout(function () {
+                //     $('html, body').animate({
+                //         scrollTop: ($(".classScrollTo").offset().top)
+                //     }, 1000);
+                // })
 
             },
             changeSelectedDate(date) {
@@ -680,22 +708,14 @@ if (document.getElementById("freelancer_availability")) {
             },
         },
         created() {
-            let self = this;
-            axios.get('/' + role + '/getCalendarEvents').then(function (response) {
-                if (self.events.length > 0) {
-                    self.events.splice(0);
-                }
-
-                if (response && Array.isArray(response.data)) {
-                    response.data.forEach(item => {
-                        if (item.end !== null && item.start !== null) {
-                            self.events.push(item);
-                        }
-                    });
-                }
+            axios.get('/' + role + '/getCalendarEvents').then(response => {
+                response.data.forEach(item => {
+                    if (item.end && item.start) {
+                        this.events.push(item);
+                    }
+                });
             });
         },
-
         methods: {
             convertDateForFormatCalendar(date) {
                 if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
@@ -794,7 +814,7 @@ if (document.getElementById("freelancer_availability")) {
                     this.start = moment(ev.startDate).format('HH:mm')
                     this.end = moment(ev.endDate).format('HH:mm')
 
-                    this.availability_content = ev.contentFull;
+                    this.availability_content = ev.content;
                     this.availability_title = ev.title;
                     this.recurring_date = ev.recurring_date;
                     this.skill_id = ev.skill_id;
@@ -957,7 +977,7 @@ if (document.getElementById("freelancer_availability")) {
                 newElem.children[0].querySelector('input').setAttribute("name","start_date[" + (elem.length) + "]");
                 newElem.children[1].querySelector('input').setAttribute("name","end_date[" + (elem.length) + "]");
                 // newElem.children[0].querySelector('input').value = '';
-                newElem.children[1].querySelector('input').value = '';
+                //newElem.children[1].querySelector('input').value = '';
                 this.addDay = elem.length;
                 // event.preventDefault();
             },

@@ -710,72 +710,35 @@ class SupportController extends Controller
             $applications = Proposal::where('freelancer_id',$support_id)->count();
             $skills = Skill::pluck('title', 'id');
             $lastest_proposals = Proposal::getLastWeekProposals($support_id);
-
-            if (file_exists(resource_path('views/extend/back-end/support/dashboard.blade.php'))) {
-                return view(
-                    'extend.back-end.support.dashboard',
-                    compact(
-                        'access_type',
-                        'ongoing_projects',
-                        'cancelled_projects',
-                        'expiry_date',
-                        'notify_class',
-                        'completed_projects',
-                        'symbol',
-                        'trail',
-                        'skills',
-                        'latest_proposals_icon',
-                        'latest_package_expiry_icon',
-                        'latest_new_message_icon',
-                        'latest_saved_item_icon',
-                        'latest_cancel_project_icon',
-                        'latest_ongoing_project_icon',
-                        'latest_pending_balance_icon',
-                        'latest_current_balance_icon',
-                        'published_services_icon',
-                        'cancelled_services_icon',
-                        'completed_services_icon',
-                        'ongoing_services_icon',
-                        'enable_package',
-                        'package',
-                        'lastest_proposals',
-                        'message_status',
-                        'applications'
-                    )
-                );
-            } else {
-                return view(
-                    'back-end.support.dashboard',
-                    compact(
-                        'access_type',
-                        'ongoing_projects',
-                        'cancelled_projects',
-                        'expiry_date',
-                        'notify_class',
-                        'completed_projects',
-                        'symbol',
-                        'trail',
-                        'skills',
-                        'latest_proposals_icon',
-                        'latest_package_expiry_icon',
-                        'latest_new_message_icon',
-                        'latest_saved_item_icon',
-                        'latest_cancel_project_icon',
-                        'latest_ongoing_project_icon',
-                        'latest_pending_balance_icon',
-                        'latest_current_balance_icon',
-                        'published_services_icon',
-                        'cancelled_services_icon',
-                        'completed_services_icon',
-                        'ongoing_services_icon',
-                        'enable_package',
-                        'package',
-                        'lastest_proposals',
-                        'message_status',
-                        'applications'
-                    )
-                );
-            }
+            
+            return view('back-end.support.dashboard', compact(
+                'access_type',
+                'ongoing_projects',
+                'cancelled_projects',
+                'expiry_date',
+                'notify_class',
+                'completed_projects',
+                'symbol',
+                'trail',
+                'skills',
+                'latest_proposals_icon',
+                'latest_package_expiry_icon',
+                'latest_new_message_icon',
+                'latest_saved_item_icon',
+                'latest_cancel_project_icon',
+                'latest_ongoing_project_icon',
+                'latest_pending_balance_icon',
+                'latest_current_balance_icon',
+                'published_services_icon',
+                'cancelled_services_icon',
+                'completed_services_icon',
+                'ongoing_services_icon',
+                'enable_package',
+                'package',
+                'lastest_proposals',
+                'message_status',
+                'applications'
+            ));
         }
     }
 

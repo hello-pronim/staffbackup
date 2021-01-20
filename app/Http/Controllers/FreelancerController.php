@@ -993,6 +993,7 @@ class FreelancerController extends Controller
 
     public function saveCalendarAvailability(Request $request)
     {
+        dd($request->all());
         if (Auth::user()) {
 
             $this->validate(
@@ -1018,9 +1019,7 @@ class FreelancerController extends Controller
             $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
             array_filter($request['start_date']);
             array_filter($request['end_date']);
-            //$arrNewEvent['start'] = $request['start_date'] . ' ' . $request['booking_start'];
-            //$arrNewEvent['end'] = (($request['end_date']) ? $request['end_date'] : $request['start_date']) . ' ' . $request['booking_end'];
-            //dd($request,count($request['start_date']));
+          
             for($d=0;$d<count($request['start_date']);$d++) {
                 if ($request['start_date']) {
                     if ($request['recurring_date']) {
@@ -1062,10 +1061,10 @@ class FreelancerController extends Controller
 
                     }
                     else {
-
                         $arrNewEvent['start'] = Carbon::parse($request['start_date'][$d])->format('Y-m-d') . ' ' . $booking_start;
-                        $arrNewEvent['end'] = Carbon::parse($request['end_date'][$d])->format('Y-m-d') . ' ' . $booking_end;
-                        //echo $arrNewEvent['start'] . '=>' . $arrNewEvent['end'] . '<br>';
+                        $arrNewEvent['end'] = $request['end_date'][$d] ? 
+                            Carbon::parse($request['end_date'][$d])->format('Y-m-d') . ' ' . $booking_end :
+                            Carbon::parse($request['start_date'][$d])->format('Y-m-d') . ' ' . $booking_end;
                         DB::table('calendar_events')->insert($arrNewEvent);
                     }
                 }
@@ -1095,7 +1094,8 @@ class FreelancerController extends Controller
             $start = Carbon::createFromFormat('d-m-Y', $request->start_date[0])->format('Y-m-d');
             $end = Carbon::createFromFormat('d-m-Y', $request->end_date[0])->format('Y-m-d');
         }
-
+        //dd($request->all());
+        
         CalendarEvent::find($request->event_id)->update([
             'title' => $request->availability_title,
             'content' => $request->availability_content,
