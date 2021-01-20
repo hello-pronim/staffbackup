@@ -119,7 +119,7 @@
     </div>
     <div class="form-group form-group-half">
         <date-picker
-                :config="{format: 'YYYY-MM-DD'}"
+                :config="{format: 'DD-MM-YYYY'}"
                 class="form-control"
                 value="{{$user->pin_date_revalid}}"
                 name="pin_date_revalid"

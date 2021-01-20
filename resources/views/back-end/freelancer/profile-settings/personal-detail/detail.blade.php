@@ -31,7 +31,7 @@
         @endphp
         <div class="form-group birthday">
             <date-picker
-                :config="{format: 'YYYY-MM-DD'}"
+                :config="{format: 'DD-MM-YYYY'}"
                 value="{{ $user_dob }}"
                 class="form-control"
                 name="dob"
@@ -60,7 +60,7 @@
                     placeholder="Pin">
         </div>
         <div class="form-group form-group-half">
-            <date-picker :config="{format: 'YYYY-MM-DD'}"
+            <date-picker :config="{format: 'DD-MM-YYYY'}"
 
                          value="{{$user->pin_date_revalid}}"
 

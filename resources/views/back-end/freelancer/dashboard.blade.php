@@ -42,118 +42,6 @@
             </div>
 
             <div class="row">
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_proposals_icon, 'layers') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3></h3>--}}
-                {{--<a href="{{route('showFreelancerProposals')}}">{{ trans('lang.click_view') }}</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--@if (!empty($enable_package) && $enable_package === 'true')--}}
-                {{--@if (!empty($package))--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox user_current_package">--}}
-                {{--<countdown--}}
-                {{--date="{{$expiry_date}}"--}}
-                {{--:image_url="'{{{ Helper::getDashExpiryImages('uploads/settings/icon',$latest_package_expiry_icon, 'img-21.png') }}}'"--}}
-                {{--:title="'{{ trans('lang.check_pkg_expiry') }}'"--}}
-                {{--:package_url="'{{url('dashboard/packages/freelancer')}}'"--}}
-                {{--:trail="'{{$trail}}'"--}}
-                {{--:current_package="'{{$package->title}}'"--}}
-                {{-->--}}
-                {{--</countdown>--}}
-                {{--</div>--}}
-                {{--</div>  --}}
-                {{--@endif          --}}
-                {{--@endif--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox {{ $notify_class }}">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_new_message_icon, 'book') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{ trans('lang.new_msgs') }}</h3>--}}
-                {{--<a href="{{{ route('message') }}}">{{ trans('lang.click_view') }}</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_saved_item_icon, 'lnr lnr-heart') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{ trans('lang.view_saved_items') }}</h3>--}}
-                {{--<a href="{{url('freelancer/saved-items')}}">{{ trans('lang.click_view') }}</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--@if ($access_type == 'jobs' || $access_type== 'both')--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_cancel_project_icon, 'cross-circle') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{{ $cancelled_projects->count() }}}</h3>--}}
-                {{--<h3>{{ trans('lang.total_cancelled_projects') }}</h3>--}}
-                {{--<a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.click_view') }}</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_ongoing_project_icon, 'cloud-sync') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{{ $ongoing_projects->count() }}}</h3>--}}
-                {{--<h3>{{ trans('lang.total_ongoing_projects') }}</h3>--}}
-                {{--<a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.click_view') }}</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--@endif--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_pending_balance_icon, 'cart') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'hired') }}}</h3>--}}
-                {{--<h3>{{ trans('lang.pending_bal') }}</h3>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">--}}
-                {{--<div class="wt-insightsitem wt-dashboardbox">--}}
-                {{--<figure class="wt-userlistingimg">--}}
-                {{--{{ Helper::getImages('uploads/settings/icon',$latest_current_balance_icon, 'gift') }}--}}
-                {{--</figure>--}}
-                {{--<div class="wt-insightdetails">--}}
-                {{--<div class="wt-title">--}}
-                {{--<h3>{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '£' }}{{{ Helper::getProposalsBalance(Auth::user()->id, 'completed') }}}</h3>--}}
-                {{--<h3>{{ trans('lang.curr_bal') }}</h3>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
                 @if ($access_type == 'services' || $access_type== 'both')
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
                         <div class="wt-insightsitem wt-dashboardbox">
@@ -226,12 +114,12 @@
                          :time-from="0 * 60"
                          :time-to="24 * 60"
                          :disable-views="['years', 'year', 'week', 'day']"
-                         :selected-date="availability_selected_date"
+                         :selected-date="selected_date"
                          default-view="month"
                          events-on-month-view="short"
                          :events="events"
                          :on-event-click="onEventClick"
-                @cell-click="createNewEvent"
+                         @cell-click="createNewEvent"
                 >
                 </vue-cal>
             </div>
@@ -267,28 +155,28 @@
                                     <div class="form-group form-group-half">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                    <span class="wt-select">111
-                                        <date-picker
-                                                :config="{format: 'DD-MM-YYYY'}"
-                                                class="form-control"
-                                                name="start_date[0]"
-                                                placeholder="{{ trans('lang.start_date') }}"
-                                                v-model="start_date">
-                                        </date-picker>
-                                    </span>
+                                                <span class="wt-select">
+                                                    <date-picker
+                                                            :config="{format: 'DD-MM-YYYY'}"
+                                                            class="form-control"
+                                                            name="start_date[0]"
+                                                            placeholder="{{ trans('lang.start_date') }}"
+                                                            v-model="availability_selected_date">
+                                                    </date-picker>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group form-group-half" v-if="availability_selected_date!=''">
+                                    <div class="form-group form-group-half">
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                                <span class="wt-select">222
+                                                <span class="wt-select">
                                                     <date-picker
                                                             :config="{format: 'DD-MM-YYYY'}"
                                                             class="form-control"
                                                             name="end_date[0]"
                                                             placeholder="{{ trans('lang.end_date') }}"
-                                                            v-model="start_date">
+                                                            v-model="availability_selected_end_date">
                                                     </date-picker>
                                                 </span>
                                             </div>
@@ -335,7 +223,7 @@
                                 </div>
                                 <div class="wt-divtheme wt-userform wt-userformvtwo">
                                     <div class="form-group">
-                                        <vue-timepicker name="booking_end"  required   format="HH:mm"  v-model="end"></vue-timepicker>
+                                        <vue-timepicker name="booking_end"  required   format="HH:mm" v-model="end"></vue-timepicker>
                                     </div>
                                 </div>
                             </div>

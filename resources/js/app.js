@@ -627,6 +627,7 @@ if (document.getElementById("freelancer_availability")) {
         el: '#freelancer_availability',
         components: {'vue-cal': vuecal, VueTimepicker},
         data: {
+            selected_date: null,
             start_date: "",
             calendarPlugins: [],
             events: [],
@@ -679,10 +680,8 @@ if (document.getElementById("freelancer_availability")) {
             },
         },
         created() {
-            var events = [];
             let self = this;
             axios.get('/' + role + '/getCalendarEvents').then(function (response) {
-                console.log(3);
                 if (self.events.length > 0) {
                     self.events.splice(0);
                 }
@@ -698,7 +697,6 @@ if (document.getElementById("freelancer_availability")) {
         },
 
         methods: {
-
             convertDateForFormatCalendar(date) {
                 if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
                     return date;
@@ -744,31 +742,22 @@ if (document.getElementById("freelancer_availability")) {
                 if (day.length < 2)
                     day = '0' + day;
 
-                return [year, month, day].join('-');
+                return [day, month, year].join('-');
             },
             onEventCreate (event, deleteEventFunction) {
                 this.addedToEvents = false;
-                console.log('onEventCreate', event)
-                // this.createNewEvent(event);
             },
             onEventFocus() {
                 this.addedToEvents = false;
-                console.log('eventDragCreate', event);
                 this.onEventClick(event)
                 event.stopPropagation();
-                // return event;
             },
             onEventDragCreate(event) {
                 this.addedToEvents = false;
-                console.log('eventDragCreate', event);
-                // return this.createNewEvent(event)
                 event.stopPropagation();
                 return event;
             },
             reloadCalendar(){
-                var events = [];
-                // console.log(events);
-                // console.log(this.events);
                 let self = this;
                 axios.get('/' + role + '/getCalendarEvents').then(function (response) {
                     console.log(4);
@@ -790,41 +779,29 @@ if (document.getElementById("freelancer_availability")) {
             },
             onEventDurationChange(event) {
                 this.addedToEvents = false;
-                console.log('onEventDurationChange', event);
                 this.onEventClick(event);
                 event.stopPropagation();
                 return event;
             },
             createNewEvent(event) {
-                console.log('createNewEvent');
-                this.start_date = moment(event).format('DD-MM-YYYY');
-                console.log('event: ', event);
-                console.log('start_date: ', this.start_date);
-
                 if (this.selectedEvent) {
-                    event = this.selectedEvent;
-                    console.log('selected_event: ', event);
+                    let ev = this.selectedEvent;
+                    this.clickedDate = new Date(event);
+                    this.clickedEndDate = new Date(event);
 
+                    this.availability_selected_date = moment(ev.startDate).format('DD-MM-YYYY');
+                    this.availability_selected_end_date = moment(ev.endDate).format('DD-MM-YYYY');
+                    this.start = moment(ev.startDate).format('HH:mm')
+                    this.end = moment(ev.endDate).format('HH:mm')
 
-
-
-                    var startdate = event.start.split(' ');
-                    var enddate = event.end.split(' ');
-                    this.clickedDate = true;
-                    this.clickedEndDate = "";
-                    this.availability_selected_date = this.formatDate(event.start);
-                    this.availability_selected_end_date = this.formatDate(event.end);
-                    this.start = this.availability_start_time = startdate[1];
-                    this.end = this.availability_end_time = enddate[1];
-                    this.availability_content = event.contentFull;
-                    this.availability_title = event.title;
-                    this.recurring_date = event.recurring_date;
-                    this.skill_id = event.skill_id;
-                    this.event_id = event.id;
-                    this.user_id = event['user_id'];
-                    this.event_class = event['class'];
+                    this.availability_content = ev.contentFull;
+                    this.availability_title = ev.title;
+                    this.recurring_date = ev.recurring_date;
+                    this.skill_id = ev.skill_id;
+                    this.event_id = ev.id;
+                    this.user_id = ev['user_id'];
+                    this.event_class = ev['class'];
                     this.selectedEvent = null;
-                    event = null;
                 } else {
                     this.clickedDate = new Date(event);
                     this.clickedEndDate = new Date(event);
@@ -839,40 +816,32 @@ if (document.getElementById("freelancer_availability")) {
                     this.event_class = '';
                     this.availability_content = '';
                     this.availability_title = '';
-                    this.availability_selected_end_date = this.formatDate(event);
                 }
                 setTimeout(function () {
                     $('html, body').animate({
                         scrollTop: ($(".classScrollTo").offset().top)
                     }, 1000);
                 })
-
             },
             changeSelectedDate(date) {
-
                 this.clickedDate = true;
                 this.selecteddate = date.getDate() + "/" + (date.getMonth() + 1) + '/' + date.getFullYear();
                 jQuery('#calendar_small').hide();
-
             },
             onEventClick(event) {
-                console.log(event)
                 this.selectedEvent = event;
             },
             onEdeditableEvents(event) {
                 this.confButton();
-                console.log('onEdeditableEvents', event);
                 event.stopPropagation();
             },
             updateEvent(e){
                 e.preventDefault();
-                console.log(this);
                 var thistoast = this.$toast;
                 thistoast.options.position = 'center';
                 var self = this;
                 let register_Form = document.getElementById('availability_dashboard_form');
                 let form_data = new FormData(register_Form);
-                //this.events.push(newObj);
                 axios.post('/' + role + '/updateCalendarAvailability', form_data)
                     .then(function (response) {
                         self.reloadCalendar();

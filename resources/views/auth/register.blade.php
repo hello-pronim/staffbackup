@@ -772,7 +772,7 @@
                                                                         </div>
                                                                         <div class="form-group form-group-half">
                                                                             <date-picker
-                                                                                    :config="{format: 'YYYY-MM-DD'}"
+                                                                                    :config="{format: 'DD-MM-YYYY'}"
                                                                                     value=""
                                                                                     class="form-control"
                                                                                     name="pin_date_revalid"
@@ -909,7 +909,7 @@
 
                                                                 <div class="form-group form-group-half"
                                                                      v-bind:class="[user_role!='employer' ? 'float-none' : '', '']">
-                                                                    <date-picker :config="{format: 'YYYY-MM-DD'}"
+                                                                    <date-picker :config="{format: 'DD-MM-YYYY'}"
                                                                                  value=""
                                                                                  id="dob" class="form-control"
                                                                                  name="dob"
