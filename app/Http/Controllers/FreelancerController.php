@@ -993,7 +993,6 @@ class FreelancerController extends Controller
 
     public function saveCalendarAvailability(Request $request)
     {
-        dd($request->all());
         if (Auth::user()) {
 
             $this->validate(
