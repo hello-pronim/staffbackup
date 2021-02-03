@@ -1,10 +1,22 @@
 <?php
-
+/**
+ * Class ProfessionsSeeder.
+ *
+ * @category Worketic
+ *
+ * @package Worketic
+ * @author  Amentotech <theamentotech@gmail.com>
+ * @license http://www.amentotech.com Amentotech
+ * @link    http://www.amentotech.com
+ */
 use App\Role;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class ProfessionsSeeder
+ */
 class ProfessionsSeeder extends Seeder
 {
     /**
@@ -23,7 +35,6 @@ class ProfessionsSeeder extends Seeder
         $support_professions = config('user-professions.support');
         $this->seed($support_professions, Role::SUPPORT_ROLE);
     }
-
     /**
      * @param $professions
      * @param $role

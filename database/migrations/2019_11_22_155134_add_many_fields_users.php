@@ -18,7 +18,7 @@ class AddManyFieldsUsers extends Migration
             $table->string('org_desc')->default('');
             $table->string('setting')->default('');
             $table->string('pin')->default('');
-            $table->date('pin_date_revalid');
+            $table->date('pin_date_revalid')->nullable();
             $table->string('emp_pos')->default('');
             $table->string('emp_email')->default('');
             $table->string('backup_emp_contact')->default('');
@@ -28,10 +28,10 @@ class AddManyFieldsUsers extends Migration
             $table->string('insurance')->default('');
             $table->string('org_name')->default('');
             $table->string('policy_number')->default('');
-            $table->text('prof_ind_cert');
+            $table->text('prof_ind_cert')->nullable();
             $table->string('prof_required')->default('');
             $table->string('special_interests')->default('');
-            $table->text('certs');
+            $table->text('certs')->nullable();
             $table->string('appo_slot_times')->default('');
             $table->string('adm_catch_time')->default('');
             $table->string('time_allowed')->default('');
@@ -44,11 +44,11 @@ class AddManyFieldsUsers extends Migration
             $table->string('nationality')->default('');
             $table->string('profession')->default('');
             $table->string('right_of_work')->default('');
-            $table->text('passport_visa');
-            $table->text('prof_qualifications');//json
-            $table->text('mand_training');
-            $table->text('cert_of_crbdbs');
-            $table->text('occup_health');
+            $table->text('passport_visa')->nullable();
+            $table->text('prof_qualifications')->nullable();//json
+            $table->text('mand_training')->nullable();
+            $table->text('cert_of_crbdbs')->nullable();
+            $table->text('occup_health')->nullable();
             $table->string('c_prof_ind_insurance')->default('');
             $table->string('c_payment_methods')->default('');
             $table->string('c_ltd_comp_name')->default('');
