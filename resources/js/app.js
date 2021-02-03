@@ -1821,6 +1821,7 @@ if (page) {
         window.location.replace(url);
       },
       updateAddressLocation: function(place) {
+        console.log(place);
         var data = {};
         for (var i in place.address_components) {
           data[place.address_components[i].types[0]] =
