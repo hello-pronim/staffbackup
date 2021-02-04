@@ -1828,16 +1828,17 @@ if (page) {
             place.address_components[i].long_name;
         }
 
-        var addr = "";
+        // var addr = "";
 
-        if (data.street_number) {
-          addr += data.street_number + ", ";
-        }
+        // if (data.street_number) {
+        //   addr += data.street_number + ", ";
+        // }
 
-        if (data.route) {
-          addr += data.route;
-          this.straddress = addr;
-        }
+        // if (data.route) {
+        //   addr += data.route;
+        //   this.straddress = addr;
+        // }
+        this.straddress = place.formatted_address;
         document.getElementById(
           "latitude"
         ).value = place.geometry.location.lat();
