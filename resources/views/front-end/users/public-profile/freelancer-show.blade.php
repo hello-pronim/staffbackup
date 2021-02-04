@@ -38,12 +38,6 @@
                     <h2 class="content-public-profile__main-content-name mbottom35">@if (!empty($user_name)) @if
                         ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{ $user_name }} @else
                         Undefined @endif</h2>
-                    <!-- <div class="content-public-profile__main-content-send-sm  mbottom35">
-                            <div class="content-public-profile__main-content-send-wrapper">
-                                <p>Send an offer to this professional by clicking on the button</p>
-                                <a class="content-public-profile__main-content-send-link" @click.prevent='sendOffer("{{$auth_user}}")' href="javascript:void(0);"><button>{{ trans('lang.btn_send_offer') }}</button></a>
-                            </div>
-                        </div> -->
 
                     <div class="mbottom35">
                         <h4 class="content-public-profile__main-content-slag">{{ '@' }}{{ $user->slug }}</h4>
