@@ -1836,7 +1836,7 @@ if (page) {
 
         if (data.route) {
           addr += data.route;
-          document.getElementById("straddress").value = addr;
+          this.straddress = addr;
         }
         document.getElementById(
           "latitude"

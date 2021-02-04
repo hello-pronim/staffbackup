@@ -45,8 +45,7 @@ $user = auth()->user();
                                 <img src="{{url('images/icons/Layer 46.png')}}" alt="">
                                 <gmap-autocomplete class="form-control" placeholder="Area or Postcode" id="straddress"
                                     name="straddress" @place_changed="updateAddressLocation($event)"
-                                    :select-first-on-enter="true" ref="straddress" :value="straddress"
-                                    @input="straddress=$event.target.value">
+                                    :select-first-on-enter="true" ref="straddress" :value="straddress">
                                     <template v-slot:input="slotProps">
                                         <v-text-field outlined ref="input" v-on:listeners="slotProps.listeners"
                                             v-on:attrs="slotProps.attrs">
