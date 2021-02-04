@@ -35,9 +35,12 @@
                     <img class="content-public-profile__main-content-avatar"
                         src="{{ file_exists(Helper::PublicPath().Helper::getProfileImageSmall($user->id)) ? asset(Helper::getProfileImageSmall($user->id)) : '/images/user.jpg' }}"
                         alt="{{ trans('lang.user_avatar') }}">
-                    <h2 class="content-public-profile__main-content-name mbottom35">@if (!empty($user_name)) @if
-                        ($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{ $user_name }} @else
-                        Undefined @endif</h2>
+                    <h2 class="content-public-profile__main-content-name mbottom35">
+                        @if (!empty($user_name))
+                        @if($user->user_verified === 1)<i class="fa fa-check-circle"></i> @endif {{ $user_name }}
+                        @else Undefined
+                        @endif
+                    </h2>
 
                     <div class="mbottom35">
                         <h4 class="content-public-profile__main-content-slag">{{ '@' }}{{ $user->slug }}</h4>
