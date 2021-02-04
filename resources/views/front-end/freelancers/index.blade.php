@@ -349,13 +349,13 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                 </div>
                                                 @endif
                                             </div>
-                                            <div class="wt-rightarea">
+                                            <!-- <div class="wt-rightarea">
                                                 <span class="wt-stars"><span
                                                         style="width: {{ $stars }}%;"></span></span>
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
                                                     <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                         @if (!empty($freelancer->skills))
