@@ -110,14 +110,6 @@
 
             <!-- Right content -->
             <div class="content-public-profile__main-content-right">
-                <div class="content-public-profile__main-content-send">
-                    <div class="content-public-profile__main-content-send-wrapper">
-                        <p>Send an offer to this professional by clicking on the button</p>
-                        <a class="content-public-profile__main-content-send-link"
-                            @click.prevent='sendOffer("{{$auth_user}}")'
-                            href="javascript:void(0);"><button>{{ trans('lang.btn_send_offer') }}</button></a>
-                    </div>
-                </div>
 
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     @if (!empty($profile->tagline))
