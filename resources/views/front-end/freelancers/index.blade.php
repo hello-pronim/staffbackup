@@ -111,7 +111,11 @@ $user = auth()->user();
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="text-center">
+                    <span class="error-msg search-error-msg">Location, Professions and Date fields are mandatory. Please
+                        check and try
+                        again.</span>
                 </div>
                 <div class="text-center searchTagline">
                     <h1>Professional Search</h1>

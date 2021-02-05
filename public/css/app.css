@@ -13064,3 +13064,26 @@ Calendar
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.price-currency-wrap {
+  position: relative;
+}
+
+.price-currency-wrap .price-input {
+  padding-left: 40px !important;
+}
+
+.price-currency-wrap .price-currency {
+  color: #999 !important;
+  content: "\A3";
+  font-size: 16px !important;
+  font-weight: 400;
+  position: absolute;
+  top: 20px;
+  left: 24px;
+}
+
+.error-msg {
+  color: #ff5851;
+  display: none;
+}
+
