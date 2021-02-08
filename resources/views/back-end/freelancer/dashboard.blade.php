@@ -127,8 +127,8 @@
             <div class="wt-tabscontent tab-content">
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
                     <h2>
-                        Green equals free this day<br>
-                        Blue equals booking on this day<br>
+                        Blue equals free this day<br>
+                        Green equals busy on this day<br>
                         Red equals away on holiday<br>
                     </h2>
                 </div>
