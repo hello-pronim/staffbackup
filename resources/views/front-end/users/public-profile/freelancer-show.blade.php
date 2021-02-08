@@ -110,48 +110,6 @@
                     @if (!empty($profile->tagline))
                     <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
                     @endif
-                    @php
-                    $dates = [];
-                    $singleDates = [];
-
-                    foreach($profile->calendars as $calendar) {
-                        $dates[$calendar->created_at->timestamp][] = $calendar;
-                    }
-
-                    foreach($dates as $date) {
-                        if(count($date) > 1) {
-
-                            if($date[0]->recurring_date == 'day') {
-                                echo 'Daily ';
-                            } else if($date[0]->recurring_date == 'week') {
-                                echo 'Weekly ';
-                            } else if($date[0]->recurring_date == 'year') {
-                                echo 'Yearly ';
-                            }
-
-                            if ($date[0]->recurring_date != 'day') {
-                                echo '(' . $date[0]->start->format('l') . ')';
-                            }
-                            echo '<br>from: ' . $date[0]->start->format('d-m-yy');
-                            echo ' to: ' . end($date)->end->format('d-m-yy') . '<br>';
-                            echo '<br>';
-                        } else {
-                            $singleDates[] = $date[0];
-                        }
-                    }
-
-                    if(count($singleDates)) {
-                        echo 'single dates: <br>';
-
-                        $singleDatesCounter = count($singleDates);
-                        foreach($singleDates as $k => $date) {
-                            echo $date->start->format('d-m-yy');
-                            if($singleDatesCounter > 1 && ($k != $singleDatesCounter - 1 )) {
-                                echo ', ';
-                            }
-                        }
-                    }
-                    @endphp
                 </div>
 
                 @if (!empty($profile->hourly_rate))
