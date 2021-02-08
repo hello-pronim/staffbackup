@@ -363,7 +363,9 @@ Route::group(
         Route::post('support/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
 
         Route::post('freelancer/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
+        Route::post('freelancer/deleteCalendarAvailability', 'FreelancerController@deleteCalendarAvailability');
         Route::post('support/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
+        Route::post('support/deleteCalendarAvailability', 'FreelancerController@deleteCalendarAvailability');
         Route::post('employer/updateCalendarEvent', 'EmployerController@updateCalendarEvent');
 
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');

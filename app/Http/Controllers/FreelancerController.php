@@ -1105,6 +1105,13 @@ class FreelancerController extends Controller
 
         return ['success' => true];
     }
+    
+    public function deleteCalendarAvailability(Request $request)
+    {        
+        CalendarEvent::find($request->event_id)->delete();
+
+        return ['success' => true];
+    }
 
     public function getCalendarEvents()
     {

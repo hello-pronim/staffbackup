@@ -276,7 +276,8 @@
                             <input type="hidden" name="event_id" v-if="event_id" v-model="event_id">
                             <button class="btn btn-success" v-if="!event_id" @click="saveNewEventAvailability">Create Availability</button>
                             <button class="btn btn-danger" v-if="!event_id" @click="saveNewEventBusy">Create Holiday/Busy</button>
-                            <button class="btn btn-danger" v-if="event_id" @click="updateEvent">Update Availability</button>
+                            <button class="btn btn-warning" v-if="event_id" @click="updateEvent">Update Availability</button>
+                            <button class="btn btn-danger" v-if="event_id" @click="deleteEvent">Delete Availability</button>
                             </div>
                         </form>
                     </div>
