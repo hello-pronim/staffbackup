@@ -96,14 +96,8 @@
                 <div class="content-public-profile__main-content-separator"></div>
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
-                    @if (!empty($skills) && $skills->count() > 0)
-                    <p>
-                        @foreach ($skills as $skill)
-                        <span>{{ $skill->title }} <em>{{ $skill->pivot->skill_rating }}%</em>, </span>
-                        @endforeach
-                    </p>
-                    @else
-                    <p>{{ trans('lang.no_skills') }}</p>
+                    @if (!empty($profile->tagline))
+                    <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
                     @endif
                 </div>
             </div>
