@@ -114,7 +114,7 @@
                     $dates = [];
                     $singleDates = [];
 
-                    foreach($freelancer->calendars as $calendar) {
+                    foreach($profile->calendars as $calendar) {
                         $dates[$calendar->created_at->timestamp][] = $calendar;
                     }
 
