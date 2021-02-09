@@ -5192,10 +5192,9 @@ if (document.getElementById("post_job")) {
               self.loading = false;
               self.showInfo(Vue.prototype.trans("lang.job_submitting"));
               setTimeout(function() {
-                window.location.replace(
-                  APP_URL + "/employer/dashboard/manage-jobs"
-                );
-              }, 4000);
+                window.location.href =
+                  APP_URL + "/employer/dashboard/manage-jobs";
+              }, 2000);
             } else {
               self.loading = false;
               self.showError(response.data.message);
@@ -6194,7 +6193,7 @@ if (document.getElementById("post_job_edit")) {
                   "/" + response.data.redirect
                 );
                 window.location.href = turl;
-              }, 1000);
+              }, 2000);
             } else {
               self.showError(response.data.message);
             }

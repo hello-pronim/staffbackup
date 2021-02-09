@@ -481,11 +481,11 @@ class Job extends Model
 
 
 
-            $skills = $request['skills'];
-            $job->skills()->detach();
-            if (!empty($skills)) {
-                foreach ($skills as $skill) {
-                    $job->skills()->attach($skill['id']);
+            $professions = $request['skills'];
+            $job->professions()->detach();
+            if (!empty($professions)) {
+                foreach ($professions as $profession) {
+                    $job->professions()->attach($profession['id']);
                 }
             }
             $job = Job::find($job_id);

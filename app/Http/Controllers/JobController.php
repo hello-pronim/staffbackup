@@ -621,9 +621,11 @@ class JobController extends Controller
             $job = $this->job::where('slug', $request['slug'])->select('id')->first();
             //dd($this->job::where('id', $job['id'])->first());
             if (!empty($job)) {
-                $jobs = $this->job::find($job['id']);
-                $skillIds = collect(unserialize($jobs->skills))->pluck('id');
-                $skills = Skill::whereIn('id',$skillIds)->get()->toArray();
+                $skills = Job::join('job_profession', 'job_profession.job_id', '=', 'jobs.id')
+                                ->join('professions', 'professions.id', '=', 'job_profession.profession_id')
+                                ->select('professions.id', 'professions.title')
+                                ->where('jobs.id', $job['id'])
+                                ->get();
                 if (!empty($skills)) {
                     $json['type'] = 'success';
                     $json['skills'] = $skills;
