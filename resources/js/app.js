@@ -732,59 +732,6 @@ if (document.getElementById("support_availability")) {
           });
         e.stopPropagation();
       },
-      deleteEvent(e) {
-        e.preventDefault();
-        var thistoast = this.$toast;
-        thistoast.options.position = "center";
-        var self = this;
-        console.log(this.event_id);
-        let form_data = {event_id: this.event_id};
-        //this.events.push(newObj);
-        axios
-          .post("/" + role + "/deleteCalendarAvailability", form_data)
-          .then(function(response) {
-            self.reloadCalendar();
-            thistoast.success(
-              "Success",
-              "Successfully deleted!"
-            );
-            setTimeout(function(self) {
-              $("html, body").animate(
-                {
-                  scrollTop: $(".scrolToCalend").offset().top,
-                },
-                1000
-              );
-            });
-            self.clickedDate = false;
-          })
-          .catch(function(error) {
-            if (typeof error.response != "undefined") {
-              if (error.response.data.errors.title) {
-                thistoast.error(" ", error.response.data.errors.title[0]);
-              }
-              if (error.response.data.errors.availability_content) {
-                thistoast.error(
-                  " ",
-                  error.response.data.errors.availability_content[0]
-                );
-              }
-              if (error.response.data.errors.start_date) {
-                thistoast.error(" ", error.response.data.errors.start_date[0]);
-              }
-              if (error.response.data.errors.booking_start) {
-                thistoast.error(
-                  " ",
-                  error.response.data.errors.booking_start[0]
-                );
-              }
-              if (error.response.data.errors.booking_end) {
-                thistoast.error(" ", error.response.data.errors.booking_end[0]);
-              }
-            }
-          });
-        e.stopPropagation();
-      },
       saveNewEventBusy(e) {
         this.saveNewEventAvailability(e, true);
       },
@@ -977,6 +924,7 @@ if (document.getElementById("freelancer_availability")) {
             this.events.push(item);
           }
         });
+        console.log(this.events);
       });
     },
     methods: {
@@ -1142,6 +1090,7 @@ if (document.getElementById("freelancer_availability")) {
       },
       onEventClick(event) {
         this.selectedEvent = event;
+        console.log(this.selectedEvent);
       },
       onEdeditableEvents(event) {
         this.confButton();
@@ -1171,6 +1120,56 @@ if (document.getElementById("freelancer_availability")) {
                 " - " +
                 self.end
             );
+            setTimeout(function(self) {
+              $("html, body").animate(
+                {
+                  scrollTop: $(".scrolToCalend").offset().top,
+                },
+                1000
+              );
+            });
+            self.clickedDate = false;
+          })
+          .catch(function(error) {
+            if (typeof error.response != "undefined") {
+              if (error.response.data.errors.title) {
+                thistoast.error(" ", error.response.data.errors.title[0]);
+              }
+              if (error.response.data.errors.availability_content) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.availability_content[0]
+                );
+              }
+              if (error.response.data.errors.start_date) {
+                thistoast.error(" ", error.response.data.errors.start_date[0]);
+              }
+              if (error.response.data.errors.booking_start) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.booking_start[0]
+                );
+              }
+              if (error.response.data.errors.booking_end) {
+                thistoast.error(" ", error.response.data.errors.booking_end[0]);
+              }
+            }
+          });
+        e.stopPropagation();
+      },
+      deleteEvent(e) {
+        e.preventDefault();
+        var thistoast = this.$toast;
+        thistoast.options.position = "center";
+        var self = this;
+        console.log(this.event_id);
+        let form_data = { event_id: this.event_id };
+
+        axios
+          .post("/" + role + "/deleteCalendarAvailability", form_data)
+          .then(function(response) {
+            self.reloadCalendar();
+            thistoast.success("Success", "Successfully deleted!");
             setTimeout(function(self) {
               $("html, body").animate(
                 {
