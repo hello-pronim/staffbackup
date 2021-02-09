@@ -821,5 +821,10 @@ class EmployerController extends Controller
             return array('error'=>true);
         }
     }
+    public function deleteCalendarEvent(Request $request)
+    {        
+        CalendarEvent::find($request->event_id)->delete();
 
+        return ['success' => true];
+    }
 }

@@ -367,6 +367,7 @@ Route::group(
         Route::post('support/updateCalendarAvailability', 'FreelancerController@updateCalendarAvailability');
         Route::post('support/deleteCalendarAvailability', 'FreelancerController@deleteCalendarAvailability');
         Route::post('employer/updateCalendarEvent', 'EmployerController@updateCalendarEvent');
+        Route::post('employer/deleteCalendarEvent', 'EmployerController@deleteCalendarEvent');
 
         Route::post('proposal/upload-temp-image', 'ProposalController@uploadTempImage');
         Route::get('job/proposal/{job_slug}', 'ProposalController@createProposal')->name('createProposal');
