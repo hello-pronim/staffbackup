@@ -30,6 +30,7 @@ class CalendarEvent extends Model
         'end',
         'recurring_date',
         'class',
+        'skill_id'
     );
 
     /**

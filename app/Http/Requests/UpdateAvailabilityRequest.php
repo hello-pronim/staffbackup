@@ -31,6 +31,7 @@ class UpdateAvailabilityRequest extends FormRequest
             'booking_start' => 'required',
             'booking_end' => 'required',
             'event_id' => 'integer',
+            'profession_id' => 'required'
         ];
     }
 }

@@ -260,8 +260,10 @@
                                         <option>Profession</option>
                                         @foreach($professions as $profession)
                                             <option
-                                                    value="{{ $profession->id }}"
-                                                    @if(auth()->user()->profession_id == $profession->id) selected @endif>
+                                                value="{{ $profession->id }}"
+                                                @if(auth()->user()->profession_id == $profession->id) selected @endif
+                                                :selected="skill_id==={{$profession->id}}"
+                                            >
                                                 {{ $profession->title }}
                                             </option>
                                         @endforeach

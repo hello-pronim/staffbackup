@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use App\Offer;
 use App\Support;
 use Illuminate\Http\Request;
+use App\Repositories\ProfessionRepository;
 use App\Helper;
 use App\Location;
 use App\Skill;
@@ -55,16 +56,21 @@ class SupportController extends Controller
      */
     protected $support;
 
+    protected $professionRepository;
+
     /**
      * Create a new controller instance.
      *
      * @param instance $support instance
+     * @param Payout $payout
+     * @param ProfessionRepository $professionRepository
      *
      * @return void
      */
-    public function __construct(Profile $support, Payout $payout)
+    public function __construct(Profile $support, Payout $payout, ProfessionRepository $professionRepository)
     {
         $this->support = $support;
+        $this->professionRepository = $professionRepository;
     }
 
     /**
@@ -708,7 +714,7 @@ class SupportController extends Controller
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
             $applications = Proposal::where('freelancer_id',$support_id)->count();
-            $skills = Skill::pluck('title', 'id');
+            $professions = $this->professionRepository->getProfessionsByRole();
             $lastest_proposals = Proposal::getLastWeekProposals($support_id);
             
             return view('back-end.support.dashboard', compact(
@@ -720,7 +726,7 @@ class SupportController extends Controller
                 'completed_projects',
                 'symbol',
                 'trail',
-                'skills',
+                'professions',
                 'latest_proposals_icon',
                 'latest_package_expiry_icon',
                 'latest_new_message_icon',

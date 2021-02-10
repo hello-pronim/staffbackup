@@ -263,7 +263,18 @@
                                     <h2>{{ trans('lang.skills_req') }}</h2>
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::select('skill_id', $skills, null, ['placeholder' => trans('lang.skills_req'), 'v-model'=>'skill_id']) !!}
+                                    <select name="profession_id" id="">
+                                        <option>Profession</option>
+                                        @foreach($professions as $profession)
+                                            <option
+                                                value="{{ $profession->id }}"
+                                                @if(auth()->user()->profession_id == $profession->id) selected @endif
+                                                :selected="skill_id==={{$profession->id}}"
+                                            >
+                                                {{ $profession->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="text-center">
