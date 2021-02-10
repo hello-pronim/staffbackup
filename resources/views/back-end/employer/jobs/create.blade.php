@@ -210,7 +210,8 @@
                                             <h2>{{ trans('lang.skills_req') }}</h2>
                                         </div>
                                         <div class="la-jobedit-content">
-                                            <job_skills :placeholder="'select professions'"></job_skills>
+                                            <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
+                                            {!! Form::select('profession', $professions, null, array('placeholder' => "Profession")) !!}
                                         </div>
                                     </div>
                                     <div class="wt-jobdescription wt-tabsinfo">

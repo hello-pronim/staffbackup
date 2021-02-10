@@ -33,7 +33,7 @@ class CreateJobRequest extends FormRequest
             'longitude' => 'nullable|numeric',
             'start' => 'nullable|date',
             'end' => 'nullable|date',
-            'skills' => 'required',
+            'profession' => 'required',
         ];
     }
     

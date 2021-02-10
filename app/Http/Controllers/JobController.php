@@ -8,6 +8,7 @@ use App\CalendarEvent;
 use App\Http\Requests\CreateJobRequest;
 use App\Job;
 use App\Message;
+use App\Role;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Input;
 use App\Language;
 use App\Category;
 use App\Skill;
+use App\Profession;
 use App\Location;
 use App\Helper;
 use App\Proposal;
@@ -26,7 +28,7 @@ use App\User;
 use App\Profile;
 use App\Package;
 use DB;
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Role;
 use App\SiteManagement;
 use App\Mail\AdminEmailMailable;
 use App\Mail\EmployerEmailMailable;
@@ -99,6 +101,10 @@ class JobController extends Controller
        // $job_duration = Helper::getJobDurationList();
         $freelancer_level = Helper::getFreelancerLevelList();
         $skills = Skill::pluck('title', 'id');
+        $professions = Profession::whereIn('role_id', [
+            Role::FREELANCER_ROLE,
+            Role::SUPPORT_ROLE,
+        ])->pluck('title', 'id');
         $categories = Category::pluck('title', 'id');
         $role_id =  Helper::getRoleByUserID(Auth::user()->id);
         $package_options = Package::select('options')->where('role_id', $role_id)->first();
@@ -114,6 +120,7 @@ class JobController extends Controller
                     //'job_duration',
                     'freelancer_level',
                     'skills',
+                    'professions',
                     'user',
                     'profile',
                     'categories',
@@ -127,13 +134,14 @@ class JobController extends Controller
                 compact(
                     'english_levels',
                     'languages',
-    'user',
-    'profile',
+                    'user',
+                    'profile',
                     'project_levels',
                     'max_distances',
                     //'job_duration',
                     'freelancer_level',
                     'skills',
+                    'professions',
                     'categories',
                     'locations',
                     'options'
@@ -191,11 +199,19 @@ class JobController extends Controller
     public function edit($job_slug)
     {
         if (!empty($job_slug)) {
-            $job = Job::where('slug', $job_slug)->first();
+            $job = Job::join('job_profession', 'job_profession.job_id', '=', 'jobs.id')
+                        ->where('slug', $job_slug)
+                        ->select('jobs.*', 'job_profession.*', 'jobs.id as id')
+                        ->first();
             $json = array();
             $languages = Language::pluck('title', 'id');
             $locations = Location::pluck('title', 'id');
             $skills = Skill::pluck('title', 'id');
+            $professions = Profession::whereIn('role_id', [
+                                Role::FREELANCER_ROLE,
+                                Role::SUPPORT_ROLE,
+                            ])->pluck('title', 'id');
+
             $categories = Category::pluck('title', 'id');
             $project_levels = Helper::getProjectLevel();
             $english_levels = Helper::getEnglishLevelList();
@@ -220,6 +236,7 @@ class JobController extends Controller
                             'languages',
                             'categories',
                             'skills',
+                            'professions',
                             'locations',
                             'attachments',
                             'jobEvents',
@@ -240,6 +257,7 @@ class JobController extends Controller
                             'languages',
                             'categories',
                             'skills',
+                            'professions',
                             'locations',
                             'attachments',
                             'jobEvents',

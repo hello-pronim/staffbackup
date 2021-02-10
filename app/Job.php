@@ -72,7 +72,7 @@ class Job extends Model
     {
         return $this->belongsToMany(Profession::class);
     }
-
+    
     /**
      * Get the location that owns the job.
      *
@@ -82,6 +82,7 @@ class Job extends Model
     {
         return $this->belongsTo('App\Location');
     }
+    
 
     /**
      * Get the employer that owns the job.
@@ -308,13 +309,15 @@ class Job extends Model
                 }
             }
 
-            $professions = $request['skills'];
+            // $professions = $request['skills'];
 
-            if (!empty($professions)) {
-                foreach ($professions as $profession) {
-                    $this->professions()->attach($profession['id']);
-                }
-            }
+            // if (!empty($professions)) {
+            //     foreach ($professions as $profession) {
+            //         $this->professions()->attach($profession['id']);
+            //     }
+            // }
+
+            $this->professions()->attach($request['profession']);
 
             $job = Job::find($job_id);
             $languages = $request['languages'];
@@ -479,15 +482,9 @@ class Job extends Model
 
             }
 
-
-
-            $professions = $request['skills'];
             $job->professions()->detach();
-            if (!empty($professions)) {
-                foreach ($professions as $profession) {
-                    $job->professions()->attach($profession['id']);
-                }
-            }
+            $job->professions()->attach($request['profession']);
+
             $job = Job::find($job_id);
             $languages = $request['languages'];
             $job->languages()->sync($languages);

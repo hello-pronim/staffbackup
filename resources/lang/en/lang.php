@@ -531,7 +531,7 @@ return [
     'job_dtl' => 'Job Details',
     'service_detail' => 'Service Detail',
     'job_dtl_note' => 'Add Job Detail Here',
-    'skills_req' => 'Professions',
+    'skills_req' => 'Profession',
     'your_loc' => 'Your Location',
     'attachments' => 'Attachments',
     'attachments_note' => 'Show “Attachments” after hiring',

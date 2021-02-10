@@ -5194,7 +5194,7 @@ if (document.getElementById("post_job")) {
               setTimeout(function() {
                 window.location.href =
                   APP_URL + "/employer/dashboard/manage-jobs";
-              }, 2000);
+              }, 4000);
             } else {
               self.loading = false;
               self.showError(response.data.message);
@@ -6173,6 +6173,7 @@ if (document.getElementById("post_job_edit")) {
       //         });
       // },
       updateJob: function(id) {
+        console.log(id);
         this.loading = true;
         let register_Form = document.getElementById("post_job_edit_form");
         let form_data = new FormData(register_Form);
@@ -6193,7 +6194,7 @@ if (document.getElementById("post_job_edit")) {
                   "/" + response.data.redirect
                 );
                 window.location.href = turl;
-              }, 2000);
+              }, 4000);
             } else {
               self.showError(response.data.message);
             }
