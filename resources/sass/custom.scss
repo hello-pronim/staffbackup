@@ -1,0 +1,26 @@
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.price-currency-wrap {
+  position: relative;
+  .price-input {
+    padding-left: 40px !important;
+  }
+  .price-currency {
+    color: #999 !important;
+    content: "£";
+    font-size: 16px !important;
+    font-weight: 400;
+    position: absolute;
+    top: 20px;
+    left: 24px;
+  }
+}
+.content-public-profile__main-content-description {
+  white-space: pre-line;
+}
+.error-msg {
+  color: #ff5851;
+  display: none;
+}

@@ -117,7 +117,7 @@
                     <div class="content-full-less">
                         <div id="profile-description" class="content-full-less-paragraph">
                             <p class="content-public-profile__main-content-description">
-                                {{ $profile->description }}
+                                {{ html_entity_decode($profile->description, ENT_QUOTES) }}
                             </p>
                         </div>
                         <div class="content-full-less_link-wrapper">

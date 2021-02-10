@@ -13082,6 +13082,10 @@ Calendar
   left: 24px;
 }
 
+.content-public-profile__main-content-description {
+  white-space: pre-line;
+}
+
 .error-msg {
   color: #ff5851;
   display: none;
