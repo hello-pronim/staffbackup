@@ -56,7 +56,7 @@
 																<span class="wt-select">
 																	{!! Form::select('status', $status_list, $service['status'], array('id'=>$service["id"].'-service_status', 'data-placeholder' => trans('lang.select_status'))) !!}
 																</span>
-																<a href="javascrip:void(0);" class="wt-searchgbtn job_status_popup" @click.prevent='changeStatus({{$service['id']}})'><i class="fa fa-check"></i></a>
+																<a href="javascript:void(0);" class="wt-searchgbtn job_status_popup" @click.prevent='changeStatus({{$service['id']}})'><i class="fa fa-check"></i></a>
 															</div>
 														</fieldset>
 													</form>

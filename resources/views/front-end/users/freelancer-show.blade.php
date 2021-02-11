@@ -96,14 +96,14 @@
                                         @endif
                                         @if (in_array($profile->id, $save_freelancer))
                                             <li class="wt-btndisbaled">
-                                                <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
+                                                <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
                                                     <i class="fa fa-heart"></i>
                                                     {{ trans('lang.saved') }}
                                                 </a>
                                             </li>
                                         @else
                                             {{--<li v-bind:class="disable_btn" v-cloak>--}}
-                                                {{--<a href="javascrip:void(0);" v-bind:class="click_to_save" id="freelancer-{{$profile->id}}" @click.prevent="add_wishlist('freelancer'-{{$profile->id}}, {{$profile->id}}, 'saved_freelancer', '{{trans("lang.saved")}}')" v-cloak>--}}
+                                                {{--<a href="javascript:void(0);" v-bind:class="click_to_save" id="freelancer-{{$profile->id}}" @click.prevent="add_wishlist('freelancer'-{{$profile->id}}, {{$profile->id}}, 'saved_freelancer', '{{trans("lang.saved")}}')" v-cloak>--}}
                                                     {{--<i v-bind:class="saved_class"></i>--}}
                                                     {{--@{{ text }}--}}
                                                 {{--</a>--}}
@@ -407,7 +407,7 @@
                                                 {{--@endif--}}
                                                 {{--@if (!empty($award['award_title']))--}}
                                                     {{--<div class="wt-particlecontent">--}}
-                                                        {{--<h3><a href="javascrip:void(0);">{{{ $award['award_title'] }}}</a></h3>--}}
+                                                        {{--<h3><a href="javascript:void(0);">{{{ $award['award_title'] }}}</a></h3>--}}
                                                         {{--<span><i class="lnr lnr-calendar"></i> {{{ $joining_date }}}</span>--}}
                                                     {{--</div>--}}
                                                 {{--@endif--}}

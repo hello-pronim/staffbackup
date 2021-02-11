@@ -81,7 +81,7 @@
                                                     "'.$cancel_proposal_text.'", "'.$cancel_proposal_button.'",
                                                     "'.$validation_error_text.'", "'.$cancel_popup_title.'")')) !!}
                                                 </span>
-                                                <a href="javascrip:void(0);" class="wt-searchgbtn job_status_popup"
+                                                <a href="javascript:void(0);" class="wt-searchgbtn job_status_popup"
                                                     @click.prevent='serviceStatus({{$service->id}}, {{$id}}, {{Auth::user()->id}}, "{{$cancel_proposal_text}}", "{{$cancel_proposal_button}}", "{{$validation_error_text}}", "{{$cancel_popup_title}}")'><i
                                                         class="fa fa-check"></i></a>
                                             </div>

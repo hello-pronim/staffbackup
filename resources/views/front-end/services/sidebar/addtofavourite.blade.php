@@ -2,7 +2,7 @@
 {{--<div class="wt-clicksavearea">--}}
     {{--<span>{{{trans("lang.service_id")}}}: {{{$service->code}}}</span>--}}
     {{--@if (!empty($save_services))--}}
-        {{--<a href="javascrip:void(0);" class="wt-clicksavebtn wt-clicksave wt-btndisbaled">--}}
+        {{--<a href="javascript:void(0);" class="wt-clicksavebtn wt-clicksave wt-btndisbaled">--}}
             {{--<i class="fa fa-heart"></i> --}}
             {{--{{{trans("lang.saved")}}}--}}
         {{--</a>--}}

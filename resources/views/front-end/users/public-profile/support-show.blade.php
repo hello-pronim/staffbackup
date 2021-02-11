@@ -154,7 +154,7 @@
                 @endif
 
                 @if (in_array($profile->id, $save_freelancer))
-                <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
+                <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
                     <i class="fa fa-heart"></i>
                     {{ trans('lang.saved') }}
                 </a>

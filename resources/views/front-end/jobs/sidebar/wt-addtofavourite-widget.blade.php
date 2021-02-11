@@ -1,7 +1,7 @@
 <div class="wt-clicksavearea">
     <span>{{{trans("lang.project_id")}}}: {{{$job->code}}}</span>
     {{--@if (!empty($save_jobs))--}}
-        {{--<a href="javascrip:void(0);" class="wt-clicksavebtn wt-clicksave wt-btndisbaled">--}}
+        {{--<a href="javascript:void(0);" class="wt-clicksavebtn wt-clicksave wt-btndisbaled">--}}
             {{--<i class="fa fa-heart"></i>--}}
             {{--{{{trans("lang.saved")}}}--}}
         {{--</a>--}}

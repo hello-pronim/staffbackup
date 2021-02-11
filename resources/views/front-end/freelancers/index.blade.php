@@ -330,14 +330,14 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                         </li> */ ?>
                                                     @if (in_array($freelancer->id, $save_freelancer))
                                                     <li class="wt-btndisbaled">
-                                                        <a href="javascrip:void(0);" class="wt-clicksave wt-clicksave">
+                                                        <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
                                                             <i class="fa fa-heart"></i>
                                                             {{ trans('lang.saved') }}
                                                         </a>
                                                     </li>
                                                     @else
                                                     {{--<li v-cloak>--}}
-                                                    {{--<a href="javascrip:void(0);" class="wt-clicklike" id="freelancer-{{$freelancer->id}}"
+                                                    {{--<a href="javascript:void(0);" class="wt-clicklike" id="freelancer-{{$freelancer->id}}"
                                                     @click.prevent="add_wishlist('freelancer-{{$freelancer->id}}',
                                                     {{$freelancer->id}}, 'saved_freelancer',
                                                     '{{trans("lang.saved")}}')">--}}

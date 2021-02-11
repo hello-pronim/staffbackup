@@ -74,7 +74,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control filter-records"
                            placeholder="{{ trans('lang.ph_search_locations') }}">
-                    <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+                    <a href="javascript:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
                 </div>
             </fieldset>
             <fieldset>
@@ -104,7 +104,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control filter-records"
                            placeholder="{{ trans('lang.ph_search_cat') }}">
-                    <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+                    <a href="javascript:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
                 </div>
             </fieldset>
             <fieldset>

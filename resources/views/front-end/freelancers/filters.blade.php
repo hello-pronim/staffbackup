@@ -72,7 +72,7 @@
                 {{--<fieldset>--}}
                     {{--<div class="form-group">--}}
                         {{--<input type="text" class="form-control filter-records" placeholder="{{ trans('lang.search_loc') }}">--}}
-                        {{--<a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>--}}
+                        {{--<a href="javascript:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>--}}
                     {{--</div>--}}
                 {{--</fieldset>--}}
                 {{--<fieldset>--}}
@@ -99,7 +99,7 @@
                     <fieldset>
                         <div class="form-group">
                             <input type="text" class="form-control filter-records" placeholder="{{ trans('lang.ph_search_rate') }}">
-                            <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+                            <a href="javascript:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
                         </div>
                     </fieldset>
                     <fieldset>
@@ -163,7 +163,7 @@
                 {{--<fieldset>--}}
                     {{--<div class="form-group">--}}
                         {{--<input type="text" class="form-control filter-records" placeholder="{{ trans('lang.ph_search_langs') }}">--}}
-                        {{--<a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>--}}
+                        {{--<a href="javascript:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>--}}
                     {{--</div>--}}
                 {{--</fieldset>--}}
                 {{--<fieldset>--}}

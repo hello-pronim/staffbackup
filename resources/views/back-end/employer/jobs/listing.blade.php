@@ -71,7 +71,7 @@
                                                     <li><span><i class="far fa-clock wt-viewjobclock"></i>{{{ trans('lang.duration') }}} {{{ \App\Helper::getJobDurationList($job->duration)}}}</span></li>
                                                     <li><span><i class="fa fa-tag wt-viewjobtag"></i>{{{ trans('lang.job_id') }}} {{{$job->code}}}</span></li>
                                                     <li>
-                                                        <a href="javascrip:void(0);" class="wt-clicklike" v-bind:class="disable_btn" @click.prevent="add_wishlist({{$job->id}}, 'saved_jobs')" v-cloak>
+                                                        <a href="javascript:void(0);" class="wt-clicklike" v-bind:class="disable_btn" @click.prevent="add_wishlist({{$job->id}}, 'saved_jobs')" v-cloak>
                                                             <i v-bind:class="saved_class"></i><span v-cloak>@{{ text }}</span>
                                                         </a>
                                                     </li>

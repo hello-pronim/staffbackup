@@ -266,7 +266,7 @@
                                                         </li>
                                                     @else
                                                         {{--<li>--}}
-                                                            {{--<a href="javascrip:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>--}}
+                                                            {{--<a href="javascript:void(0);" class="wt-clicklike" id="job-{{$job->id}}" @click.prevent="add_wishlist('job-{{$job->id}}', {{$job->id}}, 'saved_jobs', '{{trans("lang.saved")}}')" v-cloak>--}}
                                                                 {{--<i class="fa fa-heart"></i>--}}
                                                                 {{--<span class="save_text">Click to Save</span>--}}
                                                             {{--</a>--}}
