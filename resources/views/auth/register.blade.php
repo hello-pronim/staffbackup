@@ -348,19 +348,19 @@ select {
                                         </div>
                                         <ul class="wt-joinsteps">
                                             <li class="wt-active"><a
-                                                    href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                                 <div>{{{ trans('lang.01_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                                 <div>{{{ trans('lang.02_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                                 <div>{{{ trans('lang.03_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                                 <div>{{{ trans('lang.04_step') }}}</div>
                                             </li>
-                                            <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                            <li v-if="user_role=='support'"><a href="javascript:void(0);">5</a></li>
                                         </ul>
 
                                         <ul class="wt-accordionhold wt-formaccordionhold accordion"
@@ -416,19 +416,19 @@ select {
                                         </div>
                                         <ul class="wt-joinsteps">
                                             <li class="wt-active"><a
-                                                    href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                                 <div>{{{ trans('lang.01_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                                 <div>{{{ trans('lang.02_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                                 <div>{{{ trans('lang.03_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                                 <div>{{{ trans('lang.04_step') }}}</div>
                                             </li>
-                                            <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                            <li v-if="user_role=='support'"><a href="javascript:void(0);">5</a></li>
                                         </ul>
 
                                         <div
@@ -541,20 +541,20 @@ select {
                                         </div>
                                         <ul class="wt-joinsteps">
                                             <li class="wt-done-next"><a
-                                                    href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                    href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                                 <div>{{{ trans('lang.01_step') }}}</div>
                                             </li>
                                             <li class="wt-active"><a
-                                                    href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                    href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                                 <div>{{{ trans('lang.02_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                                 <div>{{{ trans('lang.03_step') }}}</div>
                                             </li>
-                                            <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                            <li><a href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                                 <div>{{{ trans('lang.04_step') }}}</div>
                                             </li>
-                                            <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                            <li v-if="user_role=='support'"><a href="javascript:void(0);">5</a></li>
                                         </ul>
                                         <div class="form-group">
                                             <div class="wt-tabscontenttitle">
@@ -1091,21 +1091,21 @@ select {
 
                                     <ul class="wt-joinsteps">
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                             <div>{{{ trans('lang.01_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                             <div>{{{ trans('lang.02_step') }}}</div>
                                         </li>
                                         <li class="wt-active"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                             <div>{{{ trans('lang.03_step') }}}</div>
                                         </li>
-                                        <li><a href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                        <li><a href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                             <div>{{{ trans('lang.04_step') }}}</div>
                                         </li>
-                                        <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                        <li v-if="user_role=='support'"><a href="javascript:void(0);">5</a></li>
                                     </ul>
 
                                     <figure class="wt-joinformsimg"></figure>
@@ -1172,22 +1172,22 @@ select {
 
                                     <ul class="wt-joinsteps">
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                             <div>{{{ trans('lang.01_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                             <div>{{{ trans('lang.02_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                             <div>{{{ trans('lang.03_step') }}}</div>
                                         </li>
                                         <li class="wt-active"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                             <div>{{{ trans('lang.04_step') }}}</div>
                                         </li>
-                                        <li v-if="user_role=='support'"><a href="javascrip:void(0);">5</a></li>
+                                        <li v-if="user_role=='support'"><a href="javascript:void(0);">5</a></li>
                                     </ul>
 
                                     <fieldset class="wt-formregisterstart">
@@ -1256,22 +1256,22 @@ select {
                                 <div class="wt-gotodashboard" v-show="step === 5" v-cloak>
                                     <ul class="wt-joinsteps">
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.01_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.01_num') }}}</a>
                                             <div>{{{ trans('lang.01_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.02_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.02_num') }}}</a>
                                             <div>{{{ trans('lang.02_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.03_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.03_num') }}}</a>
                                             <div>{{{ trans('lang.03_step') }}}</div>
                                         </li>
                                         <li class="wt-done-next"><a
-                                                href="javascrip:void(0);">{{{ trans('lang.04_num') }}}</a>
+                                                href="javascript:void(0);">{{{ trans('lang.04_num') }}}</a>
                                             <div>{{{ trans('lang.04_step') }}}</div>
                                         </li>
-                                        <li class="wt-active"><a href="javascrip:void(0);">5</a></li>
+                                        <li class="wt-active"><a href="javascript:void(0);">5</a></li>
                                     </ul>
 
                                     <fieldset class="wt-formregisterstart" style="width: 100%;">
