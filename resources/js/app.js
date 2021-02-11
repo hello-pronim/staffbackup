@@ -416,7 +416,7 @@ if (document.getElementById("support_availability")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -942,7 +942,7 @@ if (document.getElementById("freelancer_availability")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -2076,7 +2076,7 @@ if (document.getElementById("registration")) {
         options: {
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
         },
       },
@@ -2779,12 +2779,12 @@ if (document.getElementById("pages-list")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
             class: "success_notification",
           },
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
             class: "error_notification",
           },
         },
@@ -2822,7 +2822,7 @@ if (document.getElementById("pages-list")) {
               self.showMessage(msg);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/admin/pages");
-              }, 4000);
+              }, 5000);
             } else {
               self.showError(response.data.message);
             }
@@ -3594,7 +3594,7 @@ if (document.getElementById("user_profile")) {
           },
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
             class: "error_notification",
           },
           completed: {
@@ -3805,7 +3805,7 @@ if (document.getElementById("user_profile")) {
               self.showInfo(response.data.processing);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/freelancer/dashboard");
-              }, 4000);
+              }, 5000);
             } else {
               self.showError(response.data.message);
             }
@@ -3846,7 +3846,7 @@ if (document.getElementById("user_profile")) {
               self.showInfo(response.data.process);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/employer/dashboard");
-              }, 4000);
+              }, 5000);
             } else if (response.data.type == "error") {
               self.showError(response.data.message);
             }
@@ -3874,7 +3874,7 @@ if (document.getElementById("user_profile")) {
               self.showInfo(response.data.process);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/admin/profile");
-              }, 4000);
+              }, 5000);
             } else if (response.data.type == "error") {
               self.showError(response.data.message);
             }
@@ -4121,7 +4121,7 @@ if (document.getElementById("settings")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -4284,7 +4284,7 @@ if (document.getElementById("settings")) {
               self.showInfo(response.data.progressing);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/admin/settings");
-              }, 4000);
+              }, 5000);
             } else if (response.data.type == "error") {
               self.showError(response.data.message);
             }
@@ -4319,7 +4319,7 @@ if (document.getElementById("settings")) {
               self.showInfo(response.data.progressing);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/admin/settings");
-              }, 4000);
+              }, 5000);
             } else if (response.data.type == "error") {
               self.showError(response.data.message);
             }
@@ -4338,7 +4338,7 @@ if (document.getElementById("settings")) {
               self.showInfo(response.data.progressing);
               setTimeout(function() {
                 window.location.replace(APP_URL + "/admin/settings");
-              }, 4000);
+              }, 5000);
             } else if (response.data.type == "error") {
               self.showError(response.data.message);
             }
@@ -4890,7 +4890,7 @@ if (document.getElementById("profile_settings")) {
           options: {
             success: {
               position: "topRight",
-              timeout: 4000,
+              timeout: 5000,
             },
             error: {
               position: "topRight",
@@ -5114,7 +5114,7 @@ if (document.getElementById("post_job")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -5241,10 +5241,12 @@ if (document.getElementById("post_job")) {
             if (response.data.type == "success") {
               self.loading = false;
               self.showInfo(Vue.prototype.trans("lang.job_submitting"));
+              console.log("AAAAAAAAA");
               setTimeout(function() {
+                console.log("BBBBBBBB");
                 window.location.href =
                   APP_URL + "/employer/dashboard/manage-jobs";
-              }, 4000);
+              }, 5000);
             } else {
               self.loading = false;
               self.showError(response.data.message);
@@ -5303,7 +5305,7 @@ if (document.getElementById("post_job")) {
                 } else if (response.data.role == "admin") {
                   window.location.replace(APP_URL + "/admin/jobs");
                 }
-              }, 4000);
+              }, 5000);
             } else {
               self.showError(response.data.message);
             }
@@ -5426,7 +5428,7 @@ if (document.getElementById("post_job_dashboard")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -5687,17 +5689,14 @@ if (document.getElementById("post_job_dashboard")) {
               // setTimeout(function (self) {
               //     window.location.replace(APP_URL + '/employer/dashboard');
               //     self.clickedDate = false;
-              // }, 4000);
+              // }, 5000);
               self.reloadCalendar();
               self.clickedDate = false;
               setTimeout(function(self) {
-                $("html, body").animate(
-                  {
-                    scrollTop: $(".scrolToCalend").offset().top,
-                  },
-                  1000
+                window.location.replace(
+                  APP_URL + "/employer/dashboard/manage-jobs"
                 );
-              });
+              }, 5000);
             } else {
               self.loading = false;
               self.showError(response.data.message);
@@ -5735,7 +5734,7 @@ if (document.getElementById("post_job_dashboard")) {
               //     } else if (response.data.role == 'admin') {
               //         window.location.replace(APP_URL + '/admin/jobs');
               //     }
-              // }, 4000);
+              // }, 5000);
 
               self.reloadCalendar();
               self.clickedDate = false;
@@ -5919,7 +5918,7 @@ if (document.getElementById("post_job_edit")) {
         options: {
           success: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
@@ -6176,7 +6175,7 @@ if (document.getElementById("post_job_edit")) {
       //                 // setTimeout(function (self) {
       //                 //     window.location.replace(APP_URL + '/employer/dashboard');
       //                 //     self.clickedDate = false;
-      //                 // }, 4000);
+      //                 // }, 5000);
       //                 self.reloadCalendar();
       //                 self.clickedDate = false;
       //                 setTimeout(function (self) {
@@ -6244,7 +6243,7 @@ if (document.getElementById("post_job_edit")) {
                   "/" + response.data.redirect
                 );
                 window.location.href = turl;
-              }, 4000);
+              }, 5000);
             } else {
               self.showError(response.data.message);
             }
@@ -6402,7 +6401,7 @@ if (document.getElementById("jobs")) {
           },
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -6857,7 +6856,7 @@ if (document.getElementById("packages")) {
           },
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
         },
       },
@@ -7017,7 +7016,7 @@ if (document.getElementById("invoice_list")) {
           },
           error: {
             position: "topRight",
-            timeout: 4000,
+            timeout: 5000,
           },
         },
       },
@@ -7397,7 +7396,7 @@ if (document.getElementById("services")) {
         options: {
           success: {
             position: "center",
-            timeout: 4000,
+            timeout: 5000,
           },
           error: {
             position: "topRight",
