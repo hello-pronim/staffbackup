@@ -327,8 +327,7 @@ select {
                         <div class="loader"></div>
                     </div>
                 </div>
-                <form method="POST" action="{{{ url('register/form-step1-custom-errors') }}}"
-                    class="wt-formtheme wt-formregister" @submit.prevent="checkStep1" id="register_form">
+                <form method="POST" class="wt-formtheme wt-formregister" id="register_form">
                     <div class="wt-registerformhold">
                         <div class="wt-registerformmain">
                             <div class="wt-joinforms">
@@ -398,8 +397,8 @@ select {
                                         </ul>
 
                                         <div class="form-group">
-                                            <button type="submit"
-                                                class="wt-btn">{{{  trans('lang.btn_startnow') }}}</button>
+                                            <a href="#" @click.prevent="next()"
+                                                class="wt-btn">{{{  trans('lang.btn_startnow') }}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -433,72 +432,78 @@ select {
 
                                         <div
                                             v-show="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)">
-                                            <div class="form-group"
-                                                v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
-                                                <span class="wt-select">
-                                                    {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms",
-                                                    "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] :
-                                                    null , array('placeholder' => trans('lang.title'), 'v-bind:class' =>
-                                                    '{ "is-invalid": form_step2.title_error }')) !!}
-                                                </span>
-                                                <span class="help-block" v-if="form_step2.title_error">
-                                                    <strong v-cloak>@{{form_step2.title_error}}</strong>
-                                                </span>
+                                            <div>
+                                                <div class="form-group"
+                                                    v-bind:class="[user_role=='employer' ? 'form-group-20' : 'form-group-half', '']">
+                                                    <span class="wt-select">
+                                                        {!! Form::select('title', array("Mr"=>"Mr", "Ms"=>"Ms",
+                                                        "Mrs"=>"Mrs", "Dr"=>"Dr"), isset($_GET['title']) ? $_GET['title'] :
+                                                        null , array('placeholder' => trans('lang.title'), 'v-bind:class' =>
+                                                        '{ "is-invalid": form_step2.title_error }')) !!}
+                                                    </span>
+                                                    <span class="help-block" v-if="form_step2.title_error">
+                                                        <strong v-cloak>@{{form_step2.title_error}}</strong>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group"
+                                                    v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
+                                                    <input type="text" name="first_name" class="form-control"
+                                                        placeholder="{{{ trans('lang.ph_first_name') }}}"
+                                                        value="{{ isset($_GET['first_name']) ? $_GET['first_name'] : "" }}"
+                                                        v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }">
+                                                    <span class="help-block" v-if="form_step1.first_name_error">
+                                                        <strong v-cloak>@{{form_step1.first_name_error}}</strong>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-group-half"
+                                                    v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
+                                                    <input type="text" name="last_name" class="form-control"
+                                                        placeholder="{{{ trans('lang.ph_surname') }}}"
+                                                        v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
+                                                        value="{{ isset($_GET['last_name']) ? $_GET['last_name'] : "" }}">
+                                                    <span class="help-block" v-if="form_step1.last_name_error">
+                                                        <strong v-cloak>@{{form_step1.last_name_error}}</strong>
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="form-group"
-                                                v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
-                                                <input type="text" name="first_name" class="form-control"
-                                                    placeholder="{{{ trans('lang.ph_first_name') }}}"
-                                                    value="{{ isset($_GET['first_name']) ? $_GET['first_name'] : "" }}"
-                                                    v-bind:class="{ 'is-invalid': form_step1.is_first_name_error }">
-                                                <span class="help-block" v-if="form_step1.first_name_error">
-                                                    <strong v-cloak>@{{form_step1.first_name_error}}</strong>
-                                                </span>
+                                            <div>
+                                                <div class="form-group form-group-half">
+                                                    <input id="user_email" type="email" class="form-control" name="email"
+                                                        placeholder="{{{ trans('lang.ph_email') }}}"
+                                                        v-bind:class="{ 'is-invalid': form_step1.is_email_error }"
+                                                        value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}">
+                                                    <span class="help-block" v-if="form_step1.email_error">
+                                                        <strong v-cloak>@{{form_step1.email_error}}</strong>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-group-half" v-if="user_role=='employer'">
+                                                    <input id="number" type="number" class="form-control" name="number"
+                                                        value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}" min="0"
+                                                        placeholder="{{{ trans('lang.number') }}}">
+                                                </div>
                                             </div>
-                                            <div class="form-group form-group-half"
-                                                v-bind:class="[user_role=='employer' ? 'form-group-40' : 'form-group-half', '']">
-                                                <input type="text" name="last_name" class="form-control"
-                                                    placeholder="{{{ trans('lang.ph_surname') }}}"
-                                                    v-bind:class="{ 'is-invalid': form_step1.is_last_name_error }"
-                                                    value="{{ isset($_GET['last_name']) ? $_GET['last_name'] : "" }}">
-                                                <span class="help-block" v-if="form_step1.last_name_error">
-                                                    <strong v-cloak>@{{form_step1.last_name_error}}</strong>
-                                                </span>
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="user_email" type="email" class="form-control" name="email"
-                                                    placeholder="{{{ trans('lang.ph_email') }}}"
-                                                    v-bind:class="{ 'is-invalid': form_step1.is_email_error }"
-                                                    value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}">
-                                                <span class="help-block" v-if="form_step1.email_error">
-                                                    <strong v-cloak>@{{form_step1.email_error}}</strong>
-                                                </span>
-                                            </div>
-                                            <div class="form-group form-group-half" v-if="user_role=='employer'">
-                                                <input id="number" type="number" class="form-control" name="number"
-                                                    value="{{ isset($_GET['number']) ? $_GET['number'] : "" }}" min="0"
-                                                    placeholder="{{{ trans('lang.number') }}}">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input id="password" type="password" class="form-control"
-                                                    name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
-                                                    value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
-                                                    v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
-                                                <span class="help-block" v-if="form_step2.password_error">
-                                                    <strong v-cloak>@{{form_step2.password_error}}</strong>
-                                                </span>
+                                            <div>
+                                                <div class="form-group form-group-half">
+                                                    <input id="password" type="password" class="form-control"
+                                                        name="password" placeholder="{{{ trans('lang.ph_pass') }}}"
+                                                        value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+                                                        v-bind:class="{ 'is-invalid': form_step2.is_password_error }">
+                                                    <span class="help-block" v-if="form_step2.password_error">
+                                                        <strong v-cloak>@{{form_step2.password_error}}</strong>
+                                                    </span>
 
-                                            </div>
-                                            <div class="form-group form-group-half">
+                                                </div>
+                                                <div class="form-group form-group-half">
 
-                                                <input id="password-confirm" type="password" class=" form-control"
-                                                    name="password_confirmation"
-                                                    placeholder="{{{ trans('lang.ph_retry_pass') }}}"
-                                                    value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
-                                                    v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
-                                                <span class="help-block" v-if="form_step2.password_confirm_error">
-                                                    <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
-                                                </span>
+                                                    <input id="password-confirm" type="password" class=" form-control"
+                                                        name="password_confirmation"
+                                                        placeholder="{{{ trans('lang.ph_retry_pass') }}}"
+                                                        value="{{ isset($_GET['password']) ? $_GET['password'] : "" }}"
+                                                        v-bind:class="{ 'is-invalid': form_step2.is_password_confirm_error }">
+                                                    <span class="help-block" v-if="form_step2.password_confirm_error">
+                                                        <strong v-cloak>@{{form_step2.password_confirm_error}}</strong>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-if="user_role=='employer'" class="form-group form-group-half">
@@ -518,7 +523,7 @@ select {
                                             <a href="#" @click.prevent="prev()"
                                                 class="wt-btn">{{{ trans('lang.previous') }}}</a>
                                             <a v-if="user_role!=='employer' || (user_role=='employer' && this.practice_code_checked)"
-                                                href="#" @click.prevent="next()"
+                                                href="#" @click.prevent="checkStep1()"
                                                 class="wt-btn">{{{ trans('lang.continue') }}}</a>
                                         </div>
                                     </div>

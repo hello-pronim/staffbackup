@@ -20,6 +20,13 @@
 .content-public-profile__main-content-description {
   white-space: pre-line;
 }
+.form-group {
+  .help-block {
+    strong {
+      color: #e3342f;
+    }
+  }
+}
 .error-msg {
   color: #ff5851;
   display: none;
