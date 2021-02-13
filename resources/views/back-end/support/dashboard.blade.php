@@ -229,7 +229,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group" v-if="!event_id">
+                            <div class="form-group">
                                 <div class="wt-tabscontenttitle">
                                     <div class="float-left">
                                         <h2>Recurring date</h2>
