@@ -40,9 +40,9 @@
                         </div>
                     </div>
                     <div class="searchinputs">
-                        <div class="filters">
-                            <div>LOCATION</div>
-                            <div>
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': straddress === null && isInValidSearch}">
+                            <div class="search-field-label">LOCATION</div>
+                            <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 46.png')}}" alt="">
                                 <gmap-autocomplete class="form-control" placeholder="Area or Postcode" id="straddress"
                                     name="straddress" @place_changed="updateAddressLocation($event)"
@@ -62,12 +62,12 @@
                             <div>RADIUS</div>
                             <div>
                                 <img src="{{url('images/icons/Layer 46.png')}}" alt="">
-                                <input type="text" v-model="radius" ref="radius" data-value="{{ $radius }}">
+                                <input type="text" v-model="radius" ref="radius" placeholder="Radius" data-value="{{ $radius }}">
                             </div>
                         </div>
-                        <div class="filters">
-                            <div>Profession</div>
-                            <div>
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': profession_id === '' && isInValidSearch}">
+                            <div class="search-field-label">Profession</div>
+                            <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 47.png')}}" alt="">
                                 <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
                                     v-model="profession_id" ref="profession" data-value="{{ $profession_id }}">
@@ -81,9 +81,10 @@
                             </div>
                         </div>
 
-                        <div class="filters">
-                            <div>DATE</div>
-                            <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDate === '' && isInValidSearch}">
+                            <div class="search-field-label">DATE</div>
+                            <div class="search-field-input">
+                                <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <input type="text" name="" v-model="selectedDate" placeholder="Date..."
                                     class="selectDatePicker" ref="availDate" data-value="{{ $date }}" />
                                 <vue-cal id="calendar_small"

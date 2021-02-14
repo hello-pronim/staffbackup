@@ -978,74 +978,75 @@ class PublicController extends Controller
                 if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
                     $job_date = $_GET['start_date'];
                 }
-
+                
                 $results = Job::getSearchResult($request);
 
-                $jobs = $results['jobs'];
-                if (!empty($jobs)) {
-                    if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
-                        return view(
-                            'extend.front-end.jobs.index',
-                            compact(
-                                'jobs',
-                                'categories',
-                                'locations',
-                                'languages',
-                                'freelancer_skills',
-                                'project_length',
-                                'Jobs_total_records',
-                                'keyword',
-                                'skills',
-                                'type',
-                                'current_date',
-                                'symbol',
-                                'job_list_meta_title',
-                                'job_list_meta_desc',
-                                'show_job_banner',
-                                'job_inner_banner',
-                                'show_breadcrumbs',
-                                'location',
-                                'latitude',
-                                'longitude',
-                                'radius',
-                                'profession_id',
-                                'date',
-                                'time',
-                                'rate'
-                            )
-                        );
-                    } else {
-                        return view(
-                            'front-end.jobs.index',
-                            compact(
-                                'jobs',
-                                'categories',
-                                'locations',
-                                'languages',
-                                'freelancer_skills',
-                                'project_length',
-                                'Jobs_total_records',
-                                'keyword',
-                                'skills',
-                                'type',
-                                'current_date',
-                                'symbol',
-                                'job_list_meta_title',
-                                'job_list_meta_desc',
-                                'show_job_banner',
-                                'job_inner_banner',
-                                'show_breadcrumbs',
-                                'location',
-                                'latitude',
-                                'longitude',
-                                'radius',
-                                'profession_id',
-                                'date',
-                                'time',
-                                'rate'
-                            )
-                        );
-                    }
+                if(!($request->location || $request->profession_id || $request->avail_date))
+                    $jobs = [];
+                else $jobs = $results['jobs'];
+                
+                if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
+                    return view(
+                        'extend.front-end.jobs.index',
+                        compact(
+                            'jobs',
+                            'categories',
+                            'locations',
+                            'languages',
+                            'freelancer_skills',
+                            'project_length',
+                            'Jobs_total_records',
+                            'keyword',
+                            'skills',
+                            'type',
+                            'current_date',
+                            'symbol',
+                            'job_list_meta_title',
+                            'job_list_meta_desc',
+                            'show_job_banner',
+                            'job_inner_banner',
+                            'show_breadcrumbs',
+                            'location',
+                            'latitude',
+                            'longitude',
+                            'radius',
+                            'profession_id',
+                            'date',
+                            'time',
+                            'rate'
+                        )
+                    );
+                } else {
+                    return view(
+                        'front-end.jobs.index',
+                        compact(
+                            'jobs',
+                            'categories',
+                            'locations',
+                            'languages',
+                            'freelancer_skills',
+                            'project_length',
+                            'Jobs_total_records',
+                            'keyword',
+                            'skills',
+                            'type',
+                            'current_date',
+                            'symbol',
+                            'job_list_meta_title',
+                            'job_list_meta_desc',
+                            'show_job_banner',
+                            'job_inner_banner',
+                            'show_breadcrumbs',
+                            'location',
+                            'latitude',
+                            'longitude',
+                            'radius',
+                            'profession_id',
+                            'date',
+                            'time',
+                            'rate'
+                        )
+                    );
                 }
             }
         } else {

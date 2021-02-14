@@ -1908,6 +1908,7 @@ if (page) {
       showTimePicker: false,
       selectedTime: {},
       rate: null,
+      isInValidSearch: false,
     },
     methods: {
       changeSearchType(type) {
@@ -1927,9 +1928,9 @@ if (page) {
       },
       onSkillSelect(option) {},
       submit_search() {
+        this.isInValidSearch = false;
         $(".error-msg.search-error-msg").css("display", "none");
         var url = APP_URL + "/search-results?type=" + this.search_type;
-        var isInValidSearch = false;
 
         if (this.straddress != "") {
           url += "&location=" + encodeURIComponent(this.straddress);
@@ -1940,7 +1941,7 @@ if (page) {
           if (latitude != "" && longitude != "") {
             url += "&latitude=" + latitude + "&longitude=" + longitude;
           }
-        } else isInValidSearch = true;
+        } else this.isInValidSearch = true;
 
         if (this.skill != "") {
           url += "&skill=" + encodeURIComponent(this.skill);
@@ -1952,7 +1953,7 @@ if (page) {
 
         if (this.profession_id != "") {
           url += "&profession_id=" + this.profession_id;
-        } else isInValidSearch = true;
+        } else this.isInValidSearch = true;
 
         if (this.selectedDate != "") {
           url +=
@@ -1960,7 +1961,7 @@ if (page) {
             (this.search_type == "freelancer" ? "avail_date" : "start_date") +
             "=" +
             this.selectedDate;
-        } else isInValidSearch = true;
+        } else this.isInValidSearch = true;
 
         if (this.selectedTime.HH || this.selectedTime.mm) {
           url += "&hours=" + this.selectedTime.HH;
@@ -1971,7 +1972,7 @@ if (page) {
           url += "&rate=" + this.rate;
         }
 
-        if (isInValidSearch) {
+        if (this.isInValidSearch) {
           $(".error-msg.search-error-msg").css("display", "block");
           return;
         } else window.location.replace(url);

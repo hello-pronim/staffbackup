@@ -13095,3 +13095,7 @@ Calendar
   display: none;
 }
 
+.searchinputs .invalid-search-field {
+  color: #ff5851;
+}
+
