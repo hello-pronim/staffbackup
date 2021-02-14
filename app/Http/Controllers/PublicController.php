@@ -435,7 +435,7 @@ class PublicController extends Controller
                         )
                     );
                 }
-			} elseif ($user->getRoleNames()->first() === 'support') {
+			} else if ($user->getRoleNames()->first() === 'support') {
                 $services = array();
                 if (Schema::hasTable('services') && Schema::hasTable('service_user')) {
                     $services = $user->services;
@@ -984,7 +984,7 @@ class PublicController extends Controller
                 if(!($request->location || $request->profession_id || $request->avail_date))
                     $jobs = [];
                 else $jobs = $results['jobs'];
-                
+
                 if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
                     return view(
                         'extend.front-end.jobs.index',
