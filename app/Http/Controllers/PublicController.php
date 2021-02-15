@@ -778,7 +778,9 @@ class PublicController extends Controller
                     $only_date,
                     $rate
                 );
-                $users = count($search['users']) > 0 ? $search['users'] : '';
+                if(!($location || $profession_id || $avail_date ))
+                    $users = [];
+                else $users = count($search['users']) > 0 ? $search['users'] : [];
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
                     unserialize(auth()->user()->profile->saved_freelancer) : array();
                 $save_employer = !empty(auth()->user()->profile->saved_employers) ?
