@@ -395,7 +395,8 @@ $arrBreaks = array(
                                 <div class="wt-tabscontenttitle">
                                     <h2>{{ trans('lang.skills_req') }}</h2>
                                 </div>
-                                <div class="form-group">
+                                <div class="la-jobedit-content">
+                                    <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
                                     <select name="profession_id" id="" v-model="skill_id">
                                         <option>Profession</option>
                                         @foreach($professions as $profession)
@@ -429,9 +430,12 @@ $arrBreaks = array(
                                         </div>
 
                                         <div class="form-group form-group-half" v-if="event_id == ''">
-                                            {!! Form::text('project_rates', null, array('class' => 'form-control
-                                            halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0'))
-                                            !!}
+                                            <div class="left-inner-addon">
+                                                <span>£</span>
+                                                {!! Form::text('project_rates', null, array('class' => 'form-control
+                                                halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0'))
+                                                !!}
+                                            </div>
                                         </div>
 
                                         {{--<div class="form-group form-group-half wt-formwithlabel job-rates-input">--}}

@@ -264,6 +264,7 @@ class Job extends Model
             $arrNewEvent['recurring_date'] = $request['recurring_date'];
             $arrNewEvent['content'] = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent['class'] = 'booking_calendar';
+            $arrNewEvent['skill_id'] = $request['profession_id'];
             $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
             $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
             array_filter($request['start_date']);
@@ -412,6 +413,7 @@ class Job extends Model
             $arrNewEvent['content'] = ($request['booking_content']) ? $request['booking_content'] : $request['description'];
             $arrNewEvent['contentFull'] = ($request['booking_content']) ? $request['booking_content'] : $request['description'];
             $arrNewEvent['class'] = 'booking_calendar';
+            $arrNewEvent['skill_id'] = $request['profession_id'];
             //dd($arrNewEvent,$request);
             //dd($request['changing_date']);
             if($request['changing_date']!='false') {

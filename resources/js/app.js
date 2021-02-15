@@ -5565,7 +5565,7 @@ if (document.getElementById("post_job_dashboard")) {
         });
       },
       changeSelectedDate(date) {
-        console.log(date);
+        console.log(this.selectedEvent);
         this.clickedDate = true;
         if (this.selectedEvent) {
           var selDateStart = this.selectedEvent.start.split(" ");
@@ -5577,6 +5577,9 @@ if (document.getElementById("post_job_dashboard")) {
           this.job_id = this.selectedEvent.job_id;
           this.booking_title = this.selectedEvent.title;
           this.booking_content = this.selectedEvent.content;
+          this.skill_id = this.selectedEvent.skill_id;
+          this.is_recurring =
+            this.selectedEvent.recurring_date !== "false" ? true : false;
 
           this.start = selDateStart[1];
           this.end = selDateEnd[1];
@@ -5590,8 +5593,10 @@ if (document.getElementById("post_job_dashboard")) {
 
           this.event_id = "";
           this.job_id = "";
+          this.skill_id = "";
           this.booking_title = "";
           this.booking_content = "";
+          this.is_recurring = false;
 
           this.start = "00:00";
           this.end = "23:59";
@@ -5670,7 +5675,6 @@ if (document.getElementById("post_job_dashboard")) {
         );
       },
       onEventClick(event) {
-        console.log(event);
         this.selectedEvent = event;
       },
 
@@ -5775,7 +5779,6 @@ if (document.getElementById("post_job_dashboard")) {
       },
       updateEvent(e) {
         e.preventDefault();
-        console.log(this);
         var thistoast = this.$toast;
         thistoast.options.position = "center";
         var self = this;
