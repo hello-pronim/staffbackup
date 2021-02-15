@@ -32,7 +32,7 @@
         <div class="form-group form-group-half">
             <date-picker :config="{format: 'YYYY-MM-DD'}"
 
-                         value="{{$user->pin_date_revalid}}"
+                         value="{{date('d-m-Y', strtotiem($user->pin_date_revalid))}}"
 
                          class="form-control"
                          name="pin_date_revalid"
