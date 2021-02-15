@@ -93,7 +93,7 @@ class Profile extends Model
 
         $user->pin = filter_var(isset($request['pin']) ? $request['pin'] : "", FILTER_SANITIZE_STRING);
         if(isset($request['pin_date_revalid']))
-            $user->pin_date_revalid = filter_var($request['pin_date_revalid'], FILTER_SANITIZE_STRING);
+            $user->pin_date_revalid = date('Y-m-d', strtotime($request['pin_date_revalid']));
 
         $user->nationality = filter_var(isset($request['nationality']) ? $request['nationality'] : "", FILTER_SANITIZE_STRING);
         $user->profession = filter_var(isset($request['profession']) ? $request['profession'] : "", FILTER_SANITIZE_STRING);

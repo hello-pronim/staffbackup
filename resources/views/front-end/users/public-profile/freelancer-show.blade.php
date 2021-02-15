@@ -96,10 +96,7 @@
                 <div class="content-public-profile__main-content-separator"></div>
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
-                    @if (!empty($profile->description))
-                        {{ $profile->description }}
-                    @else "No Skills Found"
-                    @endif
+                    {{$user->profession_id}}
                 </div>
             </div>
 
@@ -109,6 +106,18 @@
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     @if (!empty($profile->tagline))
                     <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
+                    @endif
+                    @if(!empty($profile->description))
+                        <div class="content-full-less">
+                            <div id="profile-description" class="content-full-less-paragraph">
+                                <p class="content-public-profile__main-content-description">
+                                    {{ $profile->description }}
+                                </p>
+                            </div>
+                            <div class="content-full-less_link-wrapper">
+                                <span class="content-full-less_link" data-more="Read More" data-less="Less" data-content="profile-description">Read More</span>
+                            </div>
+                        </div>
                     @endif
                 </div>
 

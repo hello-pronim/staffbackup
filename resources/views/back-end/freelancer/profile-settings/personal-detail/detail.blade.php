@@ -27,7 +27,7 @@
             {!! Form::text( 'telno', $user->telno, ['class' =>'form-control', 'placeholder' => trans('lang.phone')] ) !!}
         </div>
         @php
-            $user_dob = is_string($user->dob) ? date('Y-m-d',  strtotime($user->dob)) : "";
+            $user_dob = is_string($user->dob) ? date('d-m-Y',  strtotime($user->dob)) : "";
         @endphp
         <div class="form-group birthday">
             <date-picker
@@ -62,7 +62,7 @@
         <div class="form-group form-group-half">
             <date-picker :config="{format: 'DD-MM-YYYY'}"
 
-                         value="{{$user->pin_date_revalid}}"
+                         value="{{date('d-m-Y', strtotime($user->pin_date_revalid))}}"
 
                          class="form-control"
                          name="pin_date_revalid"
