@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use App\CalendarEvent;
 use App\Profession;
 use App\Role;
+use App\Repositories\ProfessionRepository;
 use Illuminate\Http\Request;
 use App\Helper;
 use App\Department;
@@ -59,6 +60,7 @@ class EmployerController extends Controller
      */
     protected $employer;
     protected $user;
+    protected $professionRepository;
 
     /**
      * Create a new controller instance.
@@ -67,10 +69,11 @@ class EmployerController extends Controller
      *
      * @return void
      */
-    public function __construct(Profile $employer, User $user)
+    public function __construct(Profile $employer, User $user, ProfessionRepository $professionRepository)
     {
         $this->employer = $employer;
         $this->user = $user;
+        $this->professionRepository = $professionRepository;
     }
 
     /**
@@ -292,6 +295,7 @@ class EmployerController extends Controller
             $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
             $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
             $access_type = Helper::getAccessType();
+            $professions = $this->professionRepository->getProfessionsByRole();
             $latest_proposal = Proposal::getLastWeekProposalsByJobList($employer_id);
             if (file_exists(resource_path('views/extend/back-end/employer/dashboard.blade.php'))) {
                 return view(
@@ -316,7 +320,8 @@ class EmployerController extends Controller
                         'enable_package',
                         'package',
                         'message_status',
-                        'latest_proposal'
+                        'latest_proposal',
+                        'professions'
                     )
                 );
             } else {
@@ -342,7 +347,8 @@ class EmployerController extends Controller
                         'enable_package',
                         'package',
                         'message_status',
-                        'latest_proposal'
+                        'latest_proposal',
+                        'professions'
                     )
                 );
             }

@@ -391,12 +391,23 @@ $arrBreaks = array(
                                 </div>
                             </div>
 
-                            <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
+                            <div class="wt-jobskills wt-tabsinfo la-jobedit">
                                 <div class="wt-tabscontenttitle">
                                     <h2>{{ trans('lang.skills_req') }}</h2>
                                 </div>
-                                <div class="la-jobedit-content">
-                                    <job_skills :placeholder="'select professions'"></job_skills>
+                                <div class="form-group">
+                                    <select name="profession_id" id="" v-model="skill_id">
+                                        <option>Profession</option>
+                                        @foreach($professions as $profession)
+                                            <option
+                                                value="{{ $profession->id }}"
+                                                @if(auth()->user()->profession_id == $profession->id) selected @endif
+                                                :selected="skill_id==={{$profession->id}}"
+                                            >
+                                                {{ $profession->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 

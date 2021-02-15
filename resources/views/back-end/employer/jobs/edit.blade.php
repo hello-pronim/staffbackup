@@ -1,12 +1,7 @@
 @php
     $user = Auth::user();
 
-        $arrAppo_slot_times = array(
-            '10 minutes'=>'10 minutes',
-            '15 minutes'=>'15 minutes',
-            '20 minutes'=>'20 minutes',
-            'Other'=>'Other'
-        );
+        $arrAppo_slot_times = config('job-settings.appo_slot_times');
         if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
         {
             $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
@@ -176,9 +171,19 @@
                                 </div>
                                 <div class="form-group form-group-half float-left" v-if="is_recurring != false">
                                     @if($firstJob)
-                                        {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], $firstJob->recurring_date, ['class' => 'form-control','id'=>'recurring_date', 'placeholder' => "Recurring dates"]) !!}
+                                        <select name="recurring_date" class="form-control" id="recurring_date" placeholder="Recurring dates">
+                                            <option value="day" @if($firstJob->recurring_date=='day') selected @endif>day</option>
+                                            <option value="week" @if($firstJob->recurring_date=='week') selected @endif>week</option>
+                                            <option value="month" @if($firstJob->recurring_date=='month') selected @endif>month</option>
+                                        </select>
+                                        <!-- {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], $firstJob->recurring_date, ['class' => 'form-control','id'=>'recurring_date', 'placeholder' => "Recurring dates"]) !!} -->
                                     @else
-                                        {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], null, ['class' => 'form-control','id'=>'recurring_date', 'placeholder' => "Recurring dates"]) !!}
+                                        <select name="recurring_date" class="form-control" id="recurring_date" placeholder="Recurring dates">
+                                            <option value="day">day</option>
+                                            <option value="week">week</option>
+                                            <option value="month">month</option>
+                                        </select>
+                                        <!-- {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], null, ['class' => 'form-control','id'=>'recurring_date', 'placeholder' => "Recurring dates"]) !!} -->
                                     @endif
                                 </div>
                                 <div class="form-group form-group-half float-right" v-if="is_recurring != false">
@@ -194,7 +199,7 @@
                                     <h2>Other Appointment</h2>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
+                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $job->job_appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
                                 </div>
                                 <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
                                     <input id="other_appo" type="text" class="form-control" name="appo_slot_times[]">
@@ -203,10 +208,10 @@
 
                             <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), $user->adm_catch_time, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                    {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), $job->job_adm_catch_time, array('placeholder' => "Admin Catch Up Time Provided")) !!}
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+                                    {!! Form::select('breaks', $arrBreaks, $job->breaks, array('placeholder' => "Breaks")) !!}
                                 </div>
 
                                 <div class="form-group form-group-half">
@@ -266,7 +271,7 @@
                                 <div class="wt-divtheme wt-userform wt-userformvtwo">
                                     {{$user->direct_booking}}
                                     <div class="form-group">
-                                        {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), $user->direct_booking, ['placeholder' => 'Direct Bookings' ]) !!}
+                                        {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), $job->direct_booking, ['placeholder' => 'Direct Bookings' ]) !!}
                                     </div>
                                 </div>
                             </div>

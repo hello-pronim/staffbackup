@@ -211,6 +211,7 @@ class Job extends Model
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $this->breaks = $request->breaks;
+            $this->direct_booking = $request->direct_booking;
             
             if (auth()->user()->postcode) {
                 $response = json_decode(\GoogleMaps::load('geocoding')
@@ -377,6 +378,7 @@ class Job extends Model
 
             $job->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $job->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
+            $job->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {

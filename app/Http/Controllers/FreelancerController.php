@@ -1011,7 +1011,7 @@ class FreelancerController extends Controller
             $arrNewEvent['contentFull'] = ($request['availability_content'])?$request['availability_content']:'';
             $arrNewEvent['recurring_date'] = ($request['recurring_date'])?$request['recurring_date']:null;
             $arrNewEvent['class'] = $request['class']?$request['class']:"";
-            $arrNewEvent['skill_id'] = ($request['skill_id'])?$request['skill_id']:null;
+            $arrNewEvent['skill_id'] = ($request['profession_id'])?$request['profession_id']:null;
             $arrNewEvent['created_at'] = now();
             $arrNewEvent['updated_at'] = now();
             $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';

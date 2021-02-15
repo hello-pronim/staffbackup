@@ -253,7 +253,7 @@
                                         </div>
                                         <div class="wt-divtheme wt-userform wt-userformvtwo">
                                             <div class="form-group">
-                                                {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
+                                                {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), null, array('placeholder' => "Direct Bookings")) !!}
                                             </div>
 
                                         </div>
