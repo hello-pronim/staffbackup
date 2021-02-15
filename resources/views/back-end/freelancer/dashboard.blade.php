@@ -256,7 +256,7 @@
                                     <h2>{{ trans('lang.skills_req') }}</h2>
                                 </div>
                                 <div class="form-group">
-                                    <select name="profession_id" id="">
+                                    <select name="profession_id" id="" v-model="skill_id">
                                         <option>Profession</option>
                                         @foreach($professions as $profession)
                                             <option

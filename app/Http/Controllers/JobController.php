@@ -371,7 +371,7 @@ class JobController extends Controller
             $request['project_levels'] = "basic";
             $job_post = $this->job->storeJobs($request);
 
-            if ($job_post = 'success') {
+            if ($job_post == 'success') {
 
                 $json['type'] = 'success';
                 $json['message'] = trans('lang.job_post_success');
