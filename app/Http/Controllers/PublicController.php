@@ -307,7 +307,9 @@ class PublicController extends Controller
         $user = User::select('id')->where('slug', $slug)->first();
 
         if (!empty($user)) {
-            $user = User::find($user->id);
+            $user = User::leftJoin('professions', 'users.profession_id', '=', 'professions.id')
+                        ->select('users.*', 'professions.*', 'users.id as id')
+                        ->find($user->id);
             if ($user->is_disabled == 'true') {
                 abort(404);
             }

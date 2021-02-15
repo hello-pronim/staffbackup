@@ -96,7 +96,7 @@
                 <div class="content-public-profile__main-content-separator"></div>
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
-                    {{$user->profession_id}}
+                    {{$user->title}}
                 </div>
             </div>
 
@@ -105,13 +105,13 @@
 
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     @if (!empty($profile->tagline))
-                    <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
+                    <span class="content-public-profile__main-content-title">{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}</span>
                     @endif
                     @if(!empty($profile->description))
                         <div class="content-full-less">
                             <div id="profile-description" class="content-full-less-paragraph">
                                 <p class="content-public-profile__main-content-description">
-                                    {{ $profile->description }}
+                                    {{ html_entity_decode($profile->description, ENT_QUOTES) }}
                                 </p>
                             </div>
                             <div class="content-full-less_link-wrapper">

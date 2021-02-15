@@ -229,8 +229,8 @@ class Profile extends Model
         $profile->freelancer_type = 'Basic';
         $profile->hourly_rate = intval($request['hourly_rate']);
         $profile->gender = filter_var($request['gender'], FILTER_SANITIZE_STRING);
-        $profile->tagline = filter_var($request['tagline'], FILTER_SANITIZE_STRING);
-        $profile->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
+        $profile->tagline = filter_var(htmlentities($request['tagline']), FILTER_SANITIZE_STRING);
+        $profile->description = filter_var(htmlentities($request['description']), FILTER_SANITIZE_STRING);
 
         $profile->radius = filter_var($request['radius'], FILTER_SANITIZE_STRING) ?: null;
 

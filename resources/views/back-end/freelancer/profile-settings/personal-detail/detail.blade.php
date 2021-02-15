@@ -93,10 +93,10 @@
         </span>
         </div>
         <div class="form-group">
-            {!! Form::text( 'tagline', e($tagline), ['class' =>'form-control', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
+            {!! Form::text( 'tagline', e(html_entity_decode($tagline, ENT_QUOTES)), ['class' =>'form-control', 'placeholder' => trans('lang.ph_add_tagline')] ) !!}
         </div>
         <div class="form-group">
-            {!! Form::textarea( 'description', e($description), ['class' =>'form-control', 'placeholder' => trans('lang.ph_desc')] ) !!}
+            {!! Form::textarea( 'description', e(html_entity_decode($description, ENT_QUOTES)), ['class' =>'form-control', 'placeholder' => trans('lang.ph_desc')] ) !!}
         </div>
 
 

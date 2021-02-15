@@ -111,7 +111,7 @@
 
                 <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                     @if (!empty($profile->tagline))
-                    <span class="content-public-profile__main-content-title">{{ $profile->tagline }}</span>
+                    <span class="content-public-profile__main-content-title">{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}</span>
                     @endif
                     @if (!empty($profile->description))
                     <div class="content-full-less">
