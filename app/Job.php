@@ -389,6 +389,7 @@ class Job extends Model
                 $job->job_adm_catch_time_interval = filter_var((isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] != "Other") ? $request['job_adm_catch_time_interval'][0] :
                     (isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] == "Other" ? $request['job_adm_catch_time_interval'][1] : ""), FILTER_SANITIZE_STRING);
             }
+            $job->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
 
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
