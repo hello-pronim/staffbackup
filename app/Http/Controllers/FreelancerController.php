@@ -1010,6 +1010,7 @@ class FreelancerController extends Controller
             $arrNewEvent['content'] = ($request['availability_content'])?$request['availability_content']:'';
             $arrNewEvent['contentFull'] = ($request['availability_content'])?$request['availability_content']:'';
             $arrNewEvent['recurring_date'] = ($request['recurring_date'])?$request['recurring_date']:null;
+            $arrNewEvent['recurring_end_date'] = date('Y-m-d', strtotime($request['recurring_end_date']));
             $arrNewEvent['class'] = $request['class']?$request['class']:"";
             $arrNewEvent['skill_id'] = ($request['profession_id'])?$request['profession_id']:null;
             $arrNewEvent['created_at'] = now();

@@ -262,6 +262,7 @@ class Job extends Model
             $arrNewEvent['job_id'] = $job_id;
             $arrNewEvent['title'] = $request['title'];
             $arrNewEvent['recurring_date'] = $request['recurring_date'];
+            $arrNewEvent['recurring_end_date'] = date('Y-m-d', strtotime($request['recurring_end_date']));
             $arrNewEvent['content'] = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent['class'] = 'booking_calendar';
             $arrNewEvent['skill_id'] = $request['profession_id'];
@@ -431,6 +432,7 @@ class Job extends Model
                 $get_events = CalendarEvent::where('job_id', $id)->delete();
                 $arrNewEvent['job_id'] = $job_id;
                 $arrNewEvent['recurring_date'] = $request['recurring_date'];
+                $arrNewEvent['recurring_end_date'] = date('Y-m-d', strtotime($request['recurring_end_date']));
                 $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
                 $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
                 array_filter($request['start_date']);

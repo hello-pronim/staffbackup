@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="form-group form-group-half float-right" v-if="is_recurring != false">
                                     <span class="wt-select">
-                                        <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value=""></date-picker>
+                                        <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="recurring_end_date" placeholder="Last date recurring" requare value={{date('d-m-Y', strtotime($firstJob->recurring_end_date))}}></date-picker>
                                     </span>
                                 </div>
                             </div>

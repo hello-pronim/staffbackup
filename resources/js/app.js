@@ -5389,6 +5389,7 @@ if (document.getElementById("post_job_dashboard")) {
       clickedDate: "",
       clickedEndDate: "",
       recurring_date: "",
+      recurring_end_date: "",
       user_id: "",
       skill_id: "",
       id: "",
@@ -5582,6 +5583,9 @@ if (document.getElementById("post_job_dashboard")) {
           this.is_recurring =
             this.selectedEvent.recurring_date !== "false" ? true : false;
           this.recurring_date = this.selectedEvent.recurring_date;
+          this.recurring_end_date = this.selectedEvent.recurring_end_date
+            ? moment(this.selectedEvent.recurring_end_date).format("DD-MM-YYYY")
+            : "";
           this.job_appo_slot_times = this.selectedEvent.job_appo_slot_times;
           this.job_adm_catch_time = this.selectedEvent.job_adm_catch_time;
           this.breaks = this.selectedEvent.breaks;
@@ -5605,6 +5609,7 @@ if (document.getElementById("post_job_dashboard")) {
           this.booking_content = "";
           this.is_recurring = false;
           this.recurring_date = "";
+          this.recurring_end_date = "";
           this.job_appo_slot_times = "";
           this.job_adm_catch_time = "";
           this.breaks = "";

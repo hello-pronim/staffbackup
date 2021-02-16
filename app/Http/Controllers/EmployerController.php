@@ -762,6 +762,7 @@ class EmployerController extends Controller
             $arrNewEvent->content = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent->contentFull = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent->recurring_date = ($request['recurring_date'])?$request['recurring_date']:null;
+            $arrNewEvent->recurring_end_date = ($request['recurring_end_date'])?date('Y-m-d', strtotime($request['recurring_end_date'])):null;
             $arrNewEvent->class = 'booking_calendar';
             $arrNewEvent->skill_id = ($request['profession_id']) ? $request['profession_id'] : null;
             $arrNewEvent->job_id = ($request['job_id'])?$request['job_id']:null;
