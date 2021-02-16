@@ -199,7 +199,7 @@ class JobController extends Controller
     public function edit($job_slug)
     {
         if (!empty($job_slug)) {
-            $job = Job::join('job_profession', 'job_profession.job_id', '=', 'jobs.id')
+            $job = Job::leftJoin('job_profession', 'job_profession.job_id', '=', 'jobs.id')
                         ->where('slug', $job_slug)
                         ->select('jobs.*', 'job_profession.*', 'jobs.id as id')
                         ->first();
