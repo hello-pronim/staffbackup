@@ -342,12 +342,12 @@ $arrBreaks = array(
                                 <div class="form-group form-group-half float-left"
                                     v-if="is_recurring != false && selecteddate >= selecteddate_end">
                                     {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'],
-                                    null, ['class' => 'form-control', 'placeholder' => "Recurring dates",
+                                    $user->recurring_date, ['class' => 'form-control', 'placeholder' => "Recurring dates",
                                     'v-model'=>'recurring_date']) !!}
                                 </div>
                                 <div class="form-group form-group-half float-left"
                                     v-if="is_recurring != false && selecteddate < selecteddate_end">
-                                    {!! Form::select('recurring_date', ['week'=>'week','month'=>'month'], null, ['class'
+                                    {!! Form::select('recurring_date', ['week'=>'week','month'=>'month'], $user->recurring_date, ['class'
                                     => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date'])
                                     !!}
                                 </div>
@@ -362,34 +362,34 @@ $arrBreaks = array(
                             </div>
 
 
-                            <div class="wt-jobdescription wt-tabsinfo" v-if="event_id == ''">
+                            <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Other Appointment</h2>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $user->appo_slot_times,
-                                    array( 'placeholder' => "Appointment Slot Times",'v-model'=>'appo_slot_times')) !!}
+                                    {!! Form::select('job_appo_slot_times[]', $arrAppo_slot_times, null,
+                                    array( 'placeholder' => "Appointment Slot Times",'v-model'=>'job_appo_slot_times')) !!}
                                 </div>
-                                <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
-                                    <input id="other_appo" type="text" class="form-control" name="appo_slot_times[]">
+                                <div class="form-group form-group-half" v-if="this.job_appo_slot_times=='Other'">
+                                    <input id="other_appo" type="text" class="form-control" name="job_appo_slot_times[]">
                                 </div>
                             </div>
 
-                            <div class="wt-jobdescription wt-tabsinfo" v-if="event_id == ''">
+                            <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null,
-                                    array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                    {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null,
+                                    array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
                                 </div>
                                 <div class="form-group form-group-half">
                                     {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' =>
-                                    "Breaks")) !!}
+                                    "Breaks", 'v-model'=>'breaks')) !!}
                                 </div>
 
                                 <div class="form-group form-group-half">
                                     {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home
                                     visits",'v-model'=>'home_visits')) !!}
                                 </div>
-                            </div>
+                             </div>
 
                             <div class="wt-jobskills wt-tabsinfo la-jobedit">
                                 <div class="wt-tabscontenttitle">
@@ -429,11 +429,11 @@ $arrBreaks = array(
                                             !!}
                                         </div>
 
-                                        <div class="form-group form-group-half" v-if="event_id == ''">
+                                        <div class="form-group form-group-half">
                                             <div class="left-inner-addon">
                                                 <span>£</span>
                                                 {!! Form::text('project_rates', null, array('class' => 'form-control
-                                                halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0'))
+                                                halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0', 'v-model'=>'project_rates'))
                                                 !!}
                                             </div>
                                         </div>
@@ -462,14 +462,14 @@ $arrBreaks = array(
                                 </div>
                             </div>
 
-                            <div class="wt-jobcategories wt-tabsinfo" v-if="event_id == ''">
+                            <div class="wt-jobcategories wt-tabsinfo">
                                 <div class="wt-tabscontenttitle">
                                     <h2>Direct Bookings</h2>
                                 </div>
                                 <div class="wt-divtheme wt-userform wt-userformvtwo">
                                     <div class="form-group">
                                         {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'),
-                                        $user->direct_booking, array('placeholder' => "Direct Bookings")) !!}
+                                        null, array('placeholder' => "Direct Bookings", 'v-model' => 'direct_booking')) !!}
                                     </div>
 
                                 </div>

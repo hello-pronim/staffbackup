@@ -5242,9 +5242,7 @@ if (document.getElementById("post_job")) {
             if (response.data.type == "success") {
               self.loading = false;
               self.showInfo(Vue.prototype.trans("lang.job_submitting"));
-              console.log("AAAAAAAAA");
               setTimeout(function() {
-                console.log("BBBBBBBB");
                 window.location.href =
                   APP_URL + "/employer/dashboard/manage-jobs";
               }, 5000);
@@ -5406,6 +5404,9 @@ if (document.getElementById("post_job_dashboard")) {
       job_appo_slot_times: "",
       job_adm_catch_time: "",
       job_adm_catch_time_interval: "",
+      breaks: "",
+      project_rates: "",
+      direct_booking: "",
       freelancer_level: "",
       home_visits: "",
       english_level: "",
@@ -5580,7 +5581,13 @@ if (document.getElementById("post_job_dashboard")) {
           this.skill_id = this.selectedEvent.skill_id;
           this.is_recurring =
             this.selectedEvent.recurring_date !== "false" ? true : false;
-
+          this.recurring_date = this.selectedEvent.recurring_date;
+          this.job_appo_slot_times = this.selectedEvent.job_appo_slot_times;
+          this.job_adm_catch_time = this.selectedEvent.job_adm_catch_time;
+          this.breaks = this.selectedEvent.breaks;
+          this.home_visits = this.selectedEvent.home_visits;
+          this.direct_booking = this.selectedEvent.direct_booking;
+          this.project_rates = this.selectedEvent.project_rates;
           this.start = selDateStart[1];
           this.end = selDateEnd[1];
           this.selectedEvent = false;
@@ -5597,6 +5604,13 @@ if (document.getElementById("post_job_dashboard")) {
           this.booking_title = "";
           this.booking_content = "";
           this.is_recurring = false;
+          this.recurring_date = "";
+          this.job_appo_slot_times = "";
+          this.job_adm_catch_time = "";
+          this.breaks = "";
+          this.home_visits = "";
+          this.direct_booking = "";
+          this.project_rates = "";
 
           this.start = "00:00";
           this.end = "23:59";

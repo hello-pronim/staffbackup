@@ -718,7 +718,11 @@ class EmployerController extends Controller
 
     public function getJobs()
     {
-        $jobs = auth()->user()->calendars->toArray();
+        //$jobs = auth()->user()->calendars->toArray();
+        $jobs = CalendarEvent::join('jobs', 'calendar_events.job_id', '=', 'jobs.id')
+                    ->where('jobs.user_id', Auth::user()->id)
+                    ->select('jobs.*', 'calendar_events.*', 'calendar_events.id as id')
+                    ->get();
 
         return response($jobs);
     }
@@ -742,7 +746,6 @@ class EmployerController extends Controller
     public function updateCalendarEvent(Request $request)
     {
         if (Auth::user() && $request['event_id']) {
-
             $this->validate(
                 $request,
                 [
@@ -760,14 +763,14 @@ class EmployerController extends Controller
             $arrNewEvent->contentFull = ($request['booking_content'])?$request['booking_content']:'';
             $arrNewEvent->recurring_date = ($request['recurring_date'])?$request['recurring_date']:null;
             $arrNewEvent->class = 'booking_calendar';
-            $arrNewEvent->skill_id = ($request['skill_id'])?$request['skill_id']:null;
+            $arrNewEvent->skill_id = ($request['profession_id']) ? $request['profession_id'] : null;
             $arrNewEvent->job_id = ($request['job_id'])?$request['job_id']:null;
             $booking_start = ($request['booking_start']) ? $request['booking_start'] : '23:59';
             $booking_end = ($request['booking_end']) ? $request['booking_end'] : '00:00';
             array_filter($request['start_date']);
             array_filter($request['end_date']);
-            $arrNewEvent->start = Carbon::parse($request['start_date'][0])->format('Y-m-d') . ' ' . $booking_start;
-            $arrNewEvent->end = Carbon::parse($request['end_date'][0])->format('Y-m-d') . ' ' . $booking_end;
+            $arrNewEvent->start = date('Y-m-d H:i:s', strtotime($request['start_date'][0] . ' ' . $booking_start));
+            $arrNewEvent->end = date('Y-m-d H:i:s', strtotime($request['end_date'][0] . ' ' . $booking_end));
             $arrNewEvent->save();
 
 
@@ -822,6 +825,19 @@ class EmployerController extends Controller
             //        }
             //    }
             //}
+
+            $job = Job::find($request['job_id']);
+            $job->title = filter_var($request['title'], FILTER_SANITIZE_STRING);
+            $job->slug = filter_var($request['title'], FILTER_SANITIZE_STRING);
+            $job->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
+            $job->project_rates = filter_var($request['project_rates'], FILTER_SANITIZE_STRING);
+            $job->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
+            $job->job_appo_slot_times = filter_var($request['job_appo_slot_times'][0], FILTER_SANITIZE_STRING);
+            $job->job_adm_catch_time = filter_var($request['job_adm_catch_time'], FILTER_SANITIZE_STRING);
+            $job->breaks = filter_var($request['breaks'], FILTER_SANITIZE_STRING);
+            $job->direct_booking = filter_var($request['direct_booking'], FILTER_SANITIZE_STRING);
+            $job->save();
+
             return array('success'=>true);
         } else {
             return array('error'=>true);

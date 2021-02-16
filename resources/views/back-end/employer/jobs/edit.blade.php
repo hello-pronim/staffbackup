@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="la-jobedit-content">
                                     <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
-                                    {!! Form::select('profession', $professions, $job->profession_id, array('placeholder' => "Profession")) !!}
+                                    {!! Form::select('profession_id', $professions, $job->profession_id, array('placeholder' => "Profession")) !!}
                                 </div>
                             </div>
 

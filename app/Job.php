@@ -194,7 +194,6 @@ class Job extends Model
             $this->project_level = filter_var($request['project_levels'], FILTER_SANITIZE_STRING);
             $this->description = $request['description'];
             $this->english_level = filter_var($request['english_level'], FILTER_SANITIZE_STRING);
-            $this->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
             $this->duration = ''; //filter_var($request['job_duration'], FILTER_SANITIZE_STRING);
             $this->freelancer_type = filter_var($request['freelancer_type'], FILTER_SANITIZE_STRING);
             $this->is_featured = filter_var($request['is_featured'], FILTER_SANITIZE_STRING);
@@ -211,6 +210,7 @@ class Job extends Model
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $this->breaks = $request->breaks;
+            $this->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
             $this->direct_booking = $request->direct_booking;
             
             if (auth()->user()->postcode) {
@@ -319,7 +319,7 @@ class Job extends Model
             //     }
             // }
 
-            $this->professions()->attach($request['profession']);
+            $this->professions()->attach($request['profession_id']);
 
             $job = Job::find($job_id);
             $languages = $request['languages'];
@@ -380,6 +380,16 @@ class Job extends Model
             $job->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $job->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
             $job->direct_booking = filter_var(isset($request['direct_booking']) ? $request['direct_booking'] : "", FILTER_SANITIZE_STRING);
+            $job->job_appo_slot_times = filter_var((isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] != "Other") ? $request['job_appo_slot_times'][0] :
+                (isset($request['job_appo_slot_times']) && $request['job_appo_slot_times'][0] == "Other" ? $request['job_appo_slot_times'][1] : ""), FILTER_SANITIZE_STRING);
+            $job->job_adm_catch_time = filter_var(isset($request['job_adm_catch_time']) ? $request['job_adm_catch_time'] : "", FILTER_SANITIZE_STRING);
+
+            $job->job_adm_catch_time_interval = '';
+            if ($job->job_adm_catch_time === 'Yes') {
+                $job->job_adm_catch_time_interval = filter_var((isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] != "Other") ? $request['job_adm_catch_time_interval'][0] :
+                    (isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] == "Other" ? $request['job_adm_catch_time_interval'][1] : ""), FILTER_SANITIZE_STRING);
+            }
+
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();
             if (!empty($request['attachments'])) {
@@ -487,7 +497,7 @@ class Job extends Model
             }
 
             $job->professions()->detach();
-            $job->professions()->attach($request['profession']);
+            $job->professions()->attach($request['profession_id']);
 
             $job = Job::find($job_id);
             $languages = $request['languages'];

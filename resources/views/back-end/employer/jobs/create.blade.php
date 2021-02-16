@@ -211,7 +211,7 @@
                                         </div>
                                         <div class="la-jobedit-content">
                                             <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
-                                            {!! Form::select('profession', $professions, null, array('placeholder' => "Profession")) !!}
+                                            {!! Form::select('profession_id', $professions, null, array('placeholder' => "Profession")) !!}
                                         </div>
                                     </div>
                                     <div class="wt-jobdescription wt-tabsinfo">
