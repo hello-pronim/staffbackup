@@ -1095,15 +1095,18 @@ class FreelancerController extends Controller
             $end = Carbon::createFromFormat('d-m-Y', $request->end_date[0])->format('Y-m-d');
         }
 
-        CalendarEvent::find($request->event_id)->update([
+        $newArrEvent = [
             'title' => $request->availability_title,
             'content' => $request->availability_content,
             'class' => $request->class,
             'start' => $start,
             'end' => $end,
-            'skill_id' => $request->profession_id
-        ]);
-
+            'skill_id' => $request->profession_id,
+            'recurring_date' => $request->recurring_date,
+            'recurring_end_date' => date('Y-m-d', strtotime($request->recurring_end_date))
+        ];
+        $affected = CalendarEvent::where('id', $request->event_id)->update($newArrEvent);;
+        
         return ['success' => true];
     }
     

@@ -991,6 +991,7 @@ class SupportController extends Controller
             $arrEvent['end'] = $request['end'];
             $arrEvent['skill_id'] = null;
             $arrEvent['recurring_date'] = $request['recurring_date'];
+            $arrEvent['recurring_end_date'] = date('Y-m-d', strtotime($request['recurring_end_date']));
             $arrEvent['class'] = $request['class'];
             DB::table('calendar_events')->insert(
                 $arrEvent

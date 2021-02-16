@@ -577,6 +577,9 @@ if (document.getElementById("support_availability")) {
           this.availability_content = ev.content;
           this.availability_title = ev.title;
           this.recurring_date = ev.recurring_date;
+          this.recurring_end_date = moment(ev.recurring_end_date).format(
+            "DD-MM-YYYY"
+          );
           this.skill_id = ev.skill_id;
           this.event_id = ev.id;
           this.user_id = ev["user_id"];
@@ -591,6 +594,7 @@ if (document.getElementById("support_availability")) {
           this.start = this.availability_start_time = "00:01";
           this.end = this.availability_end_time = "23:59";
           this.recurring_date = "";
+          this.recurring_end_date = "";
           this.skill_id = "";
           this.event_id = "";
           this.user_id = "";
@@ -1099,6 +1103,9 @@ if (document.getElementById("freelancer_availability")) {
           this.availability_content = ev.content;
           this.availability_title = ev.title;
           this.recurring_date = ev.recurring_date;
+          this.recurring_end_date = moment(ev.recurring_end_date).format(
+            "DD-MM-YYYY"
+          );
           this.skill_id = ev.skill_id;
           this.event_id = ev.id;
           this.user_id = ev["user_id"];
@@ -1112,6 +1119,7 @@ if (document.getElementById("freelancer_availability")) {
           this.start = this.availability_start_time = "00:01";
           this.end = this.availability_end_time = "23:59";
           this.recurring_date = "";
+          this.recurring_end_date = "";
           this.skill_id = "";
           this.event_id = "";
           this.user_id = "";
