@@ -199,16 +199,16 @@
                                     <h2>Other Appointment</h2>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('appo_slot_times[]', $arrAppo_slot_times, $job->job_appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
+                                    {!! Form::select('job_appo_slot_times[]', $arrAppo_slot_times, $job->job_appo_slot_times, array( 'placeholder' => "Appointment Slot Times")) !!}
                                 </div>
                                 <div class="form-group form-group-half" v-if="this.appo_slot_times=='Other'">
-                                    <input id="other_appo" type="text" class="form-control" name="appo_slot_times[]">
+                                    <input id="other_appo" type="text" class="form-control" name="job_appo_slot_times[]">
                                 </div>
                             </div>
 
                             <div class="wt-jobdescription wt-tabsinfo">
                                 <div class="form-group form-group-half">
-                                    {!! Form::select('adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), $job->job_adm_catch_time, array('placeholder' => "Admin Catch Up Time Provided")) !!}
+                                    {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), $job->job_adm_catch_time, array('placeholder' => "Admin Catch Up Time Provided")) !!}
                                 </div>
                                 <div class="form-group form-group-half">
                                     {!! Form::select('breaks', $arrBreaks, $job->breaks, array('placeholder' => "Breaks")) !!}
