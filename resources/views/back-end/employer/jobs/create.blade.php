@@ -158,11 +158,8 @@
                                                 <input type="hidden" :value="false" name="recurring_date">
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half float-left" v-if="is_recurring != false && selecteddate >= selecteddate_end">
+                                        <div class="form-group form-group-half float-left" v-if="is_recurring != false">
                                             {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], null, ['class' => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date']) !!}
-                                        </div>
-                                        <div class="form-group form-group-half float-left" v-if="is_recurring != false && selecteddate < selecteddate_end">
-                                            {!! Form::select('recurring_date', ['week'=>'week','month'=>'month'], null, ['class' => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date']) !!}
                                         </div>
                                         <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
                                     <span class="wt-select">
