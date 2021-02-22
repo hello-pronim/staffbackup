@@ -39,6 +39,11 @@
                                 <flash_messages :message_class="'danger'" :time='5' :message="'{{{ Session::get('error') }}}'" v-cloak></flash_messages>
                             </div>
                         @endif
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
+                            <div class="wt-proposalholder">
+                                <div class="wt-btnarea"><a class="wt-btn" href="{{ $back_url }}">Back</a></div>
+                            </div>
+                        </div>
                         @if (!empty($job))
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
                                 <div class="wt-proposalholder">
@@ -61,7 +66,7 @@
                                                  @if ($job->project_rates)
                                                     <li>
                                                         <span>
-                                                            <i class="wt-budget">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates }}}
+                                                            <i class="wt-budget">{{ !empty($symbol['symbol']) ? $symbol['symbol'] : '$' }}</i> {{{ $job->project_rates.' per hour' }}}
                                                         </span>
                                                     </li>
                                                 @endif
