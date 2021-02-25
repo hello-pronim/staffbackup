@@ -115,10 +115,10 @@ class PublicController extends Controller
     {
 		$validate_rules = [
 			'freelancer' => [
-                'pin' => 'required',
+                /* 'pin' => 'required',
                 'pin_date_revalid' => 'required',
                 'prof_ind_cert' => 'required',
-                'passport_visa' => 'required',
+                'passport_visa' => 'required', */
 				/*
                 '' => 'required',
                 '' => 'required',
@@ -153,7 +153,7 @@ class PublicController extends Controller
         //         'emp_cqc_rating_date' => 'required',
         //         'emp_cqc_rating' => 'required',
         //         'org_type' => 'required',
-				'practice_code' => [
+				/* 'practice_code' => [
 				// 	'required',
 				// 	'regex:/(^([a-zA-Z]{1})([\d]+)?$)/u'
             function ($attribute, $value, $fail) {
@@ -167,8 +167,8 @@ class PublicController extends Controller
                     }
                 }
             }
-				],
-        //         'termsconditions' => 'required',
+				], */
+                'termsconditions' => 'required',
 			],
 		];
         $this->validate(
@@ -985,9 +985,10 @@ class PublicController extends Controller
                 
                 $results = Job::getSearchResult($request);
 
-                if(!($request->location || $request->profession_id || $request->avail_date))
-                    $jobs = [];
-                else $jobs = $results['jobs'];
+                // if(!($request->location || $request->profession_id || $request->avail_date))
+                //     $jobs = [];
+                // else 
+                    $jobs = $results['jobs'];
 
                 if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
                     return view(

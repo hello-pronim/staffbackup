@@ -4,6 +4,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="wt-dashboardbox wt-dashboardtabsholder">
+                    <h3>{{Auth::user()->first_name." ".Auth::user()->last_name}}</h3>
                     @if (file_exists(resource_path('views/extend/back-end/employer/profile-settings/tabs.blade.php')))
                         @include('extend.back-end.employer.profile-settings.tabs')
                     @else

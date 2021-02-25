@@ -2,11 +2,13 @@
 
 return [
     'settings' => [
-        'GP Surgery'=>'GP Surgery',
-        'Walk-In centre'=>'Walk-In centre',
-        'Urgent Care Centre'=>'Urgent Care Centre',
-        'GP Out Of Hours'=>'GP Out Of Hours',
-        'Community Service'=>'Community Service',
+        'NHS' => 'NHS',
+        'GP surgery'=>'GP surgery',
+        'Walk in centre'=>'Walk in centre',
+        'Urgent care centre'=>'Urgent care centre',
+        'Out Of Hours service'=>'Out Of Hours service',
+        'Private' => 'Private',
+        'GP Service' => 'GP Service',
         'Other'=>'Other',
     ],
 

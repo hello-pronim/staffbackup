@@ -49,10 +49,10 @@
                     <div class="wt-title">
                         <h2>
                             <a href="{{{ $role != 'admin' ? url($role.'/dashboard') : 'javascript:void()' }}}">
-                                {{{ !empty(Auth::user()) ? Helper::getUserName(Auth::user()->id) : 'No Name' }}}
+                                {{{ !empty(Auth::user()) ? html_entity_decode(Helper::getUserName(Auth::user()->id), ENT_QUOTES) : 'No Name' }}}
                             </a>
                         </h2>
-                        <span style="font-family: AganeBold">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') :  Helper::getAuthRoleName() }}}</span><br>
+                        <span style="font-family: AganeBold">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(html_entity_decode(Auth::user()->profile->tagline, ENT_QUOTES), 26, '') :  Helper::getAuthRoleName() }}}</span><br>
                         <span style="font-family: AganeLight">{{{ !empty(Auth::user()->city) ? str_limit(Auth::user()->city, 26, '') : "" }}}</span>
                     </div>
 

@@ -2,7 +2,7 @@
 @push('stylesheets')
 <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
 @endpush
-@section('title'){{ $user_name }} | {{ $tagline }} @stop
+@section('title'){{ html_entity_decode($user_name, ENT_QUOTES) }} | {{ html_entity_decode($tagline, ENT_QUOTES) }} @stop
 @section('description', "$desc")
 @section('content')
 <div class="content-public-profile" id="user_profile">

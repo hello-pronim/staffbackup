@@ -565,6 +565,13 @@ class JobController extends Controller
      */
     public function show(Request $request)
     {
+        
+        $back_url = route('goToDashboard');
+        $urlPrevious = url()->previous();
+        $backRouteName = app('router')->getRoutes($urlPrevious)->match(app('request')->create($urlPrevious))->getName();
+        if (in_array($backRouteName, ['searchResults', 'employerDashboard', 'freelancerDashboard', 'supportDashboard'])) {
+            $back_url = $urlPrevious;
+        }
         $job = Job::where('slug', $request->slug)->firstOrFail();
 
         if ($job) {
@@ -599,7 +606,8 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user'
+                        'user',
+                        'back_url'
                     )
                 );
             } else {
@@ -616,7 +624,8 @@ class JobController extends Controller
                         'symbol',
                         'project_type',
                         'show_breadcrumbs',
-                        'user'
+                        'user',
+                        'back_url'
                     )
                 );
             }

@@ -188,8 +188,7 @@
                                             =>'post-job-form wt-haslayout', 'id' =>
                                             'accepted-download-attachments-form-'.$accepted_proposal->id]) !!}
                                             @foreach ($p_attachments as $attachments)
-                                            @if
-                                            (Storage::disk('local')->exists('uploads/proposals/'.$accepted_proposal->freelancer_id.'/'.$attachments))
+                                            @if (Storage::disk('local')->exists('uploads/proposals/'.$accepted_proposal->freelancer_id.'/'.$attachments))
                                             {!! Form::hidden('attachments['.$count.']', $attachments, []) !!}
                                             @php $count++; @endphp
                                             @endif
@@ -276,19 +275,19 @@
                                             </div>
                                         </div>
                                         @endif
-                                        {{--<div class="wt-proposalfeedback">--}}
-                                        {{--<span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>--}}
-                                        {{--<span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
-                                        <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>--}}
-                                        {{--</div>--}}
+                                        <div class="wt-proposalfeedback">
+                                        <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
+                                        <span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
+                                        <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
+                                        </div>
                                     </div>
                                     <div class="wt-rightarea">
-                                        {{--<div class="wt-btnarea">--}}
-                                        {{--@if (empty($accepted_proposal))--}}
-                                        {{--<a href="javascript:void(0);"  v-on:click.prevent="hireFreelancer('{{{$proposal->id}}}')"
-                                        class="wt-btn">{{ trans('lang.hire_now') }}</a>--}}
-                                        {{--@endif--}}
-                                        {{--</div>--}}
+                                        <div class="wt-btnarea">
+                                        @if (empty($accepted_proposal))
+                                            <a href="javascript:void(0);"  v-on:click.prevent="hireFreelancer('{{{$proposal->id}}}')"
+                                                class="wt-btn">{{ trans('lang.hire_now') }}</a>
+                                        @endif
+                                        </div>
                                         <div class="wt-hireduserstatus">
                                             <h5>{{ !empty($symbol) ? $symbol['symbol'] : '£' }}{{{$proposal->amount}}}
                                             </h5>
@@ -308,8 +307,7 @@
                                             =>'post-job-form wt-haslayout', 'id' =>
                                             'download-attachments-form-'.$proposal->id]) !!}
                                             @foreach ($attachments as $attachment)
-                                            @if
-                                            (Storage::disk('local')->exists('uploads/proposals/'.$proposal->freelancer_id.'/'.$attachment))
+                                            @if (Storage::disk('local')->exists('uploads/proposals/'.$proposal->freelancer_id.'/'.$attachment))
                                             {!! Form::hidden('attachments['.$received_proposal_count.']', $attachment,
                                             []) !!}
                                             @php $received_proposal_count++; @endphp

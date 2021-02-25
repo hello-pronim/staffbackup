@@ -638,7 +638,7 @@ select {
                                         <div class="wt-accordiondetails " v-if="is_show">
 
                                             <div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <div class="wt-tabscontenttitle">
                                                         <h2>Company Contacts</h2>
                                                     </div>
@@ -670,8 +670,38 @@ select {
                                                         v-bind:class="{ 'is-invalid': form_step2.emp_email_error }">
                                                     <span class="help-block" v-if="form_step2.emp_email_error">
                                                         <strong v-cloak>@{{form_step2.emp_email_error}}</strong>
-                                                </div>
+                                                </div> -->
 
+
+                                                <!-- New columns for sheet-->
+                                                <div class="form-group">                
+                                                    <label for="org_type" style="margin-top: 20px">Please
+                                                        indicate the
+                                                        organisation which best describes your
+                                                        service</label>
+                                                </div>
+                                                <!-- <div class="form-group form-group-half ">
+                                                    <span class="wt-select">
+                                                        {!! Form::select('org_type', $arrOrgTypes, null,
+                                                        array('placeholder' => "Organisation type", 'v-bind:class' => '{
+                                                        "is-invalid": form_step2.is_org_type_error }')) !!}
+                                                    </span>
+                                                    <span class="help-block" v-if="form_step2.org_type_error">
+                                                        <strong v-cloak>@{{form_step2.org_type_error}}</strong>
+                                                    </span>
+                                                </div> -->
+                                                <div class="form-group form-group-half ">
+                                                    <span class="wt-select">
+                                                        {!! Form::select('setting[]', $arrSettings, null,
+                                                        array('v-model'=>'appoSlotTime', 'placeholder' => "Setting"))
+                                                        !!}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-group-half " v-if="appoSlotTime=='Other'">
+                                                    <input id="other_setting" type="text" class="form-control"
+                                                        name="setting[]" placeholder="Other Setting">
+                                                </div>
+                                                <br>
 
                                                 <div class="form-group">
                                                     <div class="wt-tabscontenttitle">
@@ -704,38 +734,7 @@ select {
                                                         <strong v-cloak>@{{form_step2.emp_cqc_rating_error}}</strong>
                                                     </span>
                                                 </div>
-
-                                                <!-- New columns for sheet-->
-
-                                                <label for="org_type" style="margin-top: 20px">Please
-                                                    indicate the
-                                                    organisation which best describes your
-                                                    service</label>
-                                                <div class="form-group form-group-half ">
-                                                    <span class="wt-select">
-                                                        {!! Form::select('org_type', $arrOrgTypes, null,
-                                                        array('placeholder' => "Organisation type", 'v-bind:class' => '{
-                                                        "is-invalid": form_step2.is_org_type_error }')) !!}
-                                                    </span>
-                                                    <span class="help-block" v-if="form_step2.org_type_error">
-                                                        <strong v-cloak>@{{form_step2.org_type_error}}</strong>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-group-half">
-                                                    <input id="org_desc" type="text" class="form-control"
-                                                        name="org_desc" placeholder="Organisation description">
-                                                </div>
-                                                <div class="form-group form-group-half ">
-                                                    <span class="wt-select halfWidth">
-                                                        {!! Form::select('setting[]', $arrSettings, null,
-                                                        array('v-model'=>'appoSlotTime', 'placeholder' => "Setting"))
-                                                        !!}
-                                                    </span>
-                                                </div>
-                                                <div class="form-group " v-if="appoSlotTime=='Other'">
-                                                    <input id="other_setting" type="text" class="form-control"
-                                                        name="setting[]" placeholder="Other Setting">
-                                                </div>
+                                                <br>
 
                                                 <div v-if="user_role=='freelancer'">
                                                     <div class="form-group form-group-half">
@@ -759,23 +758,17 @@ select {
                                                 </div>
                                                 <br>
 
-                                                <div class="form-group form-group">
-                                                    <label for="insurance" style="display: inline-block">Insurance
-                                                        Details</label> <input type="checkbox" id="ischeck"
-                                                        name="insurance" placeholder="Insurance"
-                                                        v-model="insurancecheckbox">
+                                                <div class="form-group">
+                                                    <div class="wt-tabscontenttitle">
+                                                        <h2>Insurance
+                                                        Details</h2>
+                                                    </div>
                                                 </div>
                                                 <div v-if="insurancecheckbox">
                                                     <div class="form-group ">
                                                         <input type="text" class="form-control org-name" name="org_name"
-                                                            placeholder="Organisation name">
+                                                            placeholder="Name of Insurance Company">
                                                     </div>
-                                                    <div class="form-group ">
-                                                        <input type="text" class="form-control" name="policy_number"
-                                                            placeholder="Policy Number">
-                                                    </div>
-
-
                                                     <div class="form-group">
                                                         <label>Organisation Contact</label>
                                                     </div>
@@ -799,17 +792,18 @@ select {
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    {!! Form::select('prof_required',
-                                                    \App\User::getProfessionsByRole(App\Role::EMPLOYER_ROLE), null,
-                                                    ['placeholder' => "Professional Required"]) !!}
+                                                    <span class="wt-select">
+                                                        {!! Form::select('prof_required',
+                                                        \App\User::getProfessionsByRole(App\Role::EMPLOYER_ROLE), null,
+                                                        ['placeholder' => "Professional Required"]) !!}
+                                                    </span>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="wt-tabscontenttitle">
-                                                        <h2>Company Policies and
-                                                            Information</h2>
+                                                        <h2>Payment Terms</h2>
                                                     </div>
                                                 </div>
-
+<!-- 
                                                 <div class="form-group">
                                                     <div>Certificates –Vaccinations &
                                                         immunisation
@@ -832,6 +826,7 @@ select {
                                                         name="appo_slot_times[]"
                                                         placeholder="Other Appointment Slot Times">
                                                 </div>
+ -->
                                                 <div class="form-group">
                                                     <span class="wt-select">
                                                         {!! Form::select('payment_terms[]', $arrPaymentTerms, null,
@@ -839,11 +834,10 @@ select {
                                                         Terms")) !!}
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-group-half" v-if="paymentTerm=='Other'">
+                                                <div class="form-group" v-if="paymentTerm=='Other'">
                                                     <input id="other_payment_terms" type="text" class="form-control"
                                                         name="payment_terms[]" placeholder="Other Payment terms">
                                                 </div>
-
                                                 <div class="form-group">
                                                     <label for="hourly_rate_desc">Please enter
                                                         additional information in the

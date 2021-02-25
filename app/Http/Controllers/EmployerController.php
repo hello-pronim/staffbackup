@@ -249,6 +249,7 @@ class EmployerController extends Controller
             [
                 'first_name'    => 'required',
                 'last_name'    => 'required',
+                'org_name'      => 'required'
             ]
         );
         if (!empty($request)) {
