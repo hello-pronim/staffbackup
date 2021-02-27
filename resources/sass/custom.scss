@@ -36,3 +36,21 @@
     color: #ff5851;
   }
 }
+#searchHomePage {
+  &.search {
+    .searchinputs {
+      > div.filters {
+        width: 13.5%;
+      }
+    }
+    .timepicker {
+      input.display-time {
+        border: none;
+        width: 74%;
+        font-size: 12px;
+        padding: 0px 7px;
+        font-weight: 300;
+      }
+    }
+  }
+}

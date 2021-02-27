@@ -680,7 +680,8 @@ class User extends Authenticatable
         $search_languages,
         $days_avail,
         $hours_avail,
-        $avail_date,
+        $avail_date_from,
+        $avail_date_to,
         $location,
         $latitude,
         $longitude,
@@ -834,16 +835,16 @@ class User extends Authenticatable
             $events = DB::table('calendar_events')
                 ->where('class', '=', 'available_class');
         
-            if($avail_date) {
-                if ($only_date) {
-                    $events
-                        ->whereDate('start', '<=', $avail_date)
-                        ->whereDate('end', '>=', $avail_date);
-                } else {
-                    $events
-                        ->where('start', '<=', $avail_date)
-                        ->where('end', '>=', $avail_date);
-                }
+            if ($only_date) {
+                if($avail_date_from)
+                    $events->whereDate('start', '<=', $avail_date_from);
+                if($avail_date_to)
+                    $events->whereDate('end', '>=', $avail_date_to);
+            } else {
+                if($avail_date_from)
+                    $events->where('start', '<=', $avail_date_from);
+                if($avail_date_to)
+                    $events->where('end', '>=', $avail_date_to);
             }
             
             $events = $events->get()->toArray();

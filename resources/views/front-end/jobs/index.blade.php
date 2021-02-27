@@ -81,17 +81,32 @@
                             </div>
                         </div>
 
-                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDate === '' && isInValidSearch}">
-                            <div class="search-field-label">DATE</div>
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDateFrom === '' && isInValidSearch}">
+                            <div class="search-field-label">FROM</div>
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
-                                <input type="text" name="" v-model="selectedDate" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDate" data-value="{{ $date }}" />
-                                <vue-cal id="calendar_small"
+                                <input type="text" name="" v-model="selectedDateFrom" placeholder="Date..."
+                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ $date }}" />
+                                <vue-cal id="calendar_small_from"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
                                     default-view="month" :disable-views="['week', 'day', 'year']"
-                                    @cell-click="changeSelectedDate" :events="events">
+                                    @cell-click="changeSelectedDateFrom" :events="events">
+                                </vue-cal>
+                            </div>
+                        </div>
+
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDateTo === '' && isInValidSearch}">
+                            <div class="search-field-label">TO</div>
+                            <div class="search-field-input">
+                                <img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                                <input type="text" name="" v-model="selectedDateTo" placeholder="Date..."
+                                    class="selectDatePicker" ref="availDateTo" data-value="{{ $date }}" />
+                                <vue-cal id="calendar_small_to"
+                                    style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                                    class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
+                                    default-view="month" :disable-views="['week', 'day', 'year']"
+                                    @cell-click="changeSelectedDateTo" :events="events">
                                 </vue-cal>
                             </div>
                         </div>

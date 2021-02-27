@@ -295,11 +295,11 @@
                                             <span>{{{ $completion_time }}}</span>
                                             @endif
                                         </div>
-                                        {{--<div class="wt-hireduserstatus">--}}
-                                        {{--<i class="far fa-envelope"></i>--}}
-                                        {{--<a href="javascript:void(0);"  v-on:click.prevent="showCoverLetter('{{ $proposal->id }}')"
-                                        ><span>{{ trans('lang.cover_letter') }}</span></a>--}}
-                                        {{--</div>--}}
+                                        <div class="wt-hireduserstatus">
+                                        <i class="far fa-envelope"></i>
+                                        <a href="javascript:void(0);"  v-on:click.prevent="showCoverLetter('{{ $proposal->id }}')"
+                                        ><span>{{ trans('lang.cover_letter') }}</span></a>
+                                        </div>
                                         <div class="wt-hireduserstatus">
                                             <i class="fa fa-paperclip"></i>
                                             @if (!empty($attachments))
@@ -332,7 +332,6 @@
 
                                         </div>
                                         @endif
-
                                     </div>
                                 </div>
                                 @endforeach

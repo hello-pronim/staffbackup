@@ -730,14 +730,15 @@ class PublicController extends Controller
         $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
         $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
         $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
-        $avail_date = null;
+        $avail_date_from = null;
+        $avail_date_to = null;
 
         $location = $request->input('location');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $radius = $request->input('radius');
         $profession_id = $request->input('profession_id');
-        $date = $request->input('avail_date') ?? $request->input('start_date') ?? null;
+        $date = $request->input('avail_date_from') ?? $request->input('start_date') ?? null;
         $time = [
             'hours' => $request->input('hours'),
             'minutes' => $request->input('minutes')
@@ -746,13 +747,21 @@ class PublicController extends Controller
 
         $only_date = true;
         
-        if($request->avail_date && $request->hours) {
+        if($request->avail_date_from && $request->hours) {
             $only_date = false;
-            $avail_date = $request->avail_date . ' ' . $request->hours . ':' . $request->minutes . ':00';
-            $avail_date = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date)->format('Y-m-d H:i:s');
-        } else if($request->avail_date) {
-            $avail_date = $request->avail_date;
-            $avail_date = Carbon::createFromFormat('d/m/Y', $avail_date)->format('Y-m-d');
+            $avail_date_from = $request->avail_date_from . ' ' . $request->hours . ':' . $request->minutes . ':00';
+            $avail_date_from = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date_from)->format('Y-m-d H:i:s');
+        } else if($request->avail_date_from) {
+            $avail_date_from = $request->avail_date_from;
+            $avail_date_from = Carbon::createFromFormat('d/m/Y', $avail_date_from)->format('Y-m-d');
+        }
+        if($request->avail_date_to && $request->hours) {
+            $only_date = false;
+            $avail_date_to = $request->avail_date_to . ' ' . $request->hours . ':' . $request->minutes . ':00';
+            $avail_date_to = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date_to)->format('Y-m-d H:i:s');
+        } else if($request->avail_date_to) {
+            $avail_date_to = $request->avail_date_to;
+            $avail_date_to = Carbon::createFromFormat('d/m/Y', $avail_date_to)->format('Y-m-d');
         }
 
         if (!empty($_GET['type'])) {
@@ -771,7 +780,8 @@ class PublicController extends Controller
                     $search_languages,
                     $days_avail,
                     $hours_avail,
-                    $avail_date,
+                    $avail_date_from,
+                    $avail_date_to,
                     $location,
                     $latitude,
                     $longitude,
@@ -780,7 +790,7 @@ class PublicController extends Controller
                     $only_date,
                     $rate
                 );
-                if(!($location || $profession_id || $avail_date ))
+                if(!($location || $profession_id || $avail_date_from || $avail_date_to ))
                     $users = [];
                 else $users = count($search['users']) > 0 ? $search['users'] : [];
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
@@ -985,9 +995,9 @@ class PublicController extends Controller
                 
                 $results = Job::getSearchResult($request);
 
-                // if(!($request->location || $request->profession_id || $request->avail_date))
-                //     $jobs = [];
-                // else 
+                if(!($request->location || $request->profession_id || $request->avail_date_from || $request->avail_date_to))
+                    $jobs = [];
+                else 
                     $jobs = $results['jobs'];
 
                 if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {

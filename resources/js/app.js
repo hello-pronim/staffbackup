@@ -1881,8 +1881,13 @@ if (page) {
           "data-value"
         ].value;
       }
-      if (this.$refs["availDate"]) {
-        this.selectedDate = this.$refs["availDate"].attributes[
+      if (this.$refs["availDateFrom"]) {
+        this.selectedDateFrom = this.$refs["availDateFrom"].attributes[
+          "data-value"
+        ].value;
+      }
+      if (this.$refs["availDateTo"]) {
+        this.selectedDateTo = this.$refs["availDateTo"].attributes[
           "data-value"
         ].value;
       }
@@ -1904,7 +1909,8 @@ if (page) {
       professions: [],
       skill: "",
       location: "",
-      selectedDate: "",
+      selectedDateFrom: "",
+      selectedDateTo: "",
       selectedSkills: "",
       selectedLocation: "",
       search_type: page.attributes["attr-type"]
@@ -1922,15 +1928,27 @@ if (page) {
       changeSearchType(type) {
         this.search_type = type;
       },
-      changeSelectedDate(date) {
+      changeSelectedDateFrom(date) {
         //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-        this.selectedDate =
+        this.selectedDateFrom =
           date.getDate() +
           "/" +
           (date.getMonth() + 1) +
           "/" +
           date.getFullYear();
-        jQuery("#calendar_small").hide();
+        jQuery("#calendar_small_from").hide();
+        //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
+        // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
+      },
+      changeSelectedDateTo(date) {
+        //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
+        this.selectedDateTo =
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear();
+        jQuery("#calendar_small_to").hide();
         //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
         // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
       },
@@ -1963,12 +1981,24 @@ if (page) {
           url += "&profession_id=" + this.profession_id;
         } else this.isInValidSearch = true;
 
-        if (this.selectedDate != "") {
+        if (this.selectedDateFrom != "") {
           url +=
             "&" +
-            (this.search_type == "freelancer" ? "avail_date" : "start_date") +
+            (this.search_type == "freelancer"
+              ? "avail_date_from"
+              : "start_date") +
             "=" +
-            this.selectedDate;
+            this.selectedDateFrom;
+        } else this.isInValidSearch = true;
+
+        if (this.selectedDateTo != "") {
+          url +=
+            "&" +
+            (this.search_type == "freelancer"
+              ? "avail_date_to"
+              : "start_date") +
+            "=" +
+            this.selectedDateTo;
         } else this.isInValidSearch = true;
 
         if (this.selectedTime.HH || this.selectedTime.mm) {
@@ -8213,6 +8243,12 @@ $(document).ready(function() {
     event.stopPropagation();
 
     $("#calendar_small").toggle("slow", function() {});
+  });
+  $(".search-field-input .selectDatePicker").click(function(event) {
+    event.stopPropagation();
+    $(this)
+      .siblings(".vuecal")
+      .toggle("slow", function() {});
   });
 
   $("#calendar_small").on("click", (event) => {

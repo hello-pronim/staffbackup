@@ -182,8 +182,7 @@ $project_type = Helper::getProjectTypeList($job->project_type);
                                         =>'post-job-form wt-haslayout', 'id' =>
                                         'download-attachments-form-'.$accepted_proposal->freelancer_id]) !!}
                                         @foreach ($attachments as $attachment)
-                                        @if
-                                        (Storage::disk('local')->exists('uploads/proposals/'.$accepted_proposal->freelancer_id.'/'.$attachment))
+                                        @if (Storage::disk('local')->exists('uploads/proposals/'.$accepted_proposal->freelancer_id.'/'.$attachment))
                                         {!! Form::hidden('attachments['.$count.']', $attachment, []) !!}
                                         @php $count++; @endphp
                                         @endif

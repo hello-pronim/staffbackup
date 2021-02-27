@@ -69,7 +69,7 @@ $user = auth()->user();
                             <div class="search-field-label">{{ trans('lang.skills_req') }}</div>
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 47.png')}}" alt="">
-                                <select style="font-weight: normal;border:none;padding:0px;width: 80%;"
+                                <select style="font-weight: normal;border:none;padding:0px;width: 80%; font-size: 12px"
                                     v-model="profession_id" ref="profession" data-value="{{ $profession_id }}">
                                     <option value="" disabled selected>Profession...</option>
                                     <option v-for="profession in professions" :value="profession.id">
@@ -79,26 +79,42 @@ $user = auth()->user();
                             </div>
                         </div>
 
-                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDate === '' && isInValidSearch}">
-                            <div class="search-field-label">DATE</div>
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDateFrom === '' && isInValidSearch}">
+                            <div class="search-field-label">FROM</div>
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
-                                <input type="text" name="" v-model="selectedDate" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDate" data-value="{{ $date }}" />
-                                <vue-cal id="calendar_small"
+                                <input type="text" name="" v-model="selectedDateFrom" placeholder="Date..."
+                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ $date }}" />
+                                <vue-cal id="calendar_small_from"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
                                     default-view="month" :disable-views="['week', 'day', 'year']"
-                                    @cell-click="changeSelectedDate" :events="events">
+                                    @cell-click="changeSelectedDateFrom" :events="events">
+                                </vue-cal>
+                            </div>
+                        </div>
+
+                        <div v-bind:class="{'filters': true, 'invalid-search-field': selectedDateTo === '' && isInValidSearch}">
+                            <div class="search-field-label">TO</div>
+                            <div class="search-field-input">
+                                <img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                                <input type="text" name="" v-model="selectedDateTo" placeholder="Date..."
+                                    class="selectDatePicker" ref="availDateTo" data-value="{{ $date }}" />
+                                <vue-cal id="calendar_small_to"
+                                    style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
+                                    class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
+                                    default-view="month" :disable-views="['week', 'day', 'year']"
+                                    @cell-click="changeSelectedDateTo" :events="events">
                                 </vue-cal>
                             </div>
                         </div>
 
                         <div class="filters">
-                            <div ref="time" data-hours="{{ $time['hours'] }}" data-minutes="{{ $time['minutes'] }}">
+                            <div class="search-field-label" ref="time" data-hours="{{ $time['hours'] }}" data-minutes="{{ $time['minutes'] }}">
                                 TIME
                             </div>
-                            <div><img src="{{url('images/icons/Layer 48.png')}}" alt="">
+                            <div class="search-field-input">
+                                <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <vue-timepicker name="time" format="HH:mm" v-model="selectedTime" class="timepicker">
                                 </vue-timepicker>
                             </div>
