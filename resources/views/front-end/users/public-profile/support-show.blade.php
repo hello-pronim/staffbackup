@@ -159,6 +159,15 @@
                     {{ trans('lang.saved') }}
                 </a>
                 @endif
+
+                @if($doc_visible)
+                <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <a target="_blank"
+                        href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>Download
+                        CV</a>
+                </div>
+                @endif
             </div>
     </div>
     </section>

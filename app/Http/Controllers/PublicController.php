@@ -354,6 +354,13 @@ class PublicController extends Controller
                 $display_chat = !empty($settings[0]['chat_display']) ? $settings[0]['chat_display'] : false;
                 $payment_settings = SiteManagement::getMetaValue('commision');
                 $enable_package = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
+
+                $hiredFreelancers = Job::join('proposals', 'jobs.id', '=', 'proposals.job_id')
+                    ->where('jobs.user_id', '=', Auth::user()->id)
+                    ->where('proposals.freelancer_id', '=', $user->id)
+                    ->where('proposals.hired', '=', 1)
+                    ->get();
+                $doc_visible = $hiredFreelancers->count();
                 if (file_exists(resource_path('views/extend/front-end/users/freelancer-show.blade.php'))) {
                     return View(
                         'extend.front-end.users.freelancer-show',
@@ -391,7 +398,8 @@ class PublicController extends Controller
                             'tagline',
                             'desc',
                             'display_chat',
-                            'enable_package'
+                            'enable_package',
+                            'doc_visible'
                         )
                     );
                 } else {
@@ -433,7 +441,8 @@ class PublicController extends Controller
                             'desc',
                             'display_chat',
                             'enable_package',
-                            'back_url'
+                            'back_url',
+                            'doc_visible'
                         )
                     );
                 }
@@ -465,6 +474,12 @@ class PublicController extends Controller
                 $display_chat = !empty($settings[0]['chat_display']) ? $settings[0]['chat_display'] : false;
                 $payment_settings = SiteManagement::getMetaValue('commision');
                 $enable_package = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
+                $hiredFreelancers = Job::join('proposals', 'jobs.id', '=', 'proposals.job_id')
+                    ->where('jobs.user_id', '=', Auth::user()->id)
+                    ->where('proposals.freelancer_id', '=', $user->id)
+                    ->where('proposals.hired', '=', 1)
+                    ->get();
+                $doc_visible = $hiredFreelancers->count();
                 if (file_exists(resource_path('views/extend/front-end/users/support-show.blade.php'))) {
                     return View(
                         'extend.front-end.users.support-show',
@@ -502,7 +517,8 @@ class PublicController extends Controller
                             'tagline',
                             'desc',
                             'display_chat',
-                            'enable_package'
+                            'enable_package',
+                            'doc_visible'
                         )
                     );
                 } else {
@@ -544,7 +560,8 @@ class PublicController extends Controller
                             'desc',
                             'display_chat',
                             'enable_package',
-                            'back_url'
+                            'back_url',
+                            'doc_visible'
                         )
                     );
                 }
