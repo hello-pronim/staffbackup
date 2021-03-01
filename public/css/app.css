@@ -13099,6 +13099,10 @@ Calendar
   color: #ff5851;
 }
 
+.booking_hired {
+  background-color: #FFBF00 !important;
+}
+
 #searchHomePage.search .searchinputs > div.filters {
   width: 13.5%;
 }

@@ -1012,9 +1012,9 @@ class PublicController extends Controller
                 
                 $results = Job::getSearchResult($request);
 
-                if(!($request->location || $request->profession_id || $request->avail_date_from || $request->avail_date_to))
-                    $jobs = [];
-                else 
+                // if(!($request->location || $request->profession_id || $request->avail_date_from || $request->avail_date_to))
+                //     $jobs = [];
+                // else 
                     $jobs = $results['jobs'];
 
                 if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {

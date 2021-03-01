@@ -24,6 +24,7 @@ use App\User;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Stripe\Error\Card;
 use App\Proposal;
+use App\CalendarEvent;
 use App\Job;
 use Auth;
 use App\Invoice;
@@ -283,6 +284,7 @@ class StripeController extends Controller
                                     $service = Service::find($id);
                                     $service->users()->attach(Auth::user()->id, ['type' => 'employer', 'status' => 'hired', 'seller_id' => $freelancer]);
                                     $service->save();
+
                                     // send message to freelancer
                                     $message = new Message();
                                     $user = User::find(intval(Auth::user()->id));
@@ -327,6 +329,40 @@ class StripeController extends Controller
                                 $job = Job::find($proposal->job->id);
                                 $job->status = 'hired';
                                 $job->save();
+
+                                //create an event for employer
+                                $arrNewEvent = CalendarEvent::where('job_id', $job->id)->where('class', '=', 'booking_calendar')->get()->first();
+                                $arrNewEvent['class'] = 'booking_hired';
+                                $arrNewEvent['created_at'] = now();
+                                $arrNewEvent['updated_at'] = now();
+                                $arrNewEvent->save();
+
+                                //book an event for freelancer
+                                $arrNewEvent = array();
+                                $arrNewEvent['user_id'] = $proposal->freelancer_id;
+                                $arrNewEvent['title'] = $job->title;
+                                $arrNewEvent['content'] = $job->description;
+                                $arrNewEvent['contentFull'] = $job->description;
+                                $arrNewEvent['recurring_date'] = "false";
+                                $arrNewEvent['class'] = "busy_class";
+                                $arrNewEvent['skill_id'] = DB::table('job_profession')->where('job_id', $job->id)->select('profession_id')->get()->first()->profession_id;
+                                $arrNewEvent['job_id'] = $job->id;
+                                $arrNewEvent['created_at'] = now();
+                                $arrNewEvent['updated_at'] = now();
+                                $arrNewEvent['start'] = DB::table('calendar_events')
+                                                            ->join('model_has_roles', 'calendar_events.user_id', '=', 'model_has_roles.model_id')
+                                                            ->where('model_has_roles.role_id', '2')
+                                                            ->where('job_id', $job->id)
+                                                            ->get()->first()
+                                                            ->start;
+                                $arrNewEvent['end'] = DB::table('calendar_events')
+                                                            ->join('model_has_roles', 'calendar_events.user_id', '=', 'model_has_roles.model_id')
+                                                            ->where('model_has_roles.role_id', '2')
+                                                            ->where('job_id', $job->id)
+                                                            ->get()->first()
+                                                            ->end;
+                                DB::table('calendar_events')->insert($arrNewEvent);
+
                                 // send message to freelancer
                                 $message = new Message();
                                 $user = User::find(intval(Auth::user()->id));
