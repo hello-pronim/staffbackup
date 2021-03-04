@@ -5079,6 +5079,53 @@ if (document.getElementById("profile_settings")) {
           }
         });
       },
+      disableUser: function(id, status) {
+        var self = this;
+        this.$swal({
+          title:
+            status == false
+              ? Vue.prototype.trans("lang.disable_user")
+              : Vue.prototype.trans("lang.enable_user"),
+          type: "warning",
+          customContainerClass: "hire_popup",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          closeOnConfirm: true,
+          closeOnCancel: true,
+          showLoaderOnConfirm: true,
+        }).then((result) => {
+          var self = this;
+          if (result.value) {
+            axios
+              .post(APP_URL + "/admin/disable-user", {
+                user_id: id,
+              })
+              .then(function(response) {
+                if (response.data.type == "success") {
+                  setTimeout(function() {
+                    self.$swal({
+                      title: this.title,
+                      text:
+                        status == false
+                          ? Vue.prototype.trans("lang.ph_user_disable_message")
+                          : Vue.prototype.trans("lang.ph_user_enable_message"),
+                      type: "success",
+                    });
+                  }, 100);
+                  setTimeout(function() {
+                    window.location.replace(APP_URL + "/users");
+                  }, 500);
+                } else {
+                  self.showError(response.data.message);
+                }
+              });
+          } else {
+            this.$swal.close();
+          }
+        });
+      },
       getUserEmailNotification: function() {
         let self = this;
         axios

@@ -13100,7 +13100,11 @@ Calendar
 }
 
 .booking_hired {
-  background-color: #FFBF00 !important;
+  background-color: #ffbf00 !important;
+}
+
+.wt-disableinfo {
+  background: #fccf17;
 }
 
 #searchHomePage.search .searchinputs > div.filters {

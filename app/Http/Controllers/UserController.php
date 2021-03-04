@@ -446,6 +446,52 @@ class UserController extends Controller
         }
     }
 
+    
+    /**
+     * Disable user by admin.
+     *
+     * @param mixed $request request attributes
+     *
+     * @access public
+     *
+     * @return View
+     */
+    public function disableUser(Request $request)
+    {
+        $server = Helper::worketicIsDemoSiteAjax();
+        if (!empty($server)) {
+            $response['type'] = 'error';
+            $response['message'] = $server->getData()->message;
+            return $response;
+        }
+        $json = array();
+        if (!empty($request['user_id'])) {
+            $user = User::find($request['user_id']);
+            if (!empty($user)) {
+                if($user->is_disabled==="false"){
+                    $user['is_disabled'] = "true";
+                    $user->save();
+                    $json['message'] = trans('lang.ph_user_disable_message');
+                }
+                else{
+                    $user['is_disabled'] = "false";
+                    $user->save();
+                    $json['message'] = trans('lang.ph_user_enable_message');
+                }
+                $json['type'] = 'success';
+                return $json;
+            } else {
+                $json['type'] = 'error';
+                $json['message'] = trans('lang.something_wrong');
+                return $json;
+            }
+        } else {
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
+        }
+    }
+
     /**
      * Get Manage Account Data
      *
@@ -1672,7 +1718,11 @@ class UserController extends Controller
         if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
             if (!empty($_GET['keyword'])) {
                 $keyword = $_GET['keyword'];
-                $users = $this->user::where('first_name', 'like', '%' . $keyword . '%')->orWhere('last_name', 'like', '%' . $keyword . '%')->paginate(7)->setPath('');
+                $users = $this->user::where('first_name', 'like', '%' . $keyword . '%')
+                                    ->orWhere('last_name', 'like', '%' . $keyword . '%')
+                                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                                    ->paginate(7)
+                                    ->setPath('');
                 $pagination = $users->appends(
                     array(
                         'keyword' => Input::get('keyword')

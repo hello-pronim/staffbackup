@@ -152,7 +152,7 @@
                     {{ trans('lang.saved') }}
                 </a>
                 @endif
-                @if($doc_visible)
+                @if($doc_visible && $profile->cvFile!=="")
                 <div class="wt-hireduserstatus">
                     <i class="fa fa-paperclip"></i>
                     <a target="_blank"

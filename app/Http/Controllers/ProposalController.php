@@ -286,7 +286,7 @@ class ProposalController extends Controller
                                         $email_params['title'] = $job->title;
                                         $email_params['link'] = url('job/' . $job->slug);
                                         $email_params['amount'] = (int)$request['amount'];
-                                        //$email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
+                                        $email_params['duration'] = Helper::getJobDurationList($request['completion_time']);
                                         $email_params['message'] = $request['description'];
 
                                         $templateMail = new EmployerEmailMailable(

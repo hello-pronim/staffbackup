@@ -98,7 +98,8 @@ class FreelancerEmailMailable extends Mailable
         $project_title = $title;
         $project_link = $link;
         $proposal_amount = $amount;
-        $proposal_duration = $duration;
+        //$proposal_duration = $duration;
+        $proposal_duration = "Undefined";
         $proposal_message = $message;
         $signature = EmailHelper::getSignature();
         $app_content = $this->template->content;

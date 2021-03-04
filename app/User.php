@@ -703,7 +703,7 @@ class User extends Authenticatable
             ->where('users.id','!=', $user->id)
             ->where('roles.role_type', '=', $type);
 
-            if ($profession_id) {
+            if ($profession_id) { 
                 $users->where('profession_id', $profession_id);
             }
 

@@ -381,6 +381,7 @@ Route::group(
         Route::get('profile/settings/delete-account', 'UserController@deleteAccount')->name('deleteAccount');
         Route::post('profile/settings/delete-user', 'UserController@destroy');
         Route::post('admin/delete-user', 'UserController@deleteUser');
+        Route::post('admin/disable-user', 'UserController@disableUser');
         Route::get('profile/settings/get-manage-account', 'UserController@getManageAccountData');
         Route::get('profile/settings/get-user-notification-settings', 'UserController@getUserEmailNotificationSettings');
         Route::get('profile/settings/get-user-searchable-settings', 'UserController@getUserSearchableSettings');
