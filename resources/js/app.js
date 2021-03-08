@@ -380,6 +380,520 @@ jQuery(document).ready(function() {
 // }
 // });
 
+/*admin calendar*/
+if (document.getElementById("all_availability")) {
+  var role = "admin";
+  const vmHeader = new Vue({
+    el: "#all_availability",
+    components: { "vue-cal": vuecal, VueTimepicker },
+    data: {
+      selected_date: null,
+      start_date: "",
+      calendarPlugins: [],
+      events: [],
+      availability_title: "",
+      availability_content: "",
+      availability_start_time: "",
+      availability_end_time: "",
+      availability_selected_date: "",
+      availability_selected_end_date: "",
+      clickedDate: "",
+      clickedEndDate: "",
+      user_id: "",
+      user_name: "",
+      skill_id: "",
+      start: "",
+      end: "",
+      is_recurring: false,
+      recurring_date: "",
+      recurring_end_date: "",
+      event_id: "",
+      event_class: "",
+      addedToEvents: false,
+      selectedEvent: null,
+      selectedEventDrag: false,
+      addDay: 1,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          error: {
+            position: "topRight",
+            timeout: 7000,
+          },
+          completed: {
+            position: "center",
+            timeout: 1000,
+            progressBar: false,
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: "center",
+            timeout: 3000,
+            onClosing: function(instance, toast, closedBy) {
+              vmpostJob.showCompleted(
+                Vue.prototype.trans("lang.process_cmplted_success")
+              );
+            },
+          },
+        },
+      },
+    },
+    created() {
+      axios.get("/" + role + "/getAllAvailabilities").then((response) => {
+        response.data.forEach((item) => {
+          if (item.end && item.start) {
+            this.events.push(item);
+          }
+        });
+        console.log(this.events);
+      });
+    },
+    methods: {
+      convertDateForFormatCalendar(date) {
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+          return date;
+        } else if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+          let all_date_parts = date.split(" ");
+          let date_parts = all_date_parts[0].split("-");
+          return (
+            date_parts[2] +
+            "-" +
+            date_parts[1] +
+            "-" +
+            date_parts[0] +
+            " " +
+            all_date_parts[1]
+          );
+        }
+
+        return null;
+      },
+      convertDateForFormatView(date) {
+        if (/^\d{2}-\d{2}-\d{4} \d{2}:\d{2}$/.test(date)) {
+          return date;
+        } else if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+          let all_date_parts = date.split(" ");
+          let date_parts = all_date_parts[0].split("-");
+          return (
+            date_parts[2] +
+            "-" +
+            date_parts[1] +
+            "-" +
+            date_parts[0] +
+            " " +
+            all_date_parts[1]
+          );
+        }
+
+        return null;
+      },
+      customEventCreation() {
+        const dateTime = prompt(
+          "Create event on (yyyy-mm-dd hh:mm)",
+          "2018-11-20 13:15"
+        );
+        // Check if date format is correct before creating event.
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
+          this.$refs.vuecal.createEvent(
+            // Formatted start date and time or JavaScript Date object.
+            dateTime,
+            // Custom event props (optional).
+            { title: "New Event", content: "yay! �", classes: ["leisure"] }
+          );
+        } else if (dateTime) alert("Wrong date format.");
+      },
+      formatDate(date) {
+        var d = new Date(date),
+          month = "" + (d.getMonth() + 1),
+          day = "" + d.getDate(),
+          year = d.getFullYear();
+
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+
+        return [day, month, year].join("-");
+      },
+      onEventCreate(event, deleteEventFunction) {
+        this.addedToEvents = false;
+      },
+      onEventFocus(event) {
+        this.addedToEvents = false;
+        this.onEventClick(event);
+        event.stopPropagation();
+      },
+      onEventDragCreate(event) {
+        this.addedToEvents = false;
+        event.stopPropagation();
+        return event;
+      },
+      reloadCalendar() {
+        let self = this;
+        axios.get("/" + role + "/getCalendarEvents").then(function(response) {
+          console.log(4);
+          if (self.events.length > 0) {
+            self.events.splice(0);
+          }
+
+          if (response && Array.isArray(response.data)) {
+            response.data.forEach((item) => {
+              if (item.end !== null && item.start !== null) {
+                self.events.push(item);
+              }
+            });
+          }
+        });
+      },
+      logEvents(name, context) {
+        console.log(name, context);
+      },
+      onEventDurationChange(event) {
+        this.addedToEvents = false;
+        this.onEventClick(event);
+        event.stopPropagation();
+        return event;
+      },
+      createNewEvent(event) {
+        if (this.selectedEvent) {
+          let ev = this.selectedEvent;
+          this.clickedDate = new Date(event);
+          this.clickedEndDate = new Date(event);
+
+          this.availability_selected_date = moment(ev.startDate).format(
+            "DD-MM-YYYY"
+          );
+          this.availability_selected_end_date = moment(ev.endDate).format(
+            "DD-MM-YYYY"
+          );
+          this.start = moment(ev.startDate).format("HH:mm");
+          this.end = moment(ev.endDate).format("HH:mm");
+
+          this.availability_content = ev.content;
+          this.availability_title = ev.title;
+          this.recurring_date = ev.recurring_date;
+          this.recurring_end_date = moment(ev.recurring_end_date).format(
+            "DD-MM-YYYY"
+          );
+          this.skill_id = ev.skill_id;
+          this.event_id = ev.id;
+          this.user_id = ev["user_id"];
+          this.user_name = ev.first_name + " " + ev.last_name;
+          this.event_class = ev["class"];
+          this.selectedEvent = null;
+        } else {
+          this.clickedDate = new Date(event);
+          this.clickedEndDate = new Date(event);
+          this.availability_selected_date = this.formatDate(event);
+          this.availability_selected_end_date = this.formatDate(event);
+          this.start = this.availability_start_time = "00:01";
+          this.end = this.availability_end_time = "23:59";
+          this.recurring_date = "";
+          this.recurring_end_date = "";
+          this.skill_id = "";
+          this.event_id = "";
+          this.user_id = "";
+          this.user_name = "";
+          this.event_class = "";
+          this.availability_content = "";
+          this.availability_title = "";
+        }
+        setTimeout(function() {
+          $("html, body").animate(
+            {
+              scrollTop: $(".classScrollTo").offset().top,
+            },
+            1000
+          );
+        });
+      },
+      changeSelectedDate(date) {
+        this.clickedDate = true;
+        this.selecteddate =
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear();
+        jQuery("#calendar_small").hide();
+      },
+      onEventClick(event) {
+        this.selectedEvent = event;
+        let ev = this.selectedEvent;
+        this.clickedDate = new Date(event);
+        this.clickedEndDate = new Date(event);
+
+        this.availability_selected_date = moment(ev.startDate).format(
+          "DD-MM-YYYY"
+        );
+        this.availability_selected_end_date = moment(ev.endDate).format(
+          "DD-MM-YYYY"
+        );
+        this.start = moment(ev.startDate).format("HH:mm");
+        this.end = moment(ev.endDate).format("HH:mm");
+
+        this.availability_content = ev.content;
+        this.availability_title = ev.title;
+        this.recurring_date = ev.recurring_date;
+        this.recurring_end_date = moment(ev.recurring_end_date).format(
+          "DD-MM-YYYY"
+        );
+        this.skill_id = ev.skill_id;
+        this.event_id = ev.id;
+        this.user_id = ev["user_id"];
+        this.user_name = ev.first_name + " " + ev.last_name;
+        this.event_class = ev["class"];
+        this.selectedEvent = null;
+        setTimeout(function() {
+          $("html, body").animate(
+            {
+              scrollTop: $(".classScrollTo").offset().top,
+            },
+            1000
+          );
+        });
+      },
+      onEdeditableEvents(event) {
+        this.confButton();
+        event.stopPropagation();
+      },
+      updateEvent(e) {
+        e.preventDefault();
+        var thistoast = this.$toast;
+        thistoast.options.position = "center";
+        var self = this;
+        let register_Form = document.getElementById(
+          "availability_dashboard_form"
+        );
+        let form_data = new FormData(register_Form);
+        axios
+          .post("/" + role + "/updateCalendarAvailability", form_data)
+          .then(function(response) {
+            self.reloadCalendar();
+            thistoast.success(
+              " ",
+              "Updated : <br>" +
+                self.availability_title +
+                " " +
+                self.availability_content +
+                "<br>" +
+                self.start +
+                " - " +
+                self.end
+            );
+            setTimeout(function(self) {
+              $("html, body").animate(
+                {
+                  scrollTop: $(".scrolToCalend").offset().top,
+                },
+                1000
+              );
+            });
+            self.clickedDate = false;
+          })
+          .catch(function(error) {
+            if (typeof error.response != "undefined") {
+              if (error.response.data.errors.title) {
+                thistoast.error(" ", error.response.data.errors.title[0]);
+              }
+              if (error.response.data.errors.availability_content) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.availability_content[0]
+                );
+              }
+              if (error.response.data.errors.start_date) {
+                thistoast.error(" ", error.response.data.errors.start_date[0]);
+              }
+              if (error.response.data.errors.booking_start) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.booking_start[0]
+                );
+              }
+              if (error.response.data.errors.booking_end) {
+                thistoast.error(" ", error.response.data.errors.booking_end[0]);
+              }
+            }
+          });
+        e.stopPropagation();
+      },
+      deleteEvent(e) {
+        e.preventDefault();
+        var thistoast = this.$toast;
+        thistoast.options.position = "center";
+        var self = this;
+        console.log(this.event_id);
+        let form_data = { event_id: this.event_id };
+
+        axios
+          .post("/" + role + "/deleteAvailability", form_data)
+          .then(function(response) {
+            self.reloadCalendar();
+            thistoast.success("Success", "Successfully deleted!");
+            setTimeout(function(self) {
+              $("html, body").animate(
+                {
+                  scrollTop: $(".scrolToCalend").offset().top,
+                },
+                1000
+              );
+            });
+            self.clickedDate = false;
+          })
+          .catch(function(error) {
+            if (typeof error.response != "undefined") {
+              if (error.response.data.errors.title) {
+                thistoast.error(" ", error.response.data.errors.title[0]);
+              }
+              if (error.response.data.errors.availability_content) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.availability_content[0]
+                );
+              }
+              if (error.response.data.errors.start_date) {
+                thistoast.error(" ", error.response.data.errors.start_date[0]);
+              }
+              if (error.response.data.errors.booking_start) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.booking_start[0]
+                );
+              }
+              if (error.response.data.errors.booking_end) {
+                thistoast.error(" ", error.response.data.errors.booking_end[0]);
+              }
+            }
+          });
+        e.stopPropagation();
+      },
+      saveNewEventBusy(e) {
+        this.saveNewEventAvailability(e, true);
+      },
+      saveNewEventAvailability(e, busy) {
+        e.preventDefault();
+        var word = "•";
+        var title_word = "Available";
+        var class_type = "available_class";
+        var thistoast = this.$toast;
+        if (busy) {
+          class_type = "busy_class";
+          word = title_word = "Busy/Holiday";
+        }
+        thistoast.options.position = "center";
+        var self = this;
+
+        let register_Form = document.getElementById(
+          "availability_dashboard_form"
+        );
+        let form_data = new FormData(register_Form);
+        form_data.append("class", class_type);
+
+        axios
+          .post("/" + role + "/saveCalendarAvailability", form_data)
+          .then(function(response) {
+            self.reloadCalendar();
+            if (busy) {
+              thistoast.error(
+                " ",
+                "Success <br>" +
+                  self.availability_title +
+                  " " +
+                  self.availability_content +
+                  "<br>" +
+                  self.start +
+                  " - " +
+                  self.end
+              );
+            } else {
+              thistoast.success(
+                " ",
+                "Success <br>" +
+                  self.availability_title +
+                  " " +
+                  self.availability_content +
+                  "<br>" +
+                  self.start +
+                  " - " +
+                  self.end
+              );
+            }
+            setTimeout(function() {
+              $("html, body").animate(
+                {
+                  scrollTop: $(".scrolToCalend").offset().top,
+                },
+                1000
+              );
+            });
+            self.clickedDate = false;
+          })
+          .catch(function(error) {
+            if (
+              typeof error.response != "undefined" &&
+              error.response.data.errors != undefined
+            ) {
+              if (error.response.data.errors.title) {
+                thistoast.error(" ", error.response.data.errors.title[0]);
+              }
+              if (error.response.data.errors.availability_content) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.availability_content[0]
+                );
+              }
+              if (error.response.data.errors.start_date) {
+                thistoast.error(" ", error.response.data.errors.start_date[0]);
+              }
+              if (error.response.data.errors.booking_start) {
+                thistoast.error(
+                  " ",
+                  error.response.data.errors.booking_start[0]
+                );
+              }
+              if (error.response.data.errors.booking_end) {
+                thistoast.error(" ", error.response.data.errors.booking_end[0]);
+              }
+            }
+          });
+        e.stopPropagation();
+      },
+      confButton() {
+        this.ckickedDate = true;
+        $(document).on("click", ".confirmButton", function() {
+          $("html, body").animate(
+            {
+              scrollTop: $(".classScrollTo").offset().top,
+            },
+            1000
+          );
+        });
+      },
+      createList(event) {
+        var parent = document.getElementById("listDates"),
+          newElem = parent.querySelector(".getIsDay"),
+          elem = parent.querySelectorAll(".isDay");
+        newElem.classList.remove("getIsDay");
+        newElem.classList.add("isDay");
+        newElem.style.display = "";
+        newElem.children[0]
+          .querySelector("input")
+          .setAttribute("name", "start_date[" + elem.length + "]");
+        newElem.children[1]
+          .querySelector("input")
+          .setAttribute("name", "end_date[" + elem.length + "]");
+        // newElem.children[0].querySelector('input').value = '';
+        //newElem.children[1].querySelector('input').value = '';
+        this.addDay = elem.length;
+        // event.preventDefault();
+      },
+    },
+  });
+}
+
 /*support calendar*/
 if (document.getElementById("support_availability")) {
   var role = "support";

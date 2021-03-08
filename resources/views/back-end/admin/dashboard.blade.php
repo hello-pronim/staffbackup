@@ -42,7 +42,8 @@
             </div>
 
             <div class="row">
-                @if ($access_type == 'services' || $access_type== 'both')
+ 
+            @if ($access_type == 'services' || $access_type== 'both')
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
                         <div class="wt-insightsitem wt-dashboardbox">
                             <figure class="wt-userlistingimg">
@@ -105,10 +106,10 @@
 
 
         <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
-            <h2>Your Calendar</h2>
+            <h2>All availabilities</h2>
         </div>
 
-        <div class="freelancer-profile scrolToCalend" id="freelancer_availability">
+        <div class="freelancer-profile scrolToCalend" id="all_availability">
             <div class="dashboard-vuecal-wrapper">
                 <vue-cal ref="vuecal" style="height: 650px"
                          :time-from="0 * 60"
@@ -119,23 +120,24 @@
                          events-on-month-view="short"
                          :events="events"
                          :on-event-click="onEventClick"
-                         @cell-click="createNewEvent"
                 >
                 </vue-cal>
             </div>
 
             <div class="wt-tabscontent tab-content">
                 <div class="wt-tabscontenttitle" style="margin-top: 50px; ">
-                    <h2>
-                        Blue equals free this day<br>
-                        Green equals busy on this day<br>
-                        Red equals away on holiday<br>
-                    </h2>
+                    <h2>Blue equals free this day</h2>
+                </div>
+                <div class="wt-tabscontenttitle">
+                    <h2>Green equals busy on this day</h2>
+                </div>
+                <div class="wt-tabscontenttitle">
+                    <h2>Red equals away on holiday</h2>
                 </div>
                 <div v-if="clickedDate != ''">
                     <div class="wt-tabcompanyinfo wt-tabsinfo" style="margin-top:50px">
                         <div class="wt-tabscontenttitle">
-                            <h2 v-if="event_id">Update availability</h2>
+                            <h2 v-if="event_id">@{{user_name}}'s availability</h2>
                             <h2 v-if="!event_id">Create new availability</h2>
                         </div>
                     </div>
@@ -276,9 +278,6 @@
                             <input type="hidden" name="class" v-if="event_class" v-model="event_class">
                             <input type="hidden" name="user_id" v-if="user_id" v-model="user_id">
                             <input type="hidden" name="event_id" v-if="event_id" v-model="event_id">
-                            <button class="btn btn-success" v-if="!event_id" @click="saveNewEventAvailability">Create Availability</button>
-                            <button class="btn btn-danger" v-if="!event_id" @click="saveNewEventBusy">Create Holiday/Busy</button>
-                            <button class="btn btn-warning" v-if="event_id" @click="updateEvent">Update Availability</button>
                             <button class="btn btn-danger" v-if="event_id" @click="deleteEvent">Delete Availability</button>
                             </div>
                         </form>

@@ -192,4 +192,26 @@ class MessageController extends Controller
         $messsage = $this->message->sendMessage($request);
         return response()->json($messsage);
     }
+
+
+    public function sendMessage(Request $request){
+        if(Auth::user()){
+            $user = User::find($request->id);
+            $profile = User::find(Auth::user()->id)->profile;
+            $chat_settings = SiteManagement::getMetaValue('chat_settings');
+
+            if (file_exists(resource_path('views/extend/back-end/chat-room/index.blade.php'))) {
+                return View(
+                    'extend.back-end.chat-room.send',
+                    compact('user', 'profile', 'chat_settings')
+                );
+            } else {
+                return View(
+                    'back-end.chat-room.send',
+                    compact('user', 'profile', 'chat_settings')
+                );
+            }
+        }
+
+    }
 }

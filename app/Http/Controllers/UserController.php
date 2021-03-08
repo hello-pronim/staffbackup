@@ -22,6 +22,7 @@ use App\Language;
 use App\Mail\AdminEmailMailable;
 use App\Mail\FreelancerEmailMailable;
 use App\Mail\GeneralEmailMailable;
+use App\Repositories\ProfessionRepository;
 use App\Package;
 use App\Profile;
 use App\Proposal;
@@ -29,6 +30,7 @@ use App\Report;
 use App\Review;
 use App\SiteManagement;
 use App\User;
+use App\CalendarEvent;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -68,6 +70,7 @@ class UserController extends Controller
      */
     use HasRoles;
     protected $user;
+    protected $professionRepository;
     protected $redirectTo = '/';
 
     /**
@@ -78,10 +81,88 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct(User $user, Profile $profile)
+    public function __construct(User $user, Profile $profile, ProfessionRepository $professionRepository)
     {
         $this->user = $user;
         $this->profile = $profile;
+        $this->professionRepository = $professionRepository;
+    }
+
+    /**
+     * Admin dashboard
+     *
+     * @access public
+     *
+     * @return View
+     */
+
+    public function adminDashboard(){
+        if (Auth::user()) {
+            $freelancer_id = Auth::user()->id;
+            $ongoing_projects = Proposal::getProposalsByStatus($freelancer_id, 'hired', 3);
+            $cancelled_projects = Proposal::getProposalsByStatus($freelancer_id, 'cancelled');
+            $package_item = Item::where('subscriber', $freelancer_id)->first();
+            $package = !empty($package_item) ? Package::find($package_item->product_id) : array();
+            $option = !empty($package) && !empty($package['options']) ? unserialize($package['options']) : '';
+            $expiry = !empty($option) ? $package_item->updated_at->addDays($option['duration']) : '';
+            $expiry_date = !empty($expiry) ? Carbon::parse($expiry)->toDateTimeString() : '';
+            $message_status = Message::where('status', 0)->where('receiver_id', $freelancer_id)->count();
+            $notify_class = $message_status > 0 ? 'wt-insightnoticon' : '';
+            $completed_projects = Proposal::getProposalsByStatus($freelancer_id, 'completed');
+            $currency = SiteManagement::getMetaValue('commision');
+            $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
+            $trail = !empty($package) && $package['trial'] == 1 ? 'true' : 'false';
+            $icons = SiteManagement::getMetaValue('icons');
+            $enable_package = !empty($currency) && !empty($currency[0]['enable_packages']) ? $currency[0]['enable_packages'] : 'true';
+            $latest_proposals_icon = !empty($icons['hidden_latest_proposal']) ? $icons['hidden_latest_proposal'] : 'img-20.png';
+            $latest_package_expiry_icon = !empty($icons['hidden_package_expiry']) ? $icons['hidden_package_expiry'] : 'img-21.png';
+            $latest_new_message_icon = !empty($icons['hidden_new_message']) ? $icons['hidden_new_message'] : 'img-19.png';
+            $latest_saved_item_icon = !empty($icons['hidden_saved_item']) ? $icons['hidden_saved_item'] : 'img-22.png';
+            $latest_cancel_project_icon = !empty($icons['hidden_cancel_project']) ? $icons['hidden_cancel_project'] : 'img-16.png';
+            $latest_ongoing_project_icon = !empty($icons['hidden_ongoing_project']) ? $icons['hidden_ongoing_project'] : 'img-17.png';
+            $latest_pending_balance_icon = !empty($icons['hidden_pending_balance']) ? $icons['hidden_pending_balance'] : 'icon-01.png';
+            $latest_current_balance_icon = !empty($icons['hidden_current_balance']) ? $icons['hidden_current_balance'] : 'icon-02.png';
+            $published_services_icon = !empty($icons['hidden_published_services']) ? $icons['hidden_published_services'] : 'payment-method.png';
+            $cancelled_services_icon = !empty($icons['hidden_cancelled_services']) ? $icons['hidden_cancelled_services'] : 'decline.png';
+            $completed_services_icon = !empty($icons['hidden_completed_services']) ? $icons['hidden_completed_services'] : 'completed-task.png';
+            $ongoing_services_icon = !empty($icons['hidden_ongoing_services']) ? $icons['hidden_ongoing_services'] : 'onservice.png';
+            $access_type = Helper::getAccessType();
+            $applications = Proposal::where('freelancer_id',$freelancer_id)->count();
+            $professions = $this->professionRepository->getProfessionsByRole();
+            $lastest_proposals = Proposal::getLastWeekProposals($freelancer_id);
+
+            return view(
+                'back-end.admin.dashboard',
+                compact(
+                    'access_type',
+                    'ongoing_projects',
+                    'cancelled_projects',
+                    'expiry_date',
+                    'notify_class',
+                    'completed_projects',
+                    'symbol',
+                    'trail',
+                    'latest_proposals_icon',
+                    'latest_package_expiry_icon',
+                    'latest_new_message_icon',
+                    'latest_saved_item_icon',
+                    'latest_cancel_project_icon',
+                    'latest_ongoing_project_icon',
+                    'latest_pending_balance_icon',
+                    'latest_current_balance_icon',
+                    'published_services_icon',
+                    'cancelled_services_icon',
+                    'completed_services_icon',
+                    'ongoing_services_icon',
+                    'enable_package',
+                    'package',
+                    'lastest_proposals',
+                    'message_status',
+                    'applications',
+                    'professions'
+                )
+            );
+        }
     }
 
     /**
@@ -91,6 +172,7 @@ class UserController extends Controller
      *
      * @return View
      */
+    
     public function accountSettings()
     {
         $languages = Language::pluck('title', 'id');
@@ -1931,5 +2013,23 @@ class UserController extends Controller
             $user->user_role = $this->user::getUserRoleType(Auth::user()->id);
             return view('back-end.settings.payment_settings', array('user'=>$user));
         }
+    }
+
+    public function getAllAvailabilities()
+    {
+        $arrEvents = DB::table('calendar_events')
+            ->join('users', 'calendar_events.user_id', '=', 'users.id')
+            ->where('calendar_events.class', '=', 'available_class')
+            ->select('calendar_events.*', 'users.first_name', 'users.last_name')
+            ->get()->all();
+
+        return $arrEvents ?? [];
+    }
+    
+    public function deleteAvailability(Request $request)
+    {        
+        CalendarEvent::find($request->event_id)->delete();
+
+        return ['success' => true];
     }
 }

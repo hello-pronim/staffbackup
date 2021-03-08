@@ -92,6 +92,11 @@ Route::group(['middleware' => ['auth']], function() {
 Route::group(
     ['middleware' => ['role:admin']],
     function () {
+        //dashboard
+        Route::get('admin/dashboard', 'UserController@adminDashboard')->name('adminDashboard');
+        Route::get('admin/getAllAvailabilities', 'UserController@getAllAvailabilities');
+        Route::post('admin/deleteAvailability', 'UserController@deleteAvailability');
+
         Route::post('admin/clear-cache', 'SiteManagementController@clearCache');
         Route::get('admin/clear-allcache', 'SiteManagementController@clearAllCache');
         Route::get('admin/import-updates', 'SiteManagementController@importUpdate');
@@ -423,6 +428,8 @@ Route::get('channels/{channel}/messages', 'MessageController@index')->name('mess
 Route::post('channels/{channel}/messages', 'MessageController@store');
 Route::post('message/send-private-message', 'MessageController@store');
 Route::get('message-center', 'MessageController@index')->name('message');
+Route::get('message-center/send/{id}', 'MessageController@sendMessage')->name('send_message');
+Route::post('message-center/send', 'MessageController@postSendMessage');
 Route::get('message-center/get-users', 'MessageController@getUsers');
 Route::post('message-center/get-messages', 'MessageController@getUserMessages');
 Route::post('message', 'MessageController@store')->name('message.store');

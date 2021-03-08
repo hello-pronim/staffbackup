@@ -65,6 +65,12 @@
                 <ul>
                     @if ($role === 'admin')
                         <li>
+                            <a href="{{{ url($role.'/dashboard') }}}">
+                                <i class="ti-desktop"></i>
+                                <span>{{ trans('lang.dashboard') }}</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{{ route('allJobs') }}}">
                                 <i class="ti-briefcase"></i>
                                 <span>{{ trans('lang.all_jobs') }}</span>

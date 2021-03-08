@@ -1,6 +1,12 @@
 <nav id="wt-profiledashboard" class="wt-usernav">
         <ul>
             @if ($role === 'admin')
+                <li>
+                    <a href="{{{ url($role.'/dashboard') }}}">
+                        <i class="ti-desktop"></i>
+                        <span>{{ trans('lang.dashboard') }}</span>
+                    </a>
+                </li>
                 @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
                     <li>
                         <a href="{{{ route('allJobs') }}}">

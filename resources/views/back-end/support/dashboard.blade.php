@@ -34,7 +34,7 @@
                                 <div class="secondhalf">{{$message_status}}</div>
                             </div>
                             <div class="newBoxStyle">
-                                <div class="firsthalf"><a href="{{route('showSupportProposals')}}">Applications</a></div>
+                                <div class="firsthalf"><a href="{{route('showSupportProposals')}}">{{ trans('lang.sessions') }}</a></div>
                                 <div class="secondhalf">{{$applications}}</div>
                             </div>
                         </div>
