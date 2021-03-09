@@ -67,8 +67,19 @@
 																@if (!empty($job->duration))
 																	<li><span class="wt-dashboradclock"><i class="far fa-clock"></i> {{ trans('lang.duration') }} {{{ $duration }}}</span></li>
 																@endif
+																@if(!empty($job->calendars))
+																	<li>
+																	@foreach($job->calendars as $calendar_event)
+																		@if($calendar_event->class=="booking_calendar" || $calendar_event->class=="booking_hired")
+																		<span>Start: {{$calendar_event->start->format('d-m-Y H:i')}} &nbsp; End: {{$calendar_event->end->format('d-m-Y H:i')}}</span>
+																		@endif
+																	@endforeach
+																	</li>
+																@endif
+																<li>
 															</ul>
 														@endif
+														<span class="fs-12 color-grey mt-10 float-left">{{"Created at: " . date('d-m-Y H:i', strtotime($job->created_at))}}</span>
 													</div>
 													<div class="wt-rightarea">
 														<div class="wt-btnarea">

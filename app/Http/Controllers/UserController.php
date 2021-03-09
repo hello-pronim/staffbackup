@@ -70,6 +70,7 @@ class UserController extends Controller
      */
     use HasRoles;
     protected $user;
+    protected $settings;
     protected $professionRepository;
     protected $redirectTo = '/';
 
@@ -81,10 +82,11 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct(User $user, Profile $profile, ProfessionRepository $professionRepository)
+    public function __construct(User $user, Profile $profile, SiteManagement $settings, ProfessionRepository $professionRepository)
     {
         $this->user = $user;
         $this->profile = $profile;
+        $this->settings = $settings;
         $this->professionRepository = $professionRepository;
     }
 
@@ -2011,7 +2013,20 @@ class UserController extends Controller
         if (Auth::user()) {
             $user = User::find(Auth::user()->id);
             $user->user_role = $this->user::getUserRoleType(Auth::user()->id);
-            return view('back-end.settings.payment_settings', array('user'=>$user));
+            $payout_settings = $this->settings::getMetaValue('commision');
+            $available_payment_options = !empty($payout_settings[0]['payment_method']) ? $payout_settings[0]['payment_method'] : array();
+            $payment_options = array();
+            if(!empty($available_payment_options)){
+                foreach($available_payment_options as $option){
+                    $payment_options[$option] = strtoupper($option);
+                }
+            }
+            return view('back-end.settings.payment_settings', 
+                array(
+                    'user' => $user,
+                    'payment_options' => $payment_options
+                )
+            );
         }
     }
 

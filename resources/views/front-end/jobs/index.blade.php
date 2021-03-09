@@ -235,7 +235,7 @@
                                                 @endforeach
                                             </div>
                                             @if($job->project_rates)
-                                            <div>£ {{ $job->project_rates }}</div>
+                                            <div class="wt-description mt-10"><p>£ {{ $job->project_rates }} {{trans('lang.per_hour')}}<p></div>
                                             @endif
                                         </div>
                                         <div class="wt-viewjobholder">
@@ -285,6 +285,9 @@
                                                 @endif
                                                 <li class="wt-btnarea"><a href="{{url('job/'.$job->slug)}}"
                                                         class="wt-btn">{{{ trans('lang.view_job') }}}</a></li>
+                                                <li>
+                                                    <span class="color-grey">{{trans('lang.created_at')." ".date('d-m-Y H:i', strtotime($job->created_at))}}</span>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

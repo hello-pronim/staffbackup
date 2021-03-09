@@ -1,5 +1,6 @@
 <div class="wt-clicksavearea">
     <span>{{{trans("lang.project_id")}}}: {{{$job->code}}}</span>
+    <span class="color-grey">{{{trans("lang.created_at")}}}: {{{date('d-m-Y H:i', strtotime($job->created_at))}}}</span>
     {{--@if (!empty($save_jobs))--}}
         {{--<a href="javascript:void(0);" class="wt-clicksavebtn wt-clicksave wt-btndisbaled">--}}
             {{--<i class="fa fa-heart"></i>--}}

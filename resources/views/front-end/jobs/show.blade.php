@@ -117,7 +117,9 @@
                                             </div>
                                             <div class="wt-tag wt-widgettag">
                                                 @foreach($job->calendars as $calendar_event)
-                                                    <p>Start: {{$calendar_event->start->format('d-m-Y h:m')}} &nbsp; End: {{$calendar_event->end->format('d-m-Y h:m')}}</p>
+                                                    @if($calendar_event->class=="booking_calendar" || $calendar_event->class=="booking_hired")
+                                                    <p>Start: {{$calendar_event->start->format('d-m-Y H:i')}} &nbsp; End: {{$calendar_event->end->format('d-m-Y H:i')}}</p>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>

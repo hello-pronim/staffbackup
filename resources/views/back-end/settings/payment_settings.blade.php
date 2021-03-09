@@ -1,11 +1,6 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
 <?php
-$payment_options = array(
-    'Paypal'=>'Paypal',
-    'BACS'=>'BACS',
-    'Cheque'=>'Cheque'
-);
 $subscribe_options  = array(
     'plan_G6DvQf9zdEGczW'=>'6 Months',
     'plan_G6DvMJGDvP6wGz'=>'3 Months',
