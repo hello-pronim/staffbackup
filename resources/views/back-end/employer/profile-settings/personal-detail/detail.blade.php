@@ -247,11 +247,7 @@ $arrPaymentMethods = array(
 );
 
 
-$arrOrgTypes = array(
-'NHS'=>'NHS',
-'Private organisation providing NHS care'=>'Private organisation providing NHS care',
-'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
-);
+$arrOrgTypes = config('user-settings.orgTypes');
 
 $arrAppo_slot_times = config('user-settings.appo_slot_times');
 if(!empty($user->appo_slot_times) && !isset($arrAppo_slot_times[$user->appo_slot_times]))
@@ -293,7 +289,7 @@ $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
 
 <div class="lara-detail-form">
     <fieldset>
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your
                 service</label>
         </div>
@@ -302,11 +298,11 @@ $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
                 {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type,
                 array('placeholder' => "Organisation type")) !!}
             </span>
-        </div> -->
+        </div>
         <div class="form-group" v-bind:class='{ "form-group-half": setting=="Other" }'>
             <span class="wt-select">
                 <input type="hidden" id="initialSetting" value="{{ $user->setting }}">
-                {!! Form::select('setting[]', $arrSettings, null, array('class' => 'form-group', 'v-model'=>'setting',
+                {!! Form::select('setting[]', $arrSettings, null, array('v-model'=>'setting',
                 'placeholder' => "Setting")) !!}
             </span>
         </div>
@@ -324,13 +320,13 @@ $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
         <div class="form-group form-group-half">
             <span class="wt-select">
                 {!! Form::select('emp_cqc_rating_date', $cqc_ratings_date, $user->emp_cqc_rating_date, array('placeholder'
-                => trans('lang.emp_cqc_rating_date'), 'class' => 'form-group')) !!}
+                => trans('lang.emp_cqc_rating_date'))) !!}
             </span>
         </div>
         <div class="form-group form-group-half">
             <span class="wt-select">
                 {!! Form::select('emp_cqc_rating', $cqc_ratings, $user->emp_cqc_rating, array('placeholder' =>
-                trans('lang.emp_cqc_rating'), 'class' => 'form-group')) !!}
+                trans('lang.emp_cqc_rating'))) !!}
             </span>
         </div>
         {{--<div class="form-group">--}}

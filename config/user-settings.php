@@ -25,4 +25,12 @@ return [
         'Invoices usually paid within 14 days of receipt'=>'Invoices usually paid within 14 days of receipt',
         'Other'=>'Other',
     ],
+
+    'orgTypes' => [
+        'NHS'=>'NHS',
+        'Nursing Home',
+        'Residential Care',
+        'Private organisation providing NHS care'=>'Private organisation providing NHS care',
+        'Private organisation proving private healthcare'=>'Private organisation proving private healthcare',
+    ]
 ];
