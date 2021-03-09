@@ -237,6 +237,18 @@
                                             @if($job->project_rates)
                                             <div class="wt-description mt-10"><p>£ {{ $job->project_rates }} {{trans('lang.per_hour')}}<p></div>
                                             @endif
+                                            <div class="wt-description">
+                                                @if(!empty($job->calendars))
+                                                    @foreach($job->calendars as $calendar_event)
+                                                        @if($calendar_event->class=="booking_calendar" || $calendar_event->class=="booking_hired")
+                                                        <p>
+                                                            Start: {{$calendar_event->start->format('d-m-Y H:i')}}<br>
+                                                            End: {{$calendar_event->end->format('d-m-Y H:i')}}
+                                                        </p>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </div>
                                         <div class="wt-viewjobholder">
                                             <ul>
