@@ -96,6 +96,16 @@ class User extends Authenticatable
     }
 
     /**
+     * The professions that belong to the user.
+     *
+     * @return relation
+     */
+    public function professions()
+    {
+        return $this->belongsToMany('App\Profession');
+    }
+
+    /**
      * Get all of the categories for the user.
      *
      * @return relation

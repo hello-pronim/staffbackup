@@ -1,5 +1,6 @@
 @php
         $user = Auth::user();
+        $extra_professions = $user->professions()->get()->toArray();
 @endphp
 <div class="wt-tabscontenttitle">
     <h2>{{{ trans('lang.your_details') }}}</h2>
@@ -19,6 +20,31 @@
             <span class="wt-select">
             {!! Form::select('profession_id', \App\User::getProfessionsByRole(\App\Role::SUPPORT_ROLE), $user->profession_id, array('placeholder' => "Profession", "class"=>"form-control")) !!}
             </span>
+        </div>
+        
+        <div class="form-group ">
+            <multiselect 
+                v-model="extra_professions" 
+                :options="extra_professions_options" 
+                :searchable="false" 
+                :close-on-select="false" 
+                :clear-on-select="false" 
+                :preserve-search="false" 
+                :show-labels="false" 
+                :multiple="true" 
+                label="title"
+                track-by="id"
+                placeholder="Other professions" 
+                name="extra_professions" 
+                class="multiselect-upd" 
+                ref="extra_professions" 
+                data-value="{{ json_encode(count($extra_professions) != 0 ? $extra_professions : []) }}"
+            >
+                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">@{{ values.length }} option@{{ values.length != 1 ? 's' : '' }} selected</span></template>
+            </multiselect>
+            <select name="extra_professions[]" style="display:none;" multiple>
+                <option v-for="value in extra_professions" :value="value.id" selected></option>
+            </select>
         </div>
 {{--
         <div class="form-group form-group-half">

@@ -21,6 +21,8 @@ use App\Location;
 use App\Skill;
 use Session;
 use App\Profile;
+use App\Profession;
+use App\Role;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +32,6 @@ use App\Proposal;
 use App\Job;
 use DB;
 use App\Package;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use ValidateRequests;
 use App\Item;
@@ -1009,5 +1010,10 @@ class SupportController extends Controller
             ->get()->all();
 
         return $arrEvents ?? [];
+    }
+
+    public function getAllAvailableExtraProfessions(){
+        $professions = Profession::where('role_id', Role::SUPPORT_ROLE)->get();
+        return json_encode($professions);
     }
 }

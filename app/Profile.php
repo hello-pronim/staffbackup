@@ -206,13 +206,13 @@ class Profile extends Model
 
 
         $user->save();
-        $user->skills()->detach();
-        if ($request['skills']) {
-            $skills = $request['skills'];
-            $user->skills()->detach();
-            if (!empty($skills)) {
-                foreach ($skills as $skill) {
-                    $user->skills()->attach($skill['id'], ['skill_rating' => $skill['rating']]);
+        $user->professions()->detach();
+        if ($request['extra_professions']) {
+            $professions = $request['extra_professions'];
+            $user->professions()->detach();
+            if (!empty($professions)) {
+                foreach ($professions as $profession) {
+                    $user->professions()->attach($profession);
                 }
             }
         }

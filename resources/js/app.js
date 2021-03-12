@@ -4083,6 +4083,7 @@ if (document.getElementById("location")) {
 }
 
 if (document.getElementById("user_profile")) {
+  var role = document.getElementById("user_profile").getAttribute("role");
   const freelancerProfile = new Vue({
     el: "#user_profile",
     components: { Multiselect },
@@ -4093,6 +4094,12 @@ if (document.getElementById("user_profile")) {
 
       if (this.$refs["input"]) {
         this.itsoftware = JSON.parse(this.$refs["input"].$attrs["data-value"]);
+      }
+
+      if (this.$refs["extra_professions"]) {
+        this.extra_professions = JSON.parse(
+          this.$refs["extra_professions"].$attrs["data-value"]
+        );
       }
     },
     created: function() {
@@ -4172,11 +4179,18 @@ if (document.getElementById("user_profile")) {
       is_popup: false,
       itsoftware: [],
       itsoftware_options: itsoftware_options,
+      extra_professions: [],
+      extra_professions_options: [],
       subscription: "",
     },
     ready: function() {},
     created() {
       this.initEmployerData();
+      axios
+        .get("/" + role + "/getAllAvailableExtraProfessions")
+        .then((response) => {
+          this.extra_professions_options = response.data;
+        });
     },
     methods: {
       initEmployerData() {

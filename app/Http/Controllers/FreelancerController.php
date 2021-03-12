@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use App\Helper;
 use App\Location;
 use App\Skill;
+use App\Profession;
+use App\Role;
 use Session;
 use App\Profile;
 use Auth;
@@ -1124,5 +1126,13 @@ class FreelancerController extends Controller
             ->get()->all();
 
         return $arrEvents ?? [];
+    }
+
+    public function getAllAvailableExtraProfessions(){
+        $professions = Profession::whereIn('role_id', [
+            Role::FREELANCER_ROLE,
+            Role::SUPPORT_ROLE,
+        ])->get();
+        return json_encode($professions);
     }
 }

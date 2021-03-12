@@ -1,7 +1,7 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
     <div class="wt-dbsectionspace wt-haslayout la-ps-freelancer">
-        <div class="freelancer-profile" id="user_profile">
+        <div class="freelancer-profile" id="user_profile" role="support">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                     <div class="wt-dashboardbox wt-dashboardtabsholder">

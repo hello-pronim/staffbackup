@@ -328,6 +328,7 @@ Route::group(
         Route::get('freelancer/dashboard/post-service', 'ServiceController@create')->name('freelancerPostService');
         Route::get('freelancer/payout-settings', 'FreelancerController@payoutSettings')->name('FreelancerPayoutsSettings');
         Route::get('freelancer/payouts', 'FreelancerController@getPayouts')->name('getFreelancerPayouts');
+        Route::get('freelancer/getAllAvailableExtraProfessions', 'FreelancerController@getAllAvailableExtraProfessions');
     }
 );
 // Support Routes
@@ -357,6 +358,7 @@ Route::group(
         Route::get('support/dashboard/post-service', 'ServiceController@create');
         Route::get('support/payout-settings', 'SupportController@payoutSettings');
         Route::get('support/payouts', 'SupportController@getPayouts');
+        Route::get('support/getAllAvailableExtraProfessions', 'SupportController@getAllAvailableExtraProfessions');
     }
 );
 // Employer|Freelancer Routes
