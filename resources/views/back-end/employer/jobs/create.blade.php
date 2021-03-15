@@ -88,42 +88,26 @@
                                     <div class="form-group"  id="listDates">
                                         <div class="isDay">
                                             <div class="form-group form-group-half">
-                                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                                    <div class="form-group">
                                                 <span class="wt-select">
                                                     <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" name="start_date[0]" placeholder="{{ trans('lang.start_date') }}" value="" v-model="selecteddate"></date-picker>
                                                 </span>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="form-group form-group-half" v-if="selecteddate!=''">
-                                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                                    <div class="form-group">
                                                 <span class="wt-select">
                                                     <date-picker :config="{format: 'DD-MM-YYYY'}"  class="form-control" name="end_date[0]" placeholder="{{ trans('lang.end_date') }}" value="" v-model="selecteddate_end"></date-picker>
                                                 </span>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="getIsDay" v-if="event_id == ''"  v-for="d in 6" style="display:none">
-                                            <div class="form-group form-group-half">
-                                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                                    <div class="form-group">
-                                        <span class="wt-select">
-                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
-                                        </span>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group form-group-half">>
+                                                <span class="wt-select">
+                                                    <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.start_date') }}" value=""></date-picker>
+                                                </span>
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                                    <div class="form-group">
-                                        <span class="wt-select">
-                                            <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
-                                        </span>
-                                                    </div>
-                                                </div>
+                                                <span class="wt-select">
+                                                    <date-picker :config="{format: 'DD-MM-YYYY'}" class="form-control" placeholder="{{ trans('lang.end_date') }}" value=""></date-picker>
+                                                </span>
                                             </div>
                                         </div>
                                         <button type="button" class="wt-btn" v-if="event_id == ''" v-on:click="createList" v-if="addDay!=6" id="addDay">add day</button>
@@ -159,7 +143,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group form-group-half float-left" v-if="is_recurring != false">
+                                            <div class="wt-select">
                                             {!! Form::select('recurring_date', ['day'=>'day','week'=>'week','month'=>'month'], null, ['class' => 'form-control', 'placeholder' => "Recurring dates", 'v-model'=>'recurring_date']) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group form-group-half float-right" v-if="recurring_date != '' && is_recurring != false">
                                     <span class="wt-select">
@@ -167,39 +153,45 @@
                                     </span>
                                         </div>
                                     </div>
-                                    <div class="wt-jobdescription wt-tabsinfo" v-if="event_id == ''">
+                                    <div class="form-group" v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>Other Appointment</h2>
                                         </div>
-                                        <div class="form-group form-group-half">
+                                        <div class="form-group" v-bind:class="[this.job_appo_slot_times=='Other' ? 'form-group-half' : '']">
+                                            <div class="wt-select">
                                             {!! Form::select('job_appo_slot_times[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'job_appo_slot_times')) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group form-group-half" v-if="this.job_appo_slot_times=='Other'">
                                             <input id="other_appo" type="text"
                                                    class="form-control"
-                                                   name="job_appo_slot_times[]">
+                                                   name="job_appo_slot_times[]" placeholder="Other Slot Time">
                                         </div>
-                                    </div>
-                                    <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
-                                        <div class="form-group form-group-half">
+                                        <div class="form-group"  v-bind:class="[this.job_adm_catch_time=='Yes' ? 'form-group-half' : '']">
+                                            <div class="wt-select">
                                             {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group form-group-half"  v-if="this.job_adm_catch_time=='Yes'">
+                                            <div class="wt-select">
                                             {!! Form::select('job_adm_catch_time_interval[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Admin Catch Up Provided (interval)",'v-model'=>'job_adm_catch_time_interval')) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group form-group-half" v-if="this.job_adm_catch_time_interval=='Other'">
                                             <input id="other_appo" type="text"
                                                    class="form-control"
                                                    name="job_adm_catch_time_interval[]">
                                         </div>
-                                    </div>
-                                    <div class="wt-jobdescription wt-tabsinfo"   v-if="event_id == ''">
                                         <div class="form-group form-group-half">
+                                            <div class="wt-select">
                                             {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
+                                            </div>
                                         </div>
 
                                         <div class="form-group form-group-half">
+                                            <div class="wt-select">
                                             {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits",'v-model'=>'home_visits')) !!}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
@@ -207,8 +199,10 @@
                                             <h2>{{ trans('lang.skills_req') }}</h2>
                                         </div>
                                         <div class="la-jobedit-content">
+                                            <div class="wt-select">
                                             <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
                                             {!! Form::select('profession_id', $professions, null, array('placeholder' => "Profession")) !!}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="wt-jobdescription wt-tabsinfo">
@@ -225,10 +219,10 @@
                                                     {!! Form::textarea('description', null, ['class' =>'form-control', 'placeholder' => trans('lang.job_dtl_note') , 'v-model'=>'booking_content']) !!}
                                                 </div>
 
-                                                <div class="form-group form-group-half"  v-if="event_id == ''">
+                                                <div class="form-group"  v-if="event_id == ''">
                                                     <div class="left-inner-addon">
                                                         <span>£</span>
-                                                        {!! Form::text('project_rates', null, ['class' => 'form-control halfWidth ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0']) !!}
+                                                        {!! Form::text('project_rates', null, ['class' => 'form-control ratePicker', 'placeholder' => 'Your rate - per hour', 'min'=>'0']) !!}
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -248,11 +242,10 @@
                                         <div class="wt-tabscontenttitle">
                                             <h2>Direct Bookings</h2>
                                         </div>
-                                        <div class="wt-divtheme wt-userform wt-userformvtwo">
-                                            <div class="form-group">
-                                                {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), null, array('placeholder' => "Direct Bookings")) !!}
+                                        <div class="form-group">
+                                            <div class="wt-select">
+                                            {!! Form::select('direct_booking', array('Yes'=>'yes', 'No'=>'no'), null, array('placeholder' => "Direct Bookings")) !!}
                                             </div>
-
                                         </div>
                                     </div>
 

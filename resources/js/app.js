@@ -2571,7 +2571,6 @@ if (page) {
 
       axios.get("/get-user-professions").then(function(response) {
         if (response.status == 200) {
-          console.log(response.data);
           self.professions = response.data;
         }
       });
@@ -6219,7 +6218,6 @@ if (document.getElementById("post_job_dashboard")) {
         });
       },
       changeSelectedDate(date) {
-        console.log(this.selectedEvent);
         this.clickedDate = true;
         if (this.selectedEvent) {
           var selDateStart = this.selectedEvent.start.split(" ");
@@ -6271,15 +6269,15 @@ if (document.getElementById("post_job_dashboard")) {
 
           this.start = "00:00";
           this.end = "23:59";
+          setTimeout(function() {
+            $("html, body").animate(
+              {
+                scrollTop: $(".classScrollTo").offset().top,
+              },
+              1000
+            );
+          });
         }
-        setTimeout(function() {
-          $("html, body").animate(
-            {
-              scrollTop: $(".classScrollTo").offset().top,
-            },
-            1000
-          );
-        });
       },
       createList(event) {
         var parent = document.getElementById("listDates"),
