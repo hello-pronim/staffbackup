@@ -73,7 +73,7 @@
                                     {{--</div>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
-                            <div class="form-group form-group-half wt-btnarea">
+                            <div class="form-group form-group-half wt-btnarea mt-10">
                                 {!! Form::submit(trans('lang.btn_save'), ['class' => 'wt-btn']) !!}
                             </div>
                         {!! Form::close() !!}

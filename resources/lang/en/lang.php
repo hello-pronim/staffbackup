@@ -1251,6 +1251,8 @@ return [
     'payment_methods' => [
         'paypal' => 'Paypal',
         'stripe' => 'Stripe',
+        'cheque' => 'Cheque',
+        'bacs' => 'BACS'
     ],
     'currency' => [
         'usd' => 'United States Dollar',

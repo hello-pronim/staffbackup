@@ -1893,13 +1893,21 @@ class Helper extends Model
     public static function getPaymentMethodList($key = "")
     {
         $list = array(
-            'paypal' => array(
+            'Paypal' => array(
                 'title' => trans('lang.payment_methods.paypal'),
-                'value' => 'paypal',
+                'value' => 'Paypal',
             ),
-            'stripe' => array(
+            'Stripe' => array(
                 'title' => trans('lang.payment_methods.stripe'),
-                'value' => 'stripe',
+                'value' => 'Stripe',
+            ),
+            'Cheque' => array(
+                'title' => trans('lang.payment_methods.cheque'),
+                'value' => 'Cheque',
+            ),
+            'BACS' => array(
+                'title' => trans('lang.payment_methods.bacs'),
+                'value' => 'BACS',
             ),
         );
         if (!empty($key) && array_key_exists($key, $list)) {

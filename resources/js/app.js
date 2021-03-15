@@ -5479,11 +5479,18 @@ if (document.getElementById("profile_settings")) {
             },
           },
         },
+        payment_option: "",
+        paypal: "",
+        p60: "",
+        cheque: "",
+        limited_company_number: "",
       };
     },
     created: function() {
       this.getUserEmailNotification();
       this.getSearchableSettings();
+
+      this.getPaymentSettings();
     },
     ready: function() {
       this.deleteAccount();
@@ -5516,6 +5523,37 @@ if (document.getElementById("profile_settings")) {
           error,
           this.notificationSystem.options.error
         );
+      },
+      getPaymentSettings() {
+        var self = this;
+        axios
+          .post(APP_URL + "/profile/settings/get-payment-settings")
+          .then(function(response) {
+            self.payment_option = response.data.payment_option;
+            self.p60 = response.data.p60;
+            self.paypal = response.data.paypal;
+            self.cheque = response.data.cheque;
+            self.limited_company_number = response.data.limited_company_number;
+          });
+      },
+      savePaymentSettings(event) {
+        var self = this;
+        self.loading = true;
+        var paymentSettingForm = document.getElementById("paymentSettingForm");
+        let form_data = new FormData(paymentSettingForm);
+        axios
+          .post(APP_URL + "/profile/settings/save-payment-settings", form_data)
+          .then(function(response) {
+            self.loading = false;
+            if (response.data.type === "warning") {
+              self.showError(response.data.msg);
+            } else {
+              self.showInfo(response.data.msg);
+              setTimeout(function() {
+                window.location.reload();
+              }, 4000);
+            }
+          });
       },
       deleteAccount: function(event) {
         var self = this;

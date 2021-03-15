@@ -2018,7 +2018,7 @@ class UserController extends Controller
             $payment_options = array();
             if(!empty($available_payment_options)){
                 foreach($available_payment_options as $option){
-                    $payment_options[$option] = strtoupper($option);
+                    $payment_options[$option] = $option;
                 }
             }
             return view('back-end.settings.payment_settings', 
@@ -2027,6 +2027,33 @@ class UserController extends Controller
                     'payment_options' => $payment_options
                 )
             );
+        }
+    }
+
+    public function getPaymentSettings(Request $request){
+        $user = User::find(Auth::user()->id);
+        $paymentSettings = array();
+        $paymentSettings['payment_option'] = $user->payment_option;
+        $paymentSettings['p60'] = $user->p60;
+        $paymentSettings['paypal'] = $user->paypal;
+        $paymentSettings['bacs'] = $user->bacs;
+        $paymentSettings['cheque'] = $user->cheque;
+        $paymentSettings['limited_company_number'] = $user->limitied_company_number;
+        
+        return json_encode($paymentSettings);
+    }
+
+    public function savePaymentSettings(Request $request){
+        if(Auth::user()){
+            $user = User::find(Auth::user()->id);   
+            $user->payment_option = $request->payment_option;
+            if($request->paypal) $user->paypal = $request->paypal;
+            if($request->cheque) $user->cheque = $request->cheque;
+            if($request->limited_company_number) $user->limitied_company_number = $request->limited_company_number;
+            $user->save();
+            $json['type'] = "success";
+            $json['msg'] = "Your payment settings have been saved successfully";
+            return $json;
         }
     }
 

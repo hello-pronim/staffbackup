@@ -383,6 +383,8 @@ Route::group(
         Route::post('profile/settings/request-password', 'UserController@requestPassword');
         Route::get('profile/settings/email-notification-settings', 'UserController@emailNotificationSettings')->name('emailNotificationSettings');
         Route::get('profile/settings/payment-settings', 'UserController@paymentSettings')->name('paymentSettings');
+        Route::post('profile/settings/get-payment-settings', 'UserController@getPaymentSettings');
+        Route::post('profile/settings/save-payment-settings', 'UserController@savePaymentSettings');
         Route::post('profile/settings/save-email-settings', 'UserController@saveEmailNotificationSettings');
         Route::post('profile/settings/save-account-settings', 'UserController@saveAccountSettings');
         Route::get('profile/settings/delete-account', 'UserController@deleteAccount')->name('deleteAccount');
