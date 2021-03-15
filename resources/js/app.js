@@ -2569,8 +2569,9 @@ if (page) {
         }
       });
 
-      axios.get("/get-professions").then(function(response) {
+      axios.get("/get-user-professions").then(function(response) {
         if (response.status == 200) {
+          console.log(response.data);
           self.professions = response.data;
         }
       });

@@ -18,6 +18,7 @@ use App\EmailTemplate;
 use App\Helper;
 use App\Invoice;
 use App\Job;
+use App\Profession;
 use App\Language;
 use App\Mail\AdminEmailMailable;
 use App\Mail\FreelancerEmailMailable;
@@ -2073,5 +2074,21 @@ class UserController extends Controller
         CalendarEvent::find($request->event_id)->delete();
 
         return ['success' => true];
+    }
+    
+    public function getUserProfessions(Request $request){
+        $user = User::find(Auth::user()->id);
+        if($user->profession_id){
+            $professions = array();
+            $main_profession = Profession::find($user->profession_id);
+            array_push($professions, $main_profession);
+            $extra_professions = $user->professions()->get();
+            foreach($extra_professions as $pro){
+                array_push($professions, $pro);
+            }
+        } else{
+            $professions = $this->professionRepository->getProfessionsByRole();
+        }
+        return response()->json($professions);
     }
 }
