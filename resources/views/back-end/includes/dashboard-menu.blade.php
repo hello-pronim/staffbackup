@@ -27,7 +27,8 @@
 
                     @if ($role === 'employer')
                         @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'jobs')
-                            <div class="wt-btnarea" style="float:none;margin-bottom: 40px"><a href="{{{ url(route('employerPostJob')) }}}" class="wt-btn">{{{ trans('lang.post_job') }}}</a></div>
+                            <div class="wt-btnarea mb-10" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
+                            <div class="wt-btnarea mb-10" style="float:none"><a href="{{{ url(route('employerPostJob')) }}}" class="wt-btn">{{{ trans('lang.post_job') }}}</a></div>
                         @else
                             <div class="wt-btnarea" style="float:none"><a href="{{{ url(route('showUserProfile', ['slug' => Auth::user()->slug])) }}}" class="wt-btn">{{{ trans('lang.view_profile') }}}</a></div>
                         @endif
