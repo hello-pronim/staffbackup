@@ -209,7 +209,7 @@ class Job extends Model
             $this->skills = (isset($request['skills']) && count(array_filter($request['skills']))) ? serialize(array_filter($request['skills']))  : "";
             $this->days_avail = (isset($request['days_avail']) && is_array($request['days_avail']) && !empty($request['days_avail'])) ? json_encode($request['days_avail']) : "";
             $this->hours_avail = filter_var(isset($request['hours_avail']) ? $request['hours_avail'] : "", FILTER_SANITIZE_STRING);
-            $this->breaks = $request->breaks;
+            $this->breaks = serialize(json_decode($request->breaks));
             $this->home_visits = filter_var($request['home_visits'], FILTER_SANITIZE_STRING);
             $this->direct_booking = $request->direct_booking;
             
@@ -390,7 +390,7 @@ class Job extends Model
                 $job->job_adm_catch_time_interval = filter_var((isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] != "Other") ? $request['job_adm_catch_time_interval'][0] :
                     (isset($request['job_adm_catch_time_interval']) && $request['job_adm_catch_time_interval'][0] == "Other" ? $request['job_adm_catch_time_interval'][1] : ""), FILTER_SANITIZE_STRING);
             }
-            $job->breaks = filter_var(isset($request['breaks']) ? $request['breaks'] : "", FILTER_SANITIZE_STRING);
+            $job->breaks = serialize(json_decode($request->breaks));
 
             $old_path = 'uploads\jobs\temp';
             $job_attachments = array();

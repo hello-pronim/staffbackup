@@ -1124,49 +1124,6 @@ if (document.getElementById("support_availability")) {
             1000
           );
         });
-
-        // this.start_date = moment(event).format('DD-MM-YYYY');
-        //
-        // if (this.selectedEvent) {
-        //     event = this.selectedEvent;
-        //     var startdate = event.start.split(' ');
-        //     var enddate = event.end.split(' ');
-        //     this.clickedDate = true;
-        //     this.clickedEndDate = "";
-        //     this.availability_selected_date = startdate[0];
-        //     this.availability_selected_end_date = enddate[0];
-        //     this.start = this.availability_start_time = startdate[1];
-        //     this.end = this.availability_end_time = enddate[1];
-        //     this.availability_content = event.content;
-        //     this.availability_title = event.title;
-        //     this.recurring_date = event.recurring_date;
-        //     this.skill_id = event.skill_id;
-        //     this.event_id = event.id;
-        //     this.user_id = event['user_id'];
-        //     this.event_class = event['class'];
-        //     this.selectedEvent = null;
-        //     event = null;
-        // } else {
-        //     this.clickedDate = new Date(event);
-        //     this.clickedEndDate = new Date(event);
-        //     this.availability_selected_date = this.formatDate(event);
-        //     this.availability_selected_end_date = this.formatDate(event);
-        //     this.start = this.availability_start_time = "00:01";
-        //     this.end = this.availability_end_time = "23:59";
-        //     this.recurring_date = '';
-        //     this.skill_id = '';
-        //     this.event_id = '';
-        //     this.user_id = '';
-        //     this.event_class = '';
-        //     this.availability_content = '';
-        //     this.availability_title = '';
-        //     this.availability_selected_end_date = this.formatDate(event);
-        // }
-        // setTimeout(function () {
-        //     $('html, body').animate({
-        //         scrollTop: ($(".classScrollTo").offset().top)
-        //     }, 1000);
-        // })
       },
       changeSelectedDate(date) {
         this.clickedDate = true;
@@ -6056,7 +6013,7 @@ if (document.getElementById("post_job_dashboard")) {
       job_appo_slot_times: "",
       job_adm_catch_time: "",
       job_adm_catch_time_interval: "",
-      breaks: "",
+      breaks: [{ when: "", for: "" }],
       project_rates: "",
       direct_booking: "",
       freelancer_level: "",
@@ -6114,6 +6071,7 @@ if (document.getElementById("post_job_dashboard")) {
       currentEvent: {},
     },
     created: function() {
+      console.log(this.breaks);
       this.getSettings();
       axios.get("/employer/get-jobs").then((response) => {
         this.events = response.data;
@@ -6217,6 +6175,9 @@ if (document.getElementById("post_job_dashboard")) {
           this.events = response.data;
         });
       },
+      addNewBreakTime() {
+        this.breaks.push({ when: "", for: "" });
+      },
       changeSelectedDate(date) {
         this.clickedDate = true;
         if (this.selectedEvent) {
@@ -6263,6 +6224,7 @@ if (document.getElementById("post_job_dashboard")) {
           this.job_appo_slot_times = "";
           this.job_adm_catch_time = "";
           this.breaks = "";
+          this.break_times = "";
           this.home_visits = "";
           this.direct_booking = "";
           this.project_rates = "";
@@ -6351,9 +6313,8 @@ if (document.getElementById("post_job_dashboard")) {
         this.loading = true;
         let register_Form = document.getElementById("post_job_dashboard_form");
         let form_data = new FormData(register_Form);
-        // var description = tinyMCE.get('wt-tinymceeditor').getContent();
-        // form_data.append('description', description);
         var self = this;
+        form_data.append("breaks", JSON.stringify(self.breaks));
         axios
           .post(APP_URL + "/job/post-job", form_data)
           .then(function(response) {
@@ -6565,9 +6526,12 @@ if (document.getElementById("post_job_edit")) {
       title: "",
       project_level: "",
       // job_duration: this.value,
-      // appo_slot_times: this.value,
+      job_appo_slot_times: "",
+      job_adm_catch_time: "",
+      job_adm_catch_time_interval: "",
+
       // freelancer_level: this.value,
-      // home_visits: this.value,
+      home_visits: "",
       breaks: "",
       english_level: "",
       message: "",
@@ -6626,12 +6590,25 @@ if (document.getElementById("post_job_edit")) {
       this.getSettings();
       var events = [];
       let self = this;
+      var job_id = document.getElementById("job_id").value;
+      self.job_id = job_id;
       var e = document.getElementById("recurring_date");
       var sel_recurring_date = e.options[e.selectedIndex].value;
       if (sel_recurring_date) {
-        this.recurring_date = sel_recurring_date;
-        this.is_recurring = true;
+        self.recurring_date = sel_recurring_date;
+        self.is_recurring = true;
       }
+      axios
+        .get(APP_URL + "/job/get-job-appointment/" + job_id)
+        .then(function(response) {
+          let job = response.data;
+          console.log(job.breaks);
+          self.job_appo_slot_times = job.job_appo_slot_times;
+          self.job_adm_catch_time = job.job_adm_catch_time;
+          self.job_adm_catch_time_interval = job.job_adm_catch_time_interval;
+          self.home_visits = job.home_visits;
+          self.breaks = job.breaks;
+        });
     },
     methods: {
       convertDateForFormatCalendar(date) {
@@ -6725,44 +6702,12 @@ if (document.getElementById("post_job_edit")) {
           class: "booking_calendar",
         });
       },
+      addNewBreakTime() {
+        var self = this;
+        self.breaks.push({ when: "", for: "" });
+      },
       changeSelectedDate(date) {
         console.log(date);
-        // this.clickedDate = true;
-        // if(this.selectedEvent){
-        //     // var selDateStart = this.selectedEvent.start.split(' ');
-        //     // var selDateEnd = this.selectedEvent.end.split(' ');
-        //     this.selecteddate = this.formatDate(this.selecteddate);
-        //     this.selecteddate_end = this.formatDate(this.selecteddate_end);
-        //
-        //
-        //     this.event_id = this.selectedEvent.id;
-        //     this.job_id = this.selectedEvent.job_id;
-        //     this.booking_title = this.selectedEvent.title;
-        //     this.booking_content = this.selectedEvent.content;
-        //
-        //     this.start = selDateStart[1];
-        //     this.end = selDateEnd[1];
-        //     this.selectedEvent = false;
-        // } else {
-        //     // this.selecteddate = date.getDate() + "-" + (date.getMonth() + 1) + '-' + date.getFullYear();
-        //     this.selecteddate = this.formatDate(date);
-        //     if (this.selecteddate < this.selecteddate_end) {
-        //         this.selecteddate_end = this.formatDate(date);
-        //     }
-        //
-        //     this.event_id = '';
-        //     this.job_id = '';
-        //     this.booking_title = '';
-        //     this.booking_content = '';
-        //
-        //     this.start = '00:00';
-        //     this.end = '23:59';
-        // }
-        // setTimeout(function () {
-        //     $('html, body').animate({
-        //         scrollTop: ($(".classScrollTo").offset().top)
-        //     }, 1000);
-        // })
       },
       createList(event) {
         var parent = document.getElementById("listDates"),
@@ -6782,24 +6727,13 @@ if (document.getElementById("post_job_edit")) {
         this.addDay = elem.length;
         // event.preventDefault();
       },
-      changeSelectedDateEnd(date) {
-        // this.selecteddate_end = this.formatDate(date);
-        // this.start = (this.start!='')?this.start:'00:00';
-        // this.end = (this.end!='')?this.end:'23:59';
-      },
+      changeSelectedDateEnd(date) {},
       preventClick() {},
       changeview(e) {
         e.preventDefault();
         vuecal.switchView("day");
       },
-      changeSelectedLastrecurringDate(event) {
-        //this.$refs.searchfield.inputValue = date.getFullYear() + "-" + (date.getMonth()+1) + '-' + date.getDate() ;
-        // this.selecteddate = ('0' + date.getDate()).slice(-2) + "/" + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
-        // this.selecteddate =  this.formatDate(date,true);
-        // jQuery('#calendar_small').hide();
-        //this.getSearchableData(this.types), this.emptyField(this.types), this.changeFilter()
-        // window.location.replace(APP_URL+'/search-results?type=job&start_date='+this.$refs.searchfield.inputValue);
-      },
+      changeSelectedLastrecurringDate(event) {},
       showCompleted(message) {
         return this.$toast.success(
           " ",
@@ -6832,77 +6766,14 @@ if (document.getElementById("post_job_edit")) {
         console.log(event);
         this.selectedEvent = event;
       },
-
-      // submitJob: function () {
-      //     this.loading = true;
-      //     let register_Form = document.getElementById('post_job_dashboard_form');
-      //     let form_data = new FormData(register_Form);
-      //     // var description = tinyMCE.get('wt-tinymceeditor').getContent();
-      //     // form_data.append('description', description);
-      //     var self = this;
-      //     axios.post(APP_URL + '/job/post-job', form_data)
-      //         .then(function (response) {
-      //             if (response.data.type == 'success') {
-      //                 self.loading = false;
-      //                 self.showInfo(Vue.prototype.trans('lang.job_submitting'));
-      //                 // setTimeout(function (self) {
-      //                 //     window.location.replace(APP_URL + '/employer/dashboard');
-      //                 //     self.clickedDate = false;
-      //                 // }, 5000);
-      //                 self.reloadCalendar();
-      //                 self.clickedDate = false;
-      //                 setTimeout(function (self) {
-      //                     $('html, body').animate({
-      //                         scrollTop: ($(".scrolToCalend").offset().top)
-      //                     }, 1000);
-      //                 });
-      //
-      //             } else {
-      //                 self.loading = false;
-      //                 self.showError(response.data.message);
-      //             }
-      //         })
-      //         .catch(function (error) {
-      //             self.loading = false;
-      //             // if (error.response.data.errors.job_duration) {
-      //             //     self.showError(error.response.data.errors.job_duration[0]);
-      //             // }
-      //             if (error.response.data.errors.english_level) {
-      //                 self.showError(error.response.data.errors.english_level[0]);
-      //             }
-      //             if (error.response.data.errors.title) {
-      //                 self.showError(error.response.data.errors.title[0]);
-      //             }
-      //             if (error.response.data.errors.project_levels) {
-      //                 self.showError(error.response.data.errors.project_levels[0]);
-      //             }
-      //             if (error.response.data.errors.freelancer_type) {
-      //                 self.showError(error.response.data.errors.freelancer_type[0]);
-      //             }
-      //             // if (error.response.data.errors.project_cost) {
-      //             //     self.showError(error.response.data.errors.project_cost[0]);
-      //             // }
-      //             // if (error.response.data.errors.description) {
-      //             //     self.showError(error.response.data.errors.description[0]);
-      //             // }
-      //             if (error.response.data.errors.booking_start) {
-      //                 self.showError(error.response.data.errors.booking_start[0]);
-      //             }
-      //             if (error.response.data.errors.booking_end) {
-      //                 self.showError(error.response.data.errors.booking_end[0]);
-      //             }
-      //
-      //         });
-      // },
       updateJob: function(id) {
         console.log(id);
         this.loading = true;
+        var self = this;
         let register_Form = document.getElementById("post_job_edit_form");
         let form_data = new FormData(register_Form);
-        // var description = tinyMCE.get('wt-tinymceeditor').getContent();
-        // form_data.append('description', description);
+        form_data.append("breaks", JSON.stringify(self.breaks));
         form_data.append("id", id);
-        var self = this;
         axios
           .post(APP_URL + "/job/update-job", form_data)
           .then(function(response) {
@@ -6923,27 +6794,9 @@ if (document.getElementById("post_job_edit")) {
           })
           .catch(function(error) {
             self.loading = false;
-            // if (error.response.data.errors.job_duration) {
-            //     self.showError(error.response.data.errors.job_duration[0]);
-            // }
-            // if (error.response.data.errors.english_level) {
-            //     self.showError(error.response.data.errors.english_level[0]);
-            // }
             if (error.response.data.errors.title) {
               self.showError(error.response.data.errors.title[0]);
             }
-            // if (error.response.data.errors.project_levels) {
-            //     self.showError(error.response.data.errors.project_levels[0]);
-            // }
-            // if (error.response.data.errors.freelancer_type) {
-            //     self.showError(error.response.data.errors.freelancer_type[0]);
-            // }
-            // // if (error.response.data.errors.project_cost) {
-            //     self.showError(error.response.data.errors.project_cost[0]);
-            // }
-            // if (error.response.data.errors.description) {
-            //     self.showError(error.response.data.errors.description[0]);
-            // }
             if (error.response.data.errors.booking_start) {
               self.showError(error.response.data.errors.booking_start[0]);
             }
@@ -6952,48 +6805,6 @@ if (document.getElementById("post_job_edit")) {
             }
           });
       },
-      // updateEvent(e){
-      //     e.preventDefault();
-      //     console.log(this);
-      //     var thistoast = this.$toast;
-      //     thistoast.options.position = 'center';
-      //     var self = this;
-      //     let register_Form = document.getElementById('job_edit_form');
-      //     let form_data = new FormData(register_Form);
-      //     //this.events.push(newObj);
-      //     axios.post('/employer/updateCalendarEvent', form_data)
-      //         .then(function (response) {
-      //             self.reloadCalendar();
-      //             self.showInfo(Vue.prototype.trans('lang.job_updating'));
-      //             self.clickedDate = false;
-      //             setTimeout(function () {
-      //                 $('html, body').animate({
-      //                     scrollTop: ($(".scrolToCalend").offset().top)
-      //                 }, 1000);
-      //             })
-      //         })
-      //         .catch(function (error) {
-      //             if(typeof error.response != "undefined") {
-      //                 if (error.response.data.errors.title) {
-      //                     thistoast.error(' ', error.response.data.errors.title[0]);
-      //                 }
-      //                 if (error.response.data.errors.availability_content) {
-      //                     thistoast.error(' ', error.response.data.errors.availability_content[0]);
-      //                 }
-      //                 if (error.response.data.errors.start_date) {
-      //                     thistoast.error(' ', error.response.data.errors.start_date[0]);
-      //                 }
-      //                 if (error.response.data.errors.booking_start) {
-      //                     thistoast.error(' ', error.response.data.errors.booking_start[0]);
-      //                 }
-      //                 if (error.response.data.errors.booking_end) {
-      //                     thistoast.error(' ', error.response.data.errors.booking_end[0]);
-      //                 }
-      //             }
-      //
-      //         });
-      //     e.stopPropagation()
-      // },
       getSettings: function() {
         let self = this;
         var segment_str = window.location.pathname;

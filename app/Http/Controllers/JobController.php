@@ -635,6 +635,21 @@ class JobController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function getJobAppointment(Request $request)
+    {
+        $job = Job::find($request->id);
+        $json['job_appo_slot_times'] = $job->job_appo_slot_times;
+        $json['job_adm_catch_time'] = $job->job_adm_catch_time;
+        $json['job_adm_catch_time_interval'] = $job->job_adm_catch_time_interval;
+        $json['home_visits'] = $job->home_visits;
+        $json['breaks'] = unserialize($job->breaks);
+        return json_encode($json);
+    }
+
+    /**
      * Get job Skills.
      *
      * @param mixed $request $req->attributes
