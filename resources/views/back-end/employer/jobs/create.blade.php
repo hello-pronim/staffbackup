@@ -1,29 +1,30 @@
 @php
     $user = Auth::user();
 
-        $arrJob_Appo_slot_times = config('job-settings.appo_slot_times');
+    $arrJob_Appo_slot_times = config('job-settings.appo_slot_times');
+    $arrJob_breaks_times = config('job-settings.breaks_times');
 
-        $arrJob_Adm_catch_time_interval = config('job-settings.adm_catch_time_interval');
+    $arrJob_Adm_catch_time_interval = config('job-settings.adm_catch_time_interval');
 
-        $recurringDates = [
-            'day'=>'day',
-            'week'=>'week',
-            'month'=>'month'
-        ];
+    $recurringDates = [
+        'day'=>'day',
+        'week'=>'week',
+        'month'=>'month'
+    ];
 
-        $homeVisits = [
-            'Yes'=>'Yes',
-            'No'=>'No',
-            'N/A'=>'N/A'
-        ];
+    $homeVisits = [
+        'Yes'=>'Yes',
+        'No'=>'No',
+        'N/A'=>'N/A'
+    ];
 
-        $arrBreaks = array(
-            'Morning Break'=>'Morning Break',
-            'Lunch Break'=>'Lunch Break',
-            'Afternoon Break'=>'Afternoon Break',
-            'Evening Break'=>'Evening Break',
-            'Not Applicable' => 'Not Applicable',
-        );
+    $arrBreaks = array(
+        'Morning Break'=>'Morning Break',
+        'Lunch Break'=>'Lunch Break',
+        'Afternoon Break'=>'Afternoon Break',
+        'Evening Break'=>'Evening Break',
+        'Not Applicable' => 'Not Applicable',
+    );
 @endphp
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
@@ -172,25 +173,36 @@
                                             {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half"  v-if="this.job_adm_catch_time=='Yes'">
-                                            <div class="wt-select">
-                                            {!! Form::select('job_adm_catch_time_interval[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Admin Catch Up Provided (interval)",'v-model'=>'job_adm_catch_time_interval')) !!}
+                                        <div class="form-group form-group-half p-0 m-0" v-if="this.job_adm_catch_time=='Yes'">
+                                            <div class="form-group" v-bind:class="[this.job_adm_catch_time_interval=='Other' ? 'form-group-half' : '']">
+                                                <div class="wt-select">
+                                                {!! Form::select('job_adm_catch_time_interval[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Admin Catch Up Provided (interval)",'v-model'=>'job_adm_catch_time_interval')) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-half" v-if="this.job_adm_catch_time_interval=='Other'">
+                                                <input id="other_appo" type="text"
+                                                    class="form-control"
+                                                    name="job_adm_catch_time_interval[]">
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half" v-if="this.job_adm_catch_time_interval=='Other'">
-                                            <input id="other_appo" type="text"
-                                                   class="form-control"
-                                                   name="job_adm_catch_time_interval[]">
-                                        </div>
-                                        <div class="form-group form-group-half">
-                                            <div class="wt-select">
-                                            {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks")) !!}
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group form-group-half">
+                                        <div class="form-group">
                                             <div class="wt-select">
                                             {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits",'v-model'=>'home_visits')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-half">
+                                            <div class="wt-select">
+                                            {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks", 'v-model'=>'breaks')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-half m-0 p-0">
+                                            <div class="form-group" v-bind:class="[this.breaks_times=='Other' ? 'form-group-half' : '']">
+                                                <div class="wt-select">
+                                                {!! Form::select('breaks_times[]', $arrJob_breaks_times, null, array( 'placeholder' => "Length Of Time",'v-model'=>'breaks_times')) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-half" v-if="this.breaks_times=='Other'">
+                                                <input id="other_breaks_times" type="text" class="form-control" name="breaks_times[]">
                                             </div>
                                         </div>
                                     </div>

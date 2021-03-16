@@ -18,4 +18,13 @@ return [
         '30 minutes'=>'30 minutes',
         'Other'=>'Other',
     ],
+
+    'breaks_times' => [
+        '5 minutes' =>'5 minutes',
+        '10 minutes'=>'10 minutes',
+        '15 minutes'=>'15 minutes',
+        '20 minutes'=>'20 minutes',
+        '30 minutes'=>'30 minutes',
+        'Other'=>'Other',
+    ],
 ];
