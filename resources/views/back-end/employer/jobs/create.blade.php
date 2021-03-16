@@ -158,28 +158,28 @@
                                         <div class="wt-tabscontenttitle">
                                             <h2>Other Appointment</h2>
                                         </div>
-                                        <div class="form-group" v-bind:class="[this.job_appo_slot_times=='Other' ? 'form-group-half' : '']">
+                                        <div class="form-group" v-bind:class="[job_appo_slot_times=='Other' ? 'form-group-half' : '']">
                                             <div class="wt-select">
                                             {!! Form::select('job_appo_slot_times[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Appointment Slot Times",'v-model'=>'job_appo_slot_times')) !!}
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half" v-if="this.job_appo_slot_times=='Other'">
+                                        <div class="form-group form-group-half" v-if="job_appo_slot_times=='Other'">
                                             <input id="other_appo" type="text"
                                                    class="form-control"
                                                    name="job_appo_slot_times[]" placeholder="Other Slot Time">
                                         </div>
-                                        <div class="form-group"  v-bind:class="[this.job_adm_catch_time=='Yes' ? 'form-group-half' : '']">
+                                        <div class="form-group"  v-bind:class="[job_adm_catch_time=='Yes' ? 'form-group-half' : '']">
                                             <div class="wt-select">
                                             {!! Form::select('job_adm_catch_time', array('Yes'=>'Yes', 'No'=>'No'), null, array('placeholder' => "Admin Catch Up Time Provided", 'v-model'=>'job_adm_catch_time')) !!}
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half p-0 m-0" v-if="this.job_adm_catch_time=='Yes'">
-                                            <div class="form-group" v-bind:class="[this.job_adm_catch_time_interval=='Other' ? 'form-group-half' : '']">
+                                        <div class="form-group form-group-half p-0 m-0" v-if="job_adm_catch_time=='Yes'">
+                                            <div class="form-group" v-bind:class="[job_adm_catch_time_interval=='Other' ? 'form-group-half' : '']">
                                                 <div class="wt-select">
                                                 {!! Form::select('job_adm_catch_time_interval[]', $arrJob_Appo_slot_times, null, array( 'placeholder' => "Admin Catch Up Provided (interval)",'v-model'=>'job_adm_catch_time_interval')) !!}
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-half" v-if="this.job_adm_catch_time_interval=='Other'">
+                                            <div class="form-group form-group-half" v-if="job_adm_catch_time_interval=='Other'">
                                                 <input id="other_appo" type="text"
                                                     class="form-control"
                                                     name="job_adm_catch_time_interval[]">
@@ -190,38 +190,43 @@
                                             {!! Form::select('home_visits', $homeVisits, null, array('placeholder' => "Home visits",'v-model'=>'home_visits')) !!}
                                             </div>
                                         </div>
-                                        <div class="form-group form-group-half">
-                                            <div class="wt-select">
-                                            {!! Form::select('breaks', $arrBreaks, $user->breaks, array('placeholder' => "Breaks", 'v-model'=>'breaks')) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group form-group-half m-0 p-0">
-                                            <div class="form-group" v-bind:class="[this.breaks_times=='Other' ? 'form-group-half' : '']">
+                                        <div v-for="(breakTime, index) in breaks" :key="index">
+                                            <div class="form-group form-group-half">
                                                 <div class="wt-select">
-                                                {!! Form::select('breaks_times[]', $arrJob_breaks_times, null, array( 'placeholder' => "Length Of Time",'v-model'=>'breaks_times')) !!}
+                                                {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks", 'v-model'=>'breakTime.when')) !!}
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-half" v-if="this.breaks_times=='Other'">
-                                                <input id="other_breaks_times" type="text" class="form-control" name="breaks_times[]">
+                                            <div class="form-group form-group-half m-0 p-0">
+                                                <div class="form-group" v-bind:class="[breakTime.for=='Other' ? 'form-group-half' : '']">
+                                                    <div class="wt-select">
+                                                    {!! Form::select('breaks_times[]', $arrJob_breaks_times, null, array( 'placeholder' => "Length Of Time",'v-model'=>'breakTime.for')) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-group-half" v-if="breakTime.for=='Other'">
+                                                    <input id="other_breaks_times" type="text" class="form-control" name="breaks_times[]">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="form-group form-group-half">
+                                            <button type="button" class="wt-btn" v-on:click="addNewBreakTime" id="addBreak">Add Break Time</button>
+                                        </div>
                                     </div>
-                                    <div class="wt-jobskills wt-tabsinfo la-jobedit" v-if="event_id == ''">
+                                    <div class="form-group" v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>{{ trans('lang.skills_req') }}</h2>
                                         </div>
-                                        <div class="la-jobedit-content">
+                                        <div class="form-group">
                                             <div class="wt-select">
                                             <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
                                             {!! Form::select('profession_id', $professions, null, array('placeholder' => "Profession")) !!}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="wt-jobdescription wt-tabsinfo">
+                                    <div class="form-group">
                                         <div class="wt-tabscontenttitle">
                                             <h2>{{ trans('lang.job_title') }}</h2>
                                         </div>
-                                        <div class="wt-formtheme wt-userform wt-userformvtwo">
+                                        <div class="form-group wt-userform">
                                             <fieldset>
                                                 <div class="form-group">
                                                     <input type="text" name="title" class="form-control" placeholder="{{ trans('lang.job_title') }}" v-model="booking_title">
@@ -250,7 +255,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="wt-jobcategories wt-tabsinfo"  v-if="event_id == ''">
+                                    <div class="form-group"  v-if="event_id == ''">
                                         <div class="wt-tabscontenttitle">
                                             <h2>Direct Bookings</h2>
                                         </div>
@@ -261,25 +266,27 @@
                                         </div>
                                     </div>
 
-                                    <div class="wt-tabscontenttitle">
-                                        <h2>Booking Contact Details</h2>
-                                    </div>
-                                    <div class="wt-jobcategories wt-tabsinfo">
+                                    <div class="form-group">
+                                        <div class="wt-tabscontenttitle">
+                                            <h2>Booking Contact Details</h2>
+                                        </div>
+                                        <div class="wt-jobcategories wt-tabsinfo">
 
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'first_name', $user->first_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
-                                        </div>
-                                        <div class="form-group form-group-half">
-                                            {!! Form::text( 'last_name', $user->last_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
-                                        </div>
-                                        <div class="form-group form-group-half">
-                                            {!! Form::email( 'email', $user->email, ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
-                                        </div>
-                                        <div class="form-group form-group-half">
-                                            {!! Form::number( 'number', $user->number, ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
-                                        </div>
+                                            <div class="form-group form-group-half">
+                                                {!! Form::text( 'first_name', $user->first_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_first_name')] ) !!}
+                                            </div>
+                                            <div class="form-group form-group-half">
+                                                {!! Form::text( 'last_name', $user->last_name, ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
+                                            </div>
+                                            <div class="form-group form-group-half">
+                                                {!! Form::email( 'email', $user->email, ['class' =>'form-control', 'placeholder' => trans('lang.ph_email')] ) !!}
+                                            </div>
+                                            <div class="form-group form-group-half">
+                                                {!! Form::number( 'number', $user->number, ['class' =>'form-control', 'placeholder' => trans('lang.number')] ) !!}
+                                            </div>
 
 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="wt-updatall"   v-if="event_id != ''">

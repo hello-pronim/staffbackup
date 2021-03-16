@@ -130,7 +130,12 @@
                                                 <h3>Breaks</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                                <p>{{ $job->breaks }}</p>
+                                                @php
+                                                $breaks = unserialize($job->breaks);
+                                                @endphp
+                                                @foreach($breaks as $break)
+                                                <p><b>{{ $break->when . ": "}}</b> {{ $break->for }}</p>
+                                                @endforeach
                                             </div>
                                         </div>
                                     @endif
