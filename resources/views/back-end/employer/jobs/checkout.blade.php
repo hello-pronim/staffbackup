@@ -69,12 +69,12 @@
                             <ul class="sj-paymentmethod">
                                 @foreach ($payment_gateway as $gatway)
                                     <li>
-                                        @if ($gatway == "paypal")
+                                        @if ($gatway == "Paypal")
                                             <a href="{{{url('paypal/ec-checkout')}}}">
                                                 <i class="fa fa-paypal"></i>
                                                 <span><em>{{ trans('lang.pay_amount_via') }}</em> {{ Helper::getPaymentMethodList($gatway)['title']}} {{ trans('lang.pay_gateway') }}</span>
                                             </a>
-                                        @elseif ($gatway == "stripe")
+                                        @elseif ($gatway == "Stripe")
                                             <a href="javascript:void(0);" v-on:click.prevent="getStriprForm">
                                                 <i class="fab fa-stripe-s"></i>
                                                 <span><em>{{ trans('lang.pay_amount_via') }}</em> {{ Helper::getPaymentMethodList($gatway)['title']}} {{ trans('lang.pay_gateway') }}</span>

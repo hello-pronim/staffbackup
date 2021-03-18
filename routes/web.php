@@ -226,6 +226,8 @@ Route::group(
         //All Jobs
         Route::get('admin/jobs', 'JobController@jobsAdmin')->name('allJobs');
         Route::get('admin/jobs/search', 'JobController@jobsAdmin');
+        //All Payments
+        Route::get('admin/payments', 'UserController@allPayments')->name('allPayments');
         //All Services
         Route::get('admin/services', 'ServiceController@adminServices')->name('allServices');
         Route::get('admin/service-orders', 'ServiceController@adminServiceOrders')->name('ServiceOrders');

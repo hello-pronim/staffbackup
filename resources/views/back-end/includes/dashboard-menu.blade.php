@@ -72,9 +72,15 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{{ route('userListing') }}}">
+                                <i class="ti-user"></i>
+                                <span>{{ trans('lang.manage_users') }}</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{{ route('allJobs') }}}">
                                 <i class="ti-briefcase"></i>
-                                <span>{{ trans('lang.all_jobs') }}</span>
+                                <span>{{ trans('lang.manage_jobs') }}</span>
                             </a>
                         </li>
                         @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
@@ -91,16 +97,24 @@
                                 </a>
                             </li>
                         @endif
+                        <li class="menu-item-has-children">
+                            <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
+                            <a href="javascript:void(0)">
+                                <i class="ti-pulse"></i>
+                                <span>{{ trans('lang.analytics') }}</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.all_payments') }}</a></li>
+                                <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.total_users_by_month') }}</a></li>
+                                <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.growth_activity') }}</a></li>
+                                <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.international_use_locations') }}</a></li>
+                                <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.popular_freelancers_chosen') }}</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="{{{ route('reviewOptions') }}}">
                                 <i class="ti-check-box"></i>
                                 <span>{{ trans('lang.review_options') }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{{ route('userListing') }}}">
-                                <i class="ti-user"></i>
-                                <span>{{ trans('lang.manage_users') }}</span>
                             </a>
                         </li>
                         <li>

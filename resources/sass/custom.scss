@@ -79,6 +79,17 @@
 .wt-disableinfo {
   background: #fccf17;
 }
+.wt-navdashboard {
+  .menu-item-has-children {
+    .sub-menu {
+      margin-left: 40px !important;
+      li {
+        margin-left: 0px !important;
+        line-height: 30px !important;
+      }
+    }
+  }
+}
 #searchHomePage {
   &.search {
     .searchinputs {

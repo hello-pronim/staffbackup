@@ -2091,4 +2091,30 @@ class UserController extends Controller
         }
         return response()->json($professions);
     }
+
+    public function allPayments(Request $request){
+        if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
+            if (!empty($_GET['keyword'])) {
+                $keyword = $_GET['keyword'];
+                $payments = DB::table('invoices')->where('payer_email', 'like', '%' . $keyword . '%')
+                                    ->orWhere('seller_email', 'like', '%' . $keyword . '%')
+                                    ->paginate(7)
+                                    ->setPath('');
+                $pagination = $payments->appends(
+                    array(
+                        'keyword' => Input::get('keyword')
+                    )
+                );
+            } else {
+                $payments = DB::table('invoices')->select('*')->latest()->paginate(10);
+            }
+            if (file_exists(resource_path('views/extend/back-end/admin/analytics/payments.blade.php'))) {
+                return view('extend.back-end.admin.analytics.payments', compact('payments'));
+            } else {
+                return view('back-end.admin.analytics.payments', compact('payments'));
+            }
+        } else {
+            abort(404);
+        }
+    }
 }

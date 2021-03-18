@@ -13155,6 +13155,15 @@ Calendar
   background: #fccf17;
 }
 
+.wt-navdashboard .menu-item-has-children .sub-menu {
+  margin-left: 40px !important;
+}
+
+.wt-navdashboard .menu-item-has-children .sub-menu li {
+  margin-left: 0px !important;
+  line-height: 30px !important;
+}
+
 #searchHomePage.search .searchinputs > div.filters {
   width: 13.5%;
 }
