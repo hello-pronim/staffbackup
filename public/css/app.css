@@ -13155,11 +13155,23 @@ Calendar
   background: #fccf17;
 }
 
-.wt-navdashboard .menu-item-has-children .sub-menu {
+.wt-navdashboard > ul {
+  padding-left: 45px;
+}
+
+.wt-navdashboard > ul > li {
+  margin-left: 0px !important;
+}
+
+.wt-navdashboard > ul > li.menu-item-has-children .wt-dropdowarrow {
+  top: 5px !important;
+}
+
+.wt-navdashboard > ul > li.menu-item-has-children .sub-menu {
   margin-left: 40px !important;
 }
 
-.wt-navdashboard .menu-item-has-children .sub-menu li {
+.wt-navdashboard > ul > li.menu-item-has-children .sub-menu > li {
   margin-left: 0px !important;
   line-height: 30px !important;
 }

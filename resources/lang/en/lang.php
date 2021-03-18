@@ -447,7 +447,8 @@ return [
     'manage_jobs' => 'Manage Jobs',
     'all_payments' => 'All Payments',
     'analytics' => 'Analytics',
-    'total_users_by_month' => 'Monthly Total Users',
+    'monthly_total_users' => 'Monthly Total Users',
+    'total_users_by_month' => 'Total Users by Month',
     'growth_activity' => 'Growth And Activity',
     'international_use_locations' => 'International Use Locations',
     'popular_freelancers_chosen' => 'Popular Freelancers',
@@ -1140,6 +1141,9 @@ return [
     'to' => 'To',
     'amount' => 'Amount',
     'datetime' => 'DateTime',
+    'count_users' => 'Number of Users',
+    'month' => 'Month',
+    'year' => 'Year',
 
     // New strings
     'distance_error' => 'Sorry, but you are outside of maximum distance range for this job',

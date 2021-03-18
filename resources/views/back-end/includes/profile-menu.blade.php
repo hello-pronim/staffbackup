@@ -42,11 +42,11 @@
                         <span>{{ trans('lang.analytics') }}</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.all_payments') }}</a></li>
-                        <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.total_users_by_month') }}</a></li>
-                        <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.growth_activity') }}</a></li>
-                        <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.international_use_locations') }}</a></li>
-                        <li><hr><a href="{{ route('allPayments') }}">{{ trans('lang.popular_freelancers_chosen') }}</a></li>
+                        <li><a href="{{ route('allPayments') }}">{{ trans('lang.all_payments') }}</a></li>
+                        <li><a href="{{ route('monthlyUsers') }}">{{ trans('lang.total_users_by_month') }}</a></li>
+                        <li><a href="{{ route('growthActivity') }}">{{ trans('lang.growth_activity') }}</a></li>
+                        <li><a href="{{ route('internationalLocations') }}">{{ trans('lang.international_use_locations') }}</a></li>
+                        <li><a href="{{ route('popularFreelancers') }}">{{ trans('lang.popular_freelancers_chosen') }}</a></li>
                     </ul>
                 </li>
                 <li>

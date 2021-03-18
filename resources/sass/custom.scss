@@ -80,12 +80,21 @@
   background: #fccf17;
 }
 .wt-navdashboard {
-  .menu-item-has-children {
-    .sub-menu {
-      margin-left: 40px !important;
-      li {
-        margin-left: 0px !important;
-        line-height: 30px !important;
+  > ul {
+    padding-left: 45px;
+    > li {
+      margin-left: 0px !important;
+      &.menu-item-has-children {
+        .wt-dropdowarrow {
+          top: 5px !important;
+        }
+        .sub-menu {
+          margin-left: 40px !important;
+          > li {
+            margin-left: 0px !important;
+            line-height: 30px !important;
+          }
+        }
       }
     }
   }

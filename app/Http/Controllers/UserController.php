@@ -2098,7 +2098,7 @@ class UserController extends Controller
                 $keyword = $_GET['keyword'];
                 $payments = DB::table('invoices')->where('payer_email', 'like', '%' . $keyword . '%')
                                     ->orWhere('seller_email', 'like', '%' . $keyword . '%')
-                                    ->paginate(7)
+                                    ->paginate(10)
                                     ->setPath('');
                 $pagination = $payments->appends(
                     array(
@@ -2112,6 +2112,45 @@ class UserController extends Controller
                 return view('extend.back-end.admin.analytics.payments', compact('payments'));
             } else {
                 return view('back-end.admin.analytics.payments', compact('payments'));
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function monthlyUsers(Request $request){
+        if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
+            if (!empty($_GET['year']) && $_GET['year']!='All') {
+                $year = $_GET['year'];
+                $monthlyUsers = DB::table('users')
+                                ->select(DB::raw('COUNT(*) as count'), DB::raw('YEAR(created_at) as year'), DB::raw('MONTH(created_at) as month'))
+                                ->where(DB::raw('YEAR(created_at)'), '=', $year)
+                                ->groupBy(DB::raw('YEAR(created_at)'))
+                                ->groupBY(DB::raw('MONTH(created_at)'))
+                                ->orderBy(DB::raw('YEAR(created_at)'), 'DESC')
+                                ->orderBy(DB::raw('MONTH(created_at)'), 'DESC')
+                                ->paginate(10)
+                                ->setPath('');
+                $pagination = $monthlyUsers->appends(
+                    array(
+                        'year' => Input::get('year')
+                    )
+                );
+            } else{
+                $monthlyUsers = DB::table('users')
+                                ->select(DB::raw('COUNT(*) as count'), DB::raw('YEAR(created_at) as year'), DB::raw('MONTH(created_at) as month'))
+                                ->groupBy(DB::raw('YEAR(created_at)'))
+                                ->groupBY(DB::raw('MONTH(created_at)'))
+                                ->orderBy(DB::raw('YEAR(created_at)'), 'DESC')
+                                ->orderBy(DB::raw('MONTH(created_at)'), 'DESC')
+                                ->paginate(10);
+            }
+
+            
+            if (file_exists(resource_path('views/extend/back-end/admin/analytics/monthly-users.blade.php'))) {
+                return view('extend.back-end.admin.analytics.monthly-users', compact('monthlyUsers'));
+            } else {
+                return view('back-end.admin.analytics.monthly-users', compact('monthlyUsers'));
             }
         } else {
             abort(404);

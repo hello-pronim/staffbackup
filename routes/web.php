@@ -226,8 +226,12 @@ Route::group(
         //All Jobs
         Route::get('admin/jobs', 'JobController@jobsAdmin')->name('allJobs');
         Route::get('admin/jobs/search', 'JobController@jobsAdmin');
-        //All Payments
-        Route::get('admin/payments', 'UserController@allPayments')->name('allPayments');
+        //Analytics
+        Route::get('admin/analytics/payments', 'UserController@allPayments')->name('allPayments');
+        Route::get('admin/analytics/monthly-users', 'UserController@monthlyUsers')->name('monthlyUsers');
+        Route::get('admin/analytics/growth-activity', 'UserController@growthActivity')->name('growthActivity');
+        Route::get('admin/analytics/international-locations', 'UserController@internationalLocations')->name('internationalLocations');
+        Route::get('admin/analytics/popular-freelancers', 'UserController@popularFreelancers')->name('popularFreelancers');
         //All Services
         Route::get('admin/services', 'ServiceController@adminServices')->name('allServices');
         Route::get('admin/service-orders', 'ServiceController@adminServiceOrders')->name('ServiceOrders');
