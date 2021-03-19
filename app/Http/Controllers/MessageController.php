@@ -214,4 +214,20 @@ class MessageController extends Controller
         }
 
     }
+
+    public function postSendMessage(Request $request){
+        $newMessage = array(
+            'user_id' => Auth::user()->id,
+            'receiver_id' => $request->receiver_id,
+            'body' => $request->body,
+            'status' => 0,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        );
+        DB::table('messages')->insert($newMessage);
+        $json['type'] = "success";
+        $json['message'] = "Message has been sent successfully.";
+        $json['freelancerId'] = $request->receiver_id;
+        return $json;
+    }
 }

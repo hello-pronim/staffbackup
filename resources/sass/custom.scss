@@ -32,6 +32,9 @@
 .float-left {
   float: left !important;
 }
+.float-right {
+  float: right !important;
+}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -115,5 +118,10 @@
         font-weight: 300;
       }
     }
+  }
+}
+.wt-chatarea {
+  .wt-replaybox {
+    margin-top: 50px;
   }
 }

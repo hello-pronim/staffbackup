@@ -452,6 +452,7 @@ return [
     'growth_activity' => 'Growth And Activity',
     'international_use_locations' => 'International Use Locations',
     'popular_freelancers_chosen' => 'Popular Freelancers',
+    'messages' => 'Messages',
     'no_records_found' => 'Sorry, No Record Found',
     'go_home' => 'Go Back to Home',
     'show_banner_opt' => 'Show Banner Options',

@@ -3187,6 +3187,60 @@ if (document.getElementById("pass-reset")) {
     methods: {},
   });
 }
+if (document.getElementById("message-send")) {
+  const messagesend = new Vue({
+    el: "#message-send",
+    mounted() {},
+    data: {
+      messageText: "",
+      freelancerId: 0,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 5000,
+            class: "success_notification",
+          },
+          error: {
+            position: "topRight",
+            timeout: 5000,
+            class: "error_notification",
+          },
+        },
+      },
+    },
+    created: function() {},
+    methods: {
+      showMessage(message) {
+        return this.$toast.success(
+          " ",
+          message,
+          this.notificationSystem.options.success
+        );
+      },
+      submitMessage: function() {
+        var self = this;
+        let page_Form = document.getElementById("message_send_form");
+        let form_data = new FormData(page_Form);
+        axios
+          .post(APP_URL + "/message-center/send", form_data)
+          .then(function(response) {
+            console.log(response.data);
+            if (response.data.type == "success") {
+              self.showMessage(response.data.message);
+              setTimeout(function() {
+                window.location.replace(
+                  APP_URL + "/message-center?u=" + response.data.freelancerId
+                );
+              }, 5000);
+            } else {
+              self.showError(response.data.message);
+            }
+          });
+      },
+    },
+  });
+}
 
 if (document.getElementById("dpt-list")) {
   const vmdptList = new Vue({

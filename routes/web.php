@@ -440,7 +440,7 @@ Route::get('channels/{channel}/messages', 'MessageController@index')->name('mess
 Route::post('channels/{channel}/messages', 'MessageController@store');
 Route::post('message/send-private-message', 'MessageController@store');
 Route::get('message-center', 'MessageController@index')->name('message');
-Route::get('message-center/send/{id}', 'MessageController@sendMessage')->name('send_message');
+Route::get('message-center/send/{id}', 'MessageController@sendMessage')->name('sendMessage');
 Route::post('message-center/send', 'MessageController@postSendMessage');
 Route::get('message-center/get-users', 'MessageController@getUsers');
 Route::post('message-center/get-messages', 'MessageController@getUserMessages');

@@ -50,6 +50,12 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="{{{ route('message') }}}">
+                        <i class="ti-comment"></i>
+                        <span>{{ trans('lang.messages') }}</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{{ route('reviewOptions') }}}">
                         <i class="ti-check-box"></i>
                         <span>{{ trans('lang.review_options') }}</span>
