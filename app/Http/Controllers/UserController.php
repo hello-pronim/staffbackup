@@ -2156,4 +2156,57 @@ class UserController extends Controller
             abort(404);
         }
     }
+
+    public function popularFreelancers(Request $request){
+        if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
+            if (!empty($_GET['keyword'])) {
+                $keyword = $_GET['keyword'];
+                
+                $popularUsers = DB::table('proposals')
+                                ->select(
+                                    DB::raw("COUNT('proposals.freelancer_id') as count"), 
+                                    DB::raw("MAX(CONCAT(users.first_name, ' ', users.last_name)) as full_name"), 
+                                    DB::raw("MAX(users.email) as email"),
+                                    DB::raw("MAX(professions.title) as profession")
+                                )
+                                ->join('users', 'proposals.freelancer_id', '=', 'users.id')
+                                ->leftJoin('professions', 'users.profession_id', '=', 'professions.id')
+                                ->where('users.first_name', 'like', '%' . $keyword . '%')
+                                ->orWhere('users.last_name', 'like', '%' . $keyword . '%')
+                                ->orWhere('users.email', 'like', '%' . $keyword . '%')
+                                ->orWhere('professions.title', 'like', '%' . $keyword . '%')
+                                ->groupBy('proposals.freelancer_id')
+                                ->orderBy(DB::raw("COUNT('proposals.freelancer_id')"), 'DESC')
+                                ->paginate(10)
+                                ->setPath('');
+                $pagination = $popularUsers->appends(
+                    array(
+                        'keyword' => Input::get('keyword')
+                    )
+                );
+            } else{
+                $popularUsers = DB::table('proposals')
+                                ->select(
+                                    DB::raw("COUNT('proposals.freelancer_id') as count"), 
+                                    DB::raw("MAX(CONCAT(users.first_name, ' ', users.last_name)) as full_name"), 
+                                    DB::raw("MAX(users.email) as email"),
+                                    DB::raw("MAX(professions.title) as profession")
+                                )
+                                ->join('users', 'proposals.freelancer_id', '=', 'users.id')
+                                ->leftJoin('professions', 'users.profession_id', '=', 'professions.id')
+                                ->groupBy('proposals.freelancer_id')
+                                ->orderBy(DB::raw("COUNT('proposals.freelancer_id')"), 'DESC')
+                                ->paginate(10)
+                                ->setPath('');
+            }
+            
+            if (file_exists(resource_path('views/extend/back-end/admin/analytics/popular-users.blade.php'))) {
+                return view('extend.back-end.admin.analytics.popular-users', compact('popularUsers'));
+            } else {
+                return view('back-end.admin.analytics.popular-users', compact('popularUsers'));
+            }
+        } else {
+            abort(404);
+        }
+    }
 }
