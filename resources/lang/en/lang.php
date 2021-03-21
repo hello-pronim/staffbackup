@@ -1011,6 +1011,7 @@ return [
     'number' => 'Number',
     'postcode' => 'Postal Code',
     'city' => 'City/Town',
+    'country' => 'Country',
     'straddress' => 'Street address',
     'ph_retry_pass' => 'Repeat password',
     'ph_skill_title' => 'Skill Title',

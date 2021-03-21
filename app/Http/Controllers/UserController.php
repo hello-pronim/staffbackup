@@ -2209,4 +2209,52 @@ class UserController extends Controller
             abort(404);
         }
     }
+
+    public function growthActivity(Request $request){
+        
+    }
+
+    public function internationalLocations(Request $request){
+        if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
+            if (!empty($_GET['keyword'])) {
+                $keyword = $_GET['keyword'];
+                
+                $internationalLocations = DB::table('users')
+                                ->select(
+                                    DB::raw("COUNT('country') as count"), 
+                                    DB::raw("MAX(country) as country"),
+                                )
+                                ->where('country', 'like', '%' . $keyword . '%')
+                                ->where('country', '!=', null)
+                                ->groupBy('country')
+                                ->orderBy(DB::raw("COUNT('country')"), 'DESC')
+                                ->paginate(10)
+                                ->setPath('');
+                $pagination = $internationalLocations->appends(
+                    array(
+                        'keyword' => Input::get('keyword')
+                    )
+                );
+            } else{
+                $internationalLocations = DB::table('users')
+                                ->select(
+                                    DB::raw("COUNT('country') as count"), 
+                                    DB::raw("MAX(country) as country"),
+                                )
+                                ->where('country', '!=', null)
+                                ->groupBy('country')
+                                ->orderBy(DB::raw("COUNT('country')"), 'DESC')
+                                ->paginate(10)
+                                ->setPath('');
+            }
+
+            if (file_exists(resource_path('views/extend/back-end/admin/analytics/international-locations.blade.php'))) {
+                return view('extend.back-end.admin.analytics.international-locations', compact('internationalLocations'));
+            } else {
+                return view('back-end.admin.analytics.international-locations', compact('internationalLocations'));
+            }
+        } else {
+            abort(404);
+        }
+    }
 }

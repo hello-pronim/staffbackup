@@ -8803,10 +8803,12 @@ function validate_practice_code(e) {
         console.log("[practice_code] SUCCESS");
         self.practice_code_checked = true;
         let address = result.Organisation.GeoLoc.Location;
+        console.log(address);
         $("#straddress").val(address.AddrLn1);
         $("#straddress-emloyer").val(address.AddrLn1);
         $("#postcode").val(address.PostCode);
         $("#city").val(address.Town);
+        $("#country").val(address.Country);
         $(".org-name").val(result.Organisation.Name);
       }
     ).fail(function() {

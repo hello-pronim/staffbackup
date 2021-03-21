@@ -627,6 +627,16 @@ select {
                                             </span>
                                         </div>
 
+                                        <div class="form-group form-group-half">
+                                            <input id="country" type="text" class="form-control" name="country"
+                                                placeholder="{{{ trans('lang.country') }}}"
+                                                :disabled="user_role=='employer'"
+                                                v-bind:class="{ 'is-invalid': form_step2.country_error }">
+                                            <span class="help-block" v-if="form_step2.country_error">
+                                                <strong v-cloak>@{{form_step2.country_error}}</strong>
+                                            </span>
+                                        </div>
+
                                     </fieldset>
 
                                     <fieldset class="wt-formregisterstart">
