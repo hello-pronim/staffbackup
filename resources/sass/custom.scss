@@ -10,6 +10,12 @@
 .mb-10 {
   margin-bottom: 10px !important;
 }
+.mb-30 {
+  margin-bottom: 30px !important;
+}
+.mb-50 {
+  margin-bottom: 50px !important;
+}
 .m-0 {
   margin: 0px !important;
 }
@@ -19,8 +25,24 @@
 .p-0 {
   padding: 0px !important;
 }
+.pr-40 {
+  padding-right: 40px !important;
+}
+.w-100 {
+  width: 100% !important;
+}
 .fs-12 {
   font-size: 12px !important;
+}
+.fs-30 {
+  font-size: 30px !important;
+}
+.flex-row {
+  display: flex !important;
+  flex-direction: row !important;
+}
+.align-items-center {
+  align-items: center !important;
 }
 .color-grey {
   color: #a9a9a9 !important;

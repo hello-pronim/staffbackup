@@ -7536,6 +7536,58 @@ if (document.getElementById("packages")) {
   });
 }
 
+var page = document.getElementById("growth_activity");
+
+if (page) {
+  const growth_activity = new Vue({
+    el: "#growth_activity",
+    components: { "vue-cal": vuecal },
+    mounted: function() {
+      if (this.$refs["from"]) {
+        this.from = this.$refs["from"].attributes["data-value"].value;
+        this.selectedDateFrom = ("01/" + this.from)
+          .split("/")
+          .reverse()
+          .join("-");
+      }
+      if (this.$refs["to"]) {
+        this.to = this.$refs["to"].attributes["data-value"].value;
+        this.selectedDateTo = ("01/" + this.to)
+          .split("/")
+          .reverse()
+          .join("-");
+      }
+    },
+    data: {
+      from: "",
+      to: "",
+      selectedDateFrom: "",
+      selectedDateTo: "",
+    },
+    methods: {
+      changeSelectedDateFrom: function(date) {
+        var month = date.getMonth() + 1;
+        this.from =
+          (month < 10 ? "0" + month : month) + "/" + date.getFullYear();
+        this.selectedDateFrom = ("01/" + this.from)
+          .split("/")
+          .reverse()
+          .join("-");
+        jQuery("#calendar_small_from").hide();
+      },
+      changeSelectedDateTo: function(date) {
+        var month = date.getMonth() + 1;
+        this.to = (month < 10 ? "0" + month : month) + "/" + date.getFullYear();
+        this.selectedDateTo = ("01/" + this.to)
+          .split("/")
+          .reverse()
+          .join("-");
+        jQuery("#calendar_small_to").hide();
+      },
+    },
+    created: function() {},
+  });
+}
 if (document.getElementById("invoice_list")) {
   new Vue({
     el: "#invoice_list",
@@ -8723,6 +8775,9 @@ $(document).ready(function() {
   });
   $(".search-field-input .selectDatePicker").click(function(event) {
     event.stopPropagation();
+    $("#calendar_small").hide();
+    $("#calendar_small_from").hide();
+    $("#calendar_small_to").hide();
     $(this)
       .siblings(".vuecal")
       .toggle("slow", function() {});
