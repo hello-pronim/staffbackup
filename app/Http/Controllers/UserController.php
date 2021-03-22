@@ -2349,7 +2349,7 @@ class UserController extends Controller
                 $internationalLocations = DB::table('users')
                                 ->select(
                                     DB::raw("COUNT('country') as count"), 
-                                    DB::raw("MAX('country') as country"),
+                                    DB::raw("MAX('country') as country")
                                 )
                                 ->where('country', 'like', '%' . $keyword . '%')
                                 ->where('country', '!=', null)
