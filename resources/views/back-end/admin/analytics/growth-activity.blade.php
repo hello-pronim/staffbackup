@@ -1,5 +1,9 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
+@php
+var_dump($activity);
+exit;
+@endphp
     <section class="wt-haslayout wt-dbsectionspace" id="growth_activity">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-right">
