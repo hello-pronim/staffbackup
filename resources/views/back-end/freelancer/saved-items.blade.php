@@ -206,7 +206,7 @@
                                                     @if($verified_user === 1) <i class="fa fa-check-circle"></i> @endif
                                                     {{{ $user_name }}}</a>
                                                 <h2><a
-                                                        href="{{ url('profile/'.$user->slug) }}">{{{ $profile->tagline }}}</a>
+                                                        href="{{ url('profile/'.$user->slug) }}">{{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}}</a>
                                                 </h2>
                                             </div>
                                             <ul class="wt-userlisting-breadcrumb">

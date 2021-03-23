@@ -11,7 +11,7 @@
                 @endif
                 <a href="{{{ url('profile/'.$job->employer->slug) }}}"><h2>{{{ Helper::getUserName($job->employer->id) }}}</h2></a>
                 @if (!empty(data_get($job, 'employer.profile.tagline')) )
-                    <h4>{{ $job->employer->profile->tagline }}</h4>
+                    <h4>{{ html_entity_decode($job->employer->profile->tagline, ENT_QUOTES) }}</h4>
                 @endif
             </div>
             <ul class="wt-postarticlemeta">

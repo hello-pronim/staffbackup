@@ -59,7 +59,7 @@
                                             <span> <strong>Profession:</strong> {{ $user->profession }}</span>
                                         @endif
                                         @if (!empty($profile->tagline))
-                                            <span> <strong>Tag line:</strong> {{{ $profile->tagline }}}</span>
+                                            <span> <strong>Tag line:</strong> {{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}}</span>
                                         @endif
                                         @if($user->itsoftware != "")
                                             <span> <strong>Computer System in use:</strong> {{ implode(', ', $user->getItsoftware()) }}</span>

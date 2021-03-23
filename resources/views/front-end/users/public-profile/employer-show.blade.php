@@ -107,7 +107,7 @@
                         <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                             <span class="content-public-profile__main-content-title">Tagline:</span>
                             <p>
-                                {{ $user->profile()->exists() && !empty($user->profile->tagline) ? $user->profile->tagline : 'not set'  }}
+                                {{ $user->profile()->exists() && !empty($user->profile->tagline) ? html_entity_decode($user->profile->tagline, ENT_QUOTES) : 'Undefined'  }}
                             </p>
                         </div>
 

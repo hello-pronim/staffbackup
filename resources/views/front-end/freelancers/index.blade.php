@@ -273,7 +273,7 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                     </a>
                                                     @if (!empty($freelancer->profile->tagline))
                                                     <h2><a
-                                                            href="{{{ url('profile/'.$freelancer->slug) }}}">{{{ $freelancer->profile->tagline }}}</a>
+                                                            href="{{{ url('profile/'.$freelancer->slug) }}}">{{{ html_entity_decode($freelancer->profile->tagline, ENT_QUOTES) }}}</a>
                                                     </h2>
                                                     @endif
                                                     <h5>Availability</h5>
@@ -370,13 +370,14 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                 </div>
                                                 @endif
                                             </div>
-                                            <!-- <div class="wt-rightarea">
-                                                <span class="wt-stars"><span
+                                            <div class="wt-rightarea">
+                                                <!-- <span class="wt-stars"><span
                                                         style="width: {{ $stars }}%;"></span></span>
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
-                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
-                                            </div> -->
+                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->
+                                                <a href="#" class="wt-btn">Hire</a>
+                                            </div>
                                         </div>
 
                                         @if (!empty($freelancer->skills))

@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="wt-proposalhead wt-userdetails">
                                     @if (!empty($profile->tagline))
-                                        <h2>{{{ $profile->tagline }}}</h2>
+                                        <h2>{{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}}</h2>
                                     @endif
                                     <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
                                         @if (!empty($profile->hourly_rate))

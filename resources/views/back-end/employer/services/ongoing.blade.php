@@ -68,7 +68,7 @@
 																			<i class="fa fa-check-circle"></i> {{{Helper::getUserName($freelancer->id)}}}
 																		@endif
 																	</a>
-																	<h3>{{{$freelancer->profile->tagline}}}</h3>
+																	<h3>{{{html_entity_decode($freelancer->profile->tagline, ENT_QUOTES)}}}</h3>
 																</div>
 																</div>
 															</div>

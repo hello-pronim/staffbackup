@@ -88,7 +88,7 @@
                                     </figure>
                                     <div class="wt-username" style="margin-top: 10px; text-align: center">
                                         <h3 style="font-size: 13px;">{{{ Helper::getUserName(Auth::user()->id) }}}</h3>
-                                        <div style="font-size:10px;color:darkgrey">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(Auth::user()->profile->tagline, 26, '') : Helper::getAuthRoleName() }}}</div>
+                                        <div style="font-size:10px;color:darkgrey">{{{ !empty(Auth::user()->profile->tagline) ? str_limit(html_entity_decode(Auth::user()->profile->tagline, ENT_QUOTES), 26, '') : Helper::getAuthRoleName() }}}</div>
                                     </div>
                                     @if (file_exists(resource_path('views/extend/back-end/includes/profile-menu.blade.php')))
                                         @include('extend.back-end.includes.profile-menu')
