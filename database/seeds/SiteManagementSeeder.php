@@ -91,7 +91,7 @@ class SiteManagementSeeder extends Seeder
                 ],
                 [
                     'meta_key' => 'email_data',
-                    'meta_value' => 'a:1:{i:0;a:7:{s:10:"from_email";s:16:"info@noreply.com";s:13:"from_email_id";s:16:"info@noreply.com";s:11:"sender_name";s:6:"Amento";s:14:"sender_tagline";s:17:"Your Work Partner";s:10:"sender_url";s:39:"http://amentotech.com/projects/worketic";s:10:"email_logo";s:22:"1555743744-favicon.png";s:12:"email_banner";s:21:"1555743744-banner.jpg";}}',
+                    'meta_value' => 'a:1:{i:0;a:7:{s:10:"from_email";s:16:"info@noreply.com";s:13:"from_email_id";s:16:"info@noreply.com";s:11:"sender_name";s:6:"StaffBackup";s:14:"sender_tagline";s:17:"Your Work Partner";s:10:"sender_url";s:39:"staffbackupuk@gmail.com";s:10:"email_logo";s:22:"1555743744-favicon.png";s:12:"email_banner";s:21:"1555743744-banner.jpg";}}',
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
