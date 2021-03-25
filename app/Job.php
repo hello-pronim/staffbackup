@@ -540,7 +540,6 @@ class Job extends Model
         $filters['type'] = 'job';
 
         $jobs->where('is_active', '1');
-        $jobs->where('start_date', '>=', Carbon::today());
 
         if ($request->start_date) {
             if($request->hours) {
@@ -549,10 +548,19 @@ class Job extends Model
             } else {
                 $start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
             }
-            
             $jobs->whereHas('calendars', function(Builder $query) use ($start_date) {
-                $query->where('start', '<=', $start_date);
-                $query->where('end', '>=', $start_date);
+                $query->where('start', '>=', $start_date);
+            });
+        }
+        if ($request->end_date) {
+            if($request->hours) {
+                $end_date = Carbon::createFromFormat('d/m/Y', $request->end_date);
+                $end_date->setTime($request->hours, $request->minutes ?? null);
+            } else {
+                $end_date = Carbon::createFromFormat('d/m/Y', $request->end_date);
+            }
+            $jobs->whereHas('calendars', function(Builder $query) use ($end_date) {
+                $query->where('start', '<=', $end_date);
             });
         }
 
