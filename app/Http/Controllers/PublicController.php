@@ -810,14 +810,14 @@ class PublicController extends Controller
                 if(!($location || $profession_id || $avail_date_from || $avail_date_to ))
                     $users = [];
                 else $users = count($search['users']) > 0 ? $search['users'] : [];
-                /**/
+                /*
                 $users = User::select('users.*')
                                 ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
                                 ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
                                 ->where('model_has_roles.model_type', '=', 'App\User')
                                 ->where('roles.role_type', '=', "freelancer")
                                 ->get();
-                /**/
+                */
                 $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
                     unserialize(auth()->user()->profile->saved_freelancer) : array();
                 $save_employer = !empty(auth()->user()->profile->saved_employers) ?
