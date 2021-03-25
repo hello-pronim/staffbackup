@@ -2326,23 +2326,23 @@ class UserController extends Controller
                 $newAvailabilitiesData['percent'] = $lastMonthAvailabilities? round((($totalAvailabilities - $lastMonthAvailabilities) / $lastMonthAvailabilities) * 100, 3) : 0; */
 
                 $usersGrowth = DB::table('users')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00'))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59'))
+                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();
                 $newUsersData['more'] = $usersGrowth;
 
                 $jobsGrowth = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00'))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59'))
+                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();
                 $newJobsData['more'] = $jobsGrowth;
 
                 $availabilityGrowth = DB::table('calendar_events')
                                         ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00'))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59'))
+                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();
                 $newAvailabilitiesData['more'] = $availabilityGrowth;
