@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($job->breaks)
+                                    @if($job->job_adm_catch_time_interval)
                                         <div class="wt-skillsrequired">
                                             <div class="wt-title">
                                                 <h3>Admin Catch Up Provided (interval)</h3>
