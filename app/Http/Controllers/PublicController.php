@@ -1185,7 +1185,7 @@ class PublicController extends Controller
         $json = array();
         $job = Job::where('slug', $request->job)->first();
 
-        if (!Auth::user() || Auth::user()->getRoleNames()->first() !== 'freelancer') {
+        if (!Auth::user()) {
             $json['auth'] = false;
             $json['message'] = trans('lang.not_authorize');
             return $json;
