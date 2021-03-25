@@ -2086,6 +2086,7 @@ class UserController extends Controller
             foreach($extra_professions as $pro){
                 array_push($professions, $pro);
             }
+            sort($professions);
         } else{
             $professions = $this->professionRepository->getProfessionsByRole();
         }

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App;
 use App\CalendarEvent;
 use App\Http\Requests\CreateJobRequest;
+use App\Repositories\ProfessionRepository;
 use App\Job;
 use App\Message;
 use App\Role;
@@ -52,6 +53,7 @@ class JobController extends Controller
      * @var    array $job
      */
     protected $job;
+    protected $professionRepository;
 
     /**
      * Defining scope of the variable
@@ -68,9 +70,10 @@ class JobController extends Controller
      *
      * @return void
      */
-    public function __construct(Job $job)
+    public function __construct(Job $job, ProfessionRepository $professionRepository)
     {
         $this->job = $job;
+        $this->professionRepository = $professionRepository;
     }
 
     /**
@@ -101,10 +104,7 @@ class JobController extends Controller
        // $job_duration = Helper::getJobDurationList();
         $freelancer_level = Helper::getFreelancerLevelList();
         $skills = Skill::pluck('title', 'id');
-        $professions = Profession::whereIn('role_id', [
-            Role::FREELANCER_ROLE,
-            Role::SUPPORT_ROLE,
-        ])->pluck('title', 'id');
+        $professions = $this->professionRepository->getProfessionsByRole()->pluck('title', 'id');
         $categories = Category::pluck('title', 'id');
         $role_id =  Helper::getRoleByUserID(Auth::user()->id);
         $package_options = Package::select('options')->where('role_id', $role_id)->first();
@@ -207,10 +207,7 @@ class JobController extends Controller
             $languages = Language::pluck('title', 'id');
             $locations = Location::pluck('title', 'id');
             $skills = Skill::pluck('title', 'id');
-            $professions = Profession::whereIn('role_id', [
-                                Role::FREELANCER_ROLE,
-                                Role::SUPPORT_ROLE,
-                            ])->pluck('title', 'id');
+            $professions =  $this->professionRepository->getProfessionsByRole()->pluck('title', 'id');
 
             $categories = Category::pluck('title', 'id');
             $project_levels = Helper::getProjectLevel();

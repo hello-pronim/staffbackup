@@ -82,7 +82,7 @@ class FreelancerController extends Controller
         $skills = Skill::pluck('title', 'id');
         $profile = $this->freelancer::where('user_id', Auth::user()->id)->get()->first();
         $gender = !empty($profile->gender) ? $profile->gender : '';
-        $tagline = !empty($profile->tagline) ? $profile->tagline : '';
+        $tagline = !empty($profile->tagline) ? html_entity_decode($profile->tagline, ENT_QUOTES) : '';
         $description = !empty($profile->description) ? $profile->description : '';
         $radius = !empty($profile->radius) ? $profile->radius : '';
         $address = !empty($profile->address) ? $profile->address : '';
@@ -1132,7 +1132,7 @@ class FreelancerController extends Controller
         $professions = Profession::whereIn('role_id', [
             Role::FREELANCER_ROLE,
             Role::SUPPORT_ROLE,
-        ])->get();
+        ])->orderBy('title')->get();
         return json_encode($professions);
     }
 }

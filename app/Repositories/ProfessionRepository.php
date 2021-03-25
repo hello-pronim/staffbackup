@@ -21,11 +21,11 @@ class ProfessionRepository
             $professions = Profession::whereIn('role_id', [
                 Role::FREELANCER_ROLE,
                 Role::SUPPORT_ROLE,
-            ])->get();
+            ])->orderBy('title')->get();
         } else if ($auth_user_role_id == Role::FREELANCER_ROLE) {
-            $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->get();
+            $professions = Profession::where('role_id', Role::FREELANCER_ROLE)->orderBy('title')->get();
         } else if ($auth_user_role_id == Role::SUPPORT_ROLE) {
-            $professions = Profession::where('role_id', Role::SUPPORT_ROLE)->get();
+            $professions = Profession::where('role_id', Role::SUPPORT_ROLE)->orderBy('title')->get();
         } else {
             $professions = Profession::all();
         }
