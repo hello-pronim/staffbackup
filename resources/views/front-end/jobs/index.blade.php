@@ -221,7 +221,7 @@
                                                 <h2><a href="{{ url('job/'.$job->slug) }}">{{{$job->title}}}</a></h2>
                                             </div>
                                             <div class="wt-description">
-                                                <p>{{ str_limit($description, 200) }}</p>
+                                                <p>{{ str_limit(html_entity_decode($description, ENT_QUTOES), 200) }}</p>
                                                 <?php /*
                                                         <span>DITANCE: {{ $__job->distance }}</span>
                                                         <span>lat: {{ $job->latitude }}</span>
