@@ -127,7 +127,7 @@
                                     @php
                                     $breaks = @unserialize($job->breaks);
                                     @endphp
-                                    @if(breaks)
+                                    @if($breaks)
                                         <div class="wt-skillsrequired">
                                             <div class="wt-title">
                                                 <h3>Breaks</h3>
