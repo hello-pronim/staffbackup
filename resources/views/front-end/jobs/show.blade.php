@@ -130,12 +130,14 @@
                                                 <h3>Breaks</h3>
                                             </div>
                                             <div class="wt-tag wt-widgettag">
-                                                @php
-                                                $breaks = unserialize($job->breaks);
-                                                @endphp
+                                            @php
+                                            $breaks = @unserialize($job->breaks);
+                                            @endphp
+                                            @if($breaks)
                                                 @foreach($breaks as $break)
                                                 <p><b>{{ $break->when . ": "}}</b> {{ $break->for }}</p>
-                                                @endforeach
+                                                @endforeach 
+                                            @endif
                                             </div>
                                         </div>
                                     @endif
