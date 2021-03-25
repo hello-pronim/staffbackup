@@ -86,7 +86,7 @@
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <input type="text" name="" v-model="selectedDateFrom" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ $date }}" />
+                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ $start_date }}" />
                                 <vue-cal id="calendar_small_from"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
@@ -101,7 +101,7 @@
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <input type="text" name="" v-model="selectedDateTo" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDateTo" data-value="{{ $date }}" />
+                                    class="selectDatePicker" ref="availDateTo" data-value="{{ $end_date }}" />
                                 <vue-cal id="calendar_small_to"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"

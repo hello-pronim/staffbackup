@@ -2465,9 +2465,7 @@ if (page) {
         if (this.selectedDateTo != "") {
           url +=
             "&" +
-            (this.search_type == "freelancer"
-              ? "avail_date_to"
-              : "start_date") +
+            (this.search_type == "freelancer" ? "avail_date_to" : "end_date") +
             "=" +
             this.selectedDateTo;
         } else this.isInValidSearch = true;

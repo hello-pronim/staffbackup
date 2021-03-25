@@ -755,7 +755,8 @@ class PublicController extends Controller
         $longitude = $request->input('longitude');
         $radius = $request->input('radius');
         $profession_id = $request->input('profession_id');
-        $date = $request->input('avail_date_from') ?? $request->input('start_date') ?? null;
+        $start_date = $request->input('avail_date_from') ?? $request->input('start_date') ?? null;
+        $end_date = $request->input('avail_date_to') ?? $request->input('end_date') ?? null;
         $time = [
             'hours' => $request->input('hours'),
             'minutes' => $request->input('minutes')
@@ -1025,6 +1026,8 @@ class PublicController extends Controller
                 else 
                     $jobs = $results['jobs'];
 
+                //$jobs = Job::get();
+
                 if (file_exists(resource_path('views/extend/front-end/jobs/index.blade.php'))) {
                     return view(
                         'extend.front-end.jobs.index',
@@ -1051,9 +1054,10 @@ class PublicController extends Controller
                             'longitude',
                             'radius',
                             'profession_id',
-                            'date',
                             'time',
-                            'rate'
+                            'rate',
+                            'start_date',
+                            'end_date'
                         )
                     );
                 } else {
@@ -1082,9 +1086,10 @@ class PublicController extends Controller
                             'longitude',
                             'radius',
                             'profession_id',
-                            'date',
                             'time',
-                            'rate'
+                            'rate',
+                            'start_date',
+                            'end_date'
                         )
                     );
                 }
