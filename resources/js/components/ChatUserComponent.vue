@@ -1,38 +1,58 @@
 <template>
-  <div v-if="notify">
-    <div
-      v-for="(user, index) in users"
-      :key="index"
-      @click="startChat(user.id)"
-      class="wt-ad"
-      v-bind:class="[
-        user.id == active_id ? 'wt-active' : '',
-        user.status_class,
-      ]"
-    >
-      <figure v-if="user.image">
-        <img :src="image_path + user.image" :alt="user.image_name" />
-      </figure>
-      <div class="wt-adcontent">
-        <h3 v-if="user.name">{{ user.name }}</h3>
-        <span v-if="user.tagline">{{ user.tagline }}</span>
+  <div class="chat-users-container" v-if="notify">
+    <input
+      type="text"
+      class="search-input w-100"
+      placeholder="Search..."
+      v-model="searchUserInput"
+    />
+    <div class="chat-users-list wt-verticalscrollbar wt-dashboardscrollbar">
+      <div>
+        <div
+          v-for="(user, index) in filteredUsers"
+          :key="index"
+          @click="startChat(user.id)"
+          class="wt-ad"
+          v-bind:class="[
+            user.id == active_id ? 'wt-active' : '',
+            user.status_class,
+          ]"
+        >
+          <figure v-if="user.image">
+            <img :src="image_path + user.image" :alt="user.image_name" />
+          </figure>
+          <div class="wt-adcontent">
+            <h3 v-if="user.name">{{ user.name }}</h3>
+            <span v-if="user.tagline">{{ user.tagline }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div v-else>
-    <div
-      v-for="(user, index) in users"
-      :key="index"
-      @click="startChat(user.id)"
-      class="wt-ad"
-      v-bind:class="[user.id == active_id ? 'wt-active' : '']"
-    >
-      <figure v-if="user.image">
-        <img :src="image_path + user.image" :alt="user.image_name" />
-      </figure>
-      <div class="wt-adcontent">
-        <h3 v-if="user.name">{{ user.name }}</h3>
-        <span v-if="user.tagline">{{ user.tagline }}</span>
+  <div class="chat-users-container" v-else>
+    <input
+      type="text"
+      class="search-input w-100"
+      placeholder="Search..."
+      v-model="searchUserInput"
+    />
+    <div class="chat-users-list wt-verticalscrollbar wt-dashboardscrollbar">
+      <div>
+        <div
+          v-for="(user, index) in filteredUsers"
+          :key="index"
+          @click="startChat(user.id)"
+          class="wt-ad"
+          v-bind:class="[user.id == active_id ? 'wt-active' : '']"
+        >
+          <figure v-if="user.image">
+            <img :src="image_path + user.image" :alt="user.image_name" />
+          </figure>
+          <div class="wt-adcontent">
+            <h3 v-if="user.name">{{ user.name }}</h3>
+            <span v-if="user.tagline">{{ user.tagline }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +68,7 @@ export default {
       active_id: "",
       notify: true,
       image_path: APP_URL,
+      searchUserInput: "",
     };
   },
   methods: {
@@ -69,6 +90,17 @@ export default {
           Event.$emit("active-user", { user: response.data.selected, id: id });
         });
       self.messages = [];
+    },
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.filter((user) => {
+        return (
+          user.name
+            .toLowerCase()
+            .indexOf(this.searchUserInput.toLocaleLowerCase()) > -1
+        );
+      });
     },
   },
   mounted: function() {

@@ -142,8 +142,23 @@
     }
   }
 }
-.wt-chatarea {
-  .wt-replaybox {
-    margin-top: 50px;
+.wt-offersmessages {
+  > ul {
+    > li:first-child {
+      .chat-users-container {
+        .chat-users-list {
+          max-height: 640px;
+        }
+      }
+    }
+    > li:last-child {
+      min-height: 690px;
+      .wt-chatarea-empty {
+        padding: 219px 0px;
+      }
+      .messages-container {
+        height: 520px !important;
+      }
+    }
   }
 }

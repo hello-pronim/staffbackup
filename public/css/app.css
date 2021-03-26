@@ -13221,7 +13221,19 @@ Calendar
   font-weight: 300;
 }
 
-.wt-chatarea .wt-replaybox {
-  margin-top: 50px;
+.wt-offersmessages > ul > li:first-child .chat-users-container .chat-users-list {
+  max-height: 640px;
+}
+
+.wt-offersmessages > ul > li:last-child {
+  min-height: 690px;
+}
+
+.wt-offersmessages > ul > li:last-child .wt-chatarea-empty {
+  padding: 219px 0px;
+}
+
+.wt-offersmessages > ul > li:last-child .messages-container {
+  height: 520px !important;
 }
 
