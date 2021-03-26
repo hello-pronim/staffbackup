@@ -4220,6 +4220,14 @@ if (document.getElementById("user_profile")) {
               : "";
         }
       },
+      onProfessionChange(event) {
+        this.extra_professions_options = this.extra_professions_options.filter(
+          (option) => option.id != event.target.value
+        );
+        this.extra_professions = this.extra_professions.filter(
+          (option) => option.id != event.target.value
+        );
+      },
       showCompleted(message) {
         return this.$toast.success(
           " ",

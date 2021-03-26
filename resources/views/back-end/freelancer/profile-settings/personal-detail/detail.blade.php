@@ -49,7 +49,7 @@
 
         <div class="form-group">
             <span class="wt-select">
-            {!! Form::select('profession_id', \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE), $user->profession_id, array('placeholder' => "Profession", "class"=>"form-control")) !!}
+            {!! Form::select('profession_id', \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE), $user->profession_id, array("class"=>"form-control", 'placeholder' => "Profession", "@change" => 'onProfessionChange')) !!}
             </span>
         </div>
         <div class="form-group ">

@@ -1129,23 +1129,12 @@ class FreelancerController extends Controller
     }
 
     public function getAllAvailableExtraProfessions(){
-        $main_profession = Auth::user()->profession_id;
-        if($main_profession){
-            $professions = Profession::whereIn('role_id', [
-                                Role::FREELANCER_ROLE,
-                                Role::SUPPORT_ROLE,
-                            ])
-                            ->where('id', '!=', $main_profession)
-                            ->orderBy('title')
-                            ->get();
-        }else {
-            $professions = Profession::whereIn('role_id', [
-                                Role::FREELANCER_ROLE,
-                                Role::SUPPORT_ROLE,
-                            ])
-                            ->orderBy('title')
-                            ->get();
-        }
+        $professions = Profession::whereIn('role_id', [
+                            Role::FREELANCER_ROLE,
+                            Role::SUPPORT_ROLE,
+                        ])
+                        ->orderBy('title')
+                        ->get();
         return json_encode($professions);
     }
 }
