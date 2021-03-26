@@ -364,6 +364,8 @@ jQuery(document).ready(function() {
     image_advtab: true,
     remove_script_host: false,
   });
+  //this is very important because if we don't set button type, arrow buttons are defined as submit buttons.
+  jQuery(".vuecal__arrow").attr("type", "button");
 });
 
 // jQuery(document).ready(function () {
@@ -7555,8 +7557,6 @@ if (page) {
           .reverse()
           .join("-");
       }
-      console.log(this.selectedDateFrom);
-      console.log(this.selectedDateTo);
     },
     data: {
       from: "",
@@ -7573,7 +7573,6 @@ if (page) {
           .split("/")
           .reverse()
           .join("-");
-        console.log(this.selectedDateFrom);
         jQuery("#calendar_small_from").hide();
       },
       changeSelectedDateTo: function(date) {
@@ -7583,7 +7582,6 @@ if (page) {
           .split("/")
           .reverse()
           .join("-");
-        console.log(this.selectedDateTo);
         jQuery("#calendar_small_to").hide();
       },
     },

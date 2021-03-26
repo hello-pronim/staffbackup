@@ -40,7 +40,7 @@
                                                 :selected-date="selectedDateFrom"
                                                 style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                                 class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
-                                                default-view="year" :disable-views="['week', 'day', 'year']"
+                                                default-view="year" :disable-views="['week', 'day', 'month']"
                                                 @cell-click="changeSelectedDateFrom">
                                             </vue-cal>
                                         </div>
@@ -51,7 +51,7 @@
                                                 :selected-date="selectedDateTo"
                                                 style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                                 class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
-                                                default-view="year" :disable-views="['week', 'day', 'year']"
+                                                default-view="year" :disable-views="['week', 'day', 'month']"
                                                 @cell-click="changeSelectedDateTo">
                                             </vue-cal>
                                         </div>
