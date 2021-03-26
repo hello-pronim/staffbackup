@@ -7555,6 +7555,8 @@ if (page) {
           .reverse()
           .join("-");
       }
+      console.log(this.selectedDateFrom);
+      console.log(this.selectedDateTo);
     },
     data: {
       from: "",
@@ -7571,6 +7573,7 @@ if (page) {
           .split("/")
           .reverse()
           .join("-");
+        console.log(this.selectedDateFrom);
         jQuery("#calendar_small_from").hide();
       },
       changeSelectedDateTo: function(date) {
@@ -7580,6 +7583,7 @@ if (page) {
           .split("/")
           .reverse()
           .join("-");
+        console.log(this.selectedDateTo);
         jQuery("#calendar_small_to").hide();
       },
     },
