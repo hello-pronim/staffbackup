@@ -142,6 +142,13 @@
     }
   }
 }
+#user_profile {
+  .wt-userform {
+    fieldset {
+      overflow: unset;
+    }
+  }
+}
 .wt-offersmessages {
   > ul {
     > li:first-child {

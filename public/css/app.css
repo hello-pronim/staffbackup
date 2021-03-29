@@ -13221,6 +13221,10 @@ Calendar
   font-weight: 300;
 }
 
+#user_profile .wt-userform fieldset {
+  overflow: unset;
+}
+
 .wt-offersmessages > ul > li:first-child .chat-users-container .chat-users-list {
   max-height: 640px;
 }

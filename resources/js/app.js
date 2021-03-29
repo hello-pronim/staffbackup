@@ -4097,7 +4097,7 @@ if (document.getElementById("user_profile")) {
   var role = document.getElementById("user_profile").getAttribute("role");
   const freelancerProfile = new Vue({
     el: "#user_profile",
-    components: { Multiselect },
+    components: { "vue-cal": vuecal, Multiselect },
     mounted: function() {
       if (document.getElementsByClassName("flash_msg") != null) {
         flashVue.$emit("showFlashMessage");
@@ -4628,6 +4628,7 @@ if (document.getElementById("user_profile")) {
             }
           });
       },
+
       validatePracticeCode: validate_practice_code,
     },
   });

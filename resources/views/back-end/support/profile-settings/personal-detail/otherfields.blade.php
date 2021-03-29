@@ -321,12 +321,26 @@
             <div class="wt-tabscontenttitle">
                 <h2>Passport or Visa</h2>
             </div>
-            @if(!empty($user->passport_visa))
-                <a href="{{url('uploads/files/'.$user->passport_visa)}}" target="_blank">Click To open</a>
-            @endif
-            <input type="file" name="passport_visa"
-                   class="form-control"
-                   accept=".pdf, image/*,.doc,.docx">
+            <div class="form-group">
+                @if(!empty($user->passport_visa))
+                    <a href="{{url('uploads/files/'.$user->passport_visa)}}" target="_blank">Click To open</a>
+                @endif
+            </div>
+            <div class="form-group form-group-half">
+                <input type="file" name="passport_visa"
+                    class="form-control"
+                    accept=".pdf, image/*,.doc,.docx">
+            </div>
+            <div class="form-group form-group-half">
+                <date-picker 
+                    :config="{format: 'DD-MM-YYYY'}"
+                    value="{{date('d-m-Y', strtotime($user->expiry_passport_visa))}}"
+                    class="form-control"
+                    name="expiry_passport_visa"
+                    placeholder="Expiry date of mandatory training"
+                >
+                </date-picker>
+            </div>
         </div>
         <div class="form-group form-group">
             <div class="wt-tabscontenttitle">
@@ -393,23 +407,51 @@
             <div class="wt-tabscontenttitle">
                 <h2>Mandatory Training</h2>
             </div>
-            @if(!empty($user->mand_training))
-                <a href="{{url('uploads/files/'.$user->mand_training)}}" target="_blank">Click To open</a>
-            @endif
-            <input type="file" name="mand_training"
-                   class="form-control"
-                   accept=".pdf, image/*,.doc,.docx">
+            <div class="form-group">
+                @if(!empty($user->mand_training))
+                    <a href="{{url('uploads/files/'.$user->mand_training)}}" target="_blank">Click To open</a>
+                @endif
+            </div>
+            <div class="form-group form-group-half">
+                <input type="file" name="mand_training"
+                    class="form-control"
+                    accept=".pdf, image/*,.doc,.docx">
+            </div>
+            <div class="form-group form-group-half">
+                <date-picker 
+                    :config="{format: 'DD-MM-YYYY'}"
+                    value="{{date('d-m-Y', strtotime($user->expiry_mand_training))}}"
+                    class="form-control"
+                    name="expiry_mand_training"
+                    placeholder="Expiry date of mandatory training"
+                >
+                </date-picker>
+            </div>
         </div>
         <div class="form-group ">
             <div class="wt-tabscontenttitle">
                 <h2>Certificate of CRB/DBS</h2>
             </div>
+            <div class="form-group">
             @if(!empty($user->cert_of_crbdbs))
                 <a href="{{url('uploads/files/'.$user->cert_of_crbdbs)}}" target="_blank">Click To open</a>
             @endif
-            <input type="file" name="cert_of_crbdbs"
-                   class="form-control"
-                   accept=".pdf, image/*,.doc,.docx">
+            </div>
+            <div class="form-group form-group-half">
+                <input type="file" name="cert_of_crbdbs"
+                    class="form-control"
+                    accept=".pdf, image/*,.doc,.docx">
+            </div>
+            <div class="form-group form-group-half">
+                <date-picker 
+                    :config="{format: 'DD-MM-YYYY'}"
+                    value="{{date('d-m-Y', strtotime($user->expiry_cert_of_crbdbs))}}"
+                    class="form-control"
+                    name="expiry_cert_of_crbdbs"
+                    placeholder="Expiry date of mandatory training"
+                >
+                </date-picker>
+            </div>
         </div>
         <div class="form-group ">
             <div class="wt-tabscontenttitle">

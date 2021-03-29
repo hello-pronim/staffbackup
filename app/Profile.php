@@ -147,6 +147,7 @@ class Profile extends Model
             $file->move($destinationPath,$newfiename);
             $user->passport_visa = $newfiename;
         }
+        $user->expiry_passport_visa = date('Y-m-d', strtotime($request['expiry_passport_visa']));
         if( isset($request['profQualLevel']) &&
             isset($request['profQualName']) &&
             isset($request['profQualPlace']) &&
@@ -185,6 +186,7 @@ class Profile extends Model
             $file->move($destinationPath,$newfiename);
             $user->mand_training = $newfiename;
         }
+        $user->expiry_mand_training = date('Y-m-d', strtotime($request['expiry_mand_training']));
         if(isset($request['cert_of_crbdbs']) && $file = $request['cert_of_crbdbs'])
         {
             $destinationPath = 'uploads/files';
@@ -192,6 +194,7 @@ class Profile extends Model
             $file->move($destinationPath,$newfiename);
             $user->cert_of_crbdbs = $newfiename;
         }
+        $user->expiry_cert_of_crbdbs = date('Y-m-d', strtotime($request['expiry_cert_of_crbdbs']));
         if(isset($request['occup_health']) && $file = $request['occup_health'])
         {
             $destinationPath = 'uploads/files';

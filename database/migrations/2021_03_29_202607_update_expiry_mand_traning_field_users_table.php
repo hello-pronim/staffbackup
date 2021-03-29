@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateBreaksTypeJobsTable extends Migration
+class UpdateExpiryMandTraningFieldUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class UpdateBreaksTypeJobsTable extends Migration
      */
     public function up()
     {
-        Schema::getConnection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'text');
-        Schema::table('jobs', function (Blueprint $table) {
-            $table->text('breaks')->change()->nullable();
+        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('expiry_mand_traning');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->date('expiry_mand_training')->after('mand_training')->nullable();
         });
     }
 
