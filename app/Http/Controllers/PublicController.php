@@ -905,7 +905,8 @@ class PublicController extends Controller
                                 'longitude',
                                 'radius',
                                 'profession_id',
-                                'date',
+                                'avail_date_from',
+                                'avail_date_to',
                                 'time',
                                 'rate'
                             )
@@ -937,7 +938,8 @@ class PublicController extends Controller
                                 'longitude',
                                 'radius',
                                 'profession_id',
-                                'date',
+                                'avail_date_from',
+                                'avail_date_to',
                                 'time',
                                 'rate'
                             )
