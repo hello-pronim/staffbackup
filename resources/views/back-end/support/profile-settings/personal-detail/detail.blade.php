@@ -15,10 +15,19 @@
             {!! Form::text( 'last_name', e(Auth::user()->last_name), ['class' =>'form-control', 'placeholder' => trans('lang.ph_last_name')] ) !!}
         </div>
 
+        @php
+            $professions = \App\User::getProfessionsByRole(App\Role::SUPPORT_ROLE);
+        @endphp
 
         <div class="form-group">
             <span class="wt-select">
-            {!! Form::select('profession_id', \App\User::getProfessionsByRole(\App\Role::SUPPORT_ROLE), $user->profession_id, array('placeholder' => "Profession", "class"=>"form-control", "@change" => 'onProfessionChange')) !!}
+            <!-- {!! Form::select('profession_id', \App\User::getProfessionsByRole(\App\Role::SUPPORT_ROLE), $user->profession_id, array('placeholder' => "Profession", "class"=>"form-control", "@change" => 'onProfessionChange')) !!} -->
+                <select name="profession_id" class="form-control" @change="onProfessionChange">
+                    <option selected disabled>Profession</option>
+                    @foreach($professions as $id=>$title)
+                    <option value="{{$id}}" @if($id==$user->profession_id) selected @endif>{{strtoupper($title)}}</option>
+                    @endforeach
+                </select>
             </span>
         </div>
         

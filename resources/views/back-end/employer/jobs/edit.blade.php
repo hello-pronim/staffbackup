@@ -228,7 +228,13 @@
                                 <div class="form-group">
                                     <div class="wt-select">
                                     <!-- <job_skills :placeholder="'select professions'"></job_skills> -->
-                                    {!! Form::select('profession_id', $professions, $job->profession_id, array('placeholder' => "Profession")) !!}
+                                    <!-- {!! Form::select('profession_id', $professions, $job->profession_id, array('placeholder' => "Profession")) !!} -->
+                                        <select name="profession_id">
+                                            <option selected disabled>Profession</option>
+                                            @foreach($professions as $id=>$title)
+                                            <option value="{{$id}}" @if($id==$job->profession_id) selected @endif>{{strtoupper($title)}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

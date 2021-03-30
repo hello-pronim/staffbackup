@@ -45,11 +45,19 @@
                 {{--{!! Form::select( 'gender', ['male' => 'Male', 'female' => 'Female'], e($gender), ['placeholder' => trans('lang.ph_select_gender')] ) !!}--}}
             {{--</span>--}}
         {{--</div>--}}
-
+        @php
+            $professions = \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE);
+        @endphp
 
         <div class="form-group">
             <span class="wt-select">
-            {!! Form::select('profession_id', \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE), $user->profession_id, array("class"=>"form-control", 'placeholder' => "Profession", "@change" => 'onProfessionChange')) !!}
+            <!-- {!! Form::select('profession_id', \App\User::getProfessionsByRole(App\Role::FREELANCER_ROLE), $user->profession_id, array("class"=>"form-control", 'placeholder' => "Profession", "@change" => 'onProfessionChange')) !!} -->
+                <select name="profession_id" class="form-control" @change="onProfessionChange">
+                    <option selected disabled>Profession</option>
+                    @foreach($professions as $id=>$title)
+                    <option value="{{$id}}" @if($id==$user->profession_id) selected @endif>{{strtoupper($title)}}</option>
+                    @endforeach
+                </select>
             </span>
         </div>
         <div class="form-group ">
