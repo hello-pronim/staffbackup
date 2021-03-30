@@ -295,7 +295,7 @@
                                 </li>--}}
                             @endif
                         @elseif ($role === 'support')
-                            <li class="menu-item-has-children">
+                            <!-- <li class="menu-item-has-children">
                                 <a href="javascript:void(0)">
                                     <i class="ti-briefcase"></i>
                                     <span>{{ trans('lang.all_projects') }}</span>
@@ -305,9 +305,9 @@
                                     <li><a href="{{{ url('support/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>
                                     <li><a href="{{{ url('support/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         @elseif ($role === 'freelancer')
-                            <li class="menu-item-has-children">
+                            <!-- <li class="menu-item-has-children">
                                 <a href="javascript:void(0)">
                                     <i class="ti-briefcase"></i>
                                     <span>{{ trans('lang.all_projects') }}</span>
@@ -317,7 +317,7 @@
                                     <li><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>
                                     <li><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
 
                             @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
                                 <li class="menu-item-has-children">
