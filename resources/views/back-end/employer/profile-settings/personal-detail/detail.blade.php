@@ -293,12 +293,12 @@ $arrAppo_slot_times[$user->appo_slot_times] = $user->appo_slot_times;
             <label for="org_type" style="margin-top: 20px">Please indicate the organisation which best describes your
                 service</label>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <span class="wt-select">
                 {!! Form::select('org_type', $arrOrgTypes, $user->profile->org_type,
                 array('placeholder' => "Organisation type")) !!}
             </span>
-        </div>
+        </div> -->
         <div class="form-group" v-bind:class='{ "form-group-half": setting=="Other" }'>
             <span class="wt-select">
                 <input type="hidden" id="initialSetting" value="{{ $user->setting }}">
