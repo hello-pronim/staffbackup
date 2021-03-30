@@ -271,7 +271,7 @@
                                                 @if(auth()->user()->profession_id == $profession->id) selected @endif
                                                 :selected="skill_id==={{$profession->id}}"
                                             >
-                                                {{ $profession->title }}
+                                                {{ strtoupper($profession->title) }}
                                             </option>
                                         @endforeach
                                     </select>
