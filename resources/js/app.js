@@ -4200,7 +4200,15 @@ if (document.getElementById("user_profile")) {
       axios
         .get("/" + role + "/getAllAvailableExtraProfessions")
         .then((response) => {
+          let main = $('select[name="profession_id"]').val();
+
           this.extra_professions_options = response.data;
+          this.extra_professions_options = this.extra_professions_options.filter(
+            (opt) => opt.id != main
+          );
+          this.extra_professions = this.extra_professions.filter(
+            (option) => option.id != main
+          );
         });
     },
     methods: {
@@ -4221,12 +4229,17 @@ if (document.getElementById("user_profile")) {
         }
       },
       onProfessionChange(event) {
-        this.extra_professions_options = this.extra_professions_options.filter(
-          (option) => option.id != event.target.value
-        );
-        this.extra_professions = this.extra_professions.filter(
-          (option) => option.id != event.target.value
-        );
+        axios
+          .get("/" + role + "/getAllAvailableExtraProfessions")
+          .then((response) => {
+            this.extra_professions_options = response.data;
+            this.extra_professions_options = this.extra_professions_options.filter(
+              (option) => option.id != event.target.value
+            );
+            this.extra_professions = this.extra_professions.filter(
+              (option) => option.id != event.target.value
+            );
+          });
       },
       showCompleted(message) {
         return this.$toast.success(
