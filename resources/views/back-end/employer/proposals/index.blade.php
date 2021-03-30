@@ -275,11 +275,11 @@
                                             </div>
                                         </div>
                                         @endif
-                                        <div class="wt-proposalfeedback">
+                                        <!-- <div class="wt-proposalfeedback">
                                         <span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>
                                         <span class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
                                         <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="wt-rightarea">
                                         <div class="wt-btnarea">
