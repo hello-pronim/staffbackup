@@ -1293,7 +1293,7 @@ class Helper extends Model
     public static function getProfileImage($user_id)
     {
         $profile_image = (isset(User::find($user_id)->profile->avater)?User::find($user_id)->profile->avater:"");
-        if (file_exists('/uploads/users/' . $user_id . '/' . $profile_image)) {
+        if (file_exists(public_path('/uploads/users/' . $user_id . '/' . $profile_image))) {
             return !empty($profile_image) ? '/uploads/users/' . $user_id . '/' . $profile_image : '/images/user.jpg';
         } else {
             return '/images/user.jpg';

@@ -83,15 +83,17 @@ class MessageController extends Controller
                 "SELECT * FROM messages
                     WHERE id IN (
                         SELECT MAX(id) AS id
-                FROM (
-                    SELECT id, user_id AS chat_sender
-                    FROM messages
-                    WHERE receiver_id = $user_id OR user_id = $user_id
-                UNION ALL
-                    SELECT id, receiver_id AS chat_sender
-                    FROM messages
-                    WHERE user_id = $user_id OR receiver_id = $user_id )
-                    t GROUP BY chat_sender ) ORDER BY id DESC"
+                        FROM (
+                            SELECT id, user_id AS chat_sender
+                            FROM messages
+                            WHERE receiver_id = $user_id OR user_id = $user_id
+                            UNION ALL
+                            SELECT id, receiver_id AS chat_sender
+                            FROM messages
+                            WHERE user_id = $user_id OR receiver_id = $user_id 
+                        ) t 
+                        GROUP BY chat_sender 
+                    ) ORDER BY id DESC"
             )
         );
         $json = array();
