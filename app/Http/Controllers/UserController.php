@@ -2228,6 +2228,12 @@ class UserController extends Controller
             if(!empty($_GET['from']) && !empty($_GET['to'])) {
                 $firstDate = date('Y-m-d', strtotime(str_replace('/', '-', ('01'.'/'.$_GET['from']))));
                 $secondDate = date('Y-m-d', strtotime(str_replace('/', '-', ('01'.'/'.$_GET['to']))));
+                $temp = $firstDate;
+                if($firstDate > $secondDate){
+                    $firstDate = $secondDate;
+                    $secondDate = $temp;
+                }
+
                 /* $firstMonthUsers = DB::table('users')
                                         ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
                                         ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($firstDate)))
