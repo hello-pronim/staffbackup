@@ -200,12 +200,12 @@
                                     </div>
                                 </div>
                                 <div v-for="(breakTime, index) in breaks" :key="index">
-                                    <div class="form-group form-group-half">
+                                    <div class="form-group" v-bind:class="[breakTime.when!='Not Applicable' ? 'form-group-half' : '']">
                                         <div class="wt-select">
                                         {!! Form::select('breaks', $arrBreaks, null, array('placeholder' => "Breaks", 'v-model'=>'breakTime.when')) !!}
                                         </div>
                                     </div>
-                                    <div class="form-group form-group-half m-0 p-0">
+                                    <div class="form-group form-group-half m-0 p-0" v-if="breakTime.when!='Not Applicable'">
                                         <div class="form-group" v-bind:class="[breakTime.for=='Other' ? 'form-group-half' : '']">
                                             <div class="wt-select">
                                             {!! Form::select('breaks_times[]', $arrJob_breaks_times, null, array( 'placeholder' => "Length Of Time",'v-model'=>'breakTime.for')) !!}
