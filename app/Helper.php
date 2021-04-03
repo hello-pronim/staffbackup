@@ -3193,4 +3193,8 @@ class Helper extends Model
             'needYellowFooterSocial' => (in_array(\Route::currentRouteName(), array_merge(['showUserProfile'], $dashboardRoutes))),
         ];
     }
+
+    public function checkUserDocuments(){
+        $users = User::get();
+    }
 }

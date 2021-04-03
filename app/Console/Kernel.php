@@ -35,6 +35,12 @@ class Kernel extends ConsoleKernel
                 Helper::updatePayouts();
             }
         )->monthlyOn(28, '0:0');
+
+        $schedule->call(
+            function(){
+                Helper:checkUserDocuments();
+            }
+        )->daily();
     }
 
     /**

@@ -5,7 +5,7 @@
                 <a href="{{ url('/') }}">
                     <div class="header-logo__wrapper">
                         <img class="header-logo__img" src="/images/img/index-main/logo-3.png" alt="{{ trans('lang.site_logo') }}">
-                        <span class="header-logo__slogan">Dedicated to Primary Health Care</span>
+                        <span class="header-logo__slogan">Dedicated to Primary Health Care & Social Care</span>
                     </div><!-- .header-logo__wrapper -->
                 </a>
             </div>

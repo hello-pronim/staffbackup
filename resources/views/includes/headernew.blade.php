@@ -23,7 +23,7 @@
 					<img style="" src="images/logo2.png"/>
 				</div>
 				<div class="logo-small-text">
-					<small>Dedicated to Primary Health Care</small>
+					<small>Dedicated to Primary Health Care & Social Care</small>
 				</div>
 			</div>
             <div class="mainhomeMenu">
@@ -42,8 +42,8 @@
         <div class="row headernew-second">
 
             <div class="headingcenter text-center">
-                <h2>Connecting Primary Health Care professionals with the adhoc & temp staff they need, when they need them</h2>
-                <div>15 years professional clinical experience in Primary Health Care</div>
+                <h2>Connecting Primary Health Care and Social Care, with Adhoc and temp staff they need, when they need them</h2>
+                <div></div>
             </div>
             <div class="signupBtn">
                 @if(!Auth::user())

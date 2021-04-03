@@ -13,7 +13,7 @@
                             <a href="{{ url('/') }}">
                                 <div class="header-logo__wrapper">
                                     <img class="header-logo__img" src="images/img/index-main/logo-3.png" alt="{{ trans('lang.site_logo') }}">
-                                    <span class="header-logo__slogan">Dedicated to Primary Health Care</span>
+                                    <span class="header-logo__slogan">Dedicated to Primary Health Care & Social Care</span>
                                 </div><!-- .header-logo__wrapper -->
                             </a>
                         </div>
@@ -39,8 +39,8 @@
                 <section class="hero">
                     <div class="header__container hero__container">
                         <div class="hero__wrapper">
-                            <h1 class="hero__title">Connecting Primary Health Care professionals with the adhoc &amp; temp staff they need, when they need them</h1>
-                            <div class="hero__experience">10 years professional clinical experience surgeries and healthcare stackeholders with adhoc and temporary staffing solutions.</div>
+                            <h1 class="hero__title">Connecting Primary Health Care and Social Care, with Adhoc and temp staff they need, when they need them</h1>
+                            <div class="hero__experience"></div>
                             <div class="hero__buttons">
                                 <a href="{{ url('/login') }}"><button class="hero__buttons-login">Log In</button></a>
                                 <a href="{{ url('/register') }}" class="hero__buttons-signup-link"><button class="hero__buttons-signup">Sign Up</button></a>
