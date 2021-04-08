@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
             function() {
                  Helper::checkUserDocuments();
             }
-        )->everyMinute();
+        )->daily();
     }
 
     /**
