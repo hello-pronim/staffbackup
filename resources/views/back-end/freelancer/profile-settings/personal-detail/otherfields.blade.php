@@ -333,10 +333,11 @@
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
-                    value="{{date('d-m-Y', strtotime($user->expiry_passport_visa))}}"
+                    value="{{$user->expiry_passport_visa ? date('d-m-Y', strtotime($user->expiry_passport_visa)) : ''}}"
                     class="form-control"
                     name="expiry_passport_visa"
                     placeholder="Expiry date of mandatory training"
+                    v-model="expiry_passport_visa"
                 >
                 </date-picker>
             </div>

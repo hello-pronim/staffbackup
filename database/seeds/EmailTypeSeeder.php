@@ -223,6 +223,13 @@ class EmailTypeSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'role_id' => null,
+                    'email_type' => 'admin_email_document_expired',
+                    'variables' => '',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
             ]
         );
     }

@@ -71,6 +71,8 @@ class AdminEmailMailable extends Mailable
             $email_message = $this->prepareAdminEmailJobCompleted($this->email_params);
         } elseif ($this->type == 'admin_email_dispute_raised') {
             $email_message = $this->prepareAdminEmailDisputeRaised($this->email_params);
+        } elseif ($this->type == 'admin_email_document_expired') {
+            $email_message = $this->prepareAdminEmailDocumentExpired($this->email_params);
         }
         $message = $this->from($from_email, $from_email_id)
             ->subject($subject)->view('emails.index')
@@ -494,6 +496,46 @@ class AdminEmailMailable extends Mailable
         $app_content = str_replace("%project_link%", $project_link, $app_content);
         $app_content = str_replace("%project_title%", $title, $app_content);
         $app_content = str_replace("%message%", $message, $app_content);
+        $app_content = str_replace("%signature%", $signature, $app_content);
+
+        $body = "";
+        $body .= EmailHelper::getEmailHeader();
+        $body .= $app_content;
+        $body .= EmailHelper::getEmailFooter();
+        return $body;
+    }
+
+    /**
+     * Email service posted
+     *
+     * @param array $email_params Email Parameters
+     *
+     * @access public
+     *
+     * @return string
+     */
+    public function prepareAdminEmailDocumentExpired($email_params)
+    {
+        extract($email_params);
+        $freelancer_name = $freelancer_name;
+        $freelancer_link = $freelancer_link;
+        $document_name = $document_name;
+        $expire_date = $expire_date;
+        $signature = EmailHelper::getSignature();
+        $app_content = $this->template->content;
+        $email_content_default =    "<p>Dear <strong><a href='%freelancer_link%'>%freelancer_name%</a><strong>,</p>
+                                    <p>Just to inform you your <strong>%document_name%</strong> is about to expire on <strong>%expire_date%</strong>.</p>
+                                    <p>Please login and update the document with a new one.</p>
+                                    %signature%";
+        //set default contents
+        if (empty($app_content)) {
+            $app_content = $email_content_default;
+        }
+        $app_content = str_replace("%freelancer_link%", $freelancer_link, $app_content);
+        $app_content = str_replace("%freelancer_name%", $freelancer_name, $app_content);
+        $app_content = str_replace("%document_name%", $document_name, $app_content);
+        $app_content = str_replace("%expire_date%", $expire_date, $app_content);
+        $app_content = str_replace("%message%", '', $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";

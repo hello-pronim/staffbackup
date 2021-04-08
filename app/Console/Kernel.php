@@ -37,10 +37,10 @@ class Kernel extends ConsoleKernel
         )->monthlyOn(28, '0:0');
 
         $schedule->call(
-            function(){
-                Helper:checkUserDocuments();
+            function() {
+                 Helper::checkUserDocuments();
             }
-        )->daily();
+        )->everyMinute();
     }
 
     /**

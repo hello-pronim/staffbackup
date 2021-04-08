@@ -47,7 +47,7 @@ class EmailTemplate extends Model
         return DB::table('email_templates')
             ->join('email_types', 'email_types.id', '=', 'email_templates.email_type_id')
             ->select('email_templates.*', 'email_types.*')
-            ->where('email_templates.id', $id)
+            ->where('email_templates.email_type_id', $id)
             ->first();
     }
 

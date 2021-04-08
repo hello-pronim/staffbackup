@@ -377,6 +377,19 @@ class EmailTemplateSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'admin_email' => 'info@yourdomain.com',
+                    'email_type_id' => '28',
+                    'title' => 'Admin Email Content - Document Expired',
+                    'subject' => 'Document Expired',
+                    'content' => '  <p>Hello, <strong><a href="%freelancer_link%">%freelancer_name%</a></strong></p>
+                                    <p>Just to inform you your <strong>%document_name%</strong> is about to expire on <strong>%expire_date%</strong>.</p>
+                                    <p>Please login and update the document with a new one.</p>
+                                    <p>%message%</p>
+                                    <p>%signature%,</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
             ]
         );
     }
