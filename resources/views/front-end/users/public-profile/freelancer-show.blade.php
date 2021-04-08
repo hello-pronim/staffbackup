@@ -152,12 +152,35 @@
                     {{ trans('lang.saved') }}
                 </a>
                 @endif
+                
+                @if($doc_visible && $user->passport_visa!=="")
+                <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <a target="_blank" href="<?= url('uploads/files/'.$user->passport_visa) ;?>" download>Passport or Visa</a>
+                </div>
+                @endif
+                @if($doc_visible && $user->cert_of_crbdbs!=="")
+                <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <a target="_blank" href="<?= url('uploads/files/'.$user->cert_of_crbdbs) ;?>" download>DBS</a>
+                </div>
+                @endif
+                @if($doc_visible && $user->occup_health!=="")
+                <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <a target="_blank" href="<?= url('uploads/files/'.$user->occup_health) ;?>" download>Occupational Health Information-certificates</a>
+                </div>
+                @endif
                 @if($doc_visible && $profile->cvFile!=="")
                 <div class="wt-hireduserstatus">
                     <i class="fa fa-paperclip"></i>
-                    <a target="_blank"
-                        href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>Download
-                        CV</a>
+                    <a target="_blank" href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>CV</a>
+                </div>
+                @endif
+                @if($doc_visible && $user->mand_training!=="")
+                <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <a target="_blank" href="<?= url('uploads/files/'.$user->mand_training) ;?>" download>Mandatory Training</a>
                 </div>
                 @endif
             </div>

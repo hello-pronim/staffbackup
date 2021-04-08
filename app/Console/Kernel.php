@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(
             function() {
-                 Helper::checkUserDocuments();
+                Helper::checkUserDocuments();
             }
         )->daily();
     }
