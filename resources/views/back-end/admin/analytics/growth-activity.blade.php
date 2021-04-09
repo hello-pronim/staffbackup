@@ -8,7 +8,7 @@
                         <flash_messages :message_class="'success'" :time ='5' :message="'{{{ Session::get('message') }}}'" v-cloak></flash_messages>
                     </div>
                 @endif
-                <div class="wt-dashboardbox mb-50">
+                <div class="wt-dashboardbox flex-column mb-50">
                     <div class="wt-dashboardboxtitle wt-titlewithsearch">
                         <h2>{{{ trans('lang.growth') }}}</h2>
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 
-                <div class="wt-dashboardbox">
+                <div class="wt-dashboardbox flex-column">
                     <div class="wt-dashboardboxtitle wt-titlewithsearch">
                         <h2>{{{ trans('lang.activity') }}}</h2>
                         <form class="wt-formtheme wt-formsearch">
