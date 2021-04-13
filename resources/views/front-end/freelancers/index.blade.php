@@ -366,7 +366,7 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                 </ul>
                                                 @if (!empty($freelancer->profile->description))
                                                 <div class="wt-description" style="padding-top: 40px">
-                                                    <p>{{{ str_limit($freelancer->profile->description, 180) }}}</p>
+                                                    <p>{{{ str_limit(html_entity_decode($freelancer->profile->description, ENT_QUOTES), 180) }}}</p>
                                                 </div>
                                                 @endif
                                             </div>
@@ -376,7 +376,7 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
                                                     <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->
-                                                <a href="#" class="wt-btn">Hire</a>
+                                                <a href="{{route('sendMessage', ['id'=>$freelancer->id]).'?invite=1'}}" class="wt-btn">Message</a>
                                             </div>
                                         </div>
 

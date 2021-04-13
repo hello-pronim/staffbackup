@@ -851,4 +851,8 @@ class EmployerController extends Controller
 
         return ['success' => true];
     }
+
+    public function hireFreelancer(Request $request){
+        //$user = User::where('slug', $request->slug)->first();
+    }
 }

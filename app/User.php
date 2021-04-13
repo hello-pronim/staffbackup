@@ -850,14 +850,14 @@ class User extends Authenticatable
         
             if ($only_date) {
                 if($avail_date_from)
-                    $events->whereDate('start', '<=', $avail_date_from);
+                    $events->whereDate('start', '>=', $avail_date_from);
                 if($avail_date_to)
-                    $events->whereDate('end', '>=', $avail_date_to);
+                    $events->whereDate('end', '<=', $avail_date_to);
             } else {
                 if($avail_date_from)
-                    $events->where('start', '<=', $avail_date_from);
+                    $events->where('start', '>=', $avail_date_from);
                 if($avail_date_to)
-                    $events->where('end', '>=', $avail_date_to);
+                    $events->where('end', '<=', $avail_date_to);
             }
             
             $events = $events->get()->toArray();

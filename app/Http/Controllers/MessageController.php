@@ -227,6 +227,11 @@ class MessageController extends Controller
             'updated_at' => date('Y-m-d H:i:s'),
         );
         DB::table('messages')->insert($newMessage);
+
+        if($request->message_type){
+
+        }
+
         $json['type'] = "success";
         $json['message'] = "Message has been sent successfully.";
         $json['freelancerId'] = $request->receiver_id;

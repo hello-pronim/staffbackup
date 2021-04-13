@@ -13141,6 +13141,14 @@ Calendar
   flex-direction: column !important;
 }
 
+.avatar-sm {
+  width: 40px !important;
+  height: 40px !important;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
+  border-radius: 50% !important;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

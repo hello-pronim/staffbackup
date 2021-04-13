@@ -297,6 +297,7 @@ Route::group(
         Route::post('job/post-job', 'JobController@store');
         Route::post('job/upload-temp-image', 'JobController@uploadTempImage');
         Route::post('user/submit-review', 'UserController@submitReview');
+        Route::get('employer/hire/{slug}', 'EmployerController@hireFreelancer')->name('hireFreelancer');
         Route::post('proposal/hire-freelancer', 'ProposalController@hiredFreelencer');
         Route::get('employer/services/{status}', 'EmployerController@showEmployerServices');
         Route::get('employer/service/{service_id}/{id}/{status}', 'EmployerController@showServiceDetail');

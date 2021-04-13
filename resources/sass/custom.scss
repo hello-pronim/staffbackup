@@ -60,6 +60,12 @@
   display: flex !important;
   flex-direction: column !important;
 }
+.avatar-sm {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
 
 .navbar-laravel {
   background-color: #fff;

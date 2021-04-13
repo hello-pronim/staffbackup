@@ -3209,7 +3209,17 @@ if (document.getElementById("message-send")) {
         },
       },
     },
-    created: function() {},
+    created: function() {
+      let isInvited = document.getElementById("message_type").value;
+      let username = document.getElementById("receiver_name").value;
+      if (isInvited) {
+        this.messageText =
+          "Hi " +
+          username +
+          "., I noticed your profile and would like to offer you my project. We can discuss any details over chat.";
+        console.log(this.messageText);
+      }
+    },
     methods: {
       showMessage(message) {
         return this.$toast.success(
