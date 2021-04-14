@@ -41,8 +41,16 @@ $subscribe_options  = array(
                                                 @endif
                                             </div>
                                             <div class="form-group">
-                                                <label>Choosen Payment Option</label>
-                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'class' => 'form-group', 'v-model' => 'payment_option')) !!}
+                                                <label>Preferred Payment Method</label>
+                                                <div class="wt-select">
+                                                {!! Form::select('preferred_payment_method', [], null, array('placeholder' => "Preferred Payment Method")) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Payment Option</label>
+                                                <div class="wt-select">
+                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'v-model' => 'payment_option')) !!}
+                                                </div>
                                             </div>
                                             <div class="form-group" v-if="payment_option=='Paypal'">
                                                 <label>Paypal address</label>
