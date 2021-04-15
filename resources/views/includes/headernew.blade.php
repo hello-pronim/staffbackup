@@ -42,7 +42,7 @@
         <div class="row headernew-second">
 
             <div class="headingcenter text-center">
-                <h2>Connecting Primary Health Care and Social Care, with Adhoc and temp staff they need, when they need them</h2>
+                <h2>Connecting Primary Health Care and Social Care, with the Adhoc and temp staff they need, when they need them</h2>
                 <div></div>
             </div>
             <div class="signupBtn">
