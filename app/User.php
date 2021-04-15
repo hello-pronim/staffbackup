@@ -711,16 +711,17 @@ class User extends Authenticatable
         $filters = array('type' => $type);
         $role = Helper::getAuthRoleName();
 
-        $users = User::select('users.*')
+        $users = User::select('users.*', 'profession_user.profession_id')
             ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
             ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
             ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->leftJoin('profession_user', 'profession_user.user_id', '=', 'users.id')
             ->where('model_has_roles.model_type', '=', 'App\User')
             ->where('users.id','!=', $user->id)
             ->where('roles.role_type', '=', $type);
-
             if ($profession_id) { 
-                $users->where('profession_id', $profession_id);
+                $users->where('users.profession_id', $profession_id)
+                        ->orWhere('profession_user.profession_id', $profession_id);
             }
 
             if ($rate) {

@@ -39,7 +39,7 @@
                 <section class="hero">
                     <div class="header__container hero__container">
                         <div class="hero__wrapper">
-                            <h1 class="hero__title">Connecting Primary Health Care and Social Care, with Adhoc and temp staff they need, when they need them</h1>
+                            <h1 class="hero__title">Connecting Primary Health Care and Social Care, with the Adhoc and temp staff they need, when they need them</h1>
                             <div class="hero__experience"></div>
                             <div class="hero__buttons">
                                 <a href="{{ url('/login') }}"><button class="hero__buttons-login">Log In</button></a>
