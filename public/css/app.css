@@ -13209,6 +13209,11 @@ Calendar
   margin-left: 0px !important;
 }
 
+.wt-navdashboard > ul > li > a > i {
+  width: unset !important;
+  margin-right: 10px !important;
+}
+
 .wt-navdashboard > ul > li.menu-item-has-children .wt-dropdowarrow {
   top: 5px !important;
 }

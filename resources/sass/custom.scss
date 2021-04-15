@@ -119,6 +119,12 @@
     padding-left: 45px;
     > li {
       margin-left: 0px !important;
+      > a {
+        > i {
+          width: unset !important;
+          margin-right: 10px !important;
+        }
+      }
       &.menu-item-has-children {
         .wt-dropdowarrow {
           top: 5px !important;

@@ -532,7 +532,8 @@ class SupportController extends Controller
                         'extend.back-end.support.jobs.ongoing',
                         compact(
                             'ongoing_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -540,7 +541,8 @@ class SupportController extends Controller
                         'back-end.support.jobs.ongoing',
                         compact(
                             'ongoing_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }
@@ -550,7 +552,8 @@ class SupportController extends Controller
                         'extend.back-end.support.jobs.completed',
                         compact(
                             'completed_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -558,7 +561,8 @@ class SupportController extends Controller
                         'back-end.support.jobs.completed',
                         compact(
                             'completed_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }
@@ -568,7 +572,8 @@ class SupportController extends Controller
                         'extend.back-end.support.jobs.cancelled',
                         compact(
                             'cancelled_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -576,7 +581,8 @@ class SupportController extends Controller
                         'back-end.support.jobs.cancelled',
                         compact(
                             'cancelled_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }

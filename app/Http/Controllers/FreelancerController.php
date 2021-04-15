@@ -543,7 +543,8 @@ class FreelancerController extends Controller
                         'extend.back-end.freelancer.jobs.ongoing',
                         compact(
                             'ongoing_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -551,7 +552,8 @@ class FreelancerController extends Controller
                         'back-end.freelancer.jobs.ongoing',
                         compact(
                             'ongoing_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }
@@ -561,7 +563,8 @@ class FreelancerController extends Controller
                         'extend.back-end.freelancer.jobs.completed',
                         compact(
                             'completed_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -569,7 +572,8 @@ class FreelancerController extends Controller
                         'back-end.freelancer.jobs.completed',
                         compact(
                             'completed_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }
@@ -579,7 +583,8 @@ class FreelancerController extends Controller
                         'extend.back-end.freelancer.jobs.cancelled',
                         compact(
                             'cancelled_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 } else {
@@ -587,7 +592,8 @@ class FreelancerController extends Controller
                         'back-end.freelancer.jobs.cancelled',
                         compact(
                             'cancelled_jobs',
-                            'symbol'
+                            'symbol',
+                            'status'
                         )
                     );
                 }

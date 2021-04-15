@@ -165,8 +165,8 @@
                             </a>
                             <ul class="sub-menu">
                                 <li><a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.manage_job') }}</a></li>
-                                <li><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>
-                                <li><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>
+                                <li><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>
+                                <li><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>
                             </ul>
                         </li>
                     @endif
@@ -211,19 +211,19 @@
                         </li>--}}
                     @endif
                 @elseif ($role === 'freelancer')
-                    <li class="menu-item-has-children page_item_has_children">
-                        <a href="javascript:void(0)">
+                    <li>
+                        <a href="{{route('freelancerJobsByStatus', ['status'=>'hired'])}}">
                             <i class="ti-briefcase"></i>
-                            <span>{{ trans('lang.all_projects') }}</span>
+                            <span>{{ trans('lang.manage_jobs') }}</span>
                         </a>
                         <ul class="sub-menu">
-                            {{--<li><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_projects') }}</a></li>--}}
-                            {{--<li><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_projects') }}</a></li>--}}
-                            {{--<li><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_projects') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('freelancer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('freelancer/jobs/cancelled') }}}">{{ trans('lang.cancelled_jobs') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('freelancer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>--}}
                         </ul>
                     </li>
                     @if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services')
-                        <li class="menu-item-has-children">
+                        <li>
                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                             <a href="javascript:void(0)">
                                 <i class="ti-briefcase"></i>
@@ -266,6 +266,19 @@
                             </a>
                         </li>
                     @endif--}}
+                
+                @elseif ($role === 'support')
+                    <li>
+                        <a href="{{route('supportJobsByStatus', ['status'=>'hired'])}}">
+                            <i class="ti-briefcase"></i>
+                            <span>{{ trans('lang.manage_jobs') }}</span>
+                        </a>
+                        <ul class="sub-menu">
+                            {{--<li><a href="{{{ url('support/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('support/jobs/cancelled') }}}">{{ trans('lang.cancelled_jobs') }}</a></li>--}}
+                            {{--<li><a href="{{{ url('support/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>--}}
+                        </ul>
+                    </li>
                 @endif
                 {{--<li>--}}
                     {{--<a href="{{{ url($role.'/saved-items') }}}">--}}
