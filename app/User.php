@@ -434,7 +434,8 @@ class User extends Authenticatable
                 $file->move($destinationPath,$newfiename);
                 $this->passport_visa = $newfiename;
             }
-            $this->expiry_passport_visa = date('Y-m-d', strtotime($request['expiry_passport_visa']));
+            if(isset($request['expiry_passport_visa']))
+                $this->expiry_passport_visa = date('Y-m-d', strtotime($request['expiry_passport_visa']));
             if(isset($request['profQualLevel']) &&
                 isset($request['profQualName']) &&
                 isset($request['profQualPlace']) &&
@@ -470,7 +471,8 @@ class User extends Authenticatable
                 $file->move($destinationPath,$newfiename);
                 $this->mand_training = $newfiename;
             }
-            $this->expiry_mand_training = date('Y-m-d', strtotime($request['expiry_mand_training']));
+            if(isset($request['expiry_mand_training']))
+                $this->expiry_mand_training = date('Y-m-d', strtotime($request['expiry_mand_training']));
             if(isset($request['cert_of_crbdbs']) && $file = $request['cert_of_crbdbs'])
             {
                 $destinationPath = 'uploads/files';
@@ -478,7 +480,8 @@ class User extends Authenticatable
                 $file->move($destinationPath,$newfiename);
                 $this->cert_of_crbdbs = $newfiename;
             }
-            $this->expiry_cert_of_crbdbs = date('Y-m-d', strtotime($request['expiry_cert_of_crbdbs']));
+            if(isset($request['expiry_cert_of_crbdbs']))
+                $this->expiry_cert_of_crbdbs = date('Y-m-d', strtotime($request['expiry_cert_of_crbdbs']));
             if(isset($request['occup_health']) && $file = $request['occup_health'])
             {
                 $destinationPath = 'uploads/files';
