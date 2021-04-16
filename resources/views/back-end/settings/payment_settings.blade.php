@@ -1,6 +1,10 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
 <?php
+$payment_options = array(
+    'BACs' => 'bacs',
+    'Cheque' => 'cheque'
+);
 $subscribe_options  = array(
     'plan_G6DvQf9zdEGczW'=>'6 Months',
     'plan_G6DvMJGDvP6wGz'=>'3 Months',
@@ -39,12 +43,6 @@ $subscribe_options  = array(
                                                 {!! Form::select('plan_id', $subscribe_options, $user->plan_id, array('placeholder' => "Select subscription ", 'class' => 'form-group')) !!}
                                                 <br>
                                                 @endif
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Preferred Payment Method</label>
-                                                <div class="wt-select">
-                                                {!! Form::select('preferred_payment_method', [], null, array('placeholder' => "Preferred Payment Method")) !!}
-                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Payment Option</label>
