@@ -3170,7 +3170,7 @@ class Helper extends Model
         //updated routes by slug
         if (\Route::currentRouteName() == 'showPage') {
             $slug = array_get(\Route::current()->parameters(), 'slug', null);
-            if(in_array($slug, ['main', 'about-us'])) {
+            if(in_array($slug, ['main', 'about-us', 'faqs'])) {
                 array_push($updatedRoutes, 'showPage');
             }
         }
