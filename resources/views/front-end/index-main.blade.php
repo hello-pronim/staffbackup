@@ -26,7 +26,7 @@
                                 <a class="header-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
                             </div>
                             <div class="header-navigation__menu-item-wrapper">
-                                <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+                                <a class="header-navigation__menu-item" href="{{ url('/page/faqs') }}">FAQs</a>
                             </div>
                             <div class="header-navigation__menu-item-wrapper">
                                 <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US FOR INFORMATION</a>
@@ -59,7 +59,7 @@
                         <a class="header-sm-navigation__menu-item" href="{{ (Helper::getAuthRoleName()!='Organisation') ? url('search-results?type=job') : '' }}">FIND TEMPORARY SHORT TERM WORK</a>
                     </div>
                     <div class="header-sm-navigation__menu-item-wrapper">
-                        <a class="header-sm-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+                        <a class="header-sm-navigation__menu-item" href="{{ url('/page/faqs') }}">FAQs</a>
                     </div>
                     <div class="header-sm-navigation__menu-item-wrapper">
                         <a class="header-sm-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US FOR INFORMATION</a>

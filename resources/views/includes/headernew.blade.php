@@ -30,7 +30,7 @@
                 <ul id="newmenu" class="list-unstyled" style="list-style: none;">
                     <li><a href="{{url('/')}}">START BROWSING ADHOC STAFF</a></li>
                     <li><a href="{{url('page/how-it-works')}}">FIND TEMPORARY SHORT TERM WORK</a></li>
-                    <li><a href="{{url('page/main')}}">FAQs</a></li>
+                    <li><a href="{{url('page/faqs')}}">FAQs</a></li>
                     <li style="border-right:none"><a href="{{ url('contact-us') }}" style="color:#2a3b65">CONTACT US<br> FOR INFORMATION</a>
                     </li>
                 </ul>

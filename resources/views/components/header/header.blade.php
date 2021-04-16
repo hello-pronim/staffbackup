@@ -22,7 +22,7 @@
                     </div>
                 @endif
                 <div class="header-navigation__menu-item-wrapper">
-                    <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+                    <a class="header-navigation__menu-item" href="{{ url('/page/faqs') }}">FAQs</a>
                 </div>
                 <div class="header-navigation__menu-item-wrapper">
                     <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">CONTACT US FOR INFORMATION</a>
@@ -68,7 +68,7 @@
             </div>
         @endif
         <div class="header-navigation__menu-item-wrapper">
-            <a class="header-navigation__menu-item" href="{{ url('/page/main') }}">FAQs</a>
+            <a class="header-navigation__menu-item" href="{{ url('/page/faqs') }}">FAQs</a>
         </div>
         <div class="header-navigation__menu-item-wrapper">
             <a class="header-navigation__menu-item" href="{{ url('/contact-us') }}">FCONTACT US FOR INFORMATION</a>

@@ -47,7 +47,7 @@
                     <div class="row dashboard-wt-tabscontent-wrapper">
                         <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
                             <div class="newStyleBoxesWrapper mt-10" style="margin: 0 auto">
-                                <div class="newBoxStyle">
+                                <div class="newBoxStyle" style="max-width: none">
                                     <div class="firsthalf"><a href="{{route('userListing')}}">{{ trans('lang.new_users') }}</a></div>
                                     <div class="secondhalf">
                                         {{($growth['percent'] > 0 ? '+' : '') . $growth['percent']."%"}}

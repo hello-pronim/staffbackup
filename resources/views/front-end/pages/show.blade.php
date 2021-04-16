@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     @else
         @if (file_exists(resource_path('views/extend/errors/404.blade.php'))) 
             @include('extend.errors.404')
