@@ -2213,18 +2213,6 @@ class UserController extends Controller
 
     public function growthActivity(Request $request){
         if (Auth::user() && Auth::user()->getRoleNames()->first() === 'admin') {
-            $lastMonthTotalUsersCount = DB::table('users')
-                                        ->where('created_at', '<', date('Y-m-d 23:59:59', strtotime('last day of previous month')))
-                                        ->get()
-                                        ->count();
-            $thisMonthTotalUsersCount = DB::table('users')
-                                        ->get()
-                                        ->count();
-            $usersGrowthData['before'] = $lastMonthTotalUsersCount;
-            $usersGrowthData['now'] = $thisMonthTotalUsersCount;
-            $usersGrowthData['more'] = $thisMonthTotalUsersCount - $lastMonthTotalUsersCount;
-            $usersGrowthData['percent'] = $lastMonthTotalUsersCount > 0 ? round((($thisMonthTotalUsersCount - $lastMonthTotalUsersCount) / $lastMonthTotalUsersCount) * 100, 2) : 0;
-                
             if(!empty($_GET['from']) && !empty($_GET['to'])) {
                 $firstDate = date('Y-m-d', strtotime(str_replace('/', '-', ('01'.'/'.$_GET['from']))));
                 $secondDate = date('Y-m-d', strtotime(str_replace('/', '-', ('01'.'/'.$_GET['to']))));
@@ -2234,113 +2222,59 @@ class UserController extends Controller
                     $secondDate = $temp;
                 }
 
-                /* $firstMonthUsers = DB::table('users')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($firstDate)))
-                                        ->get()->count();
-                $secondMonthUsers = DB::table('users')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($secondDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
-                                        ->get()->count();
-                $newUsersData['more'] = $secondMonthUsers - $firstMonthUsers;
-                $newUsersData['percent'] = $firstMonthUsers ? round((($secondMonthUsers - $firstMonthUsers) / $firstMonthUsers) * 100, 3) : 0; */
+                $lastMonthTotalUsersCount = DB::table('users')
+                                                ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($firstDate)))
+                                                ->get()
+                                                ->count();
+                $thisMonthTotalUsersCount = DB::table('users')
+                                                ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
+                                                ->get()
+                                                ->count();
+                $usersGrowthData['before'] = $lastMonthTotalUsersCount;
+                $usersGrowthData['now'] = $thisMonthTotalUsersCount;
+                $usersGrowthData['more'] = $thisMonthTotalUsersCount - $lastMonthTotalUsersCount;
+                $usersGrowthData['percent'] = $lastMonthTotalUsersCount > 0 ? round((($thisMonthTotalUsersCount - $lastMonthTotalUsersCount) / $lastMonthTotalUsersCount) * 100, 2) : 0;
+
                 $usersGrowth = DB::table('users')
-                                    ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
+                                    ->where('created_at', '>', date('Y-m-t 23:59:59', strtotime($firstDate)))
                                     ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
                                     ->get()->count();
                 $newUsersData['more'] = $usersGrowth;
 
-                /* $firstMonthJobs = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($firstDate)))
-                                        ->get()->count();
-                $secondMonthJobs = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($secondDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
-                                        ->get()->count();
-                $newJobsData['before'] = $firstMonthJobs;
-                $newJobsData['now'] = $secondMonthJobs;
-                $newJobsData['more'] = $secondMonthJobs - $firstMonthJobs;
-                $newJobsData['percent'] = $firstMonthJobs ? round((($secondMonthJobs - $firstMonthJobs) / $firstMonthJobs) * 100, 3) : 0; */
                 $jobsGrowth = DB::table('jobs')
-                                    ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
+                                    ->where('created_at', '>', date('Y-m-t 23:59:59', strtotime($firstDate)))
                                     ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
                                     ->get()->count();
                 $newJobsData['more'] = $jobsGrowth;
 
-                /* $firstMonthAvailabilities = DB::table('calendar_events')
-                                        ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($firstDate)))
-                                        ->get()->count();
-                $secondMonthAvailabilities = DB::table('calendar_events')
-                                        ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($secondDate)))
-                                        ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
-                                        ->get()->count();
-                $newAvailabilitiesData['before'] = $firstMonthAvailabilities;
-                $newAvailabilitiesData['now'] = $secondMonthAvailabilities;
-                $newAvailabilitiesData['more'] = $secondMonthAvailabilities - $firstMonthAvailabilities;
-                $newAvailabilitiesData['percent'] = $firstMonthAvailabilities? round((($secondMonthAvailabilities - $firstMonthAvailabilities) / $firstMonthAvailabilities) * 100, 3) : 0; */
                 $availabilitiesGrowth = DB::table('calendar_events')
                                             ->where('class', 'available_class')
-                                            ->where('created_at', '>=', date('Y-m-01 00:00:00', strtotime($firstDate)))
+                                            ->where('created_at', '>', date('Y-m-t 23:59:59', strtotime($firstDate)))
                                             ->where('created_at', '<=', date('Y-m-t 23:59:59', strtotime($secondDate)))
                                             ->get()->count();
                 $newAvailabilitiesData['more'] = $availabilitiesGrowth;
             } else {
-                /* $lastMonthUsers = DB::table('users')
-                                        ->where('created_at', '>=', date('Y-m-d', strtotime('first day of previous month')))
-                                        ->where('created_at', '<', date('Y-m-d', strtotime('first day of this month')))
-                                        ->get()
-                                        ->count();
-                $totalUsers = DB::table('users')
-                                        ->get()
-                                        ->count();
-                $newUsersData['before'] = $lastMonthUsers;
-                $newUsersData['now'] = $totalUsers;
-                $newUsersData['more'] = $totalUsers - $lastMonthUsers;
-                $newUsersData['percent'] = $lastMonthUsers ? round((($totalUsers - $lastMonthUsers) / $lastMonthUsers) * 100, 3) : 0;
-
-                $lastMonthJobs = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-d', strtotime('first day of previous month')))
-                                        ->where('created_at', '<', date('Y-m-d', strtotime('first day of this month')))
-                                        ->get()
-                                        ->count();
-                $totalJobs = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-d', strtotime('first day of this month')))
-                                        ->get()
-                                        ->count();
-                $newJobsData['before'] = $lastMonthJobs;
-                $newJobsData['now'] = $totalJobs;
-                $newJobsData['more'] = $totalJobs - $lastMonthJobs;
-                $newJobsData['percent'] = $lastMonthJobs ? round((($totalJobs - $lastMonthJobs) / $lastMonthJobs) * 100, 3) : 0;
-
-                $lastMonthAvailabilities = DB::table('calendar_events')
-                                        ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-d', strtotime('first day of previous month')))
-                                        ->where('created_at', '<', date('Y-m-d', strtotime('first day of this month')))
-                                        ->get()
-                                        ->count();
-                $totalAvailabilities = DB::table('calendar_events')
-                                        ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-d', strtotime('first day of this month')))
-                                        ->get()
-                                        ->count();
-                $newAvailabilitiesData['before'] = $lastMonthAvailabilities;
-                $newAvailabilitiesData['now'] = $totalAvailabilities;
-                $newAvailabilitiesData['more'] = $totalAvailabilities - $lastMonthAvailabilities;
-                $newAvailabilitiesData['percent'] = $lastMonthAvailabilities? round((($totalAvailabilities - $lastMonthAvailabilities) / $lastMonthAvailabilities) * 100, 3) : 0; */
+                $lastMonthTotalUsersCount = DB::table('users')
+                                                ->where('created_at', '<', date('Y-m-d 23:59:59', strtotime('last day of previous month')))
+                                                ->get()
+                                                ->count();
+                $thisMonthTotalUsersCount = DB::table('users')
+                                            ->get()
+                                            ->count();
+                $usersGrowthData['before'] = $lastMonthTotalUsersCount;
+                $usersGrowthData['now'] = $thisMonthTotalUsersCount;
+                $usersGrowthData['more'] = $thisMonthTotalUsersCount - $lastMonthTotalUsersCount;
+                $usersGrowthData['percent'] = $lastMonthTotalUsersCount > 0 ? round((($thisMonthTotalUsersCount - $lastMonthTotalUsersCount) / $lastMonthTotalUsersCount) * 100, 2) : 0;
 
                 $usersGrowth = DB::table('users')
-                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '>', date('Y-m-d 23:59:59', strtotime('last day of previous month')))
                                         ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();
                 $newUsersData['more'] = $usersGrowth;
 
                 $jobsGrowth = DB::table('jobs')
-                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '>', date('Y-m-d 23:59:59', strtotime('last day of previous month')))
                                         ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();
@@ -2348,7 +2282,7 @@ class UserController extends Controller
 
                 $availabilityGrowth = DB::table('calendar_events')
                                         ->where('class', 'available_class')
-                                        ->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime('first day of previous month')))
+                                        ->where('created_at', '>', date('Y-m-d 23:59:59', strtotime('last day of previous month')))
                                         ->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime('last day of this month')))
                                         ->get()
                                         ->count();

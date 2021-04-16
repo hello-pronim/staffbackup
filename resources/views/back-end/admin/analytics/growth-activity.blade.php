@@ -8,27 +8,10 @@
                         <flash_messages :message_class="'success'" :time ='5' :message="'{{{ Session::get('message') }}}'" v-cloak></flash_messages>
                     </div>
                 @endif
+                
                 <div class="wt-dashboardbox flex-column mb-50">
                     <div class="wt-dashboardboxtitle wt-titlewithsearch">
                         <h2>{{{ trans('lang.growth') }}}</h2>
-                    </div>
-                    <div class="row dashboard-wt-tabscontent-wrapper">
-                        <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
-                            <div class="newStyleBoxesWrapper mt-10" style="margin: 0 auto">
-                                <div class="newBoxStyle">
-                                    <div class="firsthalf"><a href="{{route('userListing')}}">{{ trans('lang.new_users') }}</a></div>
-                                    <div class="secondhalf">
-                                        {{($growth['percent'] > 0 ? '+' : '') . $growth['percent']."%"}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="wt-dashboardbox flex-column">
-                    <div class="wt-dashboardboxtitle wt-titlewithsearch">
-                        <h2>{{{ trans('lang.activity') }}}</h2>
                         <form class="wt-formtheme wt-formsearch">
                             <fieldset>
                                 <div class="form-group">
@@ -60,6 +43,24 @@
                                 </div>
                             </fieldset>
                         </form>
+                    </div>
+                    <div class="row dashboard-wt-tabscontent-wrapper">
+                        <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
+                            <div class="newStyleBoxesWrapper mt-10" style="margin: 0 auto">
+                                <div class="newBoxStyle">
+                                    <div class="firsthalf"><a href="{{route('userListing')}}">{{ trans('lang.new_users') }}</a></div>
+                                    <div class="secondhalf">
+                                        {{($growth['percent'] > 0 ? '+' : '') . $growth['percent']."%"}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wt-dashboardbox flex-column">
+                    <div class="wt-dashboardboxtitle wt-titlewithsearch">
+                        <h2>{{{ trans('lang.activity') }}}</h2>
                     </div>
                     <div class="row dashboard-wt-tabscontent-wrapper">
                         <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
