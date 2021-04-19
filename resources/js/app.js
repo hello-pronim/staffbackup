@@ -4435,6 +4435,30 @@ if (document.getElementById("user_profile")) {
             if (error.response.data.errors.gender) {
               self.showError(error.response.data.errors.gender[0]);
             }
+            if (error.response.data.errors.passport_visa) {
+              self.showError(error.response.data.errors.passport_visa[0]);
+            }
+            if (error.response.data.errors.expiry_passport_visa) {
+              self.showError(
+                error.response.data.errors.expiry_passport_visa[0]
+              );
+            }
+            if (error.response.data.errors.mand_training) {
+              self.showError(error.response.data.errors.mand_training[0]);
+            }
+            if (error.response.data.errors.expiry_mand_training) {
+              self.showError(
+                error.response.data.errors.expiry_mand_training[0]
+              );
+            }
+            if (error.response.data.errors.cert_of_crbdbs) {
+              self.showError(error.response.data.errors.cert_of_crbdbs[0]);
+            }
+            if (error.response.data.errors.expiry_cert_of_crbdbs) {
+              self.showError(
+                error.response.data.errors.expiry_cert_of_crbdbs[0]
+              );
+            }
           });
       },
       submitExperienceEduction: function() {

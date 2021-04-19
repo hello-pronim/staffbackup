@@ -220,8 +220,6 @@ class FreelancerController extends Controller
                 'expiry_mand_training' => 'required',
                 'cert_of_crbdbs' => 'required',
                 'expiry_cert_of_crbdbs' => 'required',
-                'passport_visa' => 'required',
-                'expiry_passport_visa' => 'required',
                 'radius' => 'nullable|numeric',
                 'latitude'    => 'nullable|numeric',
                 'longitude'    => 'nullable|numeric',

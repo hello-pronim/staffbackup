@@ -209,6 +209,12 @@ class SupportController extends Controller
             [
                 'first_name'    => 'required',
                 'last_name'    => 'required',
+                'passport_visa' => 'required',
+                'expiry_passport_visa' => 'required',
+                'mand_training' => 'required',
+                'expiry_mand_training' => 'required',
+                'cert_of_crbdbs' => 'required',
+                'expiry_cert_of_crbdbs' => 'required',
             ]
         );
         if (Auth::user()) {
