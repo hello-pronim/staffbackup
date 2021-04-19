@@ -4316,6 +4316,41 @@ if (document.getElementById("user_profile")) {
         this.uploaded_banner = true;
         document.getElementById("hidden_banner").value = "";
       },
+      onPassportVisaChanged: function(event) {
+        let self = this;
+        if (event.target.files.length > 0) {
+          var expiry_date = document.getElementById("expiry_passport_visa")
+            .value;
+          if (!expiry_date) {
+            self.showError("You must enter expiry date of passport/visa");
+            $("#expiry_passport_visa").focus();
+          }
+        }
+      },
+      onMandTrainingChanged: function(event) {
+        let self = this;
+        if (event.target.files.length > 0) {
+          var expiry_date = document.getElementById("expiry_mand_training")
+            .value;
+          if (!expiry_date) {
+            self.showError("You must enter expiry date of mandatory training");
+            $("#expiry_mand_training").focus();
+          }
+        }
+      },
+      onCertOfCRBDBSChanged: function(event) {
+        let self = this;
+        if (event.target.files.length > 0) {
+          var expiry_date = document.getElementById("expiry_cert_of_crbdbs")
+            .value;
+          if (!expiry_date) {
+            self.showError(
+              "You must enter expiry date of certificate of CRB/DBS"
+            );
+            $("#expiry_cert_of_crbdbs").focus();
+          }
+        }
+      },
       submitFreelancerProfile: function() {
         var self = this;
         var profile_data = document.getElementById("freelancer_profile");
@@ -4348,11 +4383,29 @@ if (document.getElementById("user_profile")) {
             if (error.response.data.errors.pin_date_revalid) {
               self.showError(error.response.data.errors.pin_date_revalid[0]);
             }
-            if (error.response.data.errors.prof_ind_cert) {
-              self.showError(error.response.data.errors.prof_ind_cert[0]);
-            }
             if (error.response.data.errors.passport_visa) {
               self.showError(error.response.data.errors.passport_visa[0]);
+            }
+            if (error.response.data.errors.expiry_passport_visa) {
+              self.showError(
+                error.response.data.errors.expiry_passport_visa[0]
+              );
+            }
+            if (error.response.data.errors.mand_training) {
+              self.showError(error.response.data.errors.mand_training[0]);
+            }
+            if (error.response.data.errors.expiry_mand_training) {
+              self.showError(
+                error.response.data.errors.expiry_mand_training[0]
+              );
+            }
+            if (error.response.data.errors.cert_of_crbdbs) {
+              self.showError(error.response.data.errors.cert_of_crbdbs[0]);
+            }
+            if (error.response.data.errors.expiry_cert_of_crbdbs) {
+              self.showError(
+                error.response.data.errors.expiry_cert_of_crbdbs[0]
+              );
             }
           });
       },
