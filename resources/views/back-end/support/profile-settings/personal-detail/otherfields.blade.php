@@ -329,12 +329,13 @@
             <div class="form-group form-group-half">
                 <input type="file" name="passport_visa"
                     class="form-control"
-                    accept=".pdf, image/*,.doc,.docx">
+                    accept=".pdf, image/*,.doc,.docx"
+                    @change="onPassportVisaChanged">
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
-                    value="{{date('d-m-Y', strtotime($user->expiry_passport_visa))}}"
+                    value="{{$user->expiry_passport_visa ? date('d-m-Y', strtotime($user->expiry_passport_visa)) : ''}}"
                     class="form-control"
                     name="expiry_passport_visa"
                     placeholder="Expiry date of mandatory training"
@@ -415,12 +416,13 @@
             <div class="form-group form-group-half">
                 <input type="file" name="mand_training"
                     class="form-control"
-                    accept=".pdf, image/*,.doc,.docx">
+                    accept=".pdf, image/*,.doc,.docx"
+                    @change="onMandTrainingChanged">
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
-                    value="{{date('d-m-Y', strtotime($user->expiry_mand_training))}}"
+                    value="{{$user->expiry_mand_training ? date('d-m-Y', strtotime($user->expiry_mand_training)) : ''}}"
                     class="form-control"
                     name="expiry_mand_training"
                     placeholder="Expiry date of mandatory training"
@@ -440,12 +442,13 @@
             <div class="form-group form-group-half">
                 <input type="file" name="cert_of_crbdbs"
                     class="form-control"
-                    accept=".pdf, image/*,.doc,.docx">
+                    accept=".pdf, image/*,.doc,.docx"
+                    @change="onCertOfCRBDBSChanged">
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
-                    value="{{date('d-m-Y', strtotime($user->expiry_cert_of_crbdbs))}}"
+                    value="{{$user->expiry_cert_of_crbdbs ? date('d-m-Y', strtotime($user->expiry_cert_of_crbdbs)) : ''}}"
                     class="form-control"
                     name="expiry_cert_of_crbdbs"
                     placeholder="Expiry date of mandatory training"
