@@ -27,7 +27,7 @@
             <div class="row newStyleBoxes" style="display:block; margin: 0 auto">
                 <div class="newStyleBoxesWrapper" style="margin: 0 auto">
                     <div class="newBoxStyle">
-                        <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.latest_proposals') }}</a></div>
+                        <div class="firsthalf"><a href="{{route('showFreelancerProposals')}}">{{ trans('lang.new_proposals') }}</a></div>
                         <div class="secondhalf">{{$lastest_proposals}}</div>
                     </div>
                     <div class="newBoxStyle">

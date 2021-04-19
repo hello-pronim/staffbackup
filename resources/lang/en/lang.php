@@ -873,6 +873,7 @@ return [
     'skills_already_selected' => 'Skills already selected',
     'cannot_purchase_more_then_one_pkg' => 'You are not allowed to purchase more then one package',
     'latest_proposals' => 'Latest Proposals',
+    'new_proposals' => 'New Proposals',
     'browse_job_cats' => 'Browse Top Job Categories:',
     'session_expire' => 'Session Expired.',
     'items' => 'Items: ',
