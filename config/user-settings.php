@@ -2,13 +2,15 @@
 
 return [
     'settings' => [
-        'NHS' => 'NHS',
+        'Car Home' => 'Car Home',
         'GP surgery'=>'GP surgery',
-        'Walk in centre'=>'Walk in centre',
-        'Urgent care centre'=>'Urgent care centre',
+        'GP Service' => 'GP Service',
+        'NHS' => 'NHS',
+        'Nursing Home' => 'Nursing Home',
         'Out Of Hours service'=>'Out Of Hours service',
         'Private' => 'Private',
-        'GP Service' => 'GP Service',
+        'Urgent care centre'=>'Urgent care centre',
+        'Walk in centre'=>'Walk in centre',
         'Other'=>'Other',
     ],
 
