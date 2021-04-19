@@ -339,6 +339,7 @@
                     class="form-control"
                     name="expiry_passport_visa"
                     placeholder="Expiry date of mandatory training"
+                    id="expiry_passport_visa"
                 >
                 </date-picker>
             </div>
@@ -426,6 +427,7 @@
                     class="form-control"
                     name="expiry_mand_training"
                     placeholder="Expiry date of mandatory training"
+                    id="expiry_mand_training"
                 >
                 </date-picker>
             </div>
@@ -452,6 +454,7 @@
                     class="form-control"
                     name="expiry_cert_of_crbdbs"
                     placeholder="Expiry date of mandatory training"
+                    id="expiry_cert_of_crbdbs"
                 >
                 </date-picker>
             </div>
