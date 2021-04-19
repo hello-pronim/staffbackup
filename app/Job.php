@@ -545,25 +545,31 @@ class Job extends Model
             if($request->hours) {
                 $start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
                 $start_date->setTime($request->hours, $request->minutes ?? null);
+                
+                $jobs->whereHas('calendars', function(Builder $query) use ($start_date) {
+                    $query->where('start', '>=', $start_date);
+                });
             } else {
                 $start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
+                $jobs->whereHas('calendars', function(Builder $query) use ($start_date) {
+                    $query->where('start', '>=', date('Y-m-d 00:00:00', strtotime($start_date)));
+                });
             }
-            $jobs->whereHas('calendars', function(Builder $query) use ($start_date) {
-                $query->where('start', '>=', $start_date);
-            });
         }
         if ($request->end_date) {
             if($request->hours) {
                 $end_date = Carbon::createFromFormat('d/m/Y', $request->end_date);
                 $end_date->setTime($request->hours, $request->minutes ?? null);
+                $jobs->whereHas('calendars', function(Builder $query) use ($end_date) {
+                    $query->where('start', '<=', $end_date);
+                });
             } else {
                 $end_date = Carbon::createFromFormat('d/m/Y', $request->end_date);
+                $jobs->whereHas('calendars', function(Builder $query) use ($end_date) {
+                    $query->where('start', '<=', date('Y-m-d 23:59:59', strtotime($end_date)));
+                });
             }
-            $jobs->whereHas('calendars', function(Builder $query) use ($end_date) {
-                $query->where('start', '<=', $end_date);
-            });
         }
-
         if ($request->location) {
             $filters['location'] = $request->location;
             if ($request->latitude && $request->longitude) {
