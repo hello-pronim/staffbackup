@@ -340,8 +340,10 @@
                     name="expiry_passport_visa"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_passport_visa"
+                    @dp-change="onExpiryPassportVisaChanged"
                 >
                 </date-picker>
+                <div class="invalid-feedback">Please provide an expiry date.</div>
             </div>
         </div>
         <div class="form-group form-group">
@@ -428,8 +430,10 @@
                     name="expiry_mand_training"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_mand_training"
+                    @dp-change="onExpiryMandTrainingChanged"
                 >
                 </date-picker>
+                <div class="invalid-feedback">Please provide an expiry date.</div>
             </div>
         </div>
         <div class="form-group ">
@@ -455,8 +459,10 @@
                     name="expiry_cert_of_crbdbs"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_cert_of_crbdbs"
+                    @dp-change="onExpiryCertOfCRBDBSChanged"
                 >
                 </date-picker>
+                <div class="invalid-feedback">Please provide an expiry date.</div>
             </div>
         </div>
         <div class="form-group ">

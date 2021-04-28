@@ -4322,9 +4322,20 @@ if (document.getElementById("user_profile")) {
           var expiry_date = document.getElementById("expiry_passport_visa")
             .value;
           if (!expiry_date) {
-            self.showError("You must enter expiry date of passport/visa");
-            $("#expiry_passport_visa").focus();
+            $("#expiry_passport_visa").addClass("is-invalid");
+            $("#expiry_passport_visa")
+              .closest(".invalid-feedback")
+              .show();
           }
+        }
+      },
+      onExpiryPassportVisaChanged: function(event) {
+        var expiry_date = document.getElementById("expiry_passport_visa").value;
+        if (expiry_date) {
+          $("#expiry_passport_visa").removeClass("is-invalid");
+          $("#expiry_passport_visa")
+            .closest(".invalid-feedback")
+            .hide();
         }
       },
       onMandTrainingChanged: function(event) {
@@ -4333,9 +4344,20 @@ if (document.getElementById("user_profile")) {
           var expiry_date = document.getElementById("expiry_mand_training")
             .value;
           if (!expiry_date) {
-            self.showError("You must enter expiry date of mandatory training");
-            $("#expiry_mand_training").focus();
+            $("#expiry_mand_training").addClass("is-invalid");
+            $("#expiry_mand_training")
+              .closest(".invalid-feedback")
+              .show();
           }
+        }
+      },
+      onExpiryMandTrainingChanged: function(event) {
+        var expiry_date = document.getElementById("expiry_mand_training").value;
+        if (expiry_date) {
+          $("#expiry_mand_training").removeClass("is-invalid");
+          $("#expiry_mand_training")
+            .closest(".invalid-feedback")
+            .hide();
         }
       },
       onCertOfCRBDBSChanged: function(event) {
@@ -4344,11 +4366,21 @@ if (document.getElementById("user_profile")) {
           var expiry_date = document.getElementById("expiry_cert_of_crbdbs")
             .value;
           if (!expiry_date) {
-            self.showError(
-              "You must enter expiry date of certificate of CRB/DBS"
-            );
-            $("#expiry_cert_of_crbdbs").focus();
+            $("#expiry_cert_of_crbdbs").addClass("is-invalid");
+            $("#expiry_cert_of_crbdbs")
+              .closest(".invalid-feedback")
+              .show();
           }
+        }
+      },
+      onExpiryCertOfCRBDBSChanged: function(event) {
+        var expiry_date = document.getElementById("expiry_cert_of_crbdbs")
+          .value;
+        if (expiry_date) {
+          $("#expiry_cert_of_crbdbs").removeClass("is-invalid");
+          $("#expiry_cert_of_crbdbs")
+            .closest(".invalid-feedback")
+            .hide();
         }
       },
       submitFreelancerProfile: function() {
