@@ -84,7 +84,7 @@ $user = auth()->user();
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <input type="text" name="" v-model="selectedDateFrom" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ date('d/m/Y', strtotime($avail_date_from)) }}" />
+                                    class="selectDatePicker" ref="availDateFrom" data-value="{{ $avail_date_from ? date('d/m/Y', strtotime($avail_date_from)) : date('d/m/Y') }}" />
                                 <vue-cal id="calendar_small_from"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"
@@ -99,7 +99,7 @@ $user = auth()->user();
                             <div class="search-field-input">
                                 <img src="{{url('images/icons/Layer 48.png')}}" alt="">
                                 <input type="text" name="" v-model="selectedDateTo" placeholder="Date..."
-                                    class="selectDatePicker" ref="availDateTo" data-value="{{ date('d/m/Y', strtotime($avail_date_to)) }}" />
+                                    class="selectDatePicker" ref="availDateTo" data-value="{{ $avail_date_to ? date('d/m/Y', strtotime($avail_date_to)) : date('d/m/Y') }}" />
                                 <vue-cal id="calendar_small_to"
                                     style="display:none;z-index:5; background-color:white;width:230px;position: absolute; height: 290px;"
                                     class=" vuecal--green-theme" xsmall hide-view-selector :time="false"

@@ -423,7 +423,7 @@ if (document.getElementById("all_availability")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -936,7 +936,7 @@ if (document.getElementById("support_availability")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -1423,7 +1423,7 @@ if (document.getElementById("freelancer_availability")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -4175,7 +4175,7 @@ if (document.getElementById("user_profile")) {
           },
           error: {
             position: "topRight",
-            timeout: 5000,
+            timeout: 3000,
             class: "error_notification",
           },
           completed: {
@@ -4812,7 +4812,7 @@ if (document.getElementById("settings")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -5581,7 +5581,7 @@ if (document.getElementById("profile_settings")) {
             },
             error: {
               position: "topRight",
-              timeout: 7000,
+              timeout: 5000,
             },
             completed: {
               position: "center",
@@ -5890,7 +5890,7 @@ if (document.getElementById("post_job")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -6206,7 +6206,7 @@ if (document.getElementById("post_job_dashboard")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -6722,7 +6722,7 @@ if (document.getElementById("post_job_edit")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             position: "center",
@@ -8099,7 +8099,7 @@ if (document.getElementById("services")) {
           },
           error: {
             position: "topRight",
-            timeout: 7000,
+            timeout: 5000,
           },
           completed: {
             overlay: true,
