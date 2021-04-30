@@ -198,8 +198,8 @@ class EmailTemplateSeeder extends Seeder
                     <p><strong> <a href="%freelancer_link%">%freelancer_name%</a></strong> has sent a new proposal on the following project <a href="%project_link%"><strong>%project_title%</strong></a>. Project Information is given below.</p>
                     <p><strong>Proposal Amount :</strong> %proposal_amount%</p>
                     <p><strong>Project Duration :</strong> %proposal_duration%</p>
-                    <p><strong>Message:</strong></p>
-                    <p>%message%</p>
+                    <p><strong>Message:</strong> %message%</p>
+                    <p>To accept <a href="%freelancer_link%">%freelancer_name%</a>\'s proposal, click <a href="%accept_link%">here</a></p>.
                     <p>%signature%</p>',
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

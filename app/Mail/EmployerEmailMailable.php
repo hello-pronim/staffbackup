@@ -87,6 +87,9 @@ class EmployerEmailMailable extends Mailable
         $freelancer_link = $freelancer_profile;
         $project_title = $title;
         $project_link = $link;
+        $project_id = $job_id;
+        $proposal_id = $proposal_id;
+        $accept_link = url('payment-process/'.$proposal_id);
         $proposal_amount = $amount;
         //$proposal_duration = $duration;
         $proposal_duration = "Undefined";
@@ -101,6 +104,8 @@ class EmployerEmailMailable extends Mailable
                                     Project Duration : %proposal_duration%
                                     Message: %message%
 
+                                    To accept <a href='%freelancer_link%'>%freelancer_name%</a>'s proposal, click <a href='%accept_link%'>here</a>.
+
                                     %signature%,";
         //set default contents
         if (empty($app_content)) {
@@ -114,6 +119,7 @@ class EmployerEmailMailable extends Mailable
         $app_content = str_replace("%proposal_amount%", $proposal_amount, $app_content);
         $app_content = str_replace("%proposal_duration%", $proposal_duration, $app_content);
         $app_content = str_replace("%message%", $proposal_message, $app_content);
+        $app_content = str_replace("%accept_link%", $accept_link, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";

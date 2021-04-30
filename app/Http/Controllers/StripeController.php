@@ -332,9 +332,9 @@ class StripeController extends Controller
 
                                 //create an event for employer
                                 $arrNewEvent = CalendarEvent::where('job_id', $job->id)->where('class', '=', 'booking_calendar')->get()->first();
-                                $arrNewEvent['class'] = 'booking_hired';
-                                $arrNewEvent['created_at'] = now();
-                                $arrNewEvent['updated_at'] = now();
+                                $arrNewEvent->class = 'booking_hired';
+                                $arrNewEvent->created_at = now();
+                                $arrNewEvent->updated_at = now();
                                 $arrNewEvent->save();
 
                                 //book an event for freelancer
@@ -368,7 +368,7 @@ class StripeController extends Controller
                                 $user = User::find(intval(Auth::user()->id));
                                 $message->user()->associate($user);
                                 $message->receiver_id = intval($proposal->freelancer_id);
-                                $message->body = trans('lang.hire_for') . ' ' . $job->title . ' ' . trans('lang.project');
+                                $message->body = trans('lang.hire_for') . ' ' . '<a href="' . url('job/'.$job->slug) . '">'.  $job->title . '</a> ' . trans('lang.project');
                                 $message->status = 0;
                                 $message->save();
                                 // send mail
