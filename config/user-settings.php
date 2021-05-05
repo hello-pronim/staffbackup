@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'Car Home' => 'Car Home',
+        'Care Home' => 'Care Home',
         'GP surgery'=>'GP surgery',
         'GP Service' => 'GP Service',
         'NHS' => 'NHS',
