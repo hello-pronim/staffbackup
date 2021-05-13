@@ -64,7 +64,7 @@
             <nav id="wt-navdashboard" class="wt-navdashboard">
                 <div style="width:80%;border-bottom:1px solid white;margin:0 auto 30px auto"></div>
                 <ul>
-                    @if ($role === 'admin')
+                    @if ($role === 'admin' || $role === 'super-admin')
                         <li>
                             <a href="{{{ url($role.'/dashboard') }}}">
                                 <i class="ti-desktop"></i>
@@ -117,6 +117,7 @@
                                 <span>{{ trans('lang.messages') }}</span>
                             </a>
                         </li>
+                        @if($role === 'super-admin')
                         <li>
                             <a href="{{{ route('reviewOptions') }}}">
                                 <i class="ti-check-box"></i>
@@ -159,6 +160,7 @@
                                 <span>{{ trans('lang.home_page_settings') }}</span>
                             </a>
                         </li>
+                        @endif
                         <li class="menu-item-has-children">
                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                             <a href="javascript:void(0)">
@@ -171,6 +173,7 @@
                                 <li><hr><a href="{{{ route('resetPassword') }}}">{{ trans('lang.reset_pass') }}</a></li>
                             </ul>
                         </li>
+                        @if($role === 'super-admin')
                         <li class="menu-item-has-children">
                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                             <a href="javascript:void(0)">
@@ -188,6 +191,7 @@
                                 <li><a href="{{{ route('ResponseTime') }}}">{{ trans('lang.response_time') }}</a></li>
                             </ul>
                         </li>
+                        @endif
                     @endif
                     @if ($role === 'employer' || $role === 'freelancer'  || $role === 'support' )
                             <li>

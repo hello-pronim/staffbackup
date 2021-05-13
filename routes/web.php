@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 // Admin Routes
 Route::group(
-    ['middleware' => ['role:admin']],
+    ['middleware' => ['role:admin|super-admin']],
     function () {
         //dashboard
         Route::get('admin/dashboard', 'UserController@adminDashboard')->name('adminDashboard');
@@ -252,7 +252,7 @@ Route::group(
 );
 
 Route::group(
-    ['middleware' => ['role:employer|admin']],
+    ['middleware' => ['role:employer|admin|super-admin']],
     function () {
         Route::get('job/edit-job/{job_slug}', 'JobController@edit')->name('editJob');
         Route::get('job/get-job-appointment/{id}', 'JobController@getJobAppointment')->name('getJobAppointment');
@@ -266,7 +266,7 @@ Route::group(
     }
 );
 Route::group(
-    ['middleware' => ['role:freelancer|admin']],
+    ['middleware' => ['role:freelancer|admin|super-admin']],
     function () {
         if (Helper::getAccessType() == 'both' || Helper::getAccessType() == 'services') {
             Route::get('freelancer/services/{status}', 'FreelancerController@showServices')->name('ServiceListing');
@@ -371,7 +371,7 @@ Route::group(
 );
 // Employer|Freelancer Routes
 Route::group(
-    ['middleware' => ['role:employer|freelancer|admin|support']],
+    ['middleware' => ['role:employer|freelancer|admin|super-admin|support']],
     function () {
         Route::post('freelancer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');
         Route::post('employer/saveCalendarAvailability', 'FreelancerController@saveCalendarAvailability');

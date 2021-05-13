@@ -63,9 +63,9 @@ class LoginController extends Controller
 
                 $user_role = $user_role_type->role_type;
 
-                if(Auth::user()->stripe_token=="" || $user_role=="admin" || $user_role=="employer" || $user_role=='freelancer' || $user_role=='support' )
+                if(Auth::user()->stripe_token=="" || $user_role=="super-admin" || $user_role=="admin" || $user_role=="employer" || $user_role=='freelancer' || $user_role=='support' )
                 {
-                    if($user_role=="admin"){
+                    if($user_role=="super-admin" || $user_role=="admin"){
                         return Redirect::to('admin/dashboard');
                     }
                     else if ($user_role === 'freelancer' || $user_role=='support' ) {
