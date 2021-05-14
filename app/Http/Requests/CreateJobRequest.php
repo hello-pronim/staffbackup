@@ -34,6 +34,7 @@ class CreateJobRequest extends FormRequest
             'start' => 'nullable|date',
             'end' => 'nullable|date',
             'profession_id' => 'required',
+            'direct_booking' => 'required'
         ];
     }
     
