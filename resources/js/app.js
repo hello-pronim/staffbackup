@@ -4576,6 +4576,9 @@ if (document.getElementById("user_profile")) {
             if (error.response.data.errors.last_name) {
               self.showError(error.response.data.errors.last_name[0]);
             }
+            if (error.response.data.errors.org_name) {
+              self.showError(error.response.data.errors.org_name[0]);
+            }
             if (error.response.data.errors.email) {
               self.showError(error.response.data.errors.email[0]);
             }
