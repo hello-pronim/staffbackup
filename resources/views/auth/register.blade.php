@@ -6,7 +6,15 @@ $employees = Helper::getEmployeesList();
 $departments = App\Department::all();
 $locations = App\Location::select('title', 'id')->get()->pluck('title', 'id')->toArray();
 $roles = Spatie\Permission\Models\Role::all()->toArray();
-unset($roles[0]); // remove admin role
+function filterUserRoles($role)
+{
+    // returns if the input integer is even
+    if($role['role_type']==='admin' || $role['role_type']==='super-admin')
+       return FALSE;
+    else 
+       return TRUE; 
+}
+$roles = array_filter($roles, 'filterUserRoles');
 $payment_plans = Helper::getPlanList();
 $register_form = App\SiteManagement::getMetaValue('reg_form_settings');
 $reg_one_title = !empty($register_form) && !empty($register_form[0]['step1-title']) ? $register_form[0]['step1-title'] :
