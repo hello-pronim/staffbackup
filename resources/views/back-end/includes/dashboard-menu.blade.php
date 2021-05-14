@@ -160,7 +160,6 @@
                                 <span>{{ trans('lang.home_page_settings') }}</span>
                             </a>
                         </li>
-                        @endif
                         <li class="menu-item-has-children">
                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                             <a href="javascript:void(0)">
@@ -173,7 +172,6 @@
                                 <li><hr><a href="{{{ route('resetPassword') }}}">{{ trans('lang.reset_pass') }}</a></li>
                             </ul>
                         </li>
-                        @if($role === 'super-admin')
                         <li class="menu-item-has-children">
                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                             <a href="javascript:void(0)">

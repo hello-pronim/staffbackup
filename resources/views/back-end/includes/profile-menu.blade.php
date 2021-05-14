@@ -97,7 +97,6 @@
                         <span>{{ trans('lang.home_page_settings') }}</span>
                     </a>
                 </li>
-                @endif
                 <li class="menu-item-has-children">
                     <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
                     <a href="{{{ route('adminProfile') }}}">
@@ -110,7 +109,6 @@
                         <li><a href="{{{ route('resetPassword') }}}">{{ trans('lang.resphpet_pass') }}</a></li>
                     </ul>
                 </li>
-                @if($role === "super-admin")
                 <li class="menu-item-has-children">
                     <span class="wt-dropdowarrow"><i class="ti-layers"></i></span>
                     <a href="{{{ route('categories') }}}">
