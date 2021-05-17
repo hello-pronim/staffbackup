@@ -84,6 +84,7 @@ Route::post('user/add-wishlist', 'UserController@addWishlist');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('jobs', 'JobController@listjobs')->name('jobs');
     Route::get('job/{slug}', 'JobController@show')->name('jobDetail');
+    Route::get('job1/{slug}', 'JobController@show1')->name('jobDetail1');
     Route::get('search-results', 'PublicController@getSearchResult')->name('searchResults');
     Route::get('profile/{slug}', 'PublicController@showUserProfile')->name('showUserProfile');
 });

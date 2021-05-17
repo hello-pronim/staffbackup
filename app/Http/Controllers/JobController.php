@@ -635,6 +635,79 @@ class JobController extends Controller
      * @param Request $request
      * @return mixed
      */
+    public function show1(Request $request)
+    {
+        $back_url = route('goToDashboard');
+        $urlPrevious = url()->previous();
+        $backRouteName = app('router')->getRoutes($urlPrevious)->match(app('request')->create($urlPrevious))->getName();
+        if (in_array($backRouteName, ['searchResults', 'employerDashboard', 'freelancerDashboard', 'supportDashboard'])) {
+            $back_url = $urlPrevious;
+        }
+        $job = Job::where('slug', $request->slug)->firstOrFail();
+
+        if ($job) {
+            $submitted_proposals = $job->proposals->where('status', '!=', 'cancelled')->pluck('freelancer_id')->toArray();
+            $employer_id = $job->employer->id;
+            $profile = User::find($employer_id)->profile;
+            $user_image = !empty($profile) ? $profile->avater : '';
+            $profile_image = !empty($user_image) ? '/uploads/users/' . $job->employer->id . '/' . $user_image : 'images/user-login.png';
+            $reasons = Helper::getReportReasons();
+            $auth_profile = Auth::user() ? auth()->user()->profile : '';
+            $save_jobs = !empty($auth_profile->saved_jobs) ? unserialize($auth_profile->saved_jobs) : array();
+            $save_employers = !empty($auth_profile->saved_employers) ? unserialize($auth_profile->saved_employers) : array();
+            $attachments  = unserialize($job->attachments);
+            $currency   = SiteManagement::getMetaValue('commision');
+            $symbol = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
+            $project_type  = Helper::getProjectTypeList($job->project_type);
+            $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
+            $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+            $user = $profile->user;
+
+            if (file_exists(resource_path('views/extend/front-end/jobs/show1.blade.php'))) {
+                return view(
+                    'extend.front-end.jobs.show1',
+                    compact(
+                        'job',
+                        'reasons',
+                        'profile_image',
+                        'submitted_proposals',
+                        'save_jobs',
+                        'save_employers',
+                        'attachments',
+                        'symbol',
+                        'project_type',
+                        'show_breadcrumbs',
+                        'user',
+                        'back_url'
+                    )
+                );
+            } else {
+                return view(
+                    'front-end.jobs.show1',
+                    compact(
+                        'job',
+                        'reasons',
+                        'profile_image',
+                        'submitted_proposals',
+                        'save_jobs',
+                        'save_employers',
+                        'attachments',
+                        'symbol',
+                        'project_type',
+                        'show_breadcrumbs',
+                        'user',
+                        'back_url'
+                    )
+                );
+            }
+        } else {
+            abort(404);
+        }
+    }
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function getJobAppointment(Request $request)
     {
         $job = Job::find($request->id);
