@@ -59,6 +59,34 @@
                     </div>
                     @endif
 
+                    @php
+                        $arrQualif = json_decode($user->prof_qualifications);
+                    @endphp
+                    @if(count($arrQualif))
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Professional Qualification:</span>
+                        <table class="fs-12" border="1">
+                            <tr>
+                                <th>Level</th>
+                                <th>Name</th>
+                                <th>Place</th>
+                                <th>Year</th>
+                            </tr>
+                        @if(!empty($arrQualif) && isset($arrQualif[0]) && isset($arrQualif[0][0]) && $arrQualif[0][0] != "")
+                        @foreach($arrQualif as $qualif)
+                            <tr>
+                                <td>{{$qualif[0]}}</td>
+                                <td>{{$qualif[1]}}</td>
+                                <td>{{$qualif[2]}}</td>
+                                <td>{{$qualif[3]}}</td>
+                            </tr>
+                        @endforeach
+                        @endif
+                        </table>
+                    </div>
+                    @endif
+
                     @if($user->itsoftware != "")
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
@@ -83,145 +111,135 @@
                     </div>
                     @endif
 
-                    {{--<div class="content-public-profile__main-content-separator"></div>--}}
-                    {{--<div class="content-public-profile__main-content-text-block mtop35 mbottom35">--}}
-                    {{--<div class="content-public-profile__main-content-stars-wrapper">--}}
-                    {{--<span class="wt-stars"><span style="width: {{ $stars }}%;"></span></span>--}}
-                    {{--</div>--}}
-                    {{--<div class="wt-proposalfeedback"><span class="wt-starcontent"> {{ $rating }}/<i>5</i>&nbsp;<em>({{ $reviews->count() }}
-                        {{ trans('lang.feedbacks') }})</em></span>
-                </div>--}}
-                {{--</div>--}}
-
-                <div class="content-public-profile__main-content-separator"></div>
-                <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                    <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
-                    {{$user->title}}
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">{{ trans('lang.my_skills') }}:</span>
+                        {{$user->title}}
+                    </div>
                 </div>
-            </div>
 
-            <!-- Right content -->
-            <div class="content-public-profile__main-content-right">
+                <!-- Right content -->
+                <div class="content-public-profile__main-content-right">
 
-                <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                    @if (!empty($profile->tagline))
-                    <span class="content-public-profile__main-content-title">{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}</span>
-                    @endif
-                    @if(!empty($profile->description))
-                        <div class="content-full-less">
-                            <div id="profile-description" class="content-full-less-paragraph">
-                                <p class="content-public-profile__main-content-description">
-                                    {{ html_entity_decode($profile->description, ENT_QUOTES) }}
-                                </p>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        @if (!empty($profile->tagline))
+                        <span class="content-public-profile__main-content-title">{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}</span>
+                        @endif
+                        @if(!empty($profile->description))
+                            <div class="content-full-less">
+                                <div id="profile-description" class="content-full-less-paragraph">
+                                    <p class="content-public-profile__main-content-description">
+                                        {{ html_entity_decode($profile->description, ENT_QUOTES) }}
+                                    </p>
+                                </div>
+                                <div class="content-full-less_link-wrapper">
+                                    <span class="content-full-less_link" data-more="Read More" data-less="Less" data-content="profile-description">Read More</span>
+                                </div>
                             </div>
-                            <div class="content-full-less_link-wrapper">
-                                <span class="content-full-less_link" data-more="Read More" data-less="Less" data-content="profile-description">Read More</span>
-                            </div>
-                        </div>
+                        @endif
+                    </div>
+
+                    @if (!empty($profile->hourly_rate))
+                    <div
+                        class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
+                    </div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Hour Rate:</span>
+                        <p class="content-public-profile__main-content-paragraph-large"><i
+                                class="far fa-money-bill-alt"></i> {{ $symbol }}{{ $profile->hourly_rate }}
+                            {{ trans('lang.per_hour') }}</p>
+                    </div>
+                    @endif
+
+                    @if (!empty($user->location->title))
+                    <div
+                        class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
+                    </div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Location:</span>
+                        <p class="content-public-profile__main-content-paragraph-large"><span>
+                                <img src="{{ asset(Helper::getLocationFlag($user->location->flag)) }}"
+                                    alt="{{ trans('lang.flag_img') }}"> {{ $user->location->title }}
+                            </span></p>
+                    </div>
+                    @endif
+
+                    @if (in_array($profile->id, $save_freelancer))
+                    <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
+                        <i class="fa fa-heart"></i>
+                        {{ trans('lang.saved') }}
+                    </a>
+                    @endif
+                    
+                    @if($doc_visible && $user->passport_visa!=="")
+                    <div class="wt-hireduserstatus">
+                        <i class="fa fa-paperclip"></i>
+                        <a target="_blank" href="<?= url('uploads/files/'.$user->passport_visa) ;?>" download>Passport or Visa</a>
+                    </div>
+                    @endif
+                    @if($doc_visible && $user->cert_of_crbdbs!=="")
+                    <div class="wt-hireduserstatus">
+                        <i class="fa fa-paperclip"></i>
+                        <a target="_blank" href="<?= url('uploads/files/'.$user->cert_of_crbdbs) ;?>" download>DBS</a>
+                    </div>
+                    @endif
+                    @if($doc_visible && $user->occup_health!=="")
+                    <div class="wt-hireduserstatus">
+                        <i class="fa fa-paperclip"></i>
+                        <a target="_blank" href="<?= url('uploads/files/'.$user->occup_health) ;?>" download>Occupational Health Information-certificates</a>
+                    </div>
+                    @endif
+                    @if($doc_visible && $profile->cvFile!=="")
+                    <div class="wt-hireduserstatus">
+                        <i class="fa fa-paperclip"></i>
+                        <a target="_blank" href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>CV</a>
+                    </div>
+                    @endif
+                    @if($doc_visible && $user->mand_training!=="")
+                    <div class="wt-hireduserstatus">
+                        <i class="fa fa-paperclip"></i>
+                        <a target="_blank" href="<?= url('uploads/files/'.$user->mand_training) ;?>" download>Mandatory Training</a>
+                    </div>
                     @endif
                 </div>
-
-                @if (!empty($profile->hourly_rate))
-                <div
-                    class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
-                </div>
-                <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                    <span class="content-public-profile__main-content-title">Hour Rate:</span>
-                    <p class="content-public-profile__main-content-paragraph-large"><i
-                            class="far fa-money-bill-alt"></i> {{ $symbol }}{{ $profile->hourly_rate }}
-                        {{ trans('lang.per_hour') }}</p>
-                </div>
-                @endif
-
-                @if (!empty($user->location->title))
-                <div
-                    class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
-                </div>
-                <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                    <span class="content-public-profile__main-content-title">Location:</span>
-                    <p class="content-public-profile__main-content-paragraph-large"><span>
-                            <img src="{{ asset(Helper::getLocationFlag($user->location->flag)) }}"
-                                alt="{{ trans('lang.flag_img') }}"> {{ $user->location->title }}
-                        </span></p>
-                </div>
-                @endif
-
-                @if (in_array($profile->id, $save_freelancer))
-                <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
-                    <i class="fa fa-heart"></i>
-                    {{ trans('lang.saved') }}
-                </a>
-                @endif
-                
-                @if($doc_visible && $user->passport_visa!=="")
-                <div class="wt-hireduserstatus">
-                    <i class="fa fa-paperclip"></i>
-                    <a target="_blank" href="<?= url('uploads/files/'.$user->passport_visa) ;?>" download>Passport or Visa</a>
-                </div>
-                @endif
-                @if($doc_visible && $user->cert_of_crbdbs!=="")
-                <div class="wt-hireduserstatus">
-                    <i class="fa fa-paperclip"></i>
-                    <a target="_blank" href="<?= url('uploads/files/'.$user->cert_of_crbdbs) ;?>" download>DBS</a>
-                </div>
-                @endif
-                @if($doc_visible && $user->occup_health!=="")
-                <div class="wt-hireduserstatus">
-                    <i class="fa fa-paperclip"></i>
-                    <a target="_blank" href="<?= url('uploads/files/'.$user->occup_health) ;?>" download>Occupational Health Information-certificates</a>
-                </div>
-                @endif
-                @if($doc_visible && $profile->cvFile!=="")
-                <div class="wt-hireduserstatus">
-                    <i class="fa fa-paperclip"></i>
-                    <a target="_blank" href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>CV</a>
-                </div>
-                @endif
-                @if($doc_visible && $user->mand_training!=="")
-                <div class="wt-hireduserstatus">
-                    <i class="fa fa-paperclip"></i>
-                    <a target="_blank" href="<?= url('uploads/files/'.$user->mand_training) ;?>" download>Mandatory Training</a>
-                </div>
-                @endif
             </div>
+        </section>
+        <!-- .content-public-profile__main-content -->
+
+        <section class="block-circles">
+            <div class="block-circles__container block-circles__container-last">
+                <div class="block-circles__wrapper">
+                    <div class="block-circles__item block-circles__item-blue"></div>
+                    <div class="block-circles__item block-circles__item-blue"></div>
+                    <div class="block-circles__item block-circles__item-blue"></div>
+                </div>
+            </div>
+        </section><!-- .circles -->
     </div>
-    </section>
-    <!-- .content-public-profile__main-content -->
 
-    <section class="block-circles">
-        <div class="block-circles__container block-circles__container-last">
-            <div class="block-circles__wrapper">
-                <div class="block-circles__item block-circles__item-blue"></div>
-                <div class="block-circles__item block-circles__item-blue"></div>
-                <div class="block-circles__item block-circles__item-blue"></div>
-            </div>
-        </div>
-    </section><!-- .circles -->
-</div>
-
-<b-modal ref="myModalRef" hide-footer title="Project Status">
-    <div class="d-block text-center">
-        {!! Form::open(['url' => '', 'class' =>'wt-formtheme wt-userform', 'id' =>'send-offer-form',
-        '@submit.prevent'=>'submitProjectOffer("'.$profile->user_id.'")'])!!}
-        <div class="wt-projectdropdown-hold">
-            <div class="wt-projectdropdown">
-                <span class="wt-select">
-                    {{{ Form::select('projects', $employer_projects, null, array('class' => 'form-control', 'placeholder' => trans('lang.ph_select_projects'))) }}}
-                </span>
-            </div>
-        </div>
-        <div class="wt-formtheme wt-formpopup">
-            <fieldset>
-                <div class="form-group">
-                    {{{ Form::textarea('desc', null, array('class' => 'form-control-text-area', 'placeholder' => trans('lang.ph_add_desc'))) }}}
+    <b-modal ref="myModalRef" hide-footer title="Project Status">
+        <div class="d-block text-center">
+            {!! Form::open(['url' => '', 'class' =>'wt-formtheme wt-userform', 'id' =>'send-offer-form',
+            '@submit.prevent'=>'submitProjectOffer("'.$profile->user_id.'")'])!!}
+            <div class="wt-projectdropdown-hold">
+                <div class="wt-projectdropdown">
+                    <span class="wt-select">
+                        {{{ Form::select('projects', $employer_projects, null, array('class' => 'form-control', 'placeholder' => trans('lang.ph_select_projects'))) }}}
+                    </span>
                 </div>
-                <div class="form-group wt-btnarea">
-                    {!! Form::submit(trans('lang.btn_send_offer'), ['class' => 'wt-btn']) !!}
-                </div>
-            </fieldset>
+            </div>
+            <div class="wt-formtheme wt-formpopup">
+                <fieldset>
+                    <div class="form-group">
+                        {{{ Form::textarea('desc', null, array('class' => 'form-control-text-area', 'placeholder' => trans('lang.ph_add_desc'))) }}}
+                    </div>
+                    <div class="form-group wt-btnarea">
+                        {!! Form::submit(trans('lang.btn_send_offer'), ['class' => 'wt-btn']) !!}
+                    </div>
+                </fieldset>
+            </div>
+            {!! Form::close() !!}
         </div>
-        {!! Form::close() !!}
-    </div>
-</b-modal>
+    </b-modal>
 </div>
 @endsection
