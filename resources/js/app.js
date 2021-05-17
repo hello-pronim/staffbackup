@@ -5638,6 +5638,9 @@ if (document.getElementById("profile_settings")) {
         paypal: "",
         p60: "",
         cheque: "",
+        bacs: "",
+        bacs_shortcode: "",
+        bacs_account: "",
         limited_company_number: "",
       };
     },
@@ -5686,10 +5689,16 @@ if (document.getElementById("profile_settings")) {
           .then(function(response) {
             self.payment_option = response.data.payment_option;
             self.p60 = response.data.p60;
+            self.bacs = response.data.bacs;
+            self.bacs_shortcode = response.data.bacs_shortcode;
+            self.bacs_account = response.data.bacs_account;
             self.paypal = response.data.paypal;
             self.cheque = response.data.cheque;
             self.limited_company_number = response.data.limited_company_number;
           });
+      },
+      onPaymentOptionChange: function(e) {
+        console.log(e.value);
       },
       savePaymentSettings(event) {
         var self = this;

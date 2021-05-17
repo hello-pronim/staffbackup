@@ -47,17 +47,29 @@ $subscribe_options  = array(
                                             <div class="form-group">
                                                 <label>Payment Option</label>
                                                 <div class="wt-select">
-                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'v-model' => 'payment_option')) !!}
+                                                {!! Form::select('payment_option', $payment_options, $user->payment_option, array('placeholder' => "Select Payment Option", 'v-model' => 'payment_option', 'onChange'=>'onPaymentOptionChange')) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group" v-if="payment_option=='Paypal'">
                                                 <label>Paypal address</label>
                                                 <input type="email" name="paypal" class="form-control" placeholder="Paypal email address"  value="{{{$user->paypal}}}" v-model="paypal"/>
                                             </div>
-                                            <div class="form-group" v-if="payment_option=='BACS'">
+                                            <div class="form-group" v-if="payment_option=='BACs'">
                                                 @if(!empty($user->profile->p60))
                                                 <a href="{{{url('uploads/p60/'.$user->profile->p60)}}}" target="_blank">Open P60 form</a>
                                                 @endif
+                                            </div>
+                                            <div class="form-group" v-if="payment_option=='BACs'">
+                                                <label>Name</label>
+                                                <input type="text" name="bacs" class="form-control" placeholder="Name" value="{{{$user->bacs}}}" v-model="bacs">
+                                            </div>
+                                            <div class="form-group" v-if="payment_option=='BACs'">
+                                                <label>Shortcode</label>
+                                                <input type="text" name="bacs_shortcode" pattern="[\d]{10}" maxlength="10" class="form-control" placeholder="Shortcode" value="{{{$user->bacs_shortcode}}}" v-model="bacs_shortcode">
+                                            </div>
+                                            <div class="form-group" v-if="payment_option=='BACs'">
+                                                <label>Account number</label>
+                                                <input type="text" name="bacs_account" pattern="[\d]{10}" maxlength="10" class="form-control" placeholder="Account number" value="{{{$user->bacs_account}}}" v-model="bacs_account">
                                             </div>
                                             <div class="form-group" v-if="payment_option=='Cheque'">
                                                 <label>Cheque address</label>
