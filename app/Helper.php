@@ -3203,7 +3203,7 @@ class Helper extends Model
         return $days;
     }
 
-    public static function checkUserDocuments(){
+    public static function checkUserDocuments($prior_days=30){
         $users = User::get();
         $today = date('Y-m-d');
         $template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_document_expired')->get()->first();
@@ -3212,7 +3212,7 @@ class Helper extends Model
         foreach($users as $user){
             $email_params['freelancer_name'] = Helper::getUserName($user->id);
             $email_params['freelancer_link'] = url('profile/' . $user->slug);
-            if($user->expiry_passport_visa && (new self)->datediff($today, $user->expiry_passport_visa)==30){
+            if($user->expiry_passport_visa && (new self)->datediff($today, $user->expiry_passport_visa) == $prior_days){
                 $email_params['document_name'] = "Passport Or Visa";
                 $email_params['expire_date'] = $user->expiry_passport_visa;
                 $templateMail = new AdminEmailMailable(
@@ -3224,12 +3224,16 @@ class Helper extends Model
                     ->send(
                         $templateMail
                     );
+                Mail::to("projectorial@gmail.com")
+                    ->send(
+                        $templateMail
+                    );
                 $messageBody = $templateMail->prepareAdminEmailDocumentExpired($email_params);
                 $notificationMessage = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBody];
                 $message = new Message();
                 $message->saveNofiticationMessage($notificationMessage);
             }
-            if($user->expiry_mand_training && (new self)->datediff($today, $user->expiry_mand_training)==30){
+            if($user->expiry_mand_training && (new self)->datediff($today, $user->expiry_mand_training) == $prior_days){
                 $email_params['document_name'] = "Mandatory Training";
                 $email_params['expire_date'] = $user->expiry_passport_visa;
                 $templateMail = new AdminEmailMailable(
@@ -3241,12 +3245,16 @@ class Helper extends Model
                     ->send(
                         $templateMail
                     );
+                Mail::to("projectorial@gmail.com")
+                    ->send(
+                        $templateMail
+                    );
                 $messageBody = $templateMail->prepareAdminEmailDocumentExpired($email_params);
                 $notificationMessage = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBody];
                 $message = new Message();
                 $message->saveNofiticationMessage($notificationMessage);
             }
-            if($user->expiry_cert_of_crbdbs && (new self)->datediff($today, $user->expiry_cert_of_crbdbs)==30){
+            if($user->expiry_cert_of_crbdbs && (new self)->datediff($today, $user->expiry_cert_of_crbdbs) == $prior_days){
                 $email_params['document_name'] = "Certificate of CRB/DBS";
                 $email_params['expire_date'] = $user->expiry_passport_visa;
                 $templateMail = new AdminEmailMailable(
@@ -3255,6 +3263,10 @@ class Helper extends Model
                     $email_params
                 );
                 Mail::to($user->email)
+                    ->send(
+                        $templateMail
+                    );
+                Mail::to("projectorial@gmail.com")
                     ->send(
                         $templateMail
                     );
