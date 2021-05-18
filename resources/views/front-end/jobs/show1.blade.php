@@ -23,9 +23,12 @@
 
                 <!-- Left content -->
                 <div class="content-public-profile__main-content-left">
-                    <img class="content-public-profile__main-content-avatar"
-                        src="{{ file_exists(Helper::PublicPath().Helper::getProfileImageSmall($user->id)) ? asset(Helper::getProfileImageSmall($user->id)) : '/images/user.jpg' }}"
-                        alt="{{ trans('lang.user_avatar') }}">
+
+                    <h4 class="content-public-profile__main-content-slag">
+                    {{ trans('lang.project_id') . ": " . $job->code }}
+                    </h4>
+                    <p>{{ trans('lang.created_at') }}&nbsp;{{ date('d-m-Y H:i', strtotime($job->created_at)) }} </p>
+
                     <h2 class="content-public-profile__main-content-name mbottom35">
                         @if(!empty($job->title))
                         {{ $job->title }}
@@ -34,105 +37,109 @@
                         @endif
                     </h2>
 
-                    <div class="mbottom35">
-                        <h4 class="content-public-profile__main-content-slag">
-                        {{ trans('lang.project_id') . ": " . $job->code }}
-                        </h4>
-                        <p>{{ trans('lang.created_at') }}&nbsp;{{ date('d-m-Y H:i', strtotime($job->created_at)) }} </p>
+                    @if($job->description != "")
+                    <div class="content-public-profile__main-content-text-block mbottom35">
+                        <span class="content-public-profile__main-content-title">Description:</span>
+                        <div>{{ $job->description }}</div>
                     </div>
+                    @endif
 
-                    @if($user->profession != "")
+                    @if (!empty($job->professions))
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
                         <span class="content-public-profile__main-content-title">Profession:</span>
-                        {{ $user->profession }}
+                        <div class="wt-tag wt-widgettag">
+                        @foreach ($job->professions as $profession)
+                            <a href="#">{{{ $profession->title }}}</a>
+                        @endforeach
+                        </div>
                     </div>
+                    @endif
+                    
+                    @if ($job->employer->itsoftware != "")
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Computer System in use:</span>
+                        <div>{{ implode(', ', $job->employer->getItsoftware()) }}</div>
+                    </div>
+                    @endif
+
+                    @if(!empty($job->calendars))
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Start and End time:</span>
+                        @foreach($job->calendars as $calendar_event)
+                            @if($calendar_event->class=="booking_calendar" || $calendar_event->class=="booking_hired")
+                            <div>Start: {{$calendar_event->start->format('d-m-Y H:i')}}</div>
+                            <div>End: {{$calendar_event->end->format('d-m-Y H:i')}}</div>
+                            @endif
+                        @endforeach
+                    </div>
+                    @endif
+                    @php
+                    $breaks = @unserialize($job->breaks);
+                    @endphp
+                    @if($breaks)
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Breaks:</span>
+                        <div>
+                        @foreach($breaks as $break)
+                        {{ $break->when . ": "}} {{ $break->for }}
+                        @endforeach 
+                        </div>
+                    </div>
+                    @endif
+                    @if($job->job_adm_catch_time_interval)
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Admin Catch Up Provided (interval):</span>
+                        {{ $job->job_adm_catch_time_interval }}
+                    </div>
+                    @endif
+                    @if($job->job_appo_slot_times)
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Appointment Slot Times:</span>
+                        {{ $job->job_appo_slot_times }}
+                    </div>
+                    @endif
+                    @if($job->home_visits)
+                    <div class="content-public-profile__main-content-separator"></div>
+                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
+                        <span class="content-public-profile__main-content-title">Home Visits:</span>
+                        {{ $job->home_visits }}
+                    </div>
+                    @endif
+                    @if (!empty($attachments) && $job->show_attachments === 'true')
+                        <div class="wt-attachments">
+                            <div class="wt-title">
+                                <h3>{{ trans('lang.attachments') }}</h3>
+                            </div>
+                            <ul class="wt-attachfile">
+                                @foreach ($attachments as $attachment)
+                                    <li>
+                                        <span>{{{Helper::formateFileName($attachment)}}}</span>
+                                        <em>
+                                            @if (Storage::disk('local')->exists('uploads/jobs/'.$job->employer->id.'/'.$attachment))
+                                                {{ trans('lang.file_size') }} {{{Helper::bytesToHuman(Storage::size('uploads/jobs/'.$job->employer->id.'/'.$attachment))}}}
+                                            @endif
+                                            <a href="{{{route('getfile', ['type'=>'jobs','attachment'=>$attachment,'id'=>$job->user_id])}}}"><i class="lnr lnr-download"></i></a>
+                                        </em>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                 </div>
 
                 <!-- Right content -->
                 <div class="content-public-profile__main-content-right">
-
-                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        @if (!empty($profile->tagline))
-                        <span class="content-public-profile__main-content-title">{{ html_entity_decode($profile->tagline, ENT_QUOTES) }}</span>
-                        @endif
-                        @if(!empty($profile->description))
-                            <div class="content-full-less">
-                                <div id="profile-description" class="content-full-less-paragraph">
-                                    <p class="content-public-profile__main-content-description">
-                                        {{ html_entity_decode($profile->description, ENT_QUOTES) }}
-                                    </p>
-                                </div>
-                                <div class="content-full-less_link-wrapper">
-                                    <span class="content-full-less_link" data-more="Read More" data-less="Less" data-content="profile-description">Read More</span>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
-                    @if (!empty($profile->hourly_rate))
-                    <div
-                        class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
-                    </div>
-                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title">Hour Rate:</span>
-                        <p class="content-public-profile__main-content-paragraph-large"><i
-                                class="far fa-money-bill-alt"></i> {{ $symbol }}{{ $profile->hourly_rate }}
-                            {{ trans('lang.per_hour') }}</p>
-                    </div>
-                    @endif
-
-                    @if (!empty($user->location->title))
-                    <div
-                        class="content-public-profile__main-content-separator content-public-profile__main-content-separator-blue">
-                    </div>
-                    <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title">Location:</span>
-                        <p class="content-public-profile__main-content-paragraph-large"><span>
-                                <img src="{{ asset(Helper::getLocationFlag($user->location->flag)) }}"
-                                    alt="{{ trans('lang.flag_img') }}"> {{ $user->location->title }}
-                            </span></p>
-                    </div>
-                    @endif
-
-                    @if (in_array($profile->id, $save_freelancer))
-                    <a href="javascript:void(0);" class="wt-clicksave wt-clicksave">
-                        <i class="fa fa-heart"></i>
-                        {{ trans('lang.saved') }}
-                    </a>
-                    @endif
-                    
-                    @if($doc_visible && $user->passport_visa!=="")
-                    <div class="wt-hireduserstatus">
-                        <i class="fa fa-paperclip"></i>
-                        <a target="_blank" href="<?= url('uploads/files/'.$user->passport_visa) ;?>" download>Passport or Visa</a>
-                    </div>
-                    @endif
-                    @if($doc_visible && $user->cert_of_crbdbs!=="")
-                    <div class="wt-hireduserstatus">
-                        <i class="fa fa-paperclip"></i>
-                        <a target="_blank" href="<?= url('uploads/files/'.$user->cert_of_crbdbs) ;?>" download>DBS</a>
-                    </div>
-                    @endif
-                    @if($doc_visible && $user->occup_health!=="")
-                    <div class="wt-hireduserstatus">
-                        <i class="fa fa-paperclip"></i>
-                        <a target="_blank" href="<?= url('uploads/files/'.$user->occup_health) ;?>" download>Occupational Health Information-certificates</a>
-                    </div>
-                    @endif
-                    @if($doc_visible && $profile->cvFile!=="")
-                    <div class="wt-hireduserstatus">
-                        <i class="fa fa-paperclip"></i>
-                        <a target="_blank" href="<?= url('uploads/cvs/'.$profile->cvFile) ;?>" download>CV</a>
-                    </div>
-                    @endif
-                    @if($doc_visible && $user->mand_training!=="")
-                    <div class="wt-hireduserstatus">
-                        <i class="fa fa-paperclip"></i>
-                        <a target="_blank" href="<?= url('uploads/files/'.$user->mand_training) ;?>" download>Mandatory Training</a>
-                    </div>
-                    @endif
+                @if (file_exists(resource_path('views/extend/front-end/jobs/sidebar1/index.blade.php')))
+                    @include('extend.front-end.jobs.sidebar1.index')
+                @else
+                    @include('front-end.jobs.sidebar1.index')
+                @endif
                 </div>
             </div>
         </section>

@@ -220,6 +220,7 @@ var itsoftware_options = [
   "Vision",
   "Vision Anywhere",
 ];
+var imageArray = ["doctor2.png", "nurse.jpg", "receptionist.jpg", "driver.jpg"];
 
 jQuery(document).ready(function() {
   jQuery(document).on("click", ".wt-back", function(e) {
