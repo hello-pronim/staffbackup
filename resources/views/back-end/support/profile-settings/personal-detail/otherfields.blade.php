@@ -326,17 +326,18 @@
                     <a href="{{url('uploads/files/'.$user->passport_visa)}}" target="_blank">Click To open</a>
                 @endif
             </div>
-            <div class="form-group form-group-half">
+            <div class="form-group form-group-half cs-file-upload">
                 <input type="file" name="passport_visa"
                     class="form-control"
                     accept=".pdf, image/*,.doc,.docx"
                     @change="onPassportVisaChanged">
+                <a href="javascript:void(0);" class="lnr lnr-cross cs-file-upload-remove fs-24 fw-bold" v-on:click.prevent="onUploadedFileRemove"></a>
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
                     value="{{$user->expiry_passport_visa ? date('d-m-Y', strtotime($user->expiry_passport_visa)) : ''}}"
-                    class="form-control"
+                    class="form-control expiry-date-input"
                     name="expiry_passport_visa"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_passport_visa"
@@ -416,17 +417,18 @@
                     <a href="{{url('uploads/files/'.$user->mand_training)}}" target="_blank">Click To open</a>
                 @endif
             </div>
-            <div class="form-group form-group-half">
+            <div class="form-group form-group-half cs-file-upload">
                 <input type="file" name="mand_training"
                     class="form-control"
                     accept=".pdf, image/*,.doc,.docx"
                     @change="onMandTrainingChanged">
+                <a href="javascript:void(0);" class="lnr lnr-cross cs-file-upload-remove fs-24 fw-bold" v-on:click.prevent="onUploadedFileRemove"></a>
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
                     value="{{$user->expiry_mand_training ? date('d-m-Y', strtotime($user->expiry_mand_training)) : ''}}"
-                    class="form-control"
+                    class="form-control expiry-date-input"
                     name="expiry_mand_training"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_mand_training"
@@ -445,17 +447,18 @@
                 <a href="{{url('uploads/files/'.$user->cert_of_crbdbs)}}" target="_blank">Click To open</a>
             @endif
             </div>
-            <div class="form-group form-group-half">
+            <div class="form-group form-group-half cs-file-upload">
                 <input type="file" name="cert_of_crbdbs"
                     class="form-control"
                     accept=".pdf, image/*,.doc,.docx"
                     @change="onCertOfCRBDBSChanged">
+                <a href="javascript:void(0);" class="lnr lnr-cross cs-file-upload-remove fs-24 fw-bold" v-on:click.prevent="onUploadedFileRemove"></a>
             </div>
             <div class="form-group form-group-half">
                 <date-picker 
                     :config="{format: 'DD-MM-YYYY'}"
                     value="{{$user->expiry_cert_of_crbdbs ? date('d-m-Y', strtotime($user->expiry_cert_of_crbdbs)) : ''}}"
-                    class="form-control"
+                    class="form-control expiry-date-input"
                     name="expiry_cert_of_crbdbs"
                     placeholder="Expiry date of mandatory training"
                     id="expiry_cert_of_crbdbs"

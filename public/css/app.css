@@ -13174,6 +13174,21 @@ Calendar
   height: auto !important;
 }
 
+.cs-file-upload {
+  position: relative;
+}
+
+.cs-file-upload input[type=file] {
+  padding-right: 36px;
+}
+
+.cs-file-upload .cs-file-upload-remove {
+  display: none;
+  position: absolute;
+  right: 12px;
+  transform: translate(0, 50%);
+}
+
 .price-currency-wrap {
   position: relative;
 }

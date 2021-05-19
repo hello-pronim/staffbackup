@@ -4322,6 +4322,10 @@ if (document.getElementById("user_profile")) {
         if (event.target.files.length > 0) {
           var expiry_date = document.getElementById("expiry_passport_visa")
             .value;
+          $(event.target)
+            .closest(".cs-file-upload")
+            .find(".cs-file-upload-remove")
+            .show();
           if (!expiry_date) {
             $("#expiry_passport_visa").addClass("is-invalid");
             $("#expiry_passport_visa")
@@ -4344,6 +4348,10 @@ if (document.getElementById("user_profile")) {
         if (event.target.files.length > 0) {
           var expiry_date = document.getElementById("expiry_mand_training")
             .value;
+          $(event.target)
+            .closest(".cs-file-upload")
+            .find(".cs-file-upload-remove")
+            .show();
           if (!expiry_date) {
             $("#expiry_mand_training").addClass("is-invalid");
             $("#expiry_mand_training")
@@ -4366,6 +4374,10 @@ if (document.getElementById("user_profile")) {
         if (event.target.files.length > 0) {
           var expiry_date = document.getElementById("expiry_cert_of_crbdbs")
             .value;
+          $(event.target)
+            .closest(".cs-file-upload")
+            .find(".cs-file-upload-remove")
+            .show();
           if (!expiry_date) {
             $("#expiry_cert_of_crbdbs").addClass("is-invalid");
             $("#expiry_cert_of_crbdbs")
@@ -4383,6 +4395,24 @@ if (document.getElementById("user_profile")) {
             .closest(".invalid-feedback")
             .hide();
         }
+      },
+      onUploadedFileRemove: function(e) {
+        $(e.target)
+          .closest(".cs-file-upload")
+          .find('input[type="file"]')
+          .val("");
+        $(e.target).hide();
+
+        $(e.target)
+          .closest(".cs-file-upload")
+          .parent()
+          .find(".expiry-date-input")
+          .removeClass("is-invalid");
+        $(e.target)
+          .closest(".cs-file-upload")
+          .parent()
+          .find(".invalid-feedback")
+          .hide();
       },
       submitFreelancerProfile: function() {
         var self = this;
