@@ -19,9 +19,10 @@
                     <figure><img src="{{{asset($image)}}}" alt="{{{ trans('lang.profile_photo') }}}"></figure>
                     <div class="wt-uploadingbar">
                         <div class="dz-filename">{{{$avater}}}</div>
-                        <em>{{{ trans('lang.file_size') }}}<a href="javascript:void(0);" class="lnr lnr-cross" v-on:click.prevent="removeImage('hidden_avater')"></a></em>
+                        <em>{{{ trans('lang.file_size') }}}</em>
                     </div>
                 </div>
+                <a v-if="!this.uploaded_image" href="javascript:void(0);" class="lnr lnr-cross fs-24 fw-bold" v-on:click.prevent="removeImage('hidden_avater')"></a>
                 <input type="hidden" name="hidden_avater_image" id="hidden_avater" value="{{{$avater}}}">
             </div>
         @else

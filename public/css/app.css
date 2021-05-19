@@ -13111,8 +13111,20 @@ Calendar
   font-size: 14px !important;
 }
 
+.fs-24 {
+  font-size: 24px !important;
+}
+
 .fs-30 {
   font-size: 30px !important;
+}
+
+.fs-32 {
+  font-size: 32px !important;
+}
+
+.fw-bold {
+  font-weight: bold !important;
 }
 
 .flex-row {
