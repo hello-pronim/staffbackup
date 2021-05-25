@@ -238,13 +238,13 @@
                             </li>
 
                             @if($role=='employer')
-                                <li>
+                                <!-- <li>
                                     <img src="{{url('images/icons/leftmenu/Layer 71.png')}}"/>
 
                                     <a href="{{{ url($role.'/billing') }}}">
                                         <span>Billing</span>
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
                             {{--<li>--}}
                                 {{--<img src="{{url('images/icons/leftmenu/Layer 75.png')}}"/>--}}
