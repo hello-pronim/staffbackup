@@ -223,6 +223,13 @@
                                         </ul>
                                     </li>
                                 @endif
+                            <li>
+
+                                <a href="{{{ route('employerTeams') }}}">
+                                    <i class="ti-list"></i>
+                                    <span>Teams</span>
+                                </a>
+                            </li>
                         @endif
                             <li>
                                 <img src="{{url('images/icons/leftmenu/Layer 63.png')}}"/>

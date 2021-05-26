@@ -375,8 +375,9 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                         style="width: {{ $stars }}%;"></span></span>
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
-                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->
-                                                <a href="{{route('sendMessage', ['id'=>$freelancer->id]).'?invite=1'}}" class="wt-btn">Message</a>
+                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->                                                 
+                                                    <a href="{{route('hireFreelancer', ['slug'=>$freelancer->slug])}}" class="wt-btn">Hire</a>
+                                                <!-- <a href="{{route('sendMessage', ['id'=>$freelancer->id]).'?invite=1'}}" class="wt-btn">Message</a> -->
                                             </div>
                                         </div>
 

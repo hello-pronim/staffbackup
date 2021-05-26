@@ -186,6 +186,12 @@
                             </ul>
                         </li>
                     @endif
+                    <li>
+                        <a href="{{{ route('employerTeams') }}}">
+                            <i class="ti-list"></i>
+                            <span>{{{ trans('lang.teams') }}}</span>
+                        </a>
+                    </li>
                    {{-- <li>
                         <a href="{{{ route('employerPayoutsSettings') }}}">
                             <i class="ti-money"></i>

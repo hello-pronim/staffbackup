@@ -293,6 +293,9 @@ Route::group(
         Route::get('employer/dashboard/job/{slug}/proposals', 'ProposalController@getJobProposals')->name('getProposals');
         Route::get('employer/dashboard', 'EmployerController@employerDashboard')->name('employerDashboard');
         Route::get('employer/profile', 'EmployerController@index')->name('employerPersonalDetail');
+        Route::get('employer/teams', 'EmployerController@showTeams')->name('employerTeams');
+        Route::get('employer/teams/add', 'EmployerController@addTeam')->name('addEmployerTeam');
+        Route::get('employer/teams/post', 'EmployerController@postAddTeam');
         Route::post('employer/upload-temp-image', 'EmployerController@uploadTempImage');
         Route::post('employer/store-profile-settings', 'EmployerController@storeProfileSettings');
         Route::post('job/post-job', 'JobController@store');

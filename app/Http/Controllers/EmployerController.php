@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\Team;
 use Session;
 use App\Language;
 use App\Category;
@@ -853,6 +854,61 @@ class EmployerController extends Controller
     }
 
     public function hireFreelancer(Request $request){
-        //$user = User::where('slug', $request->slug)->first();
+        if(Auth::user()){
+            $user = User::where('slug', $request->slug)->first();
+            $profile = User::find(Auth::user()->id)->profile;
+            $chat_settings = SiteManagement::getMetaValue('chat_settings');
+
+            if (file_exists(resource_path('views/extend/back-end/employer/proposals/hire.blade.php'))) {
+                return View(
+                    'extend.back-end.employer.proposals.hire',
+                    compact('user', 'profile', 'chat_settings')
+                );
+            } else {
+                return View(
+                    'back-end.employer.proposals.hire',
+                    compact('user', 'profile', 'chat_settings')
+                );
+            }
+        }
+    }
+
+    public function showTeams(Request $request){
+        if (Auth::user()) {
+            if (!empty($_GET['keyword'])) {
+                $keyword = $_GET['keyword'];
+                $teams = Team::where('team_name', 'like', '%' . $keyword . '%')
+                                    ->paginate(7)
+                                    ->setPath('');
+                $pagination = $teams->appends(
+                    array(
+                        'keyword' => Input::get('keyword')
+                    )
+                );
+            } else {
+                $teams = Team::select('*')->latest()->paginate(10);
+            }
+            if (file_exists(resource_path('views/extend/back-end/employer/teams/index.blade.php'))) {
+                return view('extend.back-end.employer.teams.index', compact('teams'));
+            } else {
+                return view('back-end.employer.teams.index', compact('teams'));
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function addTeam(Request $request){
+        if (Auth::user()) {
+            $user = User::find(Auth::user()->id);
+
+            if (file_exists(resource_path('views/extend/back-end/employer/teams/create.blade.php'))) {
+                return view('extend.back-end.employer.teams.create', compact('user'));
+            } else {
+                return view('back-end.employer.teams.create', compact('user'));
+            }
+        } else {
+            abort(404);
+        }
     }
 }
