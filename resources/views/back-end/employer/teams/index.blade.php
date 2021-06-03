@@ -11,7 +11,7 @@
                 <div class="wt-dashboardbox">
                     <div class="wt-dashboardboxtitle wt-titlewithsearch">
                         <h2>{{{ trans('lang.manage_teams') }}}</h2>
-                        <a href="{{route('addEmployerTeam')}}" class="wt-btn wt-formsearch ml-20">{{{ trans('lang.add_team') }}}</a>
+                        <a href="{{route('createEmployerTeam')}}" class="wt-btn wt-formsearch ml-20">{{{ trans('lang.add_team') }}}</a>
                         <form class="wt-formtheme wt-formsearch">
                             <fieldset>
                                 <div class="form-group">
@@ -28,18 +28,21 @@
                                 <thead>
                                     <tr>
                                         <th>{{{ trans('lang.team_name') }}}</th>
+                                        <th>{{{ trans('lang.description') }}}</th>
+                                        <th>{{{ trans('lang.number_members') }}}</th>
                                         <th>{{{ trans('lang.action') }}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($teams as $key => $teamData)
-                                    <tr class="del-user-{{ $user->id }}">
-                                        <td>{{ $teamData->team_name }}</td>
+                                    <tr class="del-team-{{ $teamData->id }}">
+                                        <td>{{ $teamData->name }}</td>
+                                        <td>{{ $teamData->description }}</td>
+                                        <td>{{ $teamData->number_members }}</td>
                                         <td>
                                             <div class="wt-actionbtn">
-                                                <a href="{{ route('sendMessage', ['id'=>$user->id]) }}" class="wt-disableinfo wt-skillsaddinfo"><i class="fa fa-envelope"></i></a>
+                                                <a href="{{ route('editEmployerTeam', ['slug' => $teamData->slug]) }}" class="wt-disableinfo wt-skillsaddinfo"><i class="fa fa-edit"></i></a>
                                                 <a href="javascript:void()" class="wt-deleteinfo wt-skillsaddinfo"><i class="fa fa-trash"></i></a>
-                                                <a href="{{ url('employer/teams/'.$team->slug) }}" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>

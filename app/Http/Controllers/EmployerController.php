@@ -27,12 +27,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\User;
-use App\Team;
 use Session;
 use App\Language;
 use App\Category;
 use App\Skill;
 use App\Job;
+use App\Team;
 use App\Proposal;
 use DB;
 use App\Package;
@@ -61,6 +61,7 @@ class EmployerController extends Controller
      */
     protected $employer;
     protected $user;
+    protected $team;
     protected $professionRepository;
 
     /**
@@ -70,10 +71,11 @@ class EmployerController extends Controller
      *
      * @return void
      */
-    public function __construct(Profile $employer, User $user, ProfessionRepository $professionRepository)
+    public function __construct(Profile $employer, User $user, Team $team, ProfessionRepository $professionRepository)
     {
         $this->employer = $employer;
         $this->user = $user;
+        $this->team = $team;
         $this->professionRepository = $professionRepository;
     }
 
@@ -909,6 +911,23 @@ class EmployerController extends Controller
             }
         } else {
             abort(404);
+        }
+    }
+
+    public function postAddTeam(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+        $response = $this->team->addTeam($request);
+        if($response['type']=="success"){
+            $json['type'] = 'success';
+            $json['message'] = trans('lang.team_create_success');
+            return $json;
+        } else{
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
         }
     }
 }

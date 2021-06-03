@@ -13148,6 +13148,14 @@ Calendar
   color: #a9a9a9 !important;
 }
 
+.text-bold {
+  font-weight: bold !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
 .form-group {
   padding: 0 10px;
 }
@@ -13264,6 +13272,10 @@ Calendar
 .wt-navdashboard > ul > li.menu-item-has-children .sub-menu > li {
   margin-left: 0px !important;
   line-height: 30px !important;
+}
+
+#create_team .searchinputs > div.filters {
+  width: 13.5%;
 }
 
 #searchHomePage.search .searchinputs > div.filters {

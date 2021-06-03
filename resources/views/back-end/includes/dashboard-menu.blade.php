@@ -218,17 +218,18 @@
                                         <ul class="sub-menu">
                                             <li><a href="{{{ url(route('employerPostJob')) }}}">{{ trans('lang.post_job') }}</a></li>
                                             <li><a href="{{{ route('employerManageJobs') }}}">{{ trans('lang.manage_job') }}</a></li>
-                                            {{--<li><a href="{{{ url('employer/jobs/completed') }}}">{{ trans('lang.completed_jobs') }}</a></li>--}}
-                                            {{--<li><a href="{{{ url('employer/jobs/hired') }}}">{{ trans('lang.ongoing_jobs') }}</a></li>--}}
                                         </ul>
                                     </li>
                                 @endif
-                            <li>
-
-                                <a href="{{{ route('employerTeams') }}}">
+                            <li class="menu-item-has-children">
+                                <a href="javascript:void(0)">
                                     <i class="ti-list"></i>
                                     <span>Teams</span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{{ route('createEmployerTeam') }}}">{{ trans('lang.create_team') }}</a></li>
+                                    <li><a href="{{{ route('manageEmployerTeams') }}}">{{ trans('lang.manage_teams') }}</a></li>
+                                </ul>
                             </li>
                         @endif
                             <li>

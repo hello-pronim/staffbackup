@@ -7720,6 +7720,114 @@ if (document.getElementById("packages")) {
   });
 }
 
+if (document.getElementById("create_team")) {
+  const newTeam = new Vue({
+    el: "#create_team",
+    mounted: function() {
+      if (document.getElementsByClassName("flash_msg") != null) {
+        flashVue.$emit("showFlashMessage");
+      }
+    },
+    data: {
+      team_name: "",
+      team_description: "",
+      loading: false,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          error: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          completed: {
+            position: "center",
+            timeout: 1000,
+            progressBar: false,
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: "center",
+            timeout: 3000,
+            onClosing: function(instance, toast, closedBy) {
+              newTeam.showCompleted(
+                Vue.prototype.trans("lang.process_cmplted_success")
+              );
+            },
+          },
+        },
+      },
+    },
+    created: function() {},
+    methods: {
+      showCompleted(message) {
+        return this.$toast.success(
+          " ",
+          message,
+          this.notificationSystem.options.completed
+        );
+      },
+      showInfo(message) {
+        return this.$toast.info(
+          " ",
+          message,
+          this.notificationSystem.options.info
+        );
+      },
+      showMessage(message) {
+        return this.$toast.success(
+          Vue.prototype.trans("lang.success"),
+          message,
+          this.notificationSystem.options.success
+        );
+      },
+      showError(error) {
+        return this.$toast.error(
+          " ",
+          error,
+          this.notificationSystem.options.error
+        );
+      },
+      submitTeam: function() {
+        this.loading = true;
+        let register_Form = document.getElementById("create_team_form");
+        let form_data = new FormData(register_Form);
+        var self = this;
+        axios
+          .post(APP_URL + "/employer/teams/add", form_data)
+          .then(function(response) {
+            console.log(response.data.type);
+            if (response.data.type == "success") {
+              self.loading = false;
+              console.log(Vue.prototype.trans("lang.team_submitting"));
+              self.showInfo(Vue.prototype.trans("lang.team_submitting"));
+              setTimeout(function(self) {
+                window.location.replace(APP_URL + "/employer/teams");
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+    },
+  });
+}
+
 var page = document.getElementById("growth_activity");
 
 if (page) {

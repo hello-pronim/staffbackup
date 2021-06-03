@@ -186,11 +186,15 @@
                             </ul>
                         </li>
                     @endif
-                    <li>
-                        <a href="{{{ route('employerTeams') }}}">
+                    <li class="menu-item-has-children">
+                        <a href="javascript:void(0)">
                             <i class="ti-list"></i>
                             <span>{{{ trans('lang.teams') }}}</span>
                         </a>
+                        <ul class="sub-menu">
+                            <li><a href="{{ route('createEmployerTeam') }}">{{ trans('lang.create_team') }}</a></li>
+                            <li><a href="{{ route('manageEmployerTeams') }}">{{ trans('lang.manage_teams') }}</a></li>
+                        </ul>
                     </li>
                    {{-- <li>
                         <a href="{{{ route('employerPayoutsSettings') }}}">
