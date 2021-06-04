@@ -930,4 +930,233 @@ class EmployerController extends Controller
             return $json;
         }
     }
+
+    public function editTeam(Request $request){
+        if (Auth::user()) {
+            $user = User::find(Auth::user()->id);
+            $team = Team::where('slug', $request->slug)->first();
+            $members = array();
+
+            if (file_exists(resource_path('views/extend/back-end/employer/teams/edit.blade.php'))) {
+                return view('extend.back-end.employer.teams.edit', compact('user', 'team', 'members'));
+            } else {
+                return view('back-end.employer.teams.edit', compact('user', 'team', 'members'));
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function updateTeam(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+        $response = $this->team->updateTeam($request);
+        if($response['type']=="success"){
+            $json['type'] = 'success';
+            $json['message'] = trans('lang.team_create_success');
+            return $json;
+        } else{
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
+        }
+    }
+
+    public function getTeamDetail(Request $request){
+        if($request->id){
+            $team = Team::find($request->id);
+            return $team;
+        }
+    }
+
+    public function addTeamMembers(Request $request)
+    {
+        $user = auth()->user();
+        $team_slug = $request->slug;
+        $categories = Category::all();
+        $locations = Location::all();
+        $languages = Language::all();
+        $skills = Skill::all();
+        $keyword = !empty($_GET['s']) ? $_GET['s'] : '';
+        $has_access = true;
+        $type = "freelancer";
+
+        if (!$user->hasRole('employer')){
+            $has_access = false;
+        }
+
+        if (!$has_access) {
+          App::abort(403, 'Access Denied');
+        }
+
+        $search_locations = !empty($_GET['locations']) ? $_GET['locations'] : array();
+        $search_skills = !empty($_GET['skills']) ? $_GET['skills'] : array();
+        $search_languages = !empty($_GET['languages']) ? $_GET['languages'] : array();
+        $search_employees = !empty($_GET['employees']) ? $_GET['employees'] : array();
+        $search_hourly_rates = !empty($_GET['hourly_rate']) ? $_GET['hourly_rate'] : array();
+        $search_freelaner_types = !empty($_GET['freelaner_type']) ? $_GET['freelaner_type'] : array();
+        $search_english_levels = !empty($_GET['english_level']) ? $_GET['english_level'] : array();
+        $current_date = Carbon::now()->toDateTimeString();
+        $currency = SiteManagement::getMetaValue('commision');
+        $symbol   = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
+        $inner_page  = SiteManagement::getMetaValue('inner_page_data');
+        $payment_settings = SiteManagement::getMetaValue('commision');
+        $enable_package = !empty($payment_settings) && !empty($payment_settings[0]['enable_packages']) ? $payment_settings[0]['enable_packages'] : 'true';
+        $breadcrumbs_settings = SiteManagement::getMetaValue('show_breadcrumb');
+        $show_breadcrumbs = !empty($breadcrumbs_settings) ? $breadcrumbs_settings : 'true';
+        $days_avail = !empty($_GET['days_avail']) ? $_GET['days_avail'] : array();
+        $hours_avail = !empty($_GET['hours_avail']) ? $_GET['hours_avail'] : array();
+        $avail_date_from = null;
+        $avail_date_to = null;
+
+        $location = $request->input('location');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $radius = $request->input('radius');
+        $profession_id = $request->input('profession_id');
+        $start_date = $request->input('avail_date_from') ?? $request->input('start_date') ?? null;
+        $end_date = $request->input('avail_date_to') ?? $request->input('end_date') ?? null;
+        $time = [
+            'hours' => $request->input('hours'),
+            'minutes' => $request->input('minutes')
+        ];
+        $rate = $request->input('rate');
+
+        $only_date = true;
+        
+        if($request->avail_date_from && $request->hours) {
+            $only_date = false;
+            $avail_date_from = $request->avail_date_from . ' ' . $request->hours . ':' . $request->minutes . ':00';
+            $avail_date_from = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date_from)->format('Y-m-d H:i:s');
+        } else if($request->avail_date_from) {
+            $avail_date_from = $request->avail_date_from;
+            $avail_date_from = Carbon::createFromFormat('d/m/Y', $avail_date_from)->format('Y-m-d');
+        }
+        if($request->avail_date_to && $request->hours) {
+            $only_date = false;
+            $avail_date_to = $request->avail_date_to . ' ' . $request->hours . ':' . $request->minutes . ':00';
+            $avail_date_to = Carbon::createFromFormat('d/m/Y H:i:s', $avail_date_to)->format('Y-m-d H:i:s');
+        } else if($request->avail_date_to) {
+            $avail_date_to = $request->avail_date_to;
+            $avail_date_to = Carbon::createFromFormat('d/m/Y', $avail_date_to)->format('Y-m-d');
+        }
+
+        if (!empty($request->slug)) {
+            $users_total_records = User::count();
+            $search =  User::getSearchResult(
+                $user,
+                $type,
+                $keyword,
+                $search_locations,
+                $search_employees,
+                $search_skills,
+                $search_hourly_rates,
+                $search_freelaner_types,
+                $search_english_levels,
+                $search_languages,
+                $days_avail,
+                $hours_avail,
+                $avail_date_from,
+                $avail_date_to,
+                $location,
+                $latitude,
+                $longitude,
+                $radius,
+                $profession_id,
+                $only_date,
+                $rate
+            );
+            if(!($location || $profession_id || $avail_date_from || $avail_date_to ))
+                $users = [];
+            else $users = count($search['users']) > 0 ? $search['users'] : [];
+            /*
+            $users = User::select('users.*')
+                            ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+                            ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+                            ->where('model_has_roles.model_type', '=', 'App\User')
+                            ->where('roles.role_type', '=', "freelancer")
+                            ->get();
+            */
+            $save_freelancer = !empty(auth()->user()->profile->saved_freelancer) ?
+                unserialize(auth()->user()->profile->saved_freelancer) : array();
+            $save_employer = !empty(auth()->user()->profile->saved_employers) ?
+                unserialize(auth()->user()->profile->saved_employers) : array();
+            $f_list_meta_title = !empty($inner_page) && !empty($inner_page[0]['f_list_meta_title']) ? $inner_page[0]['f_list_meta_title'] : trans('lang.freelancer_listing');
+            $f_list_meta_desc = !empty($inner_page) && !empty($inner_page[0]['f_list_meta_desc']) ? $inner_page[0]['f_list_meta_desc'] : trans('lang.freelancer_meta_desc');
+            $show_f_banner = !empty($inner_page) && !empty($inner_page[0]['show_f_banner']) ? $inner_page[0]['show_f_banner'] : 'true';
+            $f_inner_banner = !empty($inner_page) && !empty($inner_page[0]['f_inner_banner']) ? $inner_page[0]['f_inner_banner'] : null;
+            if (file_exists(resource_path('views/extend/back-end/employer/teams/add-members.blade.php'))) {
+                return view(
+                    'extend.back-end.employer.teams.add-members',
+                    compact(
+                        'type',
+                        'users',
+                        'team_slug',
+                        'categories',
+                        'locations',
+                        'languages',
+                        'skills',
+                        'keyword',
+                        'users_total_records',
+                        'save_freelancer',
+                        'symbol',
+                        'current_date',
+                        'f_list_meta_title',
+                        'f_list_meta_desc',
+                        'show_f_banner',
+                        'f_inner_banner',
+                        'enable_package',
+                        'show_breadcrumbs',
+                        'location',
+                        'latitude',
+                        'longitude',
+                        'radius',
+                        'profession_id',
+                        'avail_date_from',
+                        'avail_date_to',
+                        'time',
+                        'rate'
+                    )
+                );
+            } else {
+                return view(
+                    'back-end.employer.teams.add-members',
+                    compact(
+                        'type',
+                        'users',
+                        'team_slug',
+                        'categories',
+                        'locations',
+                        'languages',
+                        'skills',
+                        'keyword',
+                        'users_total_records',
+                        'save_freelancer',
+                        'symbol',
+                        'current_date',
+                        'f_list_meta_title',
+                        'f_list_meta_desc',
+                        'show_f_banner',
+                        'f_inner_banner',
+                        'enable_package',
+                        'show_breadcrumbs',
+                        'location',
+                        'latitude',
+                        'longitude',
+                        'radius',
+                        'profession_id',
+                        'avail_date_from',
+                        'avail_date_to',
+                        'time',
+                        'rate'
+                    )
+                );
+            }
+
+        } else {
+            abort(404);
+        }
+    }
 }

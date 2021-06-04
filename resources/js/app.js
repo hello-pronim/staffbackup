@@ -2487,6 +2487,67 @@ if (page) {
           return;
         } else window.location.replace(url);
       },
+      submit_member_search() {
+        this.isInValidSearch = false;
+        $(".error-msg.search-error-msg").css("display", "none");
+        var team_slug = document.getElementById("team_slug").value;
+        var url = APP_URL + "/employer/teams/" + team_slug + "/add-members";
+
+        if (this.straddress != "") {
+          url += "?location=" + encodeURIComponent(this.straddress);
+
+          var latitude = document.getElementById("latitude").value;
+          var longitude = document.getElementById("longitude").value;
+
+          if (latitude != "" && longitude != "") {
+            url += "&latitude=" + latitude + "&longitude=" + longitude;
+          }
+        } else this.isInValidSearch = true;
+
+        if (this.skill != "") {
+          url += "&skill=" + encodeURIComponent(this.skill);
+        }
+
+        if (this.radius != "") {
+          url += "&radius=" + this.radius;
+        }
+
+        if (this.profession_id != "") {
+          url += "&profession_id=" + this.profession_id;
+        } else this.isInValidSearch = true;
+
+        if (this.selectedDateFrom != "") {
+          url +=
+            "&" +
+            (this.search_type == "freelancer"
+              ? "avail_date_from"
+              : "start_date") +
+            "=" +
+            this.selectedDateFrom;
+        } else this.isInValidSearch = true;
+
+        if (this.selectedDateTo != "") {
+          url +=
+            "&" +
+            (this.search_type == "freelancer" ? "avail_date_to" : "end_date") +
+            "=" +
+            this.selectedDateTo;
+        } else this.isInValidSearch = true;
+
+        if (this.selectedTime.HH || this.selectedTime.mm) {
+          url += "&hours=" + this.selectedTime.HH;
+          url += "&minutes=" + this.selectedTime.mm;
+        }
+
+        if (this.rate) {
+          url += "&rate=" + this.rate;
+        }
+
+        if (this.isInValidSearch) {
+          $(".error-msg.search-error-msg").css("display", "block");
+          return;
+        } else window.location.replace(url);
+      },
       updateAddressLocation: function(place) {
         console.log(place);
         var data = {};
@@ -7721,6 +7782,7 @@ if (document.getElementById("packages")) {
 }
 
 if (document.getElementById("create_team")) {
+  const role = "employer";
   const newTeam = new Vue({
     el: "#create_team",
     mounted: function() {
@@ -7729,9 +7791,9 @@ if (document.getElementById("create_team")) {
       }
     },
     data: {
+      loading: false,
       team_name: "",
       team_description: "",
-      loading: false,
       notificationSystem: {
         options: {
           success: {
@@ -7761,7 +7823,17 @@ if (document.getElementById("create_team")) {
         },
       },
     },
-    created: function() {},
+    created: function() {
+      let self = this;
+      let team_id = document.getElementById("team_id").value;
+      if (team_id) {
+        axios.get("/" + role + "/teams/" + team_id).then((response) => {
+          console.log(response);
+          self.team_name = response.data.name;
+          self.team_description = response.data.description;
+        });
+      }
+    },
     methods: {
       showCompleted(message) {
         return this.$toast.success(
@@ -7791,7 +7863,7 @@ if (document.getElementById("create_team")) {
           this.notificationSystem.options.error
         );
       },
-      submitTeam: function() {
+      createTeam: function() {
         this.loading = true;
         let register_Form = document.getElementById("create_team_form");
         let form_data = new FormData(register_Form);
@@ -7802,8 +7874,39 @@ if (document.getElementById("create_team")) {
             console.log(response.data.type);
             if (response.data.type == "success") {
               self.loading = false;
-              console.log(Vue.prototype.trans("lang.team_submitting"));
               self.showInfo(Vue.prototype.trans("lang.team_submitting"));
+              setTimeout(function(self) {
+                window.location.replace(APP_URL + "/employer/teams");
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+      updateTeam: function() {
+        this.loading = true;
+        let register_Form = document.getElementById("edit_team_form");
+        let form_data = new FormData(register_Form);
+        var self = this;
+        axios
+          .post(APP_URL + "/employer/teams/update-team", form_data)
+          .then(function(response) {
+            console.log(response.data.type);
+            if (response.data.type == "success") {
+              self.loading = false;
+              self.showInfo(Vue.prototype.trans("lang.team_updating"));
               setTimeout(function(self) {
                 window.location.replace(APP_URL + "/employer/teams");
               }, 5000);
