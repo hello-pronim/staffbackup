@@ -29,6 +29,16 @@ class Team extends Model
     ];
 
     /**
+     * The users that belong to the team.
+     *
+     * @return relation
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /** 
      * Set slug before saving in DB
      *
      * @param string $value value
@@ -69,6 +79,32 @@ class Team extends Model
             $this->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
             $this->employer_id = Auth::user()->id;
             $this->save();
+            $json['type'] = "success";
+
+            return $json;
+        } else{
+            $json['type'] = "error";
+
+            return $json;
+        }
+    }
+
+    /**
+     * Update team
+     *
+     * @param $request
+     * @return array
+     */
+    public function updateTeam($request){
+        $json = [];
+
+        if (!empty($request)) {
+            $team = Team::find($request->id);
+            $team->name = $request->name;
+            $team->description = $request->description;
+            $team->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
+            $team->employer_id = Auth::user()->id;
+            $team->save();
             $json['type'] = "success";
 
             return $json;
