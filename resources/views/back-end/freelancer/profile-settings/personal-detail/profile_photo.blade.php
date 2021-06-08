@@ -73,10 +73,11 @@
                     </figure>
                     <div class="wt-uploadingbar">
                         <div class="dz-filename">{{{$cv}}}</div>
-                        <em>{{{ trans('lang.file_size') }}}<a href="javascript:void(0);" class="lnr lnr-cross" v-on:click.prevent="removeCv('hidden_cv')"></a></em>
+                        <em>{{{ trans('lang.file_size') }}}</em>
                     </div>
                 </div>
                 <input type="hidden"  type="file" name="hidden_cv_image" id="hidden_cv" accept=".pdf, image/*,.doc,.docx" value="{{{$cv}}}">
+                <a v-if="!this.uploaded_cv" href="javascript:void(0);" class="lnr lnr-cross fs-24 fw-bold" v-on:click.prevent="removeCv('hidden_cv')"></a>
             </div>
         @else
             <div class="wt-formtheme wt-userform">

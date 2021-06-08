@@ -253,6 +253,8 @@ class EmployerController extends Controller
                 'first_name'    => 'required',
                 'last_name'    => 'required',
                 'org_name'      => 'required'
+            ],[
+                'org_name.required' => 'Name of Insurace Company is required.'
             ]
         );
         if (!empty($request)) {
