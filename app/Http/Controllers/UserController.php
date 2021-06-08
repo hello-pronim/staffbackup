@@ -2038,7 +2038,7 @@ class UserController extends Controller
         $paymentSettings['p60'] = $user->p60;
         $paymentSettings['paypal'] = $user->paypal;
         $paymentSettings['bacs'] = $user->bacs;
-        $paymentSettings['bacs_shortcode'] = $user->bacs_shortcode;
+        $paymentSettings['bacs_sortcode'] = $user->bacs_sortcode;
         $paymentSettings['bacs_account'] = $user->bacs_account;
         $paymentSettings['cheque'] = $user->cheque;
         $paymentSettings['limited_company_number'] = $user->limitied_company_number;
@@ -2052,7 +2052,7 @@ class UserController extends Controller
             $user->payment_option = $request->payment_option;
             if($request->paypal) $user->paypal = $request->paypal;
             if($request->bacs) $user->bacs = $request->bacs;
-            if($request->bacs_shortcode) $user->bacs_shortcode = $request->bacs_shortcode;
+            if($request->bacs_sortcode) $user->bacs_sortcode = $request->bacs_sortcode;
             if($request->bacs_account) $user->bacs_account = $request->bacs_account;
             if($request->cheque) $user->cheque = $request->cheque;
             if($request->limited_company_number) $user->limitied_company_number = $request->limited_company_number;

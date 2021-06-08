@@ -5731,7 +5731,7 @@ if (document.getElementById("profile_settings")) {
         p60: "",
         cheque: "",
         bacs: "",
-        bacs_shortcode: "",
+        bacs_sortcode: "",
         bacs_account: "",
         limited_company_number: "",
       };
@@ -5782,7 +5782,7 @@ if (document.getElementById("profile_settings")) {
             self.payment_option = response.data.payment_option;
             self.p60 = response.data.p60;
             self.bacs = response.data.bacs;
-            self.bacs_shortcode = response.data.bacs_shortcode;
+            self.bacs_sortcode = response.data.bacs_sortcode;
             self.bacs_account = response.data.bacs_account;
             self.paypal = response.data.paypal;
             self.cheque = response.data.cheque;

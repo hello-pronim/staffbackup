@@ -15,8 +15,8 @@ class AddBacsDetailsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('bacs_shortcode')->nullable()->after('bacs');
-            $table->string('bacs_account')->nullable()->after('bacs_shortcode');
+            $table->string('bacs_sortcode')->nullable()->after('bacs');
+            $table->string('bacs_account')->nullable()->after('bacs_sortcode');
         });
     }
 
@@ -29,7 +29,7 @@ class AddBacsDetailsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('bacs_shortcode');
+            $table->dropColumn('bacs_sortcode');
             $table->dropColumn('bacs_account');
         });
     }
