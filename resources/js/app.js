@@ -7793,6 +7793,7 @@ if (document.getElementById("create_team")) {
     data: {
       loading: false,
       team_name: "",
+      team_slug: "",
       team_description: "",
       notificationSystem: {
         options: {
@@ -7832,6 +7833,11 @@ if (document.getElementById("create_team")) {
           self.team_name = response.data.name;
           self.team_description = response.data.description;
         });
+      }
+    },
+    mounted() {
+      if (jQuery("#team_slug")) {
+        this.team_slug = jQuery("#team_slug").val();
       }
     },
     methods: {
@@ -7909,6 +7915,47 @@ if (document.getElementById("create_team")) {
               self.showInfo(Vue.prototype.trans("lang.team_updating"));
               setTimeout(function(self) {
                 window.location.replace(APP_URL + "/employer/teams");
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+      onMemberDelete: function(e) {
+        let freelancer_id = jQuery(e.target)
+          .closest(".wt-actionbtn")
+          .find(".freelancerID")
+          .val();
+        let self = this;
+        self.loading = true;
+
+        axios
+          .post(
+            APP_URL + "/employer/teams/" + self.team_slug + "/delete-member",
+            {
+              freelancer_id: freelancer_id,
+            }
+          )
+          .then(function(response) {
+            if (response.data.type == "success") {
+              self.loading = false;
+              self.showInfo(Vue.prototype.trans("lang.member_deleting"));
+              setTimeout(function(self) {
+                window.location.replace(
+                  APP_URL + "/employer/teams/edit-team/" + self.team_slug
+                );
               }, 5000);
             } else {
               self.loading = false;
@@ -8063,7 +8110,6 @@ if (page) {
           .parent()
           .find(".freelancerId")
           .val();
-        console.log(self.freelancer_id);
 
         axios
           .post(APP_URL + "/employer/teams/" + self.team_slug + "/add-member", {
@@ -8072,7 +8118,7 @@ if (page) {
           .then(function(response) {
             if (response.data.type == "success") {
               self.loading = false;
-              self.showInfo(Vue.prototype.trans("lang.team_submitting"));
+              self.showInfo(Vue.prototype.trans("lang.member_adding"));
               setTimeout(function(self) {
                 window.location.replace(
                   APP_URL + "/employer/teams/edit-team/" + self.team_slug

@@ -129,4 +129,19 @@ class Team extends Model
             return $json;
         }
     }
+
+    public function deleteMember($request){
+        $json = [];
+
+        if(!empty($request)){
+            $team = Team::where('slug', $request->slug)->first();
+            $team->users()->detach($request->freelancer_id);
+
+            $json['type'] = "success";
+            return $json;
+        }else{
+            $json['type'] = "error";
+            return $json;
+        }
+    }
 }

@@ -13135,6 +13135,10 @@ Calendar
   font-size: 32px !important;
 }
 
+.d-block {
+  display: block !important;
+}
+
 .fw-bold {
   font-weight: bold !important;
 }
@@ -13175,6 +13179,23 @@ Calendar
 .flex-column {
   display: flex !important;
   flex-direction: column !important;
+}
+
+.wt-widgettag-sm a {
+  float: left;
+  margin: 5px;
+  padding: 0 10px;
+  color: #767676;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+
+.wt-widgettag-sm a:hover {
+  border-color: #fccf17;
+  background-color: #fccf17;
 }
 
 .avatar-sm {

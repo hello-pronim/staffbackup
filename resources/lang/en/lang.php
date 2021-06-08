@@ -997,6 +997,8 @@ return [
     'success' => 'Success',
     'job_submitting' => 'Your job post is being submitted. Please wait.',
     'team_submitting' => 'Your team is being created. Please wait.',
+    'member_adding' => 'This freelancer is being added to your team. Please wait.',
+    'member_deleting' => 'This freelancer is being deleted from your team. Please wait.',
     'clear_selected_cache' => 'Clear Selected Cache',
     'deleted' => 'Deleted',
     'cache_cleared' => 'Cache Cleared',

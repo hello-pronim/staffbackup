@@ -941,6 +941,7 @@ class EmployerController extends Controller
                         ->join('users', 'team_user.user_id', '=', 'users.id')
                         ->join('profiles', 'users.id', '=', 'profiles.user_id')
                         ->where('team_user.team_id', $team->id)
+                        ->select('users.*', 'profiles.hourly_rate')
                         ->get();
             $currency  = SiteManagement::getMetaValue('commision');
             $symbol    = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
@@ -1173,7 +1174,21 @@ class EmployerController extends Controller
             $response = $this->team->addMember($request);
             
             $json['type'] = 'success';
-            $json['message'] = trans('lang.team_create_success');
+            $json['message'] = trans('lang.member_add_success');
+            return $json;
+        } else {
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
+        }
+    }
+
+    public function deleteTeamMember(Request $request){
+        if($request->slug && $request->freelancer_id){
+            $response = $this->team->deleteMember($request);
+            
+            $json['type'] = 'success';
+            $json['message'] = trans('lang.memeber_delete_success');
             return $json;
         } else {
             $json['type'] = 'error';

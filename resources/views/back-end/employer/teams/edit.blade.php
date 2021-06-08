@@ -38,6 +38,7 @@
                         <div class="wt-tabscontent tab-content">
                             {!! Form::open(['class' =>'edit-team-form wt-haslayout', 'id' => 'edit_team_form',  '@submit.prevent'=>'updateTeam']) !!}
                             <input type="hidden" id="team_id" name="id" value={{$team->id}}>
+                            <input type="hidden" id="team_slug" name="slug" value={{$team->slug}}>
                             <div class="wt-dashboardbox">
                                 <div class="wt-dashboardboxtitle text-center">
                                     <h2 class="text-bold text-uppercase" style="font-family: AganeLight;">{{ trans('lang.edit_team') }}</h2>
@@ -69,6 +70,7 @@
                                             <table class="wt-tablecategories">
                                                 <thead>
                                                     <tr>
+                                                        <th>#</th>
                                                         <th>{{{ trans('lang.name') }}}</th>
                                                         <th>{{{ trans('lang.professions') }}}</th>
                                                         <th>{{{ trans('lang.hourly_rate') }}}</th>
@@ -78,12 +80,27 @@
                                                 <tbody>
                                                 @foreach ($members as $key => $member)
                                                     <tr class="del-team-{{ $member->id }}">
+                                                        <td>{{$key+1}}</td>
                                                         <td><a href="{{route('showUserProfile', ['slug'=>$member->slug])}}">{{ $member->first_name." ".$member->last_name }}</a></td>
-                                                        <td></td>
+                                                        <td>
+                                                            <?php 
+                                                            $professions = \App\Profession::join('profession_user', 'professions.id', '=', 'profession_user.profession_id')
+                                                                                            ->where('profession_user.user_id', $member->id)
+                                                                                            ->get();
+                                                            $main_prof = \App\Profession::where('id', $member->profession_id)->first();
+                                                            ?>
+                                                            <div class="wt-tag wt-widgettag-sm">
+                                                                <a href="{{{url('search-results?type=job&professions%5B%5D='.$main_prof->slug)}}}" class="d-block">{{{ $main_prof->title }}}</a>
+                                                                @foreach($professions as $prof)
+                                                                <a href="{{{url('search-results?type=job&professions%5B%5D='.$prof->slug)}}}" class="d-block">{{{ $prof->title }}}</a>
+                                                                @endforeach
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $symbol['symbol']." ".$member->hourly_rate." per hour" }}</td>
                                                         <td>
                                                             <div class="wt-actionbtn">
-                                                                <a href="javascript:void()" class="wt-deleteinfo wt-skillsaddinfo"><i class="fa fa-trash"></i></a>
+                                                                <input type="hidden" class="freelancerID" value="{{$member->id}}"/>
+                                                                <a href="javascript:void()" class="wt-deleteinfo wt-skillsaddinfo" @click="onMemberDelete"><i class="fa fa-trash"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
