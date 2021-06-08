@@ -7983,6 +7983,122 @@ if (page) {
     created: function() {},
   });
 }
+
+page = document.getElementById("add-team-members");
+if (page) {
+  const addTeamMember = new Vue({
+    el: "#add-team-members",
+    components: {},
+    mounted: function() {
+      this.team_slug = jQuery("#team_slug").val();
+      console.log(this.team_slug);
+    },
+    data: {
+      loading: false,
+      team_slug: "",
+      freelancer_id: 0,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          error: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          completed: {
+            position: "center",
+            timeout: 1000,
+            progressBar: false,
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: "center",
+            timeout: 3000,
+            onClosing: function(instance, toast, closedBy) {
+              addTeamMember.showCompleted(
+                Vue.prototype.trans("lang.process_cmplted_success")
+              );
+            },
+          },
+        },
+      },
+    },
+    methods: {
+      showCompleted(message) {
+        return this.$toast.success(
+          " ",
+          message,
+          this.notificationSystem.options.completed
+        );
+      },
+      showInfo(message) {
+        return this.$toast.info(
+          " ",
+          message,
+          this.notificationSystem.options.info
+        );
+      },
+      showMessage(message) {
+        return this.$toast.success(
+          Vue.prototype.trans("lang.success"),
+          message,
+          this.notificationSystem.options.success
+        );
+      },
+      showError(error) {
+        return this.$toast.error(
+          " ",
+          error,
+          this.notificationSystem.options.error
+        );
+      },
+      onAddMemberClicked: function(e) {
+        var self = this;
+
+        self.loading = true;
+        self.freelancer_id = jQuery(e.target)
+          .parent()
+          .find(".freelancerId")
+          .val();
+        console.log(self.freelancer_id);
+
+        axios
+          .post(APP_URL + "/employer/teams/" + self.team_slug + "/add-member", {
+            freelancer_id: self.freelancer_id,
+          })
+          .then(function(response) {
+            if (response.data.type == "success") {
+              self.loading = false;
+              self.showInfo(Vue.prototype.trans("lang.team_submitting"));
+              setTimeout(function(self) {
+                window.location.replace(
+                  APP_URL + "/employer/teams/edit-team/" + self.team_slug
+                );
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+    },
+    created: function() {},
+  });
+}
 if (document.getElementById("invoice_list")) {
   new Vue({
     el: "#invoice_list",

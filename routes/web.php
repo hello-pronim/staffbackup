@@ -300,6 +300,7 @@ Route::group(
         Route::get('employer/teams/edit-team/{slug}', 'EmployerController@editTeam')->name('editEmployerTeam');
         Route::post('employer/teams/update-team', 'EmployerController@updateTeam');
         Route::get('employer/teams/{slug}/add-members', 'EmployerController@addTeamMembers')->name('addTeamMembers');
+        Route::post('employer/teams/{slug}/add-member', 'EmployerController@createTeamMember');
         Route::post('employer/upload-temp-image', 'EmployerController@uploadTempImage');
         Route::post('employer/store-profile-settings', 'EmployerController@storeProfileSettings');
         Route::post('job/post-job', 'JobController@store');

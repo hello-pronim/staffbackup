@@ -78,9 +78,9 @@
                                                 <tbody>
                                                 @foreach ($members as $key => $member)
                                                     <tr class="del-team-{{ $member->id }}">
-                                                        <td>{{ $member->name }}</td>
+                                                        <td><a href="{{route('showUserProfile', ['slug'=>$member->slug])}}">{{ $member->first_name." ".$member->last_name }}</a></td>
                                                         <td></td>
-                                                        <td>{{ $member->hourly_rate }}</td>
+                                                        <td>{{ $symbol['symbol']." ".$member->hourly_rate." per hour" }}</td>
                                                         <td>
                                                             <div class="wt-actionbtn">
                                                                 <a href="javascript:void()" class="wt-deleteinfo wt-skillsaddinfo"><i class="fa fa-trash"></i></a>

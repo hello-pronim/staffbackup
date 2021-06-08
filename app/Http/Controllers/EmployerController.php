@@ -937,12 +937,18 @@ class EmployerController extends Controller
         if (Auth::user()) {
             $user = User::find(Auth::user()->id);
             $team = Team::where('slug', $request->slug)->first();
-            $members = array();
+            $members = DB::table('team_user')
+                        ->join('users', 'team_user.user_id', '=', 'users.id')
+                        ->join('profiles', 'users.id', '=', 'profiles.user_id')
+                        ->where('team_user.team_id', $team->id)
+                        ->get();
+            $currency  = SiteManagement::getMetaValue('commision');
+            $symbol    = !empty($currency) && !empty($currency[0]['currency']) ? Helper::currencyList($currency[0]['currency']) : array();
 
             if (file_exists(resource_path('views/extend/back-end/employer/teams/edit.blade.php'))) {
-                return view('extend.back-end.employer.teams.edit', compact('user', 'team', 'members'));
+                return view('extend.back-end.employer.teams.edit', compact('user', 'team', 'members', 'symbol'));
             } else {
-                return view('back-end.employer.teams.edit', compact('user', 'team', 'members'));
+                return view('back-end.employer.teams.edit', compact('user', 'team', 'members', 'symbol'));
             }
         } else {
             abort(404);
@@ -1159,6 +1165,20 @@ class EmployerController extends Controller
 
         } else {
             abort(404);
+        }
+    }
+
+    public function createTeamMember(Request $request){
+        if($request->slug && $request->freelancer_id){
+            $response = $this->team->addMember($request);
+            
+            $json['type'] = 'success';
+            $json['message'] = trans('lang.team_create_success');
+            return $json;
+        } else {
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
         }
     }
 }

@@ -141,7 +141,8 @@
     </div>
 </div>
 @endif
-<div class="wt-haslayout wt-main-section" id="search-results">
+<div class="wt-haslayout wt-main-section" id="add-team-members">
+    <input type="hidden" id="team_slug" value="{{$team_slug}}">
     <div class="wt-haslayout">
         <div class="container">
             <div class="row">
@@ -268,8 +269,9 @@
                                                 </div>
                                                 @endif
                                             </div>
-                                            <div class="wt-rightarea">                                                
-                                                <button type="button" class="wt-btn">Add</a>
+                                            <div class="wt-rightarea">
+                                                <input type="hidden" class="freelancerId" value="{{$freelancer->id}}"/>                                                
+                                                <button type="button" class="wt-btn" @click="onAddMemberClicked">Add</a>
                                             </div>
                                         </div>
                                     </div>
