@@ -114,4 +114,19 @@ class Team extends Model
             return $json;
         }
     }
+
+    public function addMember($request){
+        $json = [];
+
+        if(!empty($request)){
+            $team = Team::where('slug', $request->slug)->first();
+            $team->users()->attach($request->freelancer_id);
+
+            $json['type'] = "success";
+            return $json;
+        }else{
+            $json['type'] = "error";
+            return $json;
+        }
+    }
 }
