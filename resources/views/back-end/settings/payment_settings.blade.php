@@ -64,7 +64,7 @@ $subscribe_options  = array(
                                                 <input type="text" name="bacs" class="form-control" placeholder="Name" value="{{{$user->bacs}}}" v-model="bacs">
                                             </div>
                                             <div class="form-group" v-if="payment_option=='BACs'">
-                                                <label>Sortcode</label>
+                                                <label>Sort code</label>
                                                 <input type="text" name="bacs_sortcode" pattern="[\d]{10}" maxlength="10" class="form-control" placeholder="Sort code" value="{{{$user->bacs_sortcode}}}" v-model="bacs_sortcode">
                                             </div>
                                             <div class="form-group" v-if="payment_option=='BACs'">
