@@ -29,17 +29,23 @@
                     </h4>
                     <p class="fs-14">{{ trans('lang.created_at') }}&nbsp;{{ date('d-m-Y H:i', strtotime($job->created_at)) }} </p>
 
-                    <h2 class="content-public-profile__main-content-name mbottom35 fs-14">
-                        @if(!empty($job->title))
-                        {{ $job->title }}
-                        @else
-                        Undefined
-                        @endif
-                    </h2>
+                    <!-- <h2 class="content-public-profile__main-content-name mbottom35 fs-14"> -->
+                    <div class="wt-widgettitle wt-companysinfo">
+                        <div class="wt-title">
+                            <h2>
+                                @if(!empty($job->title))
+                                {{ $job->title }}
+                                @else
+                                Undefined
+                                @endif
+                            </h2>
+                        </div>
+                    </div>
 
                     @if($job->description != "")
                     <div class="content-public-profile__main-content-text-block mbottom35">
-                        <span class="content-public-profile__main-content-title fs-14">Description:</span>
+                        <span class="wt-category-title">Description:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Description:</span> -->
                         <div class="fs-14">{{ $job->description }}</div>
                     </div>
                     @endif
@@ -47,8 +53,9 @@
                     @if (!empty($job->professions))
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title fs-14">Profession:</span>
-                        <div class="wt-tag wt-widgettag">
+                        <span class="wt-category-title">Profession:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Profession:</span> -->
+                        <div class="wt-tag wt-widgettag d-flex justify-content-center">
                         @foreach ($job->professions as $profession)
                             <a href="#">{{{ $profession->title }}}</a>
                         @endforeach
@@ -59,7 +66,8 @@
                     @if ($job->employer->itsoftware != "")
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title fs-14">Computer System in use:</span>
+                        <span class="wt-category-title">Computer System in use:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Computer System in use:</span> -->
                         <div class="fs-14">{{ implode(', ', $job->employer->getItsoftware()) }}</div>
                     </div>
                     @endif
@@ -67,7 +75,8 @@
                     @if(!empty($job->calendars))
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title fs-14">Start and End time:</span>
+                        <span class="wt-category-title">Start and End time:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Start and End time:</span> -->
                         @foreach($job->calendars as $calendar_event)
                             @if($calendar_event->class=="booking_calendar" || $calendar_event->class=="booking_hired")
                             <div class="fs-14">Start: {{$calendar_event->start->format('d-m-Y H:i')}}</div>
@@ -82,7 +91,8 @@
                     @if($breaks)
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35">
-                        <span class="content-public-profile__main-content-title fs-14">Breaks:</span>
+                        <span class="wt-category-title">Breaks:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Breaks:</span> -->
                         <div class="fs-14">
                         @foreach($breaks as $break)
                         {{ $break->when . ": "}} {{ $break->for }}
@@ -93,29 +103,30 @@
                     @if($job->job_adm_catch_time_interval)
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35 fs-14">
-                        <span class="content-public-profile__main-content-title fs-14">Admin Catch Up Provided (interval):</span>
+                        <span class="wt-category-title">Admin Catch Up Provided (interval):</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Admin Catch Up Provided (interval):</span> -->
                         {{ $job->job_adm_catch_time_interval }}
                     </div>
                     @endif
                     @if($job->job_appo_slot_times)
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35 fs-14">
-                        <span class="content-public-profile__main-content-title fs-14">Appointment Slot Times:</span>
+                        <span class="wt-category-title">Appointment Slot Times:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Appointment Slot Times:</span> -->
                         {{ $job->job_appo_slot_times }}
                     </div>
                     @endif
                     @if($job->home_visits)
                     <div class="content-public-profile__main-content-separator"></div>
                     <div class="content-public-profile__main-content-text-block mtop35 mbottom35 fs-14">
-                        <span class="content-public-profile__main-content-title fs-14">Home Visits:</span>
+                        <span class="wt-category-title">Home Visits:</span>
+                        <!-- <span class="content-public-profile__main-content-title fs-14">Home Visits:</span> -->
                         {{ $job->home_visits }}
                     </div>
                     @endif
                     @if (!empty($attachments) && $job->show_attachments === 'true')
                         <div class="wt-attachments">
-                            <div class="wt-title">
-                                <h3 class="fs-14">{{ trans('lang.attachments') }}</h3>
-                            </div>
+                            <span class="wt-category-title">{{ trans('lang.attachments') }}</span>
                             <ul class="wt-attachfile">
                                 @foreach ($attachments as $attachment)
                                     <li>
