@@ -38,7 +38,12 @@
                                     <tr class="del-team-{{ $teamData->id }}">
                                         <td>{{ $teamData->name }}</td>
                                         <td>{{ $teamData->description }}</td>
-                                        <td>{{ $teamData->number_members }}</td>
+                                        <td>
+                                            <?php
+                                                $num_members = DB::table('team_user')->where('team_id', $teamData->id)->get()->count();
+                                            ?>
+                                            {{ $num_members }}
+                                        </td>
                                         <td>
                                             <div class="wt-actionbtn">
                                                 <a href="{{ route('editEmployerTeam', ['slug' => $teamData->slug]) }}" class="wt-disableinfo wt-skillsaddinfo"><i class="fa fa-edit"></i></a>

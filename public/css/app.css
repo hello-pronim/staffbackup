@@ -13123,6 +13123,10 @@ Calendar
   font-size: 14px !important;
 }
 
+.fs-18 {
+  font-size: 18px !important;
+}
+
 .fs-24 {
   font-size: 24px !important;
 }
@@ -13196,6 +13200,28 @@ Calendar
 .wt-widgettag-sm a:hover {
   border-color: #fccf17;
   background-color: #fccf17;
+}
+
+.wt-category-title {
+  margin: 0;
+  display: block;
+  color: #323232;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+.wt-detail-page-title {
+  font-size: 32px !important;
+  line-height: 33px !important;
+  text-transform: none;
+  font-family: AvertaExtraBold, "Segoe UI", Tahoma, sans-serif;
+  font-weight: bolder !important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  white-space: break-spaces;
 }
 
 .avatar-sm {

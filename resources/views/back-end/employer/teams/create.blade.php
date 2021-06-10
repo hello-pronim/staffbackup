@@ -36,7 +36,7 @@
                     </div>
                     <div  class="scrolToCalend">
                         <div class="wt-tabscontent tab-content">
-                            {!! Form::open(['url' => url('employer/teams/add'), 'class' =>'create-team-form wt-haslayout', 'id' => 'create_team_form',  '@submit.prevent'=>'submitTeam']) !!}
+                            {!! Form::open(['url' => url('employer/teams/add'), 'class' =>'create-team-form wt-haslayout', 'id' => 'create_team_form',  '@submit.prevent'=>'createTeam']) !!}
                             <div class="wt-dashboardbox">
                                 <div class="wt-dashboardboxtitle text-center">
                                     <h2 class="text-bold text-uppercase" style="font-family: AganeLight;">{{ trans('lang.create_team') }}</h2>

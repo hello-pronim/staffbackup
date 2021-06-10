@@ -258,8 +258,7 @@
                                                 @if (!empty($freelancer->professions))
                                                     <div class="wt-tag wt-widgettag mt-20">
                                                         @foreach($freelancer->professions as $profession)
-                                                        <a
-                                                            href="{{{url('search-results?type=job&professions%5B%5D='.$profession->slug)}}}">{{{ $profession->title }}}</a>
+                                                        <a href="#">{{{ $profession->title }}}</a>
                                                         @endforeach
                                                     </div>
                                                     @endif

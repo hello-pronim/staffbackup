@@ -294,7 +294,7 @@ Route::group(
         Route::get('employer/dashboard', 'EmployerController@employerDashboard')->name('employerDashboard');
         Route::get('employer/profile', 'EmployerController@index')->name('employerPersonalDetail');
         Route::get('employer/teams', 'EmployerController@showTeams')->name('manageEmployerTeams');
-        Route::get('employer/teams/{id}', 'EmployerController@getTeamDetail')->name('getEmployerTeamDetail');
+        Route::get('employer/teams/{id}', 'EmployerController@getTeamDetail')->where('id', '[0-9]+')->name('getEmployerTeamDetail');
         Route::get('employer/teams/add', 'EmployerController@addTeam')->name('createEmployerTeam');
         Route::post('employer/teams/add', 'EmployerController@postAddTeam');
         Route::get('employer/teams/edit-team/{slug}', 'EmployerController@editTeam')->name('editEmployerTeam');
