@@ -37,6 +37,8 @@ use App\Proposal;
 use DB;
 use App\Package;
 use App\EmailTemplate;
+use App\Mail\AdminEmailMailable;
+use App\Mail\EmployerEmailMailable;
 use App\Mail\FreelancerEmailMailable;
 use App\Invoice;
 use App\Item;
@@ -923,6 +925,44 @@ class EmployerController extends Controller
 
         $response = $this->team->addTeam($request);
         if($response['type']=="success"){
+            if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
+                $user = $this->user::find(Auth::user()->id);
+                $team = $this->team::where('employer_id', Auth::user()->id)->latest()->first();
+                $email_params = array();
+                $new_created_team_template = DB::table('email_types')->select('id')->where('email_type', 'admin_email_new_team_created')->get()->first();
+                $new_created_team_template_employer = DB::table('email_types')->select('id')->where('email_type', 'employer_email_new_team_created')->get()->first();
+                if (!empty($new_created_team_template->id) || !empty($new_created_team_template_employer)) {
+                    $template_data = EmailTemplate::getEmailTemplateByID($new_created_team_template->id);
+                    $template_data_employer = EmailTemplate::getEmailTemplateByID($new_created_team_template_employer->id);
+                    $email_params['team_name'] = $team->name;
+                    $email_params['created_team_link'] = url('/employer/teams/edit-team/' . $team->slug);
+                    $email_params['name'] = Helper::getUserName(Auth::user()->id);
+                    $email_params['link'] = url('profile/' . $user->slug);
+                    Mail::to(config('mail.username'))
+                    ->send(
+                        new AdminEmailMailable(
+                            'admin_email_new_team_created',
+                            $template_data,
+                            $email_params
+                        )
+                    );
+                    if (!empty($user->email)) {
+                        $templateMailUser = new EmployerEmailMailable(
+                            'employer_email_new_team_created',
+                            $template_data_employer,
+                            $email_params
+                        );
+                        Mail::to($user->email)
+                        ->send(
+                            $templateMailUser
+                        );
+                        $messageBodyUser = $templateMailUser->prepareEmployerEmailTeamCreated($email_params);
+                        $notificationMessageUser = ['receiver_id' => $user->id,'author_id' => 1,'message' => $messageBodyUser];
+                        $serviceUser = new Message();
+                        $serviceUser->saveNofiticationMessage($notificationMessageUser);
+                    }
+                }
+            }
             $json['type'] = 'success';
             $json['message'] = trans('lang.team_create_success');
             return $json;

@@ -41,7 +41,8 @@ class CreateEmailTypesTable extends Migration
                         'employer_email_new_job_posted', 'employer_email_proposal_message', 'employer_email_package_subscribed',
                         'freelancer_email_new_proposal_submitted', 'freelancer_email_hire_freelancer', 'freelancer_email_send_offer',
                          'freelancer_email_cancel_job', 'freelancer_email_proposal_message', 'freelancer_email_package_subscribed',
-                         'freelancer_email_job_completed', 'admin_email_dispute_raised', 'reset_password_email','admin_email_cancel_job', 'admin_email_document_expired'
+                         'freelancer_email_job_completed', 'admin_email_dispute_raised', 'reset_password_email','admin_email_cancel_job', 'admin_email_document_expired', 
+                         'admin_email_new_team_created', 'employer_email_new_team_created', 'admin_email_new_team_member_added', 'employer_email_new_team_member_added'
                     ]
                 );
                 $table->text('variables');

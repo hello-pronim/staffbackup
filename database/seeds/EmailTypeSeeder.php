@@ -122,6 +122,20 @@ class EmailTypeSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'role_id' => 1,
+                    'email_type' => 'admin_email_new_team_created',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:1;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:2;a:2:{s:3:"key";s:9:"name";s:5:"value";s:11:"%team_name%";}i:3;a:2:{s:3:"key";s:8:"team_link";s:5:"value";s:10:"%team_link%";}i:4;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
+                    'role_id' => 1,
+                    'email_type' => 'admin_email_new_team_member_added',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:1;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:2;a:2:{s:3:"key";s:9:"member_name";s:5:"value";s:11:"%member_name%";}i:3;a:2:{s:3:"key";s:8:"member_link";s:5:"value";s:10:"%member_link%";}i:4;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
                 // Employer Email Types
                 [
                     'role_id' => 2,
@@ -148,6 +162,20 @@ class EmailTypeSeeder extends Seeder
                     'role_id' => 2,
                     'email_type' => 'employer_email_package_subscribed',
                     'variables' => 'a:6:{i:0;a:2:{s:3:"key";s:12:"package_name";s:5:"value";s:14:"%package_name%";}i:1;a:2:{s:3:"key";s:13:"package_price";s:5:"value";s:15:"%package_price%";}i:2;a:2:{s:3:"key";s:14:"package_expiry";s:5:"value";s:16:"%package_expiry%";}i:3;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:4;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:5;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
+                    'role_id' => 2,
+                    'email_type' => 'employer_email_new_team_created',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:1;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:2;a:2:{s:3:"key";s:9:"name";s:5:"value";s:11:"%team_name%";}i:3;a:2:{s:3:"key";s:8:"team_link";s:5:"value";s:10:"%team_link%";}i:4;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
+                    'role_id' => 2,
+                    'email_type' => 'employer_email_new_team_member_added',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:1;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:2;a:2:{s:3:"key";s:9:"member_name";s:5:"value";s:11:"%member_name%";}i:3;a:2:{s:3:"key";s:8:"member_link";s:5:"value";s:10:"%member_link%";}i:4;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],

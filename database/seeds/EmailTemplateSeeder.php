@@ -188,10 +188,37 @@ class EmailTemplateSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'admin_email' => 'info@yourdomain.com',
+                    'email_type_id' => '14',
+                    'title' => 'Admin Email Content - Team Created',
+                    'subject' => 'New Team Created',
+                    'content' => '<p>Hello,</p>
+                    <p>A new team is created by <strong><a href="%employer_link%">%employer_name%</a></strong>.</p>
+                    <p>Click to edit the team and add team members.</p>
+                    <p><a href="%team_link%" target="_blank" rel="noopener"><strong>%team_name%</strong></a></p>
+                    <p>%signature%</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
+                    'admin_email' => 'info@yourdomain.com',
+                    'email_type_id' => '15',
+                    'title' => 'Admin Email Content - Team Member Added',
+                    'subject' => 'New Team Member Added',
+                    'content' => '<p>Hello,</p>
+                    <p>A new team member is added by <strong><a href="%employer_link%">%employer_name%</a></strong>.</p>
+                    <p>Click to view this team member.</p>
+                    <p><a href="%member_link%" target="_blank" rel="noopener"><strong>%member_name%</strong></a></p>
+                    <p>%signature%</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+
                 // Employer Email Templates
                 [
                     'admin_email' => null,
-                    'email_type_id' => '14',
+                    'email_type_id' => '16',
                     'title' => 'Employer Email Content - Proposal Received',
                     'subject' => 'Proposal Received',
                     'content' => '<p>Hello <strong>%employer_name%</strong>,</p>
@@ -206,7 +233,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '15',
+                    'email_type_id' => '17',
                     'title' => 'Employer Email Content - New Job Posted',
                     'subject' => 'New Job Posted',
                     'content' => '<p>Hello,</p>
@@ -218,7 +245,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '16',
+                    'email_type_id' => '18',
                     'title' => 'Employer Email Content - Proposal Message',
                     'subject' => 'Proposal Message',
                     'content' => '<p>Hello <strong><a href="%employer_link%">%employer_name%</a></strong>,</p>
@@ -232,7 +259,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '17',
+                    'email_type_id' => '19',
                     'title' => 'Employer Email Content - Package Purchased',
                     'subject' => 'Package Purchased',
                     'content' => '<p>Hello <a href="%employer_link%"><strong>%employer_name%</strong></a>,</p>
@@ -242,10 +269,36 @@ class EmailTemplateSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'admin_email' => null,
+                    'email_type_id' => '20',
+                    'title' => 'Employer Email Content - Team Created',
+                    'subject' => 'New Team Created',
+                    'content' => '<p>Hello,</p>
+                    <p>A new team is created by you <strong><a href="%employer_link%">%employer_name%</a></strong>.</p>
+                    <p>Click to edit the team and add team members.</p>
+                    <p><a href="%team_link%" target="_blank" rel="noopener"><strong>%team_name%</strong></a></p>
+                    <p>%signature%</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
+                    'admin_email' => null,
+                    'email_type_id' => '21',
+                    'title' => 'Employer Email Content - Team Member Added',
+                    'subject' => 'New Team Member Added',
+                    'content' => '<p>Hello,</p>
+                    <p>A new team member is added by you <strong><a href="%employer_link%">%employer_name%</a></strong>.</p>
+                    <p>Click to view this team member.</p>
+                    <p><a href="%member_link%" target="_blank" rel="noopener"><strong>%member_name%</strong></a></p>
+                    <p>%signature%</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
                 //Freelancer Email Templates
                 [
                     'admin_email' => null,
-                    'email_type_id' => '18',
+                    'email_type_id' => '22',
                     'title' => 'Freelancer Email Content - New Proposal Submitted',
                     'subject' => 'New Proposal Submitted',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -259,7 +312,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '19',
+                    'email_type_id' => '23',
                     'title' => 'Freelancer Email Content - Hire Freelancer',
                     'subject' => 'Congratulation You are hired!',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -270,7 +323,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '20',
+                    'email_type_id' => '24',
                     'title' => 'Freelancer Email Content - Send Offer',
                     'subject' => 'Offer Received',
                     'content' => '<p>Hi <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -284,7 +337,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '21',
+                    'email_type_id' => '25',
                     'title' => 'Freelancer Email Content - Cancel Job',
                     'subject' => 'Job Cancelled',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -298,7 +351,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '22',
+                    'email_type_id' => '26',
                     'title' => 'Freelancer Email Content - Proposal Message',
                     'subject' => 'Proposal Message',
                     'content' => '<p>Hello <strong><a href="%employer_link%">%employer_name%</a></strong>,</p>
@@ -312,7 +365,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '23',
+                    'email_type_id' => '27',
                     'title' => 'Freelancer Email Content - Package Subscribed',
                     'subject' => 'Package Purchased',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -323,7 +376,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '24',
+                    'email_type_id' => '28',
                     'title' => 'Freelancer Email Content - Job Completed',
                     'subject' => 'Job Completed',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -338,7 +391,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '25',
+                    'email_type_id' => '29',
                     'title' => 'Admin Email Content - Dispute Raised',
                     'subject' => 'A dispute has been rasied',
                     'content' => '<p>Hello,</p>
@@ -352,7 +405,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '26',
+                    'email_type_id' => '30',
                     'title' => 'Password Reset',
                     'subject' => 'Password Reset',
                     'content' => '<p>Hello <strong>%name%</strong>,</p>
@@ -366,7 +419,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '27',
+                    'email_type_id' => '31',
                     'title' => 'Admin Email Content - Job Cancelled',
                     'subject' => 'Job Cancelled',
                     'content' => '  <p>Hello,</p>
@@ -379,7 +432,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '28',
+                    'email_type_id' => '32',
                     'title' => 'Admin Email Content - Document Expired',
                     'subject' => 'Document Expired',
                     'content' => '  <p>Hello, <strong><a href="%freelancer_link%">%freelancer_name%</a></strong></p>

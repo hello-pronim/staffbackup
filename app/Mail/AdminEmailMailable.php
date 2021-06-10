@@ -73,6 +73,8 @@ class AdminEmailMailable extends Mailable
             $email_message = $this->prepareAdminEmailDisputeRaised($this->email_params);
         } elseif ($this->type == 'admin_email_document_expired') {
             $email_message = $this->prepareAdminEmailDocumentExpired($this->email_params);
+        } elseif ($this->type == 'admin_email_new_team_created') {
+            $email_message = $this->prepareAdminEmailTeamCreated($this->email_params);
         }
         $message = $this->from($from_email, $from_email_id)
             ->subject($subject)->view('emails.index')
@@ -536,6 +538,45 @@ class AdminEmailMailable extends Mailable
         $app_content = str_replace("%document_name%", $document_name, $app_content);
         $app_content = str_replace("%expire_date%", $expire_date, $app_content);
         $app_content = str_replace("%message%", '', $app_content);
+        $app_content = str_replace("%signature%", $signature, $app_content);
+
+        $body = "";
+        $body .= EmailHelper::getEmailHeader();
+        $body .= $app_content;
+        $body .= EmailHelper::getEmailFooter();
+        return $body;
+    }
+
+    /**
+     * Email team created
+     *
+     * @param array $email_params Email Parameters
+     *
+     * @access public
+     *
+     * @return string
+     */
+    public function prepareAdminEmailTeamCreated($email_params)
+    {
+        extract($email_params);
+        $team_link = $created_team_link;
+        $employer_name = $name;
+        $employer_link = $link;
+        $signature = EmailHelper::getSignature();
+        $app_content = $this->template->content;
+        $email_content_default =    "Hello,
+                                    A new team is created by <a href='%employer_link%'>%employer_name%</a>.
+                                    Click to edit the team and add team members. <a href='%team_link%' target='_blank' rel='noopener'>%team_name%</a>
+
+                                    %signature%";
+        //set default contents
+        if (empty($app_content)) {
+            $app_content = $email_content_default;
+        }
+        $app_content = str_replace("%employer_link%", $employer_link, $app_content);
+        $app_content = str_replace("%employer_name%", $employer_name, $app_content);
+        $app_content = str_replace("%team_link%", $team_link, $app_content);
+        $app_content = str_replace("%team_name%", $team_name, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";
