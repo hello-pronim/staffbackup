@@ -996,6 +996,19 @@ class EmployerController extends Controller
         }
     }
 
+    public function deleteTeam(Request $request){
+        $response = $this->team->deleteTeam($request);
+        if($response['type']=="success"){
+            $json['type'] = 'success';
+            $json['message'] = trans('lang.team_delete_success');
+            return $json;
+        } else{
+            $json['type'] = 'error';
+            $json['message'] = trans('lang.something_wrong');
+            return $json;
+        }
+    }
+
     public function updateTeam(Request $request){
         $this->validate($request,[
             'name' => 'required',

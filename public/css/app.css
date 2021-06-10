@@ -13164,6 +13164,10 @@ Calendar
   font-weight: bold !important;
 }
 
+.text-italic {
+  font-style: italic !important;
+}
+
 .text-uppercase {
   text-transform: uppercase !important;
 }

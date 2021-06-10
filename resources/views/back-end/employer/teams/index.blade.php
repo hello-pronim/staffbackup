@@ -1,6 +1,6 @@
 @extends(file_exists(resource_path('views/extend/back-end/master.blade.php')) ? 'extend.back-end.master' : 'back-end.master')
 @section('content')
-    <section class="wt-haslayout wt-dbsectionspace" id="profile_settings">
+    <section class="wt-haslayout wt-dbsectionspace" id="teams">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-right">
                 @if (Session::has('message'))
@@ -30,6 +30,7 @@
                                         <th>{{{ trans('lang.team_name') }}}</th>
                                         <th>{{{ trans('lang.description') }}}</th>
                                         <th>{{{ trans('lang.number_members') }}}</th>
+                                        <th>{{{ trans('lang.job_alert') }}}</th>
                                         <th>{{{ trans('lang.action') }}}</th>
                                     </tr>
                                 </thead>
@@ -44,10 +45,11 @@
                                             ?>
                                             {{ $num_members }}
                                         </td>
+                                        <td><span class="{{$teamData->alert ? 'text-bold': 'text-italic'}}">{{ $teamData->alert ? "Enabled" : "Diabled"}}</span></td>
                                         <td>
                                             <div class="wt-actionbtn">
                                                 <a href="{{ route('editEmployerTeam', ['slug' => $teamData->slug]) }}" class="wt-disableinfo wt-skillsaddinfo"><i class="fa fa-edit"></i></a>
-                                                <a href="javascript:void()" class="wt-deleteinfo wt-skillsaddinfo"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void()" teamID="{{$teamData->id}}" class="wt-deleteinfo wt-skillsaddinfo" @click="deleteTeam"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

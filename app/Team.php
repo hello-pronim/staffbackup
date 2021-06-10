@@ -78,6 +78,7 @@ class Team extends Model
             $this->description = $request->description;
             $this->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
             $this->employer_id = Auth::user()->id;
+            $this->alert = ($request->alert=="on" || $request->alert==true) ? true : false;
             $this->save();
             $json['type'] = "success";
 
@@ -104,6 +105,7 @@ class Team extends Model
             $team->description = $request->description;
             $team->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
             $team->employer_id = Auth::user()->id;
+            $team->alert = ($request->alert=="on" || $request->alert==true) ? true : false;
             $team->save();
             $json['type'] = "success";
 
@@ -111,6 +113,27 @@ class Team extends Model
         } else{
             $json['type'] = "error";
 
+            return $json;
+        }
+    }
+
+    public function deleteTeam($request){
+        $json = [];
+        if(!empty($request)){
+            $team = Team::find($request->team_id);
+            if($team){
+                $team->users()->detach();
+                $team->delete();
+                $json['type'] = "success";
+                return $json;
+            } else{
+                $json['type'] = "error";
+                return $json;
+            }
+            $json['type'] = "success";
+            return $json;
+        } else{
+            $json['type'] = "error";
             return $json;
         }
     }

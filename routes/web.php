@@ -299,6 +299,7 @@ Route::group(
         Route::post('employer/teams/add', 'EmployerController@postAddTeam');
         Route::get('employer/teams/edit-team/{slug}', 'EmployerController@editTeam')->name('editEmployerTeam');
         Route::post('employer/teams/update-team', 'EmployerController@updateTeam');
+        Route::post('employer/teams/delete-team', 'EmployerController@deleteTeam');
         Route::get('employer/teams/{slug}/add-members', 'EmployerController@addTeamMembers')->name('addTeamMembers');
         Route::post('employer/teams/{slug}/add-member', 'EmployerController@createTeamMember');
         Route::post('employer/teams/{slug}/delete-member', 'EmployerController@deleteTeamMember');

@@ -7978,6 +7978,113 @@ if (document.getElementById("create_team")) {
   });
 }
 
+if (document.getElementById("teams")) {
+  const role = "employer";
+  const teams = new Vue({
+    el: "#teams",
+    mounted: function() {
+      if (document.getElementsByClassName("flash_msg") != null) {
+        flashVue.$emit("showFlashMessage");
+      }
+    },
+    data: {
+      loading: false,
+      team_name: "",
+      team_slug: "",
+      team_description: "",
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          error: {
+            position: "topRight",
+            timeout: 5000,
+          },
+          completed: {
+            position: "center",
+            timeout: 1000,
+            progressBar: false,
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: "center",
+            timeout: 3000,
+            onClosing: function(instance, toast, closedBy) {
+              teams.showCompleted(
+                Vue.prototype.trans("lang.process_cmplted_success")
+              );
+            },
+          },
+        },
+      },
+    },
+    mounted() {},
+    methods: {
+      showCompleted(message) {
+        return this.$toast.success(
+          " ",
+          message,
+          this.notificationSystem.options.completed
+        );
+      },
+      showInfo(message) {
+        return this.$toast.info(
+          " ",
+          message,
+          this.notificationSystem.options.info
+        );
+      },
+      showMessage(message) {
+        return this.$toast.success(
+          Vue.prototype.trans("lang.success"),
+          message,
+          this.notificationSystem.options.success
+        );
+      },
+      showError(error) {
+        return this.$toast.error(
+          " ",
+          error,
+          this.notificationSystem.options.error
+        );
+      },
+      deleteTeam: function(e) {
+        this.loading = true;
+        let team_id = jQuery(e.target).attr("teamID");
+        console.log(team_id);
+        var self = this;
+        axios
+          .post(APP_URL + "/employer/teams/delete-team", { team_id: team_id })
+          .then(function(response) {
+            if (response.data.type == "success") {
+              self.loading = false;
+              self.showInfo(Vue.prototype.trans("lang.team_deleting"));
+              setTimeout(function(self) {
+                window.location.replace(APP_URL + "/employer/teams");
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+    },
+  });
+}
 var page = document.getElementById("growth_activity");
 
 if (page) {
