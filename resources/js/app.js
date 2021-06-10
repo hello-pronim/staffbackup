@@ -7952,7 +7952,7 @@ if (document.getElementById("create_team")) {
             if (response.data.type == "success") {
               self.loading = false;
               self.showInfo(Vue.prototype.trans("lang.member_deleting"));
-              setTimeout(function(self) {
+              setTimeout(function() {
                 window.location.replace(
                   APP_URL + "/employer/teams/edit-team/" + self.team_slug
                 );
@@ -8119,7 +8119,7 @@ if (page) {
             if (response.data.type == "success") {
               self.loading = false;
               self.showInfo(Vue.prototype.trans("lang.member_adding"));
-              setTimeout(function(self) {
+              setTimeout(function() {
                 window.location.replace(
                   APP_URL + "/employer/teams/edit-team/" + self.team_slug
                 );
