@@ -78,7 +78,6 @@ class Team extends Model
             $this->description = $request->description;
             $this->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
             $this->employer_id = Auth::user()->id;
-            $this->alert = ($request->alert=="on" || $request->alert==true) ? true : false;
             $this->save();
             $json['type'] = "success";
 
@@ -105,7 +104,6 @@ class Team extends Model
             $team->description = $request->description;
             $team->slug = filter_var($request->name, FILTER_SANITIZE_STRING);
             $team->employer_id = Auth::user()->id;
-            $team->alert = ($request->alert=="on" || $request->alert==true) ? true : false;
             $team->save();
             $json['type'] = "success";
 

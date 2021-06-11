@@ -411,6 +411,52 @@ class JobController extends Controller
                             $serviceUser = new Message();
                             $serviceUser->saveNofiticationMessage($notificationMessageUser);
                         }
+
+                        
+                        $team_members = DB::table('teams')
+                                            ->join('team_user', 'teams.id', '=', 'team_user.team_id')
+                                            ->join('users', 'users.id', '=', 'team_user.user_id')
+                                            ->where('teams.employer_id', $user->id)
+                                            ->get();
+                        $candidates = array();
+                        foreach($team_members as $member){
+                            $professions = array();
+                            array_push($professions, $member->profession_id);
+                            $extra_professions = DB::table('professions')
+                                            ->join('profession_user', 'professions.id', '=', 'profession_user.profession_id')
+                                            ->where('profession_user.user_id', $member->id)
+                                            ->get();
+                            if(count($extra_professions)){
+                                foreach($extra_professions as $prof)
+                                    array_push($professions, $prof->profession_id);
+                            }
+                            if(in_array($request->profession_id, $professions)){
+                                array_push($candidates, $member);
+                            }
+                        }
+                        foreach($candidates as $candidate){
+                            $new_posted_job_template_freelancer = DB::table('email_types')->select('id')->where('email_type', 'freelancer_email_new_job_posted')->get()->first();
+                            $template_data_freelancer = EmailTemplate::getEmailTemplateByID($new_posted_job_template_freelancer->id);
+                            $email_params['job_title'] = $job->title;
+                            $email_params['posted_job_link'] = url('/job/' . $job->slug);
+                            $email_params['name'] = Helper::getUserName(Auth::user()->id);
+                            $email_params['link'] = url('profile/' . $user->slug);
+
+                            $templateMailUser = new FreelancerEmailMailable(
+                                'freelancer_email_new_job_posted',
+                                $template_data_freelancer,
+                                $email_params
+                            );
+                            Mail::to($candidate->email)
+                            ->send(
+                                $templateMailUser
+                            );
+                            $messageBodyUser = $templateMailUser->prepareFreelancerEmailNewJobPosted($email_params);
+                            $notificationMessageUser = ['receiver_id' => $candidate->id, 'author_id' => $user->id, 'message' => $messageBodyUser];
+                            $serviceUser = new Message();
+                            $serviceUser->saveNofiticationMessage($notificationMessageUser);
+                        }
+
                     }
 
                     if (!empty($job->latitude) && !empty($job->longitude) && !empty($job->radius)) {

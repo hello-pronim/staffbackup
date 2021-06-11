@@ -468,8 +468,26 @@ class FreelancerEmailMailable extends Mailable
     public function prepareFreelancerEmailNewJobPosted($email_params)
     {
         extract($email_params);
+        $title = $job_title;
+        $job_link = $posted_job_link;
+        $employer_name = $name;
+        $employer_link = $link;
+        $signature = EmailHelper::getSignature();
+        $app_content = $this->template->content;
+        $email_content_default =    "Hello,
+                                    <a href='%employer_link%'>%employer_name%</a> has posted a new job which is well matched to your professions.
+                                    Click to view the job link. <a href='%job_link%' target='_blank' rel='noopener'>%job_title%</a>
 
-        $app_content = $this->template->content ?? "New job posted";
+                                    %signature%";
+        //set default contents
+        if (empty($app_content)) {
+            $app_content = $email_content_default;
+        }
+        $app_content = str_replace("%employer_link%", $employer_link, $app_content);
+        $app_content = str_replace("%employer_name%", $employer_name, $app_content);
+        $app_content = str_replace("%job_link%", $job_link, $app_content);
+        $app_content = str_replace("%job_title%", $title, $app_content);
+        $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";
         $body .= EmailHelper::getEmailHeader();

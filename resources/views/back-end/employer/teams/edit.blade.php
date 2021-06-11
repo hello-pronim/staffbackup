@@ -56,12 +56,12 @@
                                                 <div class="form-group">
                                                     {!! Form::textarea('description', null, ['class' =>'form-control', 'placeholder' => trans('lang.team_description') , 'v-model'=>'team_description']) !!}
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <span class="wt-checkbox">
                                                         <input type="checkbox" id="alert" name="alert" @if($team->alert) checked="checked" @endif />
                                                         <label for="alert">Notify job alert</label>
                                                     </span>
-                                                </div>
+                                                </div> -->
                                             </fieldset>
                                         </div>
                                     </div>

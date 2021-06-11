@@ -30,7 +30,6 @@
                                         <th>{{{ trans('lang.team_name') }}}</th>
                                         <th>{{{ trans('lang.description') }}}</th>
                                         <th>{{{ trans('lang.number_members') }}}</th>
-                                        <th>{{{ trans('lang.job_alert') }}}</th>
                                         <th>{{{ trans('lang.action') }}}</th>
                                     </tr>
                                 </thead>
@@ -45,7 +44,6 @@
                                             ?>
                                             {{ $num_members }}
                                         </td>
-                                        <td><span class="{{$teamData->alert ? 'text-bold': 'text-italic'}}">{{ $teamData->alert ? "Enabled" : "Diabled"}}</span></td>
                                         <td>
                                             <div class="wt-actionbtn">
                                                 <a href="{{ route('editEmployerTeam', ['slug' => $teamData->slug]) }}" class="wt-disableinfo wt-skillsaddinfo"><i class="fa fa-edit"></i></a>
