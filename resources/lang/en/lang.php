@@ -391,6 +391,7 @@ return [
     'enable_trial' => 'Enable Trial Package',
     'edit_package' => 'Edit Package',
     'payment_settings' => 'Payment Settings',
+    'invite' => 'Invite',
     'view_detail' => 'View Details',
     'view_reason' => 'View Reason',
     'add_page' => 'Add Page',

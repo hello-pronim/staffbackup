@@ -83,6 +83,7 @@
 													</div>
 													<div class="wt-rightarea">
 														<div class="wt-btnarea">
+															<a href="{{{ route('searchResults').'?job='.$job->slug.'&type=freelancer' }}}" class="wt-btn">{{ trans('lang.invite') }}</a>
 															<a href="{{{ url('job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.view_detail') }}</a>
 
 															<a href="{{{ url('job/edit-job/'.$job->slug) }}}" class="wt-btn">{{ trans('lang.edit_job') }}</a>
