@@ -166,7 +166,7 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
 {{--</div>--}}
 {{--</div>--}}
 {{--@endif--}}
-<div class="wt-haslayout wt-main-section" id="user_profile">
+<div class="wt-haslayout wt-main-section" id="search-results">
     @if (Session::has('payment_message'))
     @php $response = Session::get('payment_message') @endphp
     <div class="flash_msg">
@@ -371,21 +371,22 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                 @endif
                                             </div>
                                             <div class="wt-rightarea">
+                                                    <input type="hidden" class="freelancerId" value={{$freelancer->id}}>
                                                 <!-- <span class="wt-stars"><span
                                                         style="width: {{ $stars }}%;"></span></span>
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
                                                     <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->                                                 
-                                                    <a href="{{route('hireFreelancer', ['slug'=>$freelancer->slug])}}" class="wt-btn">Hire</a>
+                                                    <a href="javascript:void(0);" class="wt-btn" @click="onInviteClicked">Hire</a>
                                                 <!-- <a href="{{route('sendMessage', ['id'=>$freelancer->id]).'?invite=1'}}" class="wt-btn">Message</a> -->
                                             </div>
                                         </div>
 
-                                        @if (!empty($freelancer->skills))
+                                        @if (!empty($freelancer->professions))
                                         <div class="wt-tag wt-widgettag">
-                                            @foreach($freelancer->skills as $skill)
+                                            @foreach($freelancer->professions as $profession)
                                             <a
-                                                href="{{{url('search-results?type=job&skills%5B%5D='.$skill->slug)}}}">{{{ $skill->title }}}</a>
+                                                href="{{{url('search-results?type=job&skills%5B%5D='.$profession->slug)}}}">{{{ $profession->title }}}</a>
                                             @endforeach
                                         </div>
                                         @endif

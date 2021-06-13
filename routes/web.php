@@ -305,6 +305,7 @@ Route::group(
         Route::post('employer/teams/{slug}/delete-member', 'EmployerController@deleteTeamMember');
         Route::post('employer/upload-temp-image', 'EmployerController@uploadTempImage');
         Route::post('employer/store-profile-settings', 'EmployerController@storeProfileSettings');
+        Route::post('employer/job/{job_slug}/invite/{freelancer_id}', 'EmployerController@sendInviteRequest');
         Route::post('job/post-job', 'JobController@store');
         Route::post('job/upload-temp-image', 'JobController@uploadTempImage');
         Route::post('user/submit-review', 'UserController@submitReview');
@@ -339,6 +340,7 @@ Route::group(
         Route::get('freelancer/get-freelancer-educations', 'FreelancerController@getFreelancerEducations');
         Route::get('freelancer/get-freelancer-awards', 'FreelancerController@getFreelancerAwards');
         Route::get('freelancer/jobs/{status}', 'FreelancerController@showFreelancerJobs')->name('freelancerJobsByStatus');
+        Route::post('freelancer/jobs/{job_slug}/{status}', 'FreelancerController@handleJobInvitation');
         Route::get('freelancer/job/{slug}', 'FreelancerController@showOnGoingJobDetail')->name('showOnGoingJobDetail');
         Route::get('freelancer/proposals', 'FreelancerController@showFreelancerProposals')->name('showFreelancerProposals');
         Route::get('freelancer/dashboard', 'FreelancerController@freelancerDashboard')->name('freelancerDashboard');

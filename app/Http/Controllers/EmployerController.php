@@ -1249,4 +1249,35 @@ class EmployerController extends Controller
             return $json;
         }
     }
+
+    public function sendInviteRequest(Request $request){
+        $user = User::find(Auth::user()->id);
+        $job = Job::where('slug', $request->job_slug)->first();
+        $freelancer = User::find($request->freelancer_id);
+
+        $invited_job_template_freelancer = DB::table('email_types')->select('id')->where('email_type', 'freelancer_email_job_invited')->get()->first();
+        $template_data_freelancer = EmailTemplate::getEmailTemplateByID($invited_job_template_freelancer->id);
+        $email_params['job_title'] = $job->title;
+        $email_params['accept_link'] = url('/freelancer/jobs/'.$job->slug.'/accept');
+        $email_params['decline_link'] = url('/freelancer/jobs/'.$job->slug.'/decline');
+        $email_params['posted_job_link'] = url('/job/' . $job->slug);
+        $email_params['name'] = Helper::getUserName(Auth::user()->id);
+        $email_params['link'] = url('profile/' . $user->slug);
+
+        $templateMailUser = new FreelancerEmailMailable(
+            'freelancer_email_job_invited',
+            $template_data_freelancer,
+            $email_params
+        );
+        Mail::to($freelancer->email)
+        ->send(
+            $templateMailUser
+        );
+        $messageBodyUser = $templateMailUser->prepareFreelancerEmailJobInvited($email_params);
+        $notificationMessageUser = ['receiver_id' => $freelancer->id, 'author_id' => 1, 'message' => $messageBodyUser];
+        $serviceUser = new Message();
+        $serviceUser->saveNofiticationMessage($notificationMessageUser);
+        $json['type'] = 'success';
+        return $json;
+    }
 }

@@ -1148,4 +1148,19 @@ class FreelancerController extends Controller
                         ->get();
         return json_encode($professions);
     }
+
+    public function handleJobInvitation(Request $request){
+        if (Auth::user()) {
+            $job = Job::where('slug', $request->job_slug)->first();
+            $proposal = new Proposal;
+            $proposal->freelancer_id = Auth::user()->id;
+            $proposal->job_id = $job->id;
+            $proposal->content = $request->status=="accept" ? "I am interested in this job." : "I am not interested in this job.";
+            $proposal->amount = $job->price;
+            $proposal->hired = $requst->status=="accept" ? 1 : 0;
+            $proposal->status = $requst->status=="accept" ? "hired" : "cancelled";
+            $proposal->save();
+        }
+        else abort(404);
+    }
 }

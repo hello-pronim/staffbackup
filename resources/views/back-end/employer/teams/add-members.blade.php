@@ -141,7 +141,7 @@
     </div>
 </div>
 @endif
-<div class="wt-haslayout wt-main-section" id="add-team-members">
+<div class="wt-haslayout wt-main-section" id="search-results">
     <input type="hidden" id="team_slug" value="{{$team_slug}}">
     <div class="wt-haslayout">
         <div class="container">

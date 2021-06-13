@@ -238,6 +238,13 @@ class EmailTypeSeeder extends Seeder
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
                 [
+                    'role_id' => 3,
+                    'email_type' => 'freelancer_email_job_invited',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"employer_name";s:5:"value";s:15:"%employer_name%";}i:1;a:2:{s:3:"key";s:13:"employer_link";s:5:"value";s:15:"%employer_link%";}i:2;a:2:{s:3:"key";s:9:"job_title";s:5:"value";s:11:"%job_title%";}i:3;a:2:{s:3:"key";s:8:"job_link";s:5:"value";s:10:"%job_link%";}i:4;a:2:{s:3:"key";s:8:"accept_link";s:5:"value";s:10:"%accept_link%";}i:5;a:2:{s:3:"key";s:8:"decline_link";s:5:"value";s:10:"%decline_link%";}i:6;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                [
                     'role_id' => 1,
                     'email_type' => 'admin_email_dispute_raised',
                     'variables' => 'a:7:{i:0;a:2:{s:3:"key";s:15:"freelancer_link";s:5:"value";s:17:"%freelancer_link%";}i:1;a:2:{s:3:"key";s:15:"freelancer_name";s:5:"value";s:17:"%freelancer_name%";}i:2;a:2:{s:3:"key";s:12:"project_link";s:5:"value";s:14:"%project_link%";}i:3;a:2:{s:3:"key";s:13:"project_title";s:5:"value";s:15:"%project_title%";}i:4;a:2:{s:3:"key";s:6:"reason";s:5:"value";s:8:"%reason%";}i:5;a:2:{s:3:"key";s:7:"message";s:5:"value";s:9:"%message%";}i:6;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',

@@ -1001,6 +1001,7 @@ return [
     'team_submitting' => 'Your team is being created. Please wait.',
     'team_deleting' => 'Your team is being deleted. Please wait.',
     'member_adding' => 'This freelancer is being added to your team. Please wait.',
+    'invitation_sending' => "Invitation is being sent to this freelancer. Please wait.",
     'member_deleting' => 'This freelancer is being deleted from your team. Please wait.',
     'number_members'=>'Number of Members',
     'clear_selected_cache' => 'Clear Selected Cache',

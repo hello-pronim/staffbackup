@@ -2430,7 +2430,9 @@ if (page) {
       submit_search() {
         this.isInValidSearch = false;
         $(".error-msg.search-error-msg").css("display", "none");
+        var job_slug = new URLSearchParams(window.location.search).get("job");
         var url = APP_URL + "/search-results?type=" + this.search_type;
+        if (job_slug) url = url + "&job=" + job_slug;
 
         if (this.straddress != "") {
           url += "&location=" + encodeURIComponent(this.straddress);
@@ -8138,10 +8140,10 @@ if (page) {
   });
 }
 
-page = document.getElementById("add-team-members");
+page = document.getElementById("search-results");
 if (page) {
-  const addTeamMember = new Vue({
-    el: "#add-team-members",
+  const searchResults = new Vue({
+    el: "#search-results",
     components: {},
     mounted: function() {
       this.team_slug = jQuery("#team_slug").val();
@@ -8172,7 +8174,7 @@ if (page) {
             position: "center",
             timeout: 3000,
             onClosing: function(instance, toast, closedBy) {
-              addTeamMember.showCompleted(
+              searchResults.showCompleted(
                 Vue.prototype.trans("lang.process_cmplted_success")
               );
             },
@@ -8229,6 +8231,50 @@ if (page) {
               setTimeout(function() {
                 window.location.replace(
                   APP_URL + "/employer/teams/edit-team/" + self.team_slug
+                );
+              }, 5000);
+            } else {
+              self.loading = false;
+              self.showError(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            self.loading = false;
+
+            for (const [key, value] of Object.entries(
+              error.response.data.errors
+            )) {
+              self.showError(value[0]);
+            }
+
+            return false;
+          });
+      },
+      onInviteClicked: function(e) {
+        var self = this;
+
+        var job_slug = new URLSearchParams(window.location.search).get("job");
+        self.loading = true;
+        self.freelancer_id = jQuery(e.target)
+          .parent()
+          .find(".freelancerId")
+          .val();
+
+        axios
+          .post(
+            APP_URL +
+              "/employer/job/" +
+              job_slug +
+              "/invite/" +
+              self.freelancer_id
+          )
+          .then(function(response) {
+            if (response.data.type == "success") {
+              self.loading = false;
+              self.showInfo(Vue.prototype.trans("lang.invitation_sending"));
+              setTimeout(function() {
+                window.location.replace(
+                  APP_URL + "/employer/dashboard/manage-jobs"
                 );
               }, 5000);
             } else {
