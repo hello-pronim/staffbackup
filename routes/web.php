@@ -340,7 +340,7 @@ Route::group(
         Route::get('freelancer/get-freelancer-educations', 'FreelancerController@getFreelancerEducations');
         Route::get('freelancer/get-freelancer-awards', 'FreelancerController@getFreelancerAwards');
         Route::get('freelancer/jobs/{status}', 'FreelancerController@showFreelancerJobs')->name('freelancerJobsByStatus');
-        Route::post('freelancer/jobs/{job_slug}/{status}', 'FreelancerController@handleJobInvitation');
+        Route::get('freelancer/jobs/{job_slug}/{status}', 'FreelancerController@handleJobInvitation');
         Route::get('freelancer/job/{slug}', 'FreelancerController@showOnGoingJobDetail')->name('showOnGoingJobDetail');
         Route::get('freelancer/proposals', 'FreelancerController@showFreelancerProposals')->name('showFreelancerProposals');
         Route::get('freelancer/dashboard', 'FreelancerController@freelancerDashboard')->name('freelancerDashboard');

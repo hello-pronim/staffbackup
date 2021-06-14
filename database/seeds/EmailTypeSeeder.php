@@ -179,6 +179,13 @@ class EmailTypeSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
+                [
+                    'role_id' => 2,
+                    'email_type' => 'employer_email_invitation_answered',
+                    'variables' => 'a:5:{i:0;a:2:{s:3:"key";s:13:"freelancer_link";s:5:"value";s:15:"%freelancer_link%";}i:1;a:2:{s:3:"key";s:13:"freelancer_name";s:5:"value";s:15:"%freelancer_name%";}i:2;a:2:{s:3:"key";s:9:"status";s:5:"value";s:11:"%status%";}i:3;a:2:{s:3:"key";s:8:"job_link";s:5:"value";s:10:"%job_link%";}i:4;a:2:{s:3:"key";s:8:"job_title";s:5:"value";s:10:"%job_title%";}i:5;a:2:{s:3:"key";s:9:"signature";s:5:"value";s:11:"%signature%";}}',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
 
                 // Freelancer Email Types
                 [

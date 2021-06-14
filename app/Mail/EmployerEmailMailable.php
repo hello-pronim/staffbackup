@@ -61,6 +61,8 @@ class EmployerEmailMailable extends Mailable
             $email_message = $this->prepareEmployerEmailPackagePurchased($this->email_params);
         } elseif ($this->type == 'employer_email_new_team_created') {
             $email_message = $this->prepareEmployerEmailTeamCreated($this->email_params);
+        } elseif ($this->type == 'employer_email_invitation_answered') {
+            $email_message = $this->prepareEmployerEmailInvitationAnswered($this->email_params);
         }
         $message = $this->from($from_email, $from_email_id)
             ->subject($subject)->view('emails.index')
@@ -291,6 +293,37 @@ class EmployerEmailMailable extends Mailable
         $app_content = str_replace("%employer_name%", $employer_name, $app_content);
         $app_content = str_replace("%team_link%", $team_link, $app_content);
         $app_content = str_replace("%team_name%", $team_name, $app_content);
+        $app_content = str_replace("%signature%", $signature, $app_content);
+
+        $body = "";
+        $body .= EmailHelper::getEmailHeader();
+        $body .= $app_content;
+        $body .= EmailHelper::getEmailFooter();
+        return $body;
+    }
+
+    public function prepareEmployerEmailInvitationAnswered($email_params){
+        extract($email_params);
+        $job_link = $job_proposals_link;
+        $status = $status == "accept" ? "accepted" : "declined";
+        $freelancer_name = $name;
+        $freelancer_link = $link;
+        $signature = EmailHelper::getSignature();
+        $app_content = $this->template->content;
+        $email_content_default =    "Hello,
+                                    <a href='%freelancer_link%'>%freelancer_name%</a> %status% the invitation to your job.
+                                    Click to check the job detail. <a href='%job_link%' target='_blank' rel='noopener'>%job_title%</a>
+
+                                    %signature%";
+        //set default contents
+        if (empty($app_content)) {
+            $app_content = $email_content_default;
+        }
+        $app_content = str_replace("%freelancer_link%", $freelancer_link, $app_content);
+        $app_content = str_replace("%freelancer_name%", $freelancer_name, $app_content);
+        $app_content = str_replace("%status%", $status, $app_content);
+        $app_content = str_replace("%job_link%", $job_link, $app_content);
+        $app_content = str_replace("%job_title%", $job_title, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
 
         $body = "";

@@ -295,10 +295,23 @@ class EmailTemplateSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ],
-                //Freelancer Email Templates
                 [
                     'admin_email' => null,
                     'email_type_id' => '22',
+                    'title' => 'Employer Email Content - Invitation Answered',
+                    'subject' => 'Inivitation Answered',
+                    'content' => '<p>Hello,</p>
+                    <p><strong><a href="%freelancer_link%">%freelancer_name%</a></strong> %status% the invitation to your job.</p>
+                    <p>Click to check the job detail.</p>
+                    <p><strong><a href="%job_link%">%job_title%</a></strong></p>
+                    <p>%signature%</p>',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
+                //Freelancer Email Templates
+                [
+                    'admin_email' => null,
+                    'email_type_id' => '23',
                     'title' => 'Freelancer Email Content - New Proposal Submitted',
                     'subject' => 'New Proposal Submitted',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -312,7 +325,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '23',
+                    'email_type_id' => '24',
                     'title' => 'Freelancer Email Content - Hire Freelancer',
                     'subject' => 'Congratulation You are hired!',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -323,7 +336,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '24',
+                    'email_type_id' => '25',
                     'title' => 'Freelancer Email Content - Send Offer',
                     'subject' => 'Offer Received',
                     'content' => '<p>Hi <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -337,7 +350,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '25',
+                    'email_type_id' => '26',
                     'title' => 'Freelancer Email Content - Cancel Job',
                     'subject' => 'Job Cancelled',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -351,7 +364,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '26',
+                    'email_type_id' => '27',
                     'title' => 'Freelancer Email Content - Proposal Message',
                     'subject' => 'Proposal Message',
                     'content' => '<p>Hello <strong><a href="%employer_link%">%employer_name%</a></strong>,</p>
@@ -365,7 +378,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '27',
+                    'email_type_id' => '28',
                     'title' => 'Freelancer Email Content - Package Subscribed',
                     'subject' => 'Package Purchased',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -376,7 +389,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '28',
+                    'email_type_id' => '29',
                     'title' => 'Freelancer Email Content - Job Completed',
                     'subject' => 'Job Completed',
                     'content' => '<p>Hello <strong><a href="%freelancer_link%">%freelancer_name%</a></strong>,</p>
@@ -391,7 +404,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '29',
+                    'email_type_id' => '30',
                     'title' => 'Freelancer Email Content - New Job Posted',
                     'subject' => 'New Job Posted',
                     'content' => '<p>Hello,</p>
@@ -403,7 +416,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '30',
+                    'email_type_id' => '31',
                     'title' => 'Freelancer Email Content - Job Invited',
                     'subject' => 'Job Invited',
                     'content' => '<p>Hello,</p>
@@ -415,7 +428,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '31',
+                    'email_type_id' => '32',
                     'title' => 'Admin Email Content - Dispute Raised',
                     'subject' => 'A dispute has been rasied',
                     'content' => '<p>Hello,</p>
@@ -429,7 +442,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => null,
-                    'email_type_id' => '32',
+                    'email_type_id' => '33',
                     'title' => 'Password Reset',
                     'subject' => 'Password Reset',
                     'content' => '<p>Hello <strong>%name%</strong>,</p>
@@ -443,7 +456,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '33',
+                    'email_type_id' => '34',
                     'title' => 'Admin Email Content - Job Cancelled',
                     'subject' => 'Job Cancelled',
                     'content' => '  <p>Hello,</p>
@@ -456,7 +469,7 @@ class EmailTemplateSeeder extends Seeder
                 ],
                 [
                     'admin_email' => 'info@yourdomain.com',
-                    'email_type_id' => '34',
+                    'email_type_id' => '35',
                     'title' => 'Admin Email Content - Document Expired',
                     'subject' => 'Document Expired',
                     'content' => '  <p>Hello, <strong><a href="%freelancer_link%">%freelancer_name%</a></strong></p>

@@ -26,12 +26,15 @@ use App\Profile;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Proposal;
 use App\Job;
 use DB;
 use App\Package;
 use App\CalendarEvent;
+use App\EmailTemplate;
+use App\Mail\EmployerEmailMailable;
 use ValidateRequests;
 use App\Item;
 use Carbon\Carbon;
@@ -1150,17 +1153,61 @@ class FreelancerController extends Controller
     }
 
     public function handleJobInvitation(Request $request){
-        if (Auth::user()) {
-            $job = Job::where('slug', $request->job_slug)->first();
-            $proposal = new Proposal;
-            $proposal->freelancer_id = Auth::user()->id;
-            $proposal->job_id = $job->id;
-            $proposal->content = $request->status=="accept" ? "I am interested in this job." : "I am not interested in this job.";
-            $proposal->amount = $job->price;
-            $proposal->hired = $requst->status=="accept" ? 1 : 0;
-            $proposal->status = $requst->status=="accept" ? "hired" : "cancelled";
-            $proposal->save();
+        $status = $request->status;
+        $job = Job::where('slug', $request->job_slug)->first();
+        $myProposals = DB::table('proposals')->where('freelancer_id', Auth::user()->id)->where('job_id', $job->id)->get();
+        if(!count($myProposals)){
+            if($request->status=="accept"){
+                $proposal = new Proposal;
+                $proposal->freelancer_id = Auth::user()->id;
+                $proposal->job_id = $job->id;
+                $proposal->content = $request->status=="accept" ? "I am interested in this job." : "I am not interested in this job.";
+                $proposal->amount = $job->price;
+                $proposal->completion_time = "";
+                $proposal->hired = 1;
+                $proposal->status = "hired";
+                $proposal->save();
+            }
+    
+            //email to employer
+            $employer = DB::table('users')
+                            ->join('jobs', 'users.id', '=', 'jobs.user_id')
+                            ->where('jobs.slug', $request->job_slug)
+                            ->first();
+            $user = User::find(Auth::user()->id);
+            $answered_invitation_template_employer = DB::table('email_types')->select('id')->where('email_type', 'employer_email_invitation_answered')->get()->first();
+            $template_data_employer = EmailTemplate::getEmailTemplateByID($answered_invitation_template_employer->id);
+            $email_params['job_title'] = $job->title;
+            $email_params['status'] = $request->status;
+            $email_params['job_proposals_link'] = url('/employer/dashboard/job/' . $job->slug . '/proposals');
+            $email_params['name'] = Helper::getUserName(Auth::user()->id);
+            $email_params['link'] = url('profile/' . $user->slug);
+    
+            $templateMailUser = new EmployerEmailMailable(
+                'employer_email_invitation_answered',
+                $template_data_employer,
+                $email_params
+            );
+            Mail::to($employer->email)
+            ->send(
+                $templateMailUser
+            );
+            $messageBodyUser = $templateMailUser->prepareEmployerEmailInvitationAnswered($email_params);
+            $notificationMessageUser = ['receiver_id' => $employer->id, 'author_id' => 1, 'message' => $messageBodyUser];
+            $serviceUser = new Message();
+            $serviceUser->saveNofiticationMessage($notificationMessageUser);
+
+            if (file_exists(resource_path('views/extend/back-end/freelancer/jobs/invite_feedback.blade.php'))) {
+                return view(
+                    'extend.back-end.freelancer.jobs.invite_feedback', compact('status', 'job')
+                );
+            } else {
+                return view(
+                    'back-end.freelancer.jobs.invite_feedback', compact('status', 'job')
+                );
+            }
+        } else{
+            return Redirect::to('/dashboard');
         }
-        else abort(404);
     }
 }
