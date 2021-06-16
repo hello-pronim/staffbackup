@@ -2773,7 +2773,7 @@ if (document.getElementById("registration")) {
         this.practice_code_checked = false;
       },
       initBackgroundImages() {
-        this.max_background_images = 4;
+        this.max_background_images = 7;
         this.all_background_classes = "";
         for (let i = 1; i <= this.max_background_images; i++) {
           this.all_background_classes += " main-wrapper-register-" + i;
@@ -2810,6 +2810,7 @@ if (document.getElementById("registration")) {
           this.is_show = false;
         }
         console.log(role);
+        this.changeBkgroundImages(Math.floor(Math.random() * 7) + 1);
       },
       selectedPayment: function(payment_name) {
         switch (payment_name) {
