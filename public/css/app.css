@@ -12329,28 +12329,28 @@ body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-regist
 }
 
 body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-2 {
-  background-image: url(/images/img/registration/bkg2.jpg);
+  background-image: url(/images/img/registration/bkg2.png);
   background-repeat: no-repeat, no-repeat;
   background-position: left bottom;
 }
 
 @media (max-width: 620px) {
   body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-2 {
-    background-image: url(/images/img/registration/bkg2.jpg);
+    background-image: url(/images/img/registration/bkg2.png);
     background-repeat: no-repeat, no-repeat;
     background-position: left -48px bottom;
   }
 }
 
 body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-3 {
-  background-image: url(/images/img/registration/bkg3.jpg);
+  background-image: url(/images/img/registration/bkg3.png);
   background-repeat: no-repeat, no-repeat;
   background-position: right bottom;
 }
 
 @media (max-width: 620px) {
   body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-3 {
-    background-image: url(/images/img/registration/bkg3.jpg);
+    background-image: url(/images/img/registration/bkg3.png);
     background-repeat: no-repeat, no-repeat;
     background-position: left -48px bottom;
   }
@@ -12371,14 +12371,14 @@ body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-regist
 }
 
 body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-5 {
-  background-image: url(/images/img/registration/bkg5.jpg);
+  background-image: url(/images/img/registration/bkg5.png);
   background-repeat: no-repeat, no-repeat;
   background-position: left bottom;
 }
 
 @media (max-width: 620px) {
   body.register-body .header-main-footer-wrapper .main-wrapper.main-wrapper-register-5 {
-    background-image: url(/images/img/registration/bkg5.jpg);
+    background-image: url(/images/img/registration/bkg5.png);
     background-repeat: no-repeat, no-repeat;
     background-position: left -48px bottom;
   }
