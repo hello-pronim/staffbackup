@@ -4,17 +4,14 @@ body.register-body .header-main-footer-wrapper {
   .main-wrapper,
   .main-wrapper.main-wrapper-register-1 {
     overflow: auto;
-    padding-bottom: 270px;
     background-image: url(/images/img/registration/bkg1.png); //, url(/images/img/index-main/doctor2.png);
     background-repeat: no-repeat, no-repeat;
-    background-position: left -48px bottom, right bottom;
-    background-size: auto 510px;
-    background-color: transparent;
+    background-position: right bottom;
 
     @media (max-width: 620px) {
       background-image: url(/images/img/registration/bkg1.png);
       background-repeat: no-repeat, no-repeat;
-      background-position: left -48px bottom;
+      background-position: right -48px bottom;
     }
   }
 
@@ -38,7 +35,7 @@ body.register-body .header-main-footer-wrapper {
     @media (max-width: 620px) {
       background-image: url(/images/img/registration/bkg3.png);
       background-repeat: no-repeat, no-repeat;
-      background-position: left -48px bottom;
+      background-position: right -48px bottom;
     }
   }
 
@@ -57,12 +54,12 @@ body.register-body .header-main-footer-wrapper {
   .main-wrapper.main-wrapper-register-5 {
     background-image: url(/images/img/registration/bkg5.png);
     background-repeat: no-repeat, no-repeat;
-    background-position: left bottom;
+    background-position: right bottom;
 
     @media (max-width: 620px) {
       background-image: url(/images/img/registration/bkg5.png);
       background-repeat: no-repeat, no-repeat;
-      background-position: left -48px bottom;
+      background-position: right -48px bottom;
     }
   }
 }
