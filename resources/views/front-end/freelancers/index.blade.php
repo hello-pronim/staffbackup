@@ -376,8 +376,10 @@ class="{{$active}}">{{{ $cat->title }}}</a></h3>--}}
                                                         style="width: {{ $stars }}%;"></span></span>
                                                 <span
                                                     class="wt-starcontent">{{{ $rating }}}<sub>{{ trans('lang.5') }}</sub>
-                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->                                                 
+                                                    <em>({{{ $feedbacks }}} {{ trans('lang.feedbacks') }})</em></span> -->
+                                                    @if(isset($_GET['job']))
                                                     <a href="javascript:void(0);" class="wt-btn" @click="onInviteClicked">Hire</a>
+                                                    @endif
                                                 <!-- <a href="{{route('sendMessage', ['id'=>$freelancer->id]).'?invite=1'}}" class="wt-btn">Message</a> -->
                                             </div>
                                         </div>
